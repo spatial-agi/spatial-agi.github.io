@@ -1,2 +1,1 @@
-# spatial-agi.github.io
-spatial-agi.github.io
+# Book on Spatial Intelligence
