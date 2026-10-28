@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" fill="none">
+  <rect width="560" height="360" fill="#FBF8F1"/>
+
+  <text x="280" y="44" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#2B1D14" text-anchor="middle">One framework, many domains</text>
+
+  <!-- Connectors -->
+  <g stroke="#C9BDA6" stroke-width="1.5" stroke-dasharray="4 6">
+    <path d="M 280,196 L 118,112"/>
+    <path d="M 280,196 L 280,78"/>
+    <path d="M 280,196 L 442,112"/>
+    <path d="M 280,196 L 118,286"/>
+    <path d="M 280,196 L 280,318"/>
+    <path d="M 280,196 L 442,286"/>
+  </g>
+
+  <!-- Center hub -->
+  <circle cx="280" cy="196" r="52" fill="#B96420"/>
+  <circle cx="280" cy="196" r="66" fill="none" stroke="#B96420" stroke-width="1.5" opacity="0.35"/>
+  <text x="280" y="190" font-family="-apple-system, system-ui, sans-serif" font-size="12" font-weight="700" fill="#FBF3E6" text-anchor="middle">SPATIAL</text>
+  <text x="280" y="207" font-family="-apple-system, system-ui, sans-serif" font-size="12" font-weight="700" fill="#FBF3E6" text-anchor="middle">AI</text>
+
+  <!-- Nodes: six domains -->
+  <g>
+    <circle cx="118" cy="112" r="30" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="118" y="119" font-size="22" text-anchor="middle">🤖</text>
+    <text x="118" y="162" font-family="-apple-system, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5C3D2E" text-anchor="middle">Embodied</text>
+  </g>
+  <g>
+    <circle cx="280" cy="78" r="30" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="280" y="85" font-size="22" text-anchor="middle">🚗</text>
+    <text x="280" y="128" font-family="-apple-system, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5C3D2E" text-anchor="middle">Driving</text>
+  </g>
+  <g>
+    <circle cx="442" cy="112" r="30" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="442" y="119" font-size="22" text-anchor="middle">🥽</text>
+    <text x="442" y="162" font-family="-apple-system, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5C3D2E" text-anchor="middle">XR</text>
+  </g>
+  <g>
+    <circle cx="118" cy="286" r="30" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="118" y="293" font-size="22" text-anchor="middle">🗺️</text>
+    <text x="118" y="336" font-family="-apple-system, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5C3D2E" text-anchor="middle">Geospatial</text>
+  </g>
+  <g>
+    <circle cx="280" cy="318" r="30" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="280" y="325" font-size="22" text-anchor="middle">🔬</text>
+  </g>
+  <g>
+    <circle cx="442" cy="286" r="30" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="442" y="293" font-size="22" text-anchor="middle">❤️</text>
+    <text x="442" y="336" font-family="-apple-system, system-ui, sans-serif" font-size="11" font-weight="600" fill="#5C3D2E" text-anchor="middle">Healthcare</text>
+  </g>
+</svg>

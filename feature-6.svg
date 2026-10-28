@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" fill="none">
+  <rect width="560" height="360" fill="#FBF8F1"/>
+
+  <text x="280" y="44" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#2B1D14" text-anchor="middle">Built to be learned from</text>
+
+  <!-- Graduation cap -->
+  <g transform="translate(280,104)">
+    <path d="M -58,0 L 0,-26 L 58,0 L 0,26 Z" fill="#B96420"/>
+    <path d="M -34,12 L -34,34 C -20,44 20,44 34,34 L 34,12" fill="#A05518"/>
+    <line x1="58" y1="0" x2="58" y2="30" stroke="#B96420" stroke-width="3"/>
+    <circle cx="58" cy="34" r="4" fill="#B96420"/>
+  </g>
+
+  <!-- Open book -->
+  <g transform="translate(280,236)">
+    <path d="M 0,0 C -40,-14 -96,-14 -132,-2 L -132,66 C -96,54 -40,54 0,68 Z" fill="#FFFFFF" stroke="#E5DED3" stroke-width="2"/>
+    <path d="M 0,0 C 40,-14 96,-14 132,-2 L 132,66 C 96,54 40,54 0,68 Z" fill="#FFFFFF" stroke="#E5DED3" stroke-width="2"/>
+    <line x1="0" y1="0" x2="0" y2="68" stroke="#E5DED3" stroke-width="2"/>
+    <!-- text lines left -->
+    <g stroke="#C9BDA6" stroke-width="2.5" stroke-linecap="round">
+      <line x1="-112" y1="12" x2="-28" y2="4"/>
+      <line x1="-114" y1="26" x2="-46" y2="19"/>
+      <line x1="-116" y1="40" x2="-60" y2="34"/>
+    </g>
+    <!-- text lines right -->
+    <g stroke="#C9BDA6" stroke-width="2.5" stroke-linecap="round">
+      <line x1="28" y1="4" x2="112" y2="12"/>
+      <line x1="46" y1="19" x2="114" y2="26"/>
+      <line x1="60" y1="34" x2="116" y2="40"/>
+    </g>
+    <!-- highlights -->
+    <rect x="28" y="46" width="40" height="6" rx="3" fill="#D08443" opacity="0.45"/>
+    <rect x="-68" y="46" width="40" height="6" rx="3" fill="#D08443" opacity="0.45"/>
+  </g>
+
+  <!-- Checkmark bubbles -->
+  <g>
+    <circle cx="106" cy="196" r="18" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <path d="M 98,196 L 104,202 L 115,190" stroke="#B96420" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <circle cx="454" cy="196" r="18" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <path d="M 446,196 L 452,202 L 463,190" stroke="#B96420" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  </g>
+</svg>

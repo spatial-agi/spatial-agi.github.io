@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" fill="none">
+  <rect width="560" height="360" fill="#FBF8F1"/>
+
+  <text x="280" y="46" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#2B1D14" text-anchor="middle">Up to the 2026 frontier</text>
+
+  <!-- Timeline base -->
+  <path d="M 60,250 C 180,250 200,120 300,120 C 380,120 430,90 500,80" stroke="#E5DED3" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 60,250 C 180,250 200,120 300,120 C 380,120 430,90 500,80" stroke="#B96420" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 10"/>
+
+  <!-- Nodes -->
+  <g>
+    <circle cx="86" cy="249" r="8" fill="#B96420"/>
+    <rect x="42" y="272" width="92" height="30" rx="15" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="88" y="291" font-family="-apple-system, system-ui, sans-serif" font-size="12" font-weight="600" fill="#5C3D2E" text-anchor="middle">NeRF</text>
+  </g>
+
+  <g>
+    <circle cx="212" cy="196" r="8" fill="#B96420"/>
+    <rect x="164" y="219" width="100" height="30" rx="15" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="214" y="238" font-family="-apple-system, system-ui, sans-serif" font-size="12" font-weight="600" fill="#5C3D2E" text-anchor="middle">3D Gaussians</text>
+  </g>
+
+  <g>
+    <circle cx="336" cy="107" r="8" fill="#B96420"/>
+    <rect x="288" y="130" width="100" height="30" rx="15" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="338" y="149" font-family="-apple-system, system-ui, sans-serif" font-size="12" font-weight="600" fill="#5C3D2E" text-anchor="middle">VLA Models</text>
+  </g>
+
+  <g>
+    <circle cx="492" cy="81" r="11" fill="#B96420"/>
+    <circle cx="492" cy="81" r="18" fill="none" stroke="#B96420" stroke-width="1.5" opacity="0.4"/>
+    <rect x="426" y="110" width="132" height="30" rx="15" fill="#B96420"/>
+    <text x="492" y="129" font-family="-apple-system, system-ui, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF" text-anchor="middle">World Models</text>
+  </g>
+
+  <!-- sparkles -->
+  <g stroke="#B96420" stroke-width="2" stroke-linecap="round">
+    <path d="M 430,52 L 430,40"/><path d="M 424,46 L 436,46"/>
+    <path d="M 536,44 L 536,34"/><path d="M 531,39 L 541,39"/>
+    <path d="M 386,70 L 386,62"/>
+  </g>
+
+  <text x="280" y="330" font-family="-apple-system, system-ui, sans-serif" font-size="13" fill="#8B7355" text-anchor="middle">Every chapter is current through early 2026</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" fill="none">
+  <rect width="560" height="360" fill="#FBF8F1"/>
+
+  <text x="280" y="44" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#2B1D14" text-anchor="middle">Five parts, one path</text>
+
+  <!-- Spine -->
+  <line x1="216" y1="76" x2="216" y2="316" stroke="#E5DED3" stroke-width="3"/>
+  <line x1="216" y1="76" x2="216" y2="316" stroke="#B96420" stroke-width="1.5" stroke-dasharray="1 9"/>
+
+  <!-- Part rows -->
+  <g font-family="-apple-system, system-ui, sans-serif">
+    <!-- I -->
+    <circle cx="216" cy="92" r="7" fill="#B96420"/>
+    <rect x="244" y="76" width="272" height="32" rx="8" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="262" y="97" font-family="Georgia, serif" font-size="15" font-weight="700" fill="#B96420">I</text>
+    <text x="286" y="97" font-size="13" font-weight="600" fill="#2B1D14">Foundations</text>
+    <text x="500" y="97" font-size="11" fill="#8B7355" text-anchor="end">2 ch</text>
+
+    <!-- II -->
+    <circle cx="216" cy="148" r="7" fill="#B96420"/>
+    <rect x="244" y="132" width="272" height="32" rx="8" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="258" y="153" font-family="Georgia, serif" font-size="15" font-weight="700" fill="#B96420">II</text>
+    <text x="286" y="153" font-size="13" font-weight="600" fill="#2B1D14">Representations</text>
+    <text x="500" y="153" font-size="11" fill="#8B7355" text-anchor="end">4 ch</text>
+
+    <!-- III -->
+    <circle cx="216" cy="204" r="7" fill="#B96420"/>
+    <rect x="244" y="188" width="272" height="32" rx="8" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="250" y="209" font-family="Georgia, serif" font-size="15" font-weight="700" fill="#B96420">III</text>
+    <text x="286" y="209" font-size="13" font-weight="600" fill="#2B1D14">Core Capabilities</text>
+    <text x="500" y="209" font-size="11" fill="#8B7355" text-anchor="end">3 ch</text>
+
+    <!-- IV -->
+    <circle cx="216" cy="260" r="7" fill="#B96420"/>
+    <rect x="244" y="244" width="272" height="32" rx="8" fill="#FFFFFF" stroke="#E5DED3" stroke-width="1.5"/>
+    <text x="252" y="265" font-family="Georgia, serif" font-size="15" font-weight="700" fill="#B96420">IV</text>
+    <text x="286" y="265" font-size="13" font-weight="600" fill="#2B1D14">Applications</text>
+    <text x="500" y="265" font-size="11" fill="#8B7355" text-anchor="end">5 ch</text>
+
+    <!-- V -->
+    <circle cx="216" cy="316" r="7" fill="#B96420"/>
+    <rect x="244" y="300" width="272" height="32" rx="8" fill="#B96420"/>
+    <text x="258" y="321" font-family="Georgia, serif" font-size="15" font-weight="700" fill="#FBF3E6">V</text>
+    <text x="286" y="321" font-size="13" font-weight="600" fill="#FBF3E6">Future Directions</text>
+    <text x="500" y="321" font-size="11" fill="#F4E3CC" text-anchor="end">3 ch</text>
+  </g>
+</svg>

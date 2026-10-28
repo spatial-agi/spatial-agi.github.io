@@ -1,0 +1,114 @@
+website/
+│
+├── 🌐 Core Website Files
+│   ├── index.html          (11 KB) - Main HTML page
+│   ├── styles.css          (9 KB)  - All styling & layout
+│   └── script.js           (4 KB)  - Interactive features
+│
+├── 📚 Documentation
+│   ├── README.md           (4 KB)  - Full documentation
+│   ├── SETUP.md            (5 KB)  - Quick setup guide
+│   ├── CONFIG.md           (5 KB)  - Customization reference
+│   └── FILES.md            (4 KB)  - File overview (this file)
+│
+├── 🛠️ Utility Scripts
+│   ├── deploy.sh           (2 KB)  - Deploy to GitHub Pages
+│   └── preview.sh          (1 KB)  - Local preview server
+│
+└── ⚙️ Configuration
+    └── .gitignore          (1 KB)  - Git ignore rules
+
+Total: 9 files, ~45 KB (extremely lightweight!)
+
+═══════════════════════════════════════════════════════════
+
+📋 QUICK START CHECKLIST
+
+1. [ ] Read SETUP.md (5 minutes)
+2. [ ] Edit index.html:
+       - Update links (PDF, GitHub, arXiv)
+       - Update citation
+       - Add authors
+3. [ ] Test locally: ./preview.sh
+4. [ ] Create GitHub repository
+5. [ ] Deploy: ./deploy.sh "Initial deployment"
+6. [ ] Enable GitHub Pages in repo settings
+
+═══════════════════════════════════════════════════════════
+
+🎯 YOUR SITE WILL BE LIVE AT:
+https://YOUR_USERNAME.github.io/YOUR_REPO/
+
+═══════════════════════════════════════════════════════════
+
+📖 DOCUMENTATION GUIDE
+
+New User?          → Start with SETUP.md
+Need Docs?         → Read README.md
+Customizing?       → Check CONFIG.md
+Reference?         → Use FILES.md
+
+═══════════════════════════════════════════════════════════
+
+🎨 DESIGN FEATURES
+
+✓ Warm, academic color palette (orange-brown tones)
+✓ Elegant hexagonal background pattern
+✓ Fully responsive (mobile, tablet, desktop)
+✓ Smooth animations and transitions
+✓ Interactive hover effects
+✓ Copy-to-clipboard citation
+✓ Scroll progress indicator
+✓ Clean, professional layout
+
+═══════════════════════════════════════════════════════════
+
+💻 TECH STACK
+
+- Pure HTML5, CSS3, JavaScript (No frameworks!)
+- No build process required
+- No dependencies to install
+- Works directly on GitHub Pages
+- Fast loading (~45 KB total)
+- SEO friendly
+- Accessible (WCAG 2.1)
+
+═══════════════════════════════════════════════════════════
+
+🔧 BROWSER SUPPORT
+
+✓ Chrome/Edge (latest)
+✓ Firefox (latest)
+✓ Safari (latest)
+✓ Mobile browsers (iOS Safari, Chrome)
+✓ Degrades gracefully on older browsers
+
+═══════════════════════════════════════════════════════════
+
+📝 MAINTENANCE
+
+Regular Updates:
+• Edit files → ./preview.sh → ./deploy.sh "message"
+
+Major Changes:
+• See CONFIG.md for line numbers
+• Test thoroughly with preview.sh
+• Deploy with descriptive commit message
+
+Troubleshooting:
+• See SETUP.md troubleshooting section
+• Check GitHub Pages build status
+• Verify repository settings
+
+═══════════════════════════════════════════════════════════
+
+✨ MADE FOR YOU
+
+This website is ready to deploy to GitHub Pages right now!
+
+All you need to do is:
+1. Update your personal information
+2. Run the deployment script
+3. Share your beautiful website!
+
+Happy publishing! 🎉
