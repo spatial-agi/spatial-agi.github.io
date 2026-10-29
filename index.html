@@ -8,6 +8,25 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Spatial Intelligence Survey</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="contents.html" class="nav-link">Contents</a></li>
+                <li><a href="authors.html" class="nav-link">Authors</a></li>
+                <li><a href="literature.html" class="nav-link">Literature</a></li>
+                <li><a href="errata.html" class="nav-link">Errata</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -78,85 +97,8 @@
         </div>
     </section>
 
-    <!-- Book Structure Section -->
-    <section class="section" style="background: var(--bg-secondary);">
-        <h2 class="section-title">Book Structure</h2>
-        <p class="section-desc">
-            The book is organized into five parts, progressing from foundations to applications
-        </p>
-
-        <div class="parts-grid">
-            <div class="part-card">
-                <div class="part-number">I</div>
-                <h3 class="part-title">Foundations</h3>
-                <p class="part-desc">
-                    Mathematical foundations and historical context of spatial intelligence
-                </p>
-                <ul class="chapter-list">
-                    <li>Introduction</li>
-                    <li>Historical Evolution</li>
-                </ul>
-            </div>
-
-            <div class="part-card">
-                <div class="part-number">II</div>
-                <h3 class="part-title">Representations</h3>
-                <p class="part-desc">
-                    Core representations for 2D, 3D, and 4D spatial data
-                </p>
-                <ul class="chapter-list">
-                    <li>2D Visual Representations</li>
-                    <li>3D Spatial Representations</li>
-                    <li>Cross-Modal Representations</li>
-                    <li>4D Dynamic Representations</li>
-                </ul>
-            </div>
-
-            <div class="part-card">
-                <div class="part-number">III</div>
-                <h3 class="part-title">Core Capabilities</h3>
-                <p class="part-desc">
-                    Perception, reasoning, and generation in 3D space
-                </p>
-                <ul class="chapter-list">
-                    <li>Spatial Perception</li>
-                    <li>Spatial Reasoning</li>
-                    <li>Spatial Reconstruction & Generation</li>
-                </ul>
-            </div>
-
-            <div class="part-card">
-                <div class="part-number">IV</div>
-                <h3 class="part-title">Applications</h3>
-                <p class="part-desc">
-                    Real-world applications across diverse domains
-                </p>
-                <ul class="chapter-list">
-                    <li>Embodied Systems</li>
-                    <li>Virtual Realities</li>
-                    <li>Geospatial Intelligence</li>
-                    <li>Scientific Discovery</li>
-                    <li>Healthcare & More</li>
-                </ul>
-            </div>
-
-            <div class="part-card">
-                <div class="part-number">V</div>
-                <h3 class="part-title">Future Directions</h3>
-                <p class="part-desc">
-                    Open challenges and future research directions
-                </p>
-                <ul class="chapter-list">
-                    <li>Open Challenges</li>
-                    <li>Research Frontiers</li>
-                    <li>Conclusions</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
     <!-- Key Features Section -->
-    <section class="section" id="features">
+    <section class="section">
         <h2 class="section-title">Key Features</h2>
         <p class="section-desc">
             Six qualities that shape how this survey is written, organized, and used
@@ -301,147 +243,6 @@
                 </div>
             </article>
 
-        </div>
-    </section>
-
-    <!-- Citation Section -->
-    <section class="section" style="background: var(--bg-secondary);">
-        <h2 class="section-title">Citation</h2>
-        <div class="citation-container">
-            <button id="copyBtn" class="copy-btn">📋 Copy</button>
-            <pre class="citation-code"><code>@book{spatial_intelligence_2026,
-  title     = {Spatial Intelligence: A Comprehensive Survey},
-  author    = {Shengqiong Wu, Hao Fei, Yu Zhao, Jundong Xu, Jingkang Yang, Shulin Tian, Daoan Zhang, Bobo Li, Yanguang Zhao, Xuan Ju, Haoyu Zhao, Yuchen Zhou, Xiangtai Li, Zhedong Zheng, Joy Hsu, Xin Kong, Ruining Li, Cheng Zhang, Chengzu Li, Jiafei Duan, Yu (Bryan) Zhou, Kenneth Li, Chuanxia Zheng},
-  year      = {2026},
-  publisher = {[Publisher]},
-  note      = {Available at https://github.com/...}
-}</code></pre>
-        </div>
-    </section>
-
-    <!-- Authors Section -->
-    <section class="section">
-        <h2 class="section-title">Contributing Authors</h2>
-        <p class="section-desc">
-            This book is a collaborative effort by 23 researchers from leading institutions worldwide
-        </p>
-
-        <div class="authors-grid">
-            <div class="author-card">
-                <div class="author-avatar">SW</div>
-                <div class="author-name">Shengqiong Wu</div>
-                <div class="author-affiliation">University of Oxford</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">HF</div>
-                <div class="author-name">Hao Fei</div>
-                <div class="author-affiliation">University of Oxford</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">YZ</div>
-                <div class="author-name">Yu Zhao</div>
-                <div class="author-affiliation">National University of Singapore</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">JX</div>
-                <div class="author-name">Jundong Xu</div>
-                <div class="author-affiliation">National University of Singapore</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">JY</div>
-                <div class="author-name">Jingkang Yang</div>
-                <div class="author-affiliation">Nanyang Technological University</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">ST</div>
-                <div class="author-name">Shulin Tian</div>
-                <div class="author-affiliation">Nanyang Technological University</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">DZ</div>
-                <div class="author-name">Daoan Zhang</div>
-                <div class="author-affiliation">University of Rochester</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">BL</div>
-                <div class="author-name">Bobo Li</div>
-                <div class="author-affiliation">National University of Singapore</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">YZ</div>
-                <div class="author-name">Yanguang Zhao</div>
-                <div class="author-affiliation">National University of Singapore</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">XJ</div>
-                <div class="author-name">Xuan Ju</div>
-                <div class="author-affiliation">The Chinese University of Hong Kong</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">HZ</div>
-                <div class="author-name">Haoyu Zhao</div>
-                <div class="author-affiliation">National University of Singapore</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">YZ</div>
-                <div class="author-name">Yuchen Zhou</div>
-                <div class="author-affiliation">National University of Singapore</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">XL</div>
-                <div class="author-name">Xiangtai Li</div>
-                <div class="author-affiliation">Nanyang Technological University</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">ZZ</div>
-                <div class="author-name">Zhedong Zheng</div>
-                <div class="author-affiliation">University of Macau</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">JH</div>
-                <div class="author-name">Joy Hsu</div>
-                <div class="author-affiliation">Stanford University</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">XK</div>
-                <div class="author-name">Xin Kong</div>
-                <div class="author-affiliation">Imperial College London</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">RL</div>
-                <div class="author-name">Ruining Li</div>
-                <div class="author-affiliation">University of Oxford</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">CZ</div>
-                <div class="author-name">Cheng Zhang</div>
-                <div class="author-affiliation">Monash University</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">CL</div>
-                <div class="author-name">Chengzu Li</div>
-                <div class="author-affiliation">University of Cambridge</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">JD</div>
-                <div class="author-name">Jiafei Duan</div>
-                <div class="author-affiliation">National University of Singapore</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">YZ</div>
-                <div class="author-name">Yu (Bryan) Zhou</div>
-                <div class="author-affiliation">University of California, Los Angeles</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">KL</div>
-                <div class="author-name">Kenneth Li</div>
-                <div class="author-affiliation">Harvard University</div>
-            </div>
-            <div class="author-card">
-                <div class="author-avatar">CZ</div>
-                <div class="author-name">Chuanxia Zheng</div>
-                <div class="author-affiliation">Nanyang Technological University</div>
-            </div>
         </div>
     </section>
 

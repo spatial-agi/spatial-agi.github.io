@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Errata | Spatial Intelligence Survey</title>
+    <meta name="description" content="Report errors or suggest improvements">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Spatial Intelligence Survey</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="contents.html" class="nav-link">Contents</a></li>
+                <li><a href="authors.html" class="nav-link">Authors</a></li>
+                <li><a href="literature.html" class="nav-link">Literature</a></li>
+                <li><a href="errata.html" class="nav-link active">Errata</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Errata Submission Section -->
+    <section class="section page-section">
+        <h2 class="section-title">Submit Errata</h2>
+        <p class="section-desc">
+            Help us improve this survey by reporting errors, typos, or suggesting improvements
+        </p>
+
+        <div class="errata-intro">
+            <p>We value your feedback. If you find any errors, inconsistencies, or have suggestions for improvement, please submit them using the form below. All submissions will be reviewed by the authors.</p>
+            <p>You can also view <a href="#known-errata" class="inline-link">known errata</a> that have been identified and acknowledged.</p>
+        </div>
+
+        <form class="errata-form" id="errataForm" onsubmit="submitErrata(event)">
+
+            <div class="form-group">
+                <label class="form-label" for="reporterName">Your Name</label>
+                <input type="text" id="reporterName" class="form-input" placeholder="Optional" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="reporterEmail">Your Email</label>
+                <input type="email" id="reporterEmail" class="form-input" placeholder="Optional, for follow-up" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="issueType">Issue Type <span class="required">*</span></label>
+                <select id="issueType" class="form-select" required>
+                    <option value="">Select type...</option>
+                    <option value="typo">Typo / Grammar</option>
+                    <option value="technical">Technical Error</option>
+                    <option value="citation">Citation Error</option>
+                    <option value="figure">Figure / Diagram Issue</option>
+                    <option value="missing">Missing Reference</option>
+                    <option value="clarity">Clarity / Wording</option>
+                    <option value="suggestion">General Suggestion</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="chapter">Chapter</label>
+                    <select id="chapter" class="form-select">
+                        <option value="">Select chapter...</option>
+                        <option value="ch1">Chapter 1: Introduction</option>
+                        <option value="ch2">Chapter 2: Foundations</option>
+                        <option value="ch3">Chapter 3: 2D Understanding</option>
+                        <option value="ch4">Chapter 4: 3D Reconstruction</option>
+                        <option value="ch5">Chapter 5: 4D Modeling</option>
+                        <option value="ch6">Chapter 6: Perception</option>
+                        <option value="ch7">Chapter 7: Reasoning</option>
+                        <option value="ch8">Chapter 8: Generation</option>
+                        <option value="ch9">Chapter 9: Embodied AI</option>
+                        <option value="ch10">Chapter 10: Extended Reality</option>
+                        <option value="ch11">Chapter 11: Autonomous Driving</option>
+                        <option value="ch12">Chapter 12: Geospatial</option>
+                        <option value="ch13">Chapter 13: Healthcare</option>
+                        <option value="ch14">Chapter 14: Scientific Discovery</option>
+                        <option value="ch15">Chapter 15: Open Problems</option>
+                        <option value="ch16">Chapter 16: Future Directions</option>
+                        <option value="ch17">Chapter 17: Conclusion</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="pageNumber">Page or Section</label>
+                    <input type="text" id="pageNumber" class="form-input" placeholder="e.g., Page 42, Section 3.2" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="description">Description <span class="required">*</span></label>
+                <textarea id="description" class="form-textarea" rows="6" placeholder="Please describe the issue in detail..." required></textarea>
+                <p class="form-help">Be as specific as possible. Include the current text if reporting an error.</p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="suggestion">Suggested Correction</label>
+                <textarea id="suggestion" class="form-textarea" rows="4" placeholder="If applicable, provide your suggested correction or improvement..."></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Submit Errata</button>
+                <button type="reset" class="reset-btn">Reset Form</button>
+            </div>
+        </form>
+
+        <div class="success-message" id="successMessage" style="display: none;">
+            <p>✓ Thank you for your submission! We will review it and update the survey accordingly.</p>
+        </div>
+
+    </section>
+
+    <!-- Known Errata Section -->
+    <section class="section" id="known-errata" style="background: var(--bg-secondary);">
+        <h2 class="section-title">Known Errata</h2>
+        <p class="section-desc">
+            Acknowledged issues that will be corrected in the next version
+        </p>
+
+        <div class="errata-list">
+            <article class="errata-entry">
+                <div class="errata-header">
+                    <span class="errata-type typo-badge">Typo</span>
+                    <span class="errata-location">Chapter 3, Page 47</span>
+                    <span class="errata-date">Reported: 2026-10-15</span>
+                </div>
+                <p class="errata-description">
+                    <strong>Issue:</strong> "Nueral Radiance Fields" should be "Neural Radiance Fields"
+                </p>
+                <p class="errata-status">Status: <span class="status-fixed">Fixed in v1.1</span></p>
+            </article>
+
+            <article class="errata-entry">
+                <div class="errata-header">
+                    <span class="errata-type citation-badge">Citation</span>
+                    <span class="errata-location">Chapter 5, Section 5.3</span>
+                    <span class="errata-date">Reported: 2026-10-12</span>
+                </div>
+                <p class="errata-description">
+                    <strong>Issue:</strong> Citation [Zhang et al. 2025] incorrectly attributes the method to Zhang; correct authors are Liu et al.
+                </p>
+                <p class="errata-status">Status: <span class="status-pending">Under review</span></p>
+            </article>
+
+            <article class="errata-entry">
+                <div class="errata-header">
+                    <span class="errata-type technical-badge">Technical</span>
+                    <span class="errata-location">Chapter 4, Equation 4.7</span>
+                    <span class="errata-date">Reported: 2026-10-08</span>
+                </div>
+                <p class="errata-description">
+                    <strong>Issue:</strong> The rotation matrix in Equation 4.7 should be transposed for the camera-to-world transformation
+                </p>
+                <p class="errata-status">Status: <span class="status-acknowledged">Acknowledged</span></p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Spatial Intelligence Survey. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
+            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">GitHub</a>
+            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">arXiv</a>
+            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">Contact</a>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

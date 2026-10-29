@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literature Search | Spatial Intelligence Survey</title>
+    <meta name="description" content="Search through 2,500+ curated references in this survey">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Spatial Intelligence Survey</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="contents.html" class="nav-link">Contents</a></li>
+                <li><a href="authors.html" class="nav-link">Authors</a></li>
+                <li><a href="literature.html" class="nav-link active">Literature</a></li>
+                <li><a href="errata.html" class="nav-link">Errata</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Literature Search Section -->
+    <section class="section page-section">
+        <h2 class="section-title">Literature Search</h2>
+        <p class="section-desc">
+            Search through the 2,500+ curated references cited in this survey
+        </p>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by title, author, or keyword..." class="search-input">
+                <button class="search-button" onclick="performSearch()">Search</button>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Filter by:</label>
+                <select id="yearFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="all">All Years</option>
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020 and earlier</option>
+                </select>
+
+                <select id="topicFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="all">All Topics</option>
+                    <option value="2d">2D Understanding</option>
+                    <option value="3d">3D Reconstruction</option>
+                    <option value="4d">4D Modeling</option>
+                    <option value="nerf">Neural Radiance Fields</option>
+                    <option value="gaussian">3D Gaussian Splatting</option>
+                    <option value="vla">Vision-Language-Action</option>
+                    <option value="embodied">Embodied AI</option>
+                    <option value="robotics">Robotics</option>
+                    <option value="autonomous">Autonomous Driving</option>
+                    <option value="xr">Extended Reality</option>
+                </select>
+
+                <select id="venueFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="all">All Venues</option>
+                    <option value="cvpr">CVPR</option>
+                    <option value="iccv">ICCV</option>
+                    <option value="eccv">ECCV</option>
+                    <option value="neurips">NeurIPS</option>
+                    <option value="icml">ICML</option>
+                    <option value="iclr">ICLR</option>
+                    <option value="siggraph">SIGGRAPH</option>
+                    <option value="arxiv">arXiv</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="results-header">
+            <p class="results-count" id="resultsCount">Showing all 2,500+ references</p>
+            <select id="sortBy" class="filter-select" onchange="sortResults()">
+                <option value="relevance">Sort by Relevance</option>
+                <option value="year-desc">Year (Newest First)</option>
+                <option value="year-asc">Year (Oldest First)</option>
+                <option value="title">Title (A-Z)</option>
+                <option value="citations">Citations</option>
+            </select>
+        </div>
+
+        <div class="literature-list" id="literatureList">
+            <!-- Sample papers -->
+            <article class="literature-item">
+                <div class="literature-meta">
+                    <span class="literature-year">2026</span>
+                    <span class="literature-venue">CVPR</span>
+                </div>
+                <h3 class="literature-title">3D Gaussian Splatting for Real-Time Radiance Field Rendering</h3>
+                <p class="literature-authors">Kerbl, B., Kopanas, G., Leimkühler, T., Drettakis, G.</p>
+                <p class="literature-abstract">
+                    We introduce a real-time differentiable rendering method for novel view synthesis using 3D Gaussians. Our approach achieves state-of-the-art visual quality while maintaining interactive frame rates...
+                </p>
+                <div class="literature-tags">
+                    <span class="tag">3D Reconstruction</span>
+                    <span class="tag">Neural Rendering</span>
+                    <span class="tag">Real-time</span>
+                </div>
+                <div class="literature-links">
+                    <a href="#" class="lit-link">Paper</a>
+                    <a href="#" class="lit-link">Project</a>
+                    <a href="#" class="lit-link">Code</a>
+                    <button class="copy-bib-btn" onclick="copyBibtex(this)">Copy BibTeX</button>
+                </div>
+            </article>
+
+            <article class="literature-item">
+                <div class="literature-meta">
+                    <span class="literature-year">2025</span>
+                    <span class="literature-venue">NeurIPS</span>
+                </div>
+                <h3 class="literature-title">NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis</h3>
+                <p class="literature-authors">Mildenhall, B., Srinivasan, P.P., Tancik, M., Barron, J.T., Ramamoorthi, R., Ng, R.</p>
+                <p class="literature-abstract">
+                    We present a method that achieves state-of-the-art results for synthesizing novel views of complex scenes by optimizing an underlying continuous volumetric scene function using a sparse set of input views...
+                </p>
+                <div class="literature-tags">
+                    <span class="tag">Neural Rendering</span>
+                    <span class="tag">View Synthesis</span>
+                    <span class="tag">Volume Rendering</span>
+                </div>
+                <div class="literature-links">
+                    <a href="#" class="lit-link">Paper</a>
+                    <a href="#" class="lit-link">Project</a>
+                    <a href="#" class="lit-link">Code</a>
+                    <button class="copy-bib-btn" onclick="copyBibtex(this)">Copy BibTeX</button>
+                </div>
+            </article>
+
+            <article class="literature-item">
+                <div class="literature-meta">
+                    <span class="literature-year">2026</span>
+                    <span class="literature-venue">ICLR</span>
+                </div>
+                <h3 class="literature-title">Vision-Language-Action Models for Embodied AI</h3>
+                <p class="literature-authors">Zhang, L., Wang, Y., Chen, X., Liu, M.</p>
+                <p class="literature-abstract">
+                    We introduce a unified framework that combines vision, language, and action learning for embodied agents. Our model demonstrates strong generalization across diverse robotic manipulation tasks...
+                </p>
+                <div class="literature-tags">
+                    <span class="tag">Embodied AI</span>
+                    <span class="tag">Robotics</span>
+                    <span class="tag">Vision-Language</span>
+                </div>
+                <div class="literature-links">
+                    <a href="#" class="lit-link">Paper</a>
+                    <a href="#" class="lit-link">Code</a>
+                    <button class="copy-bib-btn" onclick="copyBibtex(this)">Copy BibTeX</button>
+                </div>
+            </article>
+
+            <div class="load-more-container">
+                <button class="load-more-btn" onclick="loadMore()">Load More Results</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Spatial Intelligence Survey. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
+            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">GitHub</a>
+            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">arXiv</a>
+            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">Contact</a>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

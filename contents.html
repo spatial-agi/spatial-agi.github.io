@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Contents - Spatial Intelligence Survey</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contents-reader.css">
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">Spatial Intelligence Survey</div>
+            <button class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="contents.html" class="nav-link active">Contents</a></li>
+                <li><a href="authors.html" class="nav-link">Authors</a></li>
+                <li><a href="literature.html" class="nav-link">Literature</a></li>
+                <li><a href="errata.html" class="nav-link">Errata</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Reader Layout -->
+    <div class="reader-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>Table of Contents</h3>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <span>☰</span>
+                </button>
+            </div>
+
+            <nav class="toc-nav">
+                <!-- Preface -->
+                <div class="toc-item">
+                    <a href="#preface" class="toc-link" data-section="preface">Preface</a>
+                </div>
+
+                <!-- Part I -->
+                <div class="toc-item toc-part">
+                    <button class="toc-toggle">
+                        <span class="toggle-icon">▼</span>
+                        <span class="toc-title">Part I: Introduction and Background</span>
+                    </button>
+                    <div class="toc-chapters">
+                        <div class="toc-chapter">
+                            <button class="toc-toggle">
+                                <span class="toggle-icon">▼</span>
+                                <span class="toc-title">Chapter 1: Spatial Intelligence: A Rising AI Paradigm</span>
+                            </button>
+                            <div class="toc-sections">
+                                <a href="#ch1-sec1" class="toc-link" data-section="ch1-sec1">1.1 Why Spatial Intelligence? Why Now?</a>
+                                <a href="#ch1-sec2" class="toc-link" data-section="ch1-sec2">1.2 Five Eras of Spatial Representation</a>
+                            </div>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch2" class="toc-link" data-section="ch2">Chapter 2: A Definition in Motion</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch3" class="toc-link" data-section="ch3">Chapter 3: Scope and Structure</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part II -->
+                <div class="toc-item toc-part">
+                    <button class="toc-toggle">
+                        <span class="toggle-icon">▶</span>
+                        <span class="toc-title">Part II: Spatial-aware Representation</span>
+                    </button>
+                    <div class="toc-chapters" style="display: none;">
+                        <div class="toc-chapter">
+                            <a href="#ch4" class="toc-link" data-section="ch4">Chapter 4: Single-Modal Representation</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch5" class="toc-link" data-section="ch5">Chapter 5: Cross-Modal Spatial Representation</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part III -->
+                <div class="toc-item toc-part">
+                    <button class="toc-toggle">
+                        <span class="toggle-icon">▶</span>
+                        <span class="toc-title">Part III: From Perception to Generation</span>
+                    </button>
+                    <div class="toc-chapters" style="display: none;">
+                        <div class="toc-chapter">
+                            <a href="#ch6" class="toc-link" data-section="ch6">Chapter 6: Spatial Perception</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch7" class="toc-link" data-section="ch7">Chapter 7: Spatial Reasoning</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch8" class="toc-link" data-section="ch8">Chapter 8: Spatial Generation</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part IV -->
+                <div class="toc-item toc-part">
+                    <button class="toc-toggle">
+                        <span class="toggle-icon">▶</span>
+                        <span class="toc-title">Part IV: Applications</span>
+                    </button>
+                    <div class="toc-chapters" style="display: none;">
+                        <div class="toc-chapter">
+                            <a href="#ch9" class="toc-link" data-section="ch9">Chapter 9: Embodied Agents</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch10" class="toc-link" data-section="ch10">Chapter 10: Virtual Realities</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch11" class="toc-link" data-section="ch11">Chapter 11: Geo-spatial Systems</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch12" class="toc-link" data-section="ch12">Chapter 12: Biomedicine and Natural Sciences</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch13" class="toc-link" data-section="ch13">Chapter 13: Intelligent Assistance</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part V -->
+                <div class="toc-item toc-part">
+                    <button class="toc-toggle">
+                        <span class="toggle-icon">▶</span>
+                        <span class="toc-title">Part V: Discussions and Futures</span>
+                    </button>
+                    <div class="toc-chapters" style="display: none;">
+                        <div class="toc-chapter">
+                            <a href="#ch15" class="toc-link" data-section="ch15">Chapter 15: Open Discussions</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch16" class="toc-link" data-section="ch16">Chapter 16: Challenges and Future Directions</a>
+                        </div>
+                        <div class="toc-chapter">
+                            <a href="#ch17" class="toc-link" data-section="ch17">Chapter 17: Conclusion</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area" id="contentArea">
+            <!-- Preface Section -->
+            <section id="preface" class="content-section active">
+                <h1>Preface</h1>
+                <div class="chapter-meta">
+                    <span class="chapter-date">Last Updated: October 2026</span>
+                </div>
+
+                <p class="drop-cap">
+                    <span class="first-letter">T</span>he pursuit of spatial intelligence—enabling agents to perceive, represent, reason about, and act within complex environments—stands as a foundational pillar in the journey toward Artificial General Intelligence (AGI).
+                </p>
+
+                <p>
+                    From embodied perception to multimodal understanding and interactive world modeling, spatial intelligence spans a broad spectrum of research domains and practical applications. This book offers a systematic and forward-looking overview of spatial intelligence, bridging insights across computer vision, natural language processing, 3D/4D modeling, robotics, and cognitive reasoning.
+                </p>
+
+                <p>
+                    We organize our exploration into four coherent parts. First, we lay the groundwork in <strong>Spatial-aware Representation</strong>, where we study representations across single modalities (2D, 3D, 4D, language, audio, etc.) and their cross-modal alignment. Second, we investigate the full pipeline <strong>From Perception to Generation</strong>, including perception (e.g., detection, segmentation), reasoning (e.g., symbolic, geometric, LLM-driven), and generation (e.g., scene, video, world synthesis).
+                </p>
+
+                <p>
+                    Third, we focus on <strong>Applications</strong>, spanning embodied agents, virtual/augmented realities, geo-spatial systems, biomedical domains, and intelligent assistants. Finally, we discuss the <strong>Future and Challenges</strong> of spatial intelligence, including research gaps, benchmarking, and directions for real-world deployment.
+                </p>
+
+                <p>
+                    By synthesizing principles from AI, cognitive science, and spatial computing, this book aims to serve as both a comprehensive reference for researchers and a practical guide for system developers. We hope it will inspire innovative directions toward building agents and systems that are spatially aware, robustly generalizable, and deeply grounded in real-world interactions.
+                </p>
+
+                <div class="book-homepage">
+                    <p>📖 Project Homepage: <a href="https://spatial-agi.github.io" target="_blank">https://spatial-agi.github.io</a></p>
+                </div>
+            </section>
+
+            <!-- Chapter 1 Section 1 -->
+            <section id="ch1-sec1" class="content-section">
+                <h1>Chapter 1: Spatial Intelligence: A Rising AI Paradigm</h1>
+
+                <p class="drop-cap">
+                    <span class="first-letter">A</span>I has entered a stage where scale and capability alone are no longer sufficient. Despite remarkable advances in perception, language, and generation, modern AI systems continue to struggle with a fundamental challenge: understanding, representing, and acting within the structured physical world.
+                </p>
+
+                <p>
+                    As intelligent systems increasingly move beyond static inputs and isolated tasks, the question shifts from how well a model predicts tokens or labels to how it forms internal models of space, time, action, and causality. This shift marks the emergence of <em>spatial intelligence</em> as a central organizing paradigm in artificial intelligence.
+                </p>
+
+                <h2 id="ch1-sec1">1.1 Why Spatial Intelligence? Why Now?</h2>
+
+                <p>
+                    As AI continues to advance, a growing consensus has emerged that data alone is not enough; true intelligence must be grounded in the physical world. This realization marks a fundamental shift from purely <em>data-centric</em> paradigms, centered around language or perception, to <em>world-centric</em> systems capable of modeling, reasoning, and acting within spatially structured environments.
+                </p>
+
+                <h3>AI Paradigm Shift</h3>
+
+                <p>
+                    AI is undergoing a foundational paradigm shift, from task-specific models toward world-centric general intelligence. Traditional AI systems were designed to solve narrowly defined problems, such as image classification, text generation, or speech recognition, each trained and optimized within a well-constrained input-output space.
+                </p>
+
+                <p>
+                    However, the emergence of foundation models and large language models (LLMs) has reshaped expectations: AI is now envisioned to generalize across domains, modalities, and tasks in open-world settings. This ambition hinges on a deeper capability—the ability to understand and model the world itself, often described as building a "world model".
+                </p>
+
+                <div class="key-insight">
+                    <h4>💡 Key Insight</h4>
+                    <p>
+                        <strong>Spatial Intelligence</strong> emerges as a central pillar enabling this capability. It encompasses the perception and representation of objects, scenes, spatial layouts, motion, and physical interactions, and it serves as a carrier of world-generalizable knowledge that supports reasoning and transfer across tasks and modalities.
+                    </p>
+                </div>
+
+                <blockquote>
+                    "Our dreams of truly intelligent machines will not be complete without spatial intelligence."
+                    <cite>— Fei-Fei Li</cite>
+                </blockquote>
+
+                <p>
+                    Moreover, this transformation also signals a shift in the boundary of context: traditional AI focused on self-contained intelligence, where the model reasons primarily over its own input context. Today's systems, in contrast, must be understood as <em>individuals embedded in the world</em>, agents whose perception and action are grounded in broader spatial, temporal, and social environments.
+                </p>
+
+                <h3>AI Methodological Shift</h3>
+
+                <p>
+                    Historically, from the era of classical machine learning to the deep learning revolution, and now to the LLM wave, progress in AI has largely followed a data-centric trajectory: larger models trained on increasingly vast static corpora. While this paradigm has delivered remarkable achievements, it also imposes an inherent limitation—AI systems are still framed as static input-output function approximators rather than as agents that can perceive, reason, and act within the real world.
+                </p>
+
+                <p>
+                    The recent surge of LLMs, such as GPT, PaLM, and LLaMA, has only amplified this trajectory. Although these models exhibit stunning linguistic fluency, symbolic manipulation, and emergent generalization capabilities, they remain intrinsically disembodied and spatially ungrounded. They can generate poetic descriptions of a cup on the table, yet they cannot perceive the cup, interact with it, or build a physical model to explain its behavior.
+                </p>
+
+                <div class="section-navigation">
+                    <a href="#preface" class="nav-prev">← Previous: Preface</a>
+                    <a href="#ch1-sec2" class="nav-next">Next: 1.2 Five Eras →</a>
+                </div>
+            </section>
+
+            <!-- Placeholder for other chapters -->
+            <section id="ch1-sec2" class="content-section">
+                <h2>1.2 Five Eras of Spatial Representation</h2>
+                <p class="placeholder-note">📝 Content coming soon: This section will cover the historical evolution of spatial representation across five distinct eras.</p>
+            </section>
+
+            <section id="ch2" class="content-section">
+                <h1>Chapter 2: A Definition in Motion</h1>
+                <p class="placeholder-note">📝 Content coming soon: This chapter will provide a comprehensive definition of spatial intelligence.</p>
+            </section>
+
+            <section id="ch3" class="content-section">
+                <h1>Chapter 3: Scope and Structure</h1>
+                <p class="placeholder-note">📝 Content coming soon: This chapter will outline the structure and organization of the book.</p>
+            </section>
+
+            <!-- More chapter placeholders -->
+            <section id="ch4" class="content-section">
+                <h1>Chapter 4: Single-Modal Representation</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch5" class="content-section">
+                <h1>Chapter 5: Cross-Modal Spatial Representation</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch6" class="content-section">
+                <h1>Chapter 6: Spatial Perception</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch7" class="content-section">
+                <h1>Chapter 7: Spatial Reasoning</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch8" class="content-section">
+                <h1>Chapter 8: Spatial Generation</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch9" class="content-section">
+                <h1>Chapter 9: Embodied Agents</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch10" class="content-section">
+                <h1>Chapter 10: Virtual Realities</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch11" class="content-section">
+                <h1>Chapter 11: Geo-spatial Systems</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch12" class="content-section">
+                <h1>Chapter 12: Biomedicine and Natural Sciences</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch13" class="content-section">
+                <h1>Chapter 13: Intelligent Assistance</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch15" class="content-section">
+                <h1>Chapter 15: Open Discussions</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch16" class="content-section">
+                <h1>Chapter 16: Challenges and Future Directions</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+
+            <section id="ch17" class="content-section">
+                <h1>Chapter 17: Conclusion</h1>
+                <p class="placeholder-note">📝 Content coming soon</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Spatial Intelligence Survey. All rights reserved.</p>
+            <p>A collaborative effort by researchers from leading institutions worldwide.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="contents-reader.js"></script>
+</body>
+</html>
