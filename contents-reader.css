@@ -253,8 +253,8 @@
 
 /* Key Insights Box */
 .key-insight {
-    background: #FFF8E1;
-    border-left: 4px solid #FFA726;
+    background: #EAF2F8;
+    border-left: 4px solid #5BA4D0;
     border-radius: 6px;
     padding: 1.5rem;
     margin: 2rem 0;
@@ -262,7 +262,7 @@
 
 .key-insight h4 {
     margin-top: 0;
-    color: #E65100;
+    color: #31506D;
     font-size: 1.125rem;
 }
 
@@ -449,4 +449,59 @@ blockquote cite {
         display: block !important;
         page-break-after: always;
     }
+}
+
+/* Imported book content */
+.content-area { min-width: 0; }
+.imported-chapter, .imported-chapter [id] { scroll-margin-top: 95px; }
+.imported-chapter h3 { font-size: 1.65rem; }
+.imported-chapter h4 { font-size: 1.3rem; }
+.imported-chapter h5, .imported-chapter h6 { font-size: 1.08rem; margin: 1.5rem 0 .75rem; }
+.imported-chapter figure { margin: 2rem 0; }
+.imported-chapter figure img { display: block; max-width: 100%; height: auto; margin: auto; }
+.imported-chapter figcaption { color: var(--text-secondary); font-size: .9rem; margin-top: .75rem; line-height: 1.65; }
+.book-table-scroll { width: 100%; overflow-x: auto; margin: 1.5rem 0; }
+.book-table-scroll table { min-width: 100%; width: max-content; max-width: 1500px; border-collapse: collapse; font-size: .85rem; }
+.book-table-scroll th, .book-table-scroll td { padding: .6rem .75rem; border: 1px solid var(--border); vertical-align: top; max-width: 360px; }
+.book-table-scroll tr:nth-child(even) { background: var(--bg-secondary); }
+.book-table-scroll caption { text-align: left; margin-bottom: .75rem; color: var(--text-secondary); }
+.imported-chapter .math.display { display: block; overflow-x: auto; padding: .5rem 0; }
+.imported-chapter .tcolorbox, .imported-chapter .quotebox { background: var(--bg-secondary); border-left: 3px solid var(--accent); padding: 1rem 1.5rem; margin: 1.5rem 0; }
+.imported-chapter a { color: var(--accent); overflow-wrap: anywhere; }
+.imported-chapter a:hover { text-decoration: underline; }
+.toc-book-part > summary, .toc-book-chapter > summary { cursor: pointer; padding: .7rem 1.25rem; color: var(--text-primary); font-size: .9rem; font-weight: 600; }
+.toc-book-part > summary { background: var(--bg-secondary); }
+.toc-book-chapter > summary { padding-left: 1.75rem; font-weight: 500; }
+.toc-nav > .toc-link, .toc-book-part > .toc-link { padding-left: 1.25rem; }
+.toc-book-chapter > .toc-link { padding-left: 2rem; }
+.toc-book-chapter > .toc-subheading { padding-left: 2.75rem; font-size: .8rem; }
+.section-pagination { display: flex; justify-content: space-between; gap: 1.5rem; border-top: 1px solid var(--border); margin-top: 3rem; padding-top: 1.5rem; font-size: .9rem; }
+.section-pagination a { flex: 1; }
+.section-pagination .nav-next { text-align: right; }
+.csl-entry { margin: 0 0 1.25rem; overflow-wrap: anywhere; }
+.latex-fallback { margin: 1rem 0; border: 1px solid var(--border); padding: .75rem; }
+.latex-fallback pre { white-space: pre-wrap; font-size: .8rem; }
+.reader-menu-toggle { display: none; }
+.citation-bubble { display: inline; padding: 0 .12rem; border: 0; border-bottom: 1px dotted var(--accent); background: transparent; color: var(--accent); font: inherit; cursor: pointer; }
+.citation-bubble:hover, .citation-bubble:focus-visible { border-bottom-style: solid; background: var(--bg-secondary); outline: none; }
+.citation-popover { position: fixed; z-index: 1500; width: min(390px, calc(100vw - 24px)); max-height: min(65vh, 480px); overflow-y: auto; padding: .9rem 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text-primary); box-shadow: 0 12px 36px var(--shadow-hover); }
+.citation-popover::before { content: ''; position: absolute; top: -6px; left: var(--citation-arrow-left, 24px); width: 10px; height: 10px; background: var(--bg-card); border-left: 1px solid var(--border); border-top: 1px solid var(--border); transform: rotate(45deg); }
+.citation-popover.above::before { top: auto; bottom: -6px; transform: rotate(225deg); }
+.citation-popover-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: .55rem; border-bottom: 1px solid var(--border); color: var(--text-primary); }
+.citation-popover-close { width: 28px; height: 28px; border: 0; border-radius: 4px; background: var(--bg-secondary); color: var(--text-secondary); font-size: 1.2rem; line-height: 1; cursor: pointer; }
+.citation-popover-entry { padding: .75rem 0; border-bottom: 1px solid var(--border); font-size: .875rem; line-height: 1.5; }
+.citation-popover-entry:last-child { padding-bottom: 0; border-bottom: 0; }
+.citation-popover-title { display: block; margin-bottom: .25rem; }
+.citation-popover-entry p { margin: .2rem 0; color: var(--text-secondary); overflow-wrap: anywhere; }
+.citation-popover-entry .citation-popover-meta { color: var(--text-muted); }
+.citation-popover-entry a { display: inline-block; margin: .3rem .8rem 0 0; color: var(--accent); font-size: .82rem; }
+.references-list { padding-left: 1.5rem; }
+.references-list li { padding: .55rem .5rem; scroll-margin-top: 90px; overflow-wrap: anywhere; }
+.references-list li:target { background: var(--bg-secondary); }
+@media (max-width: 768px) {
+    .reader-menu-toggle { display: block; position: fixed; top: 80px; left: 12px; z-index: 110; border: 1px solid var(--border); border-radius: 8px; padding: .5rem .8rem; background: var(--bg-card); color: var(--accent); box-shadow: 0 2px 8px var(--shadow); }
+    .content-area { padding-top: 4.5rem; }
+    .sidebar { z-index: 120; }
+    .imported-chapter h1 { font-size: 1.9rem; }
+    .section-pagination { flex-direction: column; }
 }

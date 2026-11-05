@@ -1,298 +1,182 @@
-// ============================================
-// Book Reader Navigation and Interaction
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    initBookReader();
-});
-
-function initBookReader() {
-    // Initialize TOC navigation
-    initTOCNavigation();
-
-    // Initialize section navigation
-    initSectionNavigation();
-
-    // Initialize sidebar toggle for mobile
-    initSidebarToggle();
-
-    // Initialize scroll spy
-    initScrollSpy();
-
-    // Load initial section from URL hash
-    loadSectionFromHash();
-}
-
-// ============================================
-// Table of Contents Navigation
-// ============================================
-
-function initTOCNavigation() {
-    // Part and chapter toggles
-    const tocToggles = document.querySelectorAll('.toc-toggle');
-
-    tocToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const isActive = this.classList.contains('active');
-            const chapters = this.nextElementSibling;
-
-            if (chapters && (chapters.classList.contains('toc-chapters') ||
-                             chapters.classList.contains('toc-sections'))) {
-
-                if (isActive) {
-                    this.classList.remove('active');
-                    chapters.style.display = 'none';
-                    const icon = this.querySelector('.toggle-icon');
-                    if (icon) icon.textContent = '▶';
-                } else {
-                    this.classList.add('active');
-                    chapters.style.display = 'block';
-                    const icon = this.querySelector('.toggle-icon');
-                    if (icon) icon.textContent = '▼';
-                }
-            }
-        });
-    });
-
-    // TOC links - section navigation
-    const tocLinks = document.querySelectorAll('.toc-link');
-
-    tocLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            // Get target section
-            const targetId = this.getAttribute('href').substring(1);
-            const sectionId = this.dataset.section;
-
-            // Navigate to section
-            navigateToSection(sectionId || targetId);
-
-            // Update active state
-            updateActiveTOCLink(this);
-
-            // Close sidebar on mobile
-            if (window.innerWidth <= 768) {
-                closeSidebar();
-            }
-        });
-    });
-}
-
-function navigateToSection(sectionId) {
-    // Hide all sections
-    const sections = document.querySelectorAll('.content-section');
+// Static LaTeX book reader. All content is present in contents.html for file:// and hosting.
+document.addEventListener('DOMContentLoaded', () => {
+    const content = document.getElementById('contentArea');
+    const sidebar = document.getElementById('sidebar');
+    const menu = document.getElementById('readerMenuToggle');
+    const sections = [...content.querySelectorAll('.content-section')];
+    const tocLinks = [...sidebar.querySelectorAll('.toc-link')];
+    const anchorMap = new Map();
     sections.forEach(section => {
-        section.classList.remove('active');
+        anchorMap.set(section.id, section);
+        section.querySelectorAll('[id]').forEach(node => anchorMap.set(node.id, section));
     });
+    let routeVersion = 0;
+    let citationPopup = null;
+    let citationTrigger = null;
 
-    // Show target section
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-
-        // Scroll to top of content area
-        const contentArea = document.getElementById('contentArea');
-        contentArea.scrollTop = 0;
-
-        // Update URL hash
-        history.pushState(null, '', '#' + sectionId);
-
-        // Update page title
-        const heading = targetSection.querySelector('h1, h2');
-        if (heading) {
-            document.title = heading.textContent + ' - Spatial Intelligence Survey';
-        }
+    function setSidebar(open) {
+        sidebar.classList.toggle('open', open);
+        menu?.setAttribute('aria-expanded', String(open));
     }
-}
+    menu?.addEventListener('click', () => setSidebar(!sidebar.classList.contains('open')));
+    document.getElementById('sidebarToggle')?.addEventListener('click', () => setSidebar(false));
 
-function updateActiveTOCLink(activeLink) {
-    // Remove active class from all links
-    const allLinks = document.querySelectorAll('.toc-link');
-    allLinks.forEach(link => link.classList.remove('active'));
-
-    // Add active class to clicked link
-    activeLink.classList.add('active');
-
-    // Expand parent sections
-    let parent = activeLink.parentElement;
-    while (parent && parent !== document.querySelector('.toc-nav')) {
-        if (parent.classList.contains('toc-chapters') ||
-            parent.classList.contains('toc-sections')) {
-            parent.style.display = 'block';
-
-            const toggle = parent.previousElementSibling;
-            if (toggle && toggle.classList.contains('toc-toggle')) {
-                toggle.classList.add('active');
-                const icon = toggle.querySelector('.toggle-icon');
-                if (icon) icon.textContent = '▼';
+    async function showAnchor(id) {
+        const section = anchorMap.get(id) || sections[0];
+        if (!section) return;
+        const version = ++routeVersion;
+        sections.forEach(item => item.classList.toggle('active', item === section));
+        document.title = `${section.querySelector('h1')?.textContent || 'Book Contents'} - Spatial Intelligence Survey`;
+        const selected = tocLinks.find(link => link.hash === `#${id}`)
+            || tocLinks.find(link => link.hash === `#${section.id}`);
+        tocLinks.forEach(link => link.classList.toggle('active', link === selected));
+        if (selected) {
+            let parent = selected.parentElement;
+            while (parent && parent !== sidebar) {
+                if (parent.tagName === 'DETAILS') parent.open = true;
+                parent = parent.parentElement;
             }
         }
-        parent = parent.parentElement;
-    }
-}
-
-// ============================================
-// Section Navigation (Previous/Next)
-// ============================================
-
-function initSectionNavigation() {
-    const navLinks = document.querySelectorAll('.nav-prev, .nav-next');
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            navigateToSection(targetId);
-
-            // Update TOC active state
-            const tocLink = document.querySelector(`.toc-link[data-section="${targetId}"]`);
-            if (tocLink) {
-                updateActiveTOCLink(tocLink);
+        const scrollToTarget = () => {
+            if (version !== routeVersion) return;
+            const target = document.getElementById(id) || section;
+            target.scrollIntoView({ block: 'start' });
+        };
+        scrollToTarget();
+        // Typeset only the visible chapter. Wait for the async MathJax startup on first visit.
+        if (window.MathJax?.startup?.promise) {
+            try {
+                await window.MathJax.startup.promise;
+                if (version !== routeVersion) return;
+                await window.MathJax.typesetPromise([section]);
+                scrollToTarget();
+            } catch (error) {
+                console.warn('Math rendering failed:', error);
             }
+        }
+    }
+
+    function currentAnchor() {
+        try { return decodeURIComponent(location.hash.slice(1)); }
+        catch (_) { return ''; }
+    }
+
+    function closeCitation() {
+        citationPopup?.remove();
+        citationPopup = null;
+        citationTrigger?.setAttribute('aria-expanded', 'false');
+        citationTrigger = null;
+    }
+
+    function placeCitationPopup() {
+        if (!citationPopup || !citationTrigger) return;
+        const trigger = citationTrigger.getBoundingClientRect();
+        const popup = citationPopup.getBoundingClientRect();
+        const margin = 12;
+        let left = Math.max(margin, Math.min(trigger.left, innerWidth - popup.width - margin));
+        let top = trigger.bottom + 10;
+        if (top + popup.height > innerHeight - margin && trigger.top - popup.height - 10 >= margin) {
+            top = trigger.top - popup.height - 10;
+            citationPopup.classList.add('above');
+        } else {
+            citationPopup.classList.remove('above');
+        }
+        citationPopup.style.left = `${left}px`;
+        citationPopup.style.top = `${Math.max(margin, top)}px`;
+        citationPopup.style.setProperty('--citation-arrow-left', `${Math.max(12, Math.min(popup.width - 22, trigger.left + trigger.width / 2 - left - 5))}px`);
+    }
+
+    function openCitation(trigger) {
+        closeCitation();
+        let items;
+        try { items = JSON.parse(trigger.dataset.citation || '[]'); }
+        catch (_) { return; }
+        if (!items.length) return;
+        citationTrigger = trigger;
+        trigger.setAttribute('aria-expanded', 'true');
+        citationPopup = document.createElement('div');
+        citationPopup.className = 'citation-popover';
+        citationPopup.setAttribute('role', 'dialog');
+        citationPopup.setAttribute('aria-label', 'Citation details');
+        const header = document.createElement('div');
+        header.className = 'citation-popover-header';
+        const heading = document.createElement('strong');
+        heading.textContent = items.length === 1 ? 'Reference' : `${items.length} references`;
+        const close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'citation-popover-close';
+        close.setAttribute('aria-label', 'Close citation details');
+        close.textContent = '×';
+        close.addEventListener('click', closeCitation);
+        header.append(heading, close);
+        citationPopup.append(header);
+        items.forEach(item => {
+            const entry = document.createElement('article');
+            entry.className = 'citation-popover-entry';
+            const title = document.createElement('strong');
+            title.className = 'citation-popover-title';
+            title.textContent = item.title || item.key;
+            entry.append(title);
+            const authors = document.createElement('p');
+            authors.textContent = item.author || 'Unknown author';
+            entry.append(authors);
+            const meta = document.createElement('p');
+            meta.className = 'citation-popover-meta';
+            meta.textContent = [item.year, item.venue].filter(Boolean).join(' · ');
+            if (meta.textContent) entry.append(meta);
+            if (item.doi || item.url) {
+                const external = document.createElement('a');
+                external.href = item.doi ? `https://doi.org/${item.doi}` : item.url;
+                external.target = '_blank';
+                external.rel = 'noopener noreferrer';
+                external.textContent = item.doi ? `doi:${item.doi}` : 'Open source';
+                entry.append(external);
+            }
+            const full = document.createElement('a');
+            full.href = `#ref-${encodeURIComponent(item.key)}`;
+            full.className = 'citation-full-reference';
+            full.textContent = 'View in references';
+            entry.append(full);
+            citationPopup.append(entry);
         });
+        document.body.append(citationPopup);
+        placeCitationPopup();
+        close.focus({ preventScroll: true });
+    }
+
+    document.addEventListener('click', event => {
+        const cite = event.target.closest('.citation-bubble');
+        if (cite) {
+            event.preventDefault();
+            if (citationTrigger === cite) closeCitation();
+            else openCitation(cite);
+            return;
+        }
+        if (citationPopup && !citationPopup.contains(event.target)) closeCitation();
+        const link = event.target.closest('a[href^="#"]');
+        if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        const id = decodeURIComponent(link.getAttribute('href').slice(1));
+        if (!anchorMap.has(id)) return;
+        event.preventDefault();
+        if (location.hash !== `#${encodeURI(id)}`) history.pushState(null, '', `#${encodeURI(id)}`);
+        showAnchor(id);
+        if (window.innerWidth <= 768) setSidebar(false);
     });
-}
-
-// ============================================
-// Sidebar Toggle for Mobile
-// ============================================
-
-function initSidebarToggle() {
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    const sidebar = document.getElementById('sidebar');
-
-    if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('open');
-        });
-    }
-}
-
-function closeSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
-        sidebar.classList.remove('open');
-    }
-}
-
-// ============================================
-// Scroll Spy (Optional)
-// ============================================
-
-function initScrollSpy() {
-    // This would track which section is visible in the content area
-    // and update the TOC accordingly
-    // Implementation depends on your specific needs
-}
-
-// ============================================
-// Load Section from URL Hash
-// ============================================
-
-function loadSectionFromHash() {
-    const hash = window.location.hash.substring(1);
-
-    if (hash) {
-        // Find and activate the section
-        const section = document.getElementById(hash);
-        if (section) {
-            navigateToSection(hash);
-
-            // Find and activate corresponding TOC link
-            const tocLink = document.querySelector(`.toc-link[data-section="${hash}"]`) ||
-                           document.querySelector(`.toc-link[href="#${hash}"]`);
-            if (tocLink) {
-                updateActiveTOCLink(tocLink);
-            }
+    window.addEventListener('popstate', () => showAnchor(currentAnchor()));
+    window.addEventListener('hashchange', () => showAnchor(currentAnchor()));
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && citationPopup) {
+            closeCitation();
+            return;
         }
-    } else {
-        // Show first section by default (preface)
-        navigateToSection('preface');
-        const firstLink = document.querySelector('.toc-link[data-section="preface"]');
-        if (firstLink) {
-            updateActiveTOCLink(firstLink);
-        }
-    }
-}
-
-// Listen for hash changes (back/forward navigation)
-window.addEventListener('hashchange', function() {
-    loadSectionFromHash();
+        if (event.key === 'Escape') setSidebar(false);
+        if (!event.altKey || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+        const active = content.querySelector('.content-section.active');
+        active?.querySelector(event.key === 'ArrowLeft' ? '.nav-prev' : '.nav-next')?.click();
+        event.preventDefault();
+    });
+    window.addEventListener('resize', placeCitationPopup);
+    document.getElementById('contentArea')?.addEventListener('scroll', placeCitationPopup, { passive: true });
+    showAnchor(currentAnchor());
+    document.getElementById('MathJax-script')?.addEventListener('load', () => showAnchor(currentAnchor()), { once: true });
 });
-
-// ============================================
-// Search Functionality (Optional Enhancement)
-// ============================================
-
-function initBookSearch() {
-    // This could implement a search feature for the book content
-    // You could use a library like Fuse.js for client-side search
-}
-
-// ============================================
-// Reading Progress Tracker (Optional)
-// ============================================
-
-function initReadingProgress() {
-    // Track how far the user has read in each section
-    // Could store in localStorage
-}
-
-// ============================================
-// Keyboard Navigation
-// ============================================
-
-document.addEventListener('keydown', function(e) {
-    // Arrow keys for navigation
-    if (e.altKey) {
-        if (e.key === 'ArrowLeft') {
-            // Previous section
-            const prevLink = document.querySelector('.content-section.active .nav-prev');
-            if (prevLink) prevLink.click();
-        } else if (e.key === 'ArrowRight') {
-            // Next section
-            const nextLink = document.querySelector('.content-section.active .nav-next');
-            if (nextLink) nextLink.click();
-        }
-    }
-});
-
-// ============================================
-// Print Support
-// ============================================
-
-function printCurrentSection() {
-    const activeSection = document.querySelector('.content-section.active');
-    if (activeSection) {
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Print Section</title>
-                <link rel="stylesheet" href="styles.css">
-                <link rel="stylesheet" href="contents-reader.css">
-            </head>
-            <body>
-                ${activeSection.innerHTML}
-            </body>
-            </html>
-        `);
-        printWindow.document.close();
-        printWindow.print();
-    }
-}
-
-// ============================================
-// Export Utilities
-// ============================================
-
-// Export functions for external use if needed
-window.bookReader = {
-    navigateToSection,
-    printCurrentSection
-};

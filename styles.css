@@ -4,17 +4,17 @@
 
 /* CSS Variables */
 :root {
-    --bg-primary: #FAF8F5;
-    --bg-secondary: #F5EFE6;
+    --bg-primary: #F5F9FC;
+    --bg-secondary: #EAF2F8;
     --bg-card: #FFFFFF;
-    --text-primary: #2B1D14;
-    --text-secondary: #5C3D2E;
-    --text-muted: #8B7355;
-    --accent: #B96420;
-    --accent-hover: #A05518;
-    --border: #E5DED3;
-    --shadow: rgba(43, 29, 20, 0.08);
-    --shadow-hover: rgba(43, 29, 20, 0.16);
+    --text-primary: #0B2340;
+    --text-secondary: #31506D;
+    --text-muted: #6F879D;
+    --accent: #1F6FAE;
+    --accent-hover: #165684;
+    --border: #D4E1EB;
+    --shadow: rgba(11, 35, 64, 0.08);
+    --shadow-hover: rgba(11, 35, 64, 0.16);
 }
 
 /* Reset & Base Styles */
@@ -228,13 +228,13 @@ a {
 .btn-primary {
     background: var(--accent);
     color: white;
-    box-shadow: 0 4px 12px rgba(185, 100, 32, 0.3);
+    box-shadow: 0 4px 12px rgba(31, 111, 174, 0.3);
 }
 
 .btn-primary:hover {
     background: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(185, 100, 32, 0.4);
+    box-shadow: 0 6px 20px rgba(31, 111, 174, 0.4);
 }
 
 .btn-secondary {
@@ -274,13 +274,13 @@ a {
     width: 240px;
     height: auto;
     flex-shrink: 0;
-    filter: drop-shadow(0 12px 32px rgba(43, 29, 20, 0.15));
+    filter: drop-shadow(0 12px 32px rgba(11, 35, 64, 0.15));
     transition: all 0.4s ease;
 }
 
 .book-cover-image:hover {
     transform: translateY(-8px) rotate(-2deg);
-    filter: drop-shadow(0 20px 48px rgba(43, 29, 20, 0.25));
+    filter: drop-shadow(0 20px 48px rgba(11, 35, 64, 0.25));
 }
 
 .book-photo-image {
@@ -288,13 +288,13 @@ a {
     max-width: 100%;
     height: auto;
     flex-shrink: 0;
-    filter: drop-shadow(0 14px 28px rgba(43, 29, 20, 0.18));
+    filter: drop-shadow(0 14px 28px rgba(11, 35, 64, 0.18));
     transition: all 0.4s ease;
 }
 
 .book-photo-image:hover {
     transform: translateY(-6px);
-    filter: drop-shadow(0 22px 44px rgba(43, 29, 20, 0.28));
+    filter: drop-shadow(0 22px 44px rgba(11, 35, 64, 0.28));
 }
 
 .meta-item {
@@ -1316,8 +1316,8 @@ code {
 }
 
 .typo-badge {
-    background: #FFF3E0;
-    color: #E65100;
+    background: #EAF2F8;
+    color: #31506D;
 }
 
 .citation-badge {
