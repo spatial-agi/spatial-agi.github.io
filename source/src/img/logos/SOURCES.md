@@ -20,6 +20,7 @@ All files have transparent backgrounds. None contain `<script>`, `on*` handlers,
 | harvard.svg | Harvard University | https://upload.wikimedia.org/wikipedia/commons/7/70/Harvard_University_logo.svg | Commons: Public domain (PD-100), trademarked | Shield + wordmark, horizontal | 3.636 | Near-black #1e1e1e text, crimson #a51c30 shield. Text is dark on transparent, so it needs inversion. A viewBox was added locally (`0 0 600 165`) so it scales with CSS |
 | msr.svg | Microsoft Research | https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg | Commons: Public domain (PD-textlogo), trademarked | Four-square logo + "Microsoft" wordmark. No MSR-specific logo is usable | 4.689 | Grey #737373 text plus four colours. Readable on light and dark |
 | columbia.svg | Columbia University | https://upload.wikimedia.org/wikipedia/commons/1/10/Columbia_University_1754.svg | Commons: Public domain (PD-textlogo), trademarked | Crown + wordmark "Columbia University in the City of New York" | 6.540 | Navy #000d74 only. Dark on transparent, so it needs inversion |
+| ucmerced.svg | University of California, Merced | https://upload.wikimedia.org/wikipedia/commons/b/bb/UC_Merced_2022_Logo.svg | Commons: Public domain (2022 wordmark) | Wordmark "UC MERCED" | 4.256 | Gold + navy on transparent; fine on light, needs the light chip in dark mode |
 
 ## Notes
 

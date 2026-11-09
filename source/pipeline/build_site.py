@@ -672,7 +672,8 @@ LOGO_OF = {"University of Oxford": "oxford", "National University of Singapore":
            "University of Rochester": "rochester", "The Chinese University of Hong Kong": "cuhk", "University of Macau": "macau",
            "Stanford University": "stanford", "Imperial College London": "imperial", "Monash University": "monash",
            "University of Cambridge": "cambridge", "University of California, Los Angeles": "ucla", "Harvard University": "harvard",
-           "Microsoft Research": "msr", "Columbia University": "columbia"}
+           "Microsoft Research": "msr", "Columbia University": "columbia",
+           "University of California, Merced": "ucmerced"}
 
 
 def logo(name):
@@ -693,10 +694,29 @@ def logo(name):
 
 
 SITE["inst_logos"] = [logo(i) for i in INSTITUTIONS]
-# two rows of similar width on wide screens: break where the longer row is shortest
+# as few rows as fit the band (~1100 px), split so the widest row is as narrow as possible (rows keep title-page order)
 _w = [l["w"] + 34 for l in SITE["inst_logos"]]
-_k = min(range(1, len(_w)), key=lambda k: max(sum(_w[:k]), sum(_w[k:])))
-SITE["inst_logos"][_k - 1]["br"] = True
+_rows = -(-sum(_w) // 1060)
+
+
+def _split(ws, r):
+    """Contiguous split of ws into r groups minimising the widest group; returns the end index of each group but the last."""
+    best = (float("inf"), [])
+    def go(start, left, cuts, worst):
+        nonlocal best
+        if worst >= best[0]:
+            return
+        if left == 1:
+            best = min(best, (max(worst, sum(ws[start:])), cuts))
+            return
+        for e in range(start + 1, len(ws) - left + 2):
+            go(e, left - 1, cuts + [e], max(worst, sum(ws[start:e])))
+    go(0, r, [], 0)
+    return best[1]
+
+
+for _e in _split(_w, _rows):
+    SITE["inst_logos"][_e - 1]["br"] = True
 MAP = dict(canal1=[0.49, 0.3465, 0.185, 0.1215], road=[0.49, 0.355, 0.2525, 0.165], canal2=[0.49, 0.36, 0.33, 0.218],
            sea=[0.5, 0.37, 0.515, 0.40])
 PIN_AT = {4: (0.385, 0.385), 5: (0.555, 0.285), 6: (0.5, 0.125), 7: (0.655, 0.47), 8: (0.275, 0.445), 9: (0.725, 0.125),
