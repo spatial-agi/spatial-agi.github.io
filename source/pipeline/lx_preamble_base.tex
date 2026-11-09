@@ -1,0 +1,34 @@
+% Preamble used only for the web conversion with LaTeXML (the print build uses main.tex).
+\documentclass{book}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{graphicx,xcolor,url,booktabs,multirow,array,longtable,makecell,colortbl,subcaption,wrapfig,enumitem}
+\usepackage{pifont,tabularx}
+\newcommand{\cf}{\textit{cf.} }
+\providecommand{\cmark}{\ding{51}}
+\providecommand{\xmark}{\ding{55}}
+\newcommand{\SI}[2]{#1\,#2}
+\newcommand{\si}[1]{#1}
+\newcommand{\degree}{\ensuremath{^\circ}}
+\usepackage[square,numbers]{natbib}
+\usepackage{hyperref,cleveref}
+\usepackage{latexml}
+\setcounter{secnumdepth}{3}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\vs}{\textit{vs.} }
+\newcommand{\ie}{\textit{i.e.,} }
+\newcommand{\eg}{\textit{e.g.,} }
+\newcommand{\etal}{\textit{et al.}}
+\newcommand{\ra}[1]{}
+\newcommand{\FramedInitial}[2]{#1#2}
+\newcommand{\RespondAuthor}[1]{}
+\newcommand{\red}[1]{#1}\newcommand{\blue}[1]{#1}\newcommand{\bang}[1]{#1}
+\newenvironment{quotebox}{\begin{quote}}{\end{quote}}
+\providecommand{\checkmark}{\ensuremath{\surd}}
+\providecommand{\crossmark}{\ensuremath{\times}}
+% tcolorbox family: plain blocks tagged with classes; the web CSS styles them
+\newenvironment{tcolorbox}[1][]{\begin{quote}\lxAddClass{web-box}}{\end{quote}}
+\newenvironment{tcbraster}[1][]{\begin{quote}\lxAddClass{web-raster}}{\end{quote}}
+\newcommand{\tcblower}{\par}
+\newcommand{\tcbset}[1]{}
+\newcommand{\newtcolorbox}[3][]{}

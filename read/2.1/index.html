@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.1 The Landscape of Spatial Intelligence · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="2.1 The Landscape of Spatial Intelligence · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #A8722A" data-page="2.1">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link is-current" href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-i/">Part I</a><span class="sep">/</span><a href="/read/chapter-2/">Chapter 2</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-2/">Chapter 2 · A Definition in Motion: Revisiting Spatial Intelligence</a></div>
+        <h1><span class="secnum">2.1</span>The Landscape of Spatial Intelligence</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=40" title="Open this page in the PDF">PDF p. 40</a><span class="dot">·</span>        <span>13 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:2.1 The Landscape of Spatial Intelligence">
+<div id="Ch2.S1.p1" class="ltx_para">
+<p class="ltx_p">At
+its core, spatial intelligence is not a single technique, model, or task category.
+Rather, it constitutes a complex interdisciplinary ecosystem, spanning multiple technical paradigms, sensory modalities, scientific disciplines, and application domains.
+Different communities approach spatial intelligence with distinct motivations and meanings: for some, it concerns geometric consistency and localization; for others, it is about perception–action coupling, embodied reasoning, or spatial grounding of language.
+As a result, any attempt to define spatial intelligence in isolation risks oversimplification.
+Understanding spatial intelligence therefore requires acknowledging its breadth, heterogeneity, and layered structure as an evolving research ecosystem rather than a narrowly scoped subfield.</p>
+</div>
+<section>
+<h2 class="h-subsection" id="Ch2.S1.SS1"><span class="secnum">2.1.1</span>Beyond A Single Dimension<a class="anchor" href="#Ch2.S1.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch2.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">Spatial intelligence is fundamentally <em class="ltx_font_italic">not simple</em>.
+Unlike many AI topics that can be reasonably framed around a dominant abstraction or learning paradigm, spatial intelligence spans a wide spectrum of representational, computational, and conceptual elements.
+It touches almost every stage of the perception–cognition–action loop and manifests differently depending on the task, environment, and embodiment of the agent.
+This intrinsic complexity is not accidental; it reflects the fact that space itself is a unifying substrate of the physical world, cutting across sensory input, internal representation, and external interaction.</p>
+</div>
+<div id="Ch2.S1.SS1.p2" class="ltx_para">
+<p class="ltx_p">Historically, research on spatial problems in AI has progressed along parallel and often disconnected trajectories.
+Simultaneous localization and mapping (SLAM), 3D reconstruction, robotic manipulation, geographic information systems, spatial language understanding, and neural rendering all evolved largely within their own communities, with specialized benchmarks, metrics, and assumptions.
+While each of these areas addressed a slice of spatial reasoning, they rarely converged on a shared conceptual framework <cite class="cites">[<a class="cite" href="/read/references/#ref-207" data-k="feng2025survey">207</a>]</cite>.
+As intelligent agents are increasingly expected to operate in open, dynamic, and embodied environments, the limitations of this fragmentation have become increasingly evident.</p>
+</div>
+<div id="Ch2.S1.SS1.p3" class="ltx_para">
+<p class="ltx_p">One major source of complexity arises from the fact that spatial intelligence cuts across <em class="ltx_font_italic">multiple technical paradigms</em>.
+It cannot be reduced to either symbolic rules or neural representations alone.
+Instead, it involves the coexistence and interaction of diverse computational approaches:</p>
+</div>
+<section id="Ch2.S1.SS1.SSS0.Px1">
+<div id="Ch2.S1.SS1.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Cross-Technical Paradigms.</strong> Spatial intelligence spans heterogeneous technical formalisms, including:</p>
+<ul id="Ch2.S1.I1" class="ltx_itemize">
+<li id="Ch2.S1.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Rule-based and symbolic systems</span>, such as topological maps, qualitative spatial calculi (<span class="ltx_font_italic">e.g.,</span> , RCC-8 region connection, interval algebra), and logical planners, which offer interpretability and structured priors <cite class="cites">[<a class="cite" href="/read/references/#ref-57" data-k="kuipers2000spatial">57</a>, <a class="cite" href="/read/references/#ref-209" data-k="egenhofer1991reasoning">209</a>, <a class="cite" href="/read/references/#ref-76" data-k="Randell1992RCC">76</a>, <a class="cite" href="/read/references/#ref-210" data-k="allen1983maintaining">210</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Probabilistic and geometric methods</span>, including SLAM, state estimation, and pose graph optimization, which emphasize metric consistency and uncertainty modeling <cite class="cites">[<a class="cite" href="/read/references/#ref-54" data-k="Thrun2005Probabilistic">54</a>, <a class="cite" href="/read/references/#ref-211" data-k="dellaert2017factor">211</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Neural representations</span>, such as implicit fields, neural radiance fields (NeRF), and learned spatial embeddings, which enable continuous and data-driven modeling of complex environments <cite class="cites">[<a class="cite" href="/read/references/#ref-119" data-k="mildenhall2021nerf">119</a>, <a class="cite" href="/read/references/#ref-121" data-k="kerbl20233d">121</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Large language/foundation models</span>, which introduce spatial reasoning through language, symbolic abstraction, and multimodal alignment, but often lack direct physical grounding <cite class="cites">[<a class="cite" href="/read/references/#ref-56" data-k="driess2023palm">56</a>, <a class="cite" href="/read/references/#ref-212" data-k="wu2024gpt4vt23dgen">212</a>]</cite>.</p>
+</div>
+</li>
+</ul>
+<p class="ltx_p">Equally important is the fact that spatial intelligence is inherently <em class="ltx_font_italic">cross-modal</em>.
+Space is not perceived through a single sensory channel, but emerges from the integration of multiple modalities, each offering partial and complementary information:</p>
+</div>
+</section>
+<section id="Ch2.S1.SS1.SSS0.Px2">
+<div id="Ch2.S1.SS1.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Cross-Modal Integration.</strong> Spatial intelligence operates across a diverse set of sensory and representational modalities:</p>
+<ul id="Ch2.S1.I2" class="ltx_itemize">
+<li id="Ch2.S1.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Language</span>, which encodes spatial relations, instructions, and abstract descriptions (<span class="ltx_font_italic">e.g.,</span> , “behind”, “inside”, “near”) <cite class="cites">[<a class="cite" href="/read/references/#ref-213" data-k="landau1993whence">213</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">2D visual perception</span>, including images and video, which provide appearance-level cues and spatial layout hints.</p>
+</div>
+</li>
+<li id="Ch2.S1.I2.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I2.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">3D representations</span>, such as point clouds, meshes, and volumetric fields, which capture geometric structure and physical extent.</p>
+</div>
+</li>
+<li id="Ch2.S1.I2.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I2.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">4D spatiotemporal signals</span>, incorporating motion, dynamics, and temporal evolution of scenes.</p>
+</div>
+</li>
+<li id="Ch2.S1.I2.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I2.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Specialized sensing modalities</span>, including remote sensing, thermal imagery, radar, and spectral signals, which extend spatial perception beyond human-visible cues <cite class="cites">[<a class="cite" href="/read/references/#ref-193" data-k="cong2022satmae">193</a>, <a class="cite" href="/read/references/#ref-194" data-k="sun2022ringmo">194</a>]</cite>.</p>
+</div>
+</li>
+</ul>
+<p class="ltx_p">A further, frequently overlooked axis is <em class="ltx_font_italic">spatial scale</em>.
+Cognitive research has long established that space at different scales engages different psychological processes: Montello’s classic analysis distinguishes figural (table-top), vista (single view), environmental (learned through locomotion), and geographical (map-mediated) spaces <cite class="cites">[<a class="cite" href="/read/references/#ref-214" data-k="montello1993scale">214</a>]</cite>.
+The same stratification recurs in AI systems, where an agent manipulating objects on a desk, a robot navigating a building, and a model reasoning over a city or the Earth’s surface demand different representations, memory structures, and update mechanisms <cite class="cites">[<a class="cite" href="/read/references/#ref-207" data-k="feng2025survey">207</a>]</cite>.
+Competence at one scale does not transfer automatically to another, which is one reason benchmark results on room-scale tasks say little about urban-scale spatial reasoning.</p>
+</div>
+</section>
+<section id="Ch2.S1.SS1.SSS0.Px3">
+<div id="Ch2.S1.SS1.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Cross-Scale Operation.</strong> Spatial intelligence must therefore operate across nested spatial scales:</p>
+<ul id="Ch2.S1.I3" class="ltx_itemize">
+<li id="Ch2.S1.I3.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I3.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Object and figural scale</span>, covering manipulation workspaces, shape understanding, and mental transformation of objects.</p>
+</div>
+</li>
+<li id="Ch2.S1.I3.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I3.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Scene and vista scale</span>, covering room-level layout, occlusion, and viewpoint reasoning.</p>
+</div>
+</li>
+<li id="Ch2.S1.I3.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I3.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Environmental scale</span>, covering buildings, streets, and spaces learned through movement and exploration.</p>
+</div>
+</li>
+<li id="Ch2.S1.I3.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I3.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Geographic and planetary scale</span>, covering cities, terrain, and Earth systems mediated by maps and remote sensing <cite class="cites">[<a class="cite" href="/read/references/#ref-108" data-k="goodchild1992geographical">108</a>, <a class="cite" href="/read/references/#ref-207" data-k="feng2025survey">207</a>]</cite>.</p>
+</div>
+</li>
+</ul>
+<p class="ltx_p">Beyond modality, technique, and scale, spatial intelligence is deeply <em class="ltx_font_italic">cross-disciplinary</em>.
+Its theoretical foundations and practical realizations draw simultaneously from several scientific traditions:</p>
+</div>
+</section>
+<section id="Ch2.S1.SS1.SSS0.Px4">
+<div id="Ch2.S1.SS1.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Cross-Disciplinary Foundations.</strong> Spatial intelligence intersects with:</p>
+<ul id="Ch2.S1.I4" class="ltx_itemize">
+<li id="Ch2.S1.I4.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I4.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Computer Vision</span>, through scene understanding, reconstruction, and spatial perception.</p>
+</div>
+</li>
+<li id="Ch2.S1.I4.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I4.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Robotics and Embodied AI</span>, where spatial reasoning underlies navigation, manipulation, and interaction.</p>
+</div>
+</li>
+<li id="Ch2.S1.I4.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I4.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Geographic Information Science (GIS)</span>, which studies large-scale spatial representation, mapping, and spatial analytics <cite class="cites">[<a class="cite" href="/read/references/#ref-108" data-k="goodchild1992geographical">108</a>, <a class="cite" href="/read/references/#ref-171" data-k="li2025giscience">171</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I4.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I4.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Natural Language Processing and Linguistics</span>, particularly in grounding linguistic expressions in physical space and in the cross-linguistic study of spatial reference <cite class="cites">[<a class="cite" href="/read/references/#ref-213" data-k="landau1993whence">213</a>, <a class="cite" href="/read/references/#ref-215" data-k="levinson2003space">215</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I4.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I4.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Psychology and Psychometrics</span>, which pioneered the measurement of human spatial abilities such as mental rotation and spatial visualization <cite class="cites">[<a class="cite" href="/read/references/#ref-71" data-k="shepard1971mental">71</a>, <a class="cite" href="/read/references/#ref-216" data-k="uttal2013malleability">216</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I4.i6" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I4.i6.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Cognitive Science and Neuroscience</span>, which investigates human spatial cognition, cognitive maps, and embodied perception <cite class="cites">[<a class="cite" href="/read/references/#ref-63" data-k="tolman1948cognitive">63</a>, <a class="cite" href="/read/references/#ref-217" data-k="stachenfeld2017hippocampus">217</a>]</cite>.</p>
+</div>
+</li>
+</ul>
+<p class="ltx_p">Finally, spatial intelligence manifests across a wide spectrum of <em class="ltx_font_italic">application domains</em>, further complicating any attempt at a narrow definition:</p>
+</div>
+</section>
+<section id="Ch2.S1.SS1.SSS0.Px5">
+<div id="Ch2.S1.SS1.SSS0.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Cross-Application Presence.</strong> Spatial intelligence is central to applications such as:</p>
+<ul id="Ch2.S1.I5" class="ltx_itemize">
+<li id="Ch2.S1.I5.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I5.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Embodied agents and robotics</span>, including navigation, manipulation, and human–robot interaction <cite class="cites">[<a class="cite" href="/read/references/#ref-93" data-k="Xia2018Gibson">93</a>, <a class="cite" href="/read/references/#ref-207" data-k="feng2025survey">207</a>, <a class="cite" href="/read/references/#ref-97" data-k="zitkovich2023rt2">97</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I5.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I5.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Autonomous driving and aerial systems</span>, where spatial prediction and planning are safety-critical <cite class="cites">[<a class="cite" href="/read/references/#ref-218" data-k="ettinger2021womd">218</a>, <a class="cite" href="/read/references/#ref-219" data-k="muhammad2022vision">219</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I5.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I5.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">AR/VR and virtual humans</span>, which demand consistent spatial grounding across perception and interaction <cite class="cites">[<a class="cite" href="/read/references/#ref-220" data-k="chen2021hightracking">220</a>, <a class="cite" href="/read/references/#ref-221" data-k="orts2016holoportation">221</a>, <a class="cite" href="/read/references/#ref-222" data-k="HuLYHCYLY23">222</a>]</cite>.</p>
+</div>
+</li>
+<li id="Ch2.S1.I5.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S1.I5.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Urban computing, digital twins, and Earth systems</span>, operating at city and planetary scales <cite class="cites">[<a class="cite" href="/read/references/#ref-223" data-k="LuvizonNM17">223</a>, <a class="cite" href="/read/references/#ref-224" data-k="mu2024robotwin">224</a>, <a class="cite" href="/read/references/#ref-225" data-k="picard2021autonomousAgents">225</a>]</cite>.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="Ch2.S1.SS1.SSS0.Px5.p2" class="ltx_para">
+<p class="ltx_p">Together, these dimensions highlight that spatial intelligence is not a standalone capability but a unifying layer across perception, reasoning, and action.
+This complexity precludes a minimal definition and instead calls for viewing spatial intelligence as a structured, evolving system that emerges across methods, modalities, and domains.</p>
+</div>
+<figure id="Ch2.T1" class="ltx_table">
+<figcaption class="ltx_centering"><span class="cap-tag">Table 2.1</span><span>How different disciplines characterize spatial intelligence: primary focus, representations, canonical tasks, and evaluation emphasis.</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span class="ltx_font_bold" style="font-size:90%;">Discipline</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span class="ltx_font_bold" style="font-size:90%;">Primary focus</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span class="ltx_font_bold" style="font-size:90%;">Representations</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span class="ltx_font_bold" style="font-size:90%;">Canonical tasks</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span class="ltx_font_bold" style="font-size:90%;">Evaluation emphasis</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Computer Vision &amp; Graphics</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Geometry recovery and view-consistent scene appearance</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Depth maps, multi-view geometry, meshes, neural fields (NeRF), 3D Gaussian representations</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Depth/pose estimation, 3D reconstruction, neural rendering, scene synthesis</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Geometric consistency, rendering fidelity, view synthesis quality</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Robotics &amp; Embodied AI</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Perception–action coupling under physical constraints</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Occupancy grids, semantic maps, pose graphs, affordance maps, world models for planning</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">SLAM, navigation, manipulation, motion planning, closed-loop control</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Task success, robustness, real-time performance, generalization in dynamic environments</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">GIS &amp; Large-scale Spatial Modeling</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Global-scale spatial abstraction, querying, and planning</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Geodetic coordinate systems, map layers, spatial graphs, spatial databases</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Route optimization, spatial analytics, trajectory analysis, urban-scale simulation</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Global consistency, query accuracy, scalability, long-horizon planning utility</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Psychology &amp; Psychometrics</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Measurement of individual spatial abilities and their training</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Factor models of spatial ability (rotation, visualization, orientation), standardized test batteries</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Mental rotation tests, paper folding, perspective taking, spatial visualization assessment</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Test reliability and validity, individual differences, malleability and transfer</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Cognitive Science &amp; Neuroscience</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Mechanisms of human spatial cognition and internal representations</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Cognitive maps, mental imagery, spatial memory representations, neural coding hypotheses</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Mental rotation, navigation studies, spatial memory and attention experiments</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Behavioral validity, explanatory power, neural plausibility</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Linguistics &amp; Spatial Language</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">How language encodes, schematizes, and constrains spatial relations</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Spatial prepositions and closed-class relations, frames of reference (intrinsic, relative, absolute)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Spatial reference resolution, cross-linguistic comparison, grounded instruction understanding</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Descriptive adequacy, cross-linguistic coverage, grounding fidelity</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Social &amp; Human-centered Perspectives</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Spatial behavior in social contexts and shared environments</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Proxemics, social space schemas, spatial cues for interaction, situational context models</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Human–robot interaction, social navigation, spatial language pragmatics, collaborative tasks</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb ltx_border_t" style="padding-top:0.65pt;padding-bottom:0.65pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">Interaction naturalness, safety, alignment with human norms and intentions</span></span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch2.S1.SS2"><span class="secnum">2.1.2</span>Disciplinary Perspectives<a class="anchor" href="#Ch2.S1.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch2.S1.SS2.p1" class="ltx_para">
+<p class="ltx_p">Although spatial intelligence is increasingly discussed as one concept, its meaning varies substantially across academic disciplines.
+Each field approaches spatial intelligence through its own problem formulations, representational assumptions, and evaluation criteria.
+As a result, what counts as spatial intelligence in one domain may only capture a partial aspect of what another domain considers essential.
+This part reviews how spatial intelligence is understood from several major disciplinary perspectives, highlighting both their unique emphases and their limitations.</p>
+</div>
+<section id="Ch2.S1.SS2.SSS0.Px1">
+<div id="Ch2.S1.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Computer Vision and Graphics.</strong> From the perspective of computer vision, spatial intelligence is primarily associated with the ability to infer geometric structure from visual input.
+Research in this area focuses on problems such as depth estimation, multi-view geometry, camera pose estimation, and 3D scene reconstruction.
+The core objective is to recover spatially consistent representations from 2D images or videos, often under strong geometric constraints.
+These representations provide powerful spatial priors, enabling reasoning about layout, scale, and relative positioning of objects.</p>
+</div>
+<div id="Ch2.S1.SS2.SSS0.Px1.p2" class="ltx_para">
+<p class="ltx_p">Closely related, computer graphics emphasizes the synthesis and rendering of spatial scenes.
+Modern neural rendering approaches, including NeRF and 3D Gaussian Splatting, prioritize appearance fidelity, view consistency, and continuous scene representation.
+While these methods excel at producing visually coherent 3D environments, they typically do not model agent-centric interaction, decision-making, or task-driven behavior.
+As a result, spatial intelligence in vision and graphics is often appearance-centered and offline, rather than action-oriented.</p>
+</div>
+</section>
+<section id="Ch2.S1.SS2.SSS0.Px2">
+<div id="Ch2.S1.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Robotics and Embodied AI.</strong> In robotics and embodied AI, spatial intelligence is traditionally defined in terms of an agent’s ability to localize itself, navigate environments, and manipulate objects.
+This includes spatial perception, motion planning in three-dimensional space, and interaction with representations such as occupancy grids, semantic maps, and volumetric models.
+Here, spatial intelligence is inseparable from embodiment and control, as spatial reasoning directly informs action execution.
+The central concern in this discipline is not only representing space, but using spatial representations to support real-time decision-making under physical constraints.
+Consequently, spatial intelligence is evaluated through task success, robustness, and adaptability in dynamic environments.
+This action-centric perspective highlights aspects of spatial intelligence that are often absent in purely perceptual or representational frameworks.</p>
+</div>
+</section>
+<section id="Ch2.S1.SS2.SSS0.Px3">
+<div id="Ch2.S1.SS2.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Geographic Information Systems and Large-Scale Spatial Modeling.</strong> At a larger spatial scale, geographic information systems view spatial intelligence through the lens of structured spatial data, coordinate systems, and topological relations.
+GIS focuses on modeling, querying, and reasoning over large-scale geographic environments using maps, graphs, and spatial databases.
+These systems excel at spatial querying, route optimization, and long-term planning across city or regional scales.
+However, traditional GIS frameworks are rarely coupled with embodied agents or interactive learning.
+Spatial intelligence in this context is largely static, symbolic, and detached from perception or action.
+This contrast highlights a scale-dependent interpretation of spatial intelligence, where global consistency and abstraction take precedence over local interaction.</p>
+</div>
+</section>
+<section id="Ch2.S1.SS2.SSS0.Px4">
+<div id="Ch2.S1.SS2.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Psychology and Psychometrics.</strong> Long before AI adopted the term, differential psychology treated spatial ability as a measurable dimension of human intelligence.
+Shepard and Metzler’s mental rotation experiments showed that the time needed to compare rotated 3D shapes grows linearly with their angular disparity, providing the first chronometric evidence of analog spatial representation <cite class="cites">[<a class="cite" href="/read/references/#ref-71" data-k="shepard1971mental">71</a>]</cite>, and the factor-analytic tradition from Thurstone’s space factor to Carroll’s broad visuospatial factor established spatial ability as a distinct, testable construct <cite class="cites">[<a class="cite" href="/read/references/#ref-226" data-k="carroll1993human">226</a>]</cite>.
+The term <em class="ltx_font_italic">spatial intelligence</em> itself was popularized by Gardner’s <em class="ltx_font_italic">Frames of Mind</em> (1983), which listed it among seven human intelligences and defined it as the capacity to perceive the visual world accurately, to perform transformations upon one’s initial perceptions, and to re-create aspects of visual experience even in the absence of the relevant stimuli; the construct, however, predates that label by half a century.
+Two findings from this literature matter directly for AI.
+First, spatial skills are malleable: a meta-analysis across hundreds of training studies shows they improve with practice and transfer across tasks <cite class="cites">[<a class="cite" href="/read/references/#ref-216" data-k="uttal2013malleability">216</a>]</cite>, suggesting spatial competence is acquired rather than fixed.
+Second, the psychometric task inventory, covering mental rotation, perspective taking, and spatial visualization, has become a direct template for probing spatial understanding in multimodal foundation models, so this measurement tradition now feeds AI benchmarking rather than sitting apart from it <cite class="cites">[<a class="cite" href="/read/references/#ref-227" data-k="yang2025vsibench">227</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch2.S1.SS2.SSS0.Px5">
+<div id="Ch2.S1.SS2.SSS0.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Cognitive Science and Neuroscience.</strong> In cognitive science and neuroscience, spatial intelligence is studied as an emergent property of interacting neural systems rather than as an engineered representation.
+Research has identified key brain regions associated with spatial cognition, including the hippocampus for spatial memory and navigation (place cells, and grid cells in entorhinal cortex), the parietal cortex for spatial attention and transformation, and occipito-parietal networks for visuospatial processing <cite class="cites">[<a class="cite" href="/read/references/#ref-51" data-k="o1978hippocampus">51</a>, <a class="cite" href="/read/references/#ref-217" data-k="stachenfeld2017hippocampus">217</a>]</cite>.
+From this perspective, spatial intelligence arises from neural mechanisms supporting cognitive maps, mental imagery, and spatial reasoning; it is primarily internal and cognitive, centered on perception and imagination rather than external interaction.</p>
+</div>
+</section>
+<section id="Ch2.S1.SS2.SSS0.Px6">
+<div id="Ch2.S1.SS2.SSS0.Px6.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Linguistics and Spatial Language.</strong> A further disciplinary lens comes from linguistics, which asks how language encodes and constrains spatial thought.
+Talmy’s analysis of how language schematizes space <cite class="cites">[<a class="cite" href="/read/references/#ref-228" data-k="talmy1983how">228</a>]</cite> and Landau and Jackendoff’s account of the asymmetry between rich object naming and the small closed class of spatial prepositions <cite class="cites">[<a class="cite" href="/read/references/#ref-213" data-k="landau1993whence">213</a>]</cite> established that linguistic descriptions compress spatial structure into coarse, topology-like relations.
+Levinson’s cross-linguistic work further showed that languages differ systematically in their spatial frames of reference, distinguishing intrinsic, relative, and absolute systems <cite class="cites">[<a class="cite" href="/read/references/#ref-215" data-k="levinson2003space">215</a>]</cite>.
+This vocabulary has migrated directly into AI evaluation, where egocentric versus allocentric reference handling is now a standard axis of spatial benchmarks for multimodal models, making the linguistics of space an operative rather than merely historical influence.</p>
+</div>
+</section>
+<section id="Ch2.S1.SS2.SSS0.Px7">
+<div id="Ch2.S1.SS2.SSS0.Px7.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Social and Human-Centered Perspectives.</strong> Beyond physical geometry, spatial intelligence also carries meaning at the social and mental levels.
+Human beliefs, emotions, and behaviors are situated within social environments that are themselves spatially structured.
+From this viewpoint, spatial intelligence encompasses the ability to reason about others in shared spaces, interpret spatial cues in social contexts, and align internal mental states with external environments.
+This perspective extends spatial intelligence beyond physical navigation toward a unified model of the physical and mental world.
+It points to broader scientific and societal opportunities, including AI systems that operate in unstructured real-world settings and interact naturally with humans.
+In this sense, spatial intelligence supports a joint modeling of physical space and human cognition, serving as a bridge between external environments and internal mental states.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch2.S1.SS3"><span class="secnum">2.1.3</span>Toward A Unified View<a class="anchor" href="#Ch2.S1.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch2.S1.SS3.p1" class="ltx_para">
+<p class="ltx_p">For decades, research on spatial reasoning and spatial representation has progressed from markedly different perspectives across multiple subfields.
+These efforts often evolved in isolation, lacking a shared vocabulary, common research objectives, or directly comparable evaluation benchmarks.
+As a result, techniques developed in areas such as SLAM, 3D vision, scene modeling, world modeling, and embodied planning frequently addressed overlapping problems without converging toward a unified conceptual framework.
+Spatial intelligence emerges against this backdrop as a response to fragmentation, offering a higher-level abstraction that can organize and align these historically disjoint research trajectories.</p>
+</div>
+<div id="Ch2.S1.SS3.p2" class="ltx_para">
+<p class="ltx_p">Under the emerging spatial intelligence paradigm, a set of shared demands and core concepts has begun to surface.
+A central driving force behind this convergence is the growing need for agents that exhibit spatial consistency and physical groundedness, and that can operate continuously within dynamic environments.
+Such agents must integrate perception, representation, and action in a coherent manner.
+This requirement has catalyzed the fusion of visual perception with geometry-aware modeling, as seen in navigation-oriented neural rendering approaches and interactive NeRF-based systems.
+Research at the intersection of neural scene representation and active planning has given rise to a new generation of 3D world models that are not only reconstructive, but also executable and actionable.
+Similarly, vision-language models are increasingly extended to operate in three-dimensional environments, enabling multimodal agents to localize, describe, and interact with objects within voxelized or volumetric scenes.</p>
+</div>
+<div id="Ch2.S1.SS3.p3" class="ltx_para">
+<p class="ltx_p">At the conceptual level, a set of shared primitives is gradually taking shape.
+Spatial representations, whether instantiated as voxel grids, signed distance fields, neural feature volumes, or topological graph structures, are becoming central components across domains ranging from autonomous driving and AR/VR to assistive robotics.
+Fundamental spatial relations, such as containment, adjacency, support, and traversability, are being formalized and embedded into reasoning modules, scene graph systems, and relational neural networks.
+These abstractions provide a common representational substrate that enables knowledge transfer and system interoperability across tasks and modalities.</p>
+</div>
+<div id="Ch2.S1.SS3.p4" class="ltx_para">
+<p class="ltx_p">We note that the research community has yet to settle on a single taxonomy for this emerging field.
+Recent surveys and position papers organize spatial intelligence along markedly different axes: by task family and benchmark <cite class="cites">[<a class="cite" href="/read/references/#ref-229" data-k="chen2024spatialvlm">229</a>]</cite>, by the cognitive functions that video-based spatial tasks exercise <cite class="cites">[<a class="cite" href="/read/references/#ref-227" data-k="yang2025vsibench">227</a>]</cite>, by spatial scale from embodied agents through cities to Earth systems <cite class="cites">[<a class="cite" href="/read/references/#ref-207" data-k="feng2025survey">207</a>]</cite>, or, in Li’s position essay, by the capabilities a world model must possess, namely being generative, multimodal, and interactive <cite class="cites">[<a class="cite" href="/read/references/#ref-5" data-k="Feifei2025spatial">5</a>]</cite>.
+These framings overlap without coinciding, and none has achieved consensus status.
+This handbook’s representation-centric organization, which follows how spatial representations are built, used, and acted upon, is our deliberate choice among these alternatives: it is the axis along which the historical evolution of Section <a href="/read/1.2/" class="xref" data-x="Ch1.S2"><span>1.2</span></a> unfolds most naturally, and the one that lets fragmented communities be compared on common ground.</p>
+</div>
+<div id="Ch2.S1.SS3.p5" class="ltx_para">
+<p class="ltx_p">Taken together, these developments indicate that spatial intelligence is no longer confined to any single domain.
+It is evolving into a unifying functional substrate that spans perception, reasoning, and interaction; bridges vision, language, and action; and connects symbolic representations with neural models.
+The unification runs deeper than shared technique.
+Spatial intelligence aligns and integrates multiple disciplines, including computer vision, robotics, psychology, cognitive science, linguistics, geospatial systems, human-computer interaction, and neuro-inspired AI, and through this alignment it functions as the connective tissue that enables the next generation of generalist AI systems to perceive the world, reason about it, and act within it.</p>
+</div>
+<figure id="Ch2.F1" class="ltx_figure native"><div class="nf nf-21" data-nf="21" data-pagefind-ignore="all"><svg class="nf-svg" viewBox="0 0 468 232" role="img" aria-label="Figure 2.1: spatial intelligence as a closed loop between an AI system and its environment"><g data-k="env"><rect class="frame" x="2" y="2" width="92" height="228" rx="4" fill="white" stroke="#A8B0B8" stroke-width="0.7"/><text class="t " x="8" y="16.06" font-size="8.1" fill="#2A3242" text-anchor="start" font-weight="700">Environment</text><text class="m" x="66" y="16.35" fill="#3646F0" text-anchor="start"><tspan font-size="9.5">ℰ</tspan></text><text class="t " font-size="6.3" fill="#6B7480" text-anchor="start"><tspan x="8" y="27.76">geometric · physical ·</tspan><tspan x="8" y="37">causal constraints</tspan></text><image class="tier" href="/assets/img/figs/f21-tablecup.webp" x="29.07" y="40" width="37.86" height="38" preserveAspectRatio="none"/><text class="t " x="48" y="86.88" font-size="6.3" fill="#2A3242" text-anchor="middle">objects &amp; scenes</text><image class="tier" href="/assets/img/figs/f21-cutaway.webp" x="13.21" y="98" width="69.57" height="50" preserveAspectRatio="none"/><text class="t " x="48" y="156.88" font-size="6.3" fill="#2A3242" text-anchor="middle">rooms &amp; buildings</text><image class="tier" href="/assets/img/figs/f21-city.webp" x="14.79" y="166" width="66.43" height="46" preserveAspectRatio="none"/><text class="t " x="48" y="220.88" font-size="6.3" fill="#2A3242" text-anchor="middle">cities &amp; terrain</text><g class="arr arr-s"><path class="shaft" d="M48,87 L48,94.16" fill="none" stroke="#A8B0B8" stroke-width="0.6"/><polygon points="48,96 49.41,93.7 46.59,93.7" fill="#A8B0B8" stroke="#A8B0B8" stroke-width="0.3" stroke-linejoin="round"/></g><g class="arr arr-s"><path class="shaft" d="M48,156 L48,163.16" fill="none" stroke="#A8B0B8" stroke-width="0.6"/><polygon points="48,165 49.41,162.7 46.59,162.7" fill="#A8B0B8" stroke="#A8B0B8" stroke-width="0.3" stroke-linejoin="round"/></g></g><g data-k="sys"><rect class="frame" x="152" y="2" width="314" height="228" rx="4" fill="white" stroke="#3646F0" stroke-width="0.8"/><text class="t " x="158" y="16.06" font-size="8.1" fill="#2A3242" text-anchor="start" font-weight="700">AI system</text><text class="m" x="204" y="16.35" fill="#3646F0" text-anchor="start"><tspan font-size="9.5">𝒮</tspan></text></g><g data-k="perc"><rect class="frame" x="157" y="24" width="76" height="94" rx="3" fill="white" stroke="#A8B0B8" stroke-width="0.6"/><text class="t " x="162" y="34.72" font-size="7.2" fill="#2A3242" text-anchor="start" font-weight="700">Perception</text><text class="m" x="195" y="45.66" fill="#3646F0" text-anchor="middle"><tspan font-size="7.2">𝑓</tspan><tspan font-size="5.04" dy="2.16">perc</tspan><tspan font-size="7.2" dy="-2.16">: 𝒪 → ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan></text><text class="t " x="195" y="113.38" font-size="6.3" fill="#6B7480" text-anchor="middle">extracts structure</text><image href="/assets/img/figs/f21-perception.webp" x="161" y="51" width="68" height="45.29" preserveAspectRatio="none"/><rect x="161" y="51" width="68" height="45.29" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><g class="bb" style="--i:0"><rect x="163.3" y="60.2" width="21.65" height="26.46" fill="none" stroke="#3646F0" stroke-width="0.55"/><rect x="163.3" y="60.2" width="22.5" height="7.6" fill="#3646F0" stroke="none"/><text class="t " x="164.8" y="66.31" font-size="5.85" fill="white" text-anchor="start">person</text></g><g class="bb" style="--i:1"><rect x="188.64" y="51.6" width="13.22" height="25.17" fill="none" stroke="#3646F0" stroke-width="0.55"/><rect x="188.64" y="51.6" width="19.25" height="7.6" fill="#3646F0" stroke="none"/><text class="t " x="190.14" y="57.71" font-size="5.85" fill="white" text-anchor="start">shelf</text></g><g class="bb" style="--i:2"><rect x="185.37" y="76.45" width="23.73" height="13.53" fill="none" stroke="#3646F0" stroke-width="0.55"/><rect x="185.37" y="76.45" width="19.25" height="7.6" fill="#3646F0" stroke="none"/><text class="t " x="186.87" y="82.56" font-size="5.85" fill="white" text-anchor="start">table</text></g><g class="bb" style="--i:3"><rect x="200.25" y="75.3" width="3.22" height="2.95" fill="none" stroke="#3646F0" stroke-width="0.55"/></g><g class="bb" style="--i:4"><rect x="205.23" y="78.61" width="17.51" height="6.95" fill="none" stroke="#3646F0" stroke-width="0.55"/><rect x="205.23" y="78.61" width="19.25" height="7.6" fill="#3646F0" stroke="none"/><text class="t " x="206.73" y="84.72" font-size="5.85" fill="white" text-anchor="start">robot</text></g></g><g data-k="act"><rect class="frame" x="157" y="126" width="76" height="96" rx="3" fill="white" stroke="#A8B0B8" stroke-width="0.6"/><text class="t " x="162" y="136.72" font-size="7.2" fill="#2A3242" text-anchor="start" font-weight="700">Action</text><text class="m" x="195" y="147.66" fill="#3646F0" text-anchor="middle"><tspan font-size="7.2">𝑓</tspan><tspan font-size="5.04" dy="2.16">act</tspan><tspan font-size="7.2" dy="-2.16">: ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan><tspan font-size="7.2" dy="-2.16"> → 𝒜</tspan></text><text class="t " x="195" y="217.38" font-size="6.3" fill="#6B7480" text-anchor="middle">acts on the world</text><image class="grip" href="/assets/img/figs/f21-gripper.webp" x="168.07" y="153" width="53.86" height="50" preserveAspectRatio="none"/></g><g data-k="rep"><rect class="frame" x="255" y="24" width="110" height="198" rx="3" fill="#E9EBFB" stroke="#3646F0" stroke-width="0.9"/><text class="t " font-size="7.2" fill="#2A3242" text-anchor="middle" font-weight="700"><tspan x="310" y="31.18">World-centered spatial</tspan><tspan x="310" y="41.26">representation</tspan></text><text class="m" x="310" y="51.7" fill="#3646F0" text-anchor="middle"><tspan font-size="9">ℛ</tspan><tspan font-size="6.3" dy="2.7">𝒮</tspan></text><g data-k="geometric" class="cell"><rect class="cframe" x="259" y="56" width="49" height="58" rx="2" fill="white" stroke="#AEB6F7" stroke-width="0.5"/><text class="t " x="262" y="64.38" font-size="6.3" fill="#6B7480" text-anchor="start">geometric</text><image class="cloud" href="/assets/img/figs/f21-geometric.png" x="261" y="68" width="45" height="43" preserveAspectRatio="none"/></g><g data-k="topological" class="cell"><rect class="cframe" x="312" y="56" width="49" height="58" rx="2" fill="white" stroke="#AEB6F7" stroke-width="0.5"/><text class="t " x="315" y="64.38" font-size="6.3" fill="#6B7480" text-anchor="start">topological</text><path class="edge" d="M334,74 L337,94" fill="none" stroke="#3646F0" stroke-width="0.6"/><path class="edge" d="M352,83 L337,94" fill="none" stroke="#3646F0" stroke-width="0.6"/><path class="edge" d="M321,86 L337,94" fill="none" stroke="#3646F0" stroke-width="0.6"/><path class="edge" d="M324,106 L337,94" fill="none" stroke="#3646F0" stroke-width="0.6"/><path class="edge" d="M334,74 L352,83" fill="none" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="334" cy="74" r="2.2" fill="white" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="352" cy="83" r="2.2" fill="white" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="337" cy="94" r="2.2" fill="#3646F0" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="321" cy="86" r="2.2" fill="white" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="324" cy="106" r="2.2" fill="white" stroke="#3646F0" stroke-width="0.6"/><text class="t " x="334" y="70.71" font-size="5.85" fill="#2A3242" text-anchor="middle">shelf</text><text class="t " x="352" y="79.71" font-size="5.85" fill="#2A3242" text-anchor="middle">door</text><text class="t " x="341" y="100.21" font-size="5.85" fill="#2A3242" text-anchor="start">table</text><text class="t " x="321" y="82.71" font-size="5.85" fill="#2A3242" text-anchor="middle">person</text><text class="t " x="328" y="108.71" font-size="5.85" fill="#2A3242" text-anchor="start">cup</text></g><g data-k="symbolic" class="cell"><rect class="cframe" x="259" y="118" width="49" height="58" rx="2" fill="white" stroke="#AEB6F7" stroke-width="0.5"/><text class="t " x="262" y="126.38" font-size="6.3" fill="#6B7480" text-anchor="start">symbolic</text><g class="fact" style="--i:0"><rect x="261.5" y="131" width="44" height="10.5" rx="1.5" fill="#E9EBFB" stroke="#AEB6F7" stroke-width="0.4"/><text class="t " x="283.5" y="138.61" font-size="5.85" fill="#2A3242" text-anchor="middle">on(cup, table)</text></g><g class="fact" style="--i:1"><rect x="261.5" y="145" width="44" height="10.5" rx="1.5" fill="#E9EBFB" stroke="#AEB6F7" stroke-width="0.4"/><text class="t " x="283.5" y="152.61" font-size="5.85" fill="#2A3242" text-anchor="middle">in(table, room)</text></g><g class="fact" style="--i:2"><rect x="261.5" y="159" width="44" height="10.5" rx="1.5" fill="#E9EBFB" stroke="#AEB6F7" stroke-width="0.4"/><text class="t " x="283.5" y="166.61" font-size="5.85" fill="#2A3242" text-anchor="middle">near(cup, sofa)</text></g></g><g data-k="abstract" class="cell"><rect class="cframe" x="312" y="118" width="49" height="58" rx="2" fill="white" stroke="#AEB6F7" stroke-width="0.5"/><text class="t " x="315" y="126.38" font-size="6.3" fill="#6B7480" text-anchor="start">abstract</text><polygon class="vox" style="--d:1.5s" points="322,150.6 329.2,150.6 329.2,143.4 322,143.4" fill="#9da5f8" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.3s" points="329.2,150.6 336.4,150.6 336.4,143.4 329.2,143.4" fill="#5a67f3" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.4s" points="336.4,150.6 343.6,150.6 343.6,143.4 336.4,143.4" fill="#6370f3" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.9s" points="322,157.8 329.2,157.8 329.2,150.6 322,150.6" fill="#8f98f7" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.7s" points="329.2,157.8 336.4,157.8 336.4,150.6 329.2,150.6" fill="#a4abf8" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.8s" points="336.4,157.8 343.6,157.8 343.6,150.6 336.4,150.6" fill="#5865f3" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.0s" points="322,165 329.2,165 329.2,157.8 322,157.8" fill="#d5d8fc" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.1s" points="329.2,165 336.4,165 336.4,157.8 329.2,157.8" fill="#d1d5fc" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:2.2s" points="336.4,165 343.6,165 343.6,157.8 336.4,157.8" fill="#7f89f5" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.6s" points="325.24,147.86 332.44,147.86 332.44,140.66 325.24,140.66" fill="#cacffb" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.7s" points="332.44,147.86 339.64,147.86 339.64,140.66 332.44,140.66" fill="#b9befa" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.5s" points="339.64,147.86 346.84,147.86 346.84,140.66 339.64,140.66" fill="#8f97f7" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.0s" points="325.24,155.06 332.44,155.06 332.44,147.86 325.24,147.86" fill="#d4d7fc" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:2.1s" points="332.44,155.06 339.64,155.06 339.64,147.86 332.44,147.86" fill="#8e97f7" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.9s" points="339.64,155.06 346.84,155.06 346.84,147.86 339.64,147.86" fill="#b7bdfa" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.4s" points="325.24,162.26 332.44,162.26 332.44,155.06 325.24,155.06" fill="#c0c5fa" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.2s" points="332.44,162.26 339.64,162.26 339.64,155.06 332.44,155.06" fill="#aab1f9" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.3s" points="339.64,162.26 346.84,162.26 346.84,155.06 339.64,155.06" fill="#b8bdfa" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:2.0s" points="328.48,145.13 335.68,145.13 335.68,137.93 328.48,137.93" fill="#7984f5" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.8s" points="335.68,145.13 342.88,145.13 342.88,137.93 335.68,137.93" fill="#868ff6" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.9s" points="342.88,145.13 350.08,145.13 350.08,137.93 342.88,137.93" fill="#9fa6f8" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.1s" points="328.48,152.33 335.68,152.33 335.68,145.13 328.48,145.13" fill="#a4abf8" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.2s" points="335.68,152.33 342.88,152.33 342.88,145.13 335.68,145.13" fill="#7984f5" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.0s" points="342.88,152.33 350.08,152.33 350.08,145.13 342.88,145.13" fill="#b5bbf9" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.5s" points="328.48,159.53 335.68,159.53 335.68,152.33 328.48,152.33" fill="#707bf4" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.6s" points="335.68,159.53 342.88,159.53 342.88,152.33 335.68,152.33" fill="#98a0f7" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.4s" points="342.88,159.53 350.08,159.53 350.08,152.33 342.88,152.33" fill="#e1e3fd" stroke="white" stroke-width="0.4"/></g><text class="t " x="310" y="188.38" font-size="6.3" fill="#6B7480" text-anchor="middle">object · scene · relation</text><g class="psi"><text class="m" x="310" y="206.25" fill="#3646F0" text-anchor="middle"><tspan font-size="7.5">ℛ</tspan><tspan font-size="5.25" dy="-2.85">𝒮</tspan><tspan font-size="5.25" dy="5.1" dx="-3.25">𝑡+1</tspan><tspan font-size="7.5" dy="-2.25"> = Ψ</tspan><tspan font-size="5.25" dy="2.25">𝒮</tspan><tspan font-size="7.5" dy="-2.25">(ℛ</tspan><tspan font-size="5.25" dy="-2.85">𝒮</tspan><tspan font-size="5.25" dy="5.1" dx="-3.25">𝑡</tspan><tspan font-size="7.5" dy="-2.25">, 𝑎</tspan><tspan font-size="5.25" dy="2.25">𝑡</tspan><tspan font-size="7.5" dy="-2.25">, 𝑜</tspan><tspan font-size="5.25" dy="2.25">𝑡+1</tspan><tspan font-size="7.5" dy="-2.25">)</tspan></text><text class="t " x="310" y="217.88" font-size="6.3" fill="#3646F0" text-anchor="middle">updated through interaction</text></g></g><g data-k="reason"><rect class="frame" x="387" y="24" width="75" height="94" rx="3" fill="white" stroke="#A8B0B8" stroke-width="0.6"/><text class="t " x="392" y="34.72" font-size="7.2" fill="#2A3242" text-anchor="start" font-weight="700">Reasoning</text><text class="m" x="424.5" y="45.66" fill="#3646F0" text-anchor="middle"><tspan font-size="7.2">𝑓</tspan><tspan font-size="5.04" dy="2.16">reason</tspan><tspan font-size="7.2" dy="-2.16">: ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan><tspan font-size="7.2" dy="-2.16"> → ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan></text><text class="t " x="424.5" y="113.38" font-size="6.3" fill="#6B7480" text-anchor="middle">elaborates the state</text><rect x="393" y="51" width="63" height="52" fill="#F7F8FA" stroke="#2A3242" stroke-width="0.7"/><rect x="455" y="61" width="2" height="12" fill="white" stroke="none"/><rect x="396" y="73" width="13" height="26" fill="#D9DDE3" stroke="#A8B0B8" stroke-width="0.4"/><rect x="417" y="52.5" width="22" height="5" fill="#D9DDE3" stroke="#A8B0B8" stroke-width="0.4"/><circle cx="427" cy="83" r="7.5" fill="#E8DCC8" stroke="#A8B0B8" stroke-width="0.4"/><circle cx="430" cy="81" r="1.6" fill="white" stroke="#2A3242" stroke-width="0.5"/><circle class="robot" cx="451" cy="91" r="3.4" fill="white" stroke="#2A3242" stroke-width="0.7"/><path class="reach" d="M448,89 L443,82 L434.5,81.5" fill="none" stroke="#2E9E5B" stroke-width="0.9" stroke-dasharray="1.8 1.26"/><text class="t " x="395" y="66.21" font-size="5.85" fill="#6B7480" text-anchor="start">sofa</text><text class="t " x="428" y="65.21" font-size="5.85" fill="#6B7480" text-anchor="middle">shelf</text><text class="t " x="454" y="100.71" font-size="5.85" fill="#2E9E5B" text-anchor="end">cup reachable</text></g><g data-k="pred"><rect class="frame" x="387" y="126" width="75" height="96" rx="3" fill="white" stroke="#A8B0B8" stroke-width="0.6"/><text class="t " x="392" y="136.72" font-size="7.2" fill="#2A3242" text-anchor="start" font-weight="700">Prediction</text><text class="m" x="424.5" y="147.66" fill="#3646F0" text-anchor="middle"><tspan font-size="7.2">𝑓</tspan><tspan font-size="5.04" dy="2.16">pred</tspan><tspan font-size="7.2" dy="-2.16">: ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan><tspan font-size="7.2" dy="-2.16"> × 𝒜 → ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan></text><text class="t " x="424.5" y="217.38" font-size="6.3" fill="#6B7480" text-anchor="middle">advances the state</text><g class="frame-t" style="--i:0"><image href="/assets/img/figs/f21-pred0.webp" x="391" y="157" width="21" height="16.86" preserveAspectRatio="none"/><rect x="391" y="157" width="21" height="16.86" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><rect class="tick" x="391" y="157" width="21" height="16.86" fill="none" stroke="#3646F0" stroke-width="0.9"/></g><text class="m" x="401.5" y="182.96" fill="#3646F0" text-anchor="middle"><tspan font-size="7">𝑡</tspan></text><g class="frame-t" style="--i:1"><image href="/assets/img/figs/f21-pred1.webp" x="414" y="157" width="21" height="16.86" preserveAspectRatio="none"/><rect x="414" y="157" width="21" height="16.86" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><rect class="tick" x="414" y="157" width="21" height="16.86" fill="none" stroke="#3646F0" stroke-width="0.9"/></g><text class="m" x="424.5" y="182.96" fill="#3646F0" text-anchor="middle"><tspan font-size="7">𝑡+1</tspan></text><g class="frame-t" style="--i:2"><image href="/assets/img/figs/f21-pred2.webp" x="437" y="157" width="21" height="16.86" preserveAspectRatio="none"/><rect x="437" y="157" width="21" height="16.86" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><rect class="tick" x="437" y="157" width="21" height="16.86" fill="none" stroke="#3646F0" stroke-width="0.9"/></g><text class="m" x="447.5" y="182.96" fill="#3646F0" text-anchor="middle"><tspan font-size="7">𝑡+2</tspan></text><g class="arr arr-s"><path class="shaft" d="M395,154 L452.16,154" fill="none" stroke="#AEB6F7" stroke-width="0.6"/><polygon points="454,154 451.7,152.59 451.7,155.41" fill="#AEB6F7" stroke="#AEB6F7" stroke-width="0.3" stroke-linejoin="round"/></g></g><g class="arr flow s-pr"><path class="shaft" d="M234,71 L251.42,71" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="254,71 250.77,69.03 250.77,72.97" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g><g class="arr flow s-ra"><path class="shaft" d="M254,174 L236.58,174" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="234,174 237.23,175.97 237.23,172.03" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g><g class="arr flow s-rq"><path class="shaft" d="M368.58,71 L383.42,71" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="386,71 382.77,69.03 382.77,72.97" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/><polygon points="366,71 369.23,72.97 369.23,69.03" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g><g class="arr flow s-rp"><path class="shaft" d="M368.58,174 L383.42,174" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="386,174 382.77,172.03 382.77,175.97" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/><polygon points="366,174 369.23,175.97 369.23,172.03" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g><g data-k="obs"><text class="t " x="123" y="42.38" font-size="6.3" fill="#3646F0" text-anchor="middle">observations</text><image href="/assets/img/figs/f21-obs-rgb.webp" x="96.5" y="46" width="10" height="10" preserveAspectRatio="none"/><rect x="96.5" y="46" width="10" height="10" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><image href="/assets/img/figs/f21-obs-depth.webp" x="107.7" y="46" width="10" height="10" preserveAspectRatio="none"/><rect x="107.7" y="46" width="10" height="10" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><rect x="118.9" y="46" width="10" height="10" fill="white" stroke="#A8B0B8" stroke-width="0.5"/><image href="/assets/img/figs/f21-obs-cloud.png" x="119.7" y="46.8" width="8.4" height="8.4" preserveAspectRatio="none"/><rect x="130.1" y="46" width="10" height="10" fill="white" stroke="#A8B0B8" stroke-width="0.5"/><path d="M132.1,48.8 L138.1,48.8" fill="none" stroke="#2A3242" stroke-width="0.45"/><path d="M132.1,51 L138.1,51" fill="none" stroke="#2A3242" stroke-width="0.45"/><path d="M132.1,53.2 L135.9,53.2" fill="none" stroke="#2A3242" stroke-width="0.45"/><rect x="141.3" y="46" width="10" height="10" fill="white" stroke="#A8B0B8" stroke-width="0.5"/><path d="M142.8,51 L142.89,51.05 L142.98,51.17 L143.07,51.33 L143.15,51.48 L143.24,51.54 L143.33,51.49 L143.42,51.29 L143.51,50.96 L143.6,50.55 L143.69,50.14 L143.77,49.8 L143.86,49.62 L143.95,49.67 L144.04,49.96 L144.13,50.47 L144.22,51.14 L144.31,51.86 L144.39,52.51 L144.48,52.97 L144.57,53.13 L144.66,52.95 L144.75,52.44 L144.84,51.65 L144.93,50.71 L145.02,49.76 L145.1,48.96 L145.19,48.45 L145.28,48.33 L145.37,48.64 L145.46,49.34 L145.55,50.33 L145.64,51.45 L145.72,52.53 L145.81,53.39 L145.9,53.88 L145.99,53.92 L146.08,53.5 L146.17,52.68 L146.26,51.59 L146.34,50.41 L146.43,49.32 L146.52,48.5 L146.61,48.08 L146.7,48.12 L146.79,48.61 L146.88,49.47 L146.96,50.55 L147.05,51.67 L147.14,52.66 L147.23,53.36 L147.32,53.67 L147.41,53.55 L147.5,53.04 L147.58,52.24 L147.67,51.29 L147.76,50.35 L147.85,49.56 L147.94,49.05 L148.03,48.87 L148.12,49.03 L148.21,49.49 L148.29,50.14 L148.38,50.86 L148.47,51.53 L148.56,52.04 L148.65,52.33 L148.74,52.38 L148.83,52.2 L148.91,51.86 L149,51.45 L149.09,51.04 L149.18,50.71 L149.27,50.51 L149.36,50.46 L149.45,50.52 L149.53,50.67 L149.62,50.83 L149.71,50.95 L149.8,51" fill="none" stroke="#2A3242" stroke-width="0.45"/><g class="arr flow s-obs"><path class="shaft" d="M95,62 L153.42,62" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="156,62 152.77,60.03 152.77,63.97" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g></g><g data-k="task"><rect x="100" y="100" width="46" height="26" rx="2" fill="#FBFBFC" stroke="#A8B0B8" stroke-width="0.5" stroke-dasharray="1.85 0.8"/><text class="t " x="123" y="109.38" font-size="6.3" fill="#6B7480" text-anchor="middle">task</text><text class="t " font-size="6.3" fill="#2A3242" text-anchor="middle"><tspan x="123" y="116.18">put the cup</tspan><tspan x="123" y="124.58">on the shelf</tspan></text><g class="arr"><path class="shaft" d="M146,113 L149.03,113" fill="none" stroke="#6B7480" stroke-width="0.7" stroke-dasharray="1.4 1.05"/><polygon points="151,113 148.54,111.5 148.54,114.5" fill="#6B7480" stroke="#6B7480" stroke-width="0.3" stroke-linejoin="round"/></g></g><g data-k="actions"><text class="t " x="123" y="168.38" font-size="6.3" fill="#3646F0" text-anchor="middle">actions</text><g class="arr flow s-act"><path class="shaft" d="M156,174 L97.58,174" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="95,174 98.23,175.97 98.23,172.03" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g></g><circle class="token" r="2.6" cx="-10" cy="-10"/></svg><div class="nf-card" hidden></div><script type="application/json" class="nf-info">{"env": {"t": "Environment <i class='m'>ℰ</i>", "b": "The physical world the system operates in, from objects and scenes to rooms, buildings, cities and terrain, governed by geometric, physical and causal constraints. Neither party can be defined without the other.", "u": "/read/2.2/#Ch2.S2.SS1.SSS1", "l": "2.2.1 Parties"}, "obs": {"t": "Observations <i class='m'>𝑜<sub>𝑡</sub></i>", "b": "What the system receives from the environment: images, depth, point clouds, text and sound. Perception turns them into structure.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "task": {"t": "Task", "b": "The goal the system is given, here to put the cup on the shelf. It conditions what the system reasons about and how it acts.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "perc": {"t": "Perception <i class='m'><i>f</i><sub>perc</sub> : 𝒪 → ℛ<sub>𝒮</sub></i>", "b": "Extracts spatial structure from multimodal sensory inputs: recognizing objects and scene elements, estimating distances, identifying spatial layouts, and localizing entities within an environment.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "reason": {"t": "Reasoning & planning <i class='m'><i>f</i><sub>reason</sub> : ℛ<sub>𝒮</sub> → ℛ<sub>𝒮</sub></i>", "b": "Elaborates the current world state by inferring relations and constraints already implicit in it: trajectory and path planning, occlusion reasoning, spatial causality, relational and commonsense inference.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "pred": {"t": "Prediction <i class='m'><i>f</i><sub>pred</sub> : ℛ<sub>𝒮</sub> × 𝒜 → ℛ<sub>𝒮</sub></i>", "b": "Advances the state in time: forecasts future spatial states consistent with physical laws and causal structure, and generates spatially aware images, videos, 3D or 4D scenes and motion.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "act": {"t": "Embodied action <i class='m'><i>f</i><sub>act</sub> : ℛ<sub>𝒮</sub> → 𝒜</i>", "b": "Reads the representation to act on the environment while pursuing goals: pose adjustment, navigation, grasping and manipulation, aligned with task objectives, human intent and social context.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "rep": {"t": "World-centered spatial representation <i class='m'>ℛ<sub>𝒮</sub></i>", "b": "The structured world model at the centre of the loop: compositional, generalizable and reusable across tasks. It holds objects, scenes and relations in geometric, topological, symbolic and abstract form, and is updated through interaction, <i class='m'>ℛ<sub>𝑡+1</sub> = Ψ<sub>𝒮</sub>(ℛ<sub>𝑡</sub>, 𝑎<sub>𝑡</sub>, 𝑜<sub>𝑡+1</sub>)</i>.", "u": "/read/2.2/#Ch2.S2.SS1.SSS2", "l": "2.2.1 Spatial representation"}, "actions": {"t": "Actions <i class='m'>𝑎<sub>𝑡</sub></i>", "b": "Embodied action reads the representation and acts on the environment, whose response is observed in turn. Spatial understanding is grounded in this interaction.", "u": "/read/2.2/#Ch2.S2.SS1.SSS3", "l": "2.2.1 Dynamic interaction"}, "geometric": {"t": "Geometric", "b": "Metric structure (points, depth, surfaces), here the living room as a point cloud.", "u": "/read/chapter-4/", "l": "Chapter 4"}, "topological": {"t": "Topological", "b": "Entities and how they connect: shelf, door, person and cup, all related through the table.", "u": "/read/chapter-4/", "l": "Chapter 4"}, "symbolic": {"t": "Symbolic", "b": "Explicit relations that a planner can query, such as on(cup, table).", "u": "/read/chapter-4/", "l": "Chapter 4"}, "abstract": {"t": "Abstract", "b": "Learned, latent encodings of the scene, drawn as a grid of feature activations.", "u": "/read/chapter-5/", "l": "Chapter 5"}}</script></div><figcaption class="ltx_centering"><span class="cap-tag">Figure 2.1</span><span>Spatial intelligence as a closed loop between an AI system <math id="Ch2.F1.m4" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> and its environment <math id="Ch2.F1.m5" alttext="\mathcal{E}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℰ</mi><annotation encoding="application/x-tex">\mathcal{E}</annotation></semantics></math>. Perception writes observations into a world-centered spatial representation <math id="Ch2.F1.m6" alttext="\mathcal{R}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℛ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\mathcal{R}_{\mathcal{S}}</annotation></semantics></math> maintained inside the system; reasoning elaborates the current state, prediction advances it under a candidate action, and embodied action reads it to act on the environment, whose response is observed in turn. Each module is labeled with its operator from Section <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>.</span></figcaption>
+</figure>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/chapter-2/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">Chapter 2: A Definition in Motion: Revisiting Spatial Intelligence</span></a><a class="pager-next" href="/read/2.2/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">2.2 Defining A Spatial Intelligence Framework</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch2.S1.SS1" data-spy="Ch2.S1.SS1"><span class="n">2.1.1</span>Beyond A Single Dimension</a></li><li><a href="#Ch2.S1.SS2" data-spy="Ch2.S1.SS2"><span class="n">2.1.2</span>Disciplinary Perspectives</a></li><li><a href="#Ch2.S1.SS3" data-spy="Ch2.S1.SS3"><span class="n">2.1.3</span>Toward A Unified View</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=2.1"><b>38</b> cited works</a><a href="/explore/tools/?sec=2.1" title="3D Gaussian Splatting"><b>1</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="2.1 The Landscape of Spatial Intelligence" data-url="/read/2.1/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%202.1%20The%20Landscape%20of%20Spatial%20Intelligence&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/2.1/%20%28PDF%20p.%2040%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

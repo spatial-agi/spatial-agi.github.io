@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.2 Autonomous Driving · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="9.2 Autonomous Driving · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="9.2">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link is-current" href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-9/">Chapter 9</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-9/">Chapter 9 · Spatial Intelligence for Embodied Systems</a></div>
+        <h1><span class="secnum">9.2</span>Autonomous Driving</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=339" title="Open this page in the PDF">PDF p. 339</a><span class="dot">·</span>        <span>16 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:9.2 Autonomous Driving">
+<section>
+<h2 class="h-subsection" id="Ch9.S2.SS1"><span class="secnum">9.2.1</span>Introduction<a class="anchor" href="#Ch9.S2.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">Autonomous driving sits at the intersection of spatial intelligence, transportation engineering, and human–machine interaction, and it is one of the most demanding real-world testbeds for the spatial capabilities surveyed in Part <a href="/read/part-iii/" class="xref" data-x="Pt3"><span>III</span></a>.
+A self-driving vehicle must continuously close a <em class="ltx_font_italic">perceive–localize–decide–act</em> loop: it has to recognize and track the surrounding traffic scene, estimate its own pose within a metric map, reason about how nearby agents will move, and commit to safe control actions, all under tight latency and safety budgets.
+Advances in deep learning, multi-sensor fusion, and vehicle-to-everything (V2X) communication have steadily pushed the boundaries of what vehicles can perceive, predict, and decide, while fundamental questions around robustness, trust, ethics, and regulation remain open.
+Perception and reasoning themselves are treated in Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> and Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>; what is specific to driving is that each capability must hold up at speed, in all weather, and with lives at stake.</p>
+</div>
+<div id="Ch9.S2.SS1.p2" class="ltx_para">
+<p class="ltx_p">Figure <a href="/read/9.2/#Ch9.F6" class="xref" data-x="Ch9.F6"><span>9.6</span></a> summarizes the SAE J3016 automation levels that frame this domain.
+The SAE J3016 standard <sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup> provides a widely adopted framework for defining automation levels, with most current production systems still operating at Level 2.
+Progress toward higher levels, especially full Level 5 autonomy, faces major technical <cite class="cites">[<a class="cite" href="/read/references/#ref-2410" data-k="YurtseverLCT20">2410</a>]</cite>, ethical <cite class="cites">[<a class="cite" href="/read/references/#ref-2411" data-k="StahlTM16">2411</a>]</cite>, and financial <cite class="cites">[<a class="cite" href="/read/references/#ref-2412" data-k="fisher2020governmental">2412</a>]</cite> challenges.</p>
+</div>
+<div id="Ch9.S2.SS1.p3" class="ltx_para">
+<p class="ltx_p">Deep learning has driven most of this progress, from Transformers <cite class="cites">[<a class="cite" href="/read/references/#ref-2413" data-k="WangLLLXLCLZH22">2413</a>]</cite> and graph networks <cite class="cites">[<a class="cite" href="/read/references/#ref-2248" data-k="ZhangFWH22">2248</a>]</cite> that model multi-agent interaction to lifelong learning for open-world adaptation <cite class="cites">[<a class="cite" href="/read/references/#ref-2414" data-k="ZhuBZZW24">2414</a>]</cite>, but its opacity raises safety concerns compounded by sensor noise and the limited reach of vehicle-to-vehicle communication, and reaching Levels 4 and 5 depends as much on redundant hardware, large-scale data pipelines, and verifiable safety assurance as on model architecture.</p>
+</div>
+<figure id="Ch9.F6" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/driving_levels.webp" id="Ch9.F6.g1" class="fig-img" alt="" width="2000" height="1115" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.6</span><span>Functional distinctions among SAE J3016 driving-automation levels. Levels 0–2 retain a human driver; Level 3 requires a human to resume driving when necessary, whereas Levels 4–5 do not rely on human fallback within their operating scope. The stair heights indicate ordered categories, not measured safety, model complexity, or technology readiness.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S2.SS2"><span class="secnum">9.2.2</span>System Overview<a class="anchor" href="#Ch9.S2.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">Modern self-driving stacks realize the <em class="ltx_font_italic">perceive–localize–decide–act</em> loop as a modular pipeline, sketched in Figure <a href="/read/9.2/#Ch9.F7" class="xref" data-x="Ch9.F7"><span>9.7</span></a>.
+A front-end <em class="ltx_font_italic">perception</em> module converts raw, multi-modal sensor streams (camera, LiDAR, radar) into a structured model of the scene: what objects are present, where the drivable surface and lane geometry lie, and which agents are most safety-critical.
+A <em class="ltx_font_italic">localization and mapping</em> module places the ego-vehicle within a metric, typically HD-map-anchored, representation of that scene, so that perception outputs can be expressed in a stable world frame.
+A <em class="ltx_font_italic">decision and control</em> module then predicts how the scene will evolve and selects the steering, acceleration, and braking commands that are sent to the actuators and fed back into the environment, closing the loop. Each of the three stages is a distinct spatial-intelligence problem with its own representations, benchmarks, and failure modes, and they are the pivotal tasks below, in pipeline order.</p>
+</div>
+<figure id="Ch9.F7" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/autonomous_driving_overview.webp" id="Ch9.F7.g1" class="fig-img" alt="" width="2000" height="1963" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.7</span><span>Closed-loop spatial intelligence for autonomous driving: complementary sensor streams feed perception and localization and mapping, whose scene and ego/map state drive decision, planning, and trajectory tracking; vehicle–environment interaction returns new observations. The controller also receives ego state; the curved wire crossing is not a junction. Dashed execution logs feed evaluation separately from control. Scenes, maps, and evaluation plots are illustrative, not measured results.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S2.SS3"><span class="secnum">9.2.3</span>Pivotal Task-1: Perception and Detection<a class="anchor" href="#Ch9.S2.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S2.SS3.p1" class="ltx_para">
+<p class="ltx_p">Perception is the front-end of the pipeline: it turns raw camera, LiDAR, and radar streams into a structured, layered model of the scene that every downstream module consumes, reusing the detection, segmentation, and 3D scene-understanding machinery of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> but specializing it to the driving Operational Design Domain (ODD). It is best read as a set of complementary structured representations, sketched in Figure <a href="/read/9.2/#Ch9.F8" class="xref" data-x="Ch9.F8"><span>9.8</span></a>: object detection localizes traffic participants, semantic and occupancy prediction labels the surrounding space, lane detection recovers the road geometry that constrains motion, and pedestrian recognition isolates the most safety-critical agents.</p>
+</div>
+<figure id="Ch9.F8" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/driving_perception_tasks.webp" id="Ch9.F8.g1" class="fig-img" alt="" width="2000" height="1727" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.8</span><span>Four complementary driving perception tasks feeding a shared scene model: (1) object detection, (2) semantics and 3D occupancy, (3) lane geometry, and (4) pedestrian/VRU tracking and motion prediction. Annotations and the dashed pedestrian path are illustrative, not measured predictions.</span></figcaption>
+</figure>
+<div id="Ch9.S2.SS3.p2" class="ltx_para">
+<p class="ltx_p">The base layer is <span class="ltx_font_bold">object detection</span>, which identifies and localizes obstacles and is the most direct determinant of collision safety <cite class="cites">[<a class="cite" href="/read/references/#ref-2415" data-k="FengHWD22">2415</a>]</cite>. Its central practical constraint is the ODD: environmental factors such as poor weather degrade sensor visibility and model accuracy <cite class="cites">[<a class="cite" href="/read/references/#ref-2416" data-k="KoopmanF19">2416</a>]</cite>, so recent work formalizes and iteratively validates the ODD through quantifiable environmental models and scenario catalogues, trusting a detector only within conditions it has demonstrably handled, though the absence of a standardized ODD specification still makes cross-system safety claims hard to compare. Robustness to adverse weather is therefore a first-class concern <cite class="cites">[<a class="cite" href="/read/references/#ref-2417" data-k="zhang2023perception">2417</a>, <a class="cite" href="/read/references/#ref-2418" data-k="TahirZACE24">2418</a>, <a class="cite" href="/read/references/#ref-2419" data-k="HnewaR21">2419</a>]</cite>: rain, snow, fog, and glare corrupt LiDAR, radar, and camera signals alike, and because driving datasets under-represent these conditions, models trained on fair-weather data generalize poorly. Responses range from dedicated robust pipelines, such as multi-stage visibility enhancement coupled with deep CNN tracking <cite class="cites">[<a class="cite" href="/read/references/#ref-2420" data-k="HassaballahKMM21">2420</a>]</cite>, to new sensing hardware, <span class="ltx_font_italic">e.g.,</span> , frequency-modulated continuous-wave (FMCW) LiDAR and high-dynamic-range cameras that recover usable signal in glare at higher cost. Moving from the image plane into metric space, <span class="ltx_font_bold">3D object detection</span> localizes and tracks objects in the vehicle’s surroundings <cite class="cites">[<a class="cite" href="/read/references/#ref-434" data-k="LiWLXSLQD22">434</a>]</cite>, where the bird’s-eye-view (BEV) representation has become dominant because it yields a unified top-down map well suited to planning. BEVFormer <cite class="cites">[<a class="cite" href="/read/references/#ref-2421" data-k="YangCTTZZHLQLZD23">2421</a>]</cite> fuses multi-camera and temporal cues with spatiotemporal transformers to approach LiDAR-level accuracy on nuScenes, while Fast-BEV <cite class="cites">[<a class="cite" href="/read/references/#ref-2422" data-k="LiHCCLSLXSOS24">2422</a>]</cite> and SparseBEV <cite class="cites">[<a class="cite" href="/read/references/#ref-2423" data-k="LiuTLWW23">2423</a>]</cite> trade marginal accuracy for the lightweight, sparse, query-based computation needed for real-time on-vehicle deployment, together tracing the field’s balancing of accuracy, latency, and deployability.</p>
+</div>
+<div id="Ch9.S2.SS3.p3" class="ltx_para">
+<p class="ltx_p">Detections tell the planner <em class="ltx_font_italic">where objects are</em> but not <em class="ltx_font_italic">which space is free</em>; that dense layer is supplied by <span class="ltx_font_bold">semantic segmentation</span> and its 3D extension, occupancy prediction <cite class="cites">[<a class="cite" href="/read/references/#ref-2424" data-k="ZhouBWN20">2424</a>, <a class="cite" href="/read/references/#ref-2425" data-k="NestiRNBB22">2425</a>]</cite>. The progression runs from 2D pixel labeling with FCN <cite class="cites">[<a class="cite" href="/read/references/#ref-127" data-k="long2015fcn">127</a>]</cite> and DeepLab <cite class="cites">[<a class="cite" href="/read/references/#ref-461" data-k="chen2017deeplabv2">461</a>]</cite> to volumetric reasoning: the Tri-Perspective View <cite class="cites">[<a class="cite" href="/read/references/#ref-2426" data-k="HuangZZ0L23">2426</a>]</cite> lifts RGB into a 3D representation rivalling LiDAR, SurroundOcc <cite class="cites">[<a class="cite" href="/read/references/#ref-2427" data-k="WeiZZZZL23">2427</a>]</cite> uses multi-camera 2D–3D attention to capture arbitrary shapes, and occupancy world models such as OccWorld <cite class="cites">[<a class="cite" href="/read/references/#ref-2333" data-k="zheng2024occworld">2333</a>]</cite> extend this to forecasting how the 3D scene evolves, moving beyond the limits of bounding boxes. Because these dense predictors are data-hungry and domain-sensitive, robustness techniques such as the SePiCo pixel-contrast framework <cite class="cites">[<a class="cite" href="/read/references/#ref-2428" data-k="XieLLLHW23">2428</a>]</cite> and GAN-based synthetic data <cite class="cites">[<a class="cite" href="/read/references/#ref-2429" data-k="AbdollahiPSMA21">2429</a>]</cite> are used to survive scene variability, occlusion, and weather shift. On top of the free-space layer, <span class="ltx_font_bold">lane detection</span> recovers the road geometry that defines the lateral reference for lane-keeping and planning; early CNN- and YOLO-style detectors trace markings well in clear conditions but are brittle on curved, worn, or occluded lanes, motivating successors that lift lanes into 3D and use attention over global context to infer occluded segments.
+Finally, <span class="ltx_font_bold">pedestrian recognition</span> focuses on vulnerable road users whose behavior can be difficult to predict: CNN-, YOLO-, and SSD-based detectors deliver the required precision and latency, color–thermal fusion handles low-light scenes, and spatial–temporal models couple detection with motion prediction to anticipate crossing behavior.</p>
+</div>
+<div id="Ch9.S2.SS3.p4" class="ltx_para">
+<p class="ltx_p">Across all four layers, perception is benchmarked on large-scale driving datasets, KITTI <cite class="cites">[<a class="cite" href="/read/references/#ref-173" data-k="KITTI-GeigerLU12">173</a>]</cite>, the Waymo Open Dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-446" data-k="WaymoOpen-SunKDCPTGZCCVHN20">446</a>]</cite>, and nuScenes <cite class="cites">[<a class="cite" href="/read/references/#ref-445" data-k="caesar2020nuscenes">445</a>]</cite> for 2D/3D detection, Cityscapes <cite class="cites">[<a class="cite" href="/read/references/#ref-501" data-k="cordts2016cityscapes">501</a>]</cite> and BDD100K <cite class="cites">[<a class="cite" href="/read/references/#ref-711" data-k="yu2020bdd100k">711</a>]</cite> for segmentation, dedicated lane benchmarks for lane detection, and CityPersons <cite class="cites">[<a class="cite" href="/read/references/#ref-2430" data-k="zhang2017citypersons">2430</a>]</cite> for pedestrians, and scored with mean Average Precision (mAP) and the nuScenes Detection Score (NDS), mean Intersection-over-Union (mIoU), and F1/accuracy, respectively (Table <a href="/read/9.2/#Ch9.T2" class="xref" data-x="Ch9.T2"><span>9.2</span></a>). Increasingly these metrics are reported on adverse-weather and out-of-distribution splits, precisely to measure behavior within and beyond the declared ODD.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S2.SS4"><span class="secnum">9.2.4</span>Pivotal Task-2: Localization and Mapping<a class="anchor" href="#Ch9.S2.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S2.SS4.p1" class="ltx_para">
+<p class="ltx_p">If perception answers <em class="ltx_font_italic">what is around the vehicle</em>, localization and mapping answer <em class="ltx_font_italic">where the vehicle is</em> and <em class="ltx_font_italic">what the persistent structure of the world is</em>. The two are tightly coupled: a metric, HD-map-anchored pose lets perception outputs be expressed in a stable world frame that planning can rely on, and the map itself is built and maintained from the same sensor streams. As Figure <a href="/read/9.2/#Ch9.F9" class="xref" data-x="Ch9.F9"><span>9.9</span></a> shows, the problem decomposes into pose estimation against a known map (localization), the construction of that map (3D mapping and reconstruction), and the joint solution of both when no map exists (SLAM), with multi-sensor fusion the common thread that holds accuracy together when any single modality degrades.</p>
+</div>
+<figure id="Ch9.F9" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/driving_localization_and_mapping.webp" id="Ch9.F9.g1" class="fig-img" alt="" width="2000" height="1460" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.9</span><span>Localization and mapping through uncertainty-aware sensor fusion: camera, LiDAR, radar, and GNSS/IMU measurements update the state posterior, yielding a map-relative pose (evaluated by ATE/RPE), an incrementally updated 3D map, and loop closures that feed back only after verification. Pose and map are parallel products of joint estimation; only verified loop constraints return to the estimator. Recall@<math id="Ch9.F9.m2" alttext="N" display="inline" data-pagefind-ignore="all"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> evaluates place retrieval, not pose accuracy.</span></figcaption>
+</figure>
+<div id="Ch9.S2.SS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Localization</span> has moved from GPS-dependent positioning to learned matching of live camera or LiDAR observations against a pre-built map, reaching centimeter-level accuracy even in GPS-denied urban canyons; semantic cues such as roads and buildings further let a vehicle re-localize in changed environments without full remapping. Because no single sensor is reliable across occlusion, weather, and GPS dropout, <span class="ltx_font_bold">sensor-fusion localization</span> is the dominant paradigm: probabilistic estimators (particle filters, Kalman filters, and NDT scan matching) reconcile GNSS, IMU, and LiDAR, while learned vision–radar fusion compensates for modality-specific weaknesses in rain, fog, and glare. The recurring bottlenecks here are cross-sensor spatial/temporal synchronization and fault tolerance, which motivate Bayesian uncertainty weighting and online-adaptive fusion that recalibrates as conditions change.</p>
+</div>
+<div id="Ch9.S2.SS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">3D mapping and reconstruction</span> supply the persistent representation that localization matches against, turning LiDAR and stereo streams into metric models; for the place-recognition and loop-closure that keep maps globally consistent, transformer descriptors such as SeqOT <cite class="cites">[<a class="cite" href="/read/references/#ref-2431" data-k="ma2022seqot">2431</a>]</cite> match sequential LiDAR scans faster than the sensor frame rate, trained on richly annotated corpora such as ApolloScape <cite class="cites">[<a class="cite" href="/read/references/#ref-660" data-k="wang2019apolloscape">660</a>]</cite>. The open problems are the cost of processing dense point clouds at city scale and the handling of occluded or incomplete returns, which favor incremental map updating over full re-mapping. When the map is unavailable, <span class="ltx_font_bold">SLAM</span> solves localization and mapping jointly, which is critical in GPS-denied corridors; modern driving-oriented vSLAM hybridizes classical geometry with learned features (for example, extending ORB-SLAM <cite class="cites">[<a class="cite" href="/read/references/#ref-393" data-k="mur2017orb">393</a>]</cite> with learned features, semantic labels, and learned depth to favor stable landmarks) and recovers from drift through loop closure with bundle adjustment.</p>
+</div>
+<div id="Ch9.S2.SS4.p4" class="ltx_para">
+<p class="ltx_p">These capabilities are evaluated on KITTI Odometry <cite class="cites">[<a class="cite" href="/read/references/#ref-173" data-k="KITTI-GeigerLU12">173</a>]</cite>, Oxford RobotCar <cite class="cites">[<a class="cite" href="/read/references/#ref-1242" data-k="Maddern2017RobotCar">1242</a>]</cite>, and ApolloScape <cite class="cites">[<a class="cite" href="/read/references/#ref-660" data-k="wang2019apolloscape">660</a>]</cite> for long-horizon SLAM and place recognition, on nuScenes <cite class="cites">[<a class="cite" href="/read/references/#ref-445" data-k="caesar2020nuscenes">445</a>]</cite> and Waymo <cite class="cites">[<a class="cite" href="/read/references/#ref-446" data-k="WaymoOpen-SunKDCPTGZCCVHN20">446</a>]</cite> for map-relative pose, and on Argoverse <cite class="cites">[<a class="cite" href="/read/references/#ref-2255" data-k="Argoverse-ChangLSSBHW0LRH19">2255</a>]</cite> for the trajectory forecasting that localization feeds, <span class="ltx_font_italic">e.g.,</span> , with the Motion Transformer <cite class="cites">[<a class="cite" href="/read/references/#ref-2247" data-k="shi2022mtr">2247</a>]</cite> (Table <a href="/read/9.2/#Ch9.T2" class="xref" data-x="Ch9.T2"><span>9.2</span></a>). The standard metrics, <span class="ltx_font_italic">i.e.,</span> , Absolute and Relative Pose Error (ATE/RPE), recall@<math id="Ch9.S2.SS4.p4.m1" alttext="N" display="inline" data-pagefind-ignore="all"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> for loop closure, and minADE/minFDE for forecasting, are reported under GPS-denied, adverse-weather, and sensor-degradation conditions to stress exactly the robustness the fusion machinery is built to provide.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S2.SS5"><span class="secnum">9.2.5</span>Pivotal Task-3: Decision Making and Control<a class="anchor" href="#Ch9.S2.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S2.SS5.p1" class="ltx_para">
+<p class="ltx_p">Decision making and control is the action end of the pipeline: it consumes the scene model from perception and the pose from localization, predicts how the scene will evolve, and commits to the steering, acceleration, and braking that close the loop, drawing on the spatial-reasoning and planning paradigms of Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>. As Figure <a href="/read/9.2/#Ch9.F10" class="xref" data-x="Ch9.F10"><span>9.10</span></a> indicates, two architectural philosophies dominate, differing in how much of the perceive-to-act mapping is learned end-to-end versus decomposed into interpretable modules, and they are increasingly converging.</p>
+</div>
+<figure id="Ch9.F10" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/driving_decision_and_control.webp" id="Ch9.F10.g1" class="fig-img" alt="" width="2000" height="1492" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.10</span><span>Three alternative architectures for driving decision and control: (1) modular pipelines with an explicit BEV scene, (2) end-to-end sensor-to-control learning, and (3) hybrids with inspectable scene or trajectory intermediates and explicit constraint checks.</span></figcaption>
+</figure>
+<div id="Ch9.S2.SS5.p2" class="ltx_para">
+<p class="ltx_p">The first philosophy is <span class="ltx_font_bold">learning-based decision making</span>, centered on (deep) reinforcement learning, which acquires driving policies through trial-and-error interaction and is well suited to the sequential, interactive nature of driving.
+Representative methods illustrate its design axes: the stochastic latent actor-critic (SLAC) <cite class="cites">[<a class="cite" href="/read/references/#ref-2432" data-k="lee2020stochastic">2432</a>]</cite> learns compact latent states from high-dimensional images, PPO <cite class="cites">[<a class="cite" href="/read/references/#ref-1413" data-k="schulman2017proximalpo">1413</a>]</cite> within a nonlinear control framework handles sharp turns and obstacle avoidance, and the DeepSet-Q architecture <cite class="cites">[<a class="cite" href="/read/references/#ref-2433" data-k="huegle2019dynamic">2433</a>]</cite>, building on permutation-invariant set encoders <cite class="cites">[<a class="cite" href="/read/references/#ref-1372" data-k="zaheer2017deep">1372</a>]</cite>, ingests a variable number of surrounding agents for high-level lane-change decisions.
+Hybrids with explicit planning, such as Monte Carlo tree search guided by DRL or scene-representation transformers that forecast neighbor intentions, improve sample efficiency and situational awareness in dense traffic.
+The binding difficulty is that safety-critical episodes are rare in logged data, which pushes the field toward high-fidelity simulation for rare-event coverage and toward encoding hard safety constraints directly in the policy rather than trusting the reward signal alone.
+The second philosophy, <span class="ltx_font_bold">end-to-end decision making</span>, learns the mapping from sensors to trajectory or control directly, removing hand-designed interfaces between modules. Early instances learned state-to-action policies with DDPG <cite class="cites">[<a class="cite" href="/read/references/#ref-2434" data-k="lillicrap2015continuous">2434</a>]</cite> in simulators such as TORCS, and multi-task backbones such as HybridNets <cite class="cites">[<a class="cite" href="/read/references/#ref-2435" data-k="vu2022hybridnets">2435</a>]</cite> share computation across detection and segmentation without yet closing the loop to control. Current systems are trained by imitation on large driving logs: TransFuser <cite class="cites">[<a class="cite" href="/read/references/#ref-2436" data-k="chitta2023transfuser">2436</a>]</cite> fuses camera and LiDAR features with transformer attention and predicts waypoints for a closed-loop agent, and UniAD <cite class="cites">[<a class="cite" href="/read/references/#ref-2437" data-k="hu2023uniad">2437</a>]</cite> chains tracking, mapping, motion forecasting, and occupancy prediction through query interfaces inside one network optimized for planning. Driving world models such as GAIA-1 <cite class="cites">[<a class="cite" href="/read/references/#ref-2330" data-k="hu2023gaia">2330</a>]</cite> generate future multi-view scenes conditioned on ego actions, giving such policies a learned simulator for training and evaluation.
+Opacity is the price of end-to-end training: attribution methods such as layer-wise relevance propagation (LRP) <cite class="cites">[<a class="cite" href="/read/references/#ref-2438" data-k="bach2015pixel">2438</a>]</cite> support interpretation but do not by themselves establish safety or regulatory compliance, which is why hybrid designs keep inspectable scene or trajectory intermediates together with explicit constraint checks, whose guarantees extend only as far as the modeled constraints.</p>
+</div>
+<div id="Ch9.S2.SS5.p3" class="ltx_para">
+<p class="ltx_p">Closed-loop driving policies are evaluated chiefly in simulation, <span class="ltx_font_italic">i.e.,</span> , the CARLA urban simulator <cite class="cites">[<a class="cite" href="/read/references/#ref-2326" data-k="dosovitskiy2017carla">2326</a>]</cite> (NoCrash, Longest6), the nuPlan planning benchmark <cite class="cites">[<a class="cite" href="/read/references/#ref-2439" data-k="caesar2021nuplan">2439</a>]</cite>, and highway-interaction simulators built on HighD/INTERACTION (Table <a href="/read/9.2/#Ch9.T2" class="xref" data-x="Ch9.T2"><span>9.2</span></a>), because rare, safety-critical events cannot be exercised safely on public roads. The headline metrics are the CARLA Driving Score (route completion penalized by infractions), collision and intervention rates, and route completion, complemented by comfort proxies such as jerk and, for the open-loop forecasting sub-problem, minADE/minFDE.</p>
+</div>
+<figure id="Ch9.T2" class="ltx_table">
+<figcaption><span class="cap-tag">Table 9.2</span><span>Representative benchmarks for spatial intelligence in autonomous driving, covering perception, localization and mapping, motion prediction, and decision making.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Pivotal task</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Perception (3D detection)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">nuScenes</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">BEVFormer <cite class="cites">[<a class="cite" href="/read/references/#ref-2421" data-k="YangCTTZZHLQLZD23">2421</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">NDS / mAP</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Perception (3D detection)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Waymo Open</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SparseBEV <cite class="cites">[<a class="cite" href="/read/references/#ref-2423" data-k="LiuTLWW23">2423</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">mAP / latency</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Perception (segmentation)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Cityscapes</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SePiCo <cite class="cites">[<a class="cite" href="/read/references/#ref-2428" data-k="XieLLLHW23">2428</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">mIoU</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Perception (occupancy)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">nuScenes Occ3D</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SurroundOcc <cite class="cites">[<a class="cite" href="/read/references/#ref-2427" data-k="WeiZZZZL23">2427</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">mIoU</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Localization &amp; mapping</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">KITTI Odometry</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Deep / semantic vSLAM</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ATE / RPE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Prediction (forecasting)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Argoverse</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Motion Transformer (MTR) <cite class="cites">[<a class="cite" href="/read/references/#ref-2247" data-k="shi2022mtr">2247</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">minADE / minFDE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Decision &amp; control</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">CARLA (Longest6)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TransFuser <cite class="cites">[<a class="cite" href="/read/references/#ref-2436" data-k="chitta2023transfuser">2436</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Driving Score</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Decision &amp; control</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">nuScenes (open-loop planning)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">UniAD <cite class="cites">[<a class="cite" href="/read/references/#ref-2437" data-k="hu2023uniad">2437</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">L2 error / collision rate</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Decision &amp; control</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">nuPlan</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Learned planners</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Closed-loop score</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S2.SS6"><span class="secnum">9.2.6</span>Established Tools and Systems<a class="anchor" href="#Ch9.S2.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S2.SS6.p1" class="ltx_para">
+<p class="ltx_p">The systems on the road today populate a deployment ladder whose rungs are the SAE levels of Figure <a href="/read/9.2/#Ch9.F6" class="xref" data-x="Ch9.F6"><span>9.6</span></a>, but what separates one rung from the next is rarely a single breakthrough in perception accuracy.
+It is, instead, two coupled engineering choices: how wide an Operational Design Domain (ODD) the system claims, and where legal responsibility for the driving task sits.
+Three tiers are in genuine production, <span class="ltx_font_italic">i.e.,</span> , supervised Level 2 assistance, certified Level 3 “eyes-off” automation, and driverless Level 4 robotaxis, and, as the following progression shows, moving up the ladder consistently means adding sensing and compute redundancy while <em class="ltx_font_italic">narrowing</em> the domain in which the autonomy guarantee holds.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch9.S2.SS6.SSS1"><span class="secnum">9.2.6.1</span>Large-scale Production ADAS (SAE Level 2 / 2+)<a class="anchor" href="#Ch9.S2.SS6.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch9.S2.SS6.SSS1.p1" class="ltx_para">
+<p class="ltx_p">The defining property of Level 2 is that the system performs continuous lateral and longitudinal control, yet the human remains the legal driver and the immediate fallback; consequently, every Level 2 product is fundamentally an exercise in bounding the ODD and enforcing driver attention rather than in achieving autonomy, and the deployed systems differ mainly in how they strike that balance.
+One design philosophy gates hands-free operation to pre-validated, HD-mapped limited-access highways and polices it with in-cabin driver monitoring: <span class="ltx_font_bold">GM Super Cruise<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup></span>, <span class="ltx_font_bold">Ford/Lincoln BlueCruise<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup></span>, and <span class="ltx_font_bold">BMW Driving Assistant Professional<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup></span> all keep the vehicle centered, regulate following distance, and offer assisted lane changes, but escalate alerts and disengage the moment attention drifts or the car leaves a supported segment; their reliability is a direct product of this deliberately narrow envelope.
+A second philosophy trades map dependence for scale: <span class="ltx_font_bold">Tesla Autopilot<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup></span> and <span class="ltx_font_bold">FSD (Supervised)<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup></span> rely on a camera-first vision stack refined through fleet-wide over-the-air training, which extends assistance to a far broader and less-bounded set of scenarios but, lacking comparable geofencing, still demands constant supervision and degrades on poor markings, construction zones, and adverse weather. At the conservative end, <span class="ltx_font_bold">Toyota Safety Sense</span> declines hands-free operation altogether, functioning as an always-on crash-avoidance layer (automatic emergency braking, lane-keeping, and adaptive cruise) that intervenes only to prevent or mitigate collisions. Despite these differing emphases, the binding limitation is identical across all of them: a bounded ODD coupled with a mandatory human fallback, and it is precisely that fallback which the next tier begins to remove.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch9.S2.SS6.SSS2"><span class="secnum">9.2.6.2</span>Certified “Eyes-off” Conditional Automation (SAE Level 3)<a class="anchor" href="#Ch9.S2.SS6.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch9.S2.SS6.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Level 3 is the first tier at which, inside a defined envelope, the driver may legally divert attention and the manufacturer assumes liability for the driving task. This shift in responsibility, rather than any new perception capability, is what dictates the engineering.
+<span class="ltx_font_bold">Mercedes-Benz Drive Pilot<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup></span> and <span class="ltx_font_bold">Honda Traffic Jam Pilot<sup class="fn" id="fnref8"><a href="#fn8" data-fn="fn8">8</a></sup></span> purchase the “eyes-off” guarantee by pairing complementary sensing (cameras, radar, and LiDAR with high-precision, HD-map-anchored localization) with redundant braking, steering, and power paths that retain control through a single-component failure.
+Both, tellingly, keep the envelope deliberately small (low-speed or traffic-jam flow on mapped, divided highways), and both center on the same safety mechanism: as conditions approach the ODD boundary, the system issues a timed takeover request and, absent a driver response, executes a minimal-risk maneuver such as a controlled stop with hazard signals.
+The narrowness of the Level 3 envelope is therefore not a marketing concession but the direct cost of guaranteeing safe behavior once the human is no longer continuously in the loop: a cost the next tier pays in full by removing the driver entirely.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch9.S2.SS6.SSS3"><span class="secnum">9.2.6.3</span>Driverless Robotaxis and Autonomous Ride-hailing (SAE Level 4)<a class="anchor" href="#Ch9.S2.SS6.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch9.S2.SS6.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Level 4 removes the human from the loop entirely within a geofence: there is no driver to hand back to, so the vehicle must resolve every in-domain situation itself or bring itself to a safe state, with remote operators supplying only high-level guidance rather than moment-to-moment control.
+To meet this far stricter bar, <span class="ltx_font_bold">Waymo One<sup class="fn" id="fnref9"><a href="#fn9" data-fn="fn9">9</a></sup></span> and <span class="ltx_font_bold">Baidu Apollo Go<sup class="fn" id="fnref10"><a href="#fn10" data-fn="fn10">10</a></sup></span> converge on essentially the same recipe: a dense, overlapping multi-sensor suite (lidar, radar, and camera vision) for redundant coverage, HD-map-anchored localization, and conservative prediction-and-planning that favors lawful, cautious maneuvers through dense urban traffic.
+Each makes the problem tractable not by claiming universal competence but by tightly restricting where and when it operates and validating performance city by city before extending the geofence.
+Across the three tiers, every step up the ladder buys wider autonomy by narrowing the operating domain and adding redundancy, until at Level 4 the system finally internalizes the fallback that Levels 2 and 3 delegated to the driver.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S2.SS7"><span class="secnum">9.2.7</span>Challenges<a class="anchor" href="#Ch9.S2.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S2.SS7.p1" class="ltx_para">
+<p class="ltx_p">Every tier of the deployment ladder works because it limits where it operates, and general, trustworthy autonomy requires lifting those limits. Four threads, each cutting across perception, localization, and decision, stand in the way: justifying life-critical decisions (<em class="ltx_font_italic">safety and explainability</em>), dependable behavior across the long tail of road, weather, and traffic conditions (<em class="ltx_font_italic">resilience and robustness</em>), adaptation to genuinely novel situations from little prior data (<em class="ltx_font_italic">unfamiliar road scenarios</em>), and continual learning on deployed vehicles without eroding mastered behavior (<em class="ltx_font_italic">enhanced autonomy in complex scenarios</em>).</p>
+</div>
+<section id="Ch9.S2.SS7.SSS0.Px1">
+<div id="Ch9.S2.SS7.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Safety and Explainability.</strong> Because driving decisions are life-critical, the inability to explain why a model selected a given maneuver is a first-order obstacle to certification and public trust.
+Post-hoc attribution methods such as layer-wise relevance propagation <cite class="cites">[<a class="cite" href="/read/references/#ref-2438" data-k="bach2015pixel">2438</a>]</cite> and Shapley-value attribution expose which inputs drove a decision, supporting both engineering debugging and regulatory audit, while causal-inference models go further by separating mere correlation from the actual influence of factors such as road state and a maneuver’s effect on surrounding agents.
+The unresolved difficulty is that these explanations remain largely retrospective and local to individual decisions; converting them into guarantees that provably hold across the full operating domain is still an open problem.</p>
+</div>
+</section>
+<section id="Ch9.S2.SS7.SSS0.Px2">
+<div id="Ch9.S2.SS7.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Resilience and Robustness.</strong> Robustness to the long tail of driving conditions is commonly pursued through curriculum learning, where a policy is trained on a graded sequence from simple navigation to dense mixed-traffic interaction, which improves sample efficiency and training stability relative to confronting hard cases directly.
+Its effectiveness, however, hinges on a scenario curriculum that faithfully spans the deployment distribution and on objectives that keep safety and comfort constraints satisfied at every difficulty level.
+The practical risk is that, absent a benchmark which deliberately surfaces rare but critical events, strong curriculum performance on common scenes can mask failures precisely on the cases that determine real-world safety.</p>
+</div>
+</section>
+<section id="Ch9.S2.SS7.SSS0.Px3">
+<div id="Ch9.S2.SS7.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Unfamiliar Road Scenarios.</strong> A distinct difficulty is generalization to genuinely novel situations (an unseen sign, an irregular work zone, an atypical vehicle) where data-hungry models degrade but human drivers adapt from a single exposure.
+Approaches that target this gap include probabilistic program induction in a Bayesian framework, which represents a new concept as a compact program inferred from few examples, and the injection of compositional, causal, and meta-learning priors so that, for instance, a system can infer that a fallen obstacle will trigger sudden lane changes in adjacent traffic.
+The standing obstacle is validating such few-shot behavior to a safety standard, since the very rarity of these events makes their failure modes hard to measure and certify.</p>
+</div>
+</section>
+<section id="Ch9.S2.SS7.SSS0.Px4">
+<div id="Ch9.S2.SS7.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Enhanced Autonomy in Complex Scenarios.</strong> Sustained operation in changing environments motivates lifelong learning <cite class="cites">[<a class="cite" href="/read/references/#ref-2414" data-k="ZhuBZZW24">2414</a>]</cite>, in which a deployed system keeps acquiring new knowledge (a new traffic pattern or road layout) without retraining from scratch and without overwriting prior competence.
+The central technical barrier is catastrophic forgetting, which is addressed by memory-augmented architectures and continual-learning regularizers that protect previously learned parameters, together with transfer mechanisms that reuse knowledge across tasks and cities.
+The harder, still-open requirement is to perform such updates on-vehicle under real-time and verification constraints, so that an update improving one scenario cannot silently regress a safety-critical behavior elsewhere.</p>
+</div>
+</section>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.sae.org/news/2019/01/sae-updates-j3016-automated-driving-graphic" title="" class="ltx_font_typewriter">https://www.sae.org/news/2019/01/sae-updates-j3016-automated-driving-graphic</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://www.gm.com/innovation/autonomous-driving" title="" class="ltx_font_typewriter">https://www.gm.com/innovation/autonomous-driving</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://www.lincoln.com/technology/bluecruise/" title="" class="ltx_font_typewriter">https://www.lincoln.com/technology/bluecruise/</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://www.bmwgroup.com/en/news/general/2023/driver-assistance-systems.html" title="" class="ltx_font_typewriter">https://www.bmwgroup.com/en/news/general/2023/driver-assistance-systems.html</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://www.tesla.com/en_gb/support/autopilot" title="" class="ltx_font_typewriter">https://www.tesla.com/en_gb/support/autopilot</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://www.tesla.com/en_gb/fsd" title="" class="ltx_font_typewriter">https://www.tesla.com/en_gb/fsd</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://www.mercedes-benz.co.uk/passengercars/technology/autonomous-driving.html" title="" class="ltx_font_typewriter">https://www.mercedes-benz.co.uk/passengercars/technology/autonomous-driving.html</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn8"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://global.honda/en/tech/Traffic_Jam_Pilot_TJP/" title="" class="ltx_font_typewriter">https://global.honda/en/tech/Traffic_Jam_Pilot_TJP/</a></span><a href="#fnref8" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn9"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://waymo.com/" title="" class="ltx_font_typewriter">https://waymo.com/</a></span><a href="#fnref9" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn10"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://www.apollogo.com/" title="" class="ltx_font_typewriter">https://www.apollogo.com/</a></span><a href="#fnref10" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/9.1/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">9.1 Robotic Manipulation</span></a><a class="pager-next" href="/read/9.3/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">9.3 Wearable AI System</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch9.S2.SS1" data-spy="Ch9.S2.SS1"><span class="n">9.2.1</span>Introduction</a></li><li><a href="#Ch9.S2.SS2" data-spy="Ch9.S2.SS2"><span class="n">9.2.2</span>System Overview</a></li><li><a href="#Ch9.S2.SS3" data-spy="Ch9.S2.SS3"><span class="n">9.2.3</span>Pivotal Task-1: Perception and Detection</a></li><li><a href="#Ch9.S2.SS4" data-spy="Ch9.S2.SS4"><span class="n">9.2.4</span>Pivotal Task-2: Localization and Mapping</a></li><li><a href="#Ch9.S2.SS5" data-spy="Ch9.S2.SS5"><span class="n">9.2.5</span>Pivotal Task-3: Decision Making and Control</a></li><li><a href="#Ch9.S2.SS6" data-spy="Ch9.S2.SS6"><span class="n">9.2.6</span>Established Tools and Systems</a></li><li><a href="#Ch9.S2.SS7" data-spy="Ch9.S2.SS7"><span class="n">9.2.7</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=9.2"><b>49</b> cited works</a><a href="/explore/datasets/?sec=9.2"><b>9</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=9.2" title="CARLA, nuPlan devkit, ORB-SLAM3"><b>3</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="9.2 Autonomous Driving" data-url="/read/9.2/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%209.2%20Autonomous%20Driving&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/9.2/%20%28PDF%20p.%20339%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

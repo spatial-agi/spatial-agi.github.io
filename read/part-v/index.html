@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discussions and Futures · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="Discussions and Futures · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #C0436E" data-page="part-v">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink is-current" href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-v/">Part V</a></nav>
+    <header class="page-head kind-part">
+        <div class="kicker"><span class="part-badge">V</span>Part V</div>
+        <h1>Discussions and Futures</h1>
+      <div class="meta">
+        <span>2 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:Part V: Discussions and Futures">
+<figure id="Ch14.F6" class="ltx_figure native opener"><div class="op" data-pagefind-ignore="all" style="--ar:3456/2160"><img class="op-art" src="/assets/img/figs/opener-5-1600.webp" srcset="/assets/img/figs/opener-5-1600.webp 1600w, /assets/img/figs/opener-5.webp 3456w" sizes="(max-width: 980px) 100vw, 900px" width="3456" height="2160" alt="(1) What it requires: a household robot must keep one consistent account of its kitchen while it turns away, people move things, and a stack of cans may topple. (2) Where the gaps are: the loop from perception to action still breaks, benchmark success diverges from deployment, and consistency erodes over long horizons. (3) What comes next: open problems that set the directions for future work." decoding="async"><span class="op-shades"><span class="op-shade" data-z="0"></span><span class="op-shade" data-z="1"></span><span class="op-shade" data-z="2"></span></span><nav class="op-zones" aria-label="In this part"><a class="op-z" href="/read/chapter-15/" style="--i:0"><span class="op-n">1</span><span class="op-txt"><span class="op-h">What it requires</span><span class="op-s">One world state, kept<br>consistent over time</span><span class="op-go">Chapter 15 →</span></span></a><a class="op-z" href="/read/chapter-16/" style="--i:1"><span class="op-n">2</span><span class="op-txt"><span class="op-h">Where the gaps are</span><span class="op-s">Along the loop, in benchmarks,<br>at deployment</span><span class="op-go">Chapter 16 →</span></span></a><a class="op-z" href="/read/16.4/" style="--i:2"><span class="op-n">3</span><span class="op-txt"><span class="op-h">What comes next</span><span class="op-s">Open problems and<br>future directions</span><span class="op-go">Section 16.4 →</span></span></a></nav></div><figcaption class="ltx_centering"><span class="cap-tag">Figure V</span><span>Part V in one view. (1) What it requires: a household robot must keep one consistent account of its kitchen while it turns away, people move things, and a stack of cans may topple. (2) Where the gaps are: the loop from perception to action still breaks, benchmark success diverges from deployment, and consistency erodes over long horizons. (3) What comes next: open problems that set the directions for future work.</span></figcaption>
+</figure>
+<div id="part-intro" class="ltx_para">
+<p class="ltx_p">Parts II to IV described how spatial representations are constructed, how they support perception, reasoning, and generation, and how they are deployed in applications ranging from household robots and surgical systems to city-scale digital twins.
+However, current systems often perceive or act well at a single moment, while most of the open problems arise when a system must maintain a consistent picture of the world as it moves, revisits places, and acts over extended periods.</p>
+</div>
+<div id="Pt5.p2" class="ltx_para">
+<p class="ltx_p">A household robot that puts away groceries must remember the location of a cupboard after turning away from it, register a chair that has been pushed into its path, track which bags it has already emptied, and judge whether a stack of cans will remain stable if another can is added.
+Methods described earlier in this handbook handle each of these steps reasonably well in isolation.
+The difficulty lies in maintaining a single account of the kitchen that all steps read from and write to, and in keeping that account correct while the robot and the people around it change the scene.
+In the formalism of Chapter <a href="/read/chapter-2/" class="xref" data-x="Ch2"><span>2</span></a>, this account is the world state <math id="Pt5.p2.m1" alttext="\mathcal{R}^{\mathcal{S}}_{t}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>ℛ</mi><mi>t</mi><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">\mathcal{R}^{\mathcal{S}}_{t}</annotation></semantics></math>, and keeping it correct is the role of the update <math id="Pt5.p2.m2" alttext="\Psi_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi mathvariant="normal">Ψ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\Psi_{\mathcal{S}}</annotation></semantics></math>.
+It is also the problem that Section <a href="/read/1.2/" class="xref" data-x="Ch1.S2"><span>1.2</span></a> identifies as open for the current era, long-horizon consistency under motion and partial observability.</p>
+</div>
+<div id="part-outro" class="ltx_para">
+<p class="ltx_p">Chapter <a href="/read/chapter-15/" class="xref" data-x="Ch15"><span>15</span></a> asks what makes such a world state usable: what can be inferred from limited observations, what must be represented, how beliefs are kept current, when predictions can be trusted, and how spatial knowledge is acquired through interaction in shared space.
+We present the evidence on each question and state which answers remain open.
+Chapter <a href="/read/chapter-16/" class="xref" data-x="Ch16"><span>16</span></a> turns to gaps in current methods and benchmarks, the difficulties of deployment, and directions for future work.
+Chapter <a href="/read/chapter-17/" class="xref" data-x="Ch17"><span>17</span></a> concludes by revisiting the definition of spatial intelligence introduced in Chapter <a href="/read/chapter-2/" class="xref" data-x="Ch2"><span>2</span></a>.</p>
+</div>
+
+      <div class="chapter-cards" id="chapters">
+        <a class="chapter-card" href="/read/chapter-15/">
+          <span class="cc-num">Chapter 15</span><span class="cc-title">Foundations: What Spatial Intelligence Requires</span>
+          <span class="cc-secs"><span>15.1 Spatial Observability and Identifiability</span><span>15.2 Representation and State Sufficiency</span><span>15.3 Persistent World States and Belief Updating</span><span>15.4 Predictive Validity and Physical Grounding</span><span>15.5 Situated and Interactive Spatial Intelligence</span></span>
+        </a>
+        <a class="chapter-card" href="/read/chapter-16/">
+          <span class="cc-num">Chapter 16</span><span class="cc-title">Research Gaps and Future Directions</span>
+          <span class="cc-secs"><span>16.1 Research Gaps along the Loop</span><span>16.2 Benchmarking Gaps</span><span>16.3 Deployment Bottlenecks</span><span>16.4 Future Directions</span></span>
+        </a>
+        <a class="chapter-card" href="/read/chapter-17/">
+          <span class="cc-num">Chapter 17</span><span class="cc-title">Conclusion</span>
+          <span class="cc-secs"></span>
+        </a>
+      </div>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/14.6/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">14.6 Outlook</span></a><a class="pager-next" href="/read/chapter-15/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Chapter 15: Foundations: What Spatial Intelligence Requires</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="tools">
+        <button type="button" data-cite-section data-title="Discussions and Futures" data-url="/read/part-v/">Cite this page</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%20V%20Discussions%20and%20Futures&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/part-v/%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

@@ -1,0 +1,1084 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.1 2D Spatial Generation · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="8.1 2D Spatial Generation · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #7446D6" data-page="8.1">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link is-current" href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iii/">Part III</a><span class="sep">/</span><a href="/read/chapter-8/">Chapter 8</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-8/">Chapter 8 · Spatial Reconstruction and Generation</a></div>
+        <h1><span class="secnum">8.1</span>2D Spatial Generation</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=229" title="Open this page in the PDF">PDF p. 229</a><span class="dot">·</span>        <span>36 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:8.1 2D Spatial Generation">
+<div id="Ch8.S1.p1" class="ltx_para">
+<p class="ltx_p">The 2D spatial generation encompasses a broad spectrum of tasks that require synthesizing or editing images under explicit spatial constraints.
+These constraints may be <em class="ltx_font_italic">user-specified</em> (bounding boxes, masks, sketches, keypoints, depth maps) or <em class="ltx_font_italic">derived</em> from scene understanding (layout graphs, semantic maps, relational structures), and the overarching goal is to produce images that are not only visually realistic but also <em class="ltx_font_italic">faithful to the specified spatial configuration</em>: objects appearing in the correct locations, at the correct scales and orientations, while remaining globally coherent in lighting, perspective, and style.
+2D generation is where the most mature <em class="ltx_font_italic">semantic-to-pixel prior</em> in contemporary AI is taught to honor <em class="ltx_font_italic">spatial structure</em>: it is the proving ground on which large pre-trained visual priors are forced to localize objects, follow geometric scaffolds, respect occlusion ordering, and obey region- or instruction-level edits, all without falling out of the implicit grammar of natural images.</p>
+</div>
+<div id="Ch8.S1.p2" class="ltx_para">
+<p class="ltx_p">The section follows the 2D pipeline in three steps that share one latent-generator framework.
+§<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a> reviews foundational text-to-image generation, the semantic-to-pixel prior on which everything else here is built, and the three paradigms (adversarial, autoregressive, and diffusion with its flow-matching generalization) that parameterize it.
+§<a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a> adds a structural condition (layouts, masks, edges, depth, pose, scene graphs, region phrases) and asks how it is injected into a frozen or co-trained generator.
+§<a href="/read/8.1/#Ch8.S1.SS3" class="xref" data-x="Ch8.S1.SS3"><span>8.1.3</span></a> replaces the empty canvas with an existing image and a mask, so that the generator must change what lies inside the mask while preserving what lies outside it.</p>
+</div>
+<section>
+<h2 class="h-subsection" id="Ch8.S1.SS1"><span class="secnum">8.1.1</span>Text-to-image Generation<a class="anchor" href="#Ch8.S1.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">Text-to-image (T2I) generation synthesizes an image from a natural-language description.
+For the rest of this chapter its importance lies less in the images themselves than in the prior it provides: a high-capacity mapping from compositional language to the visual space of objects, surfaces, layouts, and viewpoints, learned once at web scale and then reused.
+The spatial controllers of §<a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a> and the editors of §<a href="/read/8.1/#Ch8.S1.SS3" class="xref" data-x="Ch8.S1.SS3"><span>8.1.3</span></a> impose constraints on this prior rather than replacing it, and the text-to-3D pipelines of §<a href="/read/8.2/" class="xref" data-x="Ch8.S2"><span>8.2</span></a> distill it through score distillation or multi-view consistency objectives; whatever relational competence the prior has, or lacks, therefore propagates downstream.
+The field has passed through three architectural paradigms, from adversarial training to autoregressive token modeling to iterative denoising, with diffusion and its flow-matching generalization now setting the standard for quality and prompt fidelity <cite class="cites">[<a class="cite" href="/read/references/#ref-185" data-k="rombach2022ldm">185</a>, <a class="cite" href="/read/references/#ref-1645" data-k="peebles2023dit">1645</a>]</cite>.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS1.SSS1"><span class="secnum">8.1.1.1</span>Task Definition<a class="anchor" href="#Ch8.S1.SS1.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS1.SSS1.p1" class="ltx_para">
+<p class="ltx_p">We formulate text-to-image generation in a paradigm-agnostic form that exposes the structural choices shared by modern systems.
+Let <math id="Ch8.S1.SS1.SSS1.p1.m1" alttext="\mathcal{X}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒳</mi><annotation encoding="application/x-tex">\mathcal{X}</annotation></semantics></math> denote the space of tokenized text prompts and <math id="Ch8.S1.SS1.SSS1.p1.m2" alttext="\mathcal{Y}=[0,1]^{H\times W\times 3}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒴</mi><mo>=</mo><msup><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><mrow><mi>H</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>W</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathcal{Y}=[0,1]^{H\times W\times 3}</annotation></semantics></math> the pixel-space image domain.
+Almost all modern T2I systems operate not directly on <math id="Ch8.S1.SS1.SSS1.p1.m3" alttext="\mathcal{Y}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒴</mi><annotation encoding="application/x-tex">\mathcal{Y}</annotation></semantics></math> but on a compressed <em class="ltx_font_italic">latent space</em> <math id="Ch8.S1.SS1.SSS1.p1.m4" alttext="\mathcal{Z}\subset\mathbb{R}^{d}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒵</mi><mo>⊂</mo><msup><mi>ℝ</mi><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">\mathcal{Z}\subset\mathbb{R}^{d}</annotation></semantics></math> provided by an autoencoder pair</p>
+<table id="Ch8.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E1.m1" alttext="E:\mathcal{Y}\rightarrow\mathcal{Z},\qquad D:\mathcal{Z}\rightarrow\mathcal{Y}%
+,\qquad D\!\circ\!E\approx\mathrm{id}_{\mathcal{Y}}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>E</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒴</mi><mo stretchy="false">→</mo><mrow><mi>𝒵</mi><mo rspace="2.167em">,</mo><mi>D</mi></mrow></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mi>𝒵</mi><mo stretchy="false">→</mo><mi>𝒴</mi></mrow><mo rspace="2.167em">,</mo><mrow><mrow><mi>D</mi><mo lspace="0.052em" rspace="0.052em">∘</mo><mi>E</mi></mrow><mo>≈</mo><msub><mi>id</mi><mi>𝒴</mi></msub></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">E:\mathcal{Y}\rightarrow\mathcal{Z},\qquad D:\mathcal{Z}\rightarrow\mathcal{Y}%
+,\qquad D\!\circ\!E\approx\mathrm{id}_{\mathcal{Y}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.1)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch8.S1.SS1.SSS1.p1.m5" alttext="E" display="inline" data-pagefind-ignore="all"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math> encodes a training image into a low-dimensional code and <math id="Ch8.S1.SS1.SSS1.p1.m6" alttext="D" display="inline" data-pagefind-ignore="all"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math> decodes a code back into a pixel image.
+A text encoder <math id="Ch8.S1.SS1.SSS1.p1.m7" alttext="\phi:\mathcal{X}\rightarrow\mathcal{E}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ϕ</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒳</mi><mo stretchy="false">→</mo><mi>ℰ</mi></mrow></mrow><annotation encoding="application/x-tex">\phi:\mathcal{X}\rightarrow\mathcal{E}</annotation></semantics></math> maps the prompt into a conditioning embedding <math id="Ch8.S1.SS1.SSS1.p1.m8" alttext="\phi(\mathbf{x})\in\mathcal{E}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>∈</mo><mi>ℰ</mi></mrow><annotation encoding="application/x-tex">\phi(\mathbf{x})\in\mathcal{E}</annotation></semantics></math>.
+The core learning problem is then to train a conditional latent sampler</p>
+<table id="Ch8.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E2.m1" alttext="G_{\theta}:\mathcal{E}\rightarrow\mathcal{Z},\qquad\hat{\mathbf{z}}\sim p_{%
+\theta}\!\big{(}\mathbf{z}\,\big{|}\,\phi(\mathbf{x})\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi>G</mi><mi>θ</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mi>ℰ</mi><mo stretchy="false">→</mo><mi>𝒵</mi></mrow><mo rspace="2.167em">,</mo><mrow><mover accent="true"><mi>𝐳</mi><mo>^</mo></mover><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>𝐳</mi><mo fence="false" lspace="0.448em" mathsize="120%" rspace="0.448em">|</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">G_{\theta}:\mathcal{E}\rightarrow\mathcal{Z},\qquad\hat{\mathbf{z}}\sim p_{%
+\theta}\!\big{(}\mathbf{z}\,\big{|}\,\phi(\mathbf{x})\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.2)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">so that, after decoding, the resulting image <math id="Ch8.S1.SS1.SSS1.p1.m9" alttext="\hat{\mathbf{y}}=D(\hat{\mathbf{z}})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>D</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mover accent="true"><mi>𝐳</mi><mo>^</mo></mover><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\hat{\mathbf{y}}=D(\hat{\mathbf{z}})</annotation></semantics></math> is both photorealistic and semantically aligned with the prompt <math id="Ch8.S1.SS1.SSS1.p1.m10" alttext="\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>.
+The three paradigms covered below differ chiefly in how the conditional distribution <math id="Ch8.S1.SS1.SSS1.p1.m11" alttext="p_{\theta}(\mathbf{z}\mid\phi(\mathbf{x}))" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>𝐳</mi><mo>∣</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">p_{\theta}(\mathbf{z}\mid\phi(\mathbf{x}))</annotation></semantics></math> is parameterized and optimized; the autoencoder pair <math id="Ch8.S1.SS1.SSS1.p1.m12" alttext="(E,D)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>E</mi><mo>,</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(E,D)</annotation></semantics></math> and the text encoder <math id="Ch8.S1.SS1.SSS1.p1.m13" alttext="\phi" display="inline" data-pagefind-ignore="all"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> are largely shared design choices across paradigms.
+Figure <a href="/read/8.1/#Ch8.F1" class="xref" data-x="Ch8.F1"><span>8.1</span></a> schematizes this paradigm-agnostic pipeline and the substrate that the three paradigms share.</p>
+</div>
+<figure id="Ch8.F1" class="ltx_figure"><img src="/assets/figures/figures/part3/section8/t2i_framework_and_paradigms.webp" id="Ch8.F1.g1" class="fig-img" alt="" width="2000" height="1308" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 8.1</span><span>The latent-generator view of text-to-image generation. Top: the shared pipeline of Eqs. (<a href="/read/8.1/#Ch8.E1" class="xref" data-x="Ch8.E1"><span>8.1</span></a>) and (<a href="/read/8.1/#Ch8.E2" class="xref" data-x="Ch8.E2"><span>8.2</span></a>); the encoder <math id="Ch8.F1.m3" alttext="E" display="inline" data-pagefind-ignore="all"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math> and the dashed paths are used only in training. Bottom: the sampler <math id="Ch8.F1.m4" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> as (a) a GAN, (b) an autoregressive token model, and (c) diffusion or flow matching. Not every architecture uses a separate autoencoder; the corgi is a schematic illustration.</span></figcaption>
+</figure>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS1.SSS2"><span class="secnum">8.1.1.2</span>Methodology<a class="anchor" href="#Ch8.S1.SS1.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS1.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Three generative paradigms, taken in the order in which each dominated T2I, parameterize the sampler <math id="Ch8.S1.SS1.SSS2.p1.m1" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> of Eq. (<a href="/read/8.1/#Ch8.E2" class="xref" data-x="Ch8.E2"><span>8.2</span></a>) differently; the bottom row of Figure <a href="/read/8.1/#Ch8.F1" class="xref" data-x="Ch8.F1"><span>8.1</span></a> draws them against the common pipeline.
+A second set of advances refines the sampler without redefining it: backbone evolution, sampling acceleration, and the migration of leading systems to proprietary stacks.
+Structural conditioning interfaces, the fourth such refinement, are the subject of §<a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a> and are not repeated here.</p>
+</div>
+<section id="Ch8.S1.SS1.SSS2.Px1">
+<div id="Ch8.S1.SS1.SSS2.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Generative Adversarial Networks.</strong> GAN-based T2I models instantiate <math id="Ch8.S1.SS1.SSS2.Px1.p1.m1" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> as a feed-forward generator <math id="Ch8.S1.SS1.SSS2.Px1.p1.m2" alttext="G_{\theta}(\mathbf{n},\phi(\mathbf{x}))\!\to\!\hat{\mathbf{z}}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi>G</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐧</mi><mo>,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0.108em" rspace="0.108em" stretchy="false">→</mo><mover accent="true"><mi>𝐳</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">G_{\theta}(\mathbf{n},\phi(\mathbf{x}))\!\to\!\hat{\mathbf{z}}</annotation></semantics></math> driven by an auxiliary noise vector <math id="Ch8.S1.SS1.SSS2.Px1.p1.m3" alttext="\mathbf{n}\sim\mathcal{N}(0,I)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐧</mi><mo>∼</mo><mrow><mi>𝒩</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{n}\sim\mathcal{N}(0,I)</annotation></semantics></math>; the conditional distribution <math id="Ch8.S1.SS1.SSS2.Px1.p1.m4" alttext="p_{\theta}(\mathbf{z}\mid\phi(\mathbf{x}))" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>𝐳</mi><mo>∣</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">p_{\theta}(\mathbf{z}\mid\phi(\mathbf{x}))</annotation></semantics></math> is defined only implicitly, as the pushforward of <math id="Ch8.S1.SS1.SSS2.Px1.p1.m5" alttext="\mathbf{n}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐧</mi><annotation encoding="application/x-tex">\mathbf{n}</annotation></semantics></math> through <math id="Ch8.S1.SS1.SSS2.Px1.p1.m6" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math>.
+Training follows the two-player game of <cite class="cites"><span class="citet-name">Goodfellow et al.</span> [<a class="cite" href="/read/references/#ref-1646" data-k="goodfellow2014gan">1646</a>]</cite>, pitting the generator against a discriminator <math id="Ch8.S1.SS1.SSS2.Px1.p1.m7" alttext="D_{\psi}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>D</mi><mi>ψ</mi></msub><annotation encoding="application/x-tex">D_{\psi}</annotation></semantics></math>,</p>
+<table id="Ch8.E3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E3.m1" alttext="\min_{\theta}\max_{\psi}\ \mathbb{E}_{\mathbf{y}\sim p_{\text{data}}}\!\big{[}%
+\log D_{\psi}(\mathbf{y},\phi(\mathbf{x}))\big{]}+\mathbb{E}_{\mathbf{n}}\!%
+\big{[}\log\!\big{(}1-D_{\psi}(D(G_{\theta}(\mathbf{n},\phi(\mathbf{x}))),\phi%
+(\mathbf{x}))\big{)}\big{]}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mrow><munder><mi>min</mi><mi>θ</mi></munder><mo lspace="0.167em">⁡</mo><mrow><munder><mi>max</mi><mi>ψ</mi></munder><mo lspace="0.167em">⁡</mo><msub><mi>𝔼</mi><mrow><mi>𝐲</mi><mo>∼</mo><msub><mi>p</mi><mtext>data</mtext></msub></mrow></msub></mrow></mrow><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">[</mo><mrow><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><msub><mi>D</mi><mi>ψ</mi></msub></mrow><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐲</mi><mo>,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">]</mo></mrow></mrow><mo>+</mo><mrow><msub><mi>𝔼</mi><mi>𝐧</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">[</mo><mrow><mpadded width="1.146em"><mi>log</mi></mpadded><mo>⁡</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mn>1</mn><mo>−</mo><mrow><msub><mi>D</mi><mi>ψ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>D</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>G</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐧</mi><mo>,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">]</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\min_{\theta}\max_{\psi}\ \mathbb{E}_{\mathbf{y}\sim p_{\text{data}}}\!\big{[}%
+\log D_{\psi}(\mathbf{y},\phi(\mathbf{x}))\big{]}+\mathbb{E}_{\mathbf{n}}\!%
+\big{[}\log\!\big{(}1-D_{\psi}(D(G_{\theta}(\mathbf{n},\phi(\mathbf{x}))),\phi%
+(\mathbf{x}))\big{)}\big{]},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.3)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">in which <math id="Ch8.S1.SS1.SSS2.Px1.p1.m8" alttext="D_{\psi}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>D</mi><mi>ψ</mi></msub><annotation encoding="application/x-tex">D_{\psi}</annotation></semantics></math> scores both photorealism and text-image consistency.
+The result is sharp high-frequency detail and single-pass inference, bought at the price of unstable training and mode collapse.
+Within this framework, StackGAN <cite class="cites">[<a class="cite" href="/read/references/#ref-1647" data-k="stackgan2017">1647</a>]</cite> generated a low-resolution image first and refined it with a second GAN conditioned on both the text and the coarse image; AttnGAN <cite class="cites">[<a class="cite" href="/read/references/#ref-1648" data-k="attngan2018">1648</a>]</cite> let the generator attend to individual words while rendering different regions, with an auxiliary image-text matching loss (DAMSM) that reduced attribute errors such as wrongly colored objects; XMC-GAN <cite class="cites">[<a class="cite" href="/read/references/#ref-1649" data-k="xmcgan2021">1649</a>]</cite> replaced that loss with cross-modal contrastive learning and improved multi-object prompts.
+By 2021 diffusion models had overtaken these systems on COCO, chiefly because they train stably and cover more of the image distribution, and research attention moved on; the GAN emphasis on high-frequency detail survives in hybrid and adversarially fine-tuned samplers.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS1.SSS2.Px2">
+<div id="Ch8.S1.SS1.SSS2.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Autoregressive Models.</strong> Autoregressive (AR) models discretize the latent space: the autoencoder <math id="Ch8.S1.SS1.SSS2.Px2.p1.m1" alttext="E" display="inline" data-pagefind-ignore="all"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math> is realized as a vector-quantized variational autoencoder (VQ-VAE) whose output is a sequence of discrete tokens <math id="Ch8.S1.SS1.SSS2.Px2.p1.m2" alttext="\mathbf{z}=(z_{1},\dots,z_{N})\in\mathcal{V}^{N}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐳</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>z</mi><mn>1</mn></msub><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msub><mi>z</mi><mi>N</mi></msub><mo stretchy="false">)</mo></mrow><mo>∈</mo><msup><mi>𝒱</mi><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{z}=(z_{1},\dots,z_{N})\in\mathcal{V}^{N}</annotation></semantics></math> over a learned codebook <math id="Ch8.S1.SS1.SSS2.Px2.p1.m3" alttext="\mathcal{V}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒱</mi><annotation encoding="application/x-tex">\mathcal{V}</annotation></semantics></math>, and <math id="Ch8.S1.SS1.SSS2.Px2.p1.m4" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> is factorized in causal raster order,</p>
+<table id="Ch8.E4" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E4.m1" alttext="p_{\theta}\!\big{(}\mathbf{z}\,\big{|}\,\phi(\mathbf{x})\big{)}\;=\;\prod_{n=1%
+}^{N}p_{\theta}\!\big{(}z_{n}\,\big{|}\,z_{&lt;n},\,\phi(\mathbf{x})\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>𝐳</mi><mo fence="false" lspace="0.448em" mathsize="120%" rspace="0.448em">|</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo maxsize="120%" minsize="120%" rspace="0.280em">)</mo></mrow></mrow><mo rspace="0.391em">=</mo><mrow><munderover><mo movablelimits="false">∏</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msub><mi>z</mi><mi>n</mi></msub><mo fence="false" mathsize="120%" rspace="0.448em">|</mo><mrow><msub><mi>z</mi><mrow><mi></mi><mo>&lt;</mo><mi>n</mi></mrow></msub><mo rspace="0.337em">,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">p_{\theta}\!\big{(}\mathbf{z}\,\big{|}\,\phi(\mathbf{x})\big{)}\;=\;\prod_{n=1%
+}^{N}p_{\theta}\!\big{(}z_{n}\,\big{|}\,z_{&lt;n},\,\phi(\mathbf{x})\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.4)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">trained by maximum likelihood on the next-token cross-entropy.
+T2I thus becomes sequence-to-sequence translation, and the transformer that performs it inherits the compositional competence of language models: DALL-E <cite class="cites">[<a class="cite" href="/read/references/#ref-1650" data-k="dalle2021">1650</a>]</cite> modeled text and image tokens as a single sequence and showed zero-shot generalization across prompt types.
+The cost is decoding latency, one forward pass per token, which grows with resolution.
+Parti <cite class="cites">[<a class="cite" href="/read/references/#ref-1651" data-k="parti2022">1651</a>]</cite> scaled the transformer to 20B parameters, generated at <math id="Ch8.S1.SS1.SSS2.Px2.p1.m5" alttext="256\times 256" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>256</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>256</mn></mrow><annotation encoding="application/x-tex">256\times 256</annotation></semantics></math>, and reached <math id="Ch8.S1.SS1.SSS2.Px2.p1.m6" alttext="1024\times 1024" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1024</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1024</mn></mrow><annotation encoding="application/x-tex">1024\times 1024</annotation></semantics></math> with a convolutional super-resolution stage; Muse <cite class="cites">[<a class="cite" href="/read/references/#ref-1652" data-k="chang2023muse">1652</a>]</cite> abandoned strict sequential order for masked token prediction, filling in many tokens per step over a handful of rounds, and matched diffusion quality on several benchmarks at a fraction of the sampling time.
+AR generation remains attractive where images are produced jointly with text (interleaved documents, storyboards) and a single sequence model handles both.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS1.SSS2.Px3">
+<div id="Ch8.S1.SS1.SSS2.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Diffusion Models.</strong> Diffusion models realize <math id="Ch8.S1.SS1.SSS2.Px3.p1.m1" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> as iterative denoising rather than a single feed-forward pass.
+A fixed <em class="ltx_font_italic">forward</em> process corrupts the clean latent <math id="Ch8.S1.SS1.SSS2.Px3.p1.m2" alttext="\mathbf{z}_{0}=E(\mathbf{y})" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐳</mi><mn>0</mn></msub><mo>=</mo><mrow><mi>E</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐲</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{z}_{0}=E(\mathbf{y})</annotation></semantics></math> along a schedule <math id="Ch8.S1.SS1.SSS2.Px3.p1.m3" alttext="(\alpha_{t},\sigma_{t})_{t=0}^{T}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mrow><mo stretchy="false">(</mo><msub><mi>α</mi><mi>t</mi></msub><mo>,</mo><msub><mi>σ</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><mi>T</mi></msubsup><annotation encoding="application/x-tex">(\alpha_{t},\sigma_{t})_{t=0}^{T}</annotation></semantics></math>, <math id="Ch8.S1.SS1.SSS2.Px3.p1.m4" alttext="\mathbf{z}_{t}=\alpha_{t}\mathbf{z}_{0}+\sigma_{t}\epsilon" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐳</mi><mi>t</mi></msub><mo>=</mo><mrow><mrow><msub><mi>α</mi><mi>t</mi></msub><mo>⁢</mo><msub><mi>𝐳</mi><mn>0</mn></msub></mrow><mo>+</mo><mrow><msub><mi>σ</mi><mi>t</mi></msub><mo>⁢</mo><mi>ϵ</mi></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{z}_{t}=\alpha_{t}\mathbf{z}_{0}+\sigma_{t}\epsilon</annotation></semantics></math> with <math id="Ch8.S1.SS1.SSS2.Px3.p1.m5" alttext="\epsilon\sim\mathcal{N}(0,I)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ϵ</mi><mo>∼</mo><mrow><mi>𝒩</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\epsilon\sim\mathcal{N}(0,I)</annotation></semantics></math> and <math id="Ch8.S1.SS1.SSS2.Px3.p1.m6" alttext="\mathbf{z}_{T}\!\approx\!\mathcal{N}(0,I)" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐳</mi><mi>T</mi></msub><mo lspace="0.108em" rspace="0.108em">≈</mo><mrow><mi>𝒩</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{z}_{T}\!\approx\!\mathcal{N}(0,I)</annotation></semantics></math>; a noise-prediction network <math id="Ch8.S1.SS1.SSS2.Px3.p1.m7" alttext="\epsilon_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ϵ</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">\epsilon_{\theta}</annotation></semantics></math> learns to invert it under the denoising score-matching objective</p>
+<table id="Ch8.E5" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E5.m1" alttext="\min_{\theta}\ \mathbb{E}_{t,\mathbf{z}_{0},\epsilon}\!\left[\left\|\epsilon-%
+\epsilon_{\theta}\!\big{(}\mathbf{z}_{t},\,t,\,\phi(\mathbf{x})\big{)}\right\|%
+_{2}^{2}\right]," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><munder><mi>min</mi><mi>θ</mi></munder><mo lspace="0.667em">⁡</mo><msub><mi>𝔼</mi><mrow><mi>t</mi><mo>,</mo><msub><mi>𝐳</mi><mn>0</mn></msub><mo>,</mo><mi>ϵ</mi></mrow></msub></mrow><mo>⁢</mo><mrow><mo>[</mo><msubsup><mrow><mo>‖</mo><mrow><mi>ϵ</mi><mo>−</mo><mrow><msub><mi>ϵ</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><msub><mi>𝐳</mi><mi>t</mi></msub><mo rspace="0.337em">,</mo><mi>t</mi><mo rspace="0.337em">,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup><mo>]</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\min_{\theta}\ \mathbb{E}_{t,\mathbf{z}_{0},\epsilon}\!\left[\left\|\epsilon-%
+\epsilon_{\theta}\!\big{(}\mathbf{z}_{t},\,t,\,\phi(\mathbf{x})\big{)}\right\|%
+_{2}^{2}\right],</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.5)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">which is the diffusion-specific realization of the training objective implicit in Eq. (<a href="/read/8.1/#Ch8.E2" class="xref" data-x="Ch8.E2"><span>8.2</span></a>).
+At inference the model starts from <math id="Ch8.S1.SS1.SSS2.Px3.p1.m8" alttext="\mathbf{z}_{T}\sim\mathcal{N}(0,I)" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐳</mi><mi>T</mi></msub><mo>∼</mo><mrow><mi>𝒩</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{z}_{T}\sim\mathcal{N}(0,I)</annotation></semantics></math>, applies <math id="Ch8.S1.SS1.SSS2.Px3.p1.m9" alttext="\epsilon_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ϵ</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">\epsilon_{\theta}</annotation></semantics></math> for <math id="Ch8.S1.SS1.SSS2.Px3.p1.m10" alttext="t=T,\dots,1" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi>T</mi><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mn>1</mn></mrow></mrow><annotation encoding="application/x-tex">t=T,\dots,1</annotation></semantics></math>, and decodes <math id="Ch8.S1.SS1.SSS2.Px3.p1.m11" alttext="\hat{\mathbf{y}}=D(\hat{\mathbf{z}}_{0})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>D</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mover accent="true"><mi>𝐳</mi><mo>^</mo></mover><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\hat{\mathbf{y}}=D(\hat{\mathbf{z}}_{0})</annotation></semantics></math>; each step corrects a small error, which is why the final samples are both detailed and faithful.
+Running this process in the latent space of Eq. (<a href="/read/8.1/#Ch8.E1" class="xref" data-x="Ch8.E1"><span>8.1</span></a>) rather than in pixels, as Latent Diffusion Models <cite class="cites">[<a class="cite" href="/read/references/#ref-185" data-k="rombach2022ldm">185</a>]</cite> did (<span class="ltx_font_italic">e.g.,</span> , <math id="Ch8.S1.SS1.SSS2.Px3.p1.m12" alttext="4\times 64\times 64" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>4</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>64</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">4\times 64\times 64</annotation></semantics></math> instead of <math id="Ch8.S1.SS1.SSS2.Px3.p1.m13" alttext="3\times 512\times 512" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>512</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>512</mn></mrow><annotation encoding="application/x-tex">3\times 512\times 512</annotation></semantics></math> for a 512px image), cut memory and compute enough to train on commodity hardware and to release Stable Diffusion openly.
+Conditioning the denoiser on embeddings from a pretrained language-image model, as in GLIDE <cite class="cites">[<a class="cite" href="/read/references/#ref-1653" data-k="glide2022">1653</a>]</cite> and DALL<math id="Ch8.S1.SS1.SSS2.Px3.p1.m14" alttext="\cdot" display="inline" data-pagefind-ignore="all"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>E 2 <cite class="cites">[<a class="cite" href="/read/references/#ref-1654" data-k="dalle2_2022">1654</a>]</cite>, improved prompt alignment, and classifier-free guidance <cite class="cites">[<a class="cite" href="/read/references/#ref-1655" data-k="ho2022classifierfree">1655</a>]</cite> supplied a single knob that trades diversity against fidelity by extrapolating the conditional prediction away from the unconditional one.
+The remaining weakness is sampling cost, dozens of sequential network evaluations per image; higher-order ODE samplers and the distillation methods below address it.
+Diffusion or flow-matching cores now underlie most leading systems, with the native multimodal autoregressive stacks discussed under proprietary systems the main exception.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS1.SSS2.Px4">
+<div id="Ch8.S1.SS1.SSS2.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Flow Matching and Rectified Flow.</strong> Rather than a fourth paradigm, flow matching is diffusion reformulated in continuous time.
+It parameterizes <math id="Ch8.S1.SS1.SSS2.Px4.p1.m1" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> as a learned <em class="ltx_font_italic">velocity field</em> <math id="Ch8.S1.SS1.SSS2.Px4.p1.m2" alttext="v_{\theta}(\mathbf{z}_{t},t,\phi(\mathbf{x}))" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>v</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐳</mi><mi>t</mi></msub><mo>,</mo><mi>t</mi><mo>,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">v_{\theta}(\mathbf{z}_{t},t,\phi(\mathbf{x}))</annotation></semantics></math> instead of a noise predictor: training picks the straight interpolation <math id="Ch8.S1.SS1.SSS2.Px4.p1.m3" alttext="\mathbf{z}_{t}=(1-t)\mathbf{z}_{0}+t\mathbf{z}_{1}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐳</mi><mi>t</mi></msub><mo>=</mo><mrow><mrow><mrow><mo stretchy="false">(</mo><mrow><mn>1</mn><mo>−</mo><mi>t</mi></mrow><mo stretchy="false">)</mo></mrow><mo>⁢</mo><msub><mi>𝐳</mi><mn>0</mn></msub></mrow><mo>+</mo><mrow><mi>t</mi><mo>⁢</mo><msub><mi>𝐳</mi><mn>1</mn></msub></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{z}_{t}=(1-t)\mathbf{z}_{0}+t\mathbf{z}_{1}</annotation></semantics></math> between a clean latent <math id="Ch8.S1.SS1.SSS2.Px4.p1.m4" alttext="\mathbf{z}_{0}=E(\mathbf{y})" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐳</mi><mn>0</mn></msub><mo>=</mo><mrow><mi>E</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐲</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{z}_{0}=E(\mathbf{y})</annotation></semantics></math> and a Gaussian sample <math id="Ch8.S1.SS1.SSS2.Px4.p1.m5" alttext="\mathbf{z}_{1}\!\sim\!\mathcal{N}(0,I)" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐳</mi><mn>1</mn></msub><mo lspace="0.108em" rspace="0.108em">∼</mo><mrow><mi>𝒩</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{z}_{1}\!\sim\!\mathcal{N}(0,I)</annotation></semantics></math> and regresses the velocity,</p>
+<table id="Ch8.E6" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E6.m1" alttext="\min_{\theta}\ \mathbb{E}_{t,(\mathbf{z}_{0},\mathbf{z}_{1})}\!\left[\left\|v_%
+{\theta}(\mathbf{z}_{t},t,\phi(\mathbf{x}))-(\mathbf{z}_{1}-\mathbf{z}_{0})%
+\right\|_{2}^{2}\right]," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><munder><mi>min</mi><mi>θ</mi></munder><mo lspace="0.667em">⁡</mo><msub><mi>𝔼</mi><mrow><mi>t</mi><mo>,</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐳</mi><mn>0</mn></msub><mo>,</mo><msub><mi>𝐳</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></mrow></msub></mrow><mo>⁢</mo><mrow><mo>[</mo><msubsup><mrow><mo>‖</mo><mrow><mrow><msub><mi>v</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐳</mi><mi>t</mi></msub><mo>,</mo><mi>t</mi><mo>,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>𝐳</mi><mn>1</mn></msub><mo>−</mo><msub><mi>𝐳</mi><mn>0</mn></msub></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup><mo>]</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\min_{\theta}\ \mathbb{E}_{t,(\mathbf{z}_{0},\mathbf{z}_{1})}\!\left[\left\|v_%
+{\theta}(\mathbf{z}_{t},t,\phi(\mathbf{x}))-(\mathbf{z}_{1}-\mathbf{z}_{0})%
+\right\|_{2}^{2}\right],</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.6)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">and inference integrates the probability-flow ODE <math id="Ch8.S1.SS1.SSS2.Px4.p1.m6" alttext="\mathrm{d}\mathbf{z}_{t}/\mathrm{d}t=v_{\theta}(\mathbf{z}_{t},t,\phi(\mathbf{%
+x}))" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mrow><mi mathvariant="normal">d</mi><mo>⁢</mo><msub><mi>𝐳</mi><mi>t</mi></msub></mrow><mo>/</mo><mi mathvariant="normal">d</mi></mrow><mo>⁢</mo><mi>t</mi></mrow><mo>=</mo><mrow><msub><mi>v</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐳</mi><mi>t</mi></msub><mo>,</mo><mi>t</mi><mo>,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathrm{d}\mathbf{z}_{t}/\mathrm{d}t=v_{\theta}(\mathbf{z}_{t},t,\phi(\mathbf{%
+x}))</annotation></semantics></math> from <math id="Ch8.S1.SS1.SSS2.Px4.p1.m7" alttext="t=1" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t=1</annotation></semantics></math> back to <math id="Ch8.S1.SS1.SSS2.Px4.p1.m8" alttext="t=0" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>.
+The formulation was introduced concurrently by <cite class="cites"><span class="citet-name">Lipman et al.</span> [<a class="cite" href="/read/references/#ref-1656" data-k="lipman2023flow">1656</a>]</cite> (Flow Matching) and <cite class="cites"><span class="citet-name">Liu et al.</span> [<a class="cite" href="/read/references/#ref-1657" data-k="liu2023rectifiedflow">1657</a>]</cite> (Rectified Flow); <cite class="cites"><span class="citet-name">Albergo and Vanden-Eijnden</span> [<a class="cite" href="/read/references/#ref-1658" data-k="albergo2023building">1658</a>]</cite> gave the unifying stochastic-interpolant view in which diffusion is the special case of a noisier interpolation schedule.
+Three consequences matter in practice. Straight-line interpolations yield nearly straight ODE trajectories, so matched quality is reached in noticeably fewer steps (genuine one-step generation still needs a reflow or distillation stage); the objective is a single regression with no noise-schedule design and no per-schedule guidance recalibration; and the loss scales smoothly with model size and resolution.
+Stable Diffusion 3 <cite class="cites">[<a class="cite" href="/read/references/#ref-1659" data-k="sd3rft2024">1659</a>]</cite> scaled the recipe to T2I on a DiT-style transformer backbone and reported the best GenEval scores among open models together with favorable human preference on Parti-prompts; the Flux family followed the same recipe.
+Flow matching composes with every refinement below as readily as a noise-predictor core does and has become the default continuous-time formulation in 2024-onwards systems.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS1.SSS2.Px5">
+<div id="Ch8.S1.SS1.SSS2.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Backbone Evolution: From U-Net to Diffusion Transformers.</strong> Early diffusion models used the U-Net for its multiscale feature fusion and locality bias.
+The Diffusion Transformer (DiT) of <cite class="cites"><span class="citet-name">Peebles and Xie</span> [<a class="cite" href="/read/references/#ref-1645" data-k="peebles2023dit">1645</a>]</cite> replaced it with a stack of transformer layers over latent patch tokens, giving every denoising step a global receptive field, and showed that FID improves monotonically with depth, width, and token count along predictable scaling laws, reaching FID 2.27 on class-conditional ImageNet at <math id="Ch8.S1.SS1.SSS2.Px5.p1.m1" alttext="256^{2}" display="inline" data-pagefind-ignore="all"><semantics><msup><mn>256</mn><mn>2</mn></msup><annotation encoding="application/x-tex">256^{2}</annotation></semantics></math>.
+Attention cost grows quadratically with resolution, so hybrid CNN-transformer designs and efficient attention remain active; the DiT lineage nonetheless underlies SD3 and most 2024-onwards systems, and it points toward a single transformer that generates several modalities, differing only in tokenization and training data.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS1.SSS2.Px6">
+<div id="Ch8.S1.SS1.SSS2.Px6.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Sampling Acceleration and Distillation.</strong> Fifty or more denoising steps rule out interactive use and low-power deployment.
+<cite class="cites"><span class="citet-name">Salimans and Ho</span> [<a class="cite" href="/read/references/#ref-1660" data-k="salimans2022progressive">1660</a>]</cite> distilled a <math id="Ch8.S1.SS1.SSS2.Px6.p1.m1" alttext="T" display="inline" data-pagefind-ignore="all"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>-step teacher into a <math id="Ch8.S1.SS1.SSS2.Px6.p1.m2" alttext="T/2" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>T</mi><mo>/</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">T/2</annotation></semantics></math>-step student and iterated the halving to reach <math id="Ch8.S1.SS1.SSS2.Px6.p1.m3" alttext="1" display="inline" data-pagefind-ignore="all"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>–<math id="Ch8.S1.SS1.SSS2.Px6.p1.m4" alttext="4" display="inline" data-pagefind-ignore="all"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math> steps.
+Consistency Models <cite class="cites">[<a class="cite" href="/read/references/#ref-1661" data-k="song2023consistency">1661</a>]</cite> train a network to map a noisy latent at any timestep directly to the clean image, either from scratch with a consistency loss or by distilling a pretrained diffusion model, and Latent Consistency Models <cite class="cites">[<a class="cite" href="/read/references/#ref-1662" data-k="lcm2023">1662</a>]</cite> applied the idea to Stable Diffusion’s latent space, matching <math id="Ch8.S1.SS1.SSS2.Px6.p1.m5" alttext="50" display="inline" data-pagefind-ignore="all"><semantics><mn>50</mn><annotation encoding="application/x-tex">50</annotation></semantics></math>-step quality in <math id="Ch8.S1.SS1.SSS2.Px6.p1.m6" alttext="2" display="inline" data-pagefind-ignore="all"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>–<math id="Ch8.S1.SS1.SSS2.Px6.p1.m7" alttext="4" display="inline" data-pagefind-ignore="all"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math> steps.
+All of these are post-training procedures that leave the architecture untouched, so any strong backbone can be made fast after the fact.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS1.SSS2.Px7">
+<div id="Ch8.S1.SS1.SSS2.Px7.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Proprietary and Commercial Systems.</strong> Leading systems have migrated to proprietary, industrially scaled stacks of three kinds.
+Native multimodal models such as OpenAI’s GPT Image 1.5 <cite class="cites">[<a class="cite" href="/read/references/#ref-1663" data-k="openai2025images">1663</a>]</cite> and Google’s Gemini 3 Pro Image (Nano Banana Pro) <cite class="cites">[<a class="cite" href="/read/references/#ref-1664" data-k="google_gemini_images">1664</a>]</cite> run a unified transformer over interleaved text and image tokens and emphasize semantic reasoning and multi-turn editing; latent-diffusion iterations such as Imagen 4 <cite class="cites">[<a class="cite" href="/read/references/#ref-1665" data-k="google_deepmind_imagen">1665</a>]</cite> scale the LDM recipe with stronger text encoders and curated data; preference-tuned systems such as Midjourney v7 <cite class="cites">[<a class="cite" href="/read/references/#ref-1666" data-k="midjourney_v7_alpha">1666</a>]</cite> and FLUX.2 [max] <cite class="cites">[<a class="cite" href="/read/references/#ref-1667" data-k="bfl_flux2_max">1667</a>]</cite> fine-tune strong priors on human-preference data (FLUX.2 on the rectified-flow recipe of §<a href="/read/8.1/#Ch8.S1.SS1.SSS2.Px4" class="xref" data-x="Ch8.S1.SS1.SSS2.Px4"><span>8.1.1.2</span></a>; Midjourney’s architecture is undisclosed).
+Each reduces to one of the three paradigms plus some of the refinements just listed; because architectural and training detail is withheld, public benchmarking and reproduction still rest on the open SD / DiT stack.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS1.SSS3"><span class="secnum">8.1.1.3</span>Benchmarks<a class="anchor" href="#Ch8.S1.SS1.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS1.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Three independent things are usually conflated under “benchmark”: the training corpora on which models are fit, the evaluation suites of prompts that probe particular capabilities, and the metrics that score the resulting images.
+A model trained on LAION-5B can be evaluated on GenEval prompts and scored by FID, CLIPScore, or an LLM judge, and disagreement between those scores is itself informative.</p>
+</div>
+<section id="Ch8.S1.SS1.SSS3.Px1">
+<div id="Ch8.S1.SS1.SSS3.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Training Corpora.</strong> Corpus scale has driven much of T2I progress.
+Early work fit fine-grained sets with ten captions per image, CUB-200-2011 (11,788 bird images) <cite class="cites">[<a class="cite" href="/read/references/#ref-1668" data-k="wah2011cub">1668</a>]</cite> and Oxford-102 Flowers (8,189 images) <cite class="cites">[<a class="cite" href="/read/references/#ref-1669" data-k="nilsback2008flowers">1669</a>]</cite>; MS-COCO Captions <cite class="cites">[<a class="cite" href="/read/references/#ref-440" data-k="lin2014microsoft">440</a>]</cite> (123,287 images, five captions each) became the standard general-scene corpus and, for years, the evaluation set as well, a conflation that the suites below were designed to end.
+Current models train on web-scale image-text pairs: LAION-5B <cite class="cites">[<a class="cite" href="/read/references/#ref-1670" data-k="schuhmann2022laion5b">1670</a>]</cite> releases 5.85 billion CLIP-filtered pairs, and proprietary corpora of similar scale, less documented, underlie DALL-E 2 and Parti.
+Scale brought duplication, demographic bias, unsafe content, and licensing disputes with it, and filtered subsets such as LAION-Aesthetics and curation pipelines are now part of every training recipe.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS1.SSS3.Px2">
+<div id="Ch8.S1.SS1.SSS3.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Evaluation Benchmark Suites.</strong> An evaluation suite is a curated prompt set plus a verification protocol: prompts are adversarial or capability-stratified, reference images are usually absent, and scoring is automatic (an object detector, a VQA model, or an LLM/MLLM judge) rather than reconstruction-based.
+Table <a href="/read/8.1/#Ch8.T1" class="xref" data-x="Ch8.T1"><span>8.1</span></a> lists the main suites since 2022.
+The earliest, DrawBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1671" data-k="saharia2022photorealistic">1671</a>]</cite> and PartiPrompts <cite class="cites">[<a class="cite" href="/read/references/#ref-1651" data-k="parti2022">1651</a>]</cite>, are human-pairwise prompt sets released with Imagen and Parti; HRS-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1672" data-k="bakr2023hrsbench">1672</a>]</cite> and HEIM <cite class="cites">[<a class="cite" href="/read/references/#ref-1673" data-k="lee2023heim">1673</a>]</cite> are holistic, scoring 13 and 12 axes respectively; TIFA <cite class="cites">[<a class="cite" href="/read/references/#ref-1674" data-k="hu2023tifa">1674</a>]</cite>, GenEval <cite class="cites">[<a class="cite" href="/read/references/#ref-1675" data-k="ghosh2023geneval">1675</a>]</cite>, and T2I-CompBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1676" data-k="huang2023t2icompbench">1676</a>]</cite> introduced automatic verification by VQA, object detection, and BLIP-VQA plus UniDet, and the latter two are now reported alongside FID and CLIPScore in most papers.
+For spatial intelligence the salient suite is VISOR <cite class="cites">[<a class="cite" href="/read/references/#ref-1677" data-k="gokhale2022visor">1677</a>]</cite>, which isolates two-object relations (left/right, above/below) over <math id="Ch8.S1.SS1.SSS3.Px2.p1.m1" alttext="25{,}280" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>25</mn><mo>,</mo><mn>280</mn></mrow><annotation encoding="application/x-tex">25{,}280</annotation></semantics></math> prompts and finds that otherwise strong models frequently render the wrong configuration.
+DPG-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1678" data-k="hu2024ella">1678</a>]</cite> targets dense, long compositional prompts, GenAI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1679" data-k="li2024genaibench">1679</a>]</cite> pairs compositional prompts with VQAScore judging, and WISE <cite class="cites">[<a class="cite" href="/read/references/#ref-1680" data-k="niu2025wise">1680</a>]</cite> asks whether generated images agree with real-world facts (flag colors, landmarks, anatomy), a knowledge axis orthogonal to compositional binding.</p>
+</div>
+<figure id="Ch8.T1" class="ltx_table">
+<figcaption><span class="cap-tag">Table 8.1</span><span>Representative evaluation benchmark suites for text-to-image generation, ordered approximately by year of release. “Scoring” indicates the dominant verification mechanism: detector- or VQA-based automatic checking, learned preference models, MLLM/LLM-as-judge rubric scoring, or aggregated human preference. Several suites combine multiple scoring channels.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Year</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold"># Prompts</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Evaluation Axis</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Scoring</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">DrawBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1671" data-k="saharia2022photorealistic">1671</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2022</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">200</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Broad capability + alignment (<math id="Ch8.T1.m1" alttext="11" display="inline" data-pagefind-ignore="all"><semantics><mn>11</mn><annotation encoding="application/x-tex">11</annotation></semantics></math> categories)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Human pairwise</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">PartiPrompts <cite class="cites">[<a class="cite" href="/read/references/#ref-1651" data-k="parti2022">1651</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2022</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1,600</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Capability spectrum (<math id="Ch8.T1.m2" alttext="12" display="inline" data-pagefind-ignore="all"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math> categories)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Human pairwise</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VISOR <cite class="cites">[<a class="cite" href="/read/references/#ref-1677" data-k="gokhale2022visor">1677</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2022</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">25,280</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Two-object spatial relations (left/right, above/below)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Object-detector verification</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TIFA <cite class="cites">[<a class="cite" href="/read/references/#ref-1674" data-k="hu2023tifa">1674</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2023</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">4,081</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Faithfulness (VQA over auto-generated questions)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VQA / LLM-as-judge</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">HRS-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1672" data-k="bakr2023hrsbench">1672</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2023</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">45,000</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Holistic; <math id="Ch8.T1.m3" alttext="13" display="inline" data-pagefind-ignore="all"><semantics><mn>13</mn><annotation encoding="application/x-tex">13</annotation></semantics></math> skills <math id="Ch8.T1.m4" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> <math id="Ch8.T1.m5" alttext="50" display="inline" data-pagefind-ignore="all"><semantics><mn>50</mn><annotation encoding="application/x-tex">50</annotation></semantics></math> scenarios</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Automatic, mixed</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">HEIM <cite class="cites">[<a class="cite" href="/read/references/#ref-1673" data-k="lee2023heim">1673</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2023</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">62 scenarios</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Holistic; <math id="Ch8.T1.m6" alttext="12" display="inline" data-pagefind-ignore="all"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math> aspects (alignment, quality, knowledge, bias, toxicity, …)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Automatic <math id="Ch8.T1.m7" alttext="+" display="inline" data-pagefind-ignore="all"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math> human</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GenEval <cite class="cites">[<a class="cite" href="/read/references/#ref-1675" data-k="ghosh2023geneval">1675</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2023</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">553</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Object-centric: single/two-obj., counting, color, position, attribute</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Detector verification</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T2I-CompBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1676" data-k="huang2023t2icompbench">1676</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2023</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">6,000</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Compositional: attribute binding, object relationships, complex prompts</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">BLIP-VQA <math id="Ch8.T1.m8" alttext="+" display="inline" data-pagefind-ignore="all"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math> UniDet</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">DPG-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1678" data-k="hu2024ella">1678</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2024</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1,065</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Dense, long compositional prompts</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MLLM-based scoring</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GenAI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1679" data-k="li2024genaibench">1679</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2024</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1,600</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Compositional T2V/T2I prompts</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VQAScore (LLM-judge)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">WISE <cite class="cites">[<a class="cite" href="/read/references/#ref-1680" data-k="niu2025wise">1680</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:26.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2025</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1,000</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:143.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">World-knowledge-informed semantic accuracy</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LLM-based grading</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section id="Ch8.S1.SS1.SSS3.Px3">
+<div id="Ch8.S1.SS1.SSS3.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Evaluation Metrics.</strong> Metrics fall into four tiers.
+Distributional metrics compare the generated and real image populations and say nothing about any individual prompt: the Fréchet Inception Distance (FID) <cite class="cites">[<a class="cite" href="/read/references/#ref-1681" data-k="heusel2017gans">1681</a>]</cite> is the Wasserstein-2 distance between Gaussian fits of Inception-V3 features of generated and real images, the Inception Score rewards images that are individually confidently classified yet collectively diverse, and generative precision/recall <cite class="cites">[<a class="cite" href="/read/references/#ref-1682" data-k="sajjadi2018assessing">1682</a>, <a class="cite" href="/read/references/#ref-1683" data-k="kynkaanniemi2019improved">1683</a>]</cite> separate quality from coverage through neighborhood tests in feature space.
+Alignment metrics score one image against its prompt; CLIPScore <cite class="cites">[<a class="cite" href="/read/references/#ref-1684" data-k="hessel2021clipscore">1684</a>]</cite>, the cosine similarity between the CLIP embeddings of <math id="Ch8.S1.SS1.SSS3.Px3.p1.m1" alttext="\hat{\mathbf{y}}" display="inline" data-pagefind-ignore="all"><semantics><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{y}}</annotation></semantics></math> and <math id="Ch8.S1.SS1.SSS3.Px3.p1.m2" alttext="\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>, is cheap and reference-free but inherits CLIP’s insensitivity to attribute binding, counting, and spatial relations.
+Learned preference models, HPSv2 <cite class="cites">[<a class="cite" href="/read/references/#ref-1685" data-k="wu2023hpsv2">1685</a>]</cite>, ImageReward <cite class="cites">[<a class="cite" href="/read/references/#ref-1686" data-k="xu2023imagereward">1686</a>]</cite> (fit to <math id="Ch8.S1.SS1.SSS3.Px3.p1.m3" alttext="137" display="inline" data-pagefind-ignore="all"><semantics><mn>137</mn><annotation encoding="application/x-tex">137</annotation></semantics></math>K human comparisons), and PickScore <cite class="cites">[<a class="cite" href="/read/references/#ref-1687" data-k="kirstain2023pickapic">1687</a>]</cite> (fit to the <math id="Ch8.S1.SS1.SSS3.Px3.p1.m4" alttext="{\sim}500" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi></mi><mo>∼</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">{\sim}500</annotation></semantics></math>K real-user comparisons of Pick-a-Pic), regress a scalar that correlates with average user preference, bundling realism, alignment, and aesthetics; they have become the default automatic ranking while inheriting their raters’ biases and degrading out of distribution.</p>
+</div>
+<div id="Ch8.S1.SS1.SSS3.Px3.p2" class="ltx_para">
+<p class="ltx_p">The newest tier uses a vision-language model as judge.
+TIFA <cite class="cites">[<a class="cite" href="/read/references/#ref-1674" data-k="hu2023tifa">1674</a>]</cite> has a language model write verification questions from the prompt and a VQA model answer them against the image, the score being the fraction answered correctly; VQAScore <cite class="cites">[<a class="cite" href="/read/references/#ref-1688" data-k="lin2024evaluating">1688</a>]</cite> collapses this to a single yes/no probability under a fine-tuned CLIP-FlanT5 model and reports the best human correlation on compositional suites; VIEScore <cite class="cites">[<a class="cite" href="/read/references/#ref-1689" data-k="ku2023viescore">1689</a>]</cite> and LLMScore <cite class="cites">[<a class="cite" href="/read/references/#ref-1690" data-k="lu2023llmscore">1690</a>]</cite> prompt a multimodal LLM with a structured rubric and return per-axis scores with brief rationales, and direct prompting of frontier VLMs with custom rubrics has become routine for ad-hoc capability probes.
+Judge metrics track human preference on compositional and spatial prompts far better than CLIPScore, at the cost of a frontier-model call per image, sensitivity to rubric wording, and drift across judge-model versions that makes numbers from different papers hard to compare.
+No single tier suffices, and current papers report a tuple (FID or IS, CLIPScore, one or two preference scores, one judge score) on several suites plus a small human study; cross-metric disagreement is read as a warning rather than averaged away.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS1.SSS4"><span class="secnum">8.1.1.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S1.SS1.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS1.SSS4.p1" class="ltx_para">
+<p class="ltx_p">The weakness that matters most for this handbook is <span class="ltx_font_bold">spatial-relation faithfulness</span>, a sub-problem of compositionality.
+Models frequently misplace objects relative to one another: a prompt that puts a cup to the left of a laptop is often rendered with the two swapped or stacked, and VISOR <cite class="cites">[<a class="cite" href="/read/references/#ref-1677" data-k="gokhale2022visor">1677</a>]</cite> shows that language-specified relations are frequently ignored outright.
+Data-centric remedies help; SPRIGHT <cite class="cites">[<a class="cite" href="/read/references/#ref-1691" data-k="chatterjee2024spright">1691</a>]</cite> re-captions training images with explicit spatial descriptions and measurably improves consistency, but reliable control over where objects appear remains open.
+Because layout-conditioned generation (§<a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a>) and text-to-3D (§<a href="/read/8.2/" class="xref" data-x="Ch8.S2"><span>8.2</span></a>) inherit whatever relational competence this prior provides, the limitation is foundational rather than cosmetic.
+Fine structure is a second gap: legible text, hands, and faces still fail in otherwise strong models and appear to need architectural or data-specific fixes rather than scale alone.</p>
+</div>
+<div id="Ch8.S1.SS1.SSS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Evaluation reliability</span> is the third.
+Automatic scores correlate imperfectly with human judgment precisely on the compositional, counting, and spatial-relation prompts that matter here; judge-based metrics close part of the gap but add rubric sensitivity and judge-version drift, so headline numbers across papers are not directly comparable.
+As GenEval and T2I-CompBench become standard, their prompts risk leaking into web-scraped training corpora, in which case high scores increasingly measure memorization rather than capability; periodic refresh of held-out prompts, blinded judges, and explicit train/test decontamination are the obvious countermeasures and are not yet routine.</p>
+</div>
+<div id="Ch8.S1.SS1.SSS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Societal concerns</span> follow the data.
+Models inherit demographic bias from their corpora and will produce unsafe content on request; prompt classifiers, safety filters, and fine-tuning on curated subsets reduce but do not remove the problem, and photorealistic synthesis raises misinformation and intellectual-property questions that watermarking and data curation address only in part.
+The extension of these priors along the time axis, where identity and motion must stay consistent across frames, is the subject of §<a href="/read/8.3/" class="xref" data-x="Ch8.S3"><span>8.3</span></a>; the next two subsections stay in the image plane and ask how the prior can be made to obey spatial constraints and local edits.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S1.SS2"><span class="secnum">8.1.2</span>2D Spatial-aware Image Generation<a class="anchor" href="#Ch8.S1.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S1.SS2.p1" class="ltx_para">
+<p class="ltx_p"><em class="ltx_font_italic">2D spatial-aware image generation</em> synthesizes images that are faithful not only to a text prompt but to explicit spatial constraints in the image plane: where objects appear, how large they are, what shape they take, and how they relate to one another (<em class="ltx_font_italic">left of</em>, <em class="ltx_font_italic">on</em>, <em class="ltx_font_italic">behind</em>).
+The constraint may be a set of boxes or a scene layout, an instance or semantic mask, an edge or sketch map, a depth or normal map, 2D keypoints, a scene graph, or a phrase bound to a region, and the pipelines that honor it are almost all diffusion models augmented with a conditioning pathway or a guidance term.
+The tension that organizes the subfield is three-way: <em class="ltx_font_italic">adherence</em> to hard constraints against <em class="ltx_font_italic">perceptual realism</em> and <em class="ltx_font_italic">diversity</em>, and both against <em class="ltx_font_italic">compositionality</em> when many small or occluding objects carry discrete relations.
+Depth and normal maps enter here as structural guides for occlusion ordering and surface orientation, not as metric measurements; recovering true distance belongs to reconstruction (§<a href="/read/8.2/" class="xref" data-x="Ch8.S2"><span>8.2</span></a>).</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS2.SSS1"><span class="secnum">8.1.2.1</span>Task Definition<a class="anchor" href="#Ch8.S1.SS2.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS2.SSS1.p1" class="ltx_para">
+<p class="ltx_p">We inherit the latent-generator framework of §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>.
+Let <math id="Ch8.S1.SS2.SSS1.p1.m1" alttext="\mathcal{X}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒳</mi><annotation encoding="application/x-tex">\mathcal{X}</annotation></semantics></math> denote tokenized prompts, <math id="Ch8.S1.SS2.SSS1.p1.m2" alttext="\mathcal{Z}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒵</mi><annotation encoding="application/x-tex">\mathcal{Z}</annotation></semantics></math> the latent space induced by the autoencoder pair <math id="Ch8.S1.SS2.SSS1.p1.m3" alttext="(E,D)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>E</mi><mo>,</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(E,D)</annotation></semantics></math> of Eq. (<a href="/read/8.1/#Ch8.E1" class="xref" data-x="Ch8.E1"><span>8.1</span></a>), and <math id="Ch8.S1.SS2.SSS1.p1.m4" alttext="\phi:\mathcal{X}\!\rightarrow\!\mathcal{E}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ϕ</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒳</mi><mo lspace="0.108em" rspace="0.108em" stretchy="false">→</mo><mi>ℰ</mi></mrow></mrow><annotation encoding="application/x-tex">\phi:\mathcal{X}\!\rightarrow\!\mathcal{E}</annotation></semantics></math> the text encoder.
+Spatial-aware generation <em class="ltx_font_italic">augments</em> this framework with a structural condition <math id="Ch8.S1.SS2.SSS1.p1.m5" alttext="\mathbf{c}\in\mathcal{C}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>∈</mo><mi>𝒞</mi></mrow><annotation encoding="application/x-tex">\mathbf{c}\in\mathcal{C}</annotation></semantics></math> drawn from one or more conditioning channels (boxes, masks, edges, depth, pose, scene graphs, region phrases, reference images), encoded by a condition encoder <math id="Ch8.S1.SS2.SSS1.p1.m6" alttext="\kappa:\mathcal{C}\!\rightarrow\!\mathcal{C}^{\prime}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒞</mi><mo lspace="0.108em" rspace="0.108em" stretchy="false">→</mo><msup><mi>𝒞</mi><mo>′</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\kappa:\mathcal{C}\!\rightarrow\!\mathcal{C}^{\prime}</annotation></semantics></math>.
+The conditional latent sampler of Eq. (<a href="/read/8.1/#Ch8.E2" class="xref" data-x="Ch8.E2"><span>8.2</span></a>) is extended to a joint conditional</p>
+<table id="Ch8.E7" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E7.m1" alttext="G_{\theta}:\mathcal{E}\times\mathcal{C}^{\prime}\rightarrow\mathcal{Z},\qquad%
+\hat{\mathbf{z}}\sim p_{\theta}\!\big{(}\mathbf{z}\,\big{|}\,\phi(\mathbf{x}),%
+\,\kappa(\mathbf{c})\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi>G</mi><mi>θ</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mrow><mi>ℰ</mi><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mi>𝒞</mi><mo>′</mo></msup></mrow><mo stretchy="false">→</mo><mi>𝒵</mi></mrow><mo rspace="2.167em">,</mo><mrow><mover accent="true"><mi>𝐳</mi><mo>^</mo></mover><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>𝐳</mi><mo fence="false" lspace="0.448em" mathsize="120%" rspace="0.448em">|</mo><mrow><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">G_{\theta}:\mathcal{E}\times\mathcal{C}^{\prime}\rightarrow\mathcal{Z},\qquad%
+\hat{\mathbf{z}}\sim p_{\theta}\!\big{(}\mathbf{z}\,\big{|}\,\phi(\mathbf{x}),%
+\,\kappa(\mathbf{c})\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.7)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">and the generated image <math id="Ch8.S1.SS2.SSS1.p1.m7" alttext="\hat{\mathbf{y}}=D(\hat{\mathbf{z}})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>D</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mover accent="true"><mi>𝐳</mi><mo>^</mo></mover><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\hat{\mathbf{y}}=D(\hat{\mathbf{z}})</annotation></semantics></math> is required to be (i) photorealistic, (ii) semantically aligned with <math id="Ch8.S1.SS2.SSS1.p1.m8" alttext="\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>, and (iii) faithful to the structural condition <math id="Ch8.S1.SS2.SSS1.p1.m9" alttext="\mathbf{c}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐜</mi><annotation encoding="application/x-tex">\mathbf{c}</annotation></semantics></math> in placement, scale, shape, and pairwise relation.
+The unconditional limit <math id="Ch8.S1.SS2.SSS1.p1.m10" alttext="\mathbf{c}=\varnothing" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>=</mo><mi mathvariant="normal">∅</mi></mrow><annotation encoding="application/x-tex">\mathbf{c}=\varnothing</annotation></semantics></math> recovers pure T2I generation as in §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>; the substance of the present subsection lies in how <math id="Ch8.S1.SS2.SSS1.p1.m11" alttext="\kappa" display="inline" data-pagefind-ignore="all"><semantics><mi>κ</mi><annotation encoding="application/x-tex">\kappa</annotation></semantics></math> is realized for each conditioning channel and how its output is injected into <math id="Ch8.S1.SS2.SSS1.p1.m12" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math>.
+Which channel populates <math id="Ch8.S1.SS2.SSS1.p1.m13" alttext="\mathbf{c}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐜</mi><annotation encoding="application/x-tex">\mathbf{c}</annotation></semantics></math>, and how densely, ranges from pixel-level maps (masks, edges, depth) through coordinate-level scaffolds (boxes, keypoints) to discrete symbols (scene graphs, region phrases); the modality survey below follows that ordering.
+Interactive constraints supplied by dragging handles during generation belong to the editing regime of §<a href="/read/8.1/#Ch8.S1.SS3" class="xref" data-x="Ch8.S1.SS3"><span>8.1.3</span></a>.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS2.SSS2"><span class="secnum">8.1.2.2</span>Methodology<a class="anchor" href="#Ch8.S1.SS2.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS2.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Two axes organize the methods: the <em class="ltx_font_italic">conditioning modality</em> (what kind of structural input <math id="Ch8.S1.SS2.SSS2.p1.m1" alttext="\mathbf{c}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐜</mi><annotation encoding="application/x-tex">\mathbf{c}</annotation></semantics></math> is consumed) and the <em class="ltx_font_italic">injection mechanism</em> (how <math id="Ch8.S1.SS2.SSS2.p1.m2" alttext="\kappa(\mathbf{c})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\kappa(\mathbf{c})</annotation></semantics></math> enters the latent sampler <math id="Ch8.S1.SS2.SSS2.p1.m3" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math>).
+They are nearly independent. One mechanism, a ControlNet-style side branch, serves canny edges, pose skeletons, depth, and segmentation alike, and one modality, bounding boxes, is served by side branches, grounded cross-attention, or inference-time attention shaping, so the design space is a matrix of (modality <math id="Ch8.S1.SS2.SSS2.p1.m4" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> mechanism) cells rather than a list of monolithic methods.
+Figure <a href="/read/8.1/#Ch8.F2" class="xref" data-x="Ch8.F2"><span>8.2</span></a> draws the five mechanisms on one backbone silhouette.</p>
+</div>
+<section id="Ch8.S1.SS2.SSS2.Px1">
+<div id="Ch8.S1.SS2.SSS2.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Conditioning Modalities.</strong> <span class="ltx_font_italic">Dense pixel-level scaffolds</span> supply a value at every location, which makes them the easiest channels to follow and the most restrictive on creativity.
+Instance and semantic masks drive region-conditioned synthesis, with MultiDiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-1692" data-k="multidiffusion">1692</a>]</cite> offering a training-free protocol that samples jointly over overlapping mask windows; edges, sketches, and line art, popularized by the canny and soft-edge variants of ControlNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1693" data-k="zhang2023adding">1693</a>]</cite> and the edge head of T2I-Adapter <cite class="cites">[<a class="cite" href="/read/references/#ref-1694" data-k="t2iadapter2023">1694</a>]</cite>, fix only the location of intensity discontinuities and leave texture and appearance to the prompt; depth and normal maps, served by ControlNet’s depth variant, impose coarse occlusion ordering and surface orientation without requiring a metric reconstruction.
+<span class="ltx_font_italic">Coordinate-level scaffolds</span> drop to per-region or per-point supervision.
+Boxes with labels are the most studied channel, a set of <math id="Ch8.S1.SS2.SSS2.Px1.p1.m1" alttext="(\text{box},\text{label})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mtext>box</mtext><mo>,</mo><mtext>label</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\text{box},\text{label})</annotation></semantics></math> tuples fixing location and rough scale, with LayoutDiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-1695" data-k="zheng2023layoutdiffusion">1695</a>]</cite>, LayoutLLM <cite class="cites">[<a class="cite" href="/read/references/#ref-1696" data-k="qu2023layoutllm">1696</a>]</cite>, and the open-set GLIGEN <cite class="cites">[<a class="cite" href="/read/references/#ref-1697" data-k="li2023gligen">1697</a>]</cite> as representatives; 2D keypoints (typically human pose) are sparser still, a handful of joint coordinates, injected through ControlNet or handled by GLIGEN as a special case of grounding.
+<span class="ltx_font_italic">Discrete symbolic structure</span> carries no pixel- or coordinate-level information at all, and the model must map it onto the image plane itself.
+Scene graphs reach back to the sg2im line of <cite class="cites"><span class="citet-name">Johnson et al.</span> [<a class="cite" href="/read/references/#ref-1698" data-k="johnson2018image">1698</a>]</cite> and re-emerged in the diffusion era through LLM-emitted layouts, as in LayoutLLM, where the graph is first decoded into a coordinate-level layout; region phrases and referring expressions bind a text span to a box, mask, or free-form polygon and are served by GLIGEN’s grounded cross-attention and by phrase-grounding heads attached to SD and SDXL <cite class="cites">[<a class="cite" href="/read/references/#ref-1699" data-k="sdxl2023">1699</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS2.SSS2.Px2">
+<div id="Ch8.S1.SS2.SSS2.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Injection Mechanisms.</strong> Five mechanism families cover the literature; production pipelines routinely stack a side branch for dense geometric channels, an adapter for style or a reference image, and inference-time guidance to sharpen adherence on adversarial prompts.</p>
+</div>
+<div id="Ch8.S1.SS2.SSS2.Px2.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Side-branch controllers.</span>
+The backbone weights stay frozen and an auxiliary branch mirroring the encoder half of the base U-Net is trained, connected through <em class="ltx_font_italic">zero-convolution</em> layers whose weights are initialized to zero so that the augmented model reproduces the base model exactly at the start of training and degrades gracefully if the branch is poorly tuned.
+ControlNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1693" data-k="zhang2023adding">1693</a>]</cite> is the prototype and the first widely adopted retrofit pathway for non-text structural control: the condition (a canny edge map, an OpenPose skeleton, a depth or normal map, a segmentation mask, or a scribble) is encoded by the side branch in parallel with the noisy latent and injected into the base U-Net through additive residual connections at each scale.
+One branch is trained per modality on labeled image–condition pairs, which produced a library of plug-in controllers for SD 1.5 and SDXL <cite class="cites">[<a class="cite" href="/read/references/#ref-1699" data-k="sdxl2023">1699</a>]</cite> that compose with prompt conditioning at inference time without retraining the backbone; most later designs either shrink this recipe or fold it into a unified adapter library.</p>
+</div>
+<div id="Ch8.S1.SS2.SSS2.Px2.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Lightweight adapters.</span>
+Where the side branch spends capacity (half a U-Net per modality), T2I-Adapter <cite class="cites">[<a class="cite" href="/read/references/#ref-1694" data-k="t2iadapter2023">1694</a>]</cite>, developed concurrently with the same goal of plug-in control over a frozen backbone, spends as little as possible: a few residual blocks per modality whose multi-scale features are added directly into the corresponding encoder stages.
+Several adapters can be combined at inference, an image conditioned simultaneously on an OpenPose skeleton, a depth map, and a color palette with a scalar weight on each, so the adapter is preferred for multi-channel fusion and fast iteration, and the side branch where maximum single-channel fidelity matters.</p>
+</div>
+<div id="Ch8.S1.SS2.SSS2.Px2.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Grounded cross-attention.</span>
+Side branches and adapters run an external pathway alongside the backbone; the next two families intervene <em class="ltx_font_italic">inside</em> its attention stack.
+GLIGEN <cite class="cites">[<a class="cite" href="/read/references/#ref-1697" data-k="li2023gligen">1697</a>]</cite> inserts a new <em class="ltx_font_italic">gated self-attention</em> layer between the existing self-attention and cross-attention of each U-Net transformer block; the layer attends jointly over the visual tokens and a set of <em class="ltx_font_italic">grounding tokens</em> that encode each <math id="Ch8.S1.SS2.SSS2.Px2.p4.m1" alttext="(\text{phrase},\text{box})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mtext>phrase</mtext><mo>,</mo><mtext>box</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\text{phrase},\text{box})</annotation></semantics></math> pair, a learned scalar gate controls how strongly the grounding signal enters the residual stream, and only the new layer is trained, so the network falls back to ungrounded behavior when no constraint is supplied.
+The problem it solves is complementary to the side branch: not how to inject a dense pixel-level scaffold, but how to introduce <em class="ltx_font_italic">open-set</em> symbolic grounding (any category named in text, localized by a box, keypoints, or a reference image) into a frozen T2I backbone, with several grounding channels interleaved within one mechanism.</p>
+</div>
+<div id="Ch8.S1.SS2.SSS2.Px2.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Layout-aware cross-attention.</span>
+LayoutDiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-1695" data-k="zheng2023layoutdiffusion">1695</a>]</cite> is the dense-supervised cousin of grounded attention: rather than gating a new layer onto a frozen backbone, it co-trains a layout-aware cross-attention block end to end for layout-to-image (L2I) generation specifically.
+A structured layout, a set of <math id="Ch8.S1.SS2.SSS2.Px2.p5.m1" alttext="(\text{box},\text{class label})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mtext>box</mtext><mo>,</mo><mtext>class label</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\text{box},\text{class label})</annotation></semantics></math> tuples, becomes a sequence of region tokens fused with the noisy latent at every denoising step, and an explicit <em class="ltx_font_italic">object–scene</em> factorization models global scene context separately from per-object features so that object identity, scale, and pairwise relations survive in cluttered scenes.
+It reports stronger layout IoU and relation satisfaction than ControlNet or T2I-Adapter on multi-object COCO benchmarks, at the cost of being specialized to box-and-label input rather than the broader modality library.</p>
+</div>
+<div id="Ch8.S1.SS2.SSS2.Px2.p6" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Inference-time guidance.</span>
+The fifth family adds no parameters and modifies only sampling.
+BoxDiff <cite class="cites">[<a class="cite" href="/read/references/#ref-1700" data-k="xie2023boxdiff">1700</a>]</cite> is the canonical training-free spatial controller: it shapes the cross-attention maps so that activations of box-localized prompt tokens concentrate inside their boxes while the backbone stays untouched.
+MultiDiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-1692" data-k="multidiffusion">1692</a>]</cite> fuses overlapping mask windows at sampling time, and composing scores from several conditional models or tuning the classifier-free guidance scale per region are related strategies.
+Because nothing is retrained, these methods suit rapid prototyping, backbones whose weights are unavailable for fine-tuning, and per-prompt sharpening on top of the trained mechanisms above.</p>
+</div>
+<figure id="Ch8.F2" class="ltx_figure"><img src="/assets/figures/figures/part3/section8/Five_injection_mechanisms_for_spatial-aware_T2I.webp" id="Ch8.F2.g1" class="fig-img" alt="" width="2000" height="1447" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 8.2</span><span>Five mechanisms for injecting a spatial condition <math id="Ch8.F2.m2" alttext="\kappa(\mathbf{c})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\kappa(\mathbf{c})</annotation></semantics></math> into a text-to-image denoiser: (a) side-branch control (ControlNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1693" data-k="zhang2023adding">1693</a>]</cite>), (b) lightweight adapters (T2I-Adapter <cite class="cites">[<a class="cite" href="/read/references/#ref-1694" data-k="t2iadapter2023">1694</a>]</cite>), (c) gated grounding (GLIGEN <cite class="cites">[<a class="cite" href="/read/references/#ref-1697" data-k="li2023gligen">1697</a>]</cite>), (d) layout-aware cross-attention (LayoutDiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-1695" data-k="zheng2023layoutdiffusion">1695</a>]</cite>), and (e) inference-time guidance (BoxDiff <cite class="cites">[<a class="cite" href="/read/references/#ref-1700" data-k="xie2023boxdiff">1700</a>]</cite>). The corgi example is illustrative, not a comparison of outputs.</span></figcaption>
+</figure>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS2.SSS3"><span class="secnum">8.1.2.3</span>Benchmarks<a class="anchor" href="#Ch8.S1.SS2.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS2.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Two things change relative to §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>.
+The ground truth is a <em class="ltx_font_italic">structural annotation</em> (a layout, a mask, a keypoint set) rather than a reference image, so reconstruction-style metrics give way to adherence metrics that score how closely the generated image honors <math id="Ch8.S1.SS2.SSS3.p1.m1" alttext="\mathbf{c}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐜</mi><annotation encoding="application/x-tex">\mathbf{c}</annotation></semantics></math>; and every channel admits its own adherence metric, so a meaningful report combines a channel-specific score with the realism and alignment scores inherited from the previous subsection.</p>
+</div>
+<section id="Ch8.S1.SS2.SSS3.Px1">
+<div id="Ch8.S1.SS2.SSS3.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Training Corpora.</strong> Spatial-aware models are typically trained on corpora that pair images with rich structural annotations: COCO Captions <cite class="cites">[<a class="cite" href="/read/references/#ref-440" data-k="lin2014microsoft">440</a>]</cite> for layouts and captions; ADE20K <cite class="cites">[<a class="cite" href="/read/references/#ref-492" data-k="zhou2017ade20k">492</a>]</cite> (<math id="Ch8.S1.SS2.SSS3.Px1.p1.m1" alttext="20" display="inline" data-pagefind-ignore="all"><semantics><mn>20</mn><annotation encoding="application/x-tex">20</annotation></semantics></math>K images, <math id="Ch8.S1.SS2.SSS3.Px1.p1.m2" alttext="150" display="inline" data-pagefind-ignore="all"><semantics><mn>150</mn><annotation encoding="application/x-tex">150</annotation></semantics></math> classes) for semantic and instance masks; Visual Genome <cite class="cites">[<a class="cite" href="/read/references/#ref-796" data-k="krishna2017visual">796</a>]</cite> for object boxes, attributes, and pairwise relations supporting scene-graph conditioning; RefCOCO / RefCOCO+ / RefCOCOg <cite class="cites">[<a class="cite" href="/read/references/#ref-1082" data-k="yu2016modeling">1082</a>]</cite> for phrase grounding; and PhraseCut <cite class="cites">[<a class="cite" href="/read/references/#ref-1092" data-k="wu2020phrasecut">1092</a>]</cite> for region-prompt mask supervision.
+Additional structure (canny edges, depth, normals, OpenPose skeletons) is typically derived on the fly from these base corpora by running pretrained predictors over each image, producing the paired image–condition data on which ControlNet-style and adapter-style pipelines are trained.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS2.SSS3.Px2">
+<div id="Ch8.S1.SS2.SSS3.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Evaluation Benchmark Suites.</strong> Most of the suites surveyed in §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a> (Table <a href="/read/8.1/#Ch8.T1" class="xref" data-x="Ch8.T1"><span>8.1</span></a>) include axes that probe spatial-aware generation directly and serve as its primary out-of-the-box benchmarks.
+GenEval <cite class="cites">[<a class="cite" href="/read/references/#ref-1675" data-k="ghosh2023geneval">1675</a>]</cite> exposes a position subset that scores whether two objects appear in a specified relation (<em class="ltx_font_italic">left of</em>, <em class="ltx_font_italic">above</em>); T2I-CompBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1676" data-k="huang2023t2icompbench">1676</a>]</cite> provides explicit <em class="ltx_font_italic">spatial</em> and <em class="ltx_font_italic">non-spatial relationship</em> categories with BLIP-VQA and UniDet scoring; HRS-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1672" data-k="bakr2023hrsbench">1672</a>]</cite> includes a <em class="ltx_font_italic">spatial</em> skill among its thirteen; GenAI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1679" data-k="li2024genaibench">1679</a>]</cite> offers compositional prompts on which spatial relations are a frequent failure of CLIP-based scoring; and WISE <cite class="cites">[<a class="cite" href="/read/references/#ref-1680" data-k="niu2025wise">1680</a>]</cite> measures knowledge-grounded location accuracy.
+Beyond these, the L2I literature reports task-specific evaluations on COCO layouts: detection-based AP for box-localized objects alongside FID and CLIPScore.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS2.SSS3.Px3">
+<div id="Ch8.S1.SS2.SSS3.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Constraint-specific Metrics.</strong> Layout adherence is box IoU between the conditioning layout and the boxes recovered by a frozen detector on <math id="Ch8.S1.SS2.SSS3.Px3.p1.m1" alttext="\hat{\mathbf{y}}" display="inline" data-pagefind-ignore="all"><semantics><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{y}}</annotation></semantics></math>, often with per-object center distance; mask adherence uses mask IoU and boundary <math id="Ch8.S1.SS2.SSS3.Px3.p1.m2" alttext="F" display="inline" data-pagefind-ignore="all"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>-score against the conditioning mask; edge and sketch adherence report recall (sometimes precision) of edges re-extracted from <math id="Ch8.S1.SS2.SSS3.Px3.p1.m3" alttext="\hat{\mathbf{y}}" display="inline" data-pagefind-ignore="all"><semantics><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{y}}</annotation></semantics></math>; geometry adherence reports depth RMSE and normal angular error where ground-truth geometry exists; pose adherence reports keypoint reprojection error or PCK; and relational adherence reports relation-satisfaction accuracy and per-entity object AP for scene-graph and phrase-grounded settings.
+These numbers do not aggregate: averaging layout IoU with mask IoU has no operational meaning, since the two live on different scales and reward different shape regimes, and most papers report a different subset of them, which is the main obstacle to cross-paper comparison in this subfield.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS2.SSS4"><span class="secnum">8.1.2.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S1.SS2.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS2.SSS4.p1" class="ltx_para">
+<p class="ltx_p">Spatial-aware T2I inherits the compositionality and evaluation problems of §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a> and sharpens them.</p>
+</div>
+<div id="Ch8.S1.SS2.SSS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Faithful multi-object composition.</span>
+Crowded scenes with many small or partially occluded objects and hard relations (support, containment, depth ordering) fail in three recognizable ways: <em class="ltx_font_italic">attention dilution</em>, in which a prompt token’s cross-attention spreads across the canvas and no object is well localized; <em class="ltx_font_italic">attribute leakage</em>, in which color, material, or count attaches to the wrong object (the canonical “red cube on a blue sphere” confusion); and <em class="ltx_font_italic">object dropping</em>, in which small or rare entities in a multi-object layout are simply omitted.
+On GenEval the position and counting subsets remain the weakest axes across SD 1.5, SDXL, and SD 3 <cite class="cites">[<a class="cite" href="/read/references/#ref-1659" data-k="sd3rft2024">1659</a>]</cite>.
+Remedies work at three levels: Attend-and-Excite <cite class="cites">[<a class="cite" href="/read/references/#ref-1701" data-k="chefer2023attend">1701</a>]</cite> reweights cross-attention at inference so that every subject token is strongly activated somewhere in the canvas; StructureDiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-1702" data-k="feng2023training">1702</a>]</cite> uses prompt syntax to constrain attention structure without training; and LLM-emitted layouts, LayoutGPT <cite class="cites">[<a class="cite" href="/read/references/#ref-1703" data-k="feng2023layoutgpt">1703</a>]</cite> and the multimodal-LLM-driven RPG of <cite class="cites"><span class="citet-name">Yang et al.</span> [<a class="cite" href="/read/references/#ref-1704" data-k="yang2024mastering">1704</a>]</cite>, plan a structured layout from the free-form prompt and hand it to an L2I renderer.
+Whether the gap closes through a stronger compositional prior in the backbone or through planning as a separate stage is unresolved, and the two are not exclusive.</p>
+</div>
+<div id="Ch8.S1.SS2.SSS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Constraint satisfaction against creativity and diversity.</span>
+Turning guidance up tightens adherence until, past a model-dependent threshold, edges oversharpen, textures flatten, and variation across seeds collapses; the same curve appears for the ControlNet conditioning weight, GLIGEN’s gating strength, and the classifier-free guidance scale, leaving practitioners to tune two or three knobs at once.
+Annealing the control weight along the denoising trajectory, per-region or per-token guidance scales, and down-weighting guidance where the base model is already confident are the current responses; how to expose such schedules to end users without overwhelming the interface is open.
+Chaining spatial-aware generation with repeated local edits adds a drift problem of its own, treated in §<a href="/read/8.1/#Ch8.S1.SS3" class="xref" data-x="Ch8.S1.SS3"><span>8.1.3</span></a>.</p>
+</div>
+<div id="Ch8.S1.SS2.SSS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Geometry-aware realism in 2D.</span>
+Depth and normal conditioning fix coarse occlusion but introduce their own artifacts: <em class="ltx_font_italic">boundary banding</em> where a sharp depth discontinuity meets a smooth gradient in the generated image, <em class="ltx_font_italic">scale ambiguity</em> because a monocular depth map carries no absolute scale and two objects at the same depth value can be rendered at incompatible physical sizes, and <em class="ltx_font_italic">lighting incoherence</em> because the map fixes geometry but not the light field, so shadows disagree with the implied surface orientations.
+Better estimators are the first lever, with the diffusion-prior Marigold <cite class="cites">[<a class="cite" href="/read/references/#ref-636" data-k="ke2024repurposing">636</a>]</cite> producing sharper and more globally consistent depth than CNN baselines and Depth Anything <cite class="cites">[<a class="cite" href="/read/references/#ref-140" data-k="DepthAnything">140</a>]</cite> staying robust on out-of-distribution conditioning images; differentiable geometry proxies that translate depth into shading constraints are the second, explored at the boundary with full 3D synthesis (§<a href="/read/8.2/" class="xref" data-x="Ch8.S2"><span>8.2</span></a>) but not yet integrated into general T2I backbones.
+Region grounding also changes the safety picture, since a harmful edit can be confined to a footprint that whole-image forensics miss; that concern belongs to editing and is taken up in §<a href="/read/8.1/#Ch8.S1.SS3" class="xref" data-x="Ch8.S1.SS3"><span>8.1.3</span></a>.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S1.SS3"><span class="secnum">8.1.3</span>2D Spatial Inpainting &amp; Editing<a class="anchor" href="#Ch8.S1.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S1.SS3.p1" class="ltx_para">
+<p class="ltx_p"><em class="ltx_font_italic">2D spatial inpainting &amp; editing</em> modifies an image inside a specified region while leaving the rest intact: filling holes and occlusions, removing or inserting objects, changing attributes (color, material, texture, text), adjusting layout, or harmonizing pasted content with its new background.
+The intent arrives as a mask, a structural hint (edges, sketches), a geometry proxy (depth, normals), or a natural-language instruction, and the tensions are between <span class="ltx_font_bold">local editability</span> and <span class="ltx_font_bold">global consistency</span> of lighting, perspective, and shadow, between <span class="ltx_font_bold">constraint adherence</span> and <span class="ltx_font_bold">realism</span>, and between <span class="ltx_font_bold">semantic plausibility</span> and <span class="ltx_font_bold">identity preservation</span> for person- or product-centric edits.
+Editing holds the model to its strongest geometric account: the <em class="ltx_font_italic">unedited</em> region of <math id="Ch8.S1.SS3.p1.m1" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> supplies ground-truth pixels that any plausible edit must respect, exposing failure modes that pure synthesis can hide, among them color drift, lighting reflow, identity loss, and attribute leakage across the mask boundary.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS3.SSS1"><span class="secnum">8.1.3.1</span>Task Definition<a class="anchor" href="#Ch8.S1.SS3.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS3.SSS1.p1" class="ltx_para">
+<p class="ltx_p">We inherit the latent-generator framework of §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>.
+Let <math id="Ch8.S1.SS3.SSS1.p1.m1" alttext="(E,D)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>E</mi><mo>,</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(E,D)</annotation></semantics></math> denote the autoencoder pair of Eq. (<a href="/read/8.1/#Ch8.E1" class="xref" data-x="Ch8.E1"><span>8.1</span></a>), <math id="Ch8.S1.SS3.SSS1.p1.m2" alttext="\phi:\mathcal{X}\!\rightarrow\!\mathcal{E}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ϕ</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒳</mi><mo lspace="0.108em" rspace="0.108em" stretchy="false">→</mo><mi>ℰ</mi></mrow></mrow><annotation encoding="application/x-tex">\phi:\mathcal{X}\!\rightarrow\!\mathcal{E}</annotation></semantics></math> the text encoder, and <math id="Ch8.S1.SS3.SSS1.p1.m3" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> the conditional latent sampler of Eq. (<a href="/read/8.1/#Ch8.E2" class="xref" data-x="Ch8.E2"><span>8.2</span></a>).
+Inpainting and editing depart from de-novo generation in one crucial respect: the input is no longer the empty set but an existing image <math id="Ch8.S1.SS3.SSS1.p1.m4" alttext="I\in\mathcal{Y}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>I</mi><mo>∈</mo><mi>𝒴</mi></mrow><annotation encoding="application/x-tex">I\in\mathcal{Y}</annotation></semantics></math>, encoded into <math id="Ch8.S1.SS3.SSS1.p1.m5" alttext="\mathbf{z}^{\text{in}}=E(I)" display="inline" data-pagefind-ignore="all"><semantics><mrow><msup><mi>𝐳</mi><mtext>in</mtext></msup><mo>=</mo><mrow><mi>E</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{z}^{\text{in}}=E(I)</annotation></semantics></math>.
+A mask <math id="Ch8.S1.SS3.SSS1.p1.m6" alttext="\mathcal{M}\in\{0,1\}^{H\times W}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ℳ</mi><mo>∈</mo><msup><mrow><mo stretchy="false">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">}</mo></mrow><mrow><mi>H</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>W</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathcal{M}\in\{0,1\}^{H\times W}</annotation></semantics></math> designates the editable region, and an editing control set <math id="Ch8.S1.SS3.SSS1.p1.m7" alttext="\mathbf{c}\in\mathcal{C}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>∈</mo><mi>𝒞</mi></mrow><annotation encoding="application/x-tex">\mathbf{c}\in\mathcal{C}</annotation></semantics></math> (text prompts, structural cues, exemplar patches, or drag-style handles) populates the conditioning channel, encoded by <math id="Ch8.S1.SS3.SSS1.p1.m8" alttext="\kappa:\mathcal{C}\!\rightarrow\!\mathcal{C}^{\prime}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒞</mi><mo lspace="0.108em" rspace="0.108em" stretchy="false">→</mo><msup><mi>𝒞</mi><mo>′</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\kappa:\mathcal{C}\!\rightarrow\!\mathcal{C}^{\prime}</annotation></semantics></math>.
+The conditional latent sampler is extended to</p>
+<table id="Ch8.E8" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E8.m1" alttext="G_{\theta}:\mathcal{Z}\times\{0,1\}^{H\times W}\times\mathcal{E}\times\mathcal%
+{C}^{\prime}\!\rightarrow\!\mathcal{Z},\qquad\hat{\mathbf{z}}\sim p_{\theta}\!%
+\big{(}\mathbf{z}\,\big{|}\,\mathbf{z}^{\text{in}},\,\mathcal{M},\,\phi(%
+\mathbf{x}),\,\kappa(\mathbf{c})\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi>G</mi><mi>θ</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mrow><mi>𝒵</mi><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mrow><mo stretchy="false">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo rspace="0.055em" stretchy="false">}</mo></mrow><mrow><mi>H</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>W</mi></mrow></msup><mo rspace="0.222em">×</mo><mi>ℰ</mi><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mi>𝒞</mi><mo>′</mo></msup></mrow><mo rspace="0.108em" stretchy="false">→</mo><mi>𝒵</mi></mrow><mo rspace="2.167em">,</mo><mrow><mover accent="true"><mi>𝐳</mi><mo>^</mo></mover><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>𝐳</mi><mo fence="false" lspace="0.448em" mathsize="120%" rspace="0.448em">|</mo><mrow><msup><mi>𝐳</mi><mtext>in</mtext></msup><mo rspace="0.337em">,</mo><mi>ℳ</mi><mo rspace="0.337em">,</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">G_{\theta}:\mathcal{Z}\times\{0,1\}^{H\times W}\times\mathcal{E}\times\mathcal%
+{C}^{\prime}\!\rightarrow\!\mathcal{Z},\qquad\hat{\mathbf{z}}\sim p_{\theta}\!%
+\big{(}\mathbf{z}\,\big{|}\,\mathbf{z}^{\text{in}},\,\mathcal{M},\,\phi(%
+\mathbf{x}),\,\kappa(\mathbf{c})\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.8)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">and the edited image <math id="Ch8.S1.SS3.SSS1.p1.m9" alttext="\hat{I}=D(\hat{\mathbf{z}})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mover accent="true"><mi>I</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>D</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mover accent="true"><mi>𝐳</mi><mo>^</mo></mover><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\hat{I}=D(\hat{\mathbf{z}})</annotation></semantics></math> is required to (i) realize the requested change <em class="ltx_font_italic">inside</em> <math id="Ch8.S1.SS3.SSS1.p1.m10" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math>, (ii) preserve <math id="Ch8.S1.SS3.SSS1.p1.m11" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> <em class="ltx_font_italic">outside</em> <math id="Ch8.S1.SS3.SSS1.p1.m12" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> up to imperceptible deviations, and (iii) remain globally coherent in color, lighting, geometry, and semantics.
+Setting <math id="Ch8.S1.SS3.SSS1.p1.m13" alttext="\mathbf{z}^{\text{in}}=\varnothing" display="inline" data-pagefind-ignore="all"><semantics><mrow><msup><mi>𝐳</mi><mtext>in</mtext></msup><mo>=</mo><mi mathvariant="normal">∅</mi></mrow><annotation encoding="application/x-tex">\mathbf{z}^{\text{in}}=\varnothing</annotation></semantics></math> and <math id="Ch8.S1.SS3.SSS1.p1.m14" alttext="\mathcal{M}=\mathbf{1}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ℳ</mi><mo>=</mo><mn>𝟏</mn></mrow><annotation encoding="application/x-tex">\mathcal{M}=\mathbf{1}</annotation></semantics></math> recovers the spatial-aware synthesis of §<a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a> (Eq. (<a href="/read/8.1/#Ch8.E7" class="xref" data-x="Ch8.E7"><span>8.7</span></a>)); the distinctive substance of editing therefore lies in the interplay between the <em class="ltx_font_italic">preservation</em> constraint outside <math id="Ch8.S1.SS3.SSS1.p1.m15" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> and the <em class="ltx_font_italic">change</em> constraint inside it.
+The mask may be hard, soft, inferred from a referring expression, or implicit (whole-image instruction editing with <math id="Ch8.S1.SS3.SSS1.p1.m16" alttext="\mathcal{M}=\mathbf{1}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ℳ</mi><mo>=</mo><mn>𝟏</mn></mrow><annotation encoding="application/x-tex">\mathcal{M}=\mathbf{1}</annotation></semantics></math>).</p>
+</div>
+<section id="Ch8.S1.SS3.SSS1.Px1">
+<div id="Ch8.S1.SS3.SSS1.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Variants by Task Type.</strong> The tasks differ in what populates <math id="Ch8.S1.SS3.SSS1.Px1.p1.m1" alttext="\mathbf{c}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐜</mi><annotation encoding="application/x-tex">\mathbf{c}</annotation></semantics></math> and <math id="Ch8.S1.SS3.SSS1.Px1.p1.m2" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> and in whether ground-truth pixels exist for evaluation.
+Reconstruction-style completion carries no semantic intent: hole filling repairs scratches and occlusions from <math id="Ch8.S1.SS3.SSS1.Px1.p1.m3" alttext="(I,\mathcal{M})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>I</mi><mo>,</mo><mi>ℳ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(I,\mathcal{M})</annotation></semantics></math> alone, and object removal reconstructs the background behind a specified instance.
+Constraint-driven local synthesis adds intent inside <math id="Ch8.S1.SS3.SSS1.Px1.p1.m4" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math>: text-guided local editing follows an instruction scoped to a region (“make the <em class="ltx_font_italic">left cup</em> red”), structure-guided inpainting takes edges, sketches, or semantic maps as a scaffold for shape and boundary, and geometry-guided inpainting conditions on depth or normals to respect occlusion ordering.
+Object-level edits treat the region as an object whose identity or embedding in the scene is the unit of change: insertion with harmonization of color, grain, lighting, shadows, and reflections; attribute and appearance editing that changes material or style while preserving identity (garments, products, logos); and exemplar-guided transfer that drives content or style from a reference patch.
+Interactive workflows replace declarative constraints with actions taken at edit time: point- or handle-based reshaping, and multi-round, multi-region sessions in which stability across rounds is itself the requirement.
+The metrics appropriate to each are collected in §Benchmarks.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS3.SSS2"><span class="secnum">8.1.3.2</span>Methodology<a class="anchor" href="#Ch8.S1.SS3.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS3.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Methods are organized by <em class="ltx_font_italic">editing mechanism</em>, that is, by how <math id="Ch8.S1.SS3.SSS2.p1.m1" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> of Eq. (<a href="/read/8.1/#Ch8.E8" class="xref" data-x="Ch8.E8"><span>8.8</span></a>) is realized so that change is confined to <math id="Ch8.S1.SS3.SSS2.p1.m2" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> and preservation is enforced outside it.
+The mechanism is largely independent of the task type above, since text-guided local editing can be served by masked denoising, by inversion and rewrite, or by an instruction-tuned editor, and one mechanism such as inversion serves both attribute edits and structure-guided ones.
+Figure <a href="/read/8.1/#Ch8.F3" class="xref" data-x="Ch8.F3"><span>8.3</span></a> sets the five mechanisms against a single example edit.</p>
+</div>
+<figure id="Ch8.F3" class="ltx_figure"><img src="/assets/figures/figures/part3/section8/Five_editing_mechanisms_for_2D_spatial_inpainting_and_editing.webp" id="Ch8.F3.g1" class="fig-img" alt="" width="2000" height="1708" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 8.3</span><span>Local 2D editing with context preservation (top) and five editing mechanisms: (a) masked denoising, where <math id="Ch8.F3.m2" alttext="M=1" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>M</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M=1</annotation></semantics></math> marks the editable region; (b) inversion and rewrite; (c) instruction-tuned editing; (d) exemplar / reference-guided editing; and (e) drag-based optimization. The cup images are illustrative, not outputs of the surveyed methods.</span></figcaption>
+</figure>
+<section id="Ch8.S1.SS3.SSS2.Px1">
+<div id="Ch8.S1.SS3.SSS2.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Editing Mechanisms.</strong> <span class="ltx_font_bold">Masked latent denoising.</span>
+The most direct realization of Eq. (<a href="/read/8.1/#Ch8.E8" class="xref" data-x="Ch8.E8"><span>8.8</span></a>) runs the diffusion sampler only inside <math id="Ch8.S1.SS3.SSS2.Px1.p1.m1" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> while clamping the latent outside <math id="Ch8.S1.SS3.SSS2.Px1.p1.m2" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> to a noise-perturbed copy of <math id="Ch8.S1.SS3.SSS2.Px1.p1.m3" alttext="\mathbf{z}^{\text{in}}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝐳</mi><mtext>in</mtext></msup><annotation encoding="application/x-tex">\mathbf{z}^{\text{in}}</annotation></semantics></math> at every step.
+RePaint <cite class="cites">[<a class="cite" href="/read/references/#ref-1705" data-k="lugmayr2022repaint">1705</a>]</cite> does this with a <em class="ltx_font_italic">pretrained, unconditional</em> DDPM and no retraining, replacing the known-region pixels with a forward-noised sample of the input at each reverse step and adding a <em class="ltx_font_italic">resampling</em> schedule that re-injects noise periodically so the in-fill can re-harmonize with its context over several rounds.
+Blended Diffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-1706" data-k="avrahami2022blended">1706</a>]</cite> made the same scheme text-driven by interleaving a CLIP-guided gradient step that steers the content inside <math id="Ch8.S1.SS3.SSS2.Px1.p1.m4" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> toward a target prompt with the context-clamping step outside it, the first widely cited text-guided local editor.
+LaMa <cite class="cites">[<a class="cite" href="/read/references/#ref-1707" data-k="suvorov2022lama">1707</a>]</cite> predates the diffusion line and is instead a feed-forward inpainter whose fast Fourier convolutions give every layer an image-wide receptive field, a Fourier-domain inductive bias that stays robust on the very large holes that defeat purely local CNN backbones.
+Region-aware noise schedules and classifier-free guidance are standard add-ons, and ControlNet-inpaint and the inpainting variants of T2I-Adapter (§<a href="/read/8.1/#Ch8.S1.SS2.SSS2.Px2" class="xref" data-x="Ch8.S1.SS2.SSS2.Px2"><span>8.1.2.2</span></a>) compose with masked denoising by supplying the inside-<math id="Ch8.S1.SS3.SSS2.Px1.p1.m5" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> condition.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS2.Px1.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Inversion + rewrite.</span>
+A complementary strategy first recovers the noise trajectory that the model would have used to generate <math id="Ch8.S1.SS3.SSS2.Px1.p2.m1" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> (<em class="ltx_font_italic">inversion</em>) and then re-runs the reverse process under an edited prompt while reusing or swapping the attention maps of the original (<em class="ltx_font_italic">rewrite</em>).
+Prompt-to-Prompt <cite class="cites">[<a class="cite" href="/read/references/#ref-1708" data-k="prompt-to-prompt">1708</a>]</cite> reuses or reweights source cross-attention maps during generation under the edited prompt, which preserves spatial structure while changing selected semantic content; for a real image an inversion step first supplies a suitable noise trajectory.
+Imagic <cite class="cites">[<a class="cite" href="/read/references/#ref-1709" data-k="kawar2023imagic">1709</a>]</cite> jointly optimizes the text embedding and lightly fine-tunes the model to reconstruct <math id="Ch8.S1.SS3.SSS2.Px1.p2.m2" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>, then interpolates the embedding toward the target prompt, preserving identity-level features (faces, garments) under non-rigid edits.
+Null-Text Inversion <cite class="cites">[<a class="cite" href="/read/references/#ref-1710" data-k="mokady2023nulltext">1710</a>]</cite> fixes the practical failure that plain DDIM inversion drifts away from <math id="Ch8.S1.SS3.SSS2.Px1.p2.m3" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> under classifier-free guidance, by optimizing the <em class="ltx_font_italic">null-text</em> embeddings used in the inverse pass so that exact reconstruction holds at ordinary guidance scales.
+The family needs no full backbone fine-tune for Prompt-to-Prompt or Null-Text and dominates attribute, style, and structure-preserving real-image edits.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS2.Px1.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Instruction-tuned editing.</span>
+A third family avoids inversion entirely by retraining a diffusion editor on paired (before, instruction, after) triplets, mapping <math id="Ch8.S1.SS3.SSS2.Px1.p3.m1" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> directly to <math id="Ch8.S1.SS3.SSS2.Px1.p3.m2" alttext="\hat{I}" display="inline" data-pagefind-ignore="all"><semantics><mover accent="true"><mi>I</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{I}</annotation></semantics></math> from a natural-language instruction with no explicit mask.
+InstructPix2Pix <cite class="cites">[<a class="cite" href="/read/references/#ref-1711" data-k="brooks2023instructpix2pixlearningfollowimage">1711</a>]</cite> built its corpus by pairing GPT-3-generated edit instructions with Prompt-to-Prompt edits of Stable Diffusion samples and fine-tuned Stable Diffusion on the triplets, so that at inference the user supplies only <math id="Ch8.S1.SS3.SSS2.Px1.p3.m3" alttext="(I,\text{instruction})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>I</mi><mo>,</mo><mtext>instruction</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(I,\text{instruction})</annotation></semantics></math> and the editor localizes the change itself.
+MagicBrush <cite class="cites">[<a class="cite" href="/read/references/#ref-1712" data-k="zhang2024magicbrush">1712</a>]</cite> replaced the synthetic data with about 10K manually annotated real-image edits across multi-turn sessions, yielding both a stronger supervised editor and the standard instruction-editing test set.
+Emu Edit <cite class="cites">[<a class="cite" href="/read/references/#ref-1713" data-k="sheynin2024emu">1713</a>]</cite> trained a single model on a heterogeneous mixture of <em class="ltx_font_italic">recognition</em> (segmentation, detection) and <em class="ltx_font_italic">generation</em> (insertion, removal, style change) tasks with learned task embeddings that route each input, and leads its own benchmark on precision and instruction following.
+Instruction editors are the most user-friendly mechanism, no mask and no inversion, at the cost of large supervised retraining.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS2.Px1.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Exemplar / reference-guided editing.</span>
+A visual <em class="ltx_font_italic">exemplar</em>, an example image or patch encoding the desired content or style, replaces the textual instruction and enters through an auxiliary cross-attention pathway beside the standard text conditioning.
+Paint-by-Example <cite class="cites">[<a class="cite" href="/read/references/#ref-1714" data-k="yang2023paintbyexample">1714</a>]</cite> fine-tunes Stable Diffusion to fill <math id="Ch8.S1.SS3.SSS2.Px1.p4.m1" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> with the content of an exemplar whose identity is encoded by a CLIP image encoder, with strong exemplar augmentation (cropping, color jitter) at training time to prevent copy-paste behavior and force semantic rather than pixel-level transfer.
+IP-Adapter <cite class="cites">[<a class="cite" href="/read/references/#ref-1715" data-k="ye2023ipadapter">1715</a>]</cite> generalizes this into a <em class="ltx_font_italic">plug-in</em> reference channel: a lightweight decoupled cross-attention head consumes a CLIP image embedding of the exemplar and is inserted into a frozen SD or SDXL backbone, so that any number of reference images can be combined with text prompts and with structural adapters such as ControlNet at inference time.
+It is the standard route for subject personalization and style transfer when the desired content is hard to describe in words.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS2.Px1.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Drag-based latent optimization.</span>
+The most interactive family takes user-supplied (source point, target point) pairs and iteratively optimizes the latent so that the features at each source point migrate to the corresponding target while a locality regularizer pins the latent outside the user-marked region.
+DragGAN <cite class="cites">[<a class="cite" href="/read/references/#ref-1716" data-k="pan2023draggan">1716</a>]</cite> introduced the recipe on a StyleGAN backbone: a motion-supervision loss tracks the source feature and pulls it toward the target by gradient descent in the <math id="Ch8.S1.SS3.SSS2.Px1.p5.m1" alttext="\mathcal{W}^{+}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝒲</mi><mo>+</mo></msup><annotation encoding="application/x-tex">\mathcal{W}^{+}</annotation></semantics></math> latent space, and a point-tracking step re-localizes the moved feature at each iteration to prevent drift.
+DragDiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-1717" data-k="shi2023dragdiffusion">1717</a>]</cite> ported the recipe to the LDM latent space, running a per-timestep latent-update loop together with an identity-preserving LoRA fine-tune of the U-Net so that both the dragged subject and the unmarked context survive.
+Both are inference-time optimizers with latency proportional to the number of drag iterations, and no other family yet offers the same directness of spatial control.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS2.Px1.p6" class="ltx_para">
+<p class="ltx_p">Read across the five families, the mechanisms track the generative substrate: feed-forward inpainters such as LaMa gave way to inversion-based diffusion editors (Prompt-to-Prompt, Imagic), which in turn yielded to supervised instruction-tuned editors (InstructPix2Pix, Emu Edit) as paired data became available at scale.
+Orthogonal to that migration, the structural conditioning interfaces of §<a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a> compose with every mechanism here, so a production pipeline pairs a mechanism with a structural channel rather than choosing one: Blended Diffusion with ControlNet-depth for geometry-aware text-guided edits, or IP-Adapter with DragDiffusion for exemplar-driven drag edits.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS3.SSS3"><span class="secnum">8.1.3.3</span>Benchmarks<a class="anchor" href="#Ch8.S1.SS3.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS3.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Editing is evaluated in two regimes: <em class="ltx_font_italic">reference-based</em>, where a held-out ground-truth region exists (holes synthesized over real images), and <em class="ltx_font_italic">reference-free</em>, where only constraint satisfaction and human preference are available (instruction editing).
+No single suite covers both, so the field keeps a small library of task-specific benchmarks next to the holistic T2I suites of §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>.</p>
+</div>
+<section id="Ch8.S1.SS3.SSS3.Px1">
+<div id="Ch8.S1.SS3.SSS3.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Training Corpora.</strong> Inpainting draws on Places2 <cite class="cites">[<a class="cite" href="/read/references/#ref-609" data-k="zhou2017places">609</a>]</cite> and Paris StreetView for scene-level masks, DIV2K for high-resolution patches, and the COCO / ADE20K mask supervision of §<a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a> <cite class="cites">[<a class="cite" href="/read/references/#ref-440" data-k="lin2014microsoft">440</a>, <a class="cite" href="/read/references/#ref-492" data-k="zhou2017ade20k">492</a>]</cite>.
+Constraint-driven local synthesis reuses the structural channels of the previous subsection, RefCOCO / RefCOCO+ / RefCOCOg <cite class="cites">[<a class="cite" href="/read/references/#ref-1082" data-k="yu2016modeling">1082</a>]</cite> and PhraseCut <cite class="cites">[<a class="cite" href="/read/references/#ref-1092" data-k="wu2020phrasecut">1092</a>]</cite> for referring-expression masks, SA-1B masks <cite class="cites">[<a class="cite" href="/read/references/#ref-138" data-k="kirillov2023sam">138</a>]</cite>, and COCO edge and depth predictions, with the convention that the mask is supplied or derived from the expression; geometry-guided editing adds depth and normal supervision from NYUv2 <cite class="cites">[<a class="cite" href="/read/references/#ref-504" data-k="silberman2012nyudv2">504</a>]</cite>, Replica <cite class="cites">[<a class="cite" href="/read/references/#ref-339" data-k="straub2019replica">339</a>]</cite>, and synthetic corpora, and insertion with harmonization uses composite datasets such as iHarmony4.
+Instruction editing has its own data ecology: the synthetic InstructPix2Pix corpus of Prompt-to-Prompt-generated triplets, the manually annotated MagicBrush triplets <cite class="cites">[<a class="cite" href="/read/references/#ref-1712" data-k="zhang2024magicbrush">1712</a>]</cite>, and the multi-task Emu Edit training mixture <cite class="cites">[<a class="cite" href="/read/references/#ref-1713" data-k="sheynin2024emu">1713</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS3.SSS3.Px2">
+<div id="Ch8.S1.SS3.SSS3.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Evaluation Benchmark Suites.</strong> The holistic suites of §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a> (Table <a href="/read/8.1/#Ch8.T1" class="xref" data-x="Ch8.T1"><span>8.1</span></a>) carry over in part: T2I-CompBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1676" data-k="huang2023t2icompbench">1676</a>]</cite> and GenAI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1679" data-k="li2024genaibench">1679</a>]</cite> score the attribute and compositional fidelity that edited images must also satisfy, and HEIM <cite class="cites">[<a class="cite" href="/read/references/#ref-1673" data-k="lee2023heim">1673</a>]</cite> includes alignment and quality axes that apply to edits.
+The dedicated suites are EditBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1718" data-k="wang2023editbench">1718</a>]</cite>, released with Imagen Editor, a curated set of text-guided inpainting prompts over object, attribute, and scene categories that serves as the standard evaluation for text-driven mask inpainting; the MagicBrush test set <cite class="cites">[<a class="cite" href="/read/references/#ref-1712" data-k="zhang2024magicbrush">1712</a>]</cite>, <math id="Ch8.S1.SS3.SSS3.Px2.p1.m1" alttext="1{,}053" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1</mn><mo>,</mo><mn>053</mn></mrow><annotation encoding="application/x-tex">1{,}053</annotation></semantics></math> manually annotated single- and multi-turn triplets, which is the standard for instruction-tuned editors; and the Emu Edit benchmark <cite class="cites">[<a class="cite" href="/read/references/#ref-1713" data-k="sheynin2024emu">1713</a>]</cite>, which extends instruction editing to per-task subsets (insertion, removal, style change, color change, global change).
+Drag-based methods evaluate on small custom test sets curated by <cite class="cites"><span class="citet-name">Pan et al.</span> [<a class="cite" href="/read/references/#ref-1716" data-k="pan2023draggan">1716</a>]</cite> and <cite class="cites"><span class="citet-name">Shi et al.</span> [<a class="cite" href="/read/references/#ref-1717" data-k="shi2023dragdiffusion">1717</a>]</cite>; a community-wide drag-editing benchmark has not yet emerged.</p>
+</div>
+</section>
+<section id="Ch8.S1.SS3.SSS3.Px3">
+<div id="Ch8.S1.SS3.SSS3.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Constraint-specific Metrics.</strong> Reconstruction quality (PSNR / SSIM / LPIPS against ground truth, with FID / KID for diverse-completion settings) is defined only where held-out content exists.
+Region adherence uses mask-restricted CLIPScore or region-level VQAScore to ask whether the edit honors the prompt <em class="ltx_font_italic">inside</em> <math id="Ch8.S1.SS3.SSS3.Px3.p1.m1" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math>; edit locality measures <math id="Ch8.S1.SS3.SSS3.Px3.p1.m2" alttext="\ell_{1}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi mathvariant="normal">ℓ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\ell_{1}</annotation></semantics></math> or LPIPS <em class="ltx_font_italic">outside</em> <math id="Ch8.S1.SS3.SSS3.Px3.p1.m3" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> against <math id="Ch8.S1.SS3.SSS3.Px3.p1.m4" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>, lower being better; harmonization is scored by color-statistic divergence, shadow-direction consistency, and the rate at which an off-the-shelf forgery detector flags the composite; identity preservation uses feature-cosine similarity over face or landmark regions for people and CLIP-image similarity for products and characters; and instruction following is paired accuracy, whether <math id="Ch8.S1.SS3.SSS3.Px3.p1.m5" alttext="\hat{I}" display="inline" data-pagefind-ignore="all"><semantics><mover accent="true"><mi>I</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{I}</annotation></semantics></math> honors the instruction better than <math id="Ch8.S1.SS3.SSS3.Px3.p1.m6" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>, judged by human raters or by a VLM over a structured rubric, as is now standard on MagicBrush and Emu Edit.
+Change inside <math id="Ch8.S1.SS3.SSS3.Px3.p1.m7" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> and preservation outside it are reported together; a method that wins on one and loses on the other has not solved the task.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S1.SS3.SSS4"><span class="secnum">8.1.3.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S1.SS3.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S1.SS3.SSS4.p1" class="ltx_para">
+<p class="ltx_p">Several problems are specific to editing an existing image.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Structure-faithful hallucination in large holes.</span>
+Large irregular holes and rare structures remain the hardest case: inpainters tile a salient local texture across the hole instead of synthesizing appropriate content, straight lines, perspective cues, and silhouettes break at the mask seam, and in-fills that are locally plausible contradict the global scene (a patch of grass inside a room).
+Quality degrades sharply with hole size.
+LaMa’s image-wide Fourier convolutions and RePaint’s resampling schedule (§<a href="/read/8.1/#Ch8.S1.SS3.SSS2.Px1" class="xref" data-x="Ch8.S1.SS3.SSS2.Px1"><span>8.1.3.2</span></a>) are the established responses; retrieval-augmented priors, which search a paired corpus for candidate completions and use them as soft conditioning, are an emerging one at the intersection of editing and retrieval.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Edit locality against drift across rounds.</span>
+A single well-calibrated edit does not guarantee a stable session.
+Across rounds the unedited background shifts in white balance or saturation (<em class="ltx_font_italic">color drift</em>), shadows and highlights migrate as if the edit had changed the global illumination (<em class="ltx_font_italic">lighting reflow</em>), and salient textures from the edited region reappear in nearby unedited regions through attention leakage (<em class="ltx_font_italic">texture replication</em>); the errors compound even when each round individually meets its locality budget.
+Hard attention masking that confines non-edit tokens to <math id="Ch8.S1.SS3.SSS4.p3.m1" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math>, mask-aware noise schedules that anneal noise inside <math id="Ch8.S1.SS3.SSS4.p3.m2" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math> only, and edit-history-aware sampling that conditions on the trajectory of prior edits are the active mitigations.
+Inversion-based editors (Null-Text Inversion <cite class="cites">[<a class="cite" href="/read/references/#ref-1710" data-k="mokady2023nulltext">1710</a>]</cite>, Imagic <cite class="cites">[<a class="cite" href="/read/references/#ref-1709" data-k="kawar2023imagic">1709</a>]</cite>) carry a variant of the problem: any residual reconstruction error in the inverted trajectory leaks into the edit and accumulates.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Harmonization under complex illumination.</span>
+Inserted content betrays itself when the host scene has structured light: its shadow disagrees with the dominant light direction recoverable from the scene, there is no interreflection between the object and adjacent surfaces, and its albedo is tone-mapped inconsistently with the host, producing the cut-and-paste look that off-the-shelf forgery detectors flag.
+Differentiable rendering proxies that turn depth and normals into shading constraints and back-propagate harmonization losses into the editor, illumination maps as an additional conditioning channel, and explicit shadow-synthesis modules are being explored; integration with the 3D-aware methods of §<a href="/read/8.2/" class="xref" data-x="Ch8.S2"><span>8.2</span></a> is the natural next step and remains nascent.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS4.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Language grounding and safety.</span>
+Region-level instructions must be grounded reliably: an edit aimed at one object spills onto neighbors with similar attributes, spatial referring expressions are misparsed (“the left cup” lands on the right one), and mildly perturbed instructions produce large deviations in the edit trajectory.
+Borrowing GLIGEN’s gated grounding <cite class="cites">[<a class="cite" href="/read/references/#ref-1697" data-k="li2023gligen">1697</a>]</cite> (§<a href="/read/8.1/#Ch8.S1.SS2.SSS2.Px2" class="xref" data-x="Ch8.S1.SS2.SSS2.Px2"><span>8.1.2.2</span></a>) to confine edit attention, and using LLM-emitted layouts to harden the grounding before the edit is applied, are the current responses.
+The same precision cuts the other way for safety.
+A harmful edit (an identity swap inside one bounding box, watermark removal inside one mask) can be confined to a footprint that whole-image forensic detectors miss; large generative models reproduce individual training images under targeted prompting <cite class="cites">[<a class="cite" href="/read/references/#ref-1719" data-k="somepalli2023diffusion">1719</a>]</cite>, which becomes acute when the training set contains copyrighted artwork or identifiable faces and motivates artist-side defenses such as Glaze <cite class="cites">[<a class="cite" href="/read/references/#ref-1720" data-k="shan2023glaze">1720</a>]</cite>, which perturbs source artworks so that downstream fine-tunes mimic a different style; and most pipelines still lack robust per-image watermarking, so a photograph with a small synthesized region cannot be told from a wholly synthetic one.
+Watermarking, region-aware safety filters, and licensing frameworks for the underlying corpora are all needed, and none is settled.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS4.p6" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Evaluation under plausibility ambiguity.</span>
+Ground-truth pixels are often not the only plausible completion: a removed pedestrian leaves a hole that could contain road, curb, or shadow, and any reconstruction metric that compares against one ground truth over-penalizes good alternatives, while PSNR and SSIM rate sharp but contextually wrong in-fills highly.
+The field is converging on <em class="ltx_font_italic">paired evaluation</em>, asking whether <math id="Ch8.S1.SS3.SSS4.p6.m1" alttext="\hat{I}" display="inline" data-pagefind-ignore="all"><semantics><mover accent="true"><mi>I</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{I}</annotation></semantics></math> honors the instruction better than <math id="Ch8.S1.SS3.SSS4.p6.m2" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> under a held-out judge, now standard on MagicBrush <cite class="cites">[<a class="cite" href="/read/references/#ref-1712" data-k="zhang2024magicbrush">1712</a>]</cite> and Emu Edit <cite class="cites">[<a class="cite" href="/read/references/#ref-1713" data-k="sheynin2024emu">1713</a>]</cite>; the judge-prompt sensitivity and benchmark-contamination caveats of §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a> apply here as well.</p>
+</div>
+<div id="Ch8.S1.SS3.SSS4.p7" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Scalability and interactive latency.</span>
+Inversion-based methods store cross-attention activations at every timestep, multi-step sampling at <math id="Ch8.S1.SS3.SSS4.p7.m1" alttext="4" display="inline" data-pagefind-ignore="all"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>K and above scales with image area for standard U-Net backbones, and drag editors run an inner optimization loop per operation, so interactive editing lags behind the user’s hand by hundreds of milliseconds.
+Consistency-style distillation <cite class="cites">[<a class="cite" href="/read/references/#ref-1661" data-k="song2023consistency">1661</a>, <a class="cite" href="/read/references/#ref-1662" data-k="lcm2023">1662</a>]</cite> (§<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>) compresses the reverse trajectory to a handful of steps, memory-efficient adaptive patching runs the denoiser only in a window around <math id="Ch8.S1.SS3.SSS4.p7.m2" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math>, and progressive-refinement schedules return a coarse preview within a perceptual-latency budget and refine in the background.
+Closing the gap to the responsiveness of a photo editor is increasingly a systems problem shared with production T2I inference stacks.</p>
+</div>
+</section>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/chapter-8/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">Chapter 8: Spatial Reconstruction and Generation</span></a><a class="pager-next" href="/read/8.2/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">8.2 3D Spatial Reconstruction and Generation</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch8.S1.SS1" data-spy="Ch8.S1.SS1"><span class="n">8.1.1</span>Text-to-image Generation</a></li><li><a href="#Ch8.S1.SS2" data-spy="Ch8.S1.SS2"><span class="n">8.1.2</span>2D Spatial-aware Image Generation</a></li><li><a href="#Ch8.S1.SS3" data-spy="Ch8.S1.SS3"><span class="n">8.1.3</span>2D Spatial Inpainting & Editing</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=8.1"><b>88</b> cited works</a><a href="/explore/tools/?sec=8.1" title="Depth Anything V2, Marigold, CLIP, OpenPose, ControlNet"><b>5</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="8.1 2D Spatial Generation" data-url="/read/8.1/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%208.1%202D%20Spatial%20Generation&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/8.1/%20%28PDF%20p.%20229%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% set section_nav = 'contribute' %}
+{% block title %}Contribute · Spatial Intelligence Handbook{% endblock %}
+{% set erratum = "**Where** (section, figure, table or PDF page):\n\n**What is wrong:**\n\n**Suggested fix:**\n" %}
+{% set resource = "**Name:**\n\n**Link** (paper, project page or repository):\n\n**Type** (paper / dataset / benchmark / tool / platform):\n\n**Where it belongs** (chapter or section of the handbook):\n\n**Why it matters:**\n" %}
+{% set proposal = "**What you would like to contribute** (new section, update of an existing one, review of a part):\n\n**Chapter or section:**\n\n**About you** (name, affiliation, homepage):\n" %}
+{% set mailbody = "Name and affiliation:\nHomepage:\n\nWhat I would like to contribute (new section, update of an existing one, review of a part):\n\nChapter or section:\n" %}
+{% block main %}
+<div class="xp-head"><div class="wrap">
+  <h1>Help shape the handbook</h1>
+  <p class="xp-lede">Corrections, missing work and new material from readers go into the LaTeX source, so every accepted change reaches both this site and the next edition of the PDF.</p>
+</div></div>
+<div class="wrap xp-body contrib">
+  <div class="ct-grid">
+    <article class="ct-card">
+      <div class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"/><path d="M12 10v4.5M12 17.2v.3"/></svg></div>
+      <h2>Report an error</h2>
+      <p>A typo, a wrong number or reference, a broken link, or a statement that is out of date or incorrect.</p>
+      <p class="ct-tip">In the reader, <em>Report an error</em> in the right-hand panel fills in the section for you.</p>
+      <div class="ct-act"><a class="btn btn-solid" href="{{ repo }}/issues/new?title={{ 'Erratum: '|urlencode }}&amp;body={{ erratum|urlencode }}" target="_blank" rel="noopener">Report on GitHub</a></div>
+    </article>
+    <article class="ct-card">
+      <div class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5z"/><path d="M12 10v6M9 13h6"/></svg></div>
+      <h2>Suggest a resource</h2>
+      <p>A paper, dataset, benchmark, tool or platform that the handbook or the <a href="/explore/">explorer</a> is missing.</p>
+      <div class="ct-act"><a class="btn btn-solid" href="{{ repo }}/issues/new?title={{ 'Resource: '|urlencode }}&amp;body={{ resource|urlencode }}" target="_blank" rel="noopener">Suggest on GitHub</a></div>
+    </article>
+    <article class="ct-card ct-card-join">
+      <div class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M18.5 8v6M15.5 11h6"/></svg></div>
+      <h2>Join as a contributor</h2>
+      <p>Write a new section, update one as the field moves, or review a part for the next edition.</p>
+      <div class="ct-act"><a class="btn btn-solid ct-mail" href="#" data-subject="Spatial Intelligence Handbook: contributing" data-body="{{ mailbody|e }}">Write to the editors</a>
+      <a class="btn" href="{{ repo }}/issues/new?title={{ 'Proposal: '|urlencode }}&amp;body={{ proposal|urlencode }}" target="_blank" rel="noopener">Propose on GitHub</a></div>
+    </article>
+  </div>
+
+  <section class="ct-flow" aria-label="What happens to a contribution">
+    <h2>What happens next</h2>
+    <ol>
+      <li><b>Reviewed</b><span>The editors check every report and proposal against the source and the cited work.</span></li>
+      <li><b>Fixed in the source</b><span>Accepted changes are made in the LaTeX source of the handbook, never only on the website.</span></li>
+      <li><b>Rebuilt</b><span>The site and the PDF are regenerated together, so section, figure and reference numbers stay identical.</span></li>
+      <li><b>Logged</b><span>Each release is listed under <a href="#updates">Updates</a>.</span></li>
+    </ol>
+  </section>
+
+  <section class="ct-contact">
+    <h2>Editors</h2>
+    <ul>{% for c in contact %}<li><span>{{ c.name }}</span><a class="ct-addr" href="#" data-u="{{ c.u }}" data-d="{{ c.d }}">e-mail</a></li>{% endfor %}</ul>
+  </section>
+
+  <section id="updates" class="ct-updates">
+    <h2>Updates</h2>
+    <ul class="updates">{% for u in updates %}<li><span class="u-date">{{ u.date }}</span><span>{{ u.text }}</span></li>{% endfor %}</ul>
+  </section>
+</div>
+<script>
+(() => {
+  const r = s => s.split('').reverse().join('');
+  const addrs = [...document.querySelectorAll('.ct-addr')].map(a => {
+    const m = r(a.dataset.u) + '@' + r(a.dataset.d);
+    a.href = 'mailto:' + m; a.textContent = m; return m;
+  });
+  document.querySelectorAll('.ct-mail').forEach(a => {
+    a.href = 'mailto:' + addrs[0] + '?cc=' + encodeURIComponent(addrs.slice(1).join(',')) +
+      '&subject=' + encodeURIComponent(a.dataset.subject) + '&body=' + encodeURIComponent(a.dataset.body);
+  });
+})();
+</script>
+{% endblock %}

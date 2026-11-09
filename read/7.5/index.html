@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.5 Spatial Reasoning Benchmarks · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="7.5 Spatial Reasoning Benchmarks · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #7446D6" data-page="7.5">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link is-current" href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iii/">Part III</a><span class="sep">/</span><a href="/read/chapter-7/">Chapter 7</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-7/">Chapter 7 · Spatial Reasoning</a></div>
+        <h1><span class="secnum">7.5</span>Spatial Reasoning Benchmarks</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=226" title="Open this page in the PDF">PDF p. 226</a><span class="dot">·</span>        <span>7 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:7.5 Spatial Reasoning Benchmarks">
+<div id="Ch7.S5.p1" class="ltx_para">
+<p class="ltx_p">Early spatial-reasoning benchmarks positioned the model as a detached observer. CLEVR <cite class="cites">[<a class="cite" href="/read/references/#ref-1358" data-k="johnson2017clevr">1358</a>]</cite> and VSR <cite class="cites">[<a class="cite" href="/read/references/#ref-1479" data-k="liu2023visual">1479</a>]</cite> ask for relative geometric relations from a static third-person viewpoint, and their 2D inputs leave depth ambiguous, a weakness that 3DSRBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1583" data-k="ma20253dsrbench">1583</a>]</cite>, MMSI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1588" data-k="yang2025mmsi">1588</a>]</cite>, DSI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1591" data-k="zhang2025dsi">1591</a>]</cite>, and STI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1590" data-k="li2025sti">1590</a>]</cite> now probe directly.
+SQA3D <cite class="cites">[<a class="cite" href="/read/references/#ref-1620" data-k="ma2022sqa3d">1620</a>]</cite>, OpenEQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1563" data-k="majumdar2024openeqa">1563</a>]</cite>, and EmbSpatial-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1587" data-k="du2024embspatial">1587</a>]</cite> instead place the model inside the scene, so that it must self-localize before it can answer, and ScanQA <cite class="cites">[<a class="cite" href="/read/references/#ref-41" data-k="azuma2022scanqa">41</a>]</cite>, ScanRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-373" data-k="chen2020scanrefer">373</a>]</cite>, and Multi3DRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-1107" data-k="zhang2023multi3drefer">1107</a>]</cite> ground queries in point clouds and RGB-D data, where the answer is a coordinate rather than a relation.
+The reasoning demanded has deepened in parallel: IntPhys <cite class="cites">[<a class="cite" href="/read/references/#ref-1198" data-k="riochet2018intphys">1198</a>]</cite> and Physion <cite class="cites">[<a class="cite" href="/read/references/#ref-680" data-k="Bear2021Physion">680</a>]</cite> test whether a model expects gravity, collision, and friction to hold over time, and OpenEQA and RealWorldQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1473" data-k="xai2024grok15v">1473</a>]</cite> ask functional questions (“Can I navigate through this gap?”, “Where would I find a cloth to clean a spill?”) in which geometry matters only through what it affords.</p>
+</div>
+<div id="Ch7.S5.p2" class="ltx_para">
+<p class="ltx_p">Data provenance splits the field. Simulators, the sources behind SpatialVLM <cite class="cites">[<a class="cite" href="/read/references/#ref-229" data-k="chen2024spatialvlm">229</a>]</cite>, AI2-THOR <cite class="cites">[<a class="cite" href="/read/references/#ref-1621" data-k="kolve2017ai2thor">1621</a>]</cite>, and Habitat <cite class="cites">[<a class="cite" href="/read/references/#ref-204" data-k="szot2021habitat2">204</a>]</cite>, yield unlimited, perfectly annotated data; real-world collections such as ScanNet <cite class="cites">[<a class="cite" href="/read/references/#ref-448" data-k="dai2017scannet">448</a>]</cite> and OpenEQA supply the clutter, occlusion, and sensor noise that simulation does not reproduce.
+The resulting practice is sim-to-real: pre-train on large synthetic corpora for general spatial logic, then fine-tune on the scarcer real data.
+Annotated 3D data remain scarce and fine-grained metric estimation remains hard for large models; both limits recur throughout the table below.</p>
+</div>
+<section>
+<h2 class="h-subsection" id="Ch7.S5.SS1"><span class="secnum">7.5.1</span>Comparative Analysis<a class="anchor" href="#Ch7.S5.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch7.S5.SS1.p1" class="ltx_para">
+<p class="ltx_p">Table <a href="/read/7.5/#Ch7.T6" class="xref" data-x="Ch7.T6"><span>7.6</span></a> compiles 61 spatial-reasoning benchmarks across four categories (physical-focused, rooted in §<a href="/read/7.1/#Ch7.S1.SS2" class="xref" data-x="Ch7.S1.SS2"><span>7.1.2</span></a>; vision-based, overlapping with §<a href="/read/7.3/#Ch7.S3.SS1" class="xref" data-x="Ch7.S3.SS1"><span>7.3.1</span></a>; 3D-focused, rooted in §<a href="/read/7.3/#Ch7.S3.SS6" class="xref" data-x="Ch7.S3.SS6"><span>7.3.6</span></a> and §<a href="/read/7.3/#Ch7.S3.SS8" class="xref" data-x="Ch7.S3.SS8"><span>7.3.8</span></a>; and robot-environment, rooted in §<a href="/read/7.3/#Ch7.S3.SS7" class="xref" data-x="Ch7.S3.SS7"><span>7.3.7</span></a> and §<a href="/read/7.4/" class="xref" data-x="Ch7.S4"><span>7.4</span></a>).
+A narrower 15-row subset focused specifically on agentic spatial reasoning is provided in Table <a href="/read/7.3/#Ch7.T5" class="xref" data-x="Ch7.T5"><span>7.5</span></a> of §<a href="/read/7.3/#Ch7.S3.SS7" class="xref" data-x="Ch7.S3.SS7"><span>7.3.7</span></a>; this subset filters Table <a href="/read/7.5/#Ch7.T6" class="xref" data-x="Ch7.T6"><span>7.6</span></a> to image-and-video benchmarks that exercise agentic deployments.</p>
+</div>
+<figure id="Ch7.T6" class="ltx_table">
+<figcaption><span class="cap-tag">Table 7.6</span><span>Spatial-reasoning benchmarks surveyed in this chapter, grouped by what they test. <span class="ltx_font_typewriter">Number</span> is the evaluation-set size where the source paper documents one (train / test when both are given, scene counts for simulators, <math id="Ch7.T6.m2" alttext="\sim" display="inline" data-pagefind-ignore="all"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math> for approximate figures). <span class="ltx_font_typewriter">Perspective</span> marks explicitly designed ego (first-person) and exo (third-person) settings; <span class="ltx_font_italic">Undeclared</span> marks attributes the source paper does not state. <span class="ltx_font_typewriter">Data Source</span> and <span class="ltx_font_typewriter">Task Type</span> follow the source papers.</span></figcaption>
+<div class="ltx_inline-block ltx_align_center" style="width:433.6pt;height:651.2pt;vertical-align:-0.5pt;"><span style="transform:translate(-185.0pt,277.6pt) scale(0.539586425278383,0.539586425278383) ;">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt" style="padding-left:4.0pt;padding-right:4.0pt;" rowspan="2"><span class="ltx_font_bold">Benchmark</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:4.0pt;padding-right:4.0pt;" rowspan="2"><span class="ltx_font_bold">Number</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:4.0pt;padding-right:4.0pt;" rowspan="2"><span class="ltx_font_bold">Modality</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_bold">View Type</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_bold">Perspective</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:4.0pt;padding-right:4.0pt;" rowspan="2"><span class="ltx_font_bold">Data Source</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:4.0pt;padding-right:4.0pt;" rowspan="2"><span class="ltx_font_bold">Task Type</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:4.0pt;padding-right:4.0pt;"><span class="ltx_font_bold">Single</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:4.0pt;padding-right:4.0pt;"><span class="ltx_font_bold">Multi</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:4.0pt;padding-right:4.0pt;"><span class="ltx_font_bold">Ego</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:4.0pt;padding-right:4.0pt;"><span class="ltx_font_bold">Exo</span></td>
+</tr>
+<tr class="ltx_tr" style="background-color:#C9CBD1;">
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:4.0pt;padding-right:4.0pt;" colspan="9">
+<math id="Ch7.T6.m3" style="background-color:#C9CBD1;" alttext="\bullet" display="inline" data-pagefind-ignore="all"><semantics><mo mathbackground="#C9CBD1">∙</mo><annotation encoding="application/x-tex">\bullet</annotation></semantics></math><span style="background-color:#C9CBD1;"> <span class="ltx_font_italic">Physical Focused Spatial Reasoning</span></span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">IntPhys <cite class="cites">[<a class="cite" href="/read/references/#ref-1198" data-k="riochet2018intphys">1198</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">15k / 4.3k</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m4" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m5" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Synthetic</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VoE plausibility</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">IntPhys 2 <cite class="cites">[<a class="cite" href="/read/references/#ref-1622" data-k="bordes2025intphys2">1622</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">1,416</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m6" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m7" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Synthetic</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VoE plausibility</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Physion <cite class="cites">[<a class="cite" href="/read/references/#ref-680" data-k="Bear2021Physion">680</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">
+<math id="Ch7.T6.m8" alttext="\sim" display="inline" data-pagefind-ignore="all"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>1.2k</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m9" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m10" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Synthetic</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Physical prediction / choice</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Physion<math id="Ch7.T6.m11" alttext="++" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo>+</mo><mo lspace="0em">⁣</mo><mo>+</mo></mrow><annotation encoding="application/x-tex">++</annotation></semantics></math> <cite class="cites">[<a class="cite" href="/read/references/#ref-1337" data-k="tung2023physion">1337</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">
+<math id="Ch7.T6.m12" alttext="\sim" display="inline" data-pagefind-ignore="all"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>10k</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m13" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m14" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Synthetic</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Physical prediction / choice</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Physical Concepts Dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-1623" data-k="piloto2020learn">1623</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">300k</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m15" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m16" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Synthetic</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">classification</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Physics-IQ <cite class="cites">[<a class="cite" href="/read/references/#ref-1624" data-k="motamed2025generative">1624</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">396</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m17" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m18" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Generative physical prediction</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SPhyR <cite class="cites">[<a class="cite" href="/read/references/#ref-1625" data-k="siedler2025sphyr">1625</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">1,296</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m19" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Synthetic</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Physical prediction / infill</td>
+</tr>
+<tr class="ltx_tr" style="background-color:#C9CBD1;">
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:4.0pt;padding-right:4.0pt;" colspan="9">
+<math id="Ch7.T6.m20" style="background-color:#C9CBD1;" alttext="\bullet" display="inline" data-pagefind-ignore="all"><semantics><mo mathbackground="#C9CBD1">∙</mo><annotation encoding="application/x-tex">\bullet</annotation></semantics></math><span style="background-color:#C9CBD1;"> <span class="ltx_font_italic">Vision-Based Spatial Reasoning</span></span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">CLEVR <cite class="cites">[<a class="cite" href="/read/references/#ref-1358" data-k="johnson2017clevr">1358</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">853k</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m21" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m22" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">VSR <cite class="cites">[<a class="cite" href="/read/references/#ref-1479" data-k="liu2023visual">1479</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">10,972</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m23" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m24" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">What’s Up <cite class="cites">[<a class="cite" href="/read/references/#ref-1470" data-k="KamathHC23a">1470</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">
+<math id="Ch7.T6.m25" alttext="\sim" display="inline" data-pagefind-ignore="all"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>8,000</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m26" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m27" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">RocketScience <cite class="cites">[<a class="cite" href="/read/references/#ref-1626" data-k="hoehing2025RocketScience">1626</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">482</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m28" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m29" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SpaRE <cite class="cites">[<a class="cite" href="/read/references/#ref-1627" data-k="abs-2504-20648">1627</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3.4M</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m30" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m31" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real/Sim</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">RealWorldQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1473" data-k="xai2024grok15v">1473</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">765</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m32" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m33" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">3DSRBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1583" data-k="ma20253dsrbench">1583</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">2,772</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m34" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m35" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real/Sim</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">InternSpatial-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1584" data-k="deng2025internspatial">1584</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">6,008</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m36" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m37" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">OmniSpatial <cite class="cites">[<a class="cite" href="/read/references/#ref-1474" data-k="jia2025omnispatial">1474</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">
+<math id="Ch7.T6.m38" alttext="\sim" display="inline" data-pagefind-ignore="all"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>8,400</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m39" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Spatial457 <cite class="cites">[<a class="cite" href="/read/references/#ref-1585" data-k="wang2025spatial457">1585</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">23,752</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m40" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">All-Angles Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1586" data-k="yeh2025seeing">1586</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">
+<math id="Ch7.T6.m41" alttext="\sim" display="inline" data-pagefind-ignore="all"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>2,100</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m42" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">EmbSpatial-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1587" data-k="du2024embspatial">1587</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3,640</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m43" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m44" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">MMSI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1588" data-k="yang2025mmsi">1588</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">1,000</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m45" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">MindCube <cite class="cites">[<a class="cite" href="/read/references/#ref-1472" data-k="yin2025spatial">1472</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">21,154</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m46" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">BLINK <cite class="cites">[<a class="cite" href="/read/references/#ref-1628" data-k="fu2024blink">1628</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3,807</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m47" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m48" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">NuScenes-SpatialQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1629" data-k="tian2025nuscenesspatialqa">1629</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3.3M+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">VSI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-227" data-k="yang2025vsibench">227</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">5,130</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m49" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m50" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">VLM4D <cite class="cites">[<a class="cite" href="/read/references/#ref-1589" data-k="zhou2025vlm4d">1589</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">
+<math id="Ch7.T6.m51" alttext="\sim" display="inline" data-pagefind-ignore="all"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>1,800</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m52" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">STI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1590" data-k="li2025sti">1590</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">2,064</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m53" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">DSI-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1591" data-k="zhang2025dsi">1591</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">
+<math id="Ch7.T6.m54" alttext="\sim" display="inline" data-pagefind-ignore="all"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>1,700</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m55" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SITE <cite class="cites">[<a class="cite" href="/read/references/#ref-1565" data-k="wang2025site">1565</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">8,068</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m56" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real/Sim</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">RoboSpatial <cite class="cites">[<a class="cite" href="/read/references/#ref-783" data-k="SongBTTSB25">783</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3M</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image/3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m57" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m58" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real/Sim</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">OSD <cite class="cites">[<a class="cite" href="/read/references/#ref-789" data-k="cheng2024spatialrgpt">789</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><span class="ltx_font_italic">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m59" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m60" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SpatialVLM <cite class="cites">[<a class="cite" href="/read/references/#ref-229" data-k="chen2024spatialvlm">229</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">2B</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m61" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m62" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real/Sim</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">ProVision <cite class="cites">[<a class="cite" href="/read/references/#ref-1630" data-k="abs-2412-07012">1630</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">65k</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m63" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m64" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">WhatIsWhere <cite class="cites">[<a class="cite" href="/read/references/#ref-1631" data-k="LiangZZZ16">1631</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">6,000</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m65" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m66" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SURDS <cite class="cites">[<a class="cite" href="/read/references/#ref-1632" data-k="guo2024surds">1632</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">9,250</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m67" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m68" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">EarthSpatialBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1633" data-k="xu2026earthspatial">1633</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">325k+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m69" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m70" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">PureSpace <cite class="cites">[<a class="cite" href="/read/references/#ref-1634" data-k="li2026purespace">1634</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">1,200</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m71" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SAT <cite class="cites">[<a class="cite" href="/read/references/#ref-1635" data-k="ray2024sat">1635</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">175k / 150</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m72" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SpatiaLQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1636" data-k="xie2026spatialqa">1636</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">9,605</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m73" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m74" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Q-Spatial++ <cite class="cites">[<a class="cite" href="/read/references/#ref-1459" data-k="wang2025svqa">1459</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">101</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m75" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m76" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr" style="background-color:#C9CBD1;">
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:4.0pt;padding-right:4.0pt;" colspan="9">
+<math id="Ch7.T6.m77" style="background-color:#C9CBD1;" alttext="\bullet" display="inline" data-pagefind-ignore="all"><semantics><mo mathbackground="#C9CBD1">∙</mo><annotation encoding="application/x-tex">\bullet</annotation></semantics></math><span style="background-color:#C9CBD1;"> <span class="ltx_font_italic">3D Focused Spatial Reasoning</span></span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">ScanQA <cite class="cites">[<a class="cite" href="/read/references/#ref-41" data-k="azuma2022scanqa">41</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">41,363</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m78" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m79" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (ScanNet)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SQA3D <cite class="cites">[<a class="cite" href="/read/references/#ref-1620" data-k="ma2022sqa3d">1620</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">33,460</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m80" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m81" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (ScanNet)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">MMScan QA <cite class="cites">[<a class="cite" href="/read/references/#ref-1637" data-k="lyu2024mmscan">1637</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">295K</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D+Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m82" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (EmbodiedScan)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">OpenEQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1563" data-k="majumdar2024openeqa">1563</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">1,632</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video/3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m83" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m84" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (HM3D, ScanNet)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Embodied QA (EM / A splits)</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Space3D-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1638" data-k="szymanska2024space3dbench">1638</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">1,000</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m85" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m86" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real(Replica)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D QA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Scan2Cap <cite class="cites">[<a class="cite" href="/read/references/#ref-1639" data-k="chen2021scan2cap">1639</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">39,775</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m87" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m88" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (ScanNet)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Captioning</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">MMScan Captioning <cite class="cites">[<a class="cite" href="/read/references/#ref-1637" data-k="lyu2024mmscan">1637</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">172k</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D+Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m89" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (EmbodiedScan)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Captioning</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">ScanRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-373" data-k="chen2020scanrefer">373</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">51,583</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m90" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m91" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (ScanNet)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Grounding</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Multi3DRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-1107" data-k="zhang2023multi3drefer">1107</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">42,735</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m92" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m93" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (ScanNet)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Grounding</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SR3D <cite class="cites">[<a class="cite" href="/read/references/#ref-374" data-k="achlioptas2020referit3d">374</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">83,572</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m94" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m95" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (ScanNet)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Grounding</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">NR3D <cite class="cites">[<a class="cite" href="/read/references/#ref-374" data-k="achlioptas2020referit3d">374</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">41,503</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m96" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m97" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real (ScanNet)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Grounding</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SpaceEra++ <cite class="cites">[<a class="cite" href="/read/references/#ref-1640" data-k="guan2026spaceera">1640</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">925k</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Video/3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m98" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m99" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Synthetic</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Ego3D-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1641" data-k="gholami2025ego3d">1641</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">8,600+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m100" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m101" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">SpatialScore <cite class="cites">[<a class="cite" href="/read/references/#ref-1642" data-k="wu2025spatialscore">1642</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">28,093 (Hard: 1,400)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image/3D</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m102" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="background-color:#EBEBEB;padding-left:4.0pt;padding-right:4.0pt;" colspan="2"><span class="ltx_font_italic" style="background-color:#EBEBEB;">Undeclared</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real/Sim</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">VQA</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">iVISPAR <cite class="cites">[<a class="cite" href="/read/references/#ref-1581" data-k="mayer2025ivispar">1581</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">300</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Env</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m103" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m104" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Interactive reasoning</td>
+</tr>
+<tr class="ltx_tr" style="background-color:#C9CBD1;">
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:4.0pt;padding-right:4.0pt;" colspan="9">
+<math id="Ch7.T6.m105" style="background-color:#C9CBD1;" alttext="\bullet" display="inline" data-pagefind-ignore="all"><semantics><mo mathbackground="#C9CBD1">∙</mo><annotation encoding="application/x-tex">\bullet</annotation></semantics></math><span style="background-color:#C9CBD1;"> <span class="ltx_font_italic">Robot</span></span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">AI2-THOR <cite class="cites">[<a class="cite" href="/read/references/#ref-1621" data-k="kolve2017ai2thor">1621</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">120 (Scenes)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Env</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m106" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m107" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Nav/Manip</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">TDW <cite class="cites">[<a class="cite" href="/read/references/#ref-1643" data-k="gan2020threedworld">1643</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><span class="ltx_font_italic">Infinite</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Env</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m108" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Physical Sim</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Habitat 2.0 <cite class="cites">[<a class="cite" href="/read/references/#ref-204" data-k="szot2021habitat2">204</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">100 (Scenes)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Env</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m109" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m110" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Navigation</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">iGibson 2.0 <cite class="cites">[<a class="cite" href="/read/references/#ref-1344" data-k="Li2021iGibson2">1344</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">15 (Scenes)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Env</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m111" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m112" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Interactive Nav</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">Habitat 3.0 <cite class="cites">[<a class="cite" href="/read/references/#ref-98" data-k="puig2023habitat3">98</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">211 (Scenes)</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">3D Env</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m113" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m114" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Simulation</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Social Nav</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:4.0pt;padding-right:4.0pt;">R2R <cite class="cites">[<a class="cite" href="/read/references/#ref-1415" data-k="anderson2018vision">1415</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">21,567</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Image/Path</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m115" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m116" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center" style="padding-left:4.0pt;padding-right:4.0pt;">Navigation</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;">RxR <cite class="cites">[<a class="cite" href="/read/references/#ref-1644" data-k="ku2020roomacrossroom">1644</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;">126,069</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;">Image/Path</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m117" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;">✓</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;"><math id="Ch7.T6.m118" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;">Real</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:4.0pt;padding-right:4.0pt;">Navigation</td>
+</tr>
+</table>
+</span></div>
+</figure>
+<div id="Ch7.S5.SS1.p2" class="ltx_para">
+<p class="ltx_p"><em class="ltx_font_italic">A modality migration</em> runs from the top of the table to the bottom: the physical-focused benchmarks rely on synthetic 3D renderings, the vision-based block is image- and video-heavy with growing 3D extensions, the 3D-focused block is built on point clouds and RGB-D scans, and the robot block has moved entirely to 3D environments.
+<em class="ltx_font_italic">The Perspective axis is imbalanced</em>: a large fraction of vision-based benchmarks carry <span class="ltx_font_italic">Undeclared</span> ego/exo annotations, the physical-focused benchmarks lean exo (a third-person observer judging physical plausibility), and the robot block is entirely ego; the field is migrating from spectator-style observation to situated cognition faster than benchmark annotations record it.
+<em class="ltx_font_italic">The Data-Source spectrum is bifurcated</em> between synthetic or simulated (top block and robot block) and real (middle blocks), with the Real/Sim benchmarks (SpaRE, 3DSRBench, RoboSpatial, SpatialVLM, SITE) as the bridge that the sim-to-real training practice of the opening relies on.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch7.S5.SS2"><span class="secnum">7.5.2</span>Future Directions<a class="anchor" href="#Ch7.S5.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section id="Ch7.S5.SS2.SSS0.Px1">
+<div id="Ch7.S5.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Unified Spatial-Cognition Benchmark.</strong> No single benchmark in Table <a href="/read/7.5/#Ch7.T6" class="xref" data-x="Ch7.T6"><span>7.6</span></a> exercises a model along all of perception fidelity, symbolic precision, memory persistence, and long-horizon action conditioning simultaneously.
+A unified benchmark covering all four §<a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a> paradigms (§<a href="/read/7.1/" class="xref" data-x="Ch7.S1"><span>7.1</span></a> rule-based, §<a href="/read/7.2/" class="xref" data-x="Ch7.S2"><span>7.2</span></a> learning-based, §<a href="/read/7.3/" class="xref" data-x="Ch7.S3"><span>7.3</span></a> foundation-model-driven, §<a href="/read/7.4/" class="xref" data-x="Ch7.S4"><span>7.4</span></a> hybrid) would close the evaluation-attribution challenge flagged in §<a href="/read/7.4/" class="xref" data-x="Ch7.S4"><span>7.4</span></a> §Challenges and Trends.</p>
+</div>
+</section>
+<section id="Ch7.S5.SS2.SSS0.Px2">
+<div id="Ch7.S5.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Cross-Modal Evaluation.</strong> The current axes (Modality, View, Perspective, Data Source, Task Type) under-specify the cross-modal demand of contemporary spatial reasoning.
+Future benchmarks should explicitly probe modality-to-modality transfer (<span class="ltx_font_italic">e.g.,</span> , 2D-trained models evaluated on 3D queries; text-conditioned policies evaluated on video-grounded tasks), so that the modality-mismatch challenge flagged in §<a href="/read/7.3/#Ch7.S3.SS6" class="xref" data-x="Ch7.S3.SS6"><span>7.3.6</span></a> (text-vs.-image-vs.-3D retrieval) becomes a first-class evaluation axis rather than a per-paper case study.</p>
+</div>
+</section>
+<section id="Ch7.S5.SS2.SSS0.Px3">
+<div id="Ch7.S5.SS2.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Embodied Long-Horizon Coverage.</strong> The Robot block in Table <a href="/read/7.5/#Ch7.T6" class="xref" data-x="Ch7.T6"><span>7.6</span></a> covers navigation thoroughly but under-represents long-horizon manipulation and multi-room interactive tasks.
+The §<a href="/read/7.3/#Ch7.S3.SS7" class="xref" data-x="Ch7.S3.SS7"><span>7.3.7</span></a> 15-row subset (Table <a href="/read/7.3/#Ch7.T5" class="xref" data-x="Ch7.T5"><span>7.5</span></a>) further restricts attention to image-and-video benchmarks; the embodied long-horizon suites ALFWorld and VirtualHome (§<a href="/read/7.3/#Ch7.S3.SS4" class="xref" data-x="Ch7.S3.SS4"><span>7.3.4</span></a>) and cross-embodiment evaluation on Open X-Embodiment (§<a href="/read/7.3/#Ch7.S3.SS2" class="xref" data-x="Ch7.S3.SS2"><span>7.3.2</span></a>) are the nearest existing coverage, and standardizing on them would close the long-horizon-spatiotemporal-coherence challenge flagged in §<a href="/read/7.3/#Ch7.S3.SS7" class="xref" data-x="Ch7.S3.SS7"><span>7.3.7</span></a> §Challenges and Trends.</p>
+</div>
+</section>
+<section id="Ch7.S5.SS2.SSS0.Px4">
+<div id="Ch7.S5.SS2.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">From Descriptive to Interactive Spatial Reasoning.</strong> The Task Type column of Table <a href="/read/7.5/#Ch7.T6" class="xref" data-x="Ch7.T6"><span>7.6</span></a> is dominated by visual question answering: the overwhelming majority of benchmarks ask a model to <em class="ltx_font_italic">describe</em> static spatial relations (“where is the object”), and only the small Robot block evaluates reasoning that is conditioned on the agent’s own actions.
+Yet the trajectory traced in this chapter, from passive observation to situated interaction, calls for benchmarks that test <em class="ltx_font_italic">interactive</em> spatial reasoning: predicting how an action changes the spatial state, judging affordances and reachability (“can I fit, reach, or grasp this”), and reasoning counterfactually about manipulation outcomes.
+Such evaluation couples the action-conditioned reasoning of §<a href="/read/7.2/#Ch7.S2.SS5" class="xref" data-x="Ch7.S2.SS5"><span>7.2.5</span></a> with the embodied hybrid pipelines of §<a href="/read/7.4/" class="xref" data-x="Ch7.S4"><span>7.4</span></a>, extending the descriptive benchmarks surveyed here toward the manipulation- and affordance-grounded settings that embodied deployment ultimately demands.</p>
+</div>
+</section>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/7.4/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">7.4 Hybrid Spatial Reasoning</span></a><a class="pager-next" href="/read/chapter-8/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Chapter 8: Spatial Reconstruction and Generation</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch7.S5.SS1" data-spy="Ch7.S5.SS1"><span class="n">7.5.1</span>Comparative Analysis</a></li><li><a href="#Ch7.S5.SS2" data-spy="Ch7.S5.SS2"><span class="n">7.5.2</span>Future Directions</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=7.5"><b>60</b> cited works</a><a href="/explore/datasets/?sec=7.5"><b>52</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=7.5" title="Habitat-Sim, AI2-THOR, iGibson, ThreeDWorld, VirtualHome, Matterport3D Simulator"><b>8</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="7.5 Spatial Reasoning Benchmarks" data-url="/read/7.5/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%207.5%20Spatial%20Reasoning%20Benchmarks&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/7.5/%20%28PDF%20p.%20226%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

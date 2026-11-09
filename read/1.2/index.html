@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.2 Historical Evolution and Milestones · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="1.2 Historical Evolution and Milestones · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #A8722A" data-page="1.2">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link is-current" href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-i/">Part I</a><span class="sep">/</span><a href="/read/chapter-1/">Chapter 1</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-1/">Chapter 1 · Spatial Intelligence: A Rising AI Paradigm</a></div>
+        <h1><span class="secnum">1.2</span>Historical Evolution and Milestones</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=28" title="Open this page in the PDF">PDF p. 28</a><span class="dot">·</span>        <span>24 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:1.2 Historical Evolution and Milestones">
+<div id="Ch1.S2.p1" class="ltx_para">
+<p class="ltx_p">The
+history of spatial intelligence is best understood as a sequence of shifts in <em class="ltx_font_italic">how space is represented</em> and <em class="ltx_font_italic">what that representation is expected to support</em>.
+Over decades, the field has repeatedly shifted among explicit structure and learned abstraction, offline reconstruction and online interaction, and local geometry and world-level state.
+To make this evolution concrete, we organize the landscape into five eras, each characterized by a dominant representation paradigm and its associated methodological commitments: from early symbolic and cognitive notions of spatial structure, to probabilistic geometric estimation, to learning-based spatial perception, to large foundation representations that are transferable and cross-modal, and finally to world-centered spatial intelligence where representations must be executable, updatable, and tightly coupled with action in dynamic environments <cite class="cites">[<a class="cite" href="/read/references/#ref-53" data-k="kuipers1978modeling">53</a>, <a class="cite" href="/read/references/#ref-54" data-k="Thrun2005Probabilistic">54</a>, <a class="cite" href="/read/references/#ref-55" data-k="eigen2014depth">55</a>, <a class="cite" href="/read/references/#ref-56" data-k="driess2023palm">56</a>, <a class="cite" href="/read/references/#ref-5" data-k="Feifei2025spatial">5</a>]</cite>.
+Figure <a href="/read/1.2/#Ch1.F2" class="xref" data-x="Ch1.F2"><span>1.2</span></a> shows how each era would represent the same scene, Table <a href="/read/1.2/#Ch1.T1" class="xref" data-x="Ch1.T1"><span>1.1</span></a> condenses what each era took space to be and what it left unsolved, and Figure <a href="/read/1.2/#Ch1.F3" class="xref" data-x="Ch1.F3"><span>1.3</span></a> places about a hundred representative works from six fields on a common time axis.</p>
+</div>
+<figure id="Ch1.F2" class="ltx_figure"><div class="figtoggle" role="tablist" aria-label="Figure view" data-pagefind-ignore="all"><button type="button" role="tab" aria-selected="true" data-fv="print">As printed</button><button type="button" role="tab" aria-selected="false" data-fv="live">Interactive version</button></div><img src="/assets/figures/figures/part1/si_evolution_v2.webp" id="Ch1.F2.g1" class="fig-img" alt="" width="2000" height="1069" loading="lazy" decoding="async">
+<div class="fig-live" data-widget="eras" hidden></div><figcaption class="ltx_centering"><span class="cap-tag">Figure 1.2</span><span>The historical evolution of spatial intelligence across five representation-centric eras, from explicit symbolic structure, through estimated geometry and learned features, to executable world states. The visual examples highlight the dominant representation and its role in each era. Dates indicate approximate shifts in emphasis, not exclusive boundaries; earlier paradigms remain in use.</span></figcaption>
+</figure>
+<figure id="Ch1.T1" class="ltx_table">
+<figcaption><span class="cap-tag">Table 1.1</span><span>The five eras of spatial intelligence compared along six dimensions: how each treated space, its core representations, what the representation was for, its characteristic methods, the fields that drove it, and what it left unsolved for the next era.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:62.9pt;padding-left:2.8pt;padding-right:2.8pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">I. Symbolic and cognitive</span> 
+<br><span style="font-size:70%;">1950s–1980s</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">II. Geometric and probabilistic</span> 
+<br><span style="font-size:70%;">1980s–2012</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">III. Learning-based</span> 
+<br><span style="font-size:70%;">2012–2019</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">IV. Foundation models</span> 
+<br><span style="font-size:70%;">2019–2023</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">V. World-centered</span> 
+<br><span style="font-size:70%;">2023–</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:62.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Space treated as</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">discrete symbols and relations</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">metric geometry under uncertainty</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">learned, task-specific features</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">shared latent priors</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">an executable, persistent world state</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:62.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Core representations</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">cognitive maps, topological graphs, predicates</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">occupancy grids, landmark maps, pose graphs</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">feature maps, depth and flow maps, point and voxel features</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">pretrained embeddings, cross-modal alignment, neural fields</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">world models, action-conditioned dynamics, spatial memory</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:62.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">What it is for</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">planning and inference by symbol manipulation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">a consistent pose and map from noisy sensing</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">perception objectives: detection, depth, motion</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">transfer across tasks, modalities, and environments</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">long-horizon prediction, planning, and interaction</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:62.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Characteristic methods</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">heuristic search, rule-based planning, logic</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Bayesian filtering, nonlinear least squares, multi-view geometry</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">supervised and self-supervised deep networks</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">large-scale pretraining, contrastive alignment, instruction tuning</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">action-conditioned prediction, memory, closed-loop learning</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:62.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Main fields</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">cognitive science, classical AI, early robotics</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">robotics, photogrammetry and vision, GIS</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">computer vision, autonomous driving</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">multimodal AI, neural rendering, embodied AI</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">embodied AI, simulation and digital twins, AR/VR</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:62.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Left unsolved</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">meaning asserted by rules, not inferred from noisy sensing</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">features and pipelines engineered by hand</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">one model per task; no persistent world model</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">no persistent state that action updates</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:68.9pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">open: long-horizon consistency under motion and partial observability</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+<section>
+<h2 class="h-subsection" id="Ch1.S2.SS1"><span class="secnum">1.2.1</span>Era 1: Symbolic and Cognitive Spatial Computing (1950s–1980s)<a class="anchor" href="#Ch1.S2.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section id="Ch1.S2.SS1.SSS0.Px1">
+<div id="Ch1.S2.SS1.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Symbolic Space and Cognitive Structure as the Starting Point.</strong> This era marks the cognitive and symbolic origin of spatial intelligence.
+Under severe limits in computation and data, space was primarily treated as a structured object that could be explicitly described, reasoned about, and manipulated.
+Accordingly, researchers favored symbolic rules, relational descriptions, and graph-like structures to encode environments, viewing spatial representation as a verifiable “spatial description language” that enables planning and logical inference <cite class="cites">[<a class="cite" href="/read/references/#ref-53" data-k="kuipers1978modeling">53</a>, <a class="cite" href="/read/references/#ref-57" data-k="kuipers2000spatial">57</a>]</cite>.
+The lasting contribution of this stage is not empirical performance, but two foundational commitments.
+First, goal-directed behavior requires an internal world representation.
+Second, spatial representations are inherently compositional, consisting of objects, relations, and connectivity, which naturally supports rule-based spatial reasoning <cite class="cites">[<a class="cite" href="/read/references/#ref-58" data-k="sun1995robust">58</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS1.SSS0.Px1.p2" class="ltx_para">
+<p class="ltx_p">From a cognitive science perspective, this period also established the idea that spatial ability is not mere perception but an internal, operable mental model.
+Concepts such as cognitive maps and spatial memory motivated the view that an intelligent system should maintain structured internal states that support navigation, mental imagery, and transformation of spatial relations <cite class="cites">[<a class="cite" href="/read/references/#ref-59" data-k="eichenbaum1999hippocampus">59</a>, <a class="cite" href="/read/references/#ref-60" data-k="allen2004human">60</a>]</cite>.
+In parallel, early robotics provided an engineering prototype of this view: the classic sense-plan-act pipeline connected symbolic spatial models with planners and execution, demonstrating how an agent can translate limited sensing into purposeful behavior within an environment <cite class="cites">[<a class="cite" href="/read/references/#ref-61" data-k="nilsson1984shakey">61</a>, <a class="cite" href="/read/references/#ref-62" data-k="Arkin1998BehaviorBased">62</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch1.S2.SS1.SSS0.Px2">
+<div id="Ch1.S2.SS1.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Representative Milestones in Techniques and Representations.</strong> A widely cited conceptual root is Tolman’s proposal of “cognitive maps” (1948), which framed navigation as relying on internal map-like structures rather than stimulus-response associations <cite class="cites">[<a class="cite" href="/read/references/#ref-63" data-k="tolman1948cognitive">63</a>]</cite>.
+In classical AI, the Dartmouth Workshop (1956) crystallized the symbolic paradigm and encouraged formal, rule-based representations of intelligence, providing intellectual soil for early spatial reasoning systems <cite class="cites">[<a class="cite" href="/read/references/#ref-64" data-k="mccarthy2006proposal">64</a>, <a class="cite" href="/read/references/#ref-65" data-k="krauss2024artificial">65</a>]</cite>.
+Planning and search then became the main computational language for spatial decision making: A* heuristic search (1968) <cite class="cites">[<a class="cite" href="/read/references/#ref-66" data-k="Hart1968Astar">66</a>]</cite> offered a principled graph search framework for shortest-path style navigation problems, and STRIPS (1971) <cite class="cites">[<a class="cite" href="/read/references/#ref-67" data-k="Fikes1971STRIPS">67</a>]</cite> formalized actions as operators over states, making spatial tasks expressible as sequences of symbolic state transitions <cite class="cites">[<a class="cite" href="/read/references/#ref-68" data-k="nilsson2014principles">68</a>, <a class="cite" href="/read/references/#ref-69" data-k="pearl1983heuristics">69</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS1.SSS0.Px2.p2" class="ltx_para">
+<p class="ltx_p">In robotics, Shakey (late 1960s to early 1970s) became a milestone system that integrated perception, symbolic spatial modeling, planning, and acting in a closed pipeline <cite class="cites">[<a class="cite" href="/read/references/#ref-61" data-k="nilsson1984shakey">61</a>]</cite>.
+Although the sensory and actuation capabilities were primitive by modern standards, the system concretely instantiated the era’s thesis that spatial intelligence can be built by maintaining symbolic representations and using them to plan actions.
+In neuroscience and cognitive modeling, O’Keefe and Nadel’s <em class="ltx_font_italic">The Hippocampus as a Cognitive Map</em> (1978) further systematized the cognitive map account, reinforcing the interpretation that internal spatial representations are functional substrates for memory and navigation <cite class="cites">[<a class="cite" href="/read/references/#ref-51" data-k="o1978hippocampus">51</a>]</cite>.</p>
+</div>
+<figure id="Ch1.F3" class="ltx_figure"><div class="figtoggle" role="tablist" aria-label="Figure view" data-default="live" data-pagefind-ignore="all"><button type="button" role="tab" aria-selected="true" data-fv="print">As printed</button><button type="button" role="tab" aria-selected="false" data-fv="live">Interactive version</button></div><img src="/assets/figures/figures/web/si_milestones_tikz.webp" id="Ch1.F3.g1" class="fig-img" alt="" width="2000" height="2473" loading="lazy" decoding="async">
+<div class="fig-live" data-widget="timeline" hidden></div><figcaption class="ltx_centering"><span class="cap-tag">Figure 1.3</span><span>Representative works in spatial intelligence by field and year, set against the five eras of Table <a href="/read/1.2/#Ch1.T1" class="xref" data-x="Ch1.T1"><span>1.1</span></a> (shaded bands, I–V). Each marker sits at the year of the original work, and the bracketed number cites it; where several works share a year, labels are spread and joined to their markers by short leaders. The time axis is compressed before 1980 and expanded after 2012.</span></figcaption>
+</figure>
+<div id="Ch1.S2.SS1.SSS0.Px2.p3" class="ltx_para">
+<p class="ltx_p">Across these milestones, several representation families repeatedly appeared and stabilized: symbolic spatial models and rule-based spatial descriptions; topological graphs capturing connectivity and place relations; qualitative spatial relations such as containment, adjacency, and support; landmark-based representations for navigation; and grid-world abstractions that later became a convenient substrate for sequential decision making and, eventually, reinforcement learning (RL) formulations <cite class="cites">[<a class="cite" href="/read/references/#ref-159" data-k="arulkumaran2017deep">159</a>]</cite>.
+Together, they define the representation-centric signature of Era 1: spatial intelligence begins with explicit structure, grounded in cognition-inspired internal maps and implemented through symbolic reasoning and sense-plan-act-style control.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch1.S2.SS2"><span class="secnum">1.2.2</span>Era 2: Geometric and Probabilistic Spatial Modeling (1980s–2012)<a class="anchor" href="#Ch1.S2.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section id="Ch1.S2.SS2.SSS0.Px1">
+<div id="Ch1.S2.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">From Symbolic Descriptions to Metric Geometry under Uncertainty.</strong> With the maturation of sensors (laser range finders, wheel odometry, early vision), computing infrastructure, and probabilistic estimation theory, spatial representation shifted away from purely symbolic description toward mathematical modeling of continuous geometry with uncertainty.
+Space was increasingly treated as a measurable physical entity whose state must be inferred, rather than a rule-based structure whose meaning is asserted.
+Consequently, the central question of this era shifted from describing the world in symbols to maintaining spatial consistency under noise, drift, and partial observability.
+This transition also re-centered the representation itself: a map is not a static record, but a set of uncertain state variables, typically the joint configuration of pose and environment, which must be updated and refined through Bayesian estimation and optimization <cite class="cites">[<a class="cite" href="/read/references/#ref-54" data-k="Thrun2005Probabilistic">54</a>, <a class="cite" href="/read/references/#ref-160" data-k="dellaert2006square">160</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS2.SSS0.Px1.p2" class="ltx_para">
+<p class="ltx_p">In this view, representation is inseparable from the inference machinery that maintains it.
+Coordinate frames and metric spaces became the common language that connects sensing, estimation, and control, while probabilistic modeling provided a principled way to fuse heterogeneous measurements and quantify uncertainty.
+As a result, a representation-centric principle was consolidated: spatial intelligence requires not only a geometric model of the environment, but also an explicit account of how that model is updated over time as new evidence arrives <cite class="cites">[<a class="cite" href="/read/references/#ref-161" data-k="smith1990estimating">161</a>, <a class="cite" href="/read/references/#ref-162" data-k="bar2001estimation">162</a>, <a class="cite" href="/read/references/#ref-163" data-k="thrun2002robotic">163</a>]</cite>.
+This era also laid much of the groundwork for long-term autonomy by formalizing how an agent can localize itself, build maps, and navigate using a consistent geometric state.</p>
+</div>
+<div id="Ch1.S2.SS2.SSS0.Px1.p3" class="ltx_para">
+<p class="ltx_p">In parallel, macro-scale spatial disciplines pushed representation standardization beyond local robotics maps.
+Surveying, geodesy, cartography, remote sensing, and GIScience strengthened coordinate reference systems, map projections, topological relations, and spatial databases, making large-scale spatial representations structured, queryable, and interoperable at city-to-Earth scale <cite class="cites">[<a class="cite" href="/read/references/#ref-108" data-k="goodchild1992geographical">108</a>]</cite>.
+At the same time, computer vision developed a rigorous multi-view geometry toolkit that defined how 3D structure and camera motion can be recovered from images, reinforcing the idea that geometry is an estimable latent state rather than an explicit symbolic description <cite class="cites">[<a class="cite" href="/read/references/#ref-112" data-k="hartley2003multiple">112</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch1.S2.SS2.SSS0.Px2">
+<div id="Ch1.S2.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Representative Techniques and Milestones.</strong> A representative milestone in this era is the emergence of probabilistic state estimation as the dominant language for maintaining spatial consistency under noise and partial observability.
+Kalman filtering and its nonlinear variants (EKF and related formulations) became widely adopted in robotics and autonomous systems during the 1980s and 1990s, enabling spatial quantities such as pose, velocity, and sensor biases to be represented as random variables with explicit uncertainty propagation <cite class="cites">[<a class="cite" href="/read/references/#ref-164" data-k="welch1995kalman">164</a>]</cite>.
+This shift is representation-centric: it turns “space” into a belief state that must be continuously updated, rather than a deterministic symbolic description.
+Building on this estimation view, occupancy grid mapping in the mid-1980s provided a canonical probabilistic representation that directly fuses range sensing into a discretized spatial field of free versus occupied space <cite class="cites">[<a class="cite" href="/read/references/#ref-79" data-k="Moravec1985SonarMaps">79</a>, <a class="cite" href="/read/references/#ref-54" data-k="Thrun2005Probabilistic">54</a>]</cite>.
+Although conceptually simple, occupancy grids became a durable interface between sensing and downstream planning, because they encode geometry together with uncertainty in a form amenable to incremental updates.
+Related metric map abstractions, coordinate frames, and sensor models matured in parallel, standardizing the idea that maps are measurable geometric objects anchored to physical reference systems <cite class="cites">[<a class="cite" href="/read/references/#ref-165" data-k="LaValle2006Planning">165</a>, <a class="cite" href="/read/references/#ref-89" data-k="hornung2013octomap">89</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS2.SSS0.Px2.p2" class="ltx_para">
+<p class="ltx_p">The SLAM problem then consolidated these ideas into a unified formulation where the agent’s pose and map are jointly inferred <cite class="cites">[<a class="cite" href="/read/references/#ref-166" data-k="dissanayake2001solution">166</a>]</cite>.
+EKF-SLAM, whose stochastic-map foundations were laid in the late 1980s <cite class="cites">[<a class="cite" href="/read/references/#ref-161" data-k="smith1990estimating">161</a>]</cite> and refined through the 1990s into the early 2000s <cite class="cites">[<a class="cite" href="/read/references/#ref-167" data-k="bailey2006consistency">167</a>]</cite>, established the coupled pose-landmark state as a central representation, while particle-filter-based SLAM, including FastSLAM (2002) <cite class="cites">[<a class="cite" href="/read/references/#ref-84" data-k="montemerlo2002fastslam">84</a>]</cite>, demonstrated that sampling and factorization could scale inference by exploiting conditional independencies.
+Beyond their algorithmic contributions, these lines of work stand as milestones in the operationalization of spatial representation: the map becomes a latent variable tied to motion and observation processes, with consistency defined probabilistically.</p>
+</div>
+<div id="Ch1.S2.SS2.SSS0.Px2.p3" class="ltx_para">
+<p class="ltx_p">As systems expanded in scale and duration, graph-based spatial representations rose to prominence in the early 2000s.
+Pose graphs and factor graphs <cite class="cites">[<a class="cite" href="/read/references/#ref-82" data-k="lu1997globally">82</a>]</cite> recast spatial estimation as a global constraint-satisfaction problem, enabling loop closure and large-scale consistency through nonlinear optimization.
+GraphSLAM <cite class="cites">[<a class="cite" href="/read/references/#ref-86" data-k="thrun2006graph">86</a>]</cite> and pose-graph optimization frameworks provided a modular representation where constraints from heterogeneous sensors and revisits could be integrated as edges in a unified objective <cite class="cites">[<a class="cite" href="/read/references/#ref-168" data-k="grisetti2010tutorial">168</a>]</cite>.
+This was a conceptual milestone because it decoupled spatial consistency from strict temporal recursion and made map structure explicit as an optimization-ready graph.</p>
+</div>
+<div id="Ch1.S2.SS2.SSS0.Px2.p4" class="ltx_para">
+<p class="ltx_p">In computer vision and photogrammetry, multi-view geometry matured into a systematic toolkit for recovering 3D structure from images.
+Bundle adjustment, a core optimization primitive with roots in analog photogrammetry and consolidated for computer vision in the late 1990s, jointly refines camera poses and 3D points to enforce global geometric consistency across views <cite class="cites">[<a class="cite" href="/read/references/#ref-110" data-k="triggs2000bundle">110</a>]</cite>.
+This family of methods made camera-centric coordinate frames, point clouds, and calibrated reconstructions standard spatial representations, and it established geometry and optimization, rather than semantics, as the primary organizing principles of spatial understanding in vision during this era.
+Complementary to these estimation and reconstruction pipelines, geometric registration and fusion techniques advanced practical 3D mapping.
+Iterative Closest Point (ICP) and its robust refinements enabled consistent aggregation of partial point measurements across viewpoints <cite class="cites">[<a class="cite" href="/read/references/#ref-106" data-k="besl1992method">106</a>, <a class="cite" href="/read/references/#ref-169" data-k="chetverikov2002trimmed">169</a>]</cite>.
+In parallel, early volumetric representations, including voxel grids and truncated signed distance function style formulations, began to encode surfaces and free space within unified volumetric fields <cite class="cites">[<a class="cite" href="/read/references/#ref-105" data-k="lorensen1998marching">105</a>, <a class="cite" href="/read/references/#ref-109" data-k="curless1996volumetric">109</a>, <a class="cite" href="/read/references/#ref-114" data-k="newcombe2011kinectfusion">114</a>, <a class="cite" href="/read/references/#ref-170" data-k="niessner2013real">170</a>]</cite>.
+While computationally constrained at the time, these representations introduced the field-based view of space that would later become influential for differentiable and implicit modeling.</p>
+</div>
+<div id="Ch1.S2.SS2.SSS0.Px2.p5" class="ltx_para">
+<p class="ltx_p">Finally, at macro scales, GIS and surveying communities standardized spatial representations through coordinate reference systems, projections, geodesy, and spatial databases.
+Digital elevation models, map products derived from remote sensing, and queryable geospatial layers enabled spatial reasoning at city, regional, and planetary scales with an emphasis on consistency, interoperability, and long-horizon stability <cite class="cites">[<a class="cite" href="/read/references/#ref-108" data-k="goodchild1992geographical">108</a>, <a class="cite" href="/read/references/#ref-171" data-k="li2025giscience">171</a>]</cite>.
+Although historically less coupled to embodied agents, these infrastructures are milestones for spatial intelligence because they demonstrate how spatial representation can function as a persistent, structured substrate supporting navigation, planning, and analysis beyond local robotic maps.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch1.S2.SS3"><span class="secnum">1.2.3</span>Era 3: Learning-based Spatial Modeling (2012–2019)<a class="anchor" href="#Ch1.S2.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section id="Ch1.S2.SS3.SSS0.Px1">
+<div id="Ch1.S2.SS3.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">From Engineered Geometry to Task-driven Learnable Spatial Representations.</strong> This era marks a fundamental shift in how spatial representations are constructed.
+We date its onset to 2012, when AlexNet’s ImageNet result made deep learning the dominant paradigm for visual perception <cite class="cites">[<a class="cite" href="/read/references/#ref-125" data-k="krizhevsky2012imagenet">125</a>]</cite>; the ImageNet dataset itself (2009) and early feature-learning work seeded the transition, but 2012 is when learned representations displaced hand-crafted ones as the default across spatial perception tasks.
+With the rise of machine learning, and especially deep learning, spatial modeling moves away from pipelines dominated by hand-crafted geometry, explicit probabilistic inference, and manually designed features.
+Instead, spatial structure begins to be encoded implicitly within neural networks through learned feature maps, latent embeddings, and task-optimized intermediate representations.
+Space is no longer represented solely as a map, graph, or state vector defined by engineers, but as something that can be learned directly from data through end-to-end optimization <cite class="cites">[<a class="cite" href="/read/references/#ref-124" data-k="deng2009imagenet">124</a>, <a class="cite" href="/read/references/#ref-55" data-k="eigen2014depth">55</a>, <a class="cite" href="/read/references/#ref-119" data-k="mildenhall2021nerf">119</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS3.SSS0.Px1.p2" class="ltx_para">
+<p class="ltx_p">A defining characteristic of this period is that spatial representations are learned in a strongly task-driven manner.
+Networks learn spatial cues to solve specific objectives such as object detection, semantic segmentation, depth estimation, visual odometry, or 3D recognition.
+As a result, spatial knowledge is often embedded in discriminative feature spaces tailored to particular datasets and benchmarks.
+While these representations dramatically improve performance on individual tasks, they rarely constitute a unified or reusable world model.
+Spatial intelligence in this era remains fragmented, with representations optimized locally for perception subtasks rather than globally for cross-task reasoning or long-term world understanding <cite class="cites">[<a class="cite" href="/read/references/#ref-127" data-k="long2015fcn">127</a>, <a class="cite" href="/read/references/#ref-172" data-k="ren2015faster">172</a>, <a class="cite" href="/read/references/#ref-133" data-k="zhou2017unsupervised">133</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS3.SSS0.Px1.p3" class="ltx_para">
+<p class="ltx_p">Another important aspect of this era is the parallel but largely uncoordinated progress across multiple domains.
+In computer vision, learning-based approaches revolutionize image, video, and 3D perception.
+In robotics, learning begins to augment classical pipelines for perception and control, but geometry-heavy systems remain dominant for reliability.
+Remote sensing adopts deep models to learn spatial patterns from multispectral, hyperspectral, SAR, and LiDAR data at large scales.
+Medical imaging leverages deep networks to learn volumetric spatial representations from CT and MRI scans.
+Autonomous driving stacks integrate learned perception modules with geometric localization and mapping.
+Despite shared reliance on learned spatial features, these communities operate with different benchmarks, representations, and evaluation criteria, reinforcing the task-specific nature of spatial modeling in this era <cite class="cites">[<a class="cite" href="/read/references/#ref-173" data-k="KITTI-GeigerLU12">173</a>, <a class="cite" href="/read/references/#ref-174" data-k="ronneberger2015unet">174</a>, <a class="cite" href="/read/references/#ref-35" data-k="Levine2016DeepGrasp">35</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch1.S2.SS3.SSS0.Px2">
+<div id="Ch1.S2.SS3.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Representative Techniques and Milestones.</strong> A widely recognized milestone is the introduction of deep convolutional neural networks (CNNs) for visual perception, catalyzed by AlexNet in 2012, which establishes CNNs as the dominant backbone for spatially grounded perception tasks <cite class="cites">[<a class="cite" href="/read/references/#ref-125" data-k="krizhevsky2012imagenet">125</a>, <a class="cite" href="/read/references/#ref-175" data-k="rawat2017deep">175</a>]</cite>.
+This shift is quickly reinforced by region-based detection frameworks such as R-CNN and its successors from 2014 onward, which embed object-level spatial reasoning directly into learned feature hierarchies <cite class="cites">[<a class="cite" href="/read/references/#ref-172" data-k="ren2015faster">172</a>, <a class="cite" href="/read/references/#ref-131" data-k="he2017mask">131</a>]</cite>.
+ResNet in 2015 further deepens representational capacity and becomes a de facto foundation for most spatial perception pipelines <cite class="cites">[<a class="cite" href="/read/references/#ref-23" data-k="he2016deep">23</a>]</cite>.
+In three-dimensional perception, PointNet in 2017 marks a milestone by introducing point clouds as a first-class input modality for deep networks <cite class="cites">[<a class="cite" href="/read/references/#ref-132" data-k="qi2017pointnet">132</a>]</cite>.
+This work opens the door to learned spatial representations beyond images, influencing robotics, autonomous driving, and indoor scene understanding.
+Concurrently, early voxel-based and sparse convolution methods begin to encode space volumetrically, albeit at limited resolution due to computational constraints <cite class="cites">[<a class="cite" href="/read/references/#ref-176" data-k="tang2020searching">176</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS3.SSS0.Px2.p2" class="ltx_para">
+<p class="ltx_p">Learning-based depth estimation emerges as another key milestone.
+Between 2014 and 2016, monocular and stereo depth prediction networks demonstrated that geometric cues such as disparity and scale can be inferred from data rather than explicit triangulation <cite class="cites">[<a class="cite" href="/read/references/#ref-55" data-k="eigen2014depth">55</a>, <a class="cite" href="/read/references/#ref-177" data-k="cs2018depthnet">177</a>]</cite>.
+Around the same period, learning-based visual odometry <cite class="cites">[<a class="cite" href="/read/references/#ref-134" data-k="Wang2017DeepVO">134</a>]</cite> and ego-motion estimation appeared <cite class="cites">[<a class="cite" href="/read/references/#ref-178" data-k="tateno2017cnn">178</a>]</cite>, operating alongside classical SLAM systems.
+This coexistence highlights a transitional moment where geometry-driven consistency and learning-driven representation evolve in parallel rather than replacing one another <cite class="cites">[<a class="cite" href="/read/references/#ref-134" data-k="Wang2017DeepVO">134</a>, <a class="cite" href="/read/references/#ref-179" data-k="tang2018ba">179</a>]</cite>.
+Self-supervised and unsupervised learning of spatial structure became influential from 2016 to 2018.
+Methods that exploit photometric consistency, view synthesis, and temporal coherence enable networks to learn depth and motion without dense ground truth supervision <cite class="cites">[<a class="cite" href="/read/references/#ref-133" data-k="zhou2017unsupervised">133</a>, <a class="cite" href="/read/references/#ref-180" data-k="godard2019digging">180</a>]</cite>.
+These approaches strengthen the idea that spatial representations can be learned from raw sensory streams, reinforcing the data-driven paradigm while remaining largely task-bound.</p>
+</div>
+<div id="Ch1.S2.SS3.SSS0.Px2.p3" class="ltx_para">
+<p class="ltx_p">Autonomous driving perception stacks introduce another representation shift toward bird’s-eye-view and multi-view feature fusion.
+By the late 2010s, learned BEV representations and cost volumes became central to multi-camera and LiDAR-based perception, enabling spatial reasoning aligned with downstream planning requirements <cite class="cites">[<a class="cite" href="/read/references/#ref-181" data-k="liu2023bevfusion">181</a>, <a class="cite" href="/read/references/#ref-116" data-k="yao2018mvsnet">116</a>, <a class="cite" href="/read/references/#ref-182" data-k="kendall2017end">182</a>]</cite>.
+This reflects an increasing emphasis on representations that are geometrically meaningful yet learned.
+Toward the end of this era, early attempts at neural scene representations and coordinate-based networks appear.
+Works exploring implicit coordinate mappings and continuous scene embeddings between 2018 and 2019 lay conceptual groundwork for later developments in implicit fields and neural rendering <cite class="cites">[<a class="cite" href="/read/references/#ref-119" data-k="mildenhall2021nerf">119</a>, <a class="cite" href="/read/references/#ref-183" data-k="sitzmann2019scene">183</a>]</cite>.
+Although these models are not yet general or scalable, they signal a growing interest in treating scenes, rather than tasks, as the primary object of representation.</p>
+</div>
+<div id="Ch1.S2.SS3.SSS0.Px2.p4" class="ltx_para">
+<p class="ltx_p">Overall, Era 3 establishes learned spatial representations as the dominant paradigm.
+However, these representations remain largely discriminative, task-specific, and fragmented across domains.
+They provide powerful spatial priors for perception but stop short of forming unified, reusable world models, setting the stage for the emergence of large foundation spatial modeling in the subsequent era.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch1.S2.SS4"><span class="secnum">1.2.4</span>Era 4: Large Foundation Spatial Modeling (2019–2023)<a class="anchor" href="#Ch1.S2.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section id="Ch1.S2.SS4.SSS0.Px1">
+<div id="Ch1.S2.SS4.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">From Task-Specific Learning to Foundation Spatial Representations.</strong> The defining shift of this era is the rise of spatial representations trained at scale as foundation-level constructs, a change of kind rather than an incremental improvement on individual spatial tasks.
+For the first time, spatial modeling is explicitly shaped through large-scale pretraining over diverse data sources, tasks, and modalities, rather than being optimized only within narrow task boundaries.
+Spatial structure is no longer learned as an auxiliary signal for detection, depth, or reconstruction, but is instead distilled into shared latent representations through massive data exposure and objective diversity.
+This marks a decisive representation-centric transition, where the primary goal becomes learning general-purpose spatial priors that can be transferred, adapted, and reused across downstream tasks with minimal supervision.</p>
+</div>
+<div id="Ch1.S2.SS4.SSS0.Px1.p2" class="ltx_para">
+<p class="ltx_p">A key enabler of this transition is the combination of large-scale datasets, scalable architectures, and unified training objectives.
+Vision Transformers establish architectures capable of modeling global spatial structure over high-resolution inputs, while contrastive and generative pretraining objectives align spatial patterns across vision, language, and generation.
+Through training on internet-scale image-text pairs, video corpora, and synthetic data, spatial representations acquire statistical regularities that go beyond any single environment or task.
+As a result, space increasingly functions as a shared coordinate system and embedding substrate that supports grounding, retrieval, reasoning, and conditional generation across modalities.
+Spatial intelligence in this era is therefore inseparable from scale, as both data diversity and model capacity are essential for forming transferable spatial abstractions.</p>
+</div>
+<div id="Ch1.S2.SS4.SSS0.Px1.p3" class="ltx_para">
+<p class="ltx_p">Another hallmark of this era is the elevation of the scene as a first-class unit of representation under large-scale learning.
+Neural scene representations, most notably neural radiance fields (NeRFs) <cite class="cites">[<a class="cite" href="/read/references/#ref-119" data-k="mildenhall2021nerf">119</a>]</cite>, treat a scene as a learnable and differentiable function defined over continuous space, enabling optimization from sparse observations.
+Their significance lies not in implicitness itself, but in demonstrating that scene-level spatial structure can be recovered, manipulated, and reused through learning.
+In parallel, diffusion models introduce powerful generative priors that encode spatial coherence in latent spaces trained on massive datasets, enabling controllable synthesis of images, videos, and three-dimensional content.
+Together, these developments elevate space from something to be perceived into a scalable, generative, and composable substrate shaped through foundation-level pretraining.</p>
+</div>
+</section>
+<section id="Ch1.S2.SS4.SSS0.Px2">
+<div id="Ch1.S2.SS4.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Representative Techniques and Milestones.</strong> Before the emergence of vision-specific foundation models, a critical architectural shift had already taken place with the introduction of the Transformer <cite class="cites">[<a class="cite" href="/read/references/#ref-141" data-k="attention">141</a>]</cite>.
+Originally developed for sequence modeling in natural language processing, attention-based architectures demonstrated that large-scale pretraining could yield highly transferable and task-agnostic representations, as exemplified by models such as BERT <cite class="cites">[<a class="cite" href="/read/references/#ref-42" data-k="devlin2019bert">42</a>]</cite>.
+The key insight was not tied to language itself, but to the ability of self-attention to capture global structure and support scalable representation learning.
+This realization set the stage for extending the same architectural paradigm to visual data, where spatial structure could likewise be learned through large-scale pretraining rather than handcrafted inductive biases.
+Following this, one central architectural milestone is the introduction of Vision Transformers <cite class="cites">[<a class="cite" href="/read/references/#ref-142" data-k="vit">142</a>]</cite> in 2020, which demonstrates that large-scale pretraining on visual data can produce transferable and globally structured spatial representations.
+This architectural shift lays the groundwork for foundation visual models that can be adapted across tasks without redesigning spatial pipelines.
+Then, cross-modal alignment becomes a defining capability with the release of CLIP in 2021, which aligns visual representations with natural language through large-scale contrastive learning <cite class="cites">[<a class="cite" href="/read/references/#ref-143" data-k="radford2021learning">143</a>]</cite>.
+This alignment provides a universal interface for spatial semantics, enabling zero-shot transfer, retrieval, and language-conditioned spatial reasoning.
+Spatial representations learned in this manner escape the confines of a fixed label space and can be flexibly queried and recombined through language.</p>
+</div>
+<div id="Ch1.S2.SS4.SSS0.Px2.p2" class="ltx_para">
+<p class="ltx_p">Concurrently, the emergence of LLMs marks a decisive inflection point in foundation modeling.
+Unlike earlier neural models trained at modest scale, LLMs demonstrate that sufficiently large-scale pretraining on diverse data can induce qualitatively new capabilities, including abstraction, composition, and long-horizon reasoning <cite class="cites">[<a class="cite" href="/read/references/#ref-11" data-k="achiam2023gpt">11</a>, <a class="cite" href="/read/references/#ref-12" data-k="vicuna2023">12</a>]</cite>.
+Crucially, these abilities are not hard-coded but emerge from scale, data diversity, and architectural simplicity.
+Language becomes the first modality in which foundation models exhibit general-purpose intelligence, rapidly positioning LLMs as a universal computational substrate that extends beyond NLP into vision, robotics, simulation, and scientific domains.
+For spatial intelligence, this shift is pivotal: it introduces a representation space in which spatial structure, relations, and plans can be explicitly described, manipulated, and interfaced with external perceptual or physical systems, thereby elevating language from an auxiliary annotation channel to a central medium for spatial abstraction and control.
+Also, Chain-of-Thought (CoT) style reasoning and tool-augmented prompting begin to systematically populate spatial intelligence pipelines <cite class="cites">[<a class="cite" href="/read/references/#ref-78" data-k="wei2022chain">78</a>]</cite>.
+The key milestone is not CoT per se, but the emergence of <em class="ltx_font_italic">structured intermediate representations</em> induced by LLMs, such as stepwise spatial decomposition, implicit scene graphs, explicit coordinate or layout hypotheses, and program-like plans that interface with mapping, perception, or simulation modules.
+In practice, CoT becomes a mechanism to externalize and manipulate spatial states as compositional symbols that can be checked, revised, and grounded via perception or environment feedback, thereby tightening the representation loop from language to spatial structure and back.</p>
+</div>
+<div id="Ch1.S2.SS4.SSS0.Px2.p3" class="ltx_para">
+<p class="ltx_p">In parallel, LLMs begin to serve as coordinators of scene-level reasoning rather than passive text processors.
+PaLM-E <cite class="cites">[<a class="cite" href="/read/references/#ref-56" data-k="driess2023palm">56</a>]</cite> in 2023 represents a critical milestone by integrating language models with embodied sensory inputs and robotic actions, demonstrating that a single foundation backbone can operate over language, vision, and control signals within a shared representational space.
+This integration highlights that scene representations must bridge symbolic reasoning and physical execution, rather than treating them as separate layers.
+Also, 2023 marks a clear milestone where Vision-Language-Action (VLA) <cite class="cites">[<a class="cite" href="/read/references/#ref-97" data-k="zitkovich2023rt2">97</a>]</cite> models crystallize as a representation-centric paradigm.
+The defining contribution of these systems is not embodiment itself, but the treatment of action as a first-class modality within a shared spatial latent interface.
+VLA models learn to map perceptual states, such as images, video, and proprioception, together with language instructions, into temporally grounded action tokens or control variables.
+This reframes spatial representation from a purely geometric or perceptual construct into an <em class="ltx_font_italic">action-aligned internal state</em>, where affordances, kinematic constraints, and task-relevant spatial variables are explicitly encoded in executable form.
+Enabled by large foundation backbones, this shift establishes a concrete representational bridge from scene-level spatial models to agent-level world states.</p>
+</div>
+<div id="Ch1.S2.SS4.SSS0.Px2.p4" class="ltx_para">
+<p class="ltx_p">Building upon these representational advances, the foundation paradigm begins to visibly reshape embodied and interactive systems.
+Early generalist agent models, such as Gato <cite class="cites">[<a class="cite" href="/read/references/#ref-149" data-k="reed2022generalist">149</a>]</cite> in 2022, signal an attempt to unify perception, action, and spatial representation within a single pretrained architecture.
+From 2022 to 2023, LLM- and VLM-backed embodied systems increasingly adopt foundation spatial representations as priors for online decision making in navigation and manipulation tasks <cite class="cites">[<a class="cite" href="/read/references/#ref-56" data-k="driess2023palm">56</a>]</cite>.
+High-profile humanoid and mobile robot demonstrations in 2023 further highlight this trend, integrating LLM or VLM planners with perception stacks and low-level controllers.
+Although many such systems remain engineering-driven rather than standardized academic benchmarks, they mark a qualitative shift: spatial representations turn from offline reconstructions into online task states that must remain coherent under motion, manipulation, and partial observability.
+These developments collectively signal the maturation of foundation spatial representations into embodied world models, setting the stage for the transition toward world-centered spatial intelligence.</p>
+</div>
+<div id="Ch1.S2.SS4.SSS0.Px2.p5" class="ltx_para">
+<p class="ltx_p">NeRFs <cite class="cites">[<a class="cite" href="/read/references/#ref-119" data-k="mildenhall2021nerf">119</a>]</cite>, introduced in 2020, represent another milestone by modeling scenes as continuous functions defined over spatial coordinates and viewing directions.
+This formulation enables high-fidelity view synthesis and establishes a functional perspective on scene representation.
+Follow-up work extends this idea to signed distance functions and other continuous fields, reinforcing the notion of scene-level spatial modeling as a reusable representation primitive.
+Generative modeling advances rapidly during this period as well.
+Diffusion probabilistic models <cite class="cites">[<a class="cite" href="/read/references/#ref-184" data-k="ho2020denoising">184</a>]</cite>, introduced around 2020, provide a stable and scalable framework for learning generative priors over high-dimensional spatial signals.
+By 2022, large-scale text-to-image diffusion systems demonstrate that spatial layout, object relations, and scene structure can be controlled through language-conditioned latent spaces <cite class="cites">[<a class="cite" href="/read/references/#ref-185" data-k="rombach2022ldm">185</a>]</cite>.
+These models turn generative spatial representations into widely accessible foundation priors.</p>
+</div>
+<div id="Ch1.S2.SS4.SSS0.Px2.p6" class="ltx_para">
+<p class="ltx_p">In three-dimensional representation, the introduction of 3D Gaussian Splatting <cite class="cites">[<a class="cite" href="/read/references/#ref-121" data-k="kerbl20233d">121</a>]</cite> in 2023 significantly improves the practicality and efficiency of differentiable scene representations.
+While conceptually aligned with neural rendering, its impact lies in making scene-level spatial representations more scalable and deployable.
+This development fits naturally within the broader surge of foundation scene representations rather than defining a separate era.
+Closely following this trend, four-dimensional (4D) spatial modeling and generation, which explicitly incorporate temporal dynamics into scene representations, begin to rapidly prevail in 2024 and attract unprecedented attention from the community <cite class="cites">[<a class="cite" href="/read/references/#ref-186" data-k="kong20253d">186</a>]</cite>.
+Building upon continuous scene representations and generative priors established in three-dimensional settings, 4D models aim to represent scenes as time-conditioned functions or dynamic fields that capture motion, deformation, and long-term temporal consistency.
+This includes emerging paradigms such as dynamic NeRF variants <cite class="cites">[<a class="cite" href="/read/references/#ref-187" data-k="pumarola2021d">187</a>, <a class="cite" href="/read/references/#ref-188" data-k="li2021neural">188</a>]</cite>, spatiotemporal Gaussian representations <cite class="cites">[<a class="cite" href="/read/references/#ref-189" data-k="bian2025gsditadvancingvideogeneration">189</a>]</cite>, video-based neural fields <cite class="cites">[<a class="cite" href="/read/references/#ref-190" data-k="liu2025free4d">190</a>]</cite>, and diffusion-based 4D generation models <cite class="cites">[<a class="cite" href="/read/references/#ref-191" data-k="wu20244d">191</a>, <a class="cite" href="/read/references/#ref-192" data-k="zhen2025tesseract">192</a>]</cite>.
+The significance of this milestone lies in extending foundation spatial representations from static geometry to evolving worlds, thereby strengthening the role of space as a reusable and temporally grounded latent substrate.
+Although still closely tied to the foundation modeling paradigm of this era, the rise of 4D spatial representations foreshadows the subsequent shift toward world-centered spatial intelligence, where temporal evolution and agent interaction become first-class constraints.</p>
+</div>
+<div id="Ch1.S2.SS4.SSS0.Px2.p7" class="ltx_para">
+<p class="ltx_p">Across domains such as remote sensing and medical imaging, large-scale pretraining and multimodal alignment also begin to emerge.
+Efforts to pretrain spatial representations on massive satellite imagery corpora or align medical images with textual reports reflect the spread of foundation spatial modeling beyond conventional vision benchmarks <cite class="cites">[<a class="cite" href="/read/references/#ref-193" data-k="cong2022satmae">193</a>, <a class="cite" href="/read/references/#ref-194" data-k="sun2022ringmo">194</a>]</cite>.
+Simulation and synthetic data generation further support this trend by enabling data scaling for spatial pretraining when real-world annotations are scarce <cite class="cites">[<a class="cite" href="/read/references/#ref-195" data-k="Cabon2020VirtualKITTI2">195</a>, <a class="cite" href="/read/references/#ref-196" data-k="pfaff2025scalable">196</a>, <a class="cite" href="/read/references/#ref-197" data-k="xu2025stable">197</a>]</cite>.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch1.S2.SS5"><span class="secnum">1.2.5</span>Era 5: World-Centered Spatial Intelligence (2023–Present)<a class="anchor" href="#Ch1.S2.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section id="Ch1.S2.SS5.SSS0.Px1">
+<div id="Ch1.S2.SS5.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">From Spatial Representations to World States.</strong> This era marks a decisive transition from spatial modeling toward world-centered intelligence.
+The defining shift lies in a fundamental redefinition of what spatial representations are required to support, well beyond the introduction of another three-dimensional encoding scheme.
+For the first time, spatial representations are systematically constrained to be executable, interactive, continuously updatable, and tightly coupled with agent behavior.
+They are no longer designed to serve isolated perception modules or one-shot generation tasks, but to function as persistent internal states that sustain long-running systems embedded in dynamic environments.
+As a result, representation quality is no longer judged primarily by reconstruction accuracy or visual fidelity, but by whether it can support ongoing interaction, decision making, and adaptation over extended time horizons <cite class="cites">[<a class="cite" href="/read/references/#ref-4" data-k="ha2018world">4</a>, <a class="cite" href="/read/references/#ref-5" data-k="Feifei2025spatial">5</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS5.SSS0.Px1.p2" class="ltx_para">
+<p class="ltx_p">A central conceptual shift underlying this transition is the expansion of context.
+The dominant paradigm moves from context from self to context as world.
+Rather than reasoning solely over prompts, local observations, or short-horizon inputs, systems are now required to organize cognition around an evolving world state that integrates spatial structure, temporal dynamics, physical constraints, and increasingly social context.
+In this view, spatial intelligence operates as an internal world state machine.
+It is written by perception, modified by action, maintained by memory, and queried by planning and prediction.
+This reframing represents a departure from representations as static input encodings toward representations as operational substrates that mediate perception, reasoning, and action in a unified loop <cite class="cites">[<a class="cite" href="/read/references/#ref-157" data-k="genie3">157</a>, <a class="cite" href="/read/references/#ref-56" data-k="driess2023palm">56</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS5.SSS0.Px1.p3" class="ltx_para">
+<p class="ltx_p">Crucially, this shift also redefines how learning itself is expected to occur.
+World-centered spatial intelligence cannot be acquired solely through one-off offline pretraining.
+Instead, representations must be shaped and continually refined through embodied interaction with the environment.
+Agents are expected to actively explore, test hypotheses, observe consequences, and update their internal world states accordingly.
+Spatial intelligence thus becomes inseparable from agency and experience.
+The internal representation must encode not only where things are, but how the world evolves under action, which affordances are available, and how constraints shape future possibilities.
+Although current systems remain at an early stage of this transition, the trajectory is clear.
+By treating spatial intelligence as a persistent, executable, and evolving world substrate, this era points toward a path where artificial agents can maintain coherent world models over long time horizons, learn autonomously through interaction, and ultimately approach human-level and potentially superhuman-level intelligence grounded in the structure and dynamics of the real world <cite class="cites">[<a class="cite" href="/read/references/#ref-150" data-k="wang2023voyager">150</a>, <a class="cite" href="/read/references/#ref-198" data-k="ali2025world">198</a>, <a class="cite" href="/read/references/#ref-199" data-k="wang2023robogen">199</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch1.S2.SS5.SSS0.Px2">
+<div id="Ch1.S2.SS5.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Representative Techniques and Milestones.</strong> One prominent signal of this era is the emergence of explicit world modeling frameworks that treat perception, prediction, and memory as components of a unified state transition process.
+Yann LeCun has proposed a series of Joint Embedding Predictive Architecture (JEPA) world models from 2022 to 2025, which reframes representation learning around predicting future world states rather than reconstructing sensory inputs, emphasizing abstraction, temporal coherence, and action relevance <cite class="cites">[<a class="cite" href="/read/references/#ref-151" data-k="assran2023jepa">151</a>, <a class="cite" href="/read/references/#ref-155" data-k="assran2025vjepa">155</a>, <a class="cite" href="/read/references/#ref-200" data-k="chen2025vl">200</a>]</cite>.
+By shifting the learning objective from pixel-level fidelity to state-level consistency, JEPA positions world dynamics as the primary object of representation.
+Following this direction, a growing body of work between 2023 and 2024 explores world models that integrate prediction, memory, and action, progressively moving from short-horizon forecasting toward persistent and interaction-aware world state representations <cite class="cites">[<a class="cite" href="/read/references/#ref-152" data-k="hafner2023mastering">152</a>, <a class="cite" href="/read/references/#ref-22" data-k="hao2023reasoning">22</a>, <a class="cite" href="/read/references/#ref-201" data-k="zhen20243d">201</a>, <a class="cite" href="/read/references/#ref-202" data-k="yang2026mindjourney">202</a>, <a class="cite" href="/read/references/#ref-203" data-k="garcin2026beyond">203</a>]</cite>.
+These efforts collectively signal a transition from predictive representation learning to explicit world-centered modeling.
+Within this trajectory, World Labs’ Marble, launched by Fei-Fei Li’s team in late 2025 as the first commercial generative world model, turns text, image, video, or coarse 3D prompts into persistent, editable, and walkable 3D environments <cite class="cites">[<a class="cite" href="/read/references/#ref-158" data-k="Feifei2025Marble">158</a>]</cite>.
+Its significance for this era is twofold: it demonstrates that world-level spatial representations can be generated rather than only reconstructed, and that the resulting worlds persist as stable, downloadable state rather than transient observations.
+Marble thereby moves generative spatial modeling from research demonstrations toward deployable world-building infrastructure, reinforcing the view that spatial representations should be maintained, edited, and acted upon over long horizons.</p>
+</div>
+<div id="Ch1.S2.SS5.SSS0.Px2.p2" class="ltx_para">
+<p class="ltx_p">VLA scaling further accelerates this trend.
+RT-2 in 2023 demonstrates that models pretrained on large-scale web data can transfer semantic and spatial knowledge directly into robotic control policies <cite class="cites">[<a class="cite" href="/read/references/#ref-97" data-k="zitkovich2023rt2">97</a>]</cite>.
+Here, spatial representation becomes action-aligned rather than geometry-first.
+Internal states must encode affordances and task-relevant spatial variables in forms that are immediately executable, reinforcing the notion that representation quality is measured by behavioral competence.
+Agent-centric frameworks also mature during this period.
+ReAct-style agents, introduced in 2022, formalize a tight loop between reasoning and acting, where intermediate representations explicitly externalize spatial hypotheses, plans, and state updates <cite class="cites">[<a class="cite" href="/read/references/#ref-21" data-k="yao2022react">21</a>]</cite>.
+Voyager, released in 2023 for the Minecraft environment, further exemplifies this shift by integrating long-term memory, skill libraries, planning, and exploration into a persistent world model that evolves through interaction <cite class="cites">[<a class="cite" href="/read/references/#ref-150" data-k="wang2023voyager">150</a>]</cite>.
+These systems highlight the importance of maintaining long-horizon spatial consistency rather than optimizing isolated decisions.</p>
+</div>
+<div id="Ch1.S2.SS5.SSS0.Px2.p3" class="ltx_para">
+<p class="ltx_p">Simulation platforms and benchmarks increasingly align with this world-centered view.
+The Habitat family of embodied AI benchmarks continues to push evaluation from static perception tasks toward closed-loop interaction, navigation, and manipulation in simulated environments <cite class="cites">[<a class="cite" href="/read/references/#ref-94" data-k="savva2019habitat">94</a>, <a class="cite" href="/read/references/#ref-204" data-k="szot2021habitat2">204</a>, <a class="cite" href="/read/references/#ref-98" data-k="puig2023habitat3">98</a>, <a class="cite" href="/read/references/#ref-205" data-k="Ramakrishnan2021HM3D">205</a>]</cite>.
+This shift in evaluation methodology reinforces the requirement that spatial representations must remain coherent under motion, partial observability, and delayed feedback.
+From 2024 onward, interactive world models and action-conditioned video models gain prominence.
+These models treat the world state as a predictive object whose evolution depends explicitly on agent actions, unifying spatial prediction and control <cite class="cites">[<a class="cite" href="/read/references/#ref-206" data-k="cui2025emu35">206</a>, <a class="cite" href="/read/references/#ref-97" data-k="zitkovich2023rt2">97</a>]</cite>.
+Such approaches position world dynamics as first-class representational targets rather than side effects of perception.
+More broadly, multimodal agent frameworks emerging between 2024 and 2025 increasingly combine tool use, memory systems, and long-horizon planning.
+In these systems, spatial representations act as persistent world states that coordinate perception, reasoning, and action over extended time scales <cite class="cites">[<a class="cite" href="/read/references/#ref-93" data-k="Xia2018Gibson">93</a>, <a class="cite" href="/read/references/#ref-207" data-k="feng2025survey">207</a>, <a class="cite" href="/read/references/#ref-208" data-k="yang2025embodiedbench">208</a>, <a class="cite" href="/read/references/#ref-150" data-k="wang2023voyager">150</a>]</cite>.</p>
+</div>
+<div id="Ch1.S2.SS5.SSS0.Px2.p4" class="ltx_para">
+<p class="ltx_p">From a representational standpoint, this era is characterized by the rise of world-level state representations.
+These representations often combine metric maps, semantic abstractions, scene graphs, and memory-augmented structures into unified internal states.
+Crucially, they encode not only static layout but also action-conditioned dynamics, affordances, and long-term consistency.
+The representation target shifts from isolated scenes to cross-scale world states that span rooms, cities, and even planetary systems.
+Such representations are designed to be executable, editable, and safe, enabling planning, intervention, and constraint enforcement within a single coherent framework.</p>
+</div>
+</section>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/1.1/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">1.1 Why Spatial Intelligence? Why Now?</span></a><a class="pager-next" href="/read/chapter-2/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Chapter 2: A Definition in Motion: Revisiting Spatial Intelligence</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch1.S2.SS1" data-spy="Ch1.S2.SS1"><span class="n">1.2.1</span>Era 1: Symbolic and Cognitive Spatial Computing (1950s–1980s)</a></li><li><a href="#Ch1.S2.SS2" data-spy="Ch1.S2.SS2"><span class="n">1.2.2</span>Era 2: Geometric and Probabilistic Spatial Modeling (1980s–2012)</a></li><li><a href="#Ch1.S2.SS3" data-spy="Ch1.S2.SS3"><span class="n">1.2.3</span>Era 3: Learning-based Spatial Modeling (2012–2019)</a></li><li><a href="#Ch1.S2.SS4" data-spy="Ch1.S2.SS4"><span class="n">1.2.4</span>Era 4: Large Foundation Spatial Modeling (2019–2023)</a></li><li><a href="#Ch1.S2.SS5" data-spy="Ch1.S2.SS5"><span class="n">1.2.5</span>Era 5: World-Centered Spatial Intelligence (2023–Present)</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=1.2"><b>114</b> cited works</a><a href="/explore/tools/?sec=1.2" title="Habitat-Sim, 3D Gaussian Splatting, CLIP"><b>3</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="1.2 Historical Evolution and Milestones" data-url="/read/1.2/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%201.2%20Historical%20Evolution%20and%20Milestones&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/1.2/%20%28PDF%20p.%2028%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

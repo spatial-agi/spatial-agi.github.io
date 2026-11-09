@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12.2 Natural Science · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="12.2 Natural Science · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="12.2">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link is-current" href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-12/">Chapter 12</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-12/">Chapter 12 · Spatial Intelligence for Biomedicine and Natural Sciences</a></div>
+        <h1><span class="secnum">12.2</span>Natural Science</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=425" title="Open this page in the PDF">PDF p. 425</a><span class="dot">·</span>        <span>17 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:12.2 Natural Science">
+<section>
+<h2 class="h-subsection" id="Ch12.S2.SS1"><span class="secnum">12.2.1</span>Introduction<a class="anchor" href="#Ch12.S2.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">A physical system is a field over space; a molecule or a material is a three-dimensional arrangement of atoms together with an electronic field over that arrangement; a protein, a cell, or a tissue is a three-dimensional structure whose function follows from its form.
+In every case the scientific quantity of interest, whether an energy, a reaction rate, a biological function, or a material property, is a function of spatial structure under strict symmetry constraints, so that understanding nature is to a large degree a problem of recovering and reasoning about that structure.</p>
+</div>
+<div id="Ch12.S2.SS1.p2" class="ltx_para">
+<p class="ltx_p">The geometric representations of Chapter <a href="/read/chapter-4/" class="xref" data-x="Ch4"><span>4</span></a> and the reconstruction and generation of Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a> reappear here specialized to data that obey physical law: to fields constrained by differential equations, to atomic systems constrained by Euclidean and permutation symmetry, and to biomolecules whose geometry determines their function.
+A single capability triad recurs inside every domain and gives the section its spine: spatial <span class="ltx_font_bold">representation and reconstruction</span> recovers a continuous field or a 3D structure from sparse, indirect, and noisy measurements; <span class="ltx_font_bold">dynamics, simulation, and law discovery</span> learns how that structure evolves and what governs it; and <span class="ltx_font_bold">design, discovery, and control</span> either generates new structure or inverts observations for hidden causes. The third leg reads as discovery and control in physics and as generative design in chemistry and life science.</p>
+</div>
+<div id="Ch12.S2.SS1.p3" class="ltx_para">
+<p class="ltx_p">The section is organized by scientific domain (physics, chemistry, and life science); the earth and environmental sciences are treated at geographic scale in the GeoAI of §<a href="/read/11.2/" class="xref" data-x="Ch11.S2"><span>11.2</span></a>, the clinical, patient-scale counterpart of the life-science material in §<a href="/read/12.1/" class="xref" data-x="Ch12.S1"><span>12.1</span></a>, and the generic digital twin in §<a href="/read/11.1/" class="xref" data-x="Ch11.S1"><span>11.1</span></a>.
+Figure <a href="/read/12.2/#Ch12.F5" class="xref" data-x="Ch12.F5"><span>12.5</span></a> previews the section as a cross-scale map in which the three domains share the same vertical triad, and Table <a href="/read/12.2/#Ch12.T2" class="xref" data-x="Ch12.T2"><span>12.2</span></a> collects a representative benchmark for each capability.</p>
+</div>
+<figure id="Ch12.F5" class="ltx_figure"><img src="/assets/figures/figures/part4/section12/natural_science_overview_v2.webp" id="Ch12.F5.g1" class="fig-img" alt="" width="2000" height="1126" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 12.5</span><span>Spatial intelligence across physics, chemistry, and life science (columns), each repeating the same capability triad (rows). The lower electron-to-tissue strip indicates illustrative scales rather than exclusive domain boundaries. Fields, molecular and periodic structures, and biomolecular and tissue structures illustrate representation; the equations exemplify wave, quantum, and biological dynamics. Bottom-row design examples are schematic; molecule/material and biomolecular/tissue examples are alternatives rather than literal conversion pipelines. Biological imagery is synthetic.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S2.SS2"><span class="secnum">12.2.2</span>Physics<a class="anchor" href="#Ch12.S2.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">Spatial intelligence in physics constructs spatial structure and discovers the laws that govern its motion, and it earns its place where first-principles solvers are too costly or the governing equations are unknown: fields are reconstructed from limited observations, their dynamics are modeled and their laws discovered, and the systems are optimized and controlled.
+Figure <a href="/read/12.2/#Ch12.F6" class="xref" data-x="Ch12.F6"><span>12.6</span></a> previews this progression from a sparsely observed field to a learned dynamical rollout and a differentiable-control loop.</p>
+</div>
+<figure id="Ch12.F6" class="ltx_figure"><img src="/assets/figures/figures/part4/section12/natural_science_physics_v2.webp" id="Ch12.F6.g1" class="fig-img" alt="" width="2000" height="868" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 12.6</span><span>The physics triad: (1) reconstruct a field from sparse sensors, (2) fit dynamics and roll out the field, with a separate law-extraction step, and (3) optimize controls through a differentiable simulator. <math id="Ch12.F6.m7" alttext="\mathcal{N}[\mathbf{u};\theta]" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒩</mi><mo>⁢</mo><mrow><mo stretchy="false">[</mo><mi>𝐮</mi><mo>;</mo><mi>θ</mi><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{N}[\mathbf{u};\theta]</annotation></semantics></math> is the learned operator and <math id="Ch12.F6.m8" alttext="\mathcal{N}^{*}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝒩</mi><mo>∗</mo></msup><annotation encoding="application/x-tex">\mathcal{N}^{*}</annotation></semantics></math> a candidate extracted law. The state <math id="Ch12.F6.m9" alttext="\mathbf{u}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐮</mi><annotation encoding="application/x-tex">\mathbf{u}</annotation></semantics></math> and control <math id="Ch12.F6.m10" alttext="\mathbf{a}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐚</mi><annotation encoding="application/x-tex">\mathbf{a}</annotation></semantics></math> are distinct; the control objective <math id="Ch12.F6.m11" alttext="\mathcal{J}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒥</mi><annotation encoding="application/x-tex">\mathcal{J}</annotation></semantics></math> supplies gradients to the optimizer, whereas <math id="Ch12.F6.m12" alttext="\mathcal{L}_{\rm fit}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℒ</mi><mi>fit</mi></msub><annotation encoding="application/x-tex">\mathcal{L}_{\rm fit}</annotation></semantics></math> fits observed dynamics. Field contours and temporal shifts are illustrative, not experimental results.</span></figcaption>
+</figure>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS2.SSS1"><span class="secnum">12.2.2.1</span>Spatial Representation and Reconstruction<a class="anchor" href="#Ch12.S2.SS2.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS2.SSS1.p1" class="ltx_para">
+<p class="ltx_p">Many key quantities in physical systems are available only through sparse and noisy observations, and representation and reconstruction recover continuous spatial fields from such data, the input to law discovery and control.
+Embedding physical priors such as governing partial differential equations and symmetry constraints keeps these reconstructions physically consistent in low-data regimes.</p>
+</div>
+<div id="Ch12.S2.SS2.SSS1.p2" class="ltx_para">
+<p class="ltx_p">A classical task is physical field reconstruction, which aims to recover continuous physical fields such as temperature, pressure, and velocity from sparse sensor readings or boundary measurements; the central challenge lies in ensuring the physical plausibility of the solution under the ill-posed conditions caused by insufficient observations.
+<span class="ltx_font_bold">Physics-informed neural networks</span> are a classical approach for this task <cite class="cites">[<a class="cite" href="/read/references/#ref-2680" data-k="raissi2019physics">2680</a>]</cite>, embedding partial differential equations such as the Navier–Stokes equations as soft constraints in the loss function and computing physical residuals via automatic differentiation, which enables accurate reconstruction of fluid and thermal fields in data-scarce settings; the same networks serve as real-time surrogates in digital twins (§<a href="/read/11.1/" class="xref" data-x="Ch11.S1"><span>11.1</span></a>).
+<span class="ltx_font_bold">Neural fields</span> implicitly represent continuous physical fields by using coordinate-based networks that map spatial locations to physical quantities.
+Sitzmann <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2884" data-k="sitzmann2020implicit">2884</a>]</cite> proposed SIREN, which employs periodic activation functions to capture high-frequency spatial details with high fidelity and has been applied to solving Poisson equations and reconstructing wave fields.
+The general machinery of coordinate-based neural representation is developed in Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a>.</p>
+</div>
+<div id="Ch12.S2.SS2.SSS1.p3" class="ltx_para">
+<p class="ltx_p">Inverse scattering aims to infer the internal structure or material parameters of an object from measured wave-scattering data, and it remains a canonical ill-posed problem in electromagnetics and acoustics <cite class="cites">[<a class="cite" href="/read/references/#ref-2885" data-k="chen2020review">2885</a>]</cite>.
+Wei and Chen proposed deep-learning schemes <cite class="cites">[<a class="cite" href="/read/references/#ref-2886" data-k="wei2019deep">2886</a>]</cite> for full-wave nonlinear inverse scattering that directly invert dielectric-permittivity profiles from scattered fields, thereby moving beyond linearized Born-type approximations in practical reconstructions.
+SwitchNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2887" data-k="khoo2019switchnet">2887</a>]</cite> introduced a unified neural architecture that learns both the forward map from scatterers to scattered fields and the inverse map from measurements to scatterer profiles, using a switching layer that exploits low-rank structure to reduce model complexity and facilitate training.
+Physics-guided losses that inject multiple-scattering near-field priors into the objective further improve robustness.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS2.SSS2"><span class="secnum">12.2.2.2</span>Dynamics, Simulation, and Law Discovery<a class="anchor" href="#Ch12.S2.SS2.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS2.SSS2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Law discovery</span> aims to learn the generative structures or explicit laws that govern the evolution of physical systems from observational data, emphasizing the automatic extraction of conservation laws, symmetries, and interpretable mechanisms beyond accurate prediction.
+Hamiltonian Neural Networks <cite class="cites">[<a class="cite" href="/read/references/#ref-2888" data-k="greydanus2019hamiltonian">2888</a>]</cite> directly learn the Hamiltonian of a system, thereby enforcing energy conservation and symplectic structure at the model level and providing a principled foundation for interpretable dynamical modeling.
+Lagrangian Neural Networks <cite class="cites">[<a class="cite" href="/read/references/#ref-2889" data-k="cranmer2020lagrangian">2889</a>]</cite> parameterize arbitrary Lagrangians with neural networks, learning energy conserving dynamics without canonical coordinates, as validated on the double pendulum and a relativistic particle.
+Cranmer <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2890" data-k="cranmer2020discovering">2890</a>]</cite> combine graph networks with symbolic regression on their internal representations, recovering known force laws and Hamiltonians, and applying the approach to cosmology.
+The SINDy algorithm <cite class="cites">[<a class="cite" href="/read/references/#ref-2891" data-k="brunton2016discovering">2891</a>]</cite> employs sparse regression to identify governing differential equations directly from time-series data, enabling data-driven discovery of interpretable physical laws.</p>
+</div>
+<div id="Ch12.S2.SS2.SSS2.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Efficient physical solvers</span> focus on predicting the spatio-temporal evolution of physical systems under known governing equations or interaction rules, with the goal of achieving fast and scalable computation while preserving physical consistency beyond the limits of traditional numerical methods.
+The Fourier Neural Operator <cite class="cites">[<a class="cite" href="/read/references/#ref-2892" data-k="li2021fourier">2892</a>]</cite> learns mappings between function spaces rather than individual discretized instances, enabling trained models to predict the evolution of partial differential equations at arbitrary spatial resolutions without relying on a fixed computational grid.
+DeepONet <cite class="cites">[<a class="cite" href="/read/references/#ref-2893" data-k="lu2021learning">2893</a>]</cite>, grounded in the universal approximation theorem for operators, learns nonlinear mappings from input functions to output functions and thereby approximates the solution operators that govern physical systems.
+Interaction Networks <cite class="cites">[<a class="cite" href="/read/references/#ref-1201" data-k="battaglia2016interaction">1201</a>]</cite> introduced the relational reasoning architecture that learns physical interactions between objects, laying the foundation for graph-based physical simulation.
+The Graph Network Simulator <cite class="cites">[<a class="cite" href="/read/references/#ref-2894" data-k="sanchez2020learning">2894</a>]</cite> employs graph neural networks to model spatial interactions among particles or objects, achieving high-fidelity simulations of fluids, rigid bodies, and deformable materials, and MeshGraphNets <cite class="cites">[<a class="cite" href="/read/references/#ref-2895" data-k="pfaff2020learning">2895</a>]</cite> extend graph-based models to unstructured meshes, allowing efficient simulation of continuum mechanics on irregular geometries.
+For the classical challenge of turbulence modeling, Mohan <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2896" data-k="mohan2020spatio">2896</a>]</cite> proposed spatio-temporal deep-learning models with physics-informed diagnostics that improve the prediction accuracy of three-dimensional turbulent flows, and Lusch <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2897" data-k="lusch2018deep">2897</a>]</cite> developed a deep-learning framework for universal linear embeddings of nonlinear dynamics, enabling low-dimensional representations and long-term prediction of nonlinear fluid systems.
+Neural representations of the many-body wavefunction are treated with electronic structure in the chemistry subsection.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS2.SSS3"><span class="secnum">12.2.2.3</span>Control and Optimization<a class="anchor" href="#Ch12.S2.SS2.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS2.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Optimization and control in physical systems seek optimal trajectories, shapes, or control policies under governing physical laws and environmental constraints.
+Differentiable physics formulates physical simulators as differentiable operators, enabling gradient-based optimization over control inputs, design variables, and physical parameters, and providing a unified framework for optimal control, system identification, and design.
+Neural Ordinary Differential Equations <cite class="cites">[<a class="cite" href="/read/references/#ref-2898" data-k="chen2018neural">2898</a>]</cite> provide a differentiable formulation of continuous-time dynamical systems by parameterizing the vector field with a neural network and enabling gradient computation through adjoint sensitivity analysis, serving as a flexible building block for learning and control in continuous time.
+ChainQueen <cite class="cites">[<a class="cite" href="/read/references/#ref-2899" data-k="hu2019chainqueen">2899</a>]</cite> demonstrates differentiable simulation of soft and deformable bodies based on the moving least squares material point method, enabling gradient-based optimization in high-degree-of-freedom systems with contact and supporting applications in soft-robot control and co-design.
+DiffTaichi <cite class="cites">[<a class="cite" href="/read/references/#ref-2678" data-k="hu2020difftaichi">2678</a>]</cite> generalizes this paradigm through a differentiable programming framework for high-performance physical simulation, allowing efficient construction of differentiable solvers and gradient-driven optimization for fluid control, shape optimization, and material-parameter estimation; the same tools calibrate digital twins (§<a href="/read/11.1/" class="xref" data-x="Ch11.S1"><span>11.1</span></a>).
+In practice, a mature software substrate of differentiable and physics-informed libraries, such as <span class="ltx_font_bold">DeepXDE<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup></span> and <span class="ltx_font_bold">NVIDIA Modulus<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup></span> for operator and PINN training, and <span class="ltx_font_bold">JAX-MD<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup></span> and <span class="ltx_font_bold">DeePMD-kit<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup></span> for differentiable and learned-potential molecular dynamics, turns this triad into runnable physics.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S2.SS3"><span class="secnum">12.2.3</span>Chemistry<a class="anchor" href="#Ch12.S2.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S2.SS3.p1" class="ltx_para">
+<p class="ltx_p">Chemistry is intrinsically spatial: a molecule or a material is a three-dimensional arrangement of atoms together with an electronic field over it, and its behavior, whether energy, reactivity, or a bulk property, is a function of that geometry under strict symmetry.
+Physical observables must be invariant or equivariant to the Euclidean group of rotations, translations, and reflections and to permutations of identical atoms; for crystalline solids they must also respect periodic lattice symmetry, and for electrons they must obey antisymmetry under exchange.
+Spatial intelligence in chemistry is therefore largely the art of building these symmetries into models that represent atomic and electronic structure, simulate its dynamics, and generate new structure under chemical feasibility.
+Figure <a href="/read/12.2/#Ch12.F7" class="xref" data-x="Ch12.F7"><span>12.7</span></a> previews this triad from an equivariant representation of a 3D structure to a learned-potential simulation and a 3D generative design.</p>
+</div>
+<figure id="Ch12.F7" class="ltx_figure"><img src="/assets/figures/figures/part4/section12/natural_science_chemistry_v2.webp" id="Ch12.F7.g1" class="fig-img" alt="" width="2000" height="1078" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 12.7</span><span>The chemistry triad: (1) symmetry-aware molecular and periodic representations, illustrated by E(3)-equivariant features; (2) a learned invariant interatomic energy <math id="Ch12.F7.m2" alttext="U" display="inline" data-pagefind-ignore="all"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math> whose coordinate gradients provide forces for molecular dynamics, with related representations supporting property prediction; and (3) complementary 3D generative design by reverse diffusion. Molecular graphs, force directions, and the one-dimensional energy profile are schematic, not a calculated trajectory or energy surface. The denoising example preserves the atom count; generative methods may model coordinates and atom types jointly.</span></figcaption>
+</figure>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS3.SSS1"><span class="secnum">12.2.3.1</span>Spatial Representation and Reconstruction<a class="anchor" href="#Ch12.S2.SS3.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS3.SSS1.p1" class="ltx_para">
+<p class="ltx_p">The central representational problem of chemistry is to map a 3D atomic geometry to energies, forces, and properties while respecting symmetry, and successive representations have captured progressively more of that geometry.
+<span class="ltx_font_bold">Geometry-grounded potentials.</span> The Behler–Parrinello neural network potential founded the area by decomposing the total energy into atomic contributions computed from rotation-, translation-, and permutation-invariant symmetry functions of each atom’s local environment <cite class="cites">[<a class="cite" href="/read/references/#ref-2900" data-k="behler2007generalized">2900</a>]</cite>.
+SchNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2901" data-k="schutt2017schnet">2901</a>]</cite> replaced hand-designed descriptors with continuous-filter convolutions over interatomic distances, giving a smooth invariant representation for energy and force prediction, while DimeNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2902" data-k="klicpera2020directional">2902</a>]</cite> added directional message passing that encodes bond angles through spherical harmonics, moving beyond pairwise distances to angular structure, and PaiNN <cite class="cites">[<a class="cite" href="/read/references/#ref-2903" data-k="schutt2021equivariant">2903</a>]</cite> extended message passing to rotationally equivariant vector features for tensorial properties and spectra.
+The Deep Potential model <cite class="cites">[<a class="cite" href="/read/references/#ref-2904" data-k="zhang2018deep">2904</a>]</cite> preserves all natural symmetries at linear cost, and the ANI potentials <cite class="cites">[<a class="cite" href="/read/references/#ref-2905" data-k="smith2017ani">2905</a>]</cite> demonstrated transferable organic-chemistry accuracy at force-field cost.
+<span class="ltx_font_bold">Equivariant interatomic potentials.</span> The decisive recent step was to carry geometric tensors, not merely invariant scalars, through the network.
+NequIP <cite class="cites">[<a class="cite" href="/read/references/#ref-1380" data-k="batzner2022e3">1380</a>]</cite> introduced E(3)-equivariant convolutions over geometric tensors and achieved striking data efficiency, often requiring orders of magnitude less training data; Allegro <cite class="cites">[<a class="cite" href="/read/references/#ref-2906" data-k="musaelian2023learning">2906</a>]</cite> made the representation strictly local and thereby scalable to 100 million atoms, and MACE <cite class="cites">[<a class="cite" href="/read/references/#ref-1381" data-k="batatia2022mace">1381</a>]</cite> used higher body-order equivariant messages to reach high accuracy in only two message-passing layers.
+A further shift is from per-system fits to <span class="ltx_font_bold">universal potentials</span> that span the periodic table: M3GNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2907" data-k="chen2022universal">2907</a>]</cite> couples a graph network with explicit three-body interactions trained on materials relaxations, and CHGNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2908" data-k="deng2023chgnet">2908</a>]</cite> augments the 3D-structure graph with atomic magnetic moments to capture electronic degrees of freedom alongside geometry. These equivariant backbones share machinery with the geometric representations of Chapter <a href="/read/chapter-4/" class="xref" data-x="Ch4"><span>4</span></a>.
+<span class="ltx_font_bold">Neural electronic structure.</span> At the quantum scale the spatial object is the many-electron wavefunction itself.
+Neural quantum states parameterize that wavefunction with a neural network over spin configurations <cite class="cites">[<a class="cite" href="/read/references/#ref-2909" data-k="carleo2017solving">2909</a>]</cite>, and deep variational ansätze such as FermiNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2910" data-k="pfau2020ferminet">2910</a>]</cite> and PauliNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2911" data-k="hermann2020deep">2911</a>]</cite> operate directly on 3D electron coordinates while enforcing exact antisymmetry, solving the electronic Schrödinger equation to chemical accuracy from nuclear positions alone.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS3.SSS2"><span class="secnum">12.2.3.2</span>Dynamics, Simulation, and Property Prediction<a class="anchor" href="#Ch12.S2.SS3.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS3.SSS2.p1" class="ltx_para">
+<p class="ltx_p">The potentials of the previous thread are also the simulators: once a model maps a 3D configuration to energies and forces, it drives molecular dynamics at a fraction of the cost of first-principles calculation, and the same representations predict quantum properties such as energies, dipoles, and frontier-orbital gaps directly from coordinates.
+The gradient-domain machine-learning force field made this explicit by exploiting energy conservation and the geometry of conformations, and it established the widely used MD17 trajectory benchmark of energies and forces for small molecules <cite class="cites">[<a class="cite" href="/read/references/#ref-2912" data-k="chmiela2017machine">2912</a>]</cite>.
+Heterogeneous catalysis pushes the same energy-and-force prediction task to a far larger and more diverse chemical space, spanning many combinations of metal surfaces and adsorbates.
+GemNet-OC <cite class="cites">[<a class="cite" href="/read/references/#ref-2913" data-k="gasteiger2022gemnet">2913</a>]</cite> extends directional message passing to this setting, delivering accurate energies and forces across the surfaces and adsorbates of the Open Catalyst datasets.
+In parallel, structure-to-property prediction is standardized on QM9 <cite class="cites">[<a class="cite" href="/read/references/#ref-1379" data-k="ramakrishnan2014quantum">1379</a>]</cite>, a dataset of roughly 134,000 small organic molecules with density-functional geometries and quantum properties, on which the equivariant networks above are routinely evaluated by the mean absolute error of predicted properties.
+This ecosystem rests on open toolkits, including the equivariant-network library <span class="ltx_font_bold">e3nn<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup></span>, the atomistic-simulation environment <span class="ltx_font_bold">ASE<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup></span>, and the quantum-chemistry package <span class="ltx_font_bold">PySCF<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup></span>, together with universal-potential foundation models such as MACE-MP, and on reference corpora such as the Materials Project <cite class="cites">[<a class="cite" href="/read/references/#ref-2914" data-k="jain2013commentary">2914</a>]</cite>, the Open Catalyst dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2915" data-k="chanussot2021open">2915</a>]</cite>, and the MoleculeNet benchmark suite <cite class="cites">[<a class="cite" href="/read/references/#ref-2916" data-k="wu2018moleculenet">2916</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS3.SSS3"><span class="secnum">12.2.3.3</span>Generation and Inverse Design<a class="anchor" href="#Ch12.S2.SS3.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS3.SSS3.p1" class="ltx_para">
+<p class="ltx_p">The inverse of property prediction is design: generating new 3D structures that satisfy desired properties under chemical feasibility, by sampling on the appropriate geometric manifold rather than enumerating candidates.
+G-SchNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2917" data-k="gebauer2019symmetry">2917</a>]</cite> autoregressively places atoms in 3D Euclidean space with each placement respecting the rotational invariance and local symmetry of those already placed, the first strong 3D-native generator.
+Diffusion models then became the dominant paradigm: the equivariant diffusion model <cite class="cites">[<a class="cite" href="/read/references/#ref-2918" data-k="hoogeboom2022equivariant">2918</a>]</cite> jointly denoises atom coordinates and types under E(3) equivariance, GeoDiff <cite class="cites">[<a class="cite" href="/read/references/#ref-2919" data-k="xu2022geodiff">2919</a>]</cite> generates conformers from the molecular graph through roto-translation-equivariant Markov kernels that induce an invariant distribution, and torsional diffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-2920" data-k="jing2022torsional">2920</a>]</cite> restricts the process to the hypertorus of torsion angles, the true intrinsic conformational degrees of freedom, achieving state-of-the-art conformer quality on GEOM-Drugs <cite class="cites">[<a class="cite" href="/read/references/#ref-2921" data-k="axelrod2022geom">2921</a>]</cite> at a fraction of the cost.
+For crystalline materials, CDVAE <cite class="cites">[<a class="cite" href="/read/references/#ref-2922" data-k="xie2022crystal">2922</a>]</cite> generates stable structures under periodicity and SE(3) invariance and supports inverse design by optimizing target properties in latent space.
+The line has since moved to diffusion directly on the periodic structure: DiffCSP <cite class="cites">[<a class="cite" href="/read/references/#ref-2923" data-k="jiao2023crystal">2923</a>]</cite> jointly denoises lattice and fractional coordinates under periodic equivariance for crystal structure prediction, and MatterGen <cite class="cites">[<a class="cite" href="/read/references/#ref-2924" data-k="zeni2025generative">2924</a>]</cite> scales this into a property-conditioned foundation model for inorganic materials design, with generated candidates validated by experimental synthesis.
+The general diffusion machinery underlying these models is developed in Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a>; what is chemistry-specific is the constraint manifold (valence and bonding feasibility, energy-minimum geometries, lattice periodicity) on which generation must take place.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S2.SS4"><span class="secnum">12.2.4</span>Life Science<a class="anchor" href="#Ch12.S2.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S2.SS4.p1" class="ltx_para">
+<p class="ltx_p">At the molecular, cellular, and tissue scale of basic biology the object of interest is again a three-dimensional structure: a protein fold, a molecular complex, a spatial map of gene expression, or the wiring of a neural circuit, and in each case function follows from spatial form.
+Spatial intelligence here recovers that structure from indirect measurement, models how biomolecules interact and move, and designs new structure.
+Figure <a href="/read/12.2/#Ch12.F8" class="xref" data-x="Ch12.F8"><span>12.8</span></a> previews the triad from structure recovery through interaction modeling to generative design.</p>
+</div>
+<figure id="Ch12.F8" class="ltx_figure"><img src="/assets/figures/figures/part4/section12/natural_science_lifescience_v2.webp" id="Ch12.F8.g1" class="fig-img" alt="" width="2000" height="893" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 12.8</span><span>The life-science triad: (1) complementary sequence-to-structure prediction and cryo-EM projection-to-density reconstruction, (2) ligand binding-pose geometry with translation, rotation, and bond torsion, and (3) de novo backbone generation followed by sequence design. These are complementary capabilities, not an obligatory serial pipeline. Protein, pocket, and density renderings, noisy projection examples, and sequence fragments are schematic; they do not constitute experimentally validated structures or designs.</span></figcaption>
+</figure>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS4.SSS1"><span class="secnum">12.2.4.1</span>Spatial Representation and Reconstruction<a class="anchor" href="#Ch12.S2.SS4.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS4.SSS1.p1" class="ltx_para">
+<p class="ltx_p">The defining achievement of spatial intelligence in biology is the recovery of 3D structure from indirect signals.
+<span class="ltx_font_bold">Protein structure prediction</span> maps a one-dimensional sequence to a three-dimensional fold.
+The original AlphaFold predicted inter-residue distance distributions as a learned potential to fold the chain <cite class="cites">[<a class="cite" href="/read/references/#ref-2925" data-k="senior2020improved">2925</a>]</cite>, and AlphaFold2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2926" data-k="jumper2021highly">2926</a>]</cite> reached near-experimental accuracy through an end-to-end architecture that reasons explicitly over residue frames and pairwise geometry, the exemplar of spatial intelligence in the natural sciences.
+AlphaFold3 <cite class="cites">[<a class="cite" href="/read/references/#ref-2927" data-k="abramson2024accurate">2927</a>]</cite> generalized this to the joint structure of proteins, nucleic acids, and small molecules through a diffusion decoder; RoseTTAFold <cite class="cites">[<a class="cite" href="/read/references/#ref-2928" data-k="baek2021accurate">2928</a>]</cite> let one-dimensional, two-dimensional, and three-dimensional information flow between tracks, and ESMFold <cite class="cites">[<a class="cite" href="/read/references/#ref-2929" data-k="lin2023evolutionary">2929</a>]</cite> showed that atomic-level structure emerges from a protein language model without explicit alignments, enabling metagenomic-scale folding.
+<span class="ltx_font_bold">Cryo-electron microscopy</span> solves the inverse problem of reconstructing a 3D density map from many noisy 2D projections.
+RELION cast this as Bayesian refinement <cite class="cites">[<a class="cite" href="/read/references/#ref-2930" data-k="scheres2012relion">2930</a>]</cite>, CryoSPARC enabled rapid ab-initio reconstruction without a starting model <cite class="cites">[<a class="cite" href="/read/references/#ref-2931" data-k="punjani2017cryosparc">2931</a>]</cite>, and cryoDRGN used a coordinate-based neural decoder to reconstruct continuous distributions of conformations and thereby resolve molecular heterogeneity and motion <cite class="cites">[<a class="cite" href="/read/references/#ref-2932" data-k="zhong2021cryodrgn">2932</a>]</cite>.
+<span class="ltx_font_bold">Spatial transcriptomics</span> places gene expression back into tissue space.
+The founding barcoded-array assay preserved the positional information of the transcriptome in tissue sections <cite class="cites">[<a class="cite" href="/read/references/#ref-2933" data-k="stahl2016visualization">2933</a>]</cite>; Tangram learns a spatial mapping that aligns dissociated single cells onto a spatial reference <cite class="cites">[<a class="cite" href="/read/references/#ref-2934" data-k="biancalani2021deep">2934</a>]</cite>, and novoSpaRc reconstructs spatial arrangement from expression alone through optimal transport, assuming that expression-similar cells lie physically close <cite class="cites">[<a class="cite" href="/read/references/#ref-2935" data-k="nitzan2019gene">2935</a>]</cite>.
+<span class="ltx_font_bold">Connectomics</span> reconstructs neural wiring from electron-microscopy volumes, where flood-filling networks iteratively trace the 3D morphology of individual neurites through the volume <cite class="cites">[<a class="cite" href="/read/references/#ref-2936" data-k="januszewski2018high">2936</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS4.SSS2"><span class="secnum">12.2.4.2</span>Dynamics, Simulation, and Interaction<a class="anchor" href="#Ch12.S2.SS4.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS4.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Beyond static structure, spatial intelligence models how biomolecules bind and interact.
+Molecular docking predicts the 3D pose in which a ligand binds a protein, and recent methods treat it as a geometric problem on the natural manifold of poses.
+DiffDock <cite class="cites">[<a class="cite" href="/read/references/#ref-2937" data-k="corso2023diffdock">2937</a>]</cite> formulates docking as diffusion over the product space of ligand translation, rotation, and torsion, sampling binding poses in their intrinsic degrees of freedom, while EquiBind <cite class="cites">[<a class="cite" href="/read/references/#ref-2938" data-k="stark2022equibind">2938</a>]</cite> regresses the binding location and pose in a single shot using an SE(3)-equivariant network whose equivariance encodes the rotational and translational symmetry of the binding geometry.
+Protein–protein and complex geometry is predicted by extending folding models to multiple chains <cite class="cites">[<a class="cite" href="/read/references/#ref-2939" data-k="evans2022protein">2939</a>]</cite>, and AlphaFold3 above provides a generative alternative for protein–ligand and protein–nucleic-acid complexes.
+The dynamics of biomolecules in turn rest on the learned interatomic potentials of the chemistry subsection, which accelerate the molecular dynamics that sample conformational change.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch12.S2.SS4.SSS3"><span class="secnum">12.2.4.3</span>Generation and Design<a class="anchor" href="#Ch12.S2.SS4.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch12.S2.SS4.SSS3.p1" class="ltx_para">
+<p class="ltx_p">The generative leg designs new 3D biological structure.
+RFdiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-2940" data-k="watson2023novo">2940</a>]</cite> adapts structure-denoising diffusion to generate novel protein backbones conditioned on functional and geometric constraints such as motif scaffolding, binders, and symmetric assemblies, and ProteinMPNN <cite class="cites">[<a class="cite" href="/read/references/#ref-2941" data-k="dauparas2022robust">2941</a>]</cite> solves the inverse-folding problem of designing an amino-acid sequence that folds into a given 3D backbone, the standard partner to backbone generation.
+Chroma <cite class="cites">[<a class="cite" href="/read/references/#ref-2942" data-k="ingraham2023illuminating">2942</a>]</cite> couples equivariant graph networks with a diffusion process to sample novel all-atom structures and sequences steerable toward desired properties, illuminating regions of protein space never explored by evolution.
+As in chemistry, the underlying diffusion machinery is that of Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a>; what is biology-specific is that the generated geometry must be foldable and functional, which is why design is paired with structure prediction and, ultimately, wet-lab validation.
+The field is supported by open infrastructure, including the AlphaFold Protein Structure Database and AlphaFold3 server<sup class="fn" id="fnref8"><a href="#fn8" data-fn="fn8">8</a></sup>, the ESM Metagenomic Atlas<sup class="fn" id="fnref9"><a href="#fn9" data-fn="fn9">9</a></sup>, and the open-source folding stack OpenFold<sup class="fn" id="fnref10"><a href="#fn10" data-fn="fn10">10</a></sup>, together with reference corpora such as the Protein Data Bank, the CASP blind-assessment benchmark <cite class="cites">[<a class="cite" href="/read/references/#ref-2943" data-k="kryshtafovych2021critical">2943</a>]</cite>, and the PDBBind docking benchmark <cite class="cites">[<a class="cite" href="/read/references/#ref-2944" data-k="wang2004pdbbind">2944</a>]</cite>.</p>
+</div>
+<figure id="Ch12.T2" class="ltx_table">
+<figcaption><span class="cap-tag">Table 12.2</span><span>Representative benchmarks for spatial intelligence across the three natural-science domains.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Domain</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Capability</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark / dataset</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Physics</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">PDE surrogate</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Navier–Stokes / Darcy flow</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">FNO <cite class="cites">[<a class="cite" href="/read/references/#ref-2892" data-k="li2021fourier">2892</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">relative <math id="Ch12.T2.m1" alttext="L_{2}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>L</mi><mn>2</mn></msub><annotation encoding="application/x-tex">L_{2}</annotation></semantics></math> error</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Physics</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Particle dynamics</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Learning-to-Simulate suite (Water / Sand / Goop)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GNS <cite class="cites">[<a class="cite" href="/read/references/#ref-2894" data-k="sanchez2020learning">2894</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">rollout MSE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Chemistry</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Property prediction</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">QM9 <cite class="cites">[<a class="cite" href="/read/references/#ref-1379" data-k="ramakrishnan2014quantum">1379</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">DimeNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2902" data-k="klicpera2020directional">2902</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">property MAE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Chemistry</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Force field</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MD17 <cite class="cites">[<a class="cite" href="/read/references/#ref-2912" data-k="chmiela2017machine">2912</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">NequIP <cite class="cites">[<a class="cite" href="/read/references/#ref-1380" data-k="batzner2022e3">1380</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">energy / force MAE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Chemistry</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Catalysis</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Open Catalyst <cite class="cites">[<a class="cite" href="/read/references/#ref-2915" data-k="chanussot2021open">2915</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GemNet-OC <cite class="cites">[<a class="cite" href="/read/references/#ref-2913" data-k="gasteiger2022gemnet">2913</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">energy / force MAE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Chemistry</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Conformer generation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GEOM-Drugs <cite class="cites">[<a class="cite" href="/read/references/#ref-2921" data-k="axelrod2022geom">2921</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">torsional diffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-2920" data-k="jing2022torsional">2920</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">coverage / matching RMSD</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Life science</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Protein folding</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">CASP <cite class="cites">[<a class="cite" href="/read/references/#ref-2943" data-k="kryshtafovych2021critical">2943</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">AlphaFold2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2926" data-k="jumper2021highly">2926</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GDT-TS</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Life science</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Docking</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">PDBBind <cite class="cites">[<a class="cite" href="/read/references/#ref-2944" data-k="wang2004pdbbind">2944</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">DiffDock <cite class="cites">[<a class="cite" href="/read/references/#ref-2937" data-k="corso2023diffdock">2937</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">top-1 RMSD <math id="Ch12.T2.m2" alttext="&lt;2" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi></mi><mo>&lt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">&lt;2</annotation></semantics></math> Å (%)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Life science</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Cryo-EM heterogeneity</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EMPIAR single-particle datasets</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">cryoDRGN <cite class="cites">[<a class="cite" href="/read/references/#ref-2932" data-k="zhong2021cryodrgn">2932</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">resolution (FSC)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Life science</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Protein design</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Motif-scaffolding / binder design</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RFdiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-2940" data-k="watson2023novo">2940</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">in-silico design success rate</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S2.SS5"><span class="secnum">12.2.5</span>Challenges<a class="anchor" href="#Ch12.S2.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S2.SS5.p1" class="ltx_para">
+<p class="ltx_p">A learned model of nature has to respect the symmetries and conservation laws of its domain and remain correct outside the data it was fitted to. The six problems below follow from that requirement: how to build symmetry in, how to bridge scales, how to solve ill-posed inverse problems, how to learn from scarce and expensive labels, how to generalize to genuinely new systems, and how to make predictions physically consistent and trustworthy.</p>
+</div>
+<section id="Ch12.S2.SS5.SSS0.Px1">
+<div id="Ch12.S2.SS5.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Symmetry and Equivariance.</strong> Physical observables are constrained by symmetry: Euclidean invariance and equivariance, permutation of identical particles, antisymmetry of electrons, and periodicity of crystals. Whether to build these symmetries into the architecture or to learn them from data is the central design tension, trading the cheaper but less expressive invariant features <cite class="cites">[<a class="cite" href="/read/references/#ref-2901" data-k="schutt2017schnet">2901</a>]</cite> against the richer but costlier equivariant tensor features <cite class="cites">[<a class="cite" href="/read/references/#ref-1380" data-k="batzner2022e3">1380</a>]</cite>, and it recurs from interatomic potentials to protein structure.</p>
+</div>
+</section>
+<section id="Ch12.S2.SS5.SSS0.Px2">
+<div id="Ch12.S2.SS5.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Extreme Multi-Scale Structure.</strong> Spatial structure in nature spans many orders of magnitude, from electrons and atoms to molecules and materials, and from biomolecules through cells to tissue. Learned potentials now reach a hundred million atoms <cite class="cites">[<a class="cite" href="/read/references/#ref-2906" data-k="musaelian2023learning">2906</a>]</cite>, still far below cellular scale; no single representation natively bridges electronic-structure accuracy and mesoscale reachability, and the handoffs between scales, through coarse-graining or learned-potential dynamics, are lossy and remain only partially solved.</p>
+</div>
+</section>
+<section id="Ch12.S2.SS5.SSS0.Px3">
+<div id="Ch12.S2.SS5.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Ill-Posed Inverse Problems.</strong> Much of natural science is an inverse problem in which a high-dimensional spatial field must be recovered from sparse, indirect, and noisy measurements: field reconstruction from a few sensors, inverse scattering <cite class="cites">[<a class="cite" href="/read/references/#ref-2886" data-k="wei2019deep">2886</a>]</cite>, and the recovery of 3D density from 2D cryo-electron-microscopy projections <cite class="cites">[<a class="cite" href="/read/references/#ref-2932" data-k="zhong2021cryodrgn">2932</a>]</cite> all share this under-determined character and demand strong learned priors to yield a unique and physical solution.</p>
+</div>
+</section>
+<section id="Ch12.S2.SS5.SSS0.Px4">
+<div id="Ch12.S2.SS5.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Data Scarcity and the Cost of Ground Truth.</strong> High-fidelity labels are expensive: accurate energies and forces require costly quantum-chemistry calculations, which is why force-field benchmarks such as MD17 cover only small molecules <cite class="cites">[<a class="cite" href="/read/references/#ref-2912" data-k="chmiela2017machine">2912</a>]</cite>, and validated 3D biological structures require slow experiments, so the space of trustworthy training data is small relative to the space of possible systems. This drives the field’s emphasis on data efficiency, multi-fidelity learning, and physics-guided objectives.</p>
+</div>
+</section>
+<section id="Ch12.S2.SS5.SSS0.Px5">
+<div id="Ch12.S2.SS5.SSS0.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Generalization Beyond the Training Distribution.</strong> Models must extrapolate to unseen chemistry, novel protein folds, off-equilibrium and reactive geometries, and configurations far from those they were trained on. Discovery is by definition out of distribution, so leaderboard accuracy says little about it; this is why generative materials design is now judged by whether its candidates can actually be synthesized <cite class="cites">[<a class="cite" href="/read/references/#ref-2924" data-k="zeni2025generative">2924</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch12.S2.SS5.SSS0.Px6">
+<div id="Ch12.S2.SS5.SSS0.Px6.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Physical Consistency and Trust.</strong> Predictions that violate conservation laws or come without calibrated uncertainty cannot support a scientific conclusion. Building conservation into the model, as Hamiltonian networks do for energy <cite class="cites">[<a class="cite" href="/read/references/#ref-2888" data-k="greydanus2019hamiltonian">2888</a>]</cite>, and quantifying confidence are what let a learned model extend the scientific record rather than interpolate it.</p>
+</div>
+</section>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://github.com/lululxvi/deepxde" title="" class="ltx_font_typewriter">https://github.com/lululxvi/deepxde</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://developer.nvidia.com/modulus" title="" class="ltx_font_typewriter">https://developer.nvidia.com/modulus</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://github.com/jax-md/jax-md" title="" class="ltx_font_typewriter">https://github.com/jax-md/jax-md</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://github.com/deepmodeling/deepmd-kit" title="" class="ltx_font_typewriter">https://github.com/deepmodeling/deepmd-kit</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://e3nn.org/" title="" class="ltx_font_typewriter">https://e3nn.org/</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://wiki.fysik.dtu.dk/ase/" title="" class="ltx_font_typewriter">https://wiki.fysik.dtu.dk/ase/</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                    <a href="https://pyscf.org/" title="" class="ltx_font_typewriter">https://pyscf.org/</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn8"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://alphafoldserver.com/" title="" class="ltx_font_typewriter">https://alphafoldserver.com/</a></span><a href="#fnref8" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn9"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://esmatlas.com/" title="" class="ltx_font_typewriter">https://esmatlas.com/</a></span><a href="#fnref9" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn10"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://github.com/aqlaboratory/openfold" title="" class="ltx_font_typewriter">https://github.com/aqlaboratory/openfold</a></span><a href="#fnref10" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/12.1/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">12.1 Medicine and Clinical Healthcare</span></a><a class="pager-next" href="/read/chapter-13/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Chapter 13: Spatial Intelligence for Intelligent Assistance</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch12.S2.SS1" data-spy="Ch12.S2.SS1"><span class="n">12.2.1</span>Introduction</a></li><li><a href="#Ch12.S2.SS2" data-spy="Ch12.S2.SS2"><span class="n">12.2.2</span>Physics</a></li><li><a href="#Ch12.S2.SS3" data-spy="Ch12.S2.SS3"><span class="n">12.2.3</span>Chemistry</a></li><li><a href="#Ch12.S2.SS4" data-spy="Ch12.S2.SS4"><span class="n">12.2.4</span>Life Science</a></li><li><a href="#Ch12.S2.SS5" data-spy="Ch12.S2.SS5"><span class="n">12.2.5</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=12.2"><b>67</b> cited works</a><a href="/explore/datasets/?sec=12.2"><b>10</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=12.2" title="AlphaFold, e3nn"><b>2</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="12.2 Natural Science" data-url="/read/12.2/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%2012.2%20Natural%20Science&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/12.2/%20%28PDF%20p.%20425%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

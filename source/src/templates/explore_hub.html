@@ -1,0 +1,10 @@
+{% extends "explore_base.html" %}
+{% block xpbody %}
+<div class="tiles tiles-lg">
+  {% for t in site.tiles %}<a class="tile" href="{{ t.url }}"><span class="tile-n">{{ t.n }}</span><span class="tile-t">{{ t.title }}</span><span class="tile-d">{{ t.desc }}</span></a>{% endfor %}
+</div>
+<div class="xp-note">
+  <h3>Where these resources come from</h3>
+  <p>The literature, datasets, benchmarks, milestones, figures, glossary and notation are generated directly from the LaTeX source of the handbook, so they always match the PDF: citation numbers, table labels and section numbers are the printed ones. Tools and platforms are a curated list; every repository link is checked automatically, and each entry links to the sections of the handbook that discuss it.</p>
+</div>
+{% endblock %}

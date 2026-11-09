@@ -1,0 +1,16 @@
+{% extends "explore_base.html" %}
+{% block xpbody %}
+<div class="xp-layout {{ 'has-side' if xp.side else '' }}">
+  {% if xp.side %}<aside class="xp-side" data-facets></aside>{% endif %}
+  <div class="xp-main">
+    <div class="xp-toolbar">
+      <label class="xp-search"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="{{ xp.placeholder }}" data-q aria-label="Filter"></label>
+      {% if xp.sorts %}<select data-sort aria-label="Sort">{% for v, l in xp.sorts %}<option value="{{ v }}">{{ l }}</option>{% endfor %}</select>{% endif %}
+    </div>
+    <div class="xp-viz" data-viz></div>
+    <div class="xp-count" data-count aria-live="polite"></div>
+    <div class="xp-results" data-results></div>
+    <div class="xp-more" data-more></div>
+  </div>
+</div>
+{% endblock %}

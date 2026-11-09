@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% set section_nav = 'team' %}
+{% block title %}Team · Spatial Intelligence Handbook{% endblock %}
+{% block main %}
+<div class="wrap xp-body team-body">
+  <h1 class="sr-only">Team</h1>
+  <div class="au-grid">
+    {% for a in authors %}
+    <article class="au" data-parts="{{ a.parts|join(' ') }}{{ ' adv' if a.advisory else '' }}" style="--pc: {{ a.color }}">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">{{ a.initials }}</div>
+        <div class="au-id">
+          <h2>{{ a.names|join(' and ') }}</h2>
+          <div class="au-aff">{{ a.aff }}</div>
+          <div class="au-badges">{% if a.role %}<span class="au-role">{{ a.role }}</span>{% endif %}{% if a.advisory %}<span class="au-role au-role-adv">Reviewing &amp; advisory</span>{% endif %}</div>
+        </div>
+      </div>
+      {% for pr in a.profiles if pr.expertise %}<div class="au-topics"><span>Expertise{% if a.profiles|length > 1 %} · {{ pr.name.split()[0] }}{% endif %}</span>{% for t in pr.expertise %}<em>{{ t }}</em>{% endfor %}</div>{% endfor %}
+      {% if not (a.profiles|selectattr('expertise')|list or a.profiles|selectattr('homepage')|list or a.profiles|selectattr('em_u')|list) %}<p class="au-pending">Profile details coming soon.</p>{% endif %}
+      <div class="au-links">
+        {% for pr in a.profiles %}
+          {% set who = (' (' ~ pr.name.split()[0] ~ ')') if a.profiles|length > 1 else '' %}
+          {% if pr.homepage %}<a href="{{ pr.homepage }}" target="_blank" rel="noopener">Homepage{{ who }}</a>{% endif %}
+          {% if pr.scholar %}<a href="{{ pr.scholar }}" target="_blank" rel="noopener">Google Scholar{{ who }}</a>{% endif %}
+          {% if pr.openreview and not pr.homepage %}<a href="{{ pr.openreview }}" target="_blank" rel="noopener">OpenReview{{ who }}</a>{% endif %}
+        {% endfor %}
+        {% for pr in a.profiles if pr.em_u %}<a class="au-mail" data-u="{{ pr.em_u }}" data-d="{{ pr.em_d }}" href="#">E-mail{{ (' (' ~ pr.name.split()[0] ~ ')') if a.profiles|length > 1 else '' }}</a>{% endfor %}
+        {% if a.email %}<a href="mailto:{{ a.email }}">{{ a.email }}</a>{% endif %}
+      </div>
+      {% if a.entries %}
+      <details class="au-more">
+        <summary>Writing contributions <span>{{ a.entries|length }}</span></summary>
+        <ul class="au-items">{% for it in a.entries %}<li>{% if it.url %}<a href="{{ it.url }}">{{ it.text }}</a>{% else %}{{ it.text }}{% endif %}</li>{% endfor %}</ul>
+      </details>
+      {% elif a.advisory %}
+      <p class="au-adv">Reviewed the manuscript and provided comments and feedback that shaped the direction of the handbook.</p>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</div>
+<script>
+document.querySelectorAll('.au-mail').forEach(a => {
+  const r = s => s.split('').reverse().join(''), addr = r(a.dataset.u) + '@' + r(a.dataset.d);
+  a.href = 'mailto:' + addr; a.textContent = addr; a.classList.add('is-mail');
+});
+</script>
+{% endblock %}

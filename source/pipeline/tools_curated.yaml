@@ -1,0 +1,138 @@
+# Curated tools, platforms and open-source code for spatial intelligence.
+# Every repo is verified to exist at build time (git ls-remote); mentions in the handbook are found automatically.
+# fields: name, repo (owner/name on GitHub), cat, desc, aka (extra names to search for in the text), url (optional homepage)
+
+- {cat: Simulators & embodied platforms, name: Habitat-Sim, repo: facebookresearch/habitat-sim, aka: [Habitat], desc: "High-performance 3D simulator for embodied AI research with photorealistic indoor scans."}
+- {cat: Simulators & embodied platforms, name: Habitat-Lab, repo: facebookresearch/habitat-lab, desc: "Modular library for defining embodied tasks and training agents on top of Habitat-Sim."}
+- {cat: Simulators & embodied platforms, name: AI2-THOR, repo: allenai/ai2thor, aka: [AI2THOR], desc: "Interactive Unity-based household environments with manipulable objects."}
+- {cat: Simulators & embodied platforms, name: ProcTHOR, repo: allenai/procthor, desc: "Procedural generation of large numbers of AI2-THOR houses for scaling embodied training."}
+- {cat: Simulators & embodied platforms, name: iGibson, repo: StanfordVL/iGibson, desc: "Simulation environment of interactive large-scale indoor scenes for robot learning."}
+- {cat: Simulators & embodied platforms, name: OmniGibson, repo: StanfordVL/OmniGibson, aka: [BEHAVIOR-1K], desc: "Isaac Sim-based platform behind BEHAVIOR-1K with realistic physics and rendering."}
+- {cat: Simulators & embodied platforms, name: ThreeDWorld, repo: threedworld-mit/tdw, aka: [TDW], desc: "Multimodal physical simulation platform with rigid, soft-body, cloth and fluid dynamics."}
+- {cat: Simulators & embodied platforms, name: SAPIEN, repo: haosulab/SAPIEN, desc: "Physics-rich simulator of articulated objects (PartNet-Mobility) for manipulation."}
+- {cat: Simulators & embodied platforms, name: ManiSkill, repo: haosulab/ManiSkill, desc: "GPU-parallelized robot manipulation benchmark and simulation framework."}
+- {cat: Simulators & embodied platforms, name: RLBench, repo: stepjam/RLBench, desc: "Benchmark of 100 vision-guided manipulation tasks built on CoppeliaSim."}
+- {cat: Simulators & embodied platforms, name: CALVIN, repo: mees/calvin, desc: "Benchmark for long-horizon, language-conditioned robot manipulation."}
+- {cat: Simulators & embodied platforms, name: LIBERO, repo: Lifelong-Robot-Learning/LIBERO, desc: "Benchmark for lifelong robot learning and knowledge transfer in manipulation."}
+- {cat: Simulators & embodied platforms, name: robosuite, repo: ARISE-Initiative/robosuite, desc: "MuJoCo-based modular framework and benchmark for robot learning."}
+- {cat: Simulators & embodied platforms, name: MuJoCo, repo: google-deepmind/mujoco, desc: "General-purpose physics engine for robotics, biomechanics and control."}
+- {cat: Simulators & embodied platforms, name: Isaac Lab, repo: isaac-sim/IsaacLab, aka: [Isaac Sim, Isaac Gym], desc: "GPU-accelerated robot learning framework built on NVIDIA Isaac Sim."}
+- {cat: Simulators & embodied platforms, name: Genesis, repo: Genesis-Embodied-AI/Genesis, desc: "Generative and universal physics simulation platform for robotics and embodied AI."}
+- {cat: Simulators & embodied platforms, name: PyBullet, repo: bulletphysics/bullet3, desc: "Real-time collision detection and multi-physics simulation with Python bindings."}
+- {cat: Simulators & embodied platforms, name: VirtualHome, repo: xavierpuigf/virtualhome, desc: "Multi-agent household simulator driven by programs of everyday activities."}
+- {cat: Simulators & embodied platforms, name: Matterport3D Simulator, repo: peteanderson80/Matterport3DSimulator, aka: [R2R, Room-to-Room], desc: "Simulator for vision-and-language navigation in Matterport3D panoramas."}
+- {cat: Simulators & embodied platforms, name: CARLA, repo: carla-simulator/carla, desc: "Open-source simulator for autonomous driving research."}
+- {cat: Simulators & embodied platforms, name: AirSim, repo: microsoft/AirSim, desc: "Unreal Engine simulator for drones and cars."}
+- {cat: Simulators & embodied platforms, name: MetaDrive, repo: metadriverse/metadrive, desc: "Compositional, lightweight driving simulator for generalizable policies."}
+- {cat: Simulators & embodied platforms, name: nuPlan devkit, repo: motional/nuplan-devkit, aka: [nuPlan], desc: "Closed-loop planning benchmark and toolkit for autonomous vehicles."}
+- {cat: Simulators & embodied platforms, name: Waymax, repo: waymo-research/waymax, desc: "Accelerated, data-driven simulator for large-scale autonomous driving research."}
+- {cat: Simulators & embodied platforms, name: Gazebo, repo: gazebosim/gz-sim, desc: "Robotics simulator integrated with ROS."}
+
+- {cat: 3D reconstruction & neural rendering, name: COLMAP, repo: colmap/colmap, desc: "General-purpose structure-from-motion and multi-view stereo pipeline."}
+- {cat: 3D reconstruction & neural rendering, name: GLOMAP, repo: colmap/glomap, desc: "Global structure-from-motion, a faster alternative to incremental SfM."}
+- {cat: 3D reconstruction & neural rendering, name: OpenMVS, repo: cdcseacave/openMVS, desc: "Multi-view stereo reconstruction library: dense point clouds, meshes and texturing."}
+- {cat: 3D reconstruction & neural rendering, name: Nerfstudio, repo: nerfstudio-project/nerfstudio, desc: "Modular framework for developing and training NeRFs and related methods."}
+- {cat: 3D reconstruction & neural rendering, name: gsplat, repo: nerfstudio-project/gsplat, desc: "CUDA-accelerated library for Gaussian splatting rasterization and training."}
+- {cat: 3D reconstruction & neural rendering, name: 3D Gaussian Splatting, repo: graphdeco-inria/gaussian-splatting, aka: [3DGS], desc: "Reference implementation of 3D Gaussian Splatting for real-time radiance field rendering."}
+- {cat: 3D reconstruction & neural rendering, name: Instant-NGP, repo: NVlabs/instant-ngp, aka: [Instant NGP], desc: "Instant neural graphics primitives with multiresolution hash encoding."}
+- {cat: 3D reconstruction & neural rendering, name: DUSt3R, repo: naver/dust3r, desc: "Dense, unconstrained 3D reconstruction from image pairs via pointmap regression."}
+- {cat: 3D reconstruction & neural rendering, name: MASt3R, repo: naver/mast3r, desc: "Matching and stereo 3D reconstruction grounded in DUSt3R pointmaps."}
+- {cat: 3D reconstruction & neural rendering, name: VGGT, repo: facebookresearch/vggt, desc: "Visual Geometry Grounded Transformer: feed-forward cameras, depth and point maps from many views."}
+- {cat: 3D reconstruction & neural rendering, name: Open3D, repo: isl-org/Open3D, desc: "Library for 3D data processing: point clouds, meshes, registration and visualization."}
+- {cat: 3D reconstruction & neural rendering, name: PyTorch3D, repo: facebookresearch/pytorch3d, desc: "Differentiable 3D deep learning operators and rendering in PyTorch."}
+- {cat: 3D reconstruction & neural rendering, name: Kaolin, repo: NVIDIAGameWorks/kaolin, desc: "PyTorch library for 3D deep learning research."}
+- {cat: 3D reconstruction & neural rendering, name: Point Cloud Library, repo: PointCloudLibrary/pcl, aka: [PCL], desc: "C++ library for 2D/3D image and point cloud processing."}
+- {cat: 3D reconstruction & neural rendering, name: MinkowskiEngine, repo: NVIDIA/MinkowskiEngine, desc: "Auto-differentiation library for sparse tensors and sparse convolutions on 3D data."}
+- {cat: 3D reconstruction & neural rendering, name: Kornia, repo: kornia/kornia, desc: "Differentiable computer vision and geometry library for PyTorch."}
+
+- {cat: "Depth, flow & tracking", name: Depth Anything V2, repo: DepthAnything/Depth-Anything-V2, aka: [Depth Anything], desc: "Foundation model for monocular depth estimation."}
+- {cat: "Depth, flow & tracking", name: MiDaS, repo: isl-org/MiDaS, desc: "Robust monocular relative depth trained on mixed datasets."}
+- {cat: "Depth, flow & tracking", name: ZoeDepth, repo: isl-org/ZoeDepth, desc: "Zero-shot transfer combining relative and metric depth."}
+- {cat: "Depth, flow & tracking", name: Marigold, repo: prs-eth/Marigold, desc: "Diffusion-based monocular depth estimation repurposed from Stable Diffusion."}
+- {cat: "Depth, flow & tracking", name: UniDepth, repo: lpiccinelli-eth/UniDepth, desc: "Universal monocular metric depth estimation."}
+- {cat: "Depth, flow & tracking", name: Metric3D, repo: YvanYin/Metric3D, desc: "Zero-shot metric depth and surface normal estimation from a single image."}
+- {cat: "Depth, flow & tracking", name: RAFT, repo: princeton-vl/RAFT, desc: "Recurrent all-pairs field transforms for optical flow."}
+- {cat: "Depth, flow & tracking", name: CoTracker, repo: facebookresearch/co-tracker, desc: "Transformer that tracks many points jointly through video."}
+
+- {cat: SLAM & state estimation, name: ORB-SLAM3, repo: UZ-SLAMLab/ORB_SLAM3, aka: [ORB-SLAM], desc: "Feature-based visual, visual-inertial and multi-map SLAM."}
+- {cat: SLAM & state estimation, name: DROID-SLAM, repo: princeton-vl/DROID-SLAM, desc: "Deep visual SLAM with recurrent dense bundle adjustment."}
+- {cat: SLAM & state estimation, name: MASt3R-SLAM, repo: rmurai0610/MASt3R-SLAM, desc: "Real-time dense SLAM built on MASt3R 3D reconstruction priors."}
+- {cat: SLAM & state estimation, name: VINS-Mono, repo: HKUST-Aerial-Robotics/VINS-Mono, aka: [VINS], desc: "Monocular visual-inertial state estimator."}
+- {cat: SLAM & state estimation, name: Cartographer, repo: cartographer-project/cartographer, desc: "Real-time 2D and 3D SLAM across platforms and sensors."}
+- {cat: SLAM & state estimation, name: RTAB-Map, repo: introlab/rtabmap, desc: "Graph-based RGB-D, stereo and lidar SLAM with appearance-based loop closure."}
+- {cat: SLAM & state estimation, name: Kimera, repo: MIT-SPARK/Kimera, desc: "Metric-semantic SLAM and 3D scene graphs."}
+- {cat: SLAM & state estimation, name: GTSAM, repo: borglab/gtsam, desc: "Factor-graph library for smoothing and mapping."}
+- {cat: SLAM & state estimation, name: Ceres Solver, repo: ceres-solver/ceres-solver, desc: "Nonlinear least-squares solver widely used for bundle adjustment."}
+- {cat: SLAM & state estimation, name: g2o, repo: RainerKuemmerle/g2o, desc: "General framework for graph optimization."}
+- {cat: SLAM & state estimation, name: evo, repo: MichaelGrupp/evo, desc: "Toolkit for evaluating odometry and SLAM trajectories."}
+
+- {cat: Perception models & toolkits, name: Detectron2, repo: facebookresearch/detectron2, desc: "Platform for object detection and segmentation research."}
+- {cat: Perception models & toolkits, name: MMDetection, repo: open-mmlab/mmdetection, desc: "OpenMMLab detection toolbox and benchmark."}
+- {cat: Perception models & toolkits, name: MMDetection3D, repo: open-mmlab/mmdetection3d, desc: "OpenMMLab toolbox for 3D object detection."}
+- {cat: Perception models & toolkits, name: OpenPCDet, repo: open-mmlab/OpenPCDet, desc: "Toolbox for LiDAR-based 3D object detection."}
+- {cat: Perception models & toolkits, name: Ultralytics YOLO, repo: ultralytics/ultralytics, aka: [YOLO], desc: "YOLO models for detection, segmentation, pose and tracking."}
+- {cat: Perception models & toolkits, name: Segment Anything, repo: facebookresearch/segment-anything, aka: [SAM], desc: "Promptable image segmentation foundation model."}
+- {cat: Perception models & toolkits, name: SAM 2, repo: facebookresearch/sam2, desc: "Segment Anything in images and videos."}
+- {cat: Perception models & toolkits, name: Grounding DINO, repo: IDEA-Research/GroundingDINO, desc: "Open-set object detection grounded in language."}
+- {cat: Perception models & toolkits, name: DINOv2, repo: facebookresearch/dinov2, desc: "Self-supervised visual features that transfer to dense and geometric tasks."}
+- {cat: Perception models & toolkits, name: CLIP, repo: openai/CLIP, desc: "Contrastive language-image pretraining."}
+- {cat: Perception models & toolkits, name: OpenCLIP, repo: mlfoundations/open_clip, desc: "Open-source CLIP training and models."}
+- {cat: Perception models & toolkits, name: MMPose, repo: open-mmlab/mmpose, desc: "OpenMMLab pose estimation toolbox."}
+- {cat: Perception models & toolkits, name: OpenPose, repo: CMU-Perceptual-Computing-Lab/openpose, desc: "Real-time multi-person body, face, hand and foot keypoints."}
+- {cat: Perception models & toolkits, name: FoundationPose, repo: NVlabs/FoundationPose, desc: "Unified 6D pose estimation and tracking of novel objects."}
+
+- {cat: Multimodal models & evaluation, name: LLaVA, repo: haotian-liu/LLaVA, desc: "Visual instruction tuning for large multimodal models."}
+- {cat: Multimodal models & evaluation, name: Qwen2.5-VL, repo: QwenLM/Qwen2.5-VL, desc: "Vision-language models with grounding and document and video understanding."}
+- {cat: Multimodal models & evaluation, name: SpatialRGPT, repo: AnjieCheng/SpatialRGPT, desc: "Grounded spatial reasoning in vision-language models with region and depth inputs."}
+- {cat: Multimodal models & evaluation, name: 3D-LLM, repo: UMass-Embodied-AGI/3D-LLM, desc: "Injecting 3D scene representations into large language models."}
+- {cat: Multimodal models & evaluation, name: Thinking in Space (VSI-Bench), repo: vision-x-nyu/thinking-in-space, aka: [VSI-Bench], desc: "Visual-spatial intelligence benchmark and evaluation code for MLLMs."}
+- {cat: Multimodal models & evaluation, name: VLMEvalKit, repo: open-compass/VLMEvalKit, desc: "Toolkit for evaluating large vision-language models on many benchmarks."}
+- {cat: Multimodal models & evaluation, name: lmms-eval, repo: EvolvingLMMs-Lab/lmms-eval, desc: "Unified evaluation suite for large multimodal models."}
+
+- {cat: Robot learning & VLA, name: OpenVLA, repo: openvla/openvla, desc: "Open-source vision-language-action model for robot manipulation."}
+- {cat: Robot learning & VLA, name: Octo, repo: octo-models/octo, desc: "Generalist transformer robot policy trained on Open X-Embodiment."}
+- {cat: Robot learning & VLA, name: openpi, repo: Physical-Intelligence/openpi, aka: [π0, pi0], desc: "Open models and code for the π0 family of vision-language-action models."}
+- {cat: Robot learning & VLA, name: LeRobot, repo: huggingface/lerobot, desc: "Models, datasets and tools for real-world robot learning in PyTorch."}
+- {cat: Robot learning & VLA, name: Diffusion Policy, repo: real-stanford/diffusion_policy, desc: "Visuomotor policy learning via action diffusion."}
+- {cat: Robot learning & VLA, name: Open X-Embodiment, repo: google-deepmind/open_x_embodiment, aka: [RT-X], desc: "Pooled robot learning datasets and RT-X models across embodiments."}
+- {cat: Robot learning & VLA, name: ROS 2, repo: ros2/ros2, aka: [ROS], desc: "Robot Operating System: middleware, tools and libraries for robot software."}
+- {cat: Robot learning & VLA, name: MoveIt 2, repo: moveit/moveit2, aka: [MoveIt], desc: "Motion planning framework for ROS 2 manipulators."}
+- {cat: Robot learning & VLA, name: Nav2, repo: ros-navigation/navigation2, desc: "ROS 2 navigation stack for mobile robots."}
+
+- {cat: Generation & world models, name: Diffusers, repo: huggingface/diffusers, desc: "Library of pretrained diffusion pipelines for image, video and 3D generation."}
+- {cat: Generation & world models, name: ControlNet, repo: lllyasviel/ControlNet, desc: "Adding spatial conditioning (edges, depth, pose) to text-to-image diffusion."}
+- {cat: Generation & world models, name: threestudio, repo: threestudio-project/threestudio, desc: "Unified framework for 3D content creation from text and images (score distillation)."}
+- {cat: Generation & world models, name: TRELLIS, repo: microsoft/TRELLIS, desc: "Structured 3D latents for scalable, versatile 3D generation."}
+- {cat: Generation & world models, name: Hunyuan3D 2, repo: Tencent-Hunyuan/Hunyuan3D-2, aka: [Hunyuan3D], desc: "Large-scale shape and texture generation for 3D assets."}
+- {cat: Generation & world models, name: Open-Sora, repo: hpcaitech/Open-Sora, desc: "Open reproduction effort for efficient text-to-video generation."}
+- {cat: Generation & world models, name: CogVideoX, repo: THUDM/CogVideo, aka: [CogVideo], desc: "Open text-to-video diffusion models."}
+- {cat: Generation & world models, name: HunyuanVideo, repo: Tencent/HunyuanVideo, desc: "Open large-scale video generation model."}
+- {cat: Generation & world models, name: Wan 2.1, repo: Wan-Video/Wan2.1, aka: [Wan2.1, Wan2.2, "Wan 2.2"], desc: "Open video foundation models for text- and image-to-video."}
+- {cat: Generation & world models, name: V-JEPA 2, repo: facebookresearch/vjepa2, desc: "Self-supervised video world model with an action-conditioned predictor for planning."}
+- {cat: Generation & world models, name: DreamerV3, repo: danijar/dreamerv3, aka: [Dreamer], desc: "Model-based reinforcement learning with a learned world model."}
+- {cat: Generation & world models, name: Motion Diffusion Model, repo: GuyTevet/motion-diffusion-model, aka: [MDM], desc: "Diffusion model for text- and action-conditioned human motion."}
+- {cat: Generation & world models, name: SMPL-X, repo: vchoutas/smplx, aka: [SMPL], desc: "Expressive parametric body model with hands and face."}
+- {cat: Generation & world models, name: Infinigen, repo: princeton-vl/infinigen, desc: "Procedural generation of infinite photorealistic natural and indoor worlds."}
+- {cat: Generation & world models, name: BlenderProc, repo: DLR-RM/BlenderProc, desc: "Procedural Blender pipeline for photorealistic synthetic training data."}
+
+- {cat: Geospatial, name: TorchGeo, repo: microsoft/torchgeo, desc: "Datasets, samplers, transforms and models for geospatial deep learning."}
+- {cat: Geospatial, name: GDAL, repo: OSGeo/gdal, desc: "Translator library for raster and vector geospatial data formats."}
+- {cat: Geospatial, name: QGIS, repo: qgis/QGIS, desc: "Free and open-source geographic information system."}
+- {cat: Geospatial, name: segment-geospatial, repo: opengeos/segment-geospatial, aka: [SamGeo], desc: "Segment Anything applied to geospatial imagery."}
+- {cat: Geospatial, name: Earth Engine API, repo: google/earthengine-api, aka: [Google Earth Engine, Earth Engine], desc: "Client libraries for Google Earth Engine planetary-scale geospatial analysis."}
+- {cat: Geospatial, name: OSMnx, repo: gboeing/osmnx, aka: [OpenStreetMap], desc: "Download, model and analyze street networks from OpenStreetMap."}
+
+- {cat: Medicine & science, name: MONAI, repo: Project-MONAI/MONAI, desc: "PyTorch framework for deep learning in medical imaging."}
+- {cat: Medicine & science, name: 3D Slicer, repo: Slicer/Slicer, desc: "Platform for medical image computing, segmentation and visualization."}
+- {cat: Medicine & science, name: nnU-Net, repo: MIC-DKFZ/nnUNet, desc: "Self-configuring framework for biomedical image segmentation."}
+- {cat: Medicine & science, name: TotalSegmentator, repo: wasserth/TotalSegmentator, desc: "Segmentation of over 100 anatomical structures in CT and MR."}
+- {cat: Medicine & science, name: MedSAM, repo: bowang-lab/MedSAM, desc: "Segment Anything adapted to medical images."}
+- {cat: Medicine & science, name: AlphaFold, repo: google-deepmind/alphafold, desc: "Protein structure prediction."}
+- {cat: Medicine & science, name: OpenFold, repo: aqlaboratory/openfold, desc: "Trainable open reproduction of AlphaFold 2."}
+- {cat: Medicine & science, name: RDKit, repo: rdkit/rdkit, desc: "Cheminformatics toolkit for molecules and 3D conformers."}
+- {cat: Medicine & science, name: e3nn, repo: e3nn/e3nn, desc: "E(3)-equivariant neural networks for 3D geometric data."}
+- {cat: Medicine & science, name: PyTorch Geometric, repo: pyg-team/pytorch_geometric, aka: [PyG], desc: "Library for graph neural networks, including geometric and 3D models."}
+
+- {cat: XR & wearables, name: Project Aria Tools, repo: facebookresearch/projectaria_tools, aka: [Project Aria], desc: "Tools for egocentric data recorded with Project Aria glasses."}
+- {cat: XR & wearables, name: OpenXR SDK, repo: KhronosGroup/OpenXR-SDK-Source, aka: [OpenXR], desc: "Reference SDK of the OpenXR standard for XR runtimes and apps."}
+- {cat: XR & wearables, name: ARCore SDK, repo: google-ar/arcore-android-sdk, aka: [ARCore], desc: "Google's SDK for motion tracking, plane detection and depth on Android."}

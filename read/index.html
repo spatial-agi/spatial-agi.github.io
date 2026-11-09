@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contents · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="Contents · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="xp-head"><div class="wrap">
+  <h1>Contents</h1>
+  <p class="xp-lede">Five parts, 17 chapters and 64 sections, numbered as in the PDF. The bar below is the book at scale: each block is a chapter, sized by its pages.</p>
+</div></div>
+<div class="wrap xp-body">
+  <div class="bookmap" aria-label="The handbook at scale">
+<a href="/read/chapter-1/" style="--pc: #A8722A; flex: 16" title="Chapter 1: Spatial Intelligence: A Rising AI Paradigm (16 pages)"><span>1</span></a><a href="/read/chapter-2/" style="--pc: #A8722A; flex: 11" title="Chapter 2: A Definition in Motion: Revisiting Spatial Intelligence (11 pages)"><span>2</span></a><a href="/read/chapter-3/" style="--pc: #A8722A; flex: 5" title="Chapter 3: Scope and Structure of This Handbook (5 pages)"><span>3</span></a><a href="/read/chapter-4/" style="--pc: #3646F0; flex: 17" title="Chapter 4: Single-Modal Spatial Representation (17 pages)"><span>4</span></a><a href="/read/chapter-5/" style="--pc: #3646F0; flex: 7" title="Chapter 5: Cross-Modal Spatial Representation (7 pages)"><span>5</span></a><a href="/read/chapter-6/" style="--pc: #7446D6; flex: 80" title="Chapter 6: Spatial Perception (80 pages)"><span>6</span></a><a href="/read/chapter-7/" style="--pc: #7446D6; flex: 69" title="Chapter 7: Spatial Reasoning (69 pages)"><span>7</span></a><a href="/read/chapter-8/" style="--pc: #7446D6; flex: 100" title="Chapter 8: Spatial Reconstruction and Generation (100 pages)"><span>8</span></a><a href="/read/chapter-9/" style="--pc: #11899A; flex: 49" title="Chapter 9: Spatial Intelligence for Embodied Systems (49 pages)"><span>9</span></a><a href="/read/chapter-10/" style="--pc: #11899A; flex: 14" title="Chapter 10: Spatial Intelligence for Virtual Realities (14 pages)"><span>10</span></a><a href="/read/chapter-11/" style="--pc: #11899A; flex: 25" title="Chapter 11: Spatial Intelligence for Geo-spatial Systems (25 pages)"><span>11</span></a><a href="/read/chapter-12/" style="--pc: #11899A; flex: 17" title="Chapter 12: Spatial Intelligence for Biomedicine and Natural Sciences (17 pages)"><span>12</span></a><a href="/read/chapter-13/" style="--pc: #11899A; flex: 9" title="Chapter 13: Spatial Intelligence for Intelligent Assistance (9 pages)"><span>13</span></a><a href="/read/chapter-14/" style="--pc: #11899A; flex: 9" title="Chapter 14: Spatial Intelligence for Others (9 pages)"><span>14</span></a><a href="/read/chapter-15/" style="--pc: #C0436E; flex: 7" title="Chapter 15: Foundations: What Spatial Intelligence Requires (7 pages)"><span>15</span></a><a href="/read/chapter-16/" style="--pc: #C0436E; flex: 6" title="Chapter 16: Research Gaps and Future Directions (6 pages)"><span>16</span></a><a href="/read/chapter-17/" style="--pc: #C0436E; flex: 14" title="Chapter 17: Conclusion (14 pages)"><span>17</span></a>  </div>
+  <div class="bookmap-legend"><span style="--pc: #A8722A"><i></i>Part I · 32 pages</span><span style="--pc: #3646F0"><i></i>Part II · 24 pages</span><span style="--pc: #7446D6"><i></i>Part III · 249 pages</span><span style="--pc: #11899A"><i></i>Part IV · 123 pages</span><span style="--pc: #C0436E"><i></i>Part V · 27 pages</span></div>
+  <div class="front-links"><a href="/read/preface/">Preface</a><a href="/read/notation/">Notation</a><a href="/read/glossary/">Glossary</a><a href="/read/3.3/">How to read this handbook (Section 3.3)</a></div>
+  <section class="toc-partblock" style="--pc: #A8722A">
+    <a class="tpb-head" href="/read/part-i/"><span class="roman">I</span><span><span class="tpb-k">Part I</span><span class="tpb-t">Introduction and Background</span></span></a>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-1/"><span class="n">1</span>Spatial Intelligence: A Rising AI Paradigm</a><span class="tpb-p">16 pp. · p. 24</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/1.1/"><span class="n">1.1</span>Why Spatial Intelligence? Why Now?</a><span class="tpb-p">p. 24</span>
+<div class="tpb-subs"><a href="/read/1.1/#Ch1.S1.SS1">1.1.1 AI Paradigm Shift</a><a href="/read/1.1/#Ch1.S1.SS2">1.1.2 AI Methodological Shift</a><a href="/read/1.1/#Ch1.S1.SS3">1.1.3 Modality Shift</a><a href="/read/1.1/#Ch1.S1.SS4">1.1.4 Disciplinary Convergence</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/1.2/"><span class="n">1.2</span>Historical Evolution and Milestones</a><span class="tpb-p">p. 28</span>
+<div class="tpb-subs"><a href="/read/1.2/#Ch1.S2.SS1">1.2.1 Era 1: Symbolic and Cognitive Spatial Computing (1950s–1980s)</a><a href="/read/1.2/#Ch1.S2.SS2">1.2.2 Era 2: Geometric and Probabilistic Spatial Modeling (1980s–2012)</a><a href="/read/1.2/#Ch1.S2.SS3">1.2.3 Era 3: Learning-based Spatial Modeling (2012–2019)</a><a href="/read/1.2/#Ch1.S2.SS4">1.2.4 Era 4: Large Foundation Spatial Modeling (2019–2023)</a><a href="/read/1.2/#Ch1.S2.SS5">1.2.5 Era 5: World-Centered Spatial Intelligence (2023–Present)</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-2/"><span class="n">2</span>A Definition in Motion: Revisiting Spatial Intelligence</a><span class="tpb-p">11 pp. · p. 40</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/2.1/"><span class="n">2.1</span>The Landscape of Spatial Intelligence</a><span class="tpb-p">p. 40</span>
+<div class="tpb-subs"><a href="/read/2.1/#Ch2.S1.SS1">2.1.1 Beyond A Single Dimension</a><a href="/read/2.1/#Ch2.S1.SS2">2.1.2 Disciplinary Perspectives</a><a href="/read/2.1/#Ch2.S1.SS3">2.1.3 Toward A Unified View</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/2.2/"><span class="n">2.2</span>Defining A Spatial Intelligence Framework</a><span class="tpb-p">p. 46</span>
+<div class="tpb-subs"><a href="/read/2.2/#Ch2.S2.SS1">2.2.1 Core Elements</a><a href="/read/2.2/#Ch2.S2.SS2">2.2.2 Formal Characterization</a><a href="/read/2.2/#Ch2.S2.SS3">2.2.3 Compatibility with Existing Research and Paradigms</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-3/"><span class="n">3</span>Scope and Structure of This Handbook</a><span class="tpb-p">5 pp. · p. 51</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/3.1/"><span class="n">3.1</span>The Research Pillars of Spatial Intelligence</a><span class="tpb-p">p. 51</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/3.2/"><span class="n">3.2</span>Goal of the Handbook: Charting a Research Ecosystem</a><span class="tpb-p">p. 52</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/3.3/"><span class="n">3.3</span>How to Read This Handbook</a><span class="tpb-p">p. 53</span>
+        </li>
+      </ol>
+    </details>
+  </section>
+  <section class="toc-partblock" style="--pc: #3646F0">
+    <a class="tpb-head" href="/read/part-ii/"><span class="roman">II</span><span><span class="tpb-k">Part II</span><span class="tpb-t">Spatial-aware Representation: Building Blocks of Space</span></span></a>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-4/"><span class="n">4</span>Single-Modal Spatial Representation</a><span class="tpb-p">17 pp. · p. 56</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/4.1/"><span class="n">4.1</span>2D</a><span class="tpb-p">p. 56</span>
+<div class="tpb-subs"><a href="/read/4.1/#Ch4.S1.SS1">4.1.1 Image and Video Representations</a><a href="/read/4.1/#Ch4.S1.SS2">4.1.2 Segmentation Maps</a><a href="/read/4.1/#Ch4.S1.SS3">4.1.3 Depth Maps</a><a href="/read/4.1/#Ch4.S1.SS4">4.1.4 Surface Normal Maps</a><a href="/read/4.1/#Ch4.S1.SS5">4.1.5 Edge Maps</a><a href="/read/4.1/#Ch4.S1.SS6">4.1.6 Optical Flow Maps</a><a href="/read/4.1/#Ch4.S1.SS7">4.1.7 2D Keypoints</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/4.2/"><span class="n">4.2</span>3D</a><span class="tpb-p">p. 60</span>
+<div class="tpb-subs"><a href="/read/4.2/#Ch4.S2.SS1">4.2.1 RGB-D Images</a><a href="/read/4.2/#Ch4.S2.SS2">4.2.2 Voxel Grids</a><a href="/read/4.2/#Ch4.S2.SS3">4.2.3 Point Clouds</a><a href="/read/4.2/#Ch4.S2.SS4">4.2.4 Meshes</a><a href="/read/4.2/#Ch4.S2.SS5">4.2.5 Implicit Representations</a><a href="/read/4.2/#Ch4.S2.SS6">4.2.6 Neural Radiance Fields</a><a href="/read/4.2/#Ch4.S2.SS7">4.2.7 3D Gaussian Splatting</a><a href="/read/4.2/#Ch4.S2.SS8">4.2.8 Hybrid Methods</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/4.3/"><span class="n">4.3</span>4D</a><span class="tpb-p">p. 65</span>
+<div class="tpb-subs"><a href="/read/4.3/#Ch4.S3.SS1">4.3.1 RGBD Video</a><a href="/read/4.3/#Ch4.S3.SS2">4.3.2 Point Cloud</a><a href="/read/4.3/#Ch4.S3.SS3">4.3.3 Mesh</a><a href="/read/4.3/#Ch4.S3.SS4">4.3.4 NeRF</a><a href="/read/4.3/#Ch4.S3.SS5">4.3.5 Deformable 3D Gaussian Splatting</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/4.4/"><span class="n">4.4</span>Language</a><span class="tpb-p">p. 68</span>
+<div class="tpb-subs"><a href="/read/4.4/#Ch4.S4.SS1">4.4.1 The Evolution of Language Representation Learning</a><a href="/read/4.4/#Ch4.S4.SS2">4.4.2 Language Representation Learning Induces Spatial Intelligence</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/4.5/"><span class="n">4.5</span>Audio</a><span class="tpb-p">p. 69</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/4.6/"><span class="n">4.6</span>Domain-Specific Representations</a><span class="tpb-p">p. 70</span>
+        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-5/"><span class="n">5</span>Cross-Modal Spatial Representation</a><span class="tpb-p">7 pp. · p. 73</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/5.1/"><span class="n">5.1</span>Overview</a><span class="tpb-p">p. 73</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/5.2/"><span class="n">5.2</span>2D-text</a><span class="tpb-p">p. 74</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/5.3/"><span class="n">5.3</span>3D-text</a><span class="tpb-p">p. 75</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/5.4/"><span class="n">5.4</span>Audio-text</a><span class="tpb-p">p. 76</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/5.5/"><span class="n">5.5</span>Vision-vision</a><span class="tpb-p">p. 77</span>
+        </li>
+      </ol>
+    </details>
+  </section>
+  <section class="toc-partblock" style="--pc: #7446D6">
+    <a class="tpb-head" href="/read/part-iii/"><span class="roman">III</span><span><span class="tpb-k">Part III</span><span class="tpb-t">Spatial Intelligence: From Perception to Generation</span></span></a>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-6/"><span class="n">6</span>Spatial Perception</a><span class="tpb-p">80 pp. · p. 80</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/6.1/"><span class="n">6.1</span>Spatial Entity Recognition</a><span class="tpb-p">p. 80</span>
+<div class="tpb-subs"><a href="/read/6.1/#Ch6.S1.SS1">6.1.1 Object Detection</a><a href="/read/6.1/#Ch6.S1.SS2">6.1.2 Segmentation</a><a href="/read/6.1/#Ch6.S1.SS3">6.1.3 Keypoint and Landmark Detection</a><a href="/read/6.1/#Ch6.S1.SS4">6.1.4 Scene Classification</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/6.2/"><span class="n">6.2</span>Spatial Localization and Position Estimation</a><span class="tpb-p">p. 96</span>
+<div class="tpb-subs"><a href="/read/6.2/#Ch6.S2.SS1">6.2.1 Depth Estimation</a><a href="/read/6.2/#Ch6.S2.SS2">6.2.2 Surface Normal Estimation</a><a href="/read/6.2/#Ch6.S2.SS3">6.2.3 Height and Distance Estimation</a><a href="/read/6.2/#Ch6.S2.SS4">6.2.4 Visual Odometry and Camera Pose Estimation</a><a href="/read/6.2/#Ch6.S2.SS5">6.2.5 Pose Estimation</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/6.3/"><span class="n">6.3</span>Spatial Structure Construction</a><span class="tpb-p">p. 119</span>
+<div class="tpb-subs"><a href="/read/6.3/#Ch6.S3.SS1">6.3.1 Spatial Relation Extraction</a><a href="/read/6.3/#Ch6.S3.SS2">6.3.2 Scene Graph Generation</a><a href="/read/6.3/#Ch6.S3.SS3">6.3.3 Layout Estimation and Room Parsing</a><a href="/read/6.3/#Ch6.S3.SS4">6.3.4 Action Detection</a><a href="/read/6.3/#Ch6.S3.SS5">6.3.5 Mapping and SLAM</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/6.4/"><span class="n">6.4</span>Spatio-Temporal Perception</a><span class="tpb-p">p. 137</span>
+<div class="tpb-subs"><a href="/read/6.4/#Ch6.S4.SS1">6.4.1 Scene Flow Estimation</a><a href="/read/6.4/#Ch6.S4.SS2">6.4.2 Object Tracking</a><a href="/read/6.4/#Ch6.S4.SS3">6.4.3 Temporal Localization</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/6.5/"><span class="n">6.5</span>Multimodal Spatial Perception</a><span class="tpb-p">p. 150</span>
+<div class="tpb-subs"><a href="/read/6.5/#Ch6.S5.SS1">6.5.1 Audio-Visual Spatial Localization</a><a href="/read/6.5/#Ch6.S5.SS2">6.5.2 Vision-Language Grounding</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-7/"><span class="n">7</span>Spatial Reasoning</a><span class="tpb-p">69 pp. · p. 160</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/7.1/"><span class="n">7.1</span>Rule-based Symbolic Spatial Reasoning</a><span class="tpb-p">p. 160</span>
+<div class="tpb-subs"><a href="/read/7.1/#Ch7.S1.SS1">7.1.1 Geometric and Algebraic Reasoning</a><a href="/read/7.1/#Ch7.S1.SS2">7.1.2 Physical Reasoning</a><a href="/read/7.1/#Ch7.S1.SS3">7.1.3 Topological and Graph-based Reasoning</a><a href="/read/7.1/#Ch7.S1.SS4">7.1.4 Constraint-based Spatial Solving</a><a href="/read/7.1/#Ch7.S1.SS5">7.1.5 Rule-based and Programmatic Reasoning</a><a href="/read/7.1/#Ch7.S1.SS6">7.1.6 Causal Reasoning</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/7.2/"><span class="n">7.2</span>Learning-based Spatial Reasoning</a><span class="tpb-p">p. 176</span>
+<div class="tpb-subs"><a href="/read/7.2/#Ch7.S2.SS1">7.2.1 Implicit Neural Spatial Reasoning</a><a href="/read/7.2/#Ch7.S2.SS2">7.2.2 Explicit Structured Neural Reasoning</a><a href="/read/7.2/#Ch7.S2.SS3">7.2.3 Geometry-aware Neural Spatial Reasoning</a><a href="/read/7.2/#Ch7.S2.SS4">7.2.4 Differentiable Optimization Layers for Spatial Reasoning</a><a href="/read/7.2/#Ch7.S2.SS5">7.2.5 Reinforcement Learning with Spatial Inductive Biases</a><a href="/read/7.2/#Ch7.S2.SS6">7.2.6 Multi-agent Spatial Reasoning</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/7.3/"><span class="n">7.3</span>Foundation Model-driven Spatial Reasoning</a><span class="tpb-p">p. 199</span>
+<div class="tpb-subs"><a href="/read/7.3/#Ch7.S3.SS1">7.3.1 LLM/VLM-centric Spatial Reasoning</a><a href="/read/7.3/#Ch7.S3.SS2">7.3.2 VLA-based Spatial Reasoning</a><a href="/read/7.3/#Ch7.S3.SS3">7.3.3 Chain-of-Thought for Spatial Reasoning</a><a href="/read/7.3/#Ch7.S3.SS4">7.3.4 Code/DSL Generation for Spatial Reasoning</a><a href="/read/7.3/#Ch7.S3.SS5">7.3.5 Tool-augmented Reasoning</a><a href="/read/7.3/#Ch7.S3.SS6">7.3.6 Retrieval- & Memory-augmented Spatial Reasoning</a><a href="/read/7.3/#Ch7.S3.SS7">7.3.7 Agentic Spatial Reasoning</a><a href="/read/7.3/#Ch7.S3.SS8">7.3.8 World-Model-based Spatial Reasoning</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/7.4/"><span class="n">7.4</span>Hybrid Spatial Reasoning</a><span class="tpb-p">p. 222</span>
+<div class="tpb-subs"><a href="/read/7.4/#Ch7.S4.SS1">7.4.1 Task Definition</a><a href="/read/7.4/#Ch7.S4.SS2">7.4.2 Methodology</a><a href="/read/7.4/#Ch7.S4.SS3">7.4.3 Benchmarks</a><a href="/read/7.4/#Ch7.S4.SS4">7.4.4 Challenges and Trends</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/7.5/"><span class="n">7.5</span>Spatial Reasoning Benchmarks</a><span class="tpb-p">p. 226</span>
+<div class="tpb-subs"><a href="/read/7.5/#Ch7.S5.SS1">7.5.1 Comparative Analysis</a><a href="/read/7.5/#Ch7.S5.SS2">7.5.2 Future Directions</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-8/"><span class="n">8</span>Spatial Reconstruction and Generation</a><span class="tpb-p">100 pp. · p. 229</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/8.1/"><span class="n">8.1</span>2D Spatial Generation</a><span class="tpb-p">p. 229</span>
+<div class="tpb-subs"><a href="/read/8.1/#Ch8.S1.SS1">8.1.1 Text-to-image Generation</a><a href="/read/8.1/#Ch8.S1.SS2">8.1.2 2D Spatial-aware Image Generation</a><a href="/read/8.1/#Ch8.S1.SS3">8.1.3 2D Spatial Inpainting & Editing</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/8.2/"><span class="n">8.2</span>3D Spatial Reconstruction and Generation</a><span class="tpb-p">p. 244</span>
+<div class="tpb-subs"><a href="/read/8.2/#Ch8.S2.SS1">8.2.1 3D Object Synthesis</a><a href="/read/8.2/#Ch8.S2.SS2">8.2.2 3D Scene Synthesis</a><a href="/read/8.2/#Ch8.S2.SS3">8.2.3 3D Scene Reconstruction</a><a href="/read/8.2/#Ch8.S2.SS4">8.2.4 3D Panorama Synthesis</a><a href="/read/8.2/#Ch8.S2.SS5">8.2.5 3D Scene Editing</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/8.3/"><span class="n">8.3</span>Video Spatial Generation</a><span class="tpb-p">p. 273</span>
+<div class="tpb-subs"><a href="/read/8.3/#Ch8.S3.SS1">8.3.1 Text-to-Video Generation</a><a href="/read/8.3/#Ch8.S3.SS2">8.3.2 Spatial Controlled Video Generation</a><a href="/read/8.3/#Ch8.S3.SS3">8.3.3 Temporal Controlled Video Generation</a><a href="/read/8.3/#Ch8.S3.SS4">8.3.4 Other Controlled Video Generation</a><a href="/read/8.3/#Ch8.S3.SS5">8.3.5 Video Editing</a><a href="/read/8.3/#Ch8.S3.SS6">8.3.6 Summary and Critical Challenges and Future Directions</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/8.4/"><span class="n">8.4</span>Motion Generation</a><span class="tpb-p">p. 291</span>
+<div class="tpb-subs"><a href="/read/8.4/#Ch8.S4.SS1">8.4.1 Human Motion Generation</a><a href="/read/8.4/#Ch8.S4.SS2">8.4.2 Animal Motion Generation</a><a href="/read/8.4/#Ch8.S4.SS3">8.4.3 Vehicle Motion Planning</a><a href="/read/8.4/#Ch8.S4.SS4">8.4.4 Motion Editing</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/8.5/"><span class="n">8.5</span>4D Spatial Generation</a><span class="tpb-p">p. 303</span>
+<div class="tpb-subs"><a href="/read/8.5/#Ch8.S5.SS1">8.5.1 Text-to-4D Generation</a><a href="/read/8.5/#Ch8.S5.SS2">8.5.2 Image-to-4D Generation</a><a href="/read/8.5/#Ch8.S5.SS3">8.5.3 Video-to-4D Generation</a><a href="/read/8.5/#Ch8.S5.SS4">8.5.4 3D-to-4D Generation</a><a href="/read/8.5/#Ch8.S5.SS5">8.5.5 Multi-conditional 4D Generation</a><a href="/read/8.5/#Ch8.S5.SS6">8.5.6 Summary, Overarching Challenges and Future Directions</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/8.6/"><span class="n">8.6</span>World Modeling</a><span class="tpb-p">p. 312</span>
+<div class="tpb-subs"><a href="/read/8.6/#Ch8.S6.SS1">8.6.1 Representation World Model</a><a href="/read/8.6/#Ch8.S6.SS2">8.6.2 Generative World Model</a><a href="/read/8.6/#Ch8.S6.SS3">8.6.3 Mental World Modeling</a><a href="/read/8.6/#Ch8.S6.SS4">8.6.4 Discussions and Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/8.7/"><span class="n">8.7</span>Programmatic and Symbolic Spatial Generation</a><span class="tpb-p">p. 322</span>
+<div class="tpb-subs"><a href="/read/8.7/#Ch8.S7.SS1">8.7.1 Task Definition</a><a href="/read/8.7/#Ch8.S7.SS2">8.7.2 Methodology</a><a href="/read/8.7/#Ch8.S7.SS3">8.7.3 Benchmarks</a><a href="/read/8.7/#Ch8.S7.SS4">8.7.4 Challenges and Trends</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/8.8/"><span class="n">8.8</span>Summary and Outlook</a><span class="tpb-p">p. 325</span>
+        </li>
+      </ol>
+    </details>
+  </section>
+  <section class="toc-partblock" style="--pc: #11899A">
+    <a class="tpb-head" href="/read/part-iv/"><span class="roman">IV</span><span><span class="tpb-k">Part IV</span><span class="tpb-t">Applications</span></span></a>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-9/"><span class="n">9</span>Spatial Intelligence for Embodied Systems</a><span class="tpb-p">49 pp. · p. 329</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/9.1/"><span class="n">9.1</span>Robotic Manipulation</a><span class="tpb-p">p. 329</span>
+<div class="tpb-subs"><a href="/read/9.1/#Ch9.S1.SS1">9.1.1 Introduction</a><a href="/read/9.1/#Ch9.S1.SS2">9.1.2 System Overview</a><a href="/read/9.1/#Ch9.S1.SS3">9.1.3 Pivotal Task-1: Grounding Action in Spatial Anchors</a><a href="/read/9.1/#Ch9.S1.SS4">9.1.4 Pivotal Task-2: Inferring Functional Action Possibilities</a><a href="/read/9.1/#Ch9.S1.SS5">9.1.5 Pivotal Task-3: Encoding Spatial Reasoning in Generalist Models</a><a href="/read/9.1/#Ch9.S1.SS6">9.1.6 Pivotal Task-4: Satisfying Geometric and Logical Constraints</a><a href="/read/9.1/#Ch9.S1.SS7">9.1.7 Established Tools and Systems</a><a href="/read/9.1/#Ch9.S1.SS8">9.1.8 Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/9.2/"><span class="n">9.2</span>Autonomous Driving</a><span class="tpb-p">p. 339</span>
+<div class="tpb-subs"><a href="/read/9.2/#Ch9.S2.SS1">9.2.1 Introduction</a><a href="/read/9.2/#Ch9.S2.SS2">9.2.2 System Overview</a><a href="/read/9.2/#Ch9.S2.SS3">9.2.3 Pivotal Task-1: Perception and Detection</a><a href="/read/9.2/#Ch9.S2.SS4">9.2.4 Pivotal Task-2: Localization and Mapping</a><a href="/read/9.2/#Ch9.S2.SS5">9.2.5 Pivotal Task-3: Decision Making and Control</a><a href="/read/9.2/#Ch9.S2.SS6">9.2.6 Established Tools and Systems</a><a href="/read/9.2/#Ch9.S2.SS7">9.2.7 Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/9.3/"><span class="n">9.3</span>Wearable AI System</a><span class="tpb-p">p. 348</span>
+<div class="tpb-subs"><a href="/read/9.3/#Ch9.S3.SS1">9.3.1 Introduction</a><a href="/read/9.3/#Ch9.S3.SS2">9.3.2 Wearable Devices</a><a href="/read/9.3/#Ch9.S3.SS3">9.3.3 System Overview</a><a href="/read/9.3/#Ch9.S3.SS4">9.3.4 Pivotal Task-1: Embodied Motion Sensing and Pose Reconstruction</a><a href="/read/9.3/#Ch9.S3.SS5">9.3.5 Pivotal Task-2: Behavioral Understanding and Intention Modeling</a><a href="/read/9.3/#Ch9.S3.SS6">9.3.6 Pivotal Task-3: Safe Collaboration and Embodied Interaction</a><a href="/read/9.3/#Ch9.S3.SS7">9.3.7 Established Tools and Systems</a><a href="/read/9.3/#Ch9.S3.SS8">9.3.8 Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/9.4/"><span class="n">9.4</span>Aerial Agents</a><span class="tpb-p">p. 358</span>
+<div class="tpb-subs"><a href="/read/9.4/#Ch9.S4.SS1">9.4.1 Introduction</a><a href="/read/9.4/#Ch9.S4.SS2">9.4.2 System Overview</a><a href="/read/9.4/#Ch9.S4.SS3">9.4.3 Pivotal Task-1: Ground-Air Collaborative Perception and Visual Geolocalization</a><a href="/read/9.4/#Ch9.S4.SS4">9.4.4 Pivotal Task-2: Remote Sensing Detection and Environmental Understanding</a><a href="/read/9.4/#Ch9.S4.SS5">9.4.5 Pivotal Task-3: Autonomous Aerial Navigation and Decision Making</a><a href="/read/9.4/#Ch9.S4.SS6">9.4.6 Established Tools and Systems</a><a href="/read/9.4/#Ch9.S4.SS7">9.4.7 Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/9.5/"><span class="n">9.5</span>Warehouse and Industrial Logistics</a><span class="tpb-p">p. 368</span>
+<div class="tpb-subs"><a href="/read/9.5/#Ch9.S5.SS1">9.5.1 Introduction</a><a href="/read/9.5/#Ch9.S5.SS2">9.5.2 System Overview</a><a href="/read/9.5/#Ch9.S5.SS3">9.5.3 Pivotal Task-1: Perception and Recognition</a><a href="/read/9.5/#Ch9.S5.SS4">9.5.4 Pivotal Task-2: Localization and Mapping</a><a href="/read/9.5/#Ch9.S5.SS5">9.5.5 Pivotal Task-3: Reasoning and Planning</a><a href="/read/9.5/#Ch9.S5.SS6">9.5.6 Pivotal Task-4: Manipulation and Control</a><a href="/read/9.5/#Ch9.S5.SS7">9.5.7 Pivotal Task-5: Human-Robot Collaboration and Safety</a><a href="/read/9.5/#Ch9.S5.SS8">9.5.8 Established Tools and Systems</a><a href="/read/9.5/#Ch9.S5.SS9">9.5.9 Challenges</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-10/"><span class="n">10</span>Spatial Intelligence for Virtual Realities</a><span class="tpb-p">14 pp. · p. 378</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/10.1/"><span class="n">10.1</span>AR/VR/XR</a><span class="tpb-p">p. 378</span>
+<div class="tpb-subs"><a href="/read/10.1/#Ch10.S1.SS1">10.1.1 Introduction</a><a href="/read/10.1/#Ch10.S1.SS2">10.1.2 System Overview</a><a href="/read/10.1/#Ch10.S1.SS3">10.1.3 Pivotal Task-1: Spatial Tracking, Mapping, and Registration</a><a href="/read/10.1/#Ch10.S1.SS4">10.1.4 Pivotal Task-2: Egocentric Human Sensing and Spatial Interaction</a><a href="/read/10.1/#Ch10.S1.SS5">10.1.5 Pivotal Task-3: Spatial Display and Real-Time Rendering</a><a href="/read/10.1/#Ch10.S1.SS6">10.1.6 Established Tools and Systems</a><a href="/read/10.1/#Ch10.S1.SS7">10.1.7 Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/10.2/"><span class="n">10.2</span>Entertainment</a><span class="tpb-p">p. 386</span>
+<div class="tpb-subs"><a href="/read/10.2/#Ch10.S2.SS1">10.2.1 Introduction</a><a href="/read/10.2/#Ch10.S2.SS2">10.2.2 System Overview</a><a href="/read/10.2/#Ch10.S2.SS3">10.2.3 Pivotal Task-1: World Reconstruction and Spatial Mapping</a><a href="/read/10.2/#Ch10.S2.SS4">10.2.4 Pivotal Task-2: Embodied Performance Capture and Avatar Control</a><a href="/read/10.2/#Ch10.S2.SS5">10.2.5 Pivotal Task-3: Spatially-Aware Content Authoring and Virtual Production</a><a href="/read/10.2/#Ch10.S2.SS6">10.2.6 Established Tools and Systems</a><a href="/read/10.2/#Ch10.S2.SS7">10.2.7 Challenges</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-11/"><span class="n">11</span>Spatial Intelligence for Geo-spatial Systems</a><span class="tpb-p">25 pp. · p. 392</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/11.1/"><span class="n">11.1</span>Digital Twins</a><span class="tpb-p">p. 392</span>
+<div class="tpb-subs"><a href="/read/11.1/#Ch11.S1.SS1">11.1.1 Introduction</a><a href="/read/11.1/#Ch11.S1.SS2">11.1.2 System Overview</a><a href="/read/11.1/#Ch11.S1.SS3">11.1.3 Pivotal Task-1: High-Fidelity Twin Construction</a><a href="/read/11.1/#Ch11.S1.SS4">11.1.4 Pivotal Task-2: Physics-Based Modeling and Behavioral Simulation</a><a href="/read/11.1/#Ch11.S1.SS5">11.1.5 Pivotal Task-3: Real-Time Synchronization and Predictive Operation</a><a href="/read/11.1/#Ch11.S1.SS6">11.1.6 Established Tools and Systems</a><a href="/read/11.1/#Ch11.S1.SS7">11.1.7 Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/11.2/"><span class="n">11.2</span>GeoAI</a><span class="tpb-p">p. 400</span>
+<div class="tpb-subs"><a href="/read/11.2/#Ch11.S2.SS1">11.2.1 Introduction</a><a href="/read/11.2/#Ch11.S2.SS2">11.2.2 System Overview</a><a href="/read/11.2/#Ch11.S2.SS3">11.2.3 Pivotal Task-1: Precision Agriculture</a><a href="/read/11.2/#Ch11.S2.SS4">11.2.4 Pivotal Task-2: Urban Planning, Logistics, and Transport</a><a href="/read/11.2/#Ch11.S2.SS5">11.2.5 Pivotal Task-3: Environmental Monitoring</a><a href="/read/11.2/#Ch11.S2.SS6">11.2.6 Pivotal Task-4: Water Resources Management and Precipitation Forecasting</a><a href="/read/11.2/#Ch11.S2.SS7">11.2.7 Pivotal Task-5: Disaster Management</a><a href="/read/11.2/#Ch11.S2.SS8">11.2.8 Pivotal Task-6: Healthcare</a><a href="/read/11.2/#Ch11.S2.SS9">11.2.9 Established Tools and Systems</a><a href="/read/11.2/#Ch11.S2.SS10">11.2.10 Toward Geospatial Foundation Models and GeoLLMs</a><a href="/read/11.2/#Ch11.S2.SS11">11.2.11 Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/11.3/"><span class="n">11.3</span>Aerospace Engineering</a><span class="tpb-p">p. 410</span>
+<div class="tpb-subs"><a href="/read/11.3/#Ch11.S3.SS1">11.3.1 Introduction</a><a href="/read/11.3/#Ch11.S3.SS2">11.3.2 System Overview</a><a href="/read/11.3/#Ch11.S3.SS3">11.3.3 Pivotal Task-1: Satellite Pose Estimation</a><a href="/read/11.3/#Ch11.S3.SS4">11.3.4 Pivotal Task-2: Spacecraft Detection, Segmentation, and Parts Recognition</a><a href="/read/11.3/#Ch11.S3.SS5">11.3.5 Pivotal Task-3: Operator Agents</a><a href="/read/11.3/#Ch11.S3.SS6">11.3.6 Pivotal Task-4: Planetary Robotics</a><a href="/read/11.3/#Ch11.S3.SS7">11.3.7 Established Tools and Systems</a><a href="/read/11.3/#Ch11.S3.SS8">11.3.8 Challenges</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-12/"><span class="n">12</span>Spatial Intelligence for Biomedicine and Natural Sciences</a><span class="tpb-p">17 pp. · p. 417</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/12.1/"><span class="n">12.1</span>Medicine and Clinical Healthcare</a><span class="tpb-p">p. 417</span>
+<div class="tpb-subs"><a href="/read/12.1/#Ch12.S1.SS1">12.1.1 Introduction</a><a href="/read/12.1/#Ch12.S1.SS2">12.1.2 System Overview</a><a href="/read/12.1/#Ch12.S1.SS3">12.1.3 Pivotal Task-1: Volumetric Medical Image Perception</a><a href="/read/12.1/#Ch12.S1.SS4">12.1.4 Pivotal Task-2: Anatomical Reconstruction, Modeling, and Surgical Planning</a><a href="/read/12.1/#Ch12.S1.SS5">12.1.5 Pivotal Task-3: Image-Guided Intervention and Surgical Navigation</a><a href="/read/12.1/#Ch12.S1.SS6">12.1.6 Established Tools and Systems</a><a href="/read/12.1/#Ch12.S1.SS7">12.1.7 Challenges</a></div>        </li>
+        <li><a class="tpb-sec" href="/read/12.2/"><span class="n">12.2</span>Natural Science</a><span class="tpb-p">p. 425</span>
+<div class="tpb-subs"><a href="/read/12.2/#Ch12.S2.SS1">12.2.1 Introduction</a><a href="/read/12.2/#Ch12.S2.SS2">12.2.2 Physics</a><a href="/read/12.2/#Ch12.S2.SS3">12.2.3 Chemistry</a><a href="/read/12.2/#Ch12.S2.SS4">12.2.4 Life Science</a><a href="/read/12.2/#Ch12.S2.SS5">12.2.5 Challenges</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-13/"><span class="n">13</span>Spatial Intelligence for Intelligent Assistance</a><span class="tpb-p">9 pp. · p. 434</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/13.1/"><span class="n">13.1</span>Assistant</a><span class="tpb-p">p. 434</span>
+<div class="tpb-subs"><a href="/read/13.1/#Ch13.S1.SS1">13.1.1 Introduction</a><a href="/read/13.1/#Ch13.S1.SS2">13.1.2 System Overview</a><a href="/read/13.1/#Ch13.S1.SS3">13.1.3 Pivotal Task-1: Managing the Physical Environment</a><a href="/read/13.1/#Ch13.S1.SS4">13.1.4 Pivotal Task-2: Co-habiting and Collaborating</a><a href="/read/13.1/#Ch13.S1.SS5">13.1.5 Pivotal Task-3: Empowering Vulnerable Users</a><a href="/read/13.1/#Ch13.S1.SS6">13.1.6 Established Tools and Systems</a><a href="/read/13.1/#Ch13.S1.SS7">13.1.7 Challenges</a></div>        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-14/"><span class="n">14</span>Spatial Intelligence for Others</a><span class="tpb-p">9 pp. · p. 443</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/14.1/"><span class="n">14.1</span>Architecture, Engineering, and Construction</a><span class="tpb-p">p. 443</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/14.2/"><span class="n">14.2</span>Sports Analytics and Performance</a><span class="tpb-p">p. 444</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/14.3/"><span class="n">14.3</span>Cultural Heritage and Archaeology</a><span class="tpb-p">p. 445</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/14.4/"><span class="n">14.4</span>Marine and Underwater Systems</a><span class="tpb-p">p. 447</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/14.5/"><span class="n">14.5</span>Retail and Smart Spaces</a><span class="tpb-p">p. 448</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/14.6/"><span class="n">14.6</span>Outlook</a><span class="tpb-p">p. 449</span>
+        </li>
+      </ol>
+    </details>
+  </section>
+  <section class="toc-partblock" style="--pc: #C0436E">
+    <a class="tpb-head" href="/read/part-v/"><span class="roman">V</span><span><span class="tpb-k">Part V</span><span class="tpb-t">Discussions and Futures</span></span></a>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-15/"><span class="n">15</span>Foundations: What Spatial Intelligence Requires</a><span class="tpb-p">7 pp. · p. 452</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/15.1/"><span class="n">15.1</span>Spatial Observability and Identifiability</a><span class="tpb-p">p. 452</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/15.2/"><span class="n">15.2</span>Representation and State Sufficiency</a><span class="tpb-p">p. 453</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/15.3/"><span class="n">15.3</span>Persistent World States and Belief Updating</a><span class="tpb-p">p. 454</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/15.4/"><span class="n">15.4</span>Predictive Validity and Physical Grounding</a><span class="tpb-p">p. 456</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/15.5/"><span class="n">15.5</span>Situated and Interactive Spatial Intelligence</a><span class="tpb-p">p. 457</span>
+        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-16/"><span class="n">16</span>Research Gaps and Future Directions</a><span class="tpb-p">6 pp. · p. 459</span></summary>
+      <ol>
+        <li><a class="tpb-sec" href="/read/16.1/"><span class="n">16.1</span>Research Gaps along the Loop</a><span class="tpb-p">p. 459</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/16.2/"><span class="n">16.2</span>Benchmarking Gaps</a><span class="tpb-p">p. 461</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/16.3/"><span class="n">16.3</span>Deployment Bottlenecks</a><span class="tpb-p">p. 462</span>
+        </li>
+        <li><a class="tpb-sec" href="/read/16.4/"><span class="n">16.4</span>Future Directions</a><span class="tpb-p">p. 463</span>
+        </li>
+      </ol>
+    </details>
+    <details class="tpb-ch" open>
+      <summary><a href="/read/chapter-17/"><span class="n">17</span>Conclusion</a><span class="tpb-p">14 pp. · p. 465</span></summary>
+      <ol>
+      </ol>
+    </details>
+  </section>
+  <div class="front-links"><a href="/read/acknowledgements/">Acknowledgements</a><a href="/read/references/">References (3,023)</a><a href="/read/contributions/">Author contributions</a></div>
+</div>
+</div>
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-brand">
+      <a class="brand" href="/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg><span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span></a>
+      <p>Foundations, Architectures, Methodologies, Applications and Challenges. Developed by 31 researchers from 14 institutions.</p>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Read</h4><a href="/read/">Contents</a><a href="/read/preface/">Preface</a><a href="/read/part-i/">Part I</a><a href="/read/part-ii/">Part II</a><a href="/read/part-iii/">Part III</a><a href="/read/part-iv/">Part IV</a><a href="/read/part-v/">Part V</a></div>
+      <div><h4>Explore</h4><a href="/explore/literature/">Literature</a><a href="/explore/datasets/">Datasets &amp; benchmarks</a><a href="/explore/tools/">Tools &amp; platforms</a><a href="/explore/timeline/">Milestones</a><a href="/explore/figures/">Figures</a><a href="/explore/glossary/">Glossary</a></div>
+      <div><h4>About</h4><a href="/team/">Team</a><a href="/#cite">Cite</a><a href="/contribute/">Contribute</a><a href="/contribute/#updates">Updates</a></div>
+    </div>
+  </div>
+  <div class="footer-base"><span>© 2026 The authors of <em>Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges</em>.</span><span>Built from the LaTeX source of the handbook.</span></div>
+</footer>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.1 2D · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="4.1 2D · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #3646F0" data-page="4.1">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link is-current" href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-ii/">Part II</a><span class="sep">/</span><a href="/read/chapter-4/">Chapter 4</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-4/">Chapter 4 · Single-Modal Spatial Representation</a></div>
+        <h1><span class="secnum">4.1</span>2D</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=56" title="Open this page in the PDF">PDF p. 56</a><span class="dot">·</span>        <span>8 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:4.1 2D">
+<div id="Ch4.S1.p1" class="ltx_para">
+<p class="ltx_p">The 2D representations are the most direct and information-dense entry point into spatial intelligence: images and videos provide a regular, discretely sampled grid over the visual field, on top of which a family of structured maps can be defined to expose geometric and semantic properties of the underlying scene.
+We organize this section around seven such representations (Figure <a href="/read/4.1/#Ch4.F1" class="xref" data-x="Ch4.F1"><span>4.1</span></a>): the raw <em class="ltx_font_italic">image/video tensor</em> itself, and six derived maps: <em class="ltx_font_italic">segmentation</em>, <em class="ltx_font_italic">depth</em>, <em class="ltx_font_italic">surface normal</em>, <em class="ltx_font_italic">edge</em>, <em class="ltx_font_italic">optical flow</em>, and <em class="ltx_font_italic">2D keypoint</em> representations.
+All seven share the image grid as their domain, which makes them straightforward to fuse with one another and to consume with convolutional or transformer backbones; what differs is what each representation <em class="ltx_font_italic">exposes</em>: appearance, semantics, geometry, boundaries, motion, or sparse structure.</p>
+</div>
+<figure id="Ch4.F1" class="ltx_figure"><img src="/assets/figures/figures/part2/2D_representations.webp" id="Ch4.F1.g1" class="fig-img" alt="" width="2000" height="983" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 4.1</span><span>The seven 2D representations of this section, all defined over the image grid <math id="Ch4.F1.m2" alttext="\Omega\subset\mathbb{R}^{2}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>⊂</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\Omega\subset\mathbb{R}^{2}</annotation></semantics></math>: image/video, segmentation, depth, surface normals, edges, optical flow, and keypoints.</span></figcaption>
+</figure>
+<section>
+<h2 class="h-subsection" id="Ch4.S1.SS1"><span class="secnum">4.1.1</span>Image and Video Representations<a class="anchor" href="#Ch4.S1.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">An image can be modeled as a discrete sampling of a continuous visual signal over a 2D spatial domain. Formally, a digital image is represented as a function</p>
+<table id="Ch4.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E1.m1" alttext="I:\Omega\rightarrow\mathbb{R}^{C},\quad\Omega\subset\mathbb{R}^{2}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>I</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">→</mo><msup><mi>ℝ</mi><mi>C</mi></msup></mrow><mo rspace="1.167em">,</mo><mrow><mi mathvariant="normal">Ω</mi><mo>⊂</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">I:\Omega\rightarrow\mathbb{R}^{C},\quad\Omega\subset\mathbb{R}^{2},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.1)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch4.S1.SS1.p1.m1" alttext="\Omega" display="inline" data-pagefind-ignore="all"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math> denotes the image grid, <math id="Ch4.S1.SS1.p1.m2" alttext="C" display="inline" data-pagefind-ignore="all"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math> is the number of channels (<span class="ltx_font_italic">e.g.,</span> , <math id="Ch4.S1.SS1.p1.m3" alttext="C=1" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>C</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">C=1</annotation></semantics></math> for grayscale, <math id="Ch4.S1.SS1.p1.m4" alttext="C=3" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>C</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">C=3</annotation></semantics></math> for RGB), and each pixel value encodes intensity or color information at a discrete spatial location <cite class="cites">[<a class="cite" href="/read/references/#ref-233" data-k="gonzalez2011">233</a>, <a class="cite" href="/read/references/#ref-234" data-k="szeliski2022">234</a>]</cite>.
+In practice, images are stored as finite tensors <math id="Ch4.S1.SS1.p1.m5" alttext="I\in\mathbb{R}^{H\times W\times C}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>I</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>H</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>W</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>C</mi></mrow></msup></mrow><annotation encoding="application/x-tex">I\in\mathbb{R}^{H\times W\times C}</annotation></semantics></math>, where <math id="Ch4.S1.SS1.p1.m6" alttext="H" display="inline" data-pagefind-ignore="all"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math> and <math id="Ch4.S1.SS1.p1.m7" alttext="W" display="inline" data-pagefind-ignore="all"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math> denote image height and width.</p>
+</div>
+<div id="Ch4.S1.SS1.p2" class="ltx_para">
+<p class="ltx_p">A video extends this representation by introducing a temporal dimension.
+Given a sequence of frames sampled over time, a video can be written as</p>
+<table id="Ch4.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E2.m1" alttext="V:\Omega\times\mathcal{T}\rightarrow\mathbb{R}^{C}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>V</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mi mathvariant="normal">Ω</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>𝒯</mi></mrow><mo stretchy="false">→</mo><msup><mi>ℝ</mi><mi>C</mi></msup></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">V:\Omega\times\mathcal{T}\rightarrow\mathbb{R}^{C},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.2)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">or equivalently as a 4D tensor <math id="Ch4.S1.SS1.p2.m1" alttext="V\in\mathbb{R}^{T\times H\times W\times C}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>V</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>T</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>H</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>W</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>C</mi></mrow></msup></mrow><annotation encoding="application/x-tex">V\in\mathbb{R}^{T\times H\times W\times C}</annotation></semantics></math>, where <math id="Ch4.S1.SS1.p2.m2" alttext="T" display="inline" data-pagefind-ignore="all"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> denotes the number of frames <cite class="cites">[<a class="cite" href="/read/references/#ref-234" data-k="szeliski2022">234</a>]</cite>.
+This formulation preserves spatial structure within each frame while enabling the modeling of temporal dynamics across frames.
+From a computational perspective, images and videos are treated as structured arrays of numerical values that can be efficiently processed using linear algebra operations and convolutional kernels.
+This regular grid structure enables weight sharing, local receptive fields, and efficient parallel computation, forming the basis of CNNs and their spatiotemporal extensions <cite class="cites">[<a class="cite" href="/read/references/#ref-235" data-k="lecun1998gradient">235</a>, <a class="cite" href="/read/references/#ref-236" data-k="karpathy2014large">236</a>]</cite>.
+In modern deep learning systems, image and video tensors may undergo normalization, resizing, patch embedding, or tokenization before being fed into neural
+architectures, including CNNs and vision transformers <cite class="cites">[<a class="cite" href="/read/references/#ref-142" data-k="vit">142</a>, <a class="cite" href="/read/references/#ref-237" data-k="liu2022convnet">237</a>]</cite>.
+For video inputs, spatiotemporal extensions either inflate 2D kernels into 3D convolutions <cite class="cites">[<a class="cite" href="/read/references/#ref-238" data-k="tran2015learning">238</a>, <a class="cite" href="/read/references/#ref-239" data-k="carreira2017quo">239</a>]</cite> or extend self-attention across space and time, as in the family of video transformers <cite class="cites">[<a class="cite" href="/read/references/#ref-240" data-k="arnab2021vivit">240</a>, <a class="cite" href="/read/references/#ref-241" data-k="liu2022videoswin">241</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S1.SS2"><span class="secnum">4.1.2</span>Segmentation Maps<a class="anchor" href="#Ch4.S1.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S1.SS2.p1" class="ltx_para">
+<p class="ltx_p">A segmentation map is a semantic representation that assigns a label or a mask to each pixel, thereby partitioning visual data into meaningful regions such as objects, object parts, or background categories <cite class="cites">[<a class="cite" href="/read/references/#ref-234" data-k="szeliski2022">234</a>, <a class="cite" href="/read/references/#ref-242" data-k="li2023seg_survey">242</a>]</cite>. For a single image defined on <math id="Ch4.S1.SS2.p1.m1" alttext="\Omega\subset\mathbb{R}^{2}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>⊂</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\Omega\subset\mathbb{R}^{2}</annotation></semantics></math>, segmentation can be written as a mapping</p>
+<table id="Ch4.E3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E3.m1" alttext="S:\Omega\rightarrow\mathcal{L}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>S</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">→</mo><mi>ℒ</mi></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">S:\Omega\rightarrow\mathcal{L},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.3)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch4.S1.SS2.p1.m2" alttext="\mathcal{L}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℒ</mi><annotation encoding="application/x-tex">\mathcal{L}</annotation></semantics></math> is a set of labels. In <em class="ltx_font_italic">semantic segmentation</em> (SS), <math id="Ch4.S1.SS2.p1.m3" alttext="S(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(u,v)</annotation></semantics></math> denotes the class label of pixel <math id="Ch4.S1.SS2.p1.m4" alttext="(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math>.
+In <em class="ltx_font_italic">instance segmentation</em> (IS), the output is a set of masks
+<math id="Ch4.S1.SS2.p1.m5" alttext="\{M_{k}\}_{k=1}^{K}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mrow><mo stretchy="false">{</mo><msub><mi>M</mi><mi>k</mi></msub><mo stretchy="false">}</mo></mrow><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><annotation encoding="application/x-tex">\{M_{k}\}_{k=1}^{K}</annotation></semantics></math> with associated class labels <math id="Ch4.S1.SS2.p1.m6" alttext="\{\ell_{k}\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">{</mo><msub><mi mathvariant="normal">ℓ</mi><mi>k</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{\ell_{k}\}</annotation></semantics></math>, where each <math id="Ch4.S1.SS2.p1.m7" alttext="M_{k}:\Omega\rightarrow\{0,1\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>M</mi><mi>k</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">→</mo><mrow><mo stretchy="false">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">}</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">M_{k}:\Omega\rightarrow\{0,1\}</annotation></semantics></math> corresponds to an object instance <cite class="cites">[<a class="cite" href="/read/references/#ref-127" data-k="long2015fcn">127</a>, <a class="cite" href="/read/references/#ref-131" data-k="he2017mask">131</a>]</cite>.
+<em class="ltx_font_italic">Panoptic segmentation</em> (PS) unifies SS and IS by predicting a single, non-overlapping labeling of pixels that distinguishes both “stuff” and countable object instances <cite class="cites">[<a class="cite" href="/read/references/#ref-243" data-k="kirillov2019panoptic">243</a>]</cite>.</p>
+</div>
+<div id="Ch4.S1.SS2.p2" class="ltx_para">
+<p class="ltx_p">These tasks extend naturally to videos. Given a sequence of
+frames <math id="Ch4.S1.SS2.p2.m1" alttext="\{I_{t}\}_{t=1}^{T}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mrow><mo stretchy="false">{</mo><msub><mi>I</mi><mi>t</mi></msub><mo stretchy="false">}</mo></mrow><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></msubsup><annotation encoding="application/x-tex">\{I_{t}\}_{t=1}^{T}</annotation></semantics></math>, <em class="ltx_font_italic">video semantic segmentation</em> (VSS) predicts per-frame semantic labels <math id="Ch4.S1.SS2.p2.m2" alttext="\{S_{t}\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>S</mi><mi>t</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{S_{t}\}</annotation></semantics></math>, while <em class="ltx_font_italic">video instance segmentation</em> (VIS) predicts instance masks with temporal consistency across frames, often requiring instance association (tracking) over time <cite class="cites">[<a class="cite" href="/read/references/#ref-242" data-k="li2023seg_survey">242</a>]</cite>.
+<em class="ltx_font_italic">Video panoptic segmentation</em> (VPS) further combines VSS and VIS, producing temporally consistent panoptic outputs and is commonly evaluated with metrics that account for both segmentation quality and tracking consistency <cite class="cites">[<a class="cite" href="/read/references/#ref-242" data-k="li2023seg_survey">242</a>]</cite>.
+Closely related
+settings include <em class="ltx_font_italic">video object segmentation</em> (VOS) <cite class="cites">[<a class="cite" href="/read/references/#ref-244" data-k="perazzi2016benchmark">244</a>]</cite>, which segments foreground objects across time under semi-supervised or unsupervised protocols, and <em class="ltx_font_italic">referring</em> segmentation, which predicts masks grounded by natural language expressions in images (RIS) <cite class="cites">[<a class="cite" href="/read/references/#ref-245" data-k="wang2022cris">245</a>]</cite> or videos (RVOS) <cite class="cites">[<a class="cite" href="/read/references/#ref-246" data-k="seo2020urvos">246</a>]</cite>.
+Segmentation maps are typically formed by dense prediction models that produce either hard labels or per-pixel class probabilities <math id="Ch4.S1.SS2.p2.m3" alttext="P(u,v,\ell)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>P</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo>,</mo><mi mathvariant="normal">ℓ</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">P(u,v,\ell)</annotation></semantics></math> (and, for instance-level tasks, a set of object masks and scores).
+A key advantage of segmentation is its explicit and interpretable structure: it converts low-level pixels into object- and region-level representations that support downstream reasoning and decision-making, and it can be fused naturally with geometry (<span class="ltx_font_italic">e.g.,</span> , depth, normals) and language in multimodal systems <cite class="cites">[<a class="cite" href="/read/references/#ref-242" data-k="li2023seg_survey">242</a>]</cite>.
+Consequently, segmentation maps are central to applications such as autonomous driving,
+medical image analysis, robotic manipulation, visual editing, and human-computer interaction.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S1.SS3"><span class="secnum">4.1.3</span>Depth Maps<a class="anchor" href="#Ch4.S1.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S1.SS3.p1" class="ltx_para">
+<p class="ltx_p">A depth map is a geometric representation that augments a 2D image with per-pixel distance information, describing the spatial layout of a scene from a given viewpoint <cite class="cites">[<a class="cite" href="/read/references/#ref-234" data-k="szeliski2022">234</a>]</cite>.
+Formally, given an image domain <math id="Ch4.S1.SS3.p1.m1" alttext="\Omega\subset\mathbb{R}^{2}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>⊂</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\Omega\subset\mathbb{R}^{2}</annotation></semantics></math>, a depth map is a scalar function</p>
+<table id="Ch4.E4" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E4.m1" alttext="D:\Omega\rightarrow\mathbb{R}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>D</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">→</mo><mi>ℝ</mi></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">D:\Omega\rightarrow\mathbb{R},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.4)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch4.S1.SS3.p1.m2" alttext="D(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>D</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">D(u,v)</annotation></semantics></math> denotes the distance from the camera center to the first visible surface along the viewing ray corresponding to pixel <math id="Ch4.S1.SS3.p1.m3" alttext="(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math>.
+Depending on the sensing modality and formulation, this value may represent metric depth, inverse depth, or disparity <cite class="cites">[<a class="cite" href="/read/references/#ref-112" data-k="hartley2003multiple">112</a>]</cite>.
+Depth maps can be obtained through multiple mechanisms, including stereo vision via triangulation <cite class="cites">[<a class="cite" href="/read/references/#ref-112" data-k="hartley2003multiple">112</a>]</cite>, active sensors such as structured-light or time-of-flight cameras <cite class="cites">[<a class="cite" href="/read/references/#ref-247" data-k="foix2011tof">247</a>]</cite>, and learning-based monocular depth estimation <cite class="cites">[<a class="cite" href="/read/references/#ref-55" data-k="eigen2014depth">55</a>]</cite>.
+When combined with known camera intrinsics, a depth map enables the back-projection of image pixels into 3D space, thereby serving as a bridge between 2D image representations and 3D geometry.
+A key advantage of depth maps lies in their compact, image-aligned structure, which allows them to be processed using standard convolutional architectures and easily fused with the RGB appearance information.
+Compared to volumetric representations, depth maps are memory-efficient while still encoding meaningful geometric cues.
+As a result, they are widely used in applications such as 3D reconstruction, novel view synthesis <cite class="cites">[<a class="cite" href="/read/references/#ref-119" data-k="mildenhall2021nerf">119</a>]</cite>, robotic navigation, and autonomous driving <cite class="cites">[<a class="cite" href="/read/references/#ref-173" data-k="KITTI-GeigerLU12">173</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S1.SS4"><span class="secnum">4.1.4</span>Surface Normal Maps<a class="anchor" href="#Ch4.S1.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S1.SS4.p1" class="ltx_para">
+<p class="ltx_p">A surface normal map is a geometric representation that encodes local surface orientation at each pixel of an image. Given an image domain
+<math id="Ch4.S1.SS4.p1.m1" alttext="\Omega\subset\mathbb{R}^{2}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>⊂</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\Omega\subset\mathbb{R}^{2}</annotation></semantics></math>, a surface normal map assigns to each pixel a unit vector</p>
+<table id="Ch4.E5" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E5.m1" alttext="\mathbf{N}:\Omega\rightarrow\mathbb{S}^{2}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>𝐍</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">→</mo><msup><mi>𝕊</mi><mn>2</mn></msup></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf{N}:\Omega\rightarrow\mathbb{S}^{2},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.5)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch4.S1.SS4.p1.m2" alttext="\mathbf{N}(u,v)=(n_{x},n_{y},n_{z})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>𝐍</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>n</mi><mi>x</mi></msub><mo>,</mo><msub><mi>n</mi><mi>y</mi></msub><mo>,</mo><msub><mi>n</mi><mi>z</mi></msub><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{N}(u,v)=(n_{x},n_{y},n_{z})</annotation></semantics></math> represents the direction of the surface normal in camera or world coordinates, and <math id="Ch4.S1.SS4.p1.m3" alttext="\mathbb{S}^{2}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝕊</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\mathbb{S}^{2}</annotation></semantics></math> denotes the unit sphere. Surface normal maps can be derived from depth maps or 3D geometry via local differentiation, or directly estimated from RGB images using learning-based methods <cite class="cites">[<a class="cite" href="/read/references/#ref-248" data-k="barron2015shape">248</a>]</cite>.
+Classical approaches to normal estimation rely on photometric stereo or geometric reconstruction <cite class="cites">[<a class="cite" href="/read/references/#ref-249" data-k="woodham1980photometric">249</a>]</cite>, while modern methods employ CNNs to regress surface normals from monocular images <cite class="cites">[<a class="cite" href="/read/references/#ref-250" data-k="eigen2015predicting">250</a>]</cite>.
+Regardless of the estimation procedure, surface normal maps remain image-aligned and
+encode rich local geometric information that complements depth and segmentation cues.
+Surface normal maps can capture fine-grained shape and orientation details that may be ambiguous or noisy in raw depth estimates.
+Because surface normals are invariant to absolute depth scale, they provide robust geometric constraints for scene understanding.
+Consequently, surface normal maps are widely used in applications such as 3D reconstruction, object pose estimation, scene layout analysis, realistic rendering, and as auxiliary supervision in multi-task learning <cite class="cites">[<a class="cite" href="/read/references/#ref-250" data-k="eigen2015predicting">250</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S1.SS5"><span class="secnum">4.1.5</span>Edge Maps<a class="anchor" href="#Ch4.S1.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S1.SS5.p1" class="ltx_para">
+<p class="ltx_p">An edge map is a structural representation that highlights salient intensity or color discontinuities in an image, which often correspond to object boundaries and significant geometric transitions <cite class="cites">[<a class="cite" href="/read/references/#ref-251" data-k="canny1986">251</a>]</cite>.
+Given an image <math id="Ch4.S1.SS5.p1.m1" alttext="I:\Omega\rightarrow\mathbb{R}^{C}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>I</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">→</mo><msup><mi>ℝ</mi><mi>C</mi></msup></mrow></mrow><annotation encoding="application/x-tex">I:\Omega\rightarrow\mathbb{R}^{C}</annotation></semantics></math>, an edge map is typically constructed by measuring local image gradients, for example,</p>
+<table id="Ch4.E6" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E6.m1" alttext="E(u,v)=\|\nabla I(u,v)\|," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>E</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo stretchy="false">‖</mo><mrow><mrow><mo rspace="0.167em">∇</mo><mi>I</mi></mrow><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">‖</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">E(u,v)=\|\nabla I(u,v)\|,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.6)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch4.S1.SS5.p1.m2" alttext="\nabla I" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo rspace="0.167em">∇</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">\nabla I</annotation></semantics></math> denotes the spatial gradient operator.
+Classical edge detection methods rely on hand-crafted operators such as Sobel, Laplacian of Gaussian, and the Canny detector <cite class="cites">[<a class="cite" href="/read/references/#ref-251" data-k="canny1986">251</a>]</cite>, while modern learning-based approaches directly predict the edge probabilities using convolutional neural networks <cite class="cites">[<a class="cite" href="/read/references/#ref-252" data-k="xie2015hed">252</a>]</cite>.
+Edge maps may be binary, indicating the presence or absence of an edge, or real-valued, encoding edge strength, orientation, or confidence.
+The primary advantage of edge maps is their ability to significantly reduce visual complexity while preserving essential geometric structure.
+This abstraction makes them relatively robust to changes in illumination and appearance.
+Consequently, edge maps are widely used in image
+segmentation, contour detection, shape analysis, line drawing, and as intermediate cues for higher-level tasks such as object recognition and depth estimation <cite class="cites">[<a class="cite" href="/read/references/#ref-234" data-k="szeliski2022">234</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S1.SS6"><span class="secnum">4.1.6</span>Optical Flow Maps<a class="anchor" href="#Ch4.S1.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S1.SS6.p1" class="ltx_para">
+<p class="ltx_p">An optical flow map is a motion representation that encodes the apparent 2D displacement of pixels between consecutive frames in a video sequence <cite class="cites">[<a class="cite" href="/read/references/#ref-253" data-k="horn1981optical">253</a>]</cite>.
+Given two image frames <math id="Ch4.S1.SS6.p1.m1" alttext="I_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>I</mi><mi>t</mi></msub><annotation encoding="application/x-tex">I_{t}</annotation></semantics></math> and <math id="Ch4.S1.SS6.p1.m2" alttext="I_{t+1}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>I</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">I_{t+1}</annotation></semantics></math>, the optical flow is defined as a vector field</p>
+<table id="Ch4.E7" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E7.m1" alttext="\mathbf{F}(u,v)=(f_{x}(u,v),f_{y}(u,v))," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>𝐅</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>f</mi><mi>x</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><mo>,</mo><mrow><msub><mi>f</mi><mi>y</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf{F}(u,v)=(f_{x}(u,v),f_{y}(u,v)),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.7)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch4.S1.SS6.p1.m3" alttext="(f_{x},f_{y})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>f</mi><mi>x</mi></msub><mo>,</mo><msub><mi>f</mi><mi>y</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(f_{x},f_{y})</annotation></semantics></math> describes the horizontal and vertical displacement of pixel <math id="Ch4.S1.SS6.p1.m4" alttext="(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math> from time <math id="Ch4.S1.SS6.p1.m5" alttext="t" display="inline" data-pagefind-ignore="all"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> to <math id="Ch4.S1.SS6.p1.m6" alttext="t+1" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t+1</annotation></semantics></math>.
+Classical optical flow estimation relies on assumptions such as
+brightness constancy and spatial smoothness, leading to variational formulations <cite class="cites">[<a class="cite" href="/read/references/#ref-253" data-k="horn1981optical">253</a>, <a class="cite" href="/read/references/#ref-254" data-k="brox2004high">254</a>]</cite>. More recently, deep neural networks have been proposed to directly regress dense flow fields from image pairs or short video clips <cite class="cites">[<a class="cite" href="/read/references/#ref-128" data-k="dosovitskiy2015flownet">128</a>, <a class="cite" href="/read/references/#ref-255" data-k="teed2020raft">255</a>]</cite>.
+Regardless of the estimation method, the resulting optical flow map remains image-aligned, preserving spatial correspondence with the input frames.
+The main advantage of optical flow maps is their ability to capture rich dynamic information about scene motion, including object motion, camera motion, and motion parallax, while remaining computationally efficient.
+As a result, optical flow is a core representation in video analysis and
+robotic perception tasks such as motion segmentation, action
+recognition, video interpolation, and visual odometry.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S1.SS7"><span class="secnum">4.1.7</span>2D Keypoints<a class="anchor" href="#Ch4.S1.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S1.SS7.p1" class="ltx_para">
+<p class="ltx_p">A 2D keypoint set is a sparse image representation that encodes the image-plane locations of a finite set of semantically or geometrically meaningful points, such as corners, joints, or landmarks <cite class="cites">[<a class="cite" href="/read/references/#ref-234" data-k="szeliski2022">234</a>]</cite>.
+Unlike dense maps that assign a value to every pixel, keypoint representations summarize visual content with a small number of salient points, trading pixel-level coverage for compactness and geometric explicitness.
+Formally, given an image defined on a domain
+<math id="Ch4.S1.SS7.p1.m1" alttext="\Omega\subset\mathbb{R}^{2}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>⊂</mo><msup><mi>ℝ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\Omega\subset\mathbb{R}^{2}</annotation></semantics></math>, a keypoint representation is a set of <math id="Ch4.S1.SS7.p1.m2" alttext="K" display="inline" data-pagefind-ignore="all"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> points</p>
+<table id="Ch4.E8" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E8.m1" alttext="\mathcal{K}=\{(x_{k},y_{k})\}_{k=1}^{K},\quad(x_{k},y_{k})\in\Omega," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>𝒦</mi><mo>=</mo><msubsup><mrow><mo stretchy="false">{</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>k</mi></msub><mo>,</mo><msub><mi>y</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow><mo stretchy="false">}</mo></mrow><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup></mrow><mo rspace="1.167em">,</mo><mrow><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>k</mi></msub><mo>,</mo><msub><mi>y</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow><mo>∈</mo><mi mathvariant="normal">Ω</mi></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathcal{K}=\{(x_{k},y_{k})\}_{k=1}^{K},\quad(x_{k},y_{k})\in\Omega,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.8)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where each keypoint corresponds to a specific semantic or geometric entity.
+In learning-based formulations, keypoints are often represented implicitly as confidence or heat maps:</p>
+<table id="Ch4.E9" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E9.m1" alttext="H_{k}:\Omega\rightarrow[0,1]," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi>H</mi><mi>k</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">→</mo><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">H_{k}:\Omega\rightarrow[0,1],</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.9)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">with the keypoint location obtained by finding the maximum or expected value of <math id="Ch4.S1.SS7.p1.m3" alttext="H_{k}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>H</mi><mi>k</mi></msub><annotation encoding="application/x-tex">H_{k}</annotation></semantics></math> <cite class="cites">[<a class="cite" href="/read/references/#ref-256" data-k="newell2016stacked">256</a>]</cite>.
+2D keypoints can be obtained using classical feature detectors, such as Harris corners, SIFT, and SURF <cite class="cites">[<a class="cite" href="/read/references/#ref-257" data-k="harris1988combined">257</a>, <a class="cite" href="/read/references/#ref-111" data-k="lowe2004distinctive">111</a>]</cite>, or through modern deep neural networks that directly regress keypoint locations or predict dense heat maps <cite class="cites">[<a class="cite" href="/read/references/#ref-258" data-k="toshev2014deeppose">258</a>, <a class="cite" href="/read/references/#ref-256" data-k="newell2016stacked">256</a>]</cite>.
+Depending on the task, keypoints may represent generic interest points, object-specific landmarks, or articulated structures such as the human body joints.
+The detection <em class="ltx_font_italic">task</em> that produces such a set, including its extension to landmark detection and human pose estimation, is discussed in detail in Section <a href="/read/6.1/#Ch6.S1.SS3" class="xref" data-x="Ch6.S1.SS3"><span>6.1.3</span></a> of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>.
+A key advantage of 2D keypoint representations is their sparsity and compactness: they significantly reduce the dimensionality of visual data while preserving critical structural information.
+This makes keypoints computationally efficient, robust to background clutter, and well-suited for geometric reasoning and correspondence matching.
+Human pose estimation is a specialized and highly structured instance of 2D keypoint detection that focuses on localizing a predefined set of anatomical landmarks of the human body, such as joints and facial keypoints, in images or videos <cite class="cites">[<a class="cite" href="/read/references/#ref-259" data-k="zheng2022pose">259</a>]</cite>.
+In the 2D setting, the task aims to estimate the image coordinates of body joints, typically represented as a set of keypoints
+<math id="Ch4.S1.SS7.p1.m4" alttext="\mathcal{P}=\{(x_{j},y_{j})\}_{j=1}^{J}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒫</mi><mo>=</mo><msubsup><mrow><mo stretchy="false">{</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>j</mi></msub><mo>,</mo><msub><mi>y</mi><mi>j</mi></msub><mo stretchy="false">)</mo></mrow><mo stretchy="false">}</mo></mrow><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>J</mi></msubsup></mrow><annotation encoding="application/x-tex">\mathcal{P}=\{(x_{j},y_{j})\}_{j=1}^{J}</annotation></semantics></math>, where <math id="Ch4.S1.SS7.p1.m5" alttext="J" display="inline" data-pagefind-ignore="all"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math> denotes the number of joints in a human skeletal model.
+These keypoints are not independent: they are constrained by the underlying human body structure, which is often modeled using kinematic trees, graphical models, or learned
+structural priors.</p>
+</div>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/chapter-4/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">Chapter 4: Single-Modal Spatial Representation</span></a><a class="pager-next" href="/read/4.2/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">4.2 3D</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch4.S1.SS1" data-spy="Ch4.S1.SS1"><span class="n">4.1.1</span>Image and Video Representations</a></li><li><a href="#Ch4.S1.SS2" data-spy="Ch4.S1.SS2"><span class="n">4.1.2</span>Segmentation Maps</a></li><li><a href="#Ch4.S1.SS3" data-spy="Ch4.S1.SS3"><span class="n">4.1.3</span>Depth Maps</a></li><li><a href="#Ch4.S1.SS4" data-spy="Ch4.S1.SS4"><span class="n">4.1.4</span>Surface Normal Maps</a></li><li><a href="#Ch4.S1.SS5" data-spy="Ch4.S1.SS5"><span class="n">4.1.5</span>Edge Maps</a></li><li><a href="#Ch4.S1.SS6" data-spy="Ch4.S1.SS6"><span class="n">4.1.6</span>Optical Flow Maps</a></li><li><a href="#Ch4.S1.SS7" data-spy="Ch4.S1.SS7"><span class="n">4.1.7</span>2D Keypoints</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=4.1"><b>36</b> cited works</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="4.1 2D" data-url="/read/4.1/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%204.1%202D&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/4.1/%20%28PDF%20p.%2056%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

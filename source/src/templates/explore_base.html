@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% set section_nav = 'explore' %}
+{% block title %}{{ xp.title }} · Explore · Spatial Intelligence Handbook{% endblock %}
+{% block bodyclass %}is-explore{% endblock %}
+{% block main %}
+<div class="xp-head">
+  <div class="wrap">
+    <nav class="xp-tabs" aria-label="Explore sections">
+      <a href="/explore/" {% if xp.id == 'hub' %}aria-current="page"{% endif %}>Overview</a>
+      <a href="/explore/literature/" {% if xp.id == 'literature' %}aria-current="page"{% endif %}>Literature</a>
+      <a href="/explore/datasets/" {% if xp.id == 'datasets' %}aria-current="page"{% endif %}>Datasets &amp; benchmarks</a>
+      <a href="/explore/tools/" {% if xp.id == 'tools' %}aria-current="page"{% endif %}>Tools &amp; platforms</a>
+      <a href="/explore/timeline/" {% if xp.id == 'timeline' %}aria-current="page"{% endif %}>Milestones</a>
+      <a href="/explore/figures/" {% if xp.id == 'figures' %}aria-current="page"{% endif %}>Figures</a>
+      <a href="/explore/glossary/" {% if xp.id == 'glossary' %}aria-current="page"{% endif %}>Glossary &amp; notation</a>
+    </nav>
+    <h1>{{ xp.title }}</h1>
+    <p class="xp-lede">{{ xp.lede }}</p>
+  </div>
+</div>
+<div class="wrap xp-body" data-explore="{{ xp.id }}">
+{% block xpbody %}{% endblock %}
+</div>
+{% endblock %}
+{% block scripts %}<script type="module" src="/assets/js/explore.js"></script>{% endblock %}

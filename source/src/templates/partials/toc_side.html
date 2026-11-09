@@ -1,0 +1,26 @@
+<nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front {% if current == 'preface' %}is-current{% endif %}" href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front {% if current == 'notation' %}is-current{% endif %}" href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front {% if current == 'glossary' %}is-current{% endif %}" href="/read/glossary/">Glossary</a>
+  </div>
+  {% for p in site.parts %}
+  <div class="toc-part" style="--pc: {{ p.color }}">
+    <a class="toc-partlink {% if current == p.slug %}is-current{% endif %}" href="/read/{{ p.slug }}/"><span class="roman">{{ p.roman }}</span><span>{{ p.title }}</span></a>
+    {% for c in p.chapters %}
+    {% set open = (page.chapter == c.num) %}
+    <details class="toc-ch" {% if open %}open{% endif %}>
+      <summary><a class="toc-chlink {% if current == c.slug %}is-current{% endif %}" href="/read/{{ c.slug }}/"><span class="n">{{ c.num }}</span><span>{{ c.title }}</span></a></summary>
+      <ul>
+        {% for s in c.sections %}<li><a class="toc-link {% if current == s.slug %}is-current{% endif %}" href="/read/{{ s.slug }}/"><span class="n">{{ s.num }}</span><span>{{ s.title }}</span></a></li>{% endfor %}
+      </ul>
+    </details>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <div class="toc-group">
+    <a class="toc-link toc-front {% if current == 'acknowledgements' %}is-current{% endif %}" href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front {% if current == 'references' %}is-current{% endif %}" href="/read/references/">References</a>
+    <a class="toc-link toc-front {% if current == 'contributions' %}is-current{% endif %}" href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav>

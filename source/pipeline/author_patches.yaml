@@ -1,0 +1,14 @@
+# Manual corrections and additions for the Authors page. Entries here override the researched data in
+# data/author_profiles.json, field by field. Leave a field out to keep the researched value; set it to null to hide it.
+# Fields: homepage, scholar, openreview, expertise (list of keywords), email (only with the person's consent), photo
+#
+# Example:
+# "Shengqiong Wu":
+#   expertise: [multimodal learning, spatial intelligence, vision-language models]
+#   homepage: https://example.org
+"Hao Fei":
+  email: haofei7419@gmail.com   # confirmed by Hao (2026-11-08)
+"Yuchen Zhou":
+  email: ewanzhou@tencent.com   # two lookups differed (also lists zhouyuchen99@163.com); current work address chosen
+"Jiafei Duan":
+  email: duanjf@comp.nus.edu.sg   # NUS staff page (his CV gives duanj1@nus.edu.sg)

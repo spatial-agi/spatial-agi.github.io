@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% set section_nav = 'read' %}
+{% block title %}Contents · Spatial Intelligence Handbook{% endblock %}
+{% block main %}
+<div class="xp-head"><div class="wrap">
+  <h1>Contents</h1>
+  <p class="xp-lede">Five parts, {{ site.n_chapters }} chapters and {{ n_sections }} sections, numbered as in the PDF. The bar below is the book at scale: each block is a chapter, sized by its pages.</p>
+</div></div>
+<div class="wrap xp-body">
+  <div class="bookmap" aria-label="The handbook at scale">
+    {% for p in site.parts %}{% for c in p.chapters %}<a href="/read/{{ c.slug }}/" style="--pc: {{ p.color }}; flex: {{ c.pages or 1 }}" title="Chapter {{ c.num }}: {{ c.title }} ({{ c.pages }} pages)"><span>{{ c.num }}</span></a>{% endfor %}{% endfor %}
+  </div>
+  <div class="bookmap-legend">{% for p in site.parts %}<span style="--pc: {{ p.color }}"><i></i>Part {{ p.roman }} · {{ p.pages }} pages</span>{% endfor %}</div>
+  <div class="front-links"><a href="/read/preface/">Preface</a><a href="/read/notation/">Notation</a><a href="/read/glossary/">Glossary</a><a href="/read/3.3/">How to read this handbook (Section 3.3)</a></div>
+  {% for p in site.parts %}
+  <section class="toc-partblock" style="--pc: {{ p.color }}">
+    <a class="tpb-head" href="/read/{{ p.slug }}/"><span class="roman">{{ p.roman }}</span><span><span class="tpb-k">Part {{ p.roman }}</span><span class="tpb-t">{{ p.title }}</span></span>{% if p.page %}<span class="tpb-p">p. {{ p.page }}</span>{% endif %}</a>
+    {% for c in p.chapters %}
+    <details class="tpb-ch" open>
+      <summary><a href="/read/{{ c.slug }}/"><span class="n">{{ c.num }}</span>{{ c.title }}</a><span class="tpb-p">{{ c.pages }} pp. · p. {{ c.page }}</span></summary>
+      <ol>
+        {% for s in c.sections %}
+        <li><a class="tpb-sec" href="/read/{{ s.slug }}/"><span class="n">{{ s.num }}</span>{{ s.title }}</a><span class="tpb-p">p. {{ s.page }}</span>
+          {% if s.subs %}<div class="tpb-subs">{% for ss in s.subs %}<a href="/read/{{ s.slug }}/#{{ ss.id }}">{{ ss.num }} {{ ss.title }}</a>{% endfor %}</div>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </details>
+    {% endfor %}
+  </section>
+  {% endfor %}
+  <div class="front-links"><a href="/read/acknowledgements/">Acknowledgements</a><a href="/read/references/">References ({{ "{:,}".format(site.n_refs) }})</a><a href="/read/contributions/">Author contributions</a></div>
+</div>
+{% endblock %}

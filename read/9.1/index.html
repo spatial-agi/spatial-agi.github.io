@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.1 Robotic Manipulation · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="9.1 Robotic Manipulation · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="9.1">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link is-current" href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-9/">Chapter 9</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-9/">Chapter 9 · Spatial Intelligence for Embodied Systems</a></div>
+        <h1><span class="secnum">9.1</span>Robotic Manipulation</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=329" title="Open this page in the PDF">PDF p. 329</a><span class="dot">·</span>        <span>14 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:9.1 Robotic Manipulation">
+<section>
+<h2 class="h-subsection" id="Ch9.S1.SS1"><span class="secnum">9.1.1</span>Introduction<a class="anchor" href="#Ch9.S1.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">Robotic manipulation has advanced rapidly, driven by strides in perception, learning, and control.
+Yet a significant gap remains between competent laboratory systems and robust, general-purpose robots capable of operating in unstructured settings.
+A central bottleneck is that manipulation is fundamentally spatial: every decision (where to reach, how to establish contact, how to route a trajectory through clutter, or how to use a tool) hinges on perceiving, representing, and reasoning about three-dimensional structure under uncertainty.
+Manipulation is thus a direct test of the <em class="ltx_font_italic">spatial intelligence</em> developed throughout Parts I–III: it demands that systems go beyond semantic recognition to build actionable 3D world models, ground tasks in geometric constraints, predict contact outcomes, and plan behaviors that respect the physical laws of the environment.
+The perception, reasoning, and generation capabilities that such systems presuppose are surveyed in Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>, Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>, and Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a>; this section focuses not on re-deriving those capabilities but on how they are composed, grounded, and constrained for physical manipulation.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S1.SS2"><span class="secnum">9.1.2</span>System Overview<a class="anchor" href="#Ch9.S1.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S1.SS2.p1" class="ltx_para">
+<p class="ltx_p">A manipulation system maps raw multimodal observations and a task instruction into executable, constraint-satisfying actions, and this section organizes that mapping into four strategic <span class="ltx_font_bold">pivots</span>, each a fundamental shift in how systems bridge perception and physical action.
+<span class="ltx_font_bold">(i) Grounding Action in Spatial Anchors</span> moves beyond raw pixels to vision priors and sparse spatial tokens (keypoints, dense correspondences) that stay consistent across viewpoints and instances;
+<span class="ltx_font_bold">(ii) Inferring Functional Action Possibilities</span> shifts from object classification to extracting affordances and tool-use capabilities, bridging perception with contact-rich execution;
+<span class="ltx_font_bold">(iii) Encoding Spatial Reasoning in Generalist Models</span> transitions from single-task policies to foundation models (VLMs/VLAs) that integrate explicit 3D representations and reasoning traces for cross-embodiment generalization; and
+<span class="ltx_font_bold">(iv) Satisfying Geometric and Logical Constraints</span> advances from simple trajectory generation to constrained optimization and neuro-symbolic planning (TAMP), ensuring actions respect strict safety limits and long-horizon logical structure.
+The four pivots are complementary and mutually reinforcing rather than strictly sequential: anchors and affordances structure the perceptual input, generalist models supply broad priors, and constraint-based planners check feasibility under the modeled geometric, physical, and logical assumptions. Figure <a href="/read/9.1/#Ch9.F1" class="xref" data-x="Ch9.F1"><span>9.1</span></a> situates them as complementary capabilities within a closed-loop perception-to-action system, and the remainder of this section treats them in this order.</p>
+</div>
+<figure id="Ch9.F1" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/manipulation_overview.webp" id="Ch9.F1.g1" class="fig-img" alt="" width="2000" height="1816" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.1</span><span>Spatial intelligence for robotic manipulation, illustrated by placing a mug in an open drawer: four complementary spatial capabilities link multimodal inputs to 6-DoF actions, and execution returns new observations for replanning. Evaluation bars and depth/point-cloud graphics are schematic, not measured results.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S1.SS3"><span class="secnum">9.1.3</span>Pivotal Task-1: Grounding Action in Spatial Anchors<a class="anchor" href="#Ch9.S1.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S1.SS3.p1" class="ltx_para">
+<p class="ltx_p">This pivot reframes visuomotor learning from operating over raw pixels to reasoning through explicit <span class="ltx_font_bold">spatial anchors</span> (sparse semantic keypoints, dense correspondences, point tracks, or affordance-based contact points) that compress high-dimensional observations into spatial tokens tied to object- or task-centric reference frames and designed to remain comparatively stable across viewpoint, instance, and clutter. As Figure <a href="/read/9.1/#Ch9.F2" class="xref" data-x="Ch9.F2"><span>9.2</span></a> indicates, the approach follows a three-step logic: large-scale vision priors first <em class="ltx_font_italic">produce</em> the anchors, policies are then <em class="ltx_font_italic">conditioned</em> on them, and the payoff is read off as a <em class="ltx_font_italic">generalization gap</em> between seen and unseen instances.</p>
+</div>
+<figure id="Ch9.F2" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/robotic_anchors.webp" id="Ch9.F2.g1" class="fig-img" alt="" width="2000" height="1303" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.2</span><span>Grounding action in spatial anchors: (1) anchors <math id="Ch9.F2.m3" alttext="P_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>P</mi><mi>t</mi></msub><annotation encoding="application/x-tex">P_{t}</annotation></semantics></math> produced or transferred from vision priors across views, (2) an anchor-conditioned policy, and (3) generalization measured as the seen–unseen success gap <math id="Ch9.F2.m4" alttext="\Delta_{\mathrm{gen}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi mathvariant="normal">Δ</mi><mi>gen</mi></msub><annotation encoding="application/x-tex">\Delta_{\mathrm{gen}}</annotation></semantics></math>. Scenes, correspondences, and score bars are schematic, not measured results.</span></figcaption>
+</figure>
+<div id="Ch9.S1.SS3.p2" class="ltx_para">
+<p class="ltx_p">The dominant methodology leverages large-scale vision priors to generate, propagate, or retrieve these anchors, then trains standard visuomotor learners on the resulting structured inputs. A common strategy prescribes anchor points in a few reference frames and propagates them across large datasets via off-the-shelf correspondence models: P3-PO <cite class="cites">[<a class="cite" href="/read/references/#ref-2369" data-k="levy2024p3poprescriptivepointpriors">2369</a>]</cite> propagates manually specified keypoints using dense features from DINO <cite class="cites">[<a class="cite" href="/read/references/#ref-2370" data-k="dino">2370</a>]</cite>, DINOv2 <cite class="cites">[<a class="cite" href="/read/references/#ref-958" data-k="dinov2">958</a>]</cite>, or diffusion-based representations <cite class="cites">[<a class="cite" href="/read/references/#ref-2371" data-k="tang2023emergentcorrespondenceimagediffusion">2371</a>, <a class="cite" href="/read/references/#ref-2372" data-k="zhao2025high">2372</a>, <a class="cite" href="/read/references/#ref-2373" data-k="zhang2023talefeaturesstablediffusion">2373</a>]</cite> (these visual representations are surveyed in Chapter <a href="/read/chapter-4/" class="xref" data-x="Ch4"><span>4</span></a>). Relatedly, Robo-ABC <cite class="cites">[<a class="cite" href="/read/references/#ref-2374" data-k="ju2024roboabcaffordancegeneralizationcategories">2374</a>]</cite> retrieves affordance contact points from an external memory and transfers them to novel scenes via dense semantic correspondence, while Track2Act <cite class="cites">[<a class="cite" href="/read/references/#ref-2375" data-k="bharadhwaj2024track2act">2375</a>]</cite> learns long-term point tracks from Internet-scale video and uses them to infer object-centric transformations that serve as open-loop manipulation plans. Once anchors are obtained, policy learning conditions action prediction directly on them, through keypoint-conditioned behavior cloning (KALM <cite class="cites">[<a class="cite" href="/read/references/#ref-2376" data-k="fang2024keypointabstractionusinglarge">2376</a>]</cite>), diffusion policies in object-relative frames (AffordDP <cite class="cites">[<a class="cite" href="/read/references/#ref-2377" data-k="wu2025afforddpgeneralizablediffusionpolicy">2377</a>]</cite>), and shared human–robot 3D keypoint spaces (Point Policy <cite class="cites">[<a class="cite" href="/read/references/#ref-2378" data-k="haldar2025pointpolicyunifyingobservations">2378</a>]</cite>). Across these variants, anchoring actions to spatial structure reduces perceptual ambiguity and improves robustness under distribution shift.</p>
+</div>
+<div id="Ch9.S1.SS3.p3" class="ltx_para">
+<p class="ltx_p">Because the central claim is out-of-distribution generalization, evaluation pairs high-fidelity simulation with real-robot deployment rather than relying on either alone. In simulation, affordance-centric methods such as AffordDP <cite class="cites">[<a class="cite" href="/read/references/#ref-2377" data-k="wu2025afforddpgeneralizablediffusionpolicy">2377</a>]</cite> run on IsaacGym <cite class="cites">[<a class="cite" href="/read/references/#ref-2379" data-k="makoviychuk2021isaac">2379</a>]</cite> over articulated objects from GAPartnet <cite class="cites">[<a class="cite" href="/read/references/#ref-2380" data-k="geng2023gapartnet">2380</a>]</cite> whose functional parts (handles, knobs, levers) vary widely in geometry, while imitation suites such as Robomimic <cite class="cites">[<a class="cite" href="/read/references/#ref-2381" data-k="robomimic2021">2381</a>]</cite> and RoboTwin <cite class="cites">[<a class="cite" href="/read/references/#ref-224" data-k="mu2024robotwin">224</a>]</cite> isolate trajectory tracking and dual-arm coordination, with P3-PO <cite class="cites">[<a class="cite" href="/read/references/#ref-2369" data-k="levy2024p3poprescriptivepointpriors">2369</a>]</cite> using them for controlled spatial-anchoring ablations. Real-world suites then stress in-the-wild generalization on articulated (drawers, microwaves), deformable (towel folding), and tool-use (sweeping) tasks, as in Point Policy <cite class="cites">[<a class="cite" href="/read/references/#ref-2378" data-k="haldar2025pointpolicyunifyingobservations">2378</a>]</cite> and Track2Act <cite class="cites">[<a class="cite" href="/read/references/#ref-2375" data-k="bharadhwaj2024track2act">2375</a>]</cite>, and a zero-shot cross-category protocol (train on one knife, test on spatulas or novel knives) is formalized by Robo-ABC <cite class="cites">[<a class="cite" href="/read/references/#ref-2374" data-k="ju2024roboabcaffordancegeneralizationcategories">2374</a>]</cite> to measure how well retrieved anchors transfer without extra supervision. Performance is reported as Task Success Rate and, to isolate the contribution of anchoring, a Generalization Gap between seen and unseen instances. Spatially grounded policies outperform pixel baselines under shift in these studies: P3-PO reports large gains on cluttered, novel-object scenes <cite class="cites">[<a class="cite" href="/read/references/#ref-2369" data-k="levy2024p3poprescriptivepointpriors">2369</a>]</cite>, and Robo-ABC improves both affordance-retrieval accuracy and real-robot success without heavy robot-data collection, binding demonstrations to reusable spatial structure more effectively than classic one-shot imitation <cite class="cites">[<a class="cite" href="/read/references/#ref-2382" data-k="duan2017oneshotimitationlearning">2382</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S1.SS4"><span class="secnum">9.1.4</span>Pivotal Task-2: Inferring Functional Action Possibilities<a class="anchor" href="#Ch9.S1.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S1.SS4.p1" class="ltx_para">
+<p class="ltx_p">This pivot shifts from general object recognition to extracting <span class="ltx_font_bold">object affordances</span>, <span class="ltx_font_italic">i.e.,</span> , the specific action possibilities implied by an object’s functional properties, and uses them as the intermediate representation that bridges raw perception and contact-rich execution. Whereas Pivotal Task-1 treats contact points as viewpoint-stable <em class="ltx_font_italic">anchors</em> for conditioning a policy, affordances here are studied as <em class="ltx_font_italic">functional possibilities</em> that specify what action an object supports. As Figure <a href="/read/9.1/#Ch9.F3" class="xref" data-x="Ch9.F3"><span>9.3</span></a> shows, the thread runs from how affordances are <em class="ltx_font_italic">represented</em>, through the <em class="ltx_font_italic">actions</em> they drive (grasping, placement, tool use), to <em class="ltx_font_italic">outcome-oriented</em> benchmarks that score achieved function rather than imitated trajectory.</p>
+</div>
+<figure id="Ch9.F3" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/robotic_affordances.webp" id="Ch9.F3.g1" class="fig-img" alt="" width="2000" height="1492" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.3</span><span>Affordances as functional action possibilities: a task- and context-conditioned affordance representation (left) supports three parallel task examples (6-DoF grasp, stable placement, hook-and-pull tool use), each judged by its functional outcome. Green checks mark intended outcomes in these illustrations, not measured results.</span></figcaption>
+</figure>
+<div id="Ch9.S1.SS4.p2" class="ltx_para">
+<p class="ltx_p">To capture functional properties beyond whole-object categorization, prior work builds object-centric representations (part-level segmentation <cite class="cites">[<a class="cite" href="/read/references/#ref-2383" data-k="do2018affordancenet">2383</a>]</cite>, dense visual descriptors <cite class="cites">[<a class="cite" href="/read/references/#ref-335" data-k="florencemanuelli2018dense">335</a>]</cite>, and keypoint-based encodings <cite class="cites">[<a class="cite" href="/read/references/#ref-547" data-k="manuelli2019kpam">547</a>, <a class="cite" href="/read/references/#ref-2384" data-k="qin2020keto">2384</a>, <a class="cite" href="/read/references/#ref-337" data-k="mo2021where2act">337</a>]</cite>) that directly support action synthesis, and more recent vision–language models predict spatial affordance points directly from open-vocabulary prompts (RoboPoint <cite class="cites">[<a class="cite" href="/read/references/#ref-1494" data-k="yuan2024robopoint">1494</a>]</cite>, MOKA <cite class="cites">[<a class="cite" href="/read/references/#ref-2385" data-k="liu2024moka">2385</a>]</cite>). These representations drive learning-based 6-DoF grasping <cite class="cites">[<a class="cite" href="/read/references/#ref-2386" data-k="sundermeyer2021contact">2386</a>, <a class="cite" href="/read/references/#ref-2372" data-k="zhao2025high">2372</a>, <a class="cite" href="/read/references/#ref-2387" data-k="jiang2021synergies">2387</a>, <a class="cite" href="/read/references/#ref-2275" data-k="zhao2024efficient">2275</a>, <a class="cite" href="/read/references/#ref-2388" data-k="yuan2023m2t2">2388</a>, <a class="cite" href="/read/references/#ref-2389" data-k="deshpande2025graspmolmo">2389</a>]</cite> and stable object placement <cite class="cites">[<a class="cite" href="/read/references/#ref-2390" data-k="zeng2020transporter">2390</a>, <a class="cite" href="/read/references/#ref-2391" data-k="liu2022structformer">2391</a>, <a class="cite" href="/read/references/#ref-267" data-k="zhao2025towards">267</a>, <a class="cite" href="/read/references/#ref-2388" data-k="yuan2023m2t2">2388</a>, <a class="cite" href="/read/references/#ref-2392" data-k="zhao2025anyplace">2392</a>]</cite> by grounding generation in functional structure rather than raw geometry, and a specialized strand further models tool–behavior relationships, either learning tool–action–effect pairs <cite class="cites">[<a class="cite" href="/read/references/#ref-2393" data-k="stoytchev2008learning">2393</a>]</cite> or predicting specific affordances such as pulling <cite class="cites">[<a class="cite" href="/read/references/#ref-2394" data-k="tikhanoff2013exploring">2394</a>]</cite>, so as to infer end-effector poses that achieve the intended functional outcome.</p>
+</div>
+<div id="Ch9.S1.SS4.p3" class="ltx_para">
+<p class="ltx_p">Benchmarks for affordance methods emphasize understanding object functionality over geometric matching: the property under test is <em class="ltx_font_italic">functional</em> generalization, not trajectory imitation. For grasping, YCB-based real-world evaluations <cite class="cites">[<a class="cite" href="/read/references/#ref-1184" data-k="Calli2015YCB">1184</a>]</cite>, GraspNet-1Billion <cite class="cites">[<a class="cite" href="/read/references/#ref-1183" data-k="Fang2020GraspNet">1183</a>]</cite>, and simulation suites such as Dex-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-336" data-k="Mahler2017DexNet">336</a>]</cite> score 6-DoF stability and contact validity across novel instances and viewpoints; placement benchmarks such as RLBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1346" data-k="james2020rlbench">1346</a>]</cite> and ManiSkill <cite class="cites">[<a class="cite" href="/read/references/#ref-2395" data-k="mu2021maniskill">2395</a>]</cite> test stable stacking and insertion in cluttered, articulated scenes, and M2T2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2388" data-k="yuan2023m2t2">2388</a>]</cite> explicitly evaluates valid placement poses conditioned on object geometry and scene context. For articulated objects and tools, Where2Act <cite class="cites">[<a class="cite" href="/read/references/#ref-337" data-k="mo2021where2act">337</a>]</cite> and PartNet-Mobility <cite class="cites">[<a class="cite" href="/read/references/#ref-2396" data-k="xiang2020sapien">2396</a>]</cite> score the prediction of actionable parts and interaction parameters for pulling, pushing, and rotating, while tool-use tasks judge whether the inferred end-effector pose produces the intended causal effect (drawing, hooking, pulling) rather than reproducing a specific trajectory. Evaluation therefore centers on outcome-oriented success: stable grasps that lift and hold unseen objects under pose, scale, and appearance variation; placement success, pose accuracy, and post-release stability under clutter and occlusion; and, for articulated and tool interactions, whether the predicted parameters yield the desired functional result.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S1.SS5"><span class="secnum">9.1.5</span>Pivotal Task-3: Encoding Spatial Reasoning in Generalist Models<a class="anchor" href="#Ch9.S1.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S1.SS5.p1" class="ltx_para">
+<p class="ltx_p">This pivot moves from specialized, single-task policies toward <span class="ltx_font_bold">generalist robotic foundation models</span>. Existing Vision–Language–Action (VLA) models such as RT-2 <cite class="cites">[<a class="cite" href="/read/references/#ref-97" data-k="zitkovich2023rt2">97</a>]</cite> and OpenVLA <cite class="cites">[<a class="cite" href="/read/references/#ref-99" data-k="kim2024openvla">99</a>]</cite> show strong semantic understanding but often lack the spatial common sense needed for precise manipulation or robust generalization to novel viewpoints, so the central challenge is to strengthen spatial grounding during pre-training, enabling explicit reasoning about 3D geometry and generalization across environments and embodiments <cite class="cites">[<a class="cite" href="/read/references/#ref-229" data-k="chen2024spatialvlm">229</a>]</cite>. The general foundation-model and spatial-reasoning machinery these policies inherit is treated in Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>; here we examine only its manipulation-specific adaptation, which Figure <a href="/read/9.1/#Ch9.F4" class="xref" data-x="Ch9.F4"><span>9.4</span></a> groups into three families: explicit 3D representations, view-invariant representations, and grounded reasoning traces.</p>
+</div>
+<figure id="Ch9.F4" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/robotic_vla.webp" id="Ch9.F4.g1" class="fig-img" alt="" width="2000" height="1727" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.4</span><span>Spatial grounding mechanisms for generalist robot policies: (1) explicit 3D features fused with task tokens (3D-LLM, 3D-VLA), (2) view canonicalization (OG-VLA) and spatial action discretization (SpatialVLA), two separate methods rather than stages of one, and (3) grounded reasoning traces that condition action prediction. The bottom row shows evaluation of viewpoint robustness and cross-robot transfer; all maps and overlays are schematic.</span></figcaption>
+</figure>
+<div id="Ch9.S1.SS5.p2" class="ltx_para">
+<p class="ltx_p">The first family builds explicit 3D representations: models such as 3D-LLM <cite class="cites">[<a class="cite" href="/read/references/#ref-1141" data-k="hong20233d">1141</a>]</cite> and 3D-VLA <cite class="cites">[<a class="cite" href="/read/references/#ref-201" data-k="zhen20243d">201</a>]</cite> bridge point clouds and large language models, with 3D-VLA adding a 3D generative pre-training objective that lets the model reason about action outcomes in a consistent geometric space, effectively “imagining” future states. The second groups view canonicalization and spatial action encoding as distinct mechanisms: OG-VLA <cite class="cites">[<a class="cite" href="/read/references/#ref-2397" data-k="singh2025og">2397</a>]</cite> projects multi-view observations into a point cloud and re-renders canonical orthographic views to reduce sensitivity to camera placement, while SpatialVLA <cite class="cites">[<a class="cite" href="/read/references/#ref-2398" data-k="qu2025spatialvla">2398</a>]</cite> uses Ego3D position encoding for observations and <span class="ltx_font_bold">Adaptive Action Grids</span> to discretize spatial movement actions; adapting to new setups can involve re-discretizing the grids. The third injects spatial reasoning through grounded reasoning traces: “thinking” models such as Emma-X <cite class="cites">[<a class="cite" href="/read/references/#ref-2399" data-k="sun2024emma">2399</a>]</cite>, MolmoAct series <cite class="cites">[<a class="cite" href="/read/references/#ref-2400" data-k="lee2025molmoact">2400</a>, <a class="cite" href="/read/references/#ref-2401" data-k="fang2026molmoact2">2401</a>]</cite>, closely related to TraceVLA <cite class="cites">[<a class="cite" href="/read/references/#ref-1485" data-k="zheng2024tracevla">1485</a>]</cite>, replace direct pixel-to-action regression with intermediate, grounded outputs (2D motion trajectories or relative depth maps) that explicitly condition the final action prediction.</p>
+</div>
+<div id="Ch9.S1.SS5.p3" class="ltx_para">
+<p class="ltx_p">These approaches are evaluated under method-specific zero-shot and adaptation protocols across embodiments, viewpoints, and environments, with key metrics including multimodal goal-generation quality, robustness to extrinsic camera perturbations, and skill transfer across robot morphologies such as from a fixed-base Franka arm to a mobile manipulator <cite class="cites">[<a class="cite" href="/read/references/#ref-1577" data-k="team2024octo">1577</a>, <a class="cite" href="/read/references/#ref-2402" data-k="shao2024robo">2402</a>]</cite>. The reported gains point the same way: canonical orthographic views keep grounding consistent under viewpoint change (OG-VLA), spatially aligned action grids share 3D structure across setups through discretized movement (SpatialVLA), and intermediate visual or depth-aware reasoning traces act as a regularizer on action prediction (Emma-X, MolmoAct).</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S1.SS6"><span class="secnum">9.1.6</span>Pivotal Task-4: Satisfying Geometric and Logical Constraints<a class="anchor" href="#Ch9.S1.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S1.SS6.p1" class="ltx_para">
+<p class="ltx_p">This pivot moves planning from heuristic trajectory generation toward formal <span class="ltx_font_bold">constrained optimization</span> that enforces geometric feasibility, fundamental physical laws (non-penetration, friction cones, force limits), and high-level logical task structure. By casting manipulation as multi-objective optimization, these methods seek to satisfy modeled hard constraints while optimizing soft task objectives, spanning both high-frequency control and long-horizon decision-making. Figure <a href="/read/9.1/#Ch9.F5" class="xref" data-x="Ch9.F5"><span>9.5</span></a> organizes the thread along three fronts (symbolic–geometric planning, contact and trajectory optimization, and constraint-aware generative planning) before synthesizing the roles constraints play in learning-based systems.</p>
+</div>
+<figure id="Ch9.F5" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/robotic_constraints.webp" id="Ch9.F5.g1" class="fig-img" alt="" width="2000" height="1539" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.5</span><span>Geometric and logical constraints in manipulation: (1) symbolic–geometric planning with revision after infeasibility, (2) contact and trajectory optimization (inset: normal force <math id="Ch9.F5.m3" alttext="f_{n}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>f</mi><mi>n</mi></msub><annotation encoding="application/x-tex">f_{n}</annotation></semantics></math> into the object, tangential force <math id="Ch9.F5.m4" alttext="f_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>f</mi><mi>t</mi></msub><annotation encoding="application/x-tex">f_{t}</annotation></semantics></math> along its surface), and (3) constraint-aware generative planning. The bottom row shows three roles constraints play for learned policies.</span></figcaption>
+</figure>
+<div id="Ch9.S1.SS6.p2" class="ltx_para">
+<p class="ltx_p">Methodological progress has moved from purely symbolic planners toward neuro-symbolic, learning-augmented optimization frameworks that unify discrete logic with continuous physics. Classical Task and Motion Planning (TAMP) and Logic-Geometric Programming (LGP) <cite class="cites">[<a class="cite" href="/read/references/#ref-1267" data-k="toussaint2015lgp">1267</a>]</cite> provide the foundation by jointly reasoning over symbolic task structure and geometric feasibility, and recent systems augment them with Large Language Models and Vision-Language Models for scalability in open-ended domains; for example, VIZ-COAST <cite class="cites">[<a class="cite" href="/read/references/#ref-2403" data-k="yan2025vizcoast">2403</a>]</cite> uses the spatial reasoning of VLMs to predict refinement failures <em class="ltx_font_italic">before</em> expensive geometric optimization, substantially reducing search complexity on long-horizon problems. At the level of physical interaction, contact-implicit optimization discovers contact schedules without explicit mode enumeration but is traditionally too slow for real-time control; GPU-parallelized systems such as SPaSM <cite class="cites">[<a class="cite" href="/read/references/#ref-2404" data-k="chen2025spasm">2404</a>]</cite> compile constraint evaluation and gradient computation into CUDA kernels, accelerating joint optimization of object placements and robot trajectories. Beyond deterministic constraints, learning-based and generative models capture uncertainty and complex structure: differentiable physics engines <cite class="cites">[<a class="cite" href="/read/references/#ref-2405" data-k="freeman2021brax">2405</a>]</cite> let gradients flow through physical interactions, stochastic implicit neural signed distance functions <cite class="cites">[<a class="cite" href="/read/references/#ref-2406" data-k="quintero2024stochastic">2406</a>]</cite> model geometric uncertainty directly within the planning manifold, and diffusion-based planners such as JM2D <cite class="cites">[<a class="cite" href="/read/references/#ref-2407" data-k="jung2025joint">2407</a>]</cite> couple model-free diffusion with model-based constraint optimization during sampling, rather than relying only on a sequential plan-then-filter interface.</p>
+</div>
+<div id="Ch9.S1.SS6.p3" class="ltx_para">
+<p class="ltx_p">Such systems are benchmarked on multi-stage re-grasping under uncertainty, forceful tool use, and tight-tolerance sequential interaction, since what they promise is reliability over long, contact-rich horizons; suites such as the Functional Manipulation Benchmark (FMB) <cite class="cites">[<a class="cite" href="/read/references/#ref-2408" data-k="fmb2023">2408</a>]</cite> scoring not only task completion but constraint satisfaction under partial observability, external disturbance, and compounding execution error. In these systems constrained optimization plays three roles: it acts as a <span class="ltx_font_italic">teacher</span>, generating physically valid trajectories that supervise imitation and offline reinforcement learning; as a <span class="ltx_font_italic">safety shield</span>, where model-based projections map unconstrained neural or diffusion policy outputs onto constraint-satisfying sets at execution time <cite class="cites">[<a class="cite" href="/read/references/#ref-2409" data-k="römer2025diffusionpredictivecontrolconstraints">2409</a>]</cite>; and as a <span class="ltx_font_italic">structural prior</span> that prunes physically infeasible regions of the action space and curbs compounding error in long-horizon tasks. Together these roles keep learned and generative planners grounded in geometric and physical reality, reducing physically implausible outputs and supporting interpretable, feasible plans under the modeled assumptions; real-world execution still depends on state estimation, model accuracy, solver convergence, and disturbance handling.</p>
+</div>
+<div id="Ch9.S1.SS6.p4" class="ltx_para">
+<p class="ltx_p">Table <a href="/read/9.1/#Ch9.T1" class="xref" data-x="Ch9.T1"><span>9.1</span></a> consolidates the principal benchmarks, representative methods, and headline evaluation focus across the four pivots, situating the spatially grounded methods surveyed above within a common evaluation landscape.</p>
+</div>
+<figure id="Ch9.T1" class="ltx_table">
+<figcaption><span class="cap-tag">Table 9.1</span><span>Representative benchmarks, methods, and headline metrics for the four manipulation pivots, drawn from simulation and real-robot settings; metrics are reported on out-of-distribution object instances and configurations where the underlying work permits.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Pivot</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:138.8pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative Benchmark(s)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative Method(s)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline Metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">P1: Spatial anchors</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:138.8pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">IsaacGym <cite class="cites">[<a class="cite" href="/read/references/#ref-2379" data-k="makoviychuk2021isaac">2379</a>]</cite> with GAPartNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2380" data-k="geng2023gapartnet">2380</a>]</cite>, Robomimic <cite class="cites">[<a class="cite" href="/read/references/#ref-2381" data-k="robomimic2021">2381</a>]</cite>, RoboTwin <cite class="cites">[<a class="cite" href="/read/references/#ref-224" data-k="mu2024robotwin">224</a>]</cite> + real-world</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">P3-PO <cite class="cites">[<a class="cite" href="/read/references/#ref-2369" data-k="levy2024p3poprescriptivepointpriors">2369</a>]</cite>, Point Policy <cite class="cites">[<a class="cite" href="/read/references/#ref-2378" data-k="haldar2025pointpolicyunifyingobservations">2378</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Task SR / Generalization Gap</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">P2: Affordances</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GraspNet-1B <cite class="cites">[<a class="cite" href="/read/references/#ref-1183" data-k="Fang2020GraspNet">1183</a>]</cite>, Dex-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-336" data-k="Mahler2017DexNet">336</a>]</cite>, Where2Act <cite class="cites">[<a class="cite" href="/read/references/#ref-337" data-k="mo2021where2act">337</a>]</cite>, PartNet-Mobility <cite class="cites">[<a class="cite" href="/read/references/#ref-2396" data-k="xiang2020sapien">2396</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">M2T2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2388" data-k="yuan2023m2t2">2388</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Grasp / Placement SR</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">P3: Generalist VLA</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ManiSkill <cite class="cites">[<a class="cite" href="/read/references/#ref-2395" data-k="mu2021maniskill">2395</a>]</cite>, Octo eval <cite class="cites">[<a class="cite" href="/read/references/#ref-1577" data-k="team2024octo">1577</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SpatialVLA <cite class="cites">[<a class="cite" href="/read/references/#ref-2398" data-k="qu2025spatialvla">2398</a>]</cite>, 3D-VLA <cite class="cites">[<a class="cite" href="/read/references/#ref-201" data-k="zhen20243d">201</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Zero-shot cross-embodiment SR</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">P4: Constraints</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:138.8pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">FMB <cite class="cites">[<a class="cite" href="/read/references/#ref-2408" data-k="fmb2023">2408</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SPaSM <cite class="cites">[<a class="cite" href="/read/references/#ref-2404" data-k="chen2025spasm">2404</a>]</cite>, JM2D <cite class="cites">[<a class="cite" href="/read/references/#ref-2407" data-k="jung2025joint">2407</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:82.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Constraint satisfaction / long-horizon SR</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S1.SS7"><span class="secnum">9.1.7</span>Established Tools and Systems<a class="anchor" href="#Ch9.S1.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S1.SS7.p1" class="ltx_para">
+<p class="ltx_p">Progress in spatially grounded manipulation has been inseparable from a maturing ecosystem of simulators, open software stacks, shared datasets, and, increasingly, commercial robot platforms that serve as common development and deployment substrates.</p>
+</div>
+<div id="Ch9.S1.SS7.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Simulation and physics engines.</span> GPU-parallel engines such as NVIDIA IsaacGym and the newer Isaac Sim / Isaac Lab<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup> <cite class="cites">[<a class="cite" href="/read/references/#ref-2379" data-k="makoviychuk2021isaac">2379</a>]</cite>, articulated-object simulators such as SAPIEN <cite class="cites">[<a class="cite" href="/read/references/#ref-2396" data-k="xiang2020sapien">2396</a>]</cite> (with its PartNet-Mobility assets), and general-purpose physics engines including MuJoCo <cite class="cites">[<a class="cite" href="/read/references/#ref-1187" data-k="todorov2012mujoco">1187</a>]</cite>, PyBullet<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup>, and the recent Genesis<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup> provide high-throughput, contact-rich environments, while ManiSkill <cite class="cites">[<a class="cite" href="/read/references/#ref-2395" data-k="mu2021maniskill">2395</a>]</cite>, RLBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1346" data-k="james2020rlbench">1346</a>]</cite>, Robomimic <cite class="cites">[<a class="cite" href="/read/references/#ref-2381" data-k="robomimic2021">2381</a>]</cite>, and RoboTwin <cite class="cites">[<a class="cite" href="/read/references/#ref-224" data-k="mu2024robotwin">224</a>]</cite> package standardized task suites, demonstrations, and evaluation protocols that have become de facto testbeds for imitation and policy learning.</p>
+</div>
+<div id="Ch9.S1.SS7.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Open software stacks and datasets.</span> On the software side, the Robot Operating System (ROS 2) with the MoveIt motion-planning framework<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup> remains the de facto middleware for real-robot integration, and Hugging Face’s LeRobot<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup> packages datasets, pretrained policies, and training pipelines for low-cost reproduction. Large cross-embodiment efforts such as Open X-Embodiment<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup>, which aggregates demonstrations and the RT-X policies across dozens of robot platforms, together with open generalist checkpoints such as Octo <cite class="cites">[<a class="cite" href="/read/references/#ref-1577" data-k="team2024octo">1577</a>]</cite> and OpenVLA <cite class="cites">[<a class="cite" href="/read/references/#ref-99" data-k="kim2024openvla">99</a>]</cite> and NVIDIA’s GR00T humanoid foundation models<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup>, expose pretrained weights and fine-tuning interfaces that lower the barrier to transferring foundation-model policies onto new morphologies.</p>
+</div>
+<div id="Ch9.S1.SS7.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Commercial and humanoid platforms.</span> On the deployment side, a rapidly growing set of companies is moving spatially grounded manipulation out of the laboratory. Boston Dynamics<sup class="fn" id="fnref8"><a href="#fn8" data-fn="fn8">8</a></sup> (the electric Atlas and the Stretch warehouse robot), Tesla Optimus<sup class="fn" id="fnref9"><a href="#fn9" data-fn="fn9">9</a></sup>, Figure AI<sup class="fn" id="fnref10"><a href="#fn10" data-fn="fn10">10</a></sup>, 1X Technologies<sup class="fn" id="fnref11"><a href="#fn11" data-fn="fn11">11</a></sup>, Agility Robotics<sup class="fn" id="fnref12"><a href="#fn12" data-fn="fn12">12</a></sup> (the Digit humanoid, piloted in logistics), Physical Intelligence<sup class="fn" id="fnref13"><a href="#fn13" data-fn="fn13">13</a></sup> (the <math id="Ch9.S1.SS7.p4.m1" alttext="\pi_{0}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>π</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\pi_{0}</annotation></semantics></math> generalist policy), and Sanctuary AI<sup class="fn" id="fnref14"><a href="#fn14" data-fn="fn14">14</a></sup> each pair learned manipulation with humanoid or mobile-manipulator hardware, while firms such as Covariant<sup class="fn" id="fnref15"><a href="#fn15" data-fn="fn15">15</a></sup> target warehouse pick-and-place at commercial scale. These platforms are the clearest evidence that the spatial-intelligence capabilities surveyed above are crossing from benchmark tasks into economically deployed systems.</p>
+</div>
+<div id="Ch9.S1.SS7.p5" class="ltx_para">
+<p class="ltx_p">Together these tools convert the representation and reasoning machinery of Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a> into reproducible, physically grounded manipulation pipelines; their principal limitation remains the fidelity gap between simulated and real contact dynamics, which the following discussion revisits.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S1.SS8"><span class="secnum">9.1.8</span>Challenges<a class="anchor" href="#Ch9.S1.SS8" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S1.SS8.p1" class="ltx_para">
+<p class="ltx_p">Despite rapid progress across all four pivots, bringing <em class="ltx_font_italic">spatial intelligence</em> to robust, general-purpose manipulation remains bounded by a set of intertwined difficulties that cut across perception, policy, and planning. They cluster into four threads: keeping a persistent and calibrated internal model of the scene; closing the loop between contact physics and active sensing; transferring skills across embodiments while sourcing the data to do so; and meeting the reliability budget of a deployed system.</p>
+</div>
+<div id="Ch9.S1.SS8.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Persistent, calibrated world models.</span> The first requirement is a <em class="ltx_font_italic">persistent 3D belief</em>: an actionable, temporally consistent world model that survives heavy occlusion, articulation, deformation, and sensor drift, and that is maintained at control rates rather than reconstructed from scratch each frame. Persistence alone is not enough if the model cannot say how much it trusts itself. <em class="ltx_font_italic">Calibrated uncertainty</em> asks that distributional beliefs over geometry, contact state, friction, and articulation propagate through perception, policy, and planner, so that a decision reflects confidence rather than a bare point prediction and a low-confidence grasp can trigger caution instead of failure.</p>
+</div>
+<div id="Ch9.S1.SS8.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Contact modeling, sensing, and active perception.</span> Manipulation is ultimately about contact, yet most spatial models still reason about collision-free geometry rather than the physics of touch. Progress on <em class="ltx_font_italic">contact modeling and sensing</em> hinges on tightly integrating vision with force and tactile feedback to reason about stick–slip, compliance, and incipient failure. Because contact is often unobservable until it happens, this couples naturally to <em class="ltx_font_italic">information-seeking control</em>: interleaving manipulation with active perception and probing (touch-to-disambiguate, look-while-acting) inside tractable belief-space planners. And because contact is precisely where simulators diverge from reality, <em class="ltx_font_italic">sim-to-real for contact</em> stays open, demanding better material, friction, and compliance models together with fast system identification for on-robot adaptation.</p>
+</div>
+<div id="Ch9.S1.SS8.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Cross-embodiment transfer and data at scale.</span> Skills learned on one platform rarely move cleanly to another. <em class="ltx_font_italic">Cross-embodiment and cross-scene transfer</em> requires aligning action spaces and spatial tokens across grippers, cameras, and environments without hand-tuned frames or retraining. Sustaining that transfer is a data problem as much as an algorithmic one: <em class="ltx_font_italic">data and evaluation at scale</em> calls for “long-tail” data engines that cover rare geometries, materials, and tools with counterfactual and safety labels, and for benchmarks that measure calibration, persistence, recovery, and long-horizon competence rather than success rate alone.</p>
+</div>
+<div id="Ch9.S1.SS8.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Systems reliability.</span> Finally, a deployed manipulator must hold together as a <em class="ltx_font_italic">system</em>: meeting latency budgets, absorbing calibration drift, detecting out-of-distribution geometry, and enabling safe fallback and continual learning without catastrophic forgetting. Closing these gaps will require tighter couplings among 3D world models, affordance predictors, language-grounded objectives, and constraint-aware planners, so that spatial representations are not only expressive but <em class="ltx_font_italic">actionable, calibrated, and safe</em> in unstructured settings.</p>
+</div>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://developer.nvidia.com/isaac/sim" title="" class="ltx_font_typewriter">https://developer.nvidia.com/isaac/sim</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://pybullet.org" title="" class="ltx_font_typewriter">https://pybullet.org</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://github.com/Genesis-Embodied-AI/Genesis" title="" class="ltx_font_typewriter">https://github.com/Genesis-Embodied-AI/Genesis</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://moveit.ai" title="" class="ltx_font_typewriter">https://moveit.ai</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://github.com/huggingface/lerobot" title="" class="ltx_font_typewriter">https://github.com/huggingface/lerobot</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://robotics-transformer-x.github.io" title="" class="ltx_font_typewriter">https://robotics-transformer-x.github.io</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://developer.nvidia.com/isaac/gr00t" title="" class="ltx_font_typewriter">https://developer.nvidia.com/isaac/gr00t</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn8"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://bostondynamics.com" title="" class="ltx_font_typewriter">https://bostondynamics.com</a></span><a href="#fnref8" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn9"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.tesla.com/we-robot" title="" class="ltx_font_typewriter">https://www.tesla.com/we-robot</a></span><a href="#fnref9" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn10"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.figure.ai" title="" class="ltx_font_typewriter">https://www.figure.ai</a></span><a href="#fnref10" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn11"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.1x.tech" title="" class="ltx_font_typewriter">https://www.1x.tech</a></span><a href="#fnref11" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn12"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://agilityrobotics.com" title="" class="ltx_font_typewriter">https://agilityrobotics.com</a></span><a href="#fnref12" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn13"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.physicalintelligence.company" title="" class="ltx_font_typewriter">https://www.physicalintelligence.company</a></span><a href="#fnref13" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn14"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://sanctuary.ai" title="" class="ltx_font_typewriter">https://sanctuary.ai</a></span><a href="#fnref14" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn15"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://covariant.ai" title="" class="ltx_font_typewriter">https://covariant.ai</a></span><a href="#fnref15" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/chapter-9/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">Chapter 9: Spatial Intelligence for Embodied Systems</span></a><a class="pager-next" href="/read/9.2/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">9.2 Autonomous Driving</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch9.S1.SS1" data-spy="Ch9.S1.SS1"><span class="n">9.1.1</span>Introduction</a></li><li><a href="#Ch9.S1.SS2" data-spy="Ch9.S1.SS2"><span class="n">9.1.2</span>System Overview</a></li><li><a href="#Ch9.S1.SS3" data-spy="Ch9.S1.SS3"><span class="n">9.1.3</span>Pivotal Task-1: Grounding Action in Spatial Anchors</a></li><li><a href="#Ch9.S1.SS4" data-spy="Ch9.S1.SS4"><span class="n">9.1.4</span>Pivotal Task-2: Inferring Functional Action Possibilities</a></li><li><a href="#Ch9.S1.SS5" data-spy="Ch9.S1.SS5"><span class="n">9.1.5</span>Pivotal Task-3: Encoding Spatial Reasoning in Generalist Models</a></li><li><a href="#Ch9.S1.SS6" data-spy="Ch9.S1.SS6"><span class="n">9.1.6</span>Pivotal Task-4: Satisfying Geometric and Logical Constraints</a></li><li><a href="#Ch9.S1.SS7" data-spy="Ch9.S1.SS7"><span class="n">9.1.7</span>Established Tools and Systems</a></li><li><a href="#Ch9.S1.SS8" data-spy="Ch9.S1.SS8"><span class="n">9.1.8</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=9.1"><b>62</b> cited works</a><a href="/explore/datasets/?sec=9.1"><b>4</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=9.1" title="SAPIEN, ManiSkill, RLBench, MuJoCo, Isaac Lab, Genesis"><b>14</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="9.1 Robotic Manipulation" data-url="/read/9.1/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%209.1%20Robotic%20Manipulation&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/9.1/%20%28PDF%20p.%20329%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

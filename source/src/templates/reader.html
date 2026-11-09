@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% set section_nav = 'read' %}
+{% block title %}{% if page.num and page.kind == 'section' %}{{ page.num }} {% endif %}{{ page.title }} · Spatial Intelligence Handbook{% endblock %}
+{% block bodyclass %}is-reader{% endblock %}
+{% block main %}
+<div class="reader" style="--pc: {{ color }}" data-page="{{ page.slug }}">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in">{% include "partials/toc_side.html" %}</div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a>{% for c in crumbs %}<span class="sep">/</span><a href="{{ c.url }}">{{ c.label }}</a>{% endfor %}</nav>
+    <header class="page-head kind-{{ page.kind }}">
+      {% if page.kind == 'part' %}
+        <div class="kicker"><span class="part-badge">{{ page.num }}</span>Part {{ page.num }}</div>
+        <h1>{{ page.title }}</h1>
+      {% elif page.kind == 'chapter' %}
+        <div class="kicker">{% if part %}<a href="/read/{{ part.slug }}/" class="part-chip"><span class="roman">{{ part.roman }}</span>{{ part.title }}</a>{% endif %}</div>
+        <div class="chapter-num">Chapter {{ page.num }}</div>
+        <h1>{{ page.title }}</h1>
+      {% elif page.kind == 'section' %}
+        <div class="kicker"><a href="/read/chapter-{{ page.chapter }}/">Chapter {{ page.chapter }} · {{ chapter.title }}</a></div>
+        <h1><span class="secnum">{{ page.num }}</span>{{ page.title }}</h1>
+      {% else %}
+        <h1>{{ page.title }}</h1>
+      {% endif %}
+      <div class="meta">
+        {% if pdf_page %}<a class="meta-pdf" href="{{ site.pdf_url or '/#cite' }}{% if site.pdf_url %}#page={{ pdf_page }}{% endif %}" title="Open this page in the PDF">PDF p. {{ pdf_page }}</a><span class="dot">·</span>{% endif %}
+        <span>{{ minutes }} min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:{% if page.kind == 'section' %}{{ page.num }} {% elif page.kind == 'chapter' %}Chapter {{ page.num }}: {% elif page.kind == 'part' %}Part {{ page.num }}: {% endif %}{{ page.title|e }}">
+{{ body }}
+    {% if page.kind == 'chapter' and chapter %}
+      <div class="section-cards">
+        {% for s in chapter.sections %}
+        <a class="section-card" href="/read/{{ s.slug }}/">
+          <span class="sc-num">{{ s.num }}</span><span class="sc-title">{{ s.title }}</span>
+          <span class="sc-subs">{% for ss in s.subs[:6] %}<span>{{ ss.num }} {{ ss.title }}</span>{% endfor %}{% if s.subs|length > 6 %}<span>+{{ s.subs|length - 6 }} more</span>{% endif %}</span>
+          {% if s.page %}<span class="sc-page">p. {{ s.page }}</span>{% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if page.kind == 'part' and part %}
+      <div class="chapter-cards" id="chapters">
+        {% for c in part.chapters %}
+        <a class="chapter-card" href="/read/{{ c.slug }}/">
+          <span class="cc-num">Chapter {{ c.num }}</span><span class="cc-title">{{ c.title }}</span>
+          <span class="cc-secs">{% for s in c.sections %}<span>{{ s.num }} {{ s.title }}</span>{% endfor %}</span>
+        </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+      {% if prev %}<a class="pager-prev" href="/read/{{ prev.slug }}/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">{% if prev.kind == 'section' %}{{ prev.num }} {% elif prev.kind == 'chapter' %}Chapter {{ prev.num }}: {% elif prev.kind == 'part' %}Part {{ prev.num }}: {% endif %}{{ prev.title }}</span></a>{% else %}<span></span>{% endif %}
+      {% if next %}<a class="pager-next" href="/read/{{ next.slug }}/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">{% if next.kind == 'section' %}{{ next.num }} {% elif next.kind == 'chapter' %}Chapter {{ next.num }}: {% elif next.kind == 'part' %}Part {{ next.num }}: {% endif %}{{ next.title }}</span></a>{% else %}<a class="pager-next" href="/read/references/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">References</span></a>{% endif %}
+    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      {% if page.outline %}
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol>{% for o in page.outline %}<li><a href="#{{ o.id }}" data-spy="{{ o.id }}"><span class="n">{{ o.num }}</span>{{ o.title }}</a></li>{% endfor %}</ol>
+      </div>
+      {% endif %}
+      {% if resources and (resources.refs or resources.datasets or resources.tools) %}
+      <div class="res">
+        <div class="otp-h">Resources in this {{ 'section' if page.kind == 'section' else 'chapter' }}</div>
+        {% if resources.refs %}<a href="/explore/literature/?{{ resources.q }}"><b>{{ resources.refs }}</b> cited works</a>{% endif %}
+        {% if resources.datasets %}<a href="/explore/datasets/?{{ resources.q }}"><b>{{ resources.datasets }}</b> datasets &amp; benchmarks</a>{% endif %}
+        {% if resources.tools %}<a href="/explore/tools/?{{ resources.q }}" title="{{ resources.tool_names|join(', ') }}"><b>{{ resources.tools }}</b> tools &amp; platforms</a>{% endif %}
+      </div>
+      {% endif %}
+      <div class="tools">
+        <button type="button" data-cite-section data-title="{% if page.num and page.kind=='section' %}{{ page.num }} {% endif %}{{ page.title }}" data-url="/read/{{ page.slug }}/">Cite this {{ 'section' if page.kind == 'section' else 'page' }}</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title={{ ('Erratum: ' ~ (page.num ~ ' ' if page.num else '') ~ page.title)|urlencode }}&amp;body={{ ('**Page:** https://spatial-agi.github.io/read/' ~ page.slug ~ '/' ~ (' (PDF p. ' ~ pdf_page ~ ')' if pdf_page else '') ~ '\n\n**What is wrong:**\n\n**Suggested fix:**\n')|urlencode }}" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block scripts %}<script type="module" src="/assets/js/reader.js"></script>{% endblock %}

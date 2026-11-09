@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.7 Programmatic and Symbolic Spatial Generation · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="8.7 Programmatic and Symbolic Spatial Generation · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #7446D6" data-page="8.7">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link is-current" href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iii/">Part III</a><span class="sep">/</span><a href="/read/chapter-8/">Chapter 8</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-8/">Chapter 8 · Spatial Reconstruction and Generation</a></div>
+        <h1><span class="secnum">8.7</span>Programmatic and Symbolic Spatial Generation</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=322" title="Open this page in the PDF">PDF p. 322</a><span class="dot">·</span>        <span>6 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:8.7 Programmatic and Symbolic Spatial Generation">
+<div id="Ch8.S7.p1" class="ltx_para">
+<p class="ltx_p">Programmatic and symbolic spatial generation synthesizes 2D and 3D scene structure through explicit rules, executable programs, and symbolic geometric abstractions.
+It generates the structural backbone of a scene (spatial layout, hierarchical organization, geometric constraints, executable logic) rather than its raw appearance, which gives it controllability, compositional generalization, global spatial consistency, and interpretability.</p>
+</div>
+<div id="Ch8.S7.p2" class="ltx_para">
+<p class="ltx_p">Where the largely neural samplers of §<a href="/read/8.1/" class="xref" data-x="Ch8.S1"><span>8.1</span></a>–§<a href="/read/8.6/" class="xref" data-x="Ch8.S6"><span>8.6</span></a> map a condition directly to pixels, voxels, or a neural latent, programmatic methods emit an intermediate <em class="ltx_font_italic">program</em> that a deterministic renderer executes into the final scene.
+This intermediate layer is what makes the structure auditable, editable, and compositionally reusable, properties that flat neural outputs lack.
+Three paradigm families mark the historical and technical progression of the field: <em class="ltx_font_italic">rule- and grammar-based procedural generation</em>, <em class="ltx_font_italic">symbolic graphics programs and domain-specific languages</em>, and <em class="ltx_font_italic">neuro-symbolic language-to-program synthesis</em> driven by large language models.</p>
+</div>
+<section>
+<h2 class="h-subsection" id="Ch8.S7.SS1"><span class="secnum">8.7.1</span>Task Definition<a class="anchor" href="#Ch8.S7.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S7.SS1.p1" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch8.S7.SS1.p1.m1" alttext="\mathbf{c}\in\mathcal{C}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>∈</mo><mi>𝒞</mi></mrow><annotation encoding="application/x-tex">\mathbf{c}\in\mathcal{C}</annotation></semantics></math> denote a conditioning intent, typically a natural-language description, a layout specification, or a partial constraint set, and let <math id="Ch8.S7.SS1.p1.m2" alttext="\kappa:\mathcal{C}\!\to\!\mathcal{C}^{\prime}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒞</mi><mo lspace="0.108em" rspace="0.108em" stretchy="false">→</mo><msup><mi>𝒞</mi><mo>′</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\kappa:\mathcal{C}\!\to\!\mathcal{C}^{\prime}</annotation></semantics></math> be its encoder.
+A programmatic generator <math id="Ch8.S7.SS1.p1.m3" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> emits a symbolic program <math id="Ch8.S7.SS1.p1.m4" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> drawn from a graphics language or domain-specific language <math id="Ch8.S7.SS1.p1.m5" alttext="\mathcal{L}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℒ</mi><annotation encoding="application/x-tex">\mathcal{L}</annotation></semantics></math>, which a deterministic executor <math id="Ch8.S7.SS1.p1.m6" alttext="R" display="inline" data-pagefind-ignore="all"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math> evaluates into a concrete scene <math id="Ch8.S7.SS1.p1.m7" alttext="\hat{\mathbf{s}}" display="inline" data-pagefind-ignore="all"><semantics><mover accent="true"><mi>𝐬</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{s}}</annotation></semantics></math> (a raster image, vector graphic, UI specification, or 3D shape):</p>
+<table id="Ch8.E84" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E84.m1" alttext="\rho=G_{\theta}\big{(}\kappa(\mathbf{c})\big{)},\qquad\hat{\mathbf{s}}=R(\rho)%
+,\qquad\rho\in\mathcal{L}." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>ρ</mi><mo>=</mo><mrow><msub><mi>G</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><mrow><mover accent="true"><mi>𝐬</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>R</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ρ</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><mi>ρ</mi><mo>∈</mo><mi>ℒ</mi></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\rho=G_{\theta}\big{(}\kappa(\mathbf{c})\big{)},\qquad\hat{\mathbf{s}}=R(\rho)%
+,\qquad\rho\in\mathcal{L}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.84)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">This formulation inherits the conditional-sampler abstraction of Eq. (<a href="/read/8.1/#Ch8.E2" class="xref" data-x="Ch8.E2"><span>8.2</span></a>) but replaces its learned decoder <math id="Ch8.S7.SS1.p1.m8" alttext="D" display="inline" data-pagefind-ignore="all"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math> (Eq. (<a href="/read/8.1/#Ch8.E1" class="xref" data-x="Ch8.E1"><span>8.1</span></a>)) over a continuous latent space <math id="Ch8.S7.SS1.p1.m9" alttext="\mathcal{Z}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒵</mi><annotation encoding="application/x-tex">\mathcal{Z}</annotation></semantics></math> with an interpretable, discrete program <math id="Ch8.S7.SS1.p1.m10" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> and an <em class="ltx_font_italic">exact, non-learned</em> renderer <math id="Ch8.S7.SS1.p1.m11" alttext="R" display="inline" data-pagefind-ignore="all"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>.
+The neural generators of §<a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a> are recovered as the limiting case in which <math id="Ch8.S7.SS1.p1.m12" alttext="R" display="inline" data-pagefind-ignore="all"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math> is itself a neural renderer and <math id="Ch8.S7.SS1.p1.m13" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> a continuous latent, whereas the symbolic case constrains <math id="Ch8.S7.SS1.p1.m14" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> to be a human-readable executable artifact.
+Two properties follow directly: errors are localizable to specific program statements, and structural constraints can be enforced or verified deterministically on <math id="Ch8.S7.SS1.p1.m15" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> before rendering.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S7.SS2"><span class="secnum">8.7.2</span>Methodology<a class="anchor" href="#Ch8.S7.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S7.SS2.p1" class="ltx_para">
+<p class="ltx_p">Figure <a href="/read/8.7/#Ch8.F25" class="xref" data-x="Ch8.F25"><span>8.25</span></a> schematizes the three paradigm families that instantiate Eq. (<a href="/read/8.7/#Ch8.E84" class="xref" data-x="Ch8.E84"><span>8.84</span></a>), contrasting how each obtains the program <math id="Ch8.S7.SS2.p1.m1" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> before the shared deterministic renderer <math id="Ch8.S7.SS2.p1.m2" alttext="R" display="inline" data-pagefind-ignore="all"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math> executes it.</p>
+</div>
+<figure id="Ch8.F25" class="ltx_figure"><img src="/assets/figures/figures/part3/section8/programmatic_spatial_generation.webp" id="Ch8.F25.g1" class="fig-img" alt="" width="2000" height="734" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 8.25</span><span>Three paradigm families for programmatic spatial generation, all producing a program <math id="Ch8.F25.m3" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> that a deterministic renderer <math id="Ch8.F25.m4" alttext="R" display="inline" data-pagefind-ignore="all"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math> executes (Eq. (<a href="/read/8.7/#Ch8.E84" class="xref" data-x="Ch8.E84"><span>8.84</span></a>)): (P1) rule- and grammar-based procedural generation, (P2) symbolic graphics programs and domain-specific languages, and (P3) language-to-program synthesis by an LLM planner.</span></figcaption>
+</figure>
+<section id="Ch8.S7.SS2.SSS0.Px1">
+<div id="Ch8.S7.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Rule- and Grammar-based Procedural Generation.</strong> The earliest line of work, procedural content generation (PCG) <cite class="cites">[<a class="cite" href="/read/references/#ref-2353" data-k="parish2001procedural">2353</a>]</cite> in computer graphics and game development, synthesizes scenes such as dungeon maps, terrains, architectural plans, or UI layouts from hand-crafted rules or parameterized procedural programs.
+Classical formalisms instantiate <math id="Ch8.S7.SS2.SSS0.Px1.p1.m1" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> as a fixed production system rather than a learned model.
+The Lindenmayer system (L-system) <cite class="cites">[<a class="cite" href="/read/references/#ref-2354" data-k="lindenmayer1968mathematical">2354</a>]</cite>, originally developed to model biological growth, employs parallel rewriting rules to simulate natural growth processes and fractal patterns, making it ideal for self-similar structures such as vegetation and complex terrain.
+Formally, the program evolves by repeated parallel application of a production set <math id="Ch8.S7.SS2.SSS0.Px1.p1.m2" alttext="\Pi" display="inline" data-pagefind-ignore="all"><semantics><mi mathvariant="normal">Π</mi><annotation encoding="application/x-tex">\Pi</annotation></semantics></math> to an axiom <math id="Ch8.S7.SS2.SSS0.Px1.p1.m3" alttext="\omega" display="inline" data-pagefind-ignore="all"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math>,</p>
+<table id="Ch8.E85" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E85.m1" alttext="\rho_{0}=\omega,\qquad\rho_{t+1}=\Pi(\rho_{t}),\qquad\hat{\mathbf{s}}=R(\rho_{%
+T})," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msub><mi>ρ</mi><mn>0</mn></msub><mo>=</mo><mi>ω</mi></mrow><mo rspace="2.167em">,</mo><mrow><mrow><msub><mi>ρ</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mrow><mi mathvariant="normal">Π</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>ρ</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><mover accent="true"><mi>𝐬</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>R</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>ρ</mi><mi>T</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\rho_{0}=\omega,\qquad\rho_{t+1}=\Pi(\rho_{t}),\qquad\hat{\mathbf{s}}=R(\rho_{%
+T}),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.85)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where the generated symbolic string is not the geometry itself but a sequence of Turtle Graphics commands that the interpreter <math id="Ch8.S7.SS2.SSS0.Px1.p1.m4" alttext="R" display="inline" data-pagefind-ignore="all"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math> parses to draw the final shape in 2D or 3D space.
+Shape grammars, introduced by <cite class="cites"><span class="citet-name">Stiny</span> [<a class="cite" href="/read/references/#ref-2355" data-k="stiny1980introduction">2355</a>]</cite>, provide another influential symbolic mechanism by defining geometric primitives and rewrite rules for composing architectural or engineered shapes.
+These early paradigms demonstrated a fundamental insight: spatial structures can be synthesized by executing symbolic generative rules, rather than by directly predicting raw geometry.</p>
+</div>
+</section>
+<section id="Ch8.S7.SS2.SSS0.Px2">
+<div id="Ch8.S7.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Symbolic Graphics Programs and Domain-Specific Languages.</strong> Symbolic graphics programs (SGPs) encode spatial layouts and geometric configurations as formal programs that execute deterministically into images, vector graphics, UI designs, or 3D shapes, bridging abstract scene intent and concrete visual realization. Common languages such as SVG <cite class="cites">[<a class="cite" href="/read/references/#ref-2356" data-k="bing2025learning">2356</a>]</cite>, TikZ/LaTeX <cite class="cites">[<a class="cite" href="/read/references/#ref-2357" data-k="ellis2018learning">2357</a>]</cite>, and HTML/CSS <cite class="cites">[<a class="cite" href="/read/references/#ref-2358" data-k="chen2025designcoder">2358</a>]</cite> already carry rich symbolic layout specifications in real-world use.
+In parallel, researchers have developed domain-specific languages (DSLs) tailored for fine-grained spatial and visual synthesis.
+Examples include hierarchical GUI-code generators <cite class="cites">[<a class="cite" href="/read/references/#ref-2359" data-k="zhu2018automatic">2359</a>]</cite> that translate visual structures into programmatic UI specifications, and ShapeAssembly <cite class="cites">[<a class="cite" href="/read/references/#ref-2360" data-k="jones2020shapeassembly">2360</a>]</cite>, a 3D assembly language in which objects are represented as executable programs describing part composition, symmetry, and connectivity.
+Such DSLs make the advantages of explicit symbolic control concrete: precise geometry, modular design, verifiable constraints, and systematic compositionality.</p>
+</div>
+</section>
+<section id="Ch8.S7.SS2.SSS0.Px3">
+<div id="Ch8.S7.SS2.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Neuro-symbolic and Language-to-Program Synthesis.</strong> A more recent direction couples symbolic programs with learned models, so that <math id="Ch8.S7.SS2.SSS0.Px3.p1.m1" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math> becomes a trained synthesizer rather than a fixed rule set. The Scene Language <cite class="cites">[<a class="cite" href="/read/references/#ref-1614" data-k="zhang2025scenelanguage">1614</a>]</cite> unifies neural and symbolic components: a program specifying relational and hierarchical layout structure, natural-language labels summarizing entity semantics, and learned embeddings capturing visual identity.
+Executable structure, rather than raw geometry, thus becomes a primary representational layer for scenes.
+Large language models <cite class="cites">[<a class="cite" href="/read/references/#ref-43" data-k="brown2020language">43</a>, <a class="cite" href="/read/references/#ref-11" data-k="achiam2023gpt">11</a>]</cite> have accelerated the move toward language-to-program spatial generation: instead of predicting images or layouts directly, LLM-based systems act as symbolic planners that synthesize the program by approximately maximizing its conditional likelihood,</p>
+<table id="Ch8.E86" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E86.m1" alttext="\rho^{\star}=\operatorname*{arg\,max}_{\rho\in\mathcal{L}}\,p_{\theta}\big{(}%
+\rho\mid\kappa(\mathbf{c})\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msup><mi>ρ</mi><mo>⋆</mo></msup><mo>=</mo><mrow><mrow><munder><mrow><mi>arg</mi><mo lspace="0.170em">⁢</mo><mi>max</mi></mrow><mrow><mi>ρ</mi><mo>∈</mo><mi>ℒ</mi></mrow></munder><mo>⁡</mo><msub><mi>p</mi><mi>θ</mi></msub></mrow><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>ρ</mi><mo>∣</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\rho^{\star}=\operatorname*{arg\,max}_{\rho\in\mathcal{L}}\,p_{\theta}\big{(}%
+\rho\mid\kappa(\mathbf{c})\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.86)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">mapping natural-language descriptions to executable layout programs <cite class="cites">[<a class="cite" href="/read/references/#ref-2361" data-k="aguina2024open">2361</a>, <a class="cite" href="/read/references/#ref-2362" data-k="hsu2025programs">2362</a>, <a class="cite" href="/read/references/#ref-2363" data-k="yang2024holodeck">2363</a>]</cite>.
+These programs then guide downstream renderers to produce UI designs, graphic layouts, architectural plans, or 3D scenes with precise structural fidelity, and users can edit or refine the underlying program with fine-grained control.</p>
+</div>
+<div id="Ch8.S7.SS2.SSS0.Px3.p2" class="ltx_para">
+<p class="ltx_p">The three families differ along two cross-cutting axes.
+The first is the <em class="ltx_font_italic">representation</em> of <math id="Ch8.S7.SS2.SSS0.Px3.p2.m1" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>: a parallel string-rewriting system (grammar-based generation), an executable program in a general-purpose or domain-specific graphics language (SGPs and DSLs), or a hybrid structure that interleaves code, language, and learned embeddings (neuro-symbolic synthesis).
+The second is the <em class="ltx_font_italic">inference procedure</em> that produces <math id="Ch8.S7.SS2.SSS0.Px3.p2.m2" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>: hand-authored production rules, human-written or template-instantiated programs, or learned program synthesis and LLM-based planning. Across all three, the target modality (2D raster, vector graphics, UI, or 3D) is determined solely by the renderer <math id="Ch8.S7.SS2.SSS0.Px3.p2.m3" alttext="R" display="inline" data-pagefind-ignore="all"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>, which keeps the symbolic and rendering concerns cleanly separated.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S7.SS3"><span class="secnum">8.7.3</span>Benchmarks<a class="anchor" href="#Ch8.S7.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S7.SS3.p1" class="ltx_para">
+<p class="ltx_p">Evaluation in this area differs from the distributional metrics of §<a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a> because the immediate output is a program, not an image, so quality is assessed along several complementary axes.
+<span class="ltx_font_bold">Program validity</span> measures whether the emitted <math id="Ch8.S7.SS3.p1.m1" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> parses and executes without error in its target language, a prerequisite that purely neural generators do not face.
+<span class="ltx_font_bold">Rendered-output fidelity</span> then compares the executed scene <math id="Ch8.S7.SS3.p1.m2" alttext="R(\rho)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>R</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ρ</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">R(\rho)</annotation></semantics></math> against a reference, using pixel- or perceptual-level similarity for raster and vector targets and geometric agreement for 3D shapes.
+<span class="ltx_font_bold">Constraint satisfaction</span> checks whether explicitly specified spatial relations, counts, alignments, or symmetries hold in the rendered result, a property that symbolic methods are designed to guarantee.
+<span class="ltx_font_bold">Controllability and editability</span> assess how reliably localized edits to <math id="Ch8.S7.SS3.p1.m3" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> produce the intended localized changes in the scene without unintended global drift. Concretely, these axes are exercised across vector-graphics and SVG synthesis <cite class="cites">[<a class="cite" href="/read/references/#ref-2356" data-k="bing2025learning">2356</a>]</cite>, UI and GUI code generation <cite class="cites">[<a class="cite" href="/read/references/#ref-2359" data-k="zhu2018automatic">2359</a>, <a class="cite" href="/read/references/#ref-2358" data-k="chen2025designcoder">2358</a>]</cite>, 3D program induction over part-structured shapes <cite class="cites">[<a class="cite" href="/read/references/#ref-2360" data-k="jones2020shapeassembly">2360</a>]</cite>, evaluated against part-hierarchy benchmarks such as PartNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2364" data-k="mo2019partnet">2364</a>]</cite>, and full scene-program synthesis <cite class="cites">[<a class="cite" href="/read/references/#ref-1614" data-k="zhang2025scenelanguage">1614</a>, <a class="cite" href="/read/references/#ref-2363" data-k="yang2024holodeck">2363</a>]</cite>, where the executable program serves simultaneously as the prediction and as the verifiable ground for measurement.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S7.SS4"><span class="secnum">8.7.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S7.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S7.SS4.p1" class="ltx_para">
+<p class="ltx_p">The field has moved from entirely hand-authored rules toward neuro-symbolic integration with large models, driven by the demand for generators that are more controllable and interpretable than end-to-end neural methods.</p>
+</div>
+<div id="Ch8.S7.SS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Generalization.</span> Automatically synthesized programs still struggle with novel constraints and complex semantic specifications <cite class="cites">[<a class="cite" href="/read/references/#ref-2365" data-k="mao2025neurosymbolicconcepts">2365</a>]</cite>. Program synthesis has to infer the structural logic of a scene rather than memorize surface patterns if the generator is to extrapolate to compositions and constraint combinations absent from training.</p>
+</div>
+<div id="Ch8.S7.SS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Efficiency and differentiability.</span> Neuro-symbolic programs that are both efficient and fully differentiable <cite class="cites">[<a class="cite" href="/read/references/#ref-2366" data-k="guo2023efficientsymbolicpolicy">2366</a>]</cite> would let a rendering-level loss propagate back through the program, so that the whole pipeline, from symbolic planning to neural rendering, could be trained and fine-tuned end to end.</p>
+</div>
+<div id="Ch8.S7.SS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Embodied interaction.</span> Procedurally synthesized interactive environments already supply large-scale embodied worlds <cite class="cites">[<a class="cite" href="/read/references/#ref-1621" data-k="kolve2017ai2thor">1621</a>, <a class="cite" href="/read/references/#ref-2367" data-k="procthor">2367</a>, <a class="cite" href="/read/references/#ref-2368" data-k="wang2024pipeline">2368</a>]</cite>, and the next step is for agents to generate or validate symbolic scene structure through active exploration rather than from static datasets alone, yielding symbolic representations of physical spaces that can be checked against what the agent observes.</p>
+</div>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/8.6/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">8.6 World Modeling</span></a><a class="pager-next" href="/read/8.8/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">8.8 Summary and Outlook</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch8.S7.SS1" data-spy="Ch8.S7.SS1"><span class="n">8.7.1</span>Task Definition</a></li><li><a href="#Ch8.S7.SS2" data-spy="Ch8.S7.SS2"><span class="n">8.7.2</span>Methodology</a></li><li><a href="#Ch8.S7.SS3" data-spy="Ch8.S7.SS3"><span class="n">8.7.3</span>Benchmarks</a></li><li><a href="#Ch8.S7.SS4" data-spy="Ch8.S7.SS4"><span class="n">8.7.4</span>Challenges and Trends</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=8.7"><b>20</b> cited works</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="8.7 Programmatic and Symbolic Spatial Generation" data-url="/read/8.7/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%208.7%20Programmatic%20and%20Symbolic%20Spatial%20Generation&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/8.7/%20%28PDF%20p.%20322%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

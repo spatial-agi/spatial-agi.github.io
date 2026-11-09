@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.2 3D · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="4.2 3D · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #3646F0" data-page="4.2">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link is-current" href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-ii/">Part II</a><span class="sep">/</span><a href="/read/chapter-4/">Chapter 4</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-4/">Chapter 4 · Single-Modal Spatial Representation</a></div>
+        <h1><span class="secnum">4.2</span>3D</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=60" title="Open this page in the PDF">PDF p. 60</a><span class="dot">·</span>        <span>12 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:4.2 3D">
+<div id="Ch4.S2.p1" class="ltx_para">
+<p class="ltx_p">The 3D representations lift the 2D pixel grid into the ambient space the scene actually occupies, replacing image-plane appearance with explicit geometry and topology.
+They are the substrate on which downstream tasks that require metric reasoning, occlusion handling, viewpoint manipulation, or physical simulation are built, from autonomous driving and robotic manipulation to medical visualization and immersive graphics.
+Compared with the depth and surface normal maps of Section <a href="/read/4.1/" class="xref" data-x="Ch4.S1"><span>4.1</span></a>, which still inhabit the image grid, 3D representations expose geometry directly and can therefore describe parts of the scene that are not visible in any single view.</p>
+</div>
+<div id="Ch4.S2.p2" class="ltx_para">
+<p class="ltx_p">We organize this section around the eight 3D representations that dominate current practice (Figure <a href="/read/4.2/#Ch4.F2" class="xref" data-x="Ch4.F2"><span>4.2</span></a>, Table <a href="/read/4.2/#Ch4.T1" class="xref" data-x="Ch4.T1"><span>4.1</span></a>): RGB-D images, voxels, point clouds, meshes, implicit fields, neural radiance fields (NeRF), 3D Gaussian Splatting (3DGS), and hybrids of the above.
+They differ in what they store (surfaces vs. volumes, explicit primitives vs. neural functions), how they trade off fidelity against memory and rendering speed, and how amenable they are to editing and to gradient-based optimization.</p>
+</div>
+<div id="Ch4.S2.p3" class="ltx_para">
+<ul id="Ch4.S2.I1" class="ltx_itemize">
+<li id="Ch4.S2.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">RGB-D Image</span>. Pairs a standard RGB image with a per-pixel depth map; view-dependent and cannot capture occluded surfaces from a single frame.</p>
+</div>
+</li>
+<li id="Ch4.S2.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Voxel</span>. A uniform 3D grid of volumetric elements; conceptually simple and well suited to inherently volumetric data, but memory and resolution scale as <math id="Ch4.S2.I1.i2.p1.m1" alttext="O(N^{3})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>O</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>N</mi><mn>3</mn></msup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(N^{3})</annotation></semantics></math>.</p>
+</div>
+</li>
+<li id="Ch4.S2.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Point Cloud</span>. An unstructured set of 3D points, typically the native output of LiDAR or photogrammetry; faithful to the raw measurement but lacks surface connectivity.</p>
+</div>
+</li>
+<li id="Ch4.S2.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Mesh</span>. Surfaces defined by vertices and faces; the dominant representation in graphics for its GPU-friendliness, at the cost of a fixed connectivity that complicates topology change.</p>
+</div>
+</li>
+<li id="Ch4.S2.I1.i5" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I1.i5.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Implicit Representation</span>. Defines surfaces as the level set of a continuous function (<span class="ltx_font_italic">e.g.,</span> , Signed Distance Functions); resolution-agnostic and topology-flexible, but slow to render.</p>
+</div>
+</li>
+<li id="Ch4.S2.I1.i6" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I1.i6.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">NeRF (Neural Radiance Field)</span>. A neural function over a 5D input domain (3D location + 2D viewing direction) that supports state-of-the-art novel-view synthesis.</p>
+</div>
+</li>
+<li id="Ch4.S2.I1.i7" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I1.i7.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">3DGS (3D Gaussian Splatting)</span>. Represents a scene as anisotropic 3D Gaussian primitives rendered through a differentiable splatting rasteriser, reaching NeRF-level quality at real-time speeds.</p>
+</div>
+</li>
+<li id="Ch4.S2.I1.i8" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I1.i8.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Hybrid Methods</span>. Combinations of the above (<span class="ltx_font_italic">e.g.,</span> , DMTet, Tri-plane) that pair explicit primitives with implicit decoders to balance fidelity, efficiency, and gradient-based optimizability.</p>
+</div>
+</li>
+</ul>
+</div>
+<figure id="Ch4.F2" class="ltx_figure"><img src="/assets/figures/figures/part2/3d_representation.webp" id="Ch4.F2.g1" class="fig-img" alt="" width="2000" height="508" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 4.2</span><span>Examples of 3D representations: RGB-D image, voxel grid, point cloud, triangle mesh, and a signed distance field (SDF) slice.</span></figcaption>
+</figure>
+<figure id="Ch4.T1" class="ltx_table">
+<figcaption class="ltx_centering"><span class="cap-tag">Table 4.1</span><span>Qualitative comparison of 3D representations (relative ratings, not measured values).</span></figcaption>
+<div class="ltx_inline-block ltx_align_center" style="width:433.6pt;height:127.5pt;vertical-align:-0.8pt;"><span style="transform:translate(-60.4pt,17.6pt) scale(0.78225522235104,0.78225522235104) ;">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_tt"><span class="ltx_font_bold">Representation</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_font_bold">Fidelity</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_font_bold">Memory Cost</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_font_bold">Render Speed</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_font_bold">Topology Flexibility</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt"><span class="ltx_font_bold">Editability</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r ltx_border_t"><span class="ltx_font_bold">RGB-D Image</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t">Low (2.5D)</td>
+<td class="ltx_td ltx_align_center ltx_border_t">Low</td>
+<td class="ltx_td ltx_align_center ltx_border_t">High</td>
+<td class="ltx_td ltx_align_center ltx_border_t">View-dependent</td>
+<td class="ltx_td ltx_align_center ltx_border_t">Low</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_font_bold">Voxel</span></td>
+<td class="ltx_td ltx_align_center">Low–Medium</td>
+<td class="ltx_td ltx_align_center">High (<math id="Ch4.T1.m1" alttext="O(N^{3})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>O</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>N</mi><mn>3</mn></msup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(N^{3})</annotation></semantics></math>)</td>
+<td class="ltx_td ltx_align_center">Medium</td>
+<td class="ltx_td ltx_align_center">High</td>
+<td class="ltx_td ltx_align_center">Medium</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_font_bold">Point Cloud</span></td>
+<td class="ltx_td ltx_align_center">Medium</td>
+<td class="ltx_td ltx_align_center">Medium (scalable)</td>
+<td class="ltx_td ltx_align_center">High</td>
+<td class="ltx_td ltx_align_center">High</td>
+<td class="ltx_td ltx_align_center">Medium</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_font_bold">Mesh</span></td>
+<td class="ltx_td ltx_align_center">High</td>
+<td class="ltx_td ltx_align_center">Low (GPU-friendly)</td>
+<td class="ltx_td ltx_align_center">Very High</td>
+<td class="ltx_td ltx_align_center">Low (fixed connectivity)</td>
+<td class="ltx_td ltx_align_center">High</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_font_bold">Implicit (SDF)</span></td>
+<td class="ltx_td ltx_align_center">High</td>
+<td class="ltx_td ltx_align_center">Low</td>
+<td class="ltx_td ltx_align_center">Low (volume query)</td>
+<td class="ltx_td ltx_align_center">High</td>
+<td class="ltx_td ltx_align_center">Low</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_font_bold">NeRF</span></td>
+<td class="ltx_td ltx_align_center">Very High</td>
+<td class="ltx_td ltx_align_center">Low</td>
+<td class="ltx_td ltx_align_center">Low (ray marching)</td>
+<td class="ltx_td ltx_align_center">High</td>
+<td class="ltx_td ltx_align_center">Very Low</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_r"><span class="ltx_font_bold">3DGS</span></td>
+<td class="ltx_td ltx_align_center">Very High</td>
+<td class="ltx_td ltx_align_center">Medium</td>
+<td class="ltx_td ltx_align_center">Very High (real-time)</td>
+<td class="ltx_td ltx_align_center">High</td>
+<td class="ltx_td ltx_align_center">Medium</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_r"><span class="ltx_font_bold">Hybrid</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb">Very High</td>
+<td class="ltx_td ltx_align_center ltx_border_bb">Medium</td>
+<td class="ltx_td ltx_align_center ltx_border_bb">High</td>
+<td class="ltx_td ltx_align_center ltx_border_bb">Adaptive</td>
+<td class="ltx_td ltx_align_center ltx_border_bb">Medium–High</td>
+</tr>
+</table>
+</span></div>
+</figure>
+<section>
+<h2 class="h-subsection" id="Ch4.S2.SS1"><span class="secnum">4.2.1</span>RGB-D Images<a class="anchor" href="#Ch4.S2.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">RGB-D images are a popular 2.5D representation that captures both photometric and geometric information from a single viewpoint.
+This data format consists of two co-registered images: a standard RGB color image providing appearance and texture details, and a corresponding depth map where each pixel value encodes the distance from the sensor to the corresponding point in the scene.
+Formally, it can be defined as a function mapping a 2D image grid <math id="Ch4.S2.SS1.p1.m1" alttext="\Omega" display="inline" data-pagefind-ignore="all"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math> to a 4D space combining color and depth:</p>
+<table id="Ch4.E10" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E10.m1" alttext="I_{rgbd}:\Omega\rightarrow\mathbb{R}^{3}\times\mathbb{R}_{\geq 0}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi>I</mi><mrow><mi>r</mi><mo>⁢</mo><mi>g</mi><mo>⁢</mo><mi>b</mi><mo>⁢</mo><mi>d</mi></mrow></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">→</mo><mrow><msup><mi>ℝ</mi><mn>3</mn></msup><mo lspace="0.222em" rspace="0.222em">×</mo><msub><mi>ℝ</mi><mrow><mi></mi><mo>≥</mo><mn>0</mn></mrow></msub></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">I_{rgbd}:\Omega\rightarrow\mathbb{R}^{3}\times\mathbb{R}_{\geq 0},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.10)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where the first three channels represent RGB color and the fourth channel encodes the distance from the sensor to a point in the scene. In practice, RGB-D data is stored as a tensor <math id="Ch4.S2.SS1.p1.m2" alttext="I\in\mathbb{R}^{H\times W\times 4}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>I</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>H</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>W</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">I\in\mathbb{R}^{H\times W\times 4}</annotation></semantics></math>.</p>
+</div>
+<div id="Ch4.S2.SS1.p2" class="ltx_para">
+<p class="ltx_p">The primary advantage of RGB-D data lies in its efficiency and accessibility.
+It is captured by low-cost sensors such as Microsoft Kinect or Intel RealSense <cite class="cites">[<a class="cite" href="/read/references/#ref-260" data-k="Intel2020RealSense">260</a>]</cite>, and its image-like grid structure enables the direct application of powerful 2D convolutional neural networks (CNNs) to tasks such as semantic segmentation and object detection <cite class="cites">[<a class="cite" href="/read/references/#ref-261" data-k="dai2016r">261</a>, <a class="cite" href="/read/references/#ref-262" data-k="couprie2013indoor">262</a>, <a class="cite" href="/read/references/#ref-263" data-k="vu2019dada">263</a>]</cite>.
+This fusion of color and depth provides a rich, multi-modal input for scene understanding.
+However, a significant limitation is its view-dependent nature; an RGB-D image represents only a partial view of the 3D world, suffering from occlusions and providing no information about surfaces hidden from the camera.
+Despite this, its real-time acquisition and processing capabilities make it indispensable in robotics for navigation <cite class="cites">[<a class="cite" href="/read/references/#ref-264" data-k="desouza2002vision">264</a>]</cite> and grasping <cite class="cites">[<a class="cite" href="/read/references/#ref-265" data-k="bicchi2000robotic">265</a>, <a class="cite" href="/read/references/#ref-266" data-k="saxena2006robotic">266</a>, <a class="cite" href="/read/references/#ref-267" data-k="zhao2025towards">267</a>]</cite>, in augmented reality (AR) for scene interaction, and as a foundational input for 3D reconstruction pipelines that fuse multiple frames into a complete model <cite class="cites">[<a class="cite" href="/read/references/#ref-114" data-k="newcombe2011kinectfusion">114</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S2.SS2"><span class="secnum">4.2.2</span>Voxel Grids<a class="anchor" href="#Ch4.S2.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">The voxel grid is a foundational 3D representation that discretizes space into a uniform grid of volumetric elements, or <span class="ltx_font_italic">voxels</span> (a portmanteau of “volume” and “pixel”).
+Analogous to a pixel in 2D, a voxel grid can be modeled as a function mapping discrete 3D coordinates to a set of attributes:</p>
+<table id="Ch4.E11" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E11.m1" alttext="G:\{1,\dots,D\}\times\{1,\dots,H\}\times\{1,\dots,W\}\rightarrow\mathcal{A}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>G</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mrow><mo stretchy="false">{</mo><mn>1</mn><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mi>D</mi><mo rspace="0.055em" stretchy="false">}</mo></mrow><mo rspace="0.222em">×</mo><mrow><mo stretchy="false">{</mo><mn>1</mn><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mi>H</mi><mo rspace="0.055em" stretchy="false">}</mo></mrow><mo rspace="0.222em">×</mo><mrow><mo stretchy="false">{</mo><mn>1</mn><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mi>W</mi><mo stretchy="false">}</mo></mrow></mrow><mo stretchy="false">→</mo><mi>𝒜</mi></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">G:\{1,\dots,D\}\times\{1,\dots,H\}\times\{1,\dots,W\}\rightarrow\mathcal{A},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.11)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch4.S2.SS2.p1.m1" alttext="D,H,W" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>D</mi><mo>,</mo><mi>H</mi><mo>,</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">D,H,W</annotation></semantics></math> are the grid dimensions and <math id="Ch4.S2.SS2.p1.m2" alttext="\mathcal{A}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math> can represent occupancy, color, density, or material properties, thereby enabling a detailed volumetric description of an object.</p>
+</div>
+<div id="Ch4.S2.SS2.p2" class="ltx_para">
+<p class="ltx_p">A key advantage of this representation is its ability to model complex geometries and internal structures, which are often challenging for surface-based methods like polygon meshes to capture.
+The conceptual simplicity of voxels, which can be seen as the three-dimensional extension of 2D pixels, facilitates straightforward implementation and manipulation.
+Consequently, voxel grids are natively suited for applications involving inherently volumetric data, such as medical imaging (<span class="ltx_font_italic">e.g.,</span> , MRI and CT scans) <cite class="cites">[<a class="cite" href="/read/references/#ref-268" data-k="cciccek20163d">268</a>]</cite>, where biological tissues are naturally captured as a 3D array of values.
+They are also widely adopted in computer graphics and gaming for tasks like procedural generation and creating destructible environments, as popularized by games like <span class="ltx_font_italic">Minecraft</span>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S2.SS3"><span class="secnum">4.2.3</span>Point Clouds<a class="anchor" href="#Ch4.S2.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S2.SS3.p1" class="ltx_para">
+<p class="ltx_p">Point clouds offer a direct and unstructured 3D representation, defined as a set of points in 3D space:</p>
+<table id="Ch4.E12" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E12.m1" alttext="P=\{p_{i}\}_{i=1}^{N},\quad p_{i}=(x_{i},y_{i},z_{i},\mathbf{a}_{i})\in\mathbb%
+{R}^{3}\times\mathbb{R}^{C}." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>P</mi><mo>=</mo><msubsup><mrow><mo stretchy="false">{</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup></mrow><mo rspace="1.167em">,</mo><mrow><msub><mi>p</mi><mi>i</mi></msub><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>,</mo><msub><mi>z</mi><mi>i</mi></msub><mo>,</mo><msub><mi>𝐚</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><mo>∈</mo><mrow><msup><mi>ℝ</mi><mn>3</mn></msup><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mi>ℝ</mi><mi>C</mi></msup></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">P=\{p_{i}\}_{i=1}^{N},\quad p_{i}=(x_{i},y_{i},z_{i},\mathbf{a}_{i})\in\mathbb%
+{R}^{3}\times\mathbb{R}^{C}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.12)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Each point <math id="Ch4.S2.SS3.p1.m1" alttext="p_{i}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>p</mi><mi>i</mi></msub><annotation encoding="application/x-tex">p_{i}</annotation></semantics></math> consists of its geometric coordinates <math id="Ch4.S2.SS3.p1.m2" alttext="(x_{i},y_{i},z_{i})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>,</mo><msub><mi>y</mi><mi>i</mi></msub><mo>,</mo><msub><mi>z</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x_{i},y_{i},z_{i})</annotation></semantics></math> and an optional <math id="Ch4.S2.SS3.p1.m3" alttext="C" display="inline" data-pagefind-ignore="all"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>-dimensional attribute vector <math id="Ch4.S2.SS3.p1.m4" alttext="\mathbf{a}_{i}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝐚</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mathbf{a}_{i}</annotation></semantics></math> encoding properties such as color, intensity, or surface normals. They are the native output of active 3D scanning technologies like LiDAR (Light Detection and Ranging) and structured-light scanners <cite class="cites">[<a class="cite" href="/read/references/#ref-269" data-k="behroozpour2017lidar">269</a>]</cite>, as well as passive methods like photogrammetry <cite class="cites">[<a class="cite" href="/read/references/#ref-115" data-k="schonberger2016structure">115</a>]</cite>.</p>
+</div>
+<div id="Ch4.S2.SS3.p2" class="ltx_para">
+<p class="ltx_p">The primary strength of point clouds lies in their raw and unstructured nature; they represent geometry without imposing any explicit topological connectivity (unlike meshes) or spatial discretization (unlike voxels).
+This makes them a faithful and often highly precise representation of the captured data.
+However, this very lack of inherent structure poses significant challenges for downstream processing.
+The unordered and potentially sparse distribution of points makes tasks like feature extraction, segmentation, and reconstruction non-trivial, necessitating specialized algorithms and deep learning architectures (<span class="ltx_font_italic">e.g.,</span> , PointNet <cite class="cites">[<a class="cite" href="/read/references/#ref-132" data-k="qi2017pointnet">132</a>]</cite> and its successors <cite class="cites">[<a class="cite" href="/read/references/#ref-270" data-k="qi2017pointnetplus">270</a>]</cite>) that are designed to operate directly on irregular point sets.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S2.SS4"><span class="secnum">4.2.4</span>Meshes<a class="anchor" href="#Ch4.S2.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S2.SS4.p1" class="ltx_para">
+<p class="ltx_p">A mesh is a canonical surface representation in computer graphics, defining an object’s boundary with a set of geometric and topological primitives. Formally, a triangle mesh is a tuple <math id="Ch4.S2.SS4.p1.m1" alttext="M=(V,F)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>V</mi><mo>,</mo><mi>F</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">M=(V,F)</annotation></semantics></math>, where</p>
+<table id="Ch4.E13" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E13.m1" alttext="V=\{v_{i}\}_{i=1}^{|V|}\subset\mathbb{R}^{3},\;F\subset V\times V\times V." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>V</mi><mo>=</mo><msubsup><mrow><mo stretchy="false">{</mo><msub><mi>v</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mo stretchy="false">|</mo><mi>V</mi><mo stretchy="false">|</mo></mrow></msubsup><mo>⊂</mo><msup><mi>ℝ</mi><mn>3</mn></msup></mrow><mo rspace="0.447em">,</mo><mrow><mi>F</mi><mo>⊂</mo><mrow><mi>V</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>V</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>V</mi></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">V=\{v_{i}\}_{i=1}^{|V|}\subset\mathbb{R}^{3},\;F\subset V\times V\times V.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.13)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Here, <math id="Ch4.S2.SS4.p1.m2" alttext="V" display="inline" data-pagefind-ignore="all"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> is a set of vertices representing points in 3D space, and <math id="Ch4.S2.SS4.p1.m3" alttext="F" display="inline" data-pagefind-ignore="all"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math> is a set of faces (typically triangles) that define connectivity between vertices.</p>
+</div>
+<div id="Ch4.S2.SS4.p2" class="ltx_para">
+<p class="ltx_p">The key characteristic of a mesh is its explicit topological structure, which encodes the connectivity between these elements. This structure strikes an effective balance between descriptive power and computational efficiency. Its prevalence is due to several key advantages: meshes can represent complex, smooth surfaces with arbitrary fidelity through adaptive tessellation (<span class="ltx_font_italic">i.e.,</span> , varying the polygon density); moreover, this representation is natively supported by modern Graphics Processing Units (GPUs), enabling highly efficient real-time rendering. The explicit connectivity also facilitates the straightforward computation of essential surface properties like normals and curvature, which are critical for realistic lighting and physical analysis. However, as a purely surface-based representation, standard meshes are ill-suited for modeling volumetric or internal structures, and representing objects with complex or changing topologies can be algorithmically challenging.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S2.SS5"><span class="secnum">4.2.5</span>Implicit Representations<a class="anchor" href="#Ch4.S2.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S2.SS5.p1" class="ltx_para">
+<p class="ltx_p">Implicit representations define 3D geometry not as a discrete set of primitives (<span class="ltx_font_italic">e.g.,</span> , points or polygons), but as the level set of a continuous function:</p>
+<table id="Ch4.E14" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E14.m1" alttext="f(\mathbf{x}):\mathbb{R}^{3}\to\mathbb{R}." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo rspace="0.278em" stretchy="false">)</mo></mrow></mrow><mo rspace="0.278em">:</mo><mrow><msup><mi>ℝ</mi><mn>3</mn></msup><mo stretchy="false">→</mo><mi>ℝ</mi></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">f(\mathbf{x}):\mathbb{R}^{3}\to\mathbb{R}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.14)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">The surface <math id="Ch4.S2.SS5.p1.m1" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> is implicitly defined as the set of points where the function evaluates to a specific value, typically zero:</p>
+<table id="Ch4.E15" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E15.m1" alttext="\mathcal{S}=\{\mathbf{x}\in\mathbb{R}^{3}|f(\mathbf{x})=0\}." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>𝒮</mi><mo>=</mo><mrow><mo stretchy="false">{</mo><mrow><mi>𝐱</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>3</mn></msup></mrow><mo lspace="0em" rspace="0em">|</mo><mrow><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mn>0</mn></mrow><mo stretchy="false">}</mo></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathcal{S}=\{\mathbf{x}\in\mathbb{R}^{3}|f(\mathbf{x})=0\}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.15)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="Ch4.S2.SS5.p2" class="ltx_para">
+<p class="ltx_p">A particularly powerful and popular form of this is the <span class="ltx_font_bold">Signed Distance Function (SDF)</span>.
+An SDF maps any spatial coordinate <math id="Ch4.S2.SS5.p2.m1" alttext="\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> to the closest distance to the surface, where the sign indicates whether the point is inside (<math id="Ch4.S2.SS5.p2.m2" alttext="f(\mathbf{x})&lt;0" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(\mathbf{x})&lt;0</annotation></semantics></math>) or outside (<math id="Ch4.S2.SS5.p2.m3" alttext="f(\mathbf{x})&gt;0" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(\mathbf{x})&gt;0</annotation></semantics></math>) the object.
+This formulation inherently guarantees watertight, closed surfaces and provides a smooth, continuous description of the geometry, making it resolution-agnostic.
+A key advantage of implicit fields is their ability to elegantly handle complex and dynamic topologies; operations like merging, splitting, or creating holes do not require complex and error-prone re-meshing procedures.
+This makes them ideal for physical simulations, such as fluid dynamics and shape manipulation.</p>
+</div>
+<div id="Ch4.S2.SS5.p3" class="ltx_para">
+<p class="ltx_p">This paradigm has experienced a major resurgence with the rise of <span class="ltx_font_bold">neural fields</span> or <span class="ltx_font_bold">neural implicit representations</span>. Instead of storing the function in a grid, a neural network is trained to approximate it <cite class="cites">[<a class="cite" href="/read/references/#ref-118" data-k="mescheder2019occupancy">118</a>]</cite> (<span class="ltx_font_italic">e.g.,</span> , DeepSDF <cite class="cites">[<a class="cite" href="/read/references/#ref-117" data-k="park2019deepsdf">117</a>]</cite>).
+This approach is memory-efficient and can learn continuous, high-fidelity shape priors from data.
+Extensions such as Neural Radiance Fields (NeRF) further generalize implicit fields to jointly model geometry and appearance, and are discussed in detail in Section <a href="/read/4.2/#Ch4.S2.SS6" class="xref" data-x="Ch4.S2.SS6"><span>4.2.6</span></a>.
+To visualize or use implicit surfaces in traditional rendering pipelines, an explicit mesh representation is often extracted via algorithms like Marching Cubes <cite class="cites">[<a class="cite" href="/read/references/#ref-105" data-k="lorensen1998marching">105</a>]</cite>.</p>
+</div>
+<figure id="Ch4.F3" class="ltx_figure"><img src="/assets/figures/figures/part2/3D_representations_2.webp" id="Ch4.F3.g1" class="fig-img" alt="" width="2000" height="708" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 4.3</span><span>Neural and hybrid 3D representations: (a) NeRF, (b) 3DGS, and (c) hybrid methods (DMTet and Tri-plane).</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S2.SS6"><span class="secnum">4.2.6</span>Neural Radiance Fields<a class="anchor" href="#Ch4.S2.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S2.SS6.p1" class="ltx_para">
+<p class="ltx_p">Neural Radiance Fields (NeRF) represent a paradigm shift in novel view synthesis and implicit 3D scene representation <cite class="cites">[<a class="cite" href="/read/references/#ref-119" data-k="mildenhall2021nerf">119</a>]</cite>.
+The core innovation is to represent a static scene as a continuous function with a 5D input domain (3D location <math id="Ch4.S2.SS6.p1.m1" alttext="+" display="inline" data-pagefind-ignore="all"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math> 2D viewing direction), parameterized by a simple Multi-Layer Perceptron (MLP).
+This neural network, denoted as <math id="Ch4.S2.SS6.p1.m2" alttext="F_{\Theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>F</mi><mi mathvariant="normal">Θ</mi></msub><annotation encoding="application/x-tex">F_{\Theta}</annotation></semantics></math>, maps a 3D spatial coordinate <math id="Ch4.S2.SS6.p1.m3" alttext="\mathbf{x}=(x,y,z)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐱</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{x}=(x,y,z)</annotation></semantics></math> and a 2D viewing direction <math id="Ch4.S2.SS6.p1.m4" alttext="\mathbf{d}=(\theta,\phi)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐝</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>ϕ</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{d}=(\theta,\phi)</annotation></semantics></math> to a volume density <math id="Ch4.S2.SS6.p1.m5" alttext="\sigma" display="inline" data-pagefind-ignore="all"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> and an emitted color <math id="Ch4.S2.SS6.p1.m6" alttext="\mathbf{c}=(r,g,b)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>r</mi><mo>,</mo><mi>g</mi><mo>,</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{c}=(r,g,b)</annotation></semantics></math>.
+A crucial design choice is that density <math id="Ch4.S2.SS6.p1.m7" alttext="\sigma" display="inline" data-pagefind-ignore="all"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> depends only on the location <math id="Ch4.S2.SS6.p1.m8" alttext="\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>, while the color <math id="Ch4.S2.SS6.p1.m9" alttext="\mathbf{c}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐜</mi><annotation encoding="application/x-tex">\mathbf{c}</annotation></semantics></math> depends on both location and viewing direction <math id="Ch4.S2.SS6.p1.m10" alttext="(\mathbf{x},\mathbf{d})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo>,</mo><mi>𝐝</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\mathbf{x},\mathbf{d})</annotation></semantics></math>.
+This allows NeRF to capture complex, non-Lambertian surface effects such as specular reflections and translucency.</p>
+</div>
+<div id="Ch4.S2.SS6.p2" class="ltx_para">
+<p class="ltx_p">To render an image from a novel viewpoint, rays are cast through the scene, and their colors are computed by integrating the predicted color and density values along each ray using principles of classical volume rendering and numerical quadrature.
+By optimizing the network’s weights to minimize the photometric reconstruction error between rendered and ground-truth images, NeRF can learn a highly detailed and coherent representation of the scene from only a sparse set of posed input images.
+The resulting state-of-the-art photorealism has established NeRF as a foundational technique, inspiring a vast body of follow-up research aimed at improving its speed, scalability, and applicability to dynamic scenes <cite class="cites">[<a class="cite" href="/read/references/#ref-120" data-k="muller2022instant">120</a>, <a class="cite" href="/read/references/#ref-271" data-k="barron2021mip">271</a>, <a class="cite" href="/read/references/#ref-272" data-k="barron2023zip">272</a>, <a class="cite" href="/read/references/#ref-273" data-k="multinerf2022">273</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S2.SS7"><span class="secnum">4.2.7</span>3D Gaussian Splatting<a class="anchor" href="#Ch4.S2.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S2.SS7.p1" class="ltx_para">
+<p class="ltx_p">3D Gaussian Splatting (3DGS) has recently emerged as a groundbreaking alternative to neural radiance fields, achieving state-of-the-art quality for novel view synthesis while enabling real-time rendering <cite class="cites">[<a class="cite" href="/read/references/#ref-121" data-k="kerbl20233d">121</a>]</cite>.
+Unlike the implicit representation of NeRF, 3DGS represents a scene as a set of <math id="Ch4.S2.SS7.p1.m1" alttext="N" display="inline" data-pagefind-ignore="all"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> anisotropic 3D Gaussian primitives, each parameterized by:</p>
+<ul id="Ch4.S2.I2" class="ltx_itemize">
+<li id="Ch4.S2.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Position</span> <math id="Ch4.S2.I2.i1.p1.m1" alttext="\bm{\mu}\in\mathbb{R}^{3}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝝁</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">\bm{\mu}\in\mathbb{R}^{3}</annotation></semantics></math>: the 3D center of the Gaussian;</p>
+</div>
+</li>
+<li id="Ch4.S2.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Covariance</span> <math id="Ch4.S2.I2.i2.p1.m1" alttext="\bm{\Sigma}\in\mathbb{R}^{3\times 3}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝚺</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\bm{\Sigma}\in\mathbb{R}^{3\times 3}</annotation></semantics></math>: shape and orientation, allowing thin planes through to volumetric wisps;</p>
+</div>
+</li>
+<li id="Ch4.S2.I2.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I2.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Color</span>: Spherical Harmonics (SH) <cite class="cites">[<a class="cite" href="/read/references/#ref-274" data-k="porter1984compositing">274</a>]</cite> coefficients capturing view-dependent appearance;</p>
+</div>
+</li>
+<li id="Ch4.S2.I2.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch4.S2.I2.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Opacity</span> <math id="Ch4.S2.I2.i4.p1.m1" alttext="\alpha\in[0,1]" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>α</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha\in[0,1]</annotation></semantics></math>: transparency.</p>
+</div>
+</li>
+</ul>
+<p class="ltx_p">The density contributed by a single primitive at a query point <math id="Ch4.S2.SS7.p1.m2" alttext="\mathbf{x}\in\mathbb{R}^{3}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐱</mi><mo>∈</mo><msup><mi>ℝ</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">\mathbf{x}\in\mathbb{R}^{3}</annotation></semantics></math> is</p>
+<table id="Ch4.E16" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E16.m1" alttext="G(\mathbf{x};\bm{\mu},\bm{\Sigma})=\exp\!\left(-\tfrac{1}{2}(\mathbf{x}-\bm{%
+\mu})^{\top}\bm{\Sigma}^{-1}(\mathbf{x}-\bm{\mu})\right)." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>G</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo>;</mo><mi>𝝁</mi><mo>,</mo><mi>𝚺</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mpadded width="1.370em"><mi>exp</mi></mpadded><mo>⁡</mo><mrow><mo>(</mo><mrow><mo>−</mo><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo>⁢</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mi>𝐱</mi><mo>−</mo><mi>𝝁</mi></mrow><mo stretchy="false">)</mo></mrow><mo>⊤</mo></msup><mo>⁢</mo><msup><mi>𝚺</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>𝐱</mi><mo>−</mo><mi>𝝁</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">G(\mathbf{x};\bm{\mu},\bm{\Sigma})=\exp\!\left(-\tfrac{1}{2}(\mathbf{x}-\bm{%
+\mu})^{\top}\bm{\Sigma}^{-1}(\mathbf{x}-\bm{\mu})\right).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.16)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p"><math id="Ch4.S2.SS7.p1.m3" alttext="\bm{\Sigma}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝚺</mi><annotation encoding="application/x-tex">\bm{\Sigma}</annotation></semantics></math> is decomposed into a scaling matrix <math id="Ch4.S2.SS7.p1.m4" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> and rotation matrix <math id="Ch4.S2.SS7.p1.m5" alttext="\mathcal{R}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℛ</mi><annotation encoding="application/x-tex">\mathcal{R}</annotation></semantics></math>, such that</p>
+<table id="Ch4.E17" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E17.m1" alttext="\bm{\Sigma}=\mathcal{R}\mathcal{S}\mathcal{S}^{T}\mathcal{R}^{T}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>𝚺</mi><mo>=</mo><mrow><mi>ℛ</mi><mo>⁢</mo><mi>𝒮</mi><mo>⁢</mo><msup><mi>𝒮</mi><mi>T</mi></msup><mo>⁢</mo><msup><mi>ℛ</mi><mi>T</mi></msup></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\bm{\Sigma}=\mathcal{R}\mathcal{S}\mathcal{S}^{T}\mathcal{R}^{T},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.17)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">with per-primitive scaling and rotation stored as <math id="Ch4.S2.SS7.p1.m6" alttext="s\in\mathbb{R}^{N\times 3}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>s</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>N</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">s\in\mathbb{R}^{N\times 3}</annotation></semantics></math> and quaternions <math id="Ch4.S2.SS7.p1.m7" alttext="r\in\mathbb{R}^{N\times 4}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>r</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>N</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">r\in\mathbb{R}^{N\times 4}</annotation></semantics></math>. The key to 3DGS’s real-time performance lies in the differentiable splatting rasteriser introduced together with the representation <cite class="cites">[<a class="cite" href="/read/references/#ref-121" data-k="kerbl20233d">121</a>]</cite>, which extends earlier differentiable rasterization work on meshes <cite class="cites">[<a class="cite" href="/read/references/#ref-275" data-k="liu2019soft">275</a>]</cite>.
+Instead of costly per-pixel ray marching, 3DGS projects (or “splats”) these 3D Gaussians onto the 2D image plane, creating 2D Gaussian splats.
+These splats are then sorted and alpha-blended in a highly-parallelized, feed-forward process that is exceptionally well-suited for modern GPU architectures.
+Differential splatting applies a viewing transform <math id="Ch4.S2.SS7.p1.m8" alttext="W" display="inline" data-pagefind-ignore="all"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math> and Jacobian <math id="Ch4.S2.SS7.p1.m9" alttext="J" display="inline" data-pagefind-ignore="all"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math> to compute the transformed covariance <math id="Ch4.S2.SS7.p1.m10" alttext="\bm{\Sigma}^{\prime}=JW\bm{\Sigma}W^{T}J^{T}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msup><mi>𝚺</mi><mo>′</mo></msup><mo>=</mo><mrow><mi>J</mi><mo>⁢</mo><mi>W</mi><mo>⁢</mo><mi>𝚺</mi><mo>⁢</mo><msup><mi>W</mi><mi>T</mi></msup><mo>⁢</mo><msup><mi>J</mi><mi>T</mi></msup></mrow></mrow><annotation encoding="application/x-tex">\bm{\Sigma}^{\prime}=JW\bm{\Sigma}W^{T}J^{T}</annotation></semantics></math>, enabling novel view rendering. Each pixel color <math id="Ch4.S2.SS7.p1.m11" alttext="\mathcal{C}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒞</mi><annotation encoding="application/x-tex">\mathcal{C}</annotation></semantics></math> is obtained by blending the <math id="Ch4.S2.SS7.p1.m12" alttext="N" display="inline" data-pagefind-ignore="all"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> overlapping primitives along the ray:</p>
+<table id="Ch4.E18" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch4.E18.m1" alttext="\mathcal{C}=\sum_{i\in N}c_{i}\alpha_{i}\prod_{j=1}^{i-1}(1-\alpha_{j})," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>𝒞</mi><mo rspace="0.111em">=</mo><mrow><munder><mo movablelimits="false">∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>N</mi></mrow></munder><mrow><msub><mi>c</mi><mi>i</mi></msub><mo>⁢</mo><msub><mi>α</mi><mi>i</mi></msub><mo>⁢</mo><mrow><munderover><mo movablelimits="false" rspace="0em">∏</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></munderover><mrow><mo stretchy="false">(</mo><mrow><mn>1</mn><mo>−</mo><msub><mi>α</mi><mi>j</mi></msub></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathcal{C}=\sum_{i\in N}c_{i}\alpha_{i}\prod_{j=1}^{i-1}(1-\alpha_{j}),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4.18)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch4.S2.SS7.p1.m13" alttext="c_{i}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>c</mi><mi>i</mi></msub><annotation encoding="application/x-tex">c_{i}</annotation></semantics></math> and <math id="Ch4.S2.SS7.p1.m14" alttext="\alpha_{i}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>α</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\alpha_{i}</annotation></semantics></math> denote the color and opacity of the <math id="Ch4.S2.SS7.p1.m15" alttext="i" display="inline" data-pagefind-ignore="all"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>-th primitive.
+The entire model, initialized from a sparse point cloud (typically from Structure-from-Motion), is optimized end-to-end against training images.
+The optimization process also includes an adaptive density control mechanism to dynamically add, split, or prune Gaussians to best represent the scene’s geometry.
+This combination of an explicit, flexible primitive with a fast, differentiable rasterizer has set a new standard for performance and quality in 3D scene reconstruction.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch4.S2.SS8"><span class="secnum">4.2.8</span>Hybrid Methods<a class="anchor" href="#Ch4.S2.SS8" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch4.S2.SS8.p1" class="ltx_para">
+<p class="ltx_p">To harness the complementary strengths of different 3D representations, hybrid methods have emerged as a powerful paradigm.
+These approaches combine two or more representations, integrating the high-fidelity and continuous nature of implicit functions with the computational efficiency and explicit structure of primitives like meshes or voxels.
+This section reviews two influential hybrid techniques: Deep Marching Tetrahedra (DMTet) and Tri-plane.</p>
+</div>
+<section id="Ch4.S2.SS8.SSS0.Px1">
+<div id="Ch4.S2.SS8.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Deep Marching Tetrahedra (DMTet).</strong> Deep Marching Tetrahedra (DMTet) <cite class="cites">[<a class="cite" href="/read/references/#ref-276" data-k="shen2021deep">276</a>]</cite> is an innovative hybrid technique that bridges learned implicit fields with explicit polygonal meshes.
+Its core concept involves using a neural network to predict an implicit representation of a shape, such as a Signed Distance Function (SDF) <cite class="cites">[<a class="cite" href="/read/references/#ref-277" data-k="vicini2022differentiable">277</a>]</cite> or an occupancy field.
+A differentiable version of the marching tetrahedra algorithm subsequently extracts a high-quality, explicit triangle mesh surface from this implicit representation.</p>
+</div>
+<div id="Ch4.S2.SS8.SSS0.Px1.p2" class="ltx_para">
+<p class="ltx_p">The primary advantage of DMTet lies in its end-to-end differentiability.
+The entire pipeline, from the implicit field prediction to the final mesh generation, allows gradients to flow from a 2D-image-based loss function back to the 3D shape parameters.
+This enables direct optimization of the mesh geometry using 2D supervision, leading to highly detailed and accurate models.
+Furthermore, DMTet can learn to produce an adaptive mesh, allocating higher tetrahedral density to regions of fine detail, thus optimizing computational resources while maintaining high fidelity.</p>
+</div>
+</section>
+<section id="Ch4.S2.SS8.SSS0.Px2">
+<div id="Ch4.S2.SS8.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Tri-plane.</strong> The Tri-plane representation <cite class="cites">[<a class="cite" href="/read/references/#ref-278" data-k="chan2022efficient">278</a>]</cite> offers an efficient, factorized approach to modeling 3D scenes and objects. Instead of encoding information in a dense 3D volume, it decomposes the 3D space into three orthogonal 2D feature planes (typically aligned with the XY, YZ, and XZ axes). This design significantly reduces the memory and computational complexity associated with 3D representations.</p>
+</div>
+<div id="Ch4.S2.SS8.SSS0.Px2.p2" class="ltx_para">
+<p class="ltx_p">The working principle is to derive the feature for any 3D point by projecting it onto the three 2D planes, querying the features at the corresponding projected coordinates, and aggregating them (<span class="ltx_font_italic">e.g.,</span> , through summation or concatenation).
+This aggregated feature vector is then fed into a small MLP to decode the final property of the point, such as its color, density, or SDF value.
+This ”explicit-grid-plus-implicit-decoder” structure is the essence of its hybrid nature.
+It benefits from the efficiency of 2D grid-based feature storage, which can be processed by powerful 2D CNNs, while avoiding the prohibitive memory cost of a full 3D grid.</p>
+</div>
+<figure id="Ch4.T2" class="ltx_table">
+<figcaption><span class="cap-tag">Table 4.2</span><span>Representative methods for each 3D representation family, chosen to show its historical progression and dominant design choices.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representation</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative Methods</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Key Idea / Contribution</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">RGB-D Image</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">KinectFusion <cite class="cites">[<a class="cite" href="/read/references/#ref-114" data-k="newcombe2011kinectfusion">114</a>]</cite>, DADA <cite class="cites">[<a class="cite" href="/read/references/#ref-263" data-k="vu2019dada">263</a>]</cite>, SemanticFusion <cite class="cites">[<a class="cite" href="/read/references/#ref-279" data-k="mccormac2017semanticfusion">279</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Fuses color and per-pixel depth for real-time reconstruction and semantic understanding.</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Voxel Grid</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VoxNet <cite class="cites">[<a class="cite" href="/read/references/#ref-280" data-k="maturana2015voxnet">280</a>]</cite>, 3D U-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-268" data-k="cciccek20163d">268</a>]</cite>, OGN <cite class="cites">[<a class="cite" href="/read/references/#ref-281" data-k="tatarchenko2017octree">281</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Direct 3D CNNs on regular grids; octree variants reduce memory for high resolution.</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Point Cloud</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">PointNet <cite class="cites">[<a class="cite" href="/read/references/#ref-132" data-k="qi2017pointnet">132</a>]</cite>, PointNet++ <cite class="cites">[<a class="cite" href="/read/references/#ref-270" data-k="qi2017pointnetplus">270</a>]</cite>, Point Transformer <cite class="cites">[<a class="cite" href="/read/references/#ref-282" data-k="zhao2021point">282</a>]</cite>, PointNeXt <cite class="cites">[<a class="cite" href="/read/references/#ref-283" data-k="qian2022pointnext">283</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Permutation-invariant and attention-based architectures for unordered point sets.</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Mesh</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MeshCNN <cite class="cites">[<a class="cite" href="/read/references/#ref-284" data-k="hanocka2019meshcnn">284</a>]</cite>, Pixel2Mesh <cite class="cites">[<a class="cite" href="/read/references/#ref-285" data-k="wang2018pixel2mesh">285</a>]</cite>, AtlasNet <cite class="cites">[<a class="cite" href="/read/references/#ref-286" data-k="groueix2018papier">286</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Learning on mesh edges and single-image mesh generation from data.</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Implicit (SDF/occupancy)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Occupancy Networks <cite class="cites">[<a class="cite" href="/read/references/#ref-118" data-k="mescheder2019occupancy">118</a>]</cite>, DeepSDF <cite class="cites">[<a class="cite" href="/read/references/#ref-117" data-k="park2019deepsdf">117</a>]</cite>, IM-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-287" data-k="chen2019learning">287</a>]</cite>, NeuS <cite class="cites">[<a class="cite" href="/read/references/#ref-288" data-k="wang2021neus">288</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Neural networks encode continuous surfaces via occupancy or signed-distance fields.</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">NeRF</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">NeRF <cite class="cites">[<a class="cite" href="/read/references/#ref-119" data-k="mildenhall2021nerf">119</a>]</cite>, Plenoxels <cite class="cites">[<a class="cite" href="/read/references/#ref-289" data-k="fridovich2022plenoxels">289</a>]</cite>, Instant-NGP <cite class="cites">[<a class="cite" href="/read/references/#ref-120" data-k="muller2022instant">120</a>]</cite>, Mip-NeRF 360 <cite class="cites">[<a class="cite" href="/read/references/#ref-272" data-k="barron2023zip">272</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">5D radiance fields; later works accelerate training and reduce aliasing.</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">3DGS</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3D Gaussian Splatting <cite class="cites">[<a class="cite" href="/read/references/#ref-121" data-k="kerbl20233d">121</a>]</cite>, Mip-Splatting <cite class="cites">[<a class="cite" href="/read/references/#ref-290" data-k="yu2024mip">290</a>]</cite>, Scaffold-GS <cite class="cites">[<a class="cite" href="/read/references/#ref-291" data-k="lu2024scaffold">291</a>]</cite>, 4DGS <cite class="cites">[<a class="cite" href="/read/references/#ref-191" data-k="wu20244d">191</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Anisotropic Gaussian primitives with differentiable rasterization for real-time rendering.</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:82.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Hybrid</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">DMTet <cite class="cites">[<a class="cite" href="/read/references/#ref-276" data-k="shen2021deep">276</a>]</cite>, Tri-plane <cite class="cites">[<a class="cite" href="/read/references/#ref-278" data-k="chan2022efficient">278</a>]</cite>, NeRFactor <cite class="cites">[<a class="cite" href="/read/references/#ref-292" data-k="zhang2021nerfactor">292</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:173.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Combines explicit grids or meshes with compact implicit decoders.</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/4.1/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">4.1 2D</span></a><a class="pager-next" href="/read/4.3/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">4.3 4D</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch4.S2.SS1" data-spy="Ch4.S2.SS1"><span class="n">4.2.1</span>RGB-D Images</a></li><li><a href="#Ch4.S2.SS2" data-spy="Ch4.S2.SS2"><span class="n">4.2.2</span>Voxel Grids</a></li><li><a href="#Ch4.S2.SS3" data-spy="Ch4.S2.SS3"><span class="n">4.2.3</span>Point Clouds</a></li><li><a href="#Ch4.S2.SS4" data-spy="Ch4.S2.SS4"><span class="n">4.2.4</span>Meshes</a></li><li><a href="#Ch4.S2.SS5" data-spy="Ch4.S2.SS5"><span class="n">4.2.5</span>Implicit Representations</a></li><li><a href="#Ch4.S2.SS6" data-spy="Ch4.S2.SS6"><span class="n">4.2.6</span>Neural Radiance Fields</a></li><li><a href="#Ch4.S2.SS7" data-spy="Ch4.S2.SS7"><span class="n">4.2.7</span>3D Gaussian Splatting</a></li><li><a href="#Ch4.S2.SS8" data-spy="Ch4.S2.SS8"><span class="n">4.2.8</span>Hybrid Methods</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=4.2"><b>43</b> cited works</a><a href="/explore/tools/?sec=4.2" title="3D Gaussian Splatting, Instant-NGP"><b>2</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="4.2 3D" data-url="/read/4.2/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%204.2%203D&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/4.2/%20%28PDF%20p.%2060%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

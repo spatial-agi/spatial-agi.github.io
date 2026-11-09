@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.4 Hybrid Spatial Reasoning · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="7.4 Hybrid Spatial Reasoning · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #7446D6" data-page="7.4">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link is-current" href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iii/">Part III</a><span class="sep">/</span><a href="/read/chapter-7/">Chapter 7</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-7/">Chapter 7 · Spatial Reasoning</a></div>
+        <h1><span class="secnum">7.4</span>Hybrid Spatial Reasoning</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=222" title="Open this page in the PDF">PDF p. 222</a><span class="dot">·</span>        <span>9 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:7.4 Hybrid Spatial Reasoning">
+<div id="Ch7.S4.p1" class="ltx_para">
+<p class="ltx_p">Conventional approaches to spatial reasoning exhibit fundamental limitations.
+Systems that rely solely on linguistic or symbolic reasoning typically lack perceptual grounding in real-world visual and physical structures (<span class="ltx_font_italic">e.g.,</span> , geometry, physics, spatial continuity), making them inadequate for handling cross-view transformations, temporal evolution, or physically coherent scenarios.
+Conversely, purely perceptual or vision-based systems, such as those combining visual recognition with rule-based geometric reasoning, often fall short in performing high-level abstract reasoning, multi-step planning, long-term memory integration, or interactive decision-making.
+These limitations have motivated a growing body of work advocating for a hybrid paradigm of spatial reasoning: integrating heterogeneous modules with distinct capabilities (perception, world modeling, memory, and action) so as to jointly leverage low-level spatial and physical cues together with high-level cognitive reasoning capabilities.
+A perceptual or physics-informed module supplies geometry, relations, affordances, and dynamics; a symbolic or neural module plans, infers, and abstracts over them; memory and history extend the pipeline to multi-step, multi-view, and temporally extended tasks; and because no single modality, task, or dataset carries the whole system, the composition transfers across vision-only, language-only, embodied, and multimodal settings.</p>
+</div>
+<section>
+<h2 class="h-subsection" id="Ch7.S4.SS1"><span class="secnum">7.4.1</span>Task Definition<a class="anchor" href="#Ch7.S4.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch7.S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">A hybrid spatial reasoning system is a pair <math id="Ch7.S4.SS1.p1.m1" alttext="(\{M_{i}\}_{i=1}^{k},\pi)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><msubsup><mrow><mo stretchy="false">{</mo><msub><mi>M</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>k</mi></msubsup><mo>,</mo><mi>π</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\{M_{i}\}_{i=1}^{k},\pi)</annotation></semantics></math>: a set of <math id="Ch7.S4.SS1.p1.m2" alttext="k" display="inline" data-pagefind-ignore="all"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> heterogeneous modules <math id="Ch7.S4.SS1.p1.m3" alttext="M_{i}\in\{M_{\text{percept}},M_{\text{world}},M_{\text{symb}},M_{\text{mem}},M%
+_{\text{plan}},M_{\text{act}}\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>M</mi><mi>i</mi></msub><mo>∈</mo><mrow><mo stretchy="false">{</mo><msub><mi>M</mi><mtext>percept</mtext></msub><mo>,</mo><msub><mi>M</mi><mtext>world</mtext></msub><mo>,</mo><msub><mi>M</mi><mtext>symb</mtext></msub><mo>,</mo><msub><mi>M</mi><mtext>mem</mtext></msub><mo>,</mo><msub><mi>M</mi><mtext>plan</mtext></msub><mo>,</mo><msub><mi>M</mi><mtext>act</mtext></msub><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">M_{i}\in\{M_{\text{percept}},M_{\text{world}},M_{\text{symb}},M_{\text{mem}},M%
+_{\text{plan}},M_{\text{act}}\}</annotation></semantics></math>, each contributing a distinct inductive bias (perception, world model, symbolic constraints, memory, planning, or action), and an orchestration function <math id="Ch7.S4.SS1.p1.m4" alttext="\pi:\mathcal{S}\to\{1,\dots,k\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>π</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒮</mi><mo stretchy="false">→</mo><mrow><mo stretchy="false">{</mo><mn>1</mn><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mi>k</mi><mo stretchy="false">}</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\pi:\mathcal{S}\to\{1,\dots,k\}</annotation></semantics></math> that selects which module acts on the current system state <math id="Ch7.S4.SS1.p1.m5" alttext="s_{t}\in\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>s</mi><mi>t</mi></msub><mo>∈</mo><mi>𝒮</mi></mrow><annotation encoding="application/x-tex">s_{t}\in\mathcal{S}</annotation></semantics></math> (perception, internal map, history). Starting from the input <math id="Ch7.S4.SS1.p1.m6" alttext="s_{0}=x" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>s</mi><mn>0</mn></msub><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">s_{0}=x</annotation></semantics></math>, the system evolves as</p>
+<table id="Ch7.E45" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch7.E45.m1" alttext="s_{t+1}=M_{\pi(s_{t})}(s_{t}),\qquad y=\mathrm{Read}(s_{T})," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mrow><msub><mi>M</mi><mrow><mi>π</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><mi>y</mi><mo>=</mo><mrow><mi>Read</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>T</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">s_{t+1}=M_{\pi(s_{t})}(s_{t}),\qquad y=\mathrm{Read}(s_{T}),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(7.45)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">and the three composition styles found in practice are special cases of Eq. (<a href="/read/7.4/#Ch7.E45" class="xref" data-x="Ch7.E45"><span>7.45</span></a>): a <em class="ltx_font_italic">pipeline</em> fixes <math id="Ch7.S4.SS1.p1.m7" alttext="\pi" display="inline" data-pagefind-ignore="all"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> to a constant module order, an <em class="ltx_font_italic">iterative</em> system lets <math id="Ch7.S4.SS1.p1.m8" alttext="\pi" display="inline" data-pagefind-ignore="all"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> revisit modules until a verifier accepts, and an <em class="ltx_font_italic">end-to-end</em> system makes every <math id="Ch7.S4.SS1.p1.m9" alttext="M_{i}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>M</mi><mi>i</mi></msub><annotation encoding="application/x-tex">M_{i}</annotation></semantics></math> differentiable so that the whole trajectory is trained jointly. Hybrid spatial reasoning is the paradigm in which <math id="Ch7.S4.SS1.p1.m10" alttext="\pi" display="inline" data-pagefind-ignore="all"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> and the module set <math id="Ch7.S4.SS1.p1.m11" alttext="\{M_{i}\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>M</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{M_{i}\}</annotation></semantics></math> are designed together to minimize the precision-grounding asymmetry: the foundation models of §<a href="/read/7.3/" class="xref" data-x="Ch7.S3"><span>7.3</span></a> supply semantic competence, and the symbolic and learning-based components of §<a href="/read/7.1/" class="xref" data-x="Ch7.S1"><span>7.1</span></a>–§<a href="/read/7.2/" class="xref" data-x="Ch7.S2"><span>7.2</span></a> supply metric precision and verifiable structure. Existing systems therefore differ along three axes: <em class="ltx_font_italic">which</em> modules they compose, <em class="ltx_font_italic">how</em> they compose them (pipeline, iterative, or end-to-end), and how the orchestration function is realized (hand-coded rules or a learned policy).</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch7.S4.SS2"><span class="secnum">7.4.2</span>Methodology<a class="anchor" href="#Ch7.S4.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch7.S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">Five hybridization patterns recur in the literature, distinguished by which module the foundation model is paired with and by what supplies the truth signal.</p>
+</div>
+<figure id="Ch7.F29" class="ltx_figure"><img src="/assets/figures/figures/part3/section7/foundation_rl_hybrid.webp" id="Ch7.F29.g1" class="fig-img" alt="" width="2000" height="570" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 7.29</span><span>The foundation-model + reinforcement-learning hybrid pattern: an LLM/VLM hypothesis generator coupled with an RL controller and with a physics engine or symbolic solver for verification. The RL controller’s policy (written <math id="Ch7.F29.m4" alttext="\pi" display="inline" data-pagefind-ignore="all"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> in the figure) is <math id="Ch7.F29.m5" alttext="\pi_{\mathrm{RL}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>π</mi><mi>RL</mi></msub><annotation encoding="application/x-tex">\pi_{\mathrm{RL}}</annotation></semantics></math> in the text; the bottom bar is the orchestration function <math id="Ch7.F29.m6" alttext="\pi" display="inline" data-pagefind-ignore="all"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> of Eq. (<a href="/read/7.4/#Ch7.E45" class="xref" data-x="Ch7.E45"><span>7.45</span></a>).</span></figcaption>
+</figure>
+<section id="Ch7.S4.SS2.SSS0.Px1">
+<div id="Ch7.S4.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Foundation Models with Reinforcement Learning.</strong> A prominent hybrid couples a foundation model’s semantic competence with reinforcement learning’s long-horizon decision-making, often closed by a verifier that supplies executable structure (Figure <a href="/read/7.4/#Ch7.F29" class="xref" data-x="Ch7.F29"><span>7.29</span></a>).
+The foundation model proposes hypotheses, sub-goals, or candidate action sequences; an RL policy <math id="Ch7.S4.SS2.SSS0.Px1.p1.m1" alttext="\pi_{\mathrm{RL}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>π</mi><mi>RL</mi></msub><annotation encoding="application/x-tex">\pi_{\mathrm{RL}}</annotation></semantics></math> commits to and executes them over extended horizons; and the resulting reward, optionally augmented by a physics engine or symbolic checker, updates both the policy and the orchestration.
+Embodied-R <cite class="cites">[<a class="cite" href="/read/references/#ref-1608" data-k="zhao2025embodied">1608</a>]</cite> instantiates this division of labor: a large vision–language model handles perception, while a small language model trained by RL, with a reward that scores the logical consistency between its reasoning trace and its answer, performs the slow, deliberative spatial reasoning, evaluated on UrbanVideo-Bench and VSI-Bench.
+The group-relative fine-tuning recipes of §<a href="/read/7.2/#Ch7.S2.SS5" class="xref" data-x="Ch7.S2.SS5"><span>7.2.5</span></a> (Reason-RFT, OctoNav, SpaceR <cite class="cites">[<a class="cite" href="/read/references/#ref-1424" data-k="tan2025reasonrft">1424</a>, <a class="cite" href="/read/references/#ref-1425" data-k="gao2026octonav">1425</a>, <a class="cite" href="/read/references/#ref-1427" data-k="ouyang2025spacer">1427</a>]</cite>) are the same hybrid with the verifier folded into a verifiable reward and are not repeated here.
+The foundation model contributes broad priors and RL supplies credit assignment and exploration; the cost is the sample inefficiency and reward-specification difficulty inherited from RL (§<a href="/read/7.2/#Ch7.S2.SS5" class="xref" data-x="Ch7.S2.SS5"><span>7.2.5</span></a>).</p>
+</div>
+</section>
+<section id="Ch7.S4.SS2.SSS0.Px2">
+<div id="Ch7.S4.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Foundation Models with Explicit Physical Simulation.</strong> A second pattern pairs the foundation model with a physics engine, so that the truth signal is a simulated trajectory rather than a learned score; the engine side is the physical reasoning of §<a href="/read/7.1/#Ch7.S1.SS2" class="xref" data-x="Ch7.S1.SS2"><span>7.1.2</span></a>.
+The LLM proposes hypotheses, structural descriptions, or programs, the simulator executes them under conservation laws, kinematic constraints, contact dynamics, and reachability limits, and the discrepancy between simulation and observation is fed back for another round.
+LLMPhy <cite class="cites">[<a class="cite" href="/read/references/#ref-1609" data-k="cherian2024llmphy">1609</a>]</cite> is the clearest instance: the LLM writes Python programs that embed estimates of latent physical parameters (friction, stiffness, mass) and of the scene layout, a physics engine executes them, and the reconstruction error against the observed video is returned as feedback, so that building the digital twin becomes a black-box optimization driven by the LLM.
+DiffGen <cite class="cites">[<a class="cite" href="/read/references/#ref-1610" data-k="jin2024diffgen">1610</a>]</cite> makes the loop differentiable, generating robot demonstrations by descending gradients through a differentiable simulator, a differentiable renderer, and a vision–language model until the rendered outcome matches the language instruction in embedding space.
+PhysVLM <cite class="cites">[<a class="cite" href="/read/references/#ref-1611" data-k="zhou2025physvlm">1611</a>]</cite> moves the physics into the input instead: a robot’s reachable workspace is abstracted into a robot-agnostic space-physical reachability map that the VLM consumes alongside the image, trained on Phys100K and evaluated on the EQA-phys benchmark.
+At the far end, ChronoLLM <cite class="cites">[<a class="cite" href="/read/references/#ref-1612" data-k="wang2025chronollm">1612</a>]</cite> fine-tunes LLMs to write PyChrono multibody-simulation scripts, from a single pendulum to a full vehicle on deformable terrain; here the model authors the simulation rather than reasoning inside it, which places it at the boundary with the code-generation paradigm of §<a href="/read/7.3/#Ch7.S3.SS4" class="xref" data-x="Ch7.S3.SS4"><span>7.3.4</span></a>.
+What the simulator contributes is an inductive bias that stays valid for unseen objects and configurations, so the hybrid extrapolates where a purely statistical model would not.</p>
+</div>
+</section>
+<section id="Ch7.S4.SS2.SSS0.Px3">
+<div id="Ch7.S4.SS2.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Foundation Models with Symbolic Reasoning.</strong> A third pattern inserts an explicit symbolic layer (logical constraints, relational predicates, or formal planning specifications) between natural-language reasoning and executable spatial inference, replacing the hand-crafted parsers of §<a href="/read/7.1/" class="xref" data-x="Ch7.S1"><span>7.1</span></a> with foundation-model-generated symbolic structure.
+Two sub-patterns differ in when the symbolic machinery is used.
+In the first it is called at inference time: NS3D <cite class="cites">[<a class="cite" href="/read/references/#ref-377" data-k="hsu2023ns3d">377</a>]</cite> has an LLM translate a 3D referring expression into a first-order logic program that a neural executor grounds against the scene’s objects and relations on ReferIt3D, and LEFT <cite class="cites">[<a class="cite" href="/read/references/#ref-348" data-k="hsu2023s">348</a>]</cite> (§<a href="/read/7.3/#Ch7.S3.SS4" class="xref" data-x="Ch7.S3.SS4"><span>7.3.4</span></a>) makes the same programs differentiable so that concept grounding is learned rather than hand-specified.
+In the second, symbolic knowledge enters only at training time as a constraint on a neural model: <cite class="cites"><span class="citet-name">Premsri and Kordjamshidi</span> [<a class="cite" href="/read/references/#ref-1538" data-k="premsri2024neurosymbolic">1538</a>]</cite> train language models for reasoning over spatial language with spatial logic rules as auxiliary losses, and RelateSeg <cite class="cites">[<a class="cite" href="/read/references/#ref-1613" data-k="lin2025neuro">1613</a>]</cite> extracts relations such as <math id="Ch7.S4.SS2.SSS0.Px3.p1.m1" alttext="\langle\text{cat},\text{to-right-of},\text{person}\rangle" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">⟨</mo><mtext>cat</mtext><mo>,</mo><mtext>to-right-of</mtext><mo>,</mo><mtext>person</mtext><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\langle\text{cat},\text{to-right-of},\text{person}\rangle</annotation></semantics></math> from open-vocabulary segmentation outputs, writes them as first-order logic, and relaxes them with fuzzy logic into a single auxiliary loss that improves mIoU on four benchmarks without adding parameters.
+The Scene Language <cite class="cites">[<a class="cite" href="/read/references/#ref-1614" data-k="zhang2025scenelanguage">1614</a>]</cite> (§<a href="/read/8.2/#Ch8.S2.SS5" class="xref" data-x="Ch8.S2.SS5"><span>8.2.5</span></a>) is the representation such hybrids increasingly target: programs for structure, words for semantics, embeddings for appearance.
+The symbolic layer buys consistency and compositional guarantees; its price is a closed predicate vocabulary that the neural side constantly exceeds, a point taken up under §Challenges and Trends.</p>
+</div>
+</section>
+<section id="Ch7.S4.SS2.SSS0.Px4">
+<div id="Ch7.S4.SS2.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Foundation Models with Spatial Memory and World Models.</strong> A fourth pattern gives the foundation model a persistent spatial state that it does not have to carry in its context window: an explicit memory (episodic trajectories, topological maps, 3D layouts) or a learned world model that predicts how the scene changes under action.
+The hybrid question is the interface between the two.
+MSNav <cite class="cites">[<a class="cite" href="/read/references/#ref-1615" data-k="liu2025msnav">1615</a>]</cite> splits zero-shot vision-and-language navigation into a memory module, a spatial module, and a decision module, with a small fine-tuned LLM extracting the landmarks and relations the spatial module needs, and reaches state-of-the-art zero-shot results on R2R and REVERIE.
+MindExplore <cite class="cites">[<a class="cite" href="/read/references/#ref-1616" data-k="li2025towardsvla">1616</a>]</cite> stacks a reasoning layer (task-specific chains of thought that emit meta-actions) over an acting layer (a mixture of policy experts with a multimodal diffusion policy) and uses a memory mechanism as the feedback channel between the two, running at 30 FPS in dynamic sand environments.
+The 3D spatial memories of §<a href="/read/7.3/#Ch7.S3.SS6" class="xref" data-x="Ch7.S3.SS6"><span>7.3.6</span></a> (3DSPMR <cite class="cites">[<a class="cite" href="/read/references/#ref-1562" data-k="cai2025vision">1562</a>]</cite>, Embodied-RAG <cite class="cites">[<a class="cite" href="/read/references/#ref-1557" data-k="xie2024embodiedrag">1557</a>]</cite>, Meta-Memory <cite class="cites">[<a class="cite" href="/read/references/#ref-1568" data-k="mao2025meta">1568</a>]</cite>) and the world-model coupling of §<a href="/read/7.3/#Ch7.S3.SS8" class="xref" data-x="Ch7.S3.SS8"><span>7.3.8</span></a> are the memory- and simulator-side components these hybrids draw on; MindJourney’s test-time gain on SAT <cite class="cites">[<a class="cite" href="/read/references/#ref-202" data-k="yang2026mindjourney">202</a>]</cite> (about eight points of top-1 accuracy from imagined viewpoints alone, with the VLM untouched) is the cleanest quantitative evidence that a world model used as a tool closes part of the gap.
+In each case the foundation model keeps high-level inference, instruction following, and semantic grounding, and offloads persistence, geometry, and dynamics to the dedicated module.</p>
+</div>
+<figure id="Ch7.F30" class="ltx_figure"><img src="/assets/figures/figures/part3/section7/agentic_hybrid_orchestration.webp" id="Ch7.F30.g1" class="fig-img" alt="" width="2000" height="1150" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 7.30</span><span>Illustration of the agentic hybrid orchestration pattern: a foundation-model controller dynamically selects perception, world-modeling, symbolic-reasoning, memory, and action tools within a closed-loop perceive–reason–act–reflect cycle.</span></figcaption>
+</figure>
+</section>
+<section id="Ch7.S4.SS2.SSS0.Px5">
+<div id="Ch7.S4.SS2.SSS0.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Agentic Orchestration of Hybrid Components.</strong> The fifth pattern makes the orchestration function itself the object of design: a foundation model acts as a deliberative controller that decides, at each step, which of the perception, world-model, symbolic, memory, and action modules to invoke, within a closed perceive–reason–act–reflect loop (Figure <a href="/read/7.4/#Ch7.F30" class="xref" data-x="Ch7.F30"><span>7.30</span></a>).
+It differs from the agentic reasoning of §<a href="/read/7.3/#Ch7.S3.SS7" class="xref" data-x="Ch7.S3.SS7"><span>7.3.7</span></a> in what is being scheduled: there, tools and memory; here, additionally symbolic engines and physics simulators, with the scheduler <math id="Ch7.S4.SS2.SSS0.Px5.p1.m1" alttext="\pi" display="inline" data-pagefind-ignore="all"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> of Eq. (<a href="/read/7.4/#Ch7.E45" class="xref" data-x="Ch7.E45"><span>7.45</span></a>) itself a candidate for learning.
+VADAR <cite class="cites">[<a class="cite" href="/read/references/#ref-1518" data-k="marsili2025visual">1518</a>]</cite> (§<a href="/read/7.3/#Ch7.S3.SS4" class="xref" data-x="Ch7.S3.SS4"><span>7.3.4</span></a>) is the program-synthesis version of such a controller, generating the API it then calls.
+“See it. Say it. Sorted” <cite class="cites">[<a class="cite" href="/read/references/#ref-1617" data-k="zhang2025seeitsayit">1617</a>]</cite> is a training-free version for sketch-to-diagram generation: a critic VLM proposes a few qualitative relational edits, several LLMs synthesize candidate SVG programs, and a judge VLM selects among them, which keeps global constraints such as alignment and connectivity intact where numerical estimation would drift.
+<cite class="cites"><span class="citet-name">Manh et al.</span> [<a class="cite" href="/read/references/#ref-1618" data-k="manh2025mindmeetspace">1618</a>]</cite> arrive at the same module inventory from neuroscience, arguing that such a controller should sit over multimodal sensing, multisensory integration, egocentric–allocentric conversion, a cognitive map, spatial memory, and spatial reasoning.
+The gain is compositionality and long-horizon consistency that no static architecture provides; the cost is the latency and attribution problems discussed below.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch7.S4.SS3"><span class="secnum">7.4.3</span>Benchmarks<a class="anchor" href="#Ch7.S4.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch7.S4.SS3.p1" class="ltx_para">
+<p class="ltx_p">Hybrid systems are evaluated end to end on the benchmark of their target task rather than module by module, and the benchmark is often one the paper introduces.
+Among the systems above, Embodied-R reports on UrbanVideo-Bench and VSI-Bench, MindJourney on SAT, NS3D on ReferIt3D, MSNav on R2R and REVERIE, and PhysVLM on RoboVQA and OpenEQA alongside its own EQA-phys; LLMPhy ships TraySim, CLEVRER-LLMPhy, and Real-TraySim, MindExplore ships SandGo-1k and SandThink-21k, and DrawingBench <cite class="cites">[<a class="cite" href="/read/references/#ref-1619" data-k="kim2025drawingbench">1619</a>]</cite> is built specifically for agentic hybrids, scoring an LLM’s sequence of low-level mouse actions against eight rule-based criteria for the spatial configuration it was asked to draw.
+Physics-side components are still checked against PHYRE and ShapeStacks (§<a href="/read/7.1/#Ch7.S1.SS2" class="xref" data-x="Ch7.S1.SS2"><span>7.1.2</span></a>) and symbolic components against the constraint- and rule-based suites of §<a href="/read/7.1/#Ch7.S1.SS4" class="xref" data-x="Ch7.S1.SS4"><span>7.1.4</span></a>–§<a href="/read/7.1/#Ch7.S1.SS5" class="xref" data-x="Ch7.S1.SS5"><span>7.1.5</span></a>, but no current benchmark attributes an end-to-end score to the modules that produced it; that gap is taken up under §Challenges and Trends and in the cross-paradigm survey of §<a href="/read/7.5/" class="xref" data-x="Ch7.S5"><span>7.5</span></a> (Table <a href="/read/7.5/#Ch7.T6" class="xref" data-x="Ch7.T6"><span>7.6</span></a>, whose 15-row agentic subset is Table <a href="/read/7.3/#Ch7.T5" class="xref" data-x="Ch7.T5"><span>7.5</span></a> of §<a href="/read/7.3/#Ch7.S3.SS7" class="xref" data-x="Ch7.S3.SS7"><span>7.3.7</span></a>).</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch7.S4.SS4"><span class="secnum">7.4.4</span>Challenges and Trends<a class="anchor" href="#Ch7.S4.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch7.S4.SS4.p1" class="ltx_para">
+<p class="ltx_p">Hybrid spatial reasoning has produced architectures that combine complementary inductive biases in principled ways, but several recurring limitations originate in the module-composition framework itself rather than in any individual module.</p>
+</div>
+<div id="Ch7.S4.SS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Frame, Scale, and Geometric Consistency.</span>
+Unlike generic modular systems, spatial hybrids must reconcile heterogeneous <em class="ltx_font_italic">spatial</em> representations across modules: perception emits camera or egocentric frames, map and memory modules operate in world or allocentric coordinates, symbolic reasoners abstract to topological relations, and physics engines expect metric units. Misaligned reference frames, scales, or conventions silently corrupt downstream reasoning, and because each module reports confidence in its own terms, small upstream pose, depth, or scale errors propagate and compound across the pipeline without a coherent notion of uncertainty. Maintaining frame, scale, and geometric consistency is thus a first-order obstacle with no analogue in non-spatial hybrid systems.</p>
+</div>
+<div id="Ch7.S4.SS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Interfaces, Latency, and Attribution.</span>
+The strength of a hybrid system is bounded by its worst module interface. Symbolic-to-neural translation is particularly brittle when the symbolic side uses closed-vocabulary predicates while the neural side proposes open-vocabulary ones, and the interface design becomes a hidden first-class hyperparameter that current literature seldom isolates. Each module invocation also adds wall-clock latency that compounds across a perceive–reason–act–reflect loop, so high-frequency manipulation and navigation may not be reachable through orchestration alone. And when a hybrid fails, attributing the failure to a specific module is non-trivial; this complicates iteration and is often cited as a practical reason why end-to-end models can outperform hybrid stacks on aggregate benchmarks despite offering weaker per-module guarantees.</p>
+</div>
+<div id="Ch7.S4.SS4.p4" class="ltx_para">
+<p class="ltx_p">The orchestration function <math id="Ch7.S4.SS4.p4.m1" alttext="\pi" display="inline" data-pagefind-ignore="all"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> is migrating from hand-coded rules to <em class="ltx_font_italic">learnable orchestration policies</em> trained with reinforcement or imitation learning, which blurs the boundary with §<a href="/read/7.3/#Ch7.S3.SS7" class="xref" data-x="Ch7.S3.SS7"><span>7.3.7</span></a> in exactly the way the §<a href="/read/7.3/" class="xref" data-x="Ch7.S3"><span>7.3</span></a> Summary anticipated.
+<em class="ltx_font_italic">Differentiable hybrid stacks</em>, built from differentiable physics simulators, differentiable optimization layers (§<a href="/read/7.2/#Ch7.S2.SS4" class="xref" data-x="Ch7.S2.SS4"><span>7.2.4</span></a>), and differentiable retrieval, make end-to-end training of a hybrid viable and remove the historical interface penalty, offering a path through the precision–grounding asymmetry that motivates this section.
+Evaluation is changing too, toward the <em class="ltx_font_italic">holistic and diagnostic</em>: in response to the attribution problem, emerging practice pairs aggregate task metrics with per-module diagnostic probes and counterfactual module-swap ablations that isolate where a hybrid system succeeds or fails, a direction consolidated in the cross-paradigm benchmark survey of §<a href="/read/7.5/" class="xref" data-x="Ch7.S5"><span>7.5</span></a>.</p>
+</div>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/7.3/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">7.3 Foundation Model-driven Spatial Reasoning</span></a><a class="pager-next" href="/read/7.5/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">7.5 Spatial Reasoning Benchmarks</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch7.S4.SS1" data-spy="Ch7.S4.SS1"><span class="n">7.4.1</span>Task Definition</a></li><li><a href="#Ch7.S4.SS2" data-spy="Ch7.S4.SS2"><span class="n">7.4.2</span>Methodology</a></li><li><a href="#Ch7.S4.SS3" data-spy="Ch7.S4.SS3"><span class="n">7.4.3</span>Benchmarks</a></li><li><a href="#Ch7.S4.SS4" data-spy="Ch7.S4.SS4"><span class="n">7.4.4</span>Challenges and Trends</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=7.4"><b>23</b> cited works</a><a href="/explore/tools/?sec=7.4" title="Matterport3D Simulator, Thinking in Space (VSI-Bench)"><b>2</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="7.4 Hybrid Spatial Reasoning" data-url="/read/7.4/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%207.4%20Hybrid%20Spatial%20Reasoning&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/7.4/%20%28PDF%20p.%20222%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

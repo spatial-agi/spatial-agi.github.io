@@ -1,261 +1,231 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spatial Intelligence: A Survey | 2026</title>
-    <meta name="description" content="A comprehensive survey of spatial intelligence covering perception, reasoning, and generation in 3D space">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-brand">Spatial Intelligence Survey</a>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Home</a></li>
-                <li><a href="contents.html" class="nav-link">Contents</a></li>
-                <li><a href="authors.html" class="nav-link">Authors</a></li>
-                <li><a href="literature.html" class="nav-link">Literature</a></li>
-                <li><a href="errata.html" class="nav-link">Errata</a></li>
-            </ul>
-        </div>
+<body class="is-home">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" ><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
     </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="badge">📘 Comprehensive Survey 2026</div>
-            <h1>Spatial Intelligence</h1>
-            <p class="subtitle">A Comprehensive Survey of Perception, Reasoning, and Generation in 3D Space</p>
-
-            <div class="meta-info">
-                <div class="meta-item">
-                    <span>✍️</span>
-                    <span>Shengqiong Wu, Hao Fei, Yu Zhao, and 20 others</span>
-                </div>
-            </div>
-
-            <div class="cta-group">
-                <a href="#" class="btn btn-primary">
-                    📄 Read the Book
-                </a>
-                <a href="#" class="btn btn-secondary">
-                    💻 GitHub
-                </a>
-                <a href="#" class="btn btn-secondary">
-                    📊 arXiv
-                </a>
-            </div>
-
-            <!-- Book Visuals -->
-            <div class="hero-visual">
-                <img src="book-cover.svg" alt="Spatial Intelligence Book Cover" class="book-cover-image">
-                <img src="book-photo.svg" alt="Spatial Intelligence Book - Half Open" class="book-photo-image">
-            </div>
-
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<section class="hero">
+  <div class="hero-in">
+    <div class="hero-text">
+      <div class="hero-label">Handbook</div>
+      <h1>Spatial Intelligence</h1>
+      <p class="hero-sub">Foundations, Architectures, Methodologies, Applications and Challenges</p>
+      <p class="hero-lede">How AI systems <em>construct, maintain, and manipulate</em> representations of the physical world, and use them to perceive, reason, predict, and act. One framework, five parts and 17 chapters, from the cognitive map to world models.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="/read/preface/"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read online</a>
+        <a class="btn" href="/assets/spatial-intelligence-handbook.pdf"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M6 9l4 4 4-4M4 16h12"/></svg>Download PDF</a>
+        <a class="btn btn-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★ Star</span></a>
+      </div>
+      <dl class="hero-stats">
+        <div><dt>Parts</dt><dd>5</dd></div>
+        <div><dt>Chapters</dt><dd>17</dd></div>
+        <div><dt>Figures</dt><dd>163</dd></div>
+        <div><dt>References</dt><dd>3,023</dd></div>
+      </dl>
+    </div>
+    <div class="hero-map">
+      <figure class="worldmap" data-worldmap>
+        <div class="wm-stage">
+          <img src="/assets/img/world.webp" srcset="/assets/img/world-sm.webp 760w, /assets/img/world.webp 1500w" sizes="(max-width: 980px) 92vw, 560px" width="1500" height="1889" alt="The handbook drawn as one concentric world: representation at the centre, the perception–reasoning–generation loop on the inner ring, applications along the coast, the five eras as stepping stones and the open questions on the horizon." fetchpriority="high">
+          <svg class="wm-svg" viewBox="0 0 1000 1259.3" aria-hidden="true"></svg>
+          <div class="wm-card" hidden></div>
         </div>
-    </section>
+        <figcaption>
+          <div class="wm-legend" role="group" aria-label="Highlight a part">
+<button type="button" data-part="I" style="--pc: #A8722A"><span class="roman">I</span>Introduction</button><button type="button" data-part="II" style="--pc: #3646F0"><span class="roman">II</span>Representation</button><button type="button" data-part="III" style="--pc: #7446D6"><span class="roman">III</span>Perception to Generation</button><button type="button" data-part="IV" style="--pc: #11899A"><span class="roman">IV</span>Applications</button><button type="button" data-part="V" style="--pc: #C0436E"><span class="roman">V</span>Futures</button>          </div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
 
-    <!-- Overview Section -->
-    <section class="section">
-        <!-- Treasure Map Image -->
-        <div class="treasure-map-container">
-            <img src="cover-teasure-map-1.png" alt="Spatial Intelligence Treasure Map" class="treasure-map-image">
-            <p class="image-caption">A comprehensive map of spatial intelligence research landscape</p>
+<section class="band band-def" id="definition">
+  <div class="wrap def-grid">
+    <div class="def-text">
+      <h2>What is spatial intelligence?</h2>
+      <p class="def-quote">The ability of an AI system to <b>construct, maintain and manipulate</b> spatial representations of the physical world that support <b>perception, reasoning, prediction and embodied action</b>.</p>
+      <div class="def-panel" data-def-panel aria-live="polite"></div>
+      <a class="textlink" href="/read/2.2/">The full definition, Section 2.2 →</a>
+    </div>
+    <figure class="def-fig"><div class="nf nf-21" data-nf="21" data-pagefind-ignore="all"><svg class="nf-svg" viewBox="0 0 468 232" role="img" aria-label="Figure 2.1: spatial intelligence as a closed loop between an AI system and its environment"><g data-k="env"><rect class="frame" x="2" y="2" width="92" height="228" rx="4" fill="white" stroke="#A8B0B8" stroke-width="0.7"/><text class="t " x="8" y="16.06" font-size="8.1" fill="#2A3242" text-anchor="start" font-weight="700">Environment</text><text class="m" x="66" y="16.35" fill="#3646F0" text-anchor="start"><tspan font-size="9.5">ℰ</tspan></text><text class="t " font-size="6.3" fill="#6B7480" text-anchor="start"><tspan x="8" y="27.76">geometric · physical ·</tspan><tspan x="8" y="37">causal constraints</tspan></text><image class="tier" href="/assets/img/figs/f21-tablecup.webp" x="29.07" y="40" width="37.86" height="38" preserveAspectRatio="none"/><text class="t " x="48" y="86.88" font-size="6.3" fill="#2A3242" text-anchor="middle">objects &amp; scenes</text><image class="tier" href="/assets/img/figs/f21-cutaway.webp" x="13.21" y="98" width="69.57" height="50" preserveAspectRatio="none"/><text class="t " x="48" y="156.88" font-size="6.3" fill="#2A3242" text-anchor="middle">rooms &amp; buildings</text><image class="tier" href="/assets/img/figs/f21-city.webp" x="14.79" y="166" width="66.43" height="46" preserveAspectRatio="none"/><text class="t " x="48" y="220.88" font-size="6.3" fill="#2A3242" text-anchor="middle">cities &amp; terrain</text><g class="arr arr-s"><path class="shaft" d="M48,87 L48,94.16" fill="none" stroke="#A8B0B8" stroke-width="0.6"/><polygon points="48,96 49.41,93.7 46.59,93.7" fill="#A8B0B8" stroke="#A8B0B8" stroke-width="0.3" stroke-linejoin="round"/></g><g class="arr arr-s"><path class="shaft" d="M48,156 L48,163.16" fill="none" stroke="#A8B0B8" stroke-width="0.6"/><polygon points="48,165 49.41,162.7 46.59,162.7" fill="#A8B0B8" stroke="#A8B0B8" stroke-width="0.3" stroke-linejoin="round"/></g></g><g data-k="sys"><rect class="frame" x="152" y="2" width="314" height="228" rx="4" fill="white" stroke="#3646F0" stroke-width="0.8"/><text class="t " x="158" y="16.06" font-size="8.1" fill="#2A3242" text-anchor="start" font-weight="700">AI system</text><text class="m" x="204" y="16.35" fill="#3646F0" text-anchor="start"><tspan font-size="9.5">𝒮</tspan></text></g><g data-k="perc"><rect class="frame" x="157" y="24" width="76" height="94" rx="3" fill="white" stroke="#A8B0B8" stroke-width="0.6"/><text class="t " x="162" y="34.72" font-size="7.2" fill="#2A3242" text-anchor="start" font-weight="700">Perception</text><text class="m" x="195" y="45.66" fill="#3646F0" text-anchor="middle"><tspan font-size="7.2">𝑓</tspan><tspan font-size="5.04" dy="2.16">perc</tspan><tspan font-size="7.2" dy="-2.16">: 𝒪 → ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan></text><text class="t " x="195" y="113.38" font-size="6.3" fill="#6B7480" text-anchor="middle">extracts structure</text><image href="/assets/img/figs/f21-perception.webp" x="161" y="51" width="68" height="45.29" preserveAspectRatio="none"/><rect x="161" y="51" width="68" height="45.29" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><g class="bb" style="--i:0"><rect x="163.3" y="60.2" width="21.65" height="26.46" fill="none" stroke="#3646F0" stroke-width="0.55"/><rect x="163.3" y="60.2" width="22.5" height="7.6" fill="#3646F0" stroke="none"/><text class="t " x="164.8" y="66.31" font-size="5.85" fill="white" text-anchor="start">person</text></g><g class="bb" style="--i:1"><rect x="188.64" y="51.6" width="13.22" height="25.17" fill="none" stroke="#3646F0" stroke-width="0.55"/><rect x="188.64" y="51.6" width="19.25" height="7.6" fill="#3646F0" stroke="none"/><text class="t " x="190.14" y="57.71" font-size="5.85" fill="white" text-anchor="start">shelf</text></g><g class="bb" style="--i:2"><rect x="185.37" y="76.45" width="23.73" height="13.53" fill="none" stroke="#3646F0" stroke-width="0.55"/><rect x="185.37" y="76.45" width="19.25" height="7.6" fill="#3646F0" stroke="none"/><text class="t " x="186.87" y="82.56" font-size="5.85" fill="white" text-anchor="start">table</text></g><g class="bb" style="--i:3"><rect x="200.25" y="75.3" width="3.22" height="2.95" fill="none" stroke="#3646F0" stroke-width="0.55"/></g><g class="bb" style="--i:4"><rect x="205.23" y="78.61" width="17.51" height="6.95" fill="none" stroke="#3646F0" stroke-width="0.55"/><rect x="205.23" y="78.61" width="19.25" height="7.6" fill="#3646F0" stroke="none"/><text class="t " x="206.73" y="84.72" font-size="5.85" fill="white" text-anchor="start">robot</text></g></g><g data-k="act"><rect class="frame" x="157" y="126" width="76" height="96" rx="3" fill="white" stroke="#A8B0B8" stroke-width="0.6"/><text class="t " x="162" y="136.72" font-size="7.2" fill="#2A3242" text-anchor="start" font-weight="700">Action</text><text class="m" x="195" y="147.66" fill="#3646F0" text-anchor="middle"><tspan font-size="7.2">𝑓</tspan><tspan font-size="5.04" dy="2.16">act</tspan><tspan font-size="7.2" dy="-2.16">: ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan><tspan font-size="7.2" dy="-2.16"> → 𝒜</tspan></text><text class="t " x="195" y="217.38" font-size="6.3" fill="#6B7480" text-anchor="middle">acts on the world</text><image class="grip" href="/assets/img/figs/f21-gripper.webp" x="168.07" y="153" width="53.86" height="50" preserveAspectRatio="none"/></g><g data-k="rep"><rect class="frame" x="255" y="24" width="110" height="198" rx="3" fill="#E9EBFB" stroke="#3646F0" stroke-width="0.9"/><text class="t " font-size="7.2" fill="#2A3242" text-anchor="middle" font-weight="700"><tspan x="310" y="31.18">World-centered spatial</tspan><tspan x="310" y="41.26">representation</tspan></text><text class="m" x="310" y="51.7" fill="#3646F0" text-anchor="middle"><tspan font-size="9">ℛ</tspan><tspan font-size="6.3" dy="2.7">𝒮</tspan></text><g data-k="geometric" class="cell"><rect class="cframe" x="259" y="56" width="49" height="58" rx="2" fill="white" stroke="#AEB6F7" stroke-width="0.5"/><text class="t " x="262" y="64.38" font-size="6.3" fill="#6B7480" text-anchor="start">geometric</text><image class="cloud" href="/assets/img/figs/f21-geometric.png" x="261" y="68" width="45" height="43" preserveAspectRatio="none"/></g><g data-k="topological" class="cell"><rect class="cframe" x="312" y="56" width="49" height="58" rx="2" fill="white" stroke="#AEB6F7" stroke-width="0.5"/><text class="t " x="315" y="64.38" font-size="6.3" fill="#6B7480" text-anchor="start">topological</text><path class="edge" d="M334,74 L337,94" fill="none" stroke="#3646F0" stroke-width="0.6"/><path class="edge" d="M352,83 L337,94" fill="none" stroke="#3646F0" stroke-width="0.6"/><path class="edge" d="M321,86 L337,94" fill="none" stroke="#3646F0" stroke-width="0.6"/><path class="edge" d="M324,106 L337,94" fill="none" stroke="#3646F0" stroke-width="0.6"/><path class="edge" d="M334,74 L352,83" fill="none" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="334" cy="74" r="2.2" fill="white" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="352" cy="83" r="2.2" fill="white" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="337" cy="94" r="2.2" fill="#3646F0" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="321" cy="86" r="2.2" fill="white" stroke="#3646F0" stroke-width="0.6"/><circle class="node" cx="324" cy="106" r="2.2" fill="white" stroke="#3646F0" stroke-width="0.6"/><text class="t " x="334" y="70.71" font-size="5.85" fill="#2A3242" text-anchor="middle">shelf</text><text class="t " x="352" y="79.71" font-size="5.85" fill="#2A3242" text-anchor="middle">door</text><text class="t " x="341" y="100.21" font-size="5.85" fill="#2A3242" text-anchor="start">table</text><text class="t " x="321" y="82.71" font-size="5.85" fill="#2A3242" text-anchor="middle">person</text><text class="t " x="328" y="108.71" font-size="5.85" fill="#2A3242" text-anchor="start">cup</text></g><g data-k="symbolic" class="cell"><rect class="cframe" x="259" y="118" width="49" height="58" rx="2" fill="white" stroke="#AEB6F7" stroke-width="0.5"/><text class="t " x="262" y="126.38" font-size="6.3" fill="#6B7480" text-anchor="start">symbolic</text><g class="fact" style="--i:0"><rect x="261.5" y="131" width="44" height="10.5" rx="1.5" fill="#E9EBFB" stroke="#AEB6F7" stroke-width="0.4"/><text class="t " x="283.5" y="138.61" font-size="5.85" fill="#2A3242" text-anchor="middle">on(cup, table)</text></g><g class="fact" style="--i:1"><rect x="261.5" y="145" width="44" height="10.5" rx="1.5" fill="#E9EBFB" stroke="#AEB6F7" stroke-width="0.4"/><text class="t " x="283.5" y="152.61" font-size="5.85" fill="#2A3242" text-anchor="middle">in(table, room)</text></g><g class="fact" style="--i:2"><rect x="261.5" y="159" width="44" height="10.5" rx="1.5" fill="#E9EBFB" stroke="#AEB6F7" stroke-width="0.4"/><text class="t " x="283.5" y="166.61" font-size="5.85" fill="#2A3242" text-anchor="middle">near(cup, sofa)</text></g></g><g data-k="abstract" class="cell"><rect class="cframe" x="312" y="118" width="49" height="58" rx="2" fill="white" stroke="#AEB6F7" stroke-width="0.5"/><text class="t " x="315" y="126.38" font-size="6.3" fill="#6B7480" text-anchor="start">abstract</text><polygon class="vox" style="--d:1.5s" points="322,150.6 329.2,150.6 329.2,143.4 322,143.4" fill="#9da5f8" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.3s" points="329.2,150.6 336.4,150.6 336.4,143.4 329.2,143.4" fill="#5a67f3" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.4s" points="336.4,150.6 343.6,150.6 343.6,143.4 336.4,143.4" fill="#6370f3" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.9s" points="322,157.8 329.2,157.8 329.2,150.6 322,150.6" fill="#8f98f7" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.7s" points="329.2,157.8 336.4,157.8 336.4,150.6 329.2,150.6" fill="#a4abf8" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.8s" points="336.4,157.8 343.6,157.8 343.6,150.6 336.4,150.6" fill="#5865f3" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.0s" points="322,165 329.2,165 329.2,157.8 322,157.8" fill="#d5d8fc" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.1s" points="329.2,165 336.4,165 336.4,157.8 329.2,157.8" fill="#d1d5fc" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:2.2s" points="336.4,165 343.6,165 343.6,157.8 336.4,157.8" fill="#7f89f5" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.6s" points="325.24,147.86 332.44,147.86 332.44,140.66 325.24,140.66" fill="#cacffb" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.7s" points="332.44,147.86 339.64,147.86 339.64,140.66 332.44,140.66" fill="#b9befa" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.5s" points="339.64,147.86 346.84,147.86 346.84,140.66 339.64,140.66" fill="#8f97f7" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.0s" points="325.24,155.06 332.44,155.06 332.44,147.86 325.24,147.86" fill="#d4d7fc" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:2.1s" points="332.44,155.06 339.64,155.06 339.64,147.86 332.44,147.86" fill="#8e97f7" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.9s" points="339.64,155.06 346.84,155.06 346.84,147.86 339.64,147.86" fill="#b7bdfa" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.4s" points="325.24,162.26 332.44,162.26 332.44,155.06 325.24,155.06" fill="#c0c5fa" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.2s" points="332.44,162.26 339.64,162.26 339.64,155.06 332.44,155.06" fill="#aab1f9" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.3s" points="339.64,162.26 346.84,162.26 346.84,155.06 339.64,155.06" fill="#b8bdfa" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:2.0s" points="328.48,145.13 335.68,145.13 335.68,137.93 328.48,137.93" fill="#7984f5" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.8s" points="335.68,145.13 342.88,145.13 342.88,137.93 335.68,137.93" fill="#868ff6" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.9s" points="342.88,145.13 350.08,145.13 350.08,137.93 342.88,137.93" fill="#9fa6f8" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.1s" points="328.48,152.33 335.68,152.33 335.68,145.13 328.48,145.13" fill="#a4abf8" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.2s" points="335.68,152.33 342.88,152.33 342.88,145.13 335.68,145.13" fill="#7984f5" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.0s" points="342.88,152.33 350.08,152.33 350.08,145.13 342.88,145.13" fill="#b5bbf9" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.5s" points="328.48,159.53 335.68,159.53 335.68,152.33 328.48,152.33" fill="#707bf4" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:1.6s" points="335.68,159.53 342.88,159.53 342.88,152.33 335.68,152.33" fill="#98a0f7" stroke="white" stroke-width="0.4"/><polygon class="vox" style="--d:0.4s" points="342.88,159.53 350.08,159.53 350.08,152.33 342.88,152.33" fill="#e1e3fd" stroke="white" stroke-width="0.4"/></g><text class="t " x="310" y="188.38" font-size="6.3" fill="#6B7480" text-anchor="middle">object · scene · relation</text><g class="psi"><text class="m" x="310" y="206.25" fill="#3646F0" text-anchor="middle"><tspan font-size="7.5">ℛ</tspan><tspan font-size="5.25" dy="-2.85">𝒮</tspan><tspan font-size="5.25" dy="5.1" dx="-3.25">𝑡+1</tspan><tspan font-size="7.5" dy="-2.25"> = Ψ</tspan><tspan font-size="5.25" dy="2.25">𝒮</tspan><tspan font-size="7.5" dy="-2.25">(ℛ</tspan><tspan font-size="5.25" dy="-2.85">𝒮</tspan><tspan font-size="5.25" dy="5.1" dx="-3.25">𝑡</tspan><tspan font-size="7.5" dy="-2.25">, 𝑎</tspan><tspan font-size="5.25" dy="2.25">𝑡</tspan><tspan font-size="7.5" dy="-2.25">, 𝑜</tspan><tspan font-size="5.25" dy="2.25">𝑡+1</tspan><tspan font-size="7.5" dy="-2.25">)</tspan></text><text class="t " x="310" y="217.88" font-size="6.3" fill="#3646F0" text-anchor="middle">updated through interaction</text></g></g><g data-k="reason"><rect class="frame" x="387" y="24" width="75" height="94" rx="3" fill="white" stroke="#A8B0B8" stroke-width="0.6"/><text class="t " x="392" y="34.72" font-size="7.2" fill="#2A3242" text-anchor="start" font-weight="700">Reasoning</text><text class="m" x="424.5" y="45.66" fill="#3646F0" text-anchor="middle"><tspan font-size="7.2">𝑓</tspan><tspan font-size="5.04" dy="2.16">reason</tspan><tspan font-size="7.2" dy="-2.16">: ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan><tspan font-size="7.2" dy="-2.16"> → ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan></text><text class="t " x="424.5" y="113.38" font-size="6.3" fill="#6B7480" text-anchor="middle">elaborates the state</text><rect x="393" y="51" width="63" height="52" fill="#F7F8FA" stroke="#2A3242" stroke-width="0.7"/><rect x="455" y="61" width="2" height="12" fill="white" stroke="none"/><rect x="396" y="73" width="13" height="26" fill="#D9DDE3" stroke="#A8B0B8" stroke-width="0.4"/><rect x="417" y="52.5" width="22" height="5" fill="#D9DDE3" stroke="#A8B0B8" stroke-width="0.4"/><circle cx="427" cy="83" r="7.5" fill="#E8DCC8" stroke="#A8B0B8" stroke-width="0.4"/><circle cx="430" cy="81" r="1.6" fill="white" stroke="#2A3242" stroke-width="0.5"/><circle class="robot" cx="451" cy="91" r="3.4" fill="white" stroke="#2A3242" stroke-width="0.7"/><path class="reach" d="M448,89 L443,82 L434.5,81.5" fill="none" stroke="#2E9E5B" stroke-width="0.9" stroke-dasharray="1.8 1.26"/><text class="t " x="395" y="66.21" font-size="5.85" fill="#6B7480" text-anchor="start">sofa</text><text class="t " x="428" y="65.21" font-size="5.85" fill="#6B7480" text-anchor="middle">shelf</text><text class="t " x="454" y="100.71" font-size="5.85" fill="#2E9E5B" text-anchor="end">cup reachable</text></g><g data-k="pred"><rect class="frame" x="387" y="126" width="75" height="96" rx="3" fill="white" stroke="#A8B0B8" stroke-width="0.6"/><text class="t " x="392" y="136.72" font-size="7.2" fill="#2A3242" text-anchor="start" font-weight="700">Prediction</text><text class="m" x="424.5" y="147.66" fill="#3646F0" text-anchor="middle"><tspan font-size="7.2">𝑓</tspan><tspan font-size="5.04" dy="2.16">pred</tspan><tspan font-size="7.2" dy="-2.16">: ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan><tspan font-size="7.2" dy="-2.16"> × 𝒜 → ℛ</tspan><tspan font-size="5.04" dy="2.16">𝒮</tspan></text><text class="t " x="424.5" y="217.38" font-size="6.3" fill="#6B7480" text-anchor="middle">advances the state</text><g class="frame-t" style="--i:0"><image href="/assets/img/figs/f21-pred0.webp" x="391" y="157" width="21" height="16.86" preserveAspectRatio="none"/><rect x="391" y="157" width="21" height="16.86" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><rect class="tick" x="391" y="157" width="21" height="16.86" fill="none" stroke="#3646F0" stroke-width="0.9"/></g><text class="m" x="401.5" y="182.96" fill="#3646F0" text-anchor="middle"><tspan font-size="7">𝑡</tspan></text><g class="frame-t" style="--i:1"><image href="/assets/img/figs/f21-pred1.webp" x="414" y="157" width="21" height="16.86" preserveAspectRatio="none"/><rect x="414" y="157" width="21" height="16.86" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><rect class="tick" x="414" y="157" width="21" height="16.86" fill="none" stroke="#3646F0" stroke-width="0.9"/></g><text class="m" x="424.5" y="182.96" fill="#3646F0" text-anchor="middle"><tspan font-size="7">𝑡+1</tspan></text><g class="frame-t" style="--i:2"><image href="/assets/img/figs/f21-pred2.webp" x="437" y="157" width="21" height="16.86" preserveAspectRatio="none"/><rect x="437" y="157" width="21" height="16.86" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><rect class="tick" x="437" y="157" width="21" height="16.86" fill="none" stroke="#3646F0" stroke-width="0.9"/></g><text class="m" x="447.5" y="182.96" fill="#3646F0" text-anchor="middle"><tspan font-size="7">𝑡+2</tspan></text><g class="arr arr-s"><path class="shaft" d="M395,154 L452.16,154" fill="none" stroke="#AEB6F7" stroke-width="0.6"/><polygon points="454,154 451.7,152.59 451.7,155.41" fill="#AEB6F7" stroke="#AEB6F7" stroke-width="0.3" stroke-linejoin="round"/></g></g><g class="arr flow s-pr"><path class="shaft" d="M234,71 L251.42,71" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="254,71 250.77,69.03 250.77,72.97" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g><g class="arr flow s-ra"><path class="shaft" d="M254,174 L236.58,174" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="234,174 237.23,175.97 237.23,172.03" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g><g class="arr flow s-rq"><path class="shaft" d="M368.58,71 L383.42,71" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="386,71 382.77,69.03 382.77,72.97" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/><polygon points="366,71 369.23,72.97 369.23,69.03" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g><g class="arr flow s-rp"><path class="shaft" d="M368.58,174 L383.42,174" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="386,174 382.77,172.03 382.77,175.97" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/><polygon points="366,174 369.23,175.97 369.23,172.03" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g><g data-k="obs"><text class="t " x="123" y="42.38" font-size="6.3" fill="#3646F0" text-anchor="middle">observations</text><image href="/assets/img/figs/f21-obs-rgb.webp" x="96.5" y="46" width="10" height="10" preserveAspectRatio="none"/><rect x="96.5" y="46" width="10" height="10" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><image href="/assets/img/figs/f21-obs-depth.webp" x="107.7" y="46" width="10" height="10" preserveAspectRatio="none"/><rect x="107.7" y="46" width="10" height="10" fill="none" stroke="#A8B0B8" stroke-width="0.5"/><rect x="118.9" y="46" width="10" height="10" fill="white" stroke="#A8B0B8" stroke-width="0.5"/><image href="/assets/img/figs/f21-obs-cloud.png" x="119.7" y="46.8" width="8.4" height="8.4" preserveAspectRatio="none"/><rect x="130.1" y="46" width="10" height="10" fill="white" stroke="#A8B0B8" stroke-width="0.5"/><path d="M132.1,48.8 L138.1,48.8" fill="none" stroke="#2A3242" stroke-width="0.45"/><path d="M132.1,51 L138.1,51" fill="none" stroke="#2A3242" stroke-width="0.45"/><path d="M132.1,53.2 L135.9,53.2" fill="none" stroke="#2A3242" stroke-width="0.45"/><rect x="141.3" y="46" width="10" height="10" fill="white" stroke="#A8B0B8" stroke-width="0.5"/><path d="M142.8,51 L142.89,51.05 L142.98,51.17 L143.07,51.33 L143.15,51.48 L143.24,51.54 L143.33,51.49 L143.42,51.29 L143.51,50.96 L143.6,50.55 L143.69,50.14 L143.77,49.8 L143.86,49.62 L143.95,49.67 L144.04,49.96 L144.13,50.47 L144.22,51.14 L144.31,51.86 L144.39,52.51 L144.48,52.97 L144.57,53.13 L144.66,52.95 L144.75,52.44 L144.84,51.65 L144.93,50.71 L145.02,49.76 L145.1,48.96 L145.19,48.45 L145.28,48.33 L145.37,48.64 L145.46,49.34 L145.55,50.33 L145.64,51.45 L145.72,52.53 L145.81,53.39 L145.9,53.88 L145.99,53.92 L146.08,53.5 L146.17,52.68 L146.26,51.59 L146.34,50.41 L146.43,49.32 L146.52,48.5 L146.61,48.08 L146.7,48.12 L146.79,48.61 L146.88,49.47 L146.96,50.55 L147.05,51.67 L147.14,52.66 L147.23,53.36 L147.32,53.67 L147.41,53.55 L147.5,53.04 L147.58,52.24 L147.67,51.29 L147.76,50.35 L147.85,49.56 L147.94,49.05 L148.03,48.87 L148.12,49.03 L148.21,49.49 L148.29,50.14 L148.38,50.86 L148.47,51.53 L148.56,52.04 L148.65,52.33 L148.74,52.38 L148.83,52.2 L148.91,51.86 L149,51.45 L149.09,51.04 L149.18,50.71 L149.27,50.51 L149.36,50.46 L149.45,50.52 L149.53,50.67 L149.62,50.83 L149.71,50.95 L149.8,51" fill="none" stroke="#2A3242" stroke-width="0.45"/><g class="arr flow s-obs"><path class="shaft" d="M95,62 L153.42,62" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="156,62 152.77,60.03 152.77,63.97" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g></g><g data-k="task"><rect x="100" y="100" width="46" height="26" rx="2" fill="#FBFBFC" stroke="#A8B0B8" stroke-width="0.5" stroke-dasharray="1.85 0.8"/><text class="t " x="123" y="109.38" font-size="6.3" fill="#6B7480" text-anchor="middle">task</text><text class="t " font-size="6.3" fill="#2A3242" text-anchor="middle"><tspan x="123" y="116.18">put the cup</tspan><tspan x="123" y="124.58">on the shelf</tspan></text><g class="arr"><path class="shaft" d="M146,113 L149.03,113" fill="none" stroke="#6B7480" stroke-width="0.7" stroke-dasharray="1.4 1.05"/><polygon points="151,113 148.54,111.5 148.54,114.5" fill="#6B7480" stroke="#6B7480" stroke-width="0.3" stroke-linejoin="round"/></g></g><g data-k="actions"><text class="t " x="123" y="168.38" font-size="6.3" fill="#3646F0" text-anchor="middle">actions</text><g class="arr flow s-act"><path class="shaft" d="M156,174 L97.58,174" fill="none" stroke="#3646F0" stroke-width="1"/><polygon points="95,174 98.23,175.97 98.23,172.03" fill="#3646F0" stroke="#3646F0" stroke-width="0.3" stroke-linejoin="round"/></g></g><circle class="token" r="2.6" cx="-10" cy="-10"/></svg><div class="nf-card" hidden></div><script type="application/json" class="nf-info">{"env": {"t": "Environment <i class='m'>ℰ</i>", "b": "The physical world the system operates in, from objects and scenes to rooms, buildings, cities and terrain, governed by geometric, physical and causal constraints. Neither party can be defined without the other.", "u": "/read/2.2/#Ch2.S2.SS1.SSS1", "l": "2.2.1 Parties"}, "obs": {"t": "Observations <i class='m'>𝑜<sub>𝑡</sub></i>", "b": "What the system receives from the environment: images, depth, point clouds, text and sound. Perception turns them into structure.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "task": {"t": "Task", "b": "The goal the system is given, here to put the cup on the shelf. It conditions what the system reasons about and how it acts.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "perc": {"t": "Perception <i class='m'><i>f</i><sub>perc</sub> : 𝒪 → ℛ<sub>𝒮</sub></i>", "b": "Extracts spatial structure from multimodal sensory inputs: recognizing objects and scene elements, estimating distances, identifying spatial layouts, and localizing entities within an environment.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "reason": {"t": "Reasoning & planning <i class='m'><i>f</i><sub>reason</sub> : ℛ<sub>𝒮</sub> → ℛ<sub>𝒮</sub></i>", "b": "Elaborates the current world state by inferring relations and constraints already implicit in it: trajectory and path planning, occlusion reasoning, spatial causality, relational and commonsense inference.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "pred": {"t": "Prediction <i class='m'><i>f</i><sub>pred</sub> : ℛ<sub>𝒮</sub> × 𝒜 → ℛ<sub>𝒮</sub></i>", "b": "Advances the state in time: forecasts future spatial states consistent with physical laws and causal structure, and generates spatially aware images, videos, 3D or 4D scenes and motion.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "act": {"t": "Embodied action <i class='m'><i>f</i><sub>act</sub> : ℛ<sub>𝒮</sub> → 𝒜</i>", "b": "Reads the representation to act on the environment while pursuing goals: pose adjustment, navigation, grasping and manipulation, aligned with task objectives, human intent and social context.", "u": "/read/2.2/#Ch2.S2.SS2", "l": "2.2.2 Formal characterization"}, "rep": {"t": "World-centered spatial representation <i class='m'>ℛ<sub>𝒮</sub></i>", "b": "The structured world model at the centre of the loop: compositional, generalizable and reusable across tasks. It holds objects, scenes and relations in geometric, topological, symbolic and abstract form, and is updated through interaction, <i class='m'>ℛ<sub>𝑡+1</sub> = Ψ<sub>𝒮</sub>(ℛ<sub>𝑡</sub>, 𝑎<sub>𝑡</sub>, 𝑜<sub>𝑡+1</sub>)</i>.", "u": "/read/2.2/#Ch2.S2.SS1.SSS2", "l": "2.2.1 Spatial representation"}, "actions": {"t": "Actions <i class='m'>𝑎<sub>𝑡</sub></i>", "b": "Embodied action reads the representation and acts on the environment, whose response is observed in turn. Spatial understanding is grounded in this interaction.", "u": "/read/2.2/#Ch2.S2.SS1.SSS3", "l": "2.2.1 Dynamic interaction"}, "geometric": {"t": "Geometric", "b": "Metric structure (points, depth, surfaces), here the living room as a point cloud.", "u": "/read/chapter-4/", "l": "Chapter 4"}, "topological": {"t": "Topological", "b": "Entities and how they connect: shelf, door, person and cup, all related through the table.", "u": "/read/chapter-4/", "l": "Chapter 4"}, "symbolic": {"t": "Symbolic", "b": "Explicit relations that a planner can query, such as on(cup, table).", "u": "/read/chapter-4/", "l": "Chapter 4"}, "abstract": {"t": "Abstract", "b": "Learned, latent encodings of the scene, drawn as a grid of feature activations.", "u": "/read/chapter-5/", "l": "Chapter 5"}}</script></div></figure>
+  </div>
+</section>
+
+<section class="band" id="eras">
+  <div class="wrap">
+    <div class="sec-head"><h2>Five eras of representing space</h2><p>Each era is defined by what it took space to be, and each left a problem for the next.</p></div>
+    <div class="eras" data-eras>
+      <div class="era-track" role="tablist">
+<button type="button" role="tab" class="era-tab" data-era="0" aria-selected="true"><img src="/assets/img/era-1.webp" alt="" loading="lazy" width="260" height="360"><span class="era-roman">I</span><span class="era-name">Symbolic and cognitive</span><span class="era-years">1950s–1980s</span></button><button type="button" role="tab" class="era-tab" data-era="1" aria-selected="false"><img src="/assets/img/era-2.webp" alt="" loading="lazy" width="260" height="360"><span class="era-roman">II</span><span class="era-name">Geometric and probabilistic</span><span class="era-years">1980s–2012</span></button><button type="button" role="tab" class="era-tab" data-era="2" aria-selected="false"><img src="/assets/img/era-3.webp" alt="" loading="lazy" width="260" height="360"><span class="era-roman">III</span><span class="era-name">Learning-based</span><span class="era-years">2012–2019</span></button><button type="button" role="tab" class="era-tab" data-era="3" aria-selected="false"><img src="/assets/img/era-4.webp" alt="" loading="lazy" width="260" height="360"><span class="era-roman">IV</span><span class="era-name">Foundation models</span><span class="era-years">2019–2023</span></button><button type="button" role="tab" class="era-tab" data-era="4" aria-selected="false"><img src="/assets/img/era-5.webp" alt="" loading="lazy" width="260" height="360"><span class="era-roman">V</span><span class="era-name">World-centered</span><span class="era-years">2023–</span></button>      </div>
+      <div class="era-panel" data-era-panel></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-soft" id="parts">
+  <div class="wrap">
+    <div class="sec-head sec-head-wide"><h2>Five parts, one path from representation to action</h2></div>
+    <div class="partgrid">
+      <a class="partcard" href="/read/part-i/" style="--pc: #A8722A">
+        <div class="pc-art"><img src="/assets/img/part-1.webp" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="pc-body">
+          <div class="pc-kicker"><span class="roman">I</span>Part I</div>
+          <h3>Introduction and Background</h3>
+          <ol class="pc-chapters"><li><span>1</span>Spatial Intelligence: A Rising AI Paradigm</li><li><span>2</span>A Definition in Motion: Revisiting Spatial Intelligence</li><li><span>3</span>Scope and Structure of This Handbook</li></ol>
         </div>
-
-        <h2 class="section-title">What is Spatial Intelligence?</h2>
-        <p class="section-desc">
-            Spatial intelligence is the ability to perceive, reason about, and generate three-dimensional worlds.
-            This book provides the first comprehensive treatment of spatial intelligence in AI, covering everything
-            from foundational representations to real-world applications.
-        </p>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-number">17</span>
-                <span class="stat-label">Chapters</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">5</span>
-                <span class="stat-label">Major Parts</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">2500+</span>
-                <span class="stat-label">References</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">15+</span>
-                <span class="stat-label">Application Domains</span>
-            </div>
+      </a>
+      <a class="partcard" href="/read/part-ii/" style="--pc: #3646F0">
+        <div class="pc-art"><img src="/assets/img/part-2.webp" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="pc-body">
+          <div class="pc-kicker"><span class="roman">II</span>Part II</div>
+          <h3>Spatial-aware Representation: Building Blocks of Space</h3>
+          <ol class="pc-chapters"><li><span>4</span>Single-Modal Spatial Representation</li><li><span>5</span>Cross-Modal Spatial Representation</li></ol>
         </div>
-    </section>
-
-    <!-- Key Features Section -->
-    <section class="section">
-        <h2 class="section-title">Key Features</h2>
-        <p class="section-desc">
-            Six qualities that shape how this survey is written, organized, and used
-        </p>
-
-        <div class="feature-list">
-
-            <article class="feature-row">
-                <div class="feature-media">
-                    <img src="feature-1.svg" alt="2D, 3D and 4D representations unified">
-                </div>
-                <div class="feature-body">
-                    <span class="feature-index">01</span>
-                    <h3 class="feature-heading">Comprehensive Coverage</h3>
-                    <p class="feature-text">
-                        The survey spans the full arc of spatial intelligence, from classical geometry and camera
-                        models to the modern foundation-model era. Representations are treated as one connected
-                        family rather than separate silos: 2D image-level understanding, 3D scene-level
-                        reconstruction, and 4D space-time modeling are each given their own chapter while sharing a
-                        common vocabulary for pose, depth, and structure. Perception, reasoning, and generation are
-                        covered in equal depth, so the reader can follow a single thread from pixels to physically
-                        grounded action.
-                    </p>
-                    <ul class="feature-tags">
-                        <li>2D / 3D / 4D representations</li>
-                        <li>Perception · Reasoning · Generation</li>
-                        <li>Classical geometry → foundation models</li>
-                    </ul>
-                </div>
-            </article>
-
-            <article class="feature-row feature-row--reverse">
-                <div class="feature-media">
-                    <img src="feature-2.svg" alt="Timeline of recent methods through 2026">
-                </div>
-                <div class="feature-body">
-                    <span class="feature-index">02</span>
-                    <h3 class="feature-heading">Cutting-Edge Research</h3>
-                    <p class="feature-text">
-                        Every chapter is written against the state of the art through 2026, not a historical
-                        summary. The text walks through the methods that reshaped the field in recent years —
-                        Neural Radiance Fields, 3D Gaussian Splatting, feed-forward reconstruction, and
-                        Vision-Language-Action models — alongside the world models and spatial reasoning benchmarks
-                        that define where the field is heading next. Recent work is not just cited but placed in
-                        context, with the assumptions and limitations of each line of research made explicit.
-                    </p>
-                    <ul class="feature-tags">
-                        <li>NeRF &amp; 3D Gaussian Splatting</li>
-                        <li>Vision-Language-Action models</li>
-                        <li>Literature current through 2026</li>
-                    </ul>
-                </div>
-            </article>
-
-            <article class="feature-row">
-                <div class="feature-media">
-                    <img src="feature-3.svg" alt="Application domains connected to spatial AI">
-                </div>
-                <div class="feature-body">
-                    <span class="feature-index">03</span>
-                    <h3 class="feature-heading">Real-World Applications</h3>
-                    <p class="feature-text">
-                        Spatial intelligence only matters when it reaches the physical world. A dedicated part of
-                        the book traces how the same core capabilities are applied across embodied AI and robotics,
-                        extended reality, autonomous driving, geospatial analysis, healthcare, and scientific
-                        discovery. Each application chapter starts from the domain's requirements — latency,
-                        safety, accuracy — and works backward to the representations and models that satisfy them,
-                        so the connection between a method and its deployment is never left implicit.
-                    </p>
-                    <ul class="feature-tags">
-                        <li>Embodied AI · XR · autonomous driving</li>
-                        <li>Geospatial · healthcare · science</li>
-                        <li>Requirements-driven domain chapters</li>
-                    </ul>
-                </div>
-            </article>
-
-            <article class="feature-row feature-row--reverse">
-                <div class="feature-media">
-                    <img src="feature-4.svg" alt="Five parts of the book in sequence">
-                </div>
-                <div class="feature-body">
-                    <span class="feature-index">04</span>
-                    <h3 class="feature-heading">Systematic Organization</h3>
-                    <p class="feature-text">
-                        The book follows a deliberate progression: foundations, then representations, then core
-                        capabilities, then applications, and finally open problems. Each of the 17 chapters closes
-                        with benchmarks, available tools, and unsolved challenges, so readers leave with an
-                        actionable map of the subfield rather than a list of papers. Cross-references between
-                        chapters make it possible to read the book linearly or to enter at any point that matches
-                        the reader's background.
-                    </p>
-                    <ul class="feature-tags">
-                        <li>5 parts · 17 chapters</li>
-                        <li>Benchmarks &amp; tools in every chapter</li>
-                        <li>Cross-referenced, modular structure</li>
-                    </ul>
-                </div>
-            </article>
-
-            <article class="feature-row">
-                <div class="feature-media">
-                    <img src="feature-5.svg" alt="Curated reference collection">
-                </div>
-                <div class="feature-body">
-                    <span class="feature-index">05</span>
-                    <h3 class="feature-heading">Academic Rigor</h3>
-                    <p class="feature-text">
-                        Over 2,500 references have been curated rather than collected: each is tied to a specific
-                        claim, method, or evaluation protocol. Methods are compared on consistent criteria, datasets
-                        and metrics are introduced with their known biases, and evaluation protocols are described
-                        precisely enough to be reproduced. Where the literature disagrees, the survey presents the
-                        competing positions instead of flattening them into a single conclusion.
-                    </p>
-                    <ul class="feature-tags">
-                        <li>2,500+ curated references</li>
-                        <li>Consistent method comparisons</li>
-                        <li>Reproducible evaluation protocols</li>
-                    </ul>
-                </div>
-            </article>
-
-            <article class="feature-row feature-row--reverse">
-                <div class="feature-media">
-                    <img src="feature-6.svg" alt="Book designed as a teaching resource">
-                </div>
-                <div class="feature-body">
-                    <span class="feature-index">06</span>
-                    <h3 class="feature-heading">Educational Resource</h3>
-                    <p class="feature-text">
-                        The book is written to be taught from as well as cited. Chapters are largely
-                        self-contained, key concepts are introduced before they are used, and recurring notation is
-                        kept consistent across parts. Researchers can use it as a reference for the current state
-                        of the field, students can read it as a structured course from foundations to applications,
-                        and practitioners can jump to the application chapter closest to their deployment problem.
-                    </p>
-                    <ul class="feature-tags">
-                        <li>Self-contained chapters</li>
-                        <li>Consistent notation throughout</li>
-                        <li>For researchers, students &amp; practitioners</li>
-                    </ul>
-                </div>
-            </article>
-
+      </a>
+      <a class="partcard" href="/read/part-iii/" style="--pc: #7446D6">
+        <div class="pc-art"><img src="/assets/img/part-3.webp" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="pc-body">
+          <div class="pc-kicker"><span class="roman">III</span>Part III</div>
+          <h3>Spatial Intelligence: From Perception to Generation</h3>
+          <ol class="pc-chapters"><li><span>6</span>Spatial Perception</li><li><span>7</span>Spatial Reasoning</li><li><span>8</span>Spatial Reconstruction and Generation</li></ol>
         </div>
-    </section>
+      </a>
+      <a class="partcard" href="/read/part-iv/" style="--pc: #11899A">
+        <div class="pc-art"><img src="/assets/img/part-4.webp" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="pc-body">
+          <div class="pc-kicker"><span class="roman">IV</span>Part IV</div>
+          <h3>Applications</h3>
+          <ol class="pc-chapters"><li><span>9</span>Spatial Intelligence for Embodied Systems</li><li><span>10</span>Spatial Intelligence for Virtual Realities</li><li><span>11</span>Spatial Intelligence for Geo-spatial Systems</li><li><span>12</span>Spatial Intelligence for Biomedicine and Natural Sciences</li><li><span>13</span>Spatial Intelligence for Intelligent Assistance</li><li><span>14</span>Spatial Intelligence for Others</li></ol>
+        </div>
+      </a>
+      <a class="partcard" href="/read/part-v/" style="--pc: #C0436E">
+        <div class="pc-art"><img src="/assets/img/part-5.webp" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="pc-body">
+          <div class="pc-kicker"><span class="roman">V</span>Part V</div>
+          <h3>Discussions and Futures</h3>
+          <ol class="pc-chapters"><li><span>15</span>Foundations: What Spatial Intelligence Requires</li><li><span>16</span>Research Gaps and Future Directions</li><li><span>17</span>Conclusion</li></ol>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2026 Spatial Intelligence Survey. All rights reserved.</p>
-        <p style="margin-top: 1rem;">
-            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">GitHub</a>
-            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">arXiv</a>
-            <a href="#" style="color: var(--accent); text-decoration: none; margin: 0 1rem;">Contact</a>
-        </p>
-    </footer>
+<section class="band" id="explore">
+  <div class="wrap">
+    <div class="sec-head"><h2>Explore the field</h2><p>Everything the handbook cites, compares and builds on, organised for searching and browsing.</p></div>
+    <div class="tiles">
+      <a class="tile" href="/explore/literature/"><span class="tile-n">3,023</span><span class="tile-t">Literature</span><span class="tile-d">Every work the handbook cites, with the sections that cite it.</span></a>
+      <a class="tile" href="/explore/datasets/"><span class="tile-n">576</span><span class="tile-t">Datasets & benchmarks</span><span class="tile-d">Collected from the comparison tables across the chapters.</span></a>
+      <a class="tile" href="/explore/tools/"><span class="tile-n">124</span><span class="tile-t">Tools & platforms</span><span class="tile-d">Simulators, libraries and open-source code, linked to where the book uses them.</span></a>
+      <a class="tile" href="/explore/timeline/"><span class="tile-n">104</span><span class="tile-t">Milestones</span><span class="tile-d">Representative works by field and year, across the five eras.</span></a>
+      <a class="tile" href="/explore/figures/"><span class="tile-n">163</span><span class="tile-t">Figures</span><span class="tile-d">All figures of the handbook in one gallery, each linked to its context.</span></a>
+      <a class="tile" href="/explore/glossary/"><span class="tile-n">A–Z</span><span class="tile-t">Glossary & notation</span><span class="tile-d">Terms, abbreviations and symbols, with the sections that define them.</span></a>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
-</body>
+<section class="band band-soft" id="authors">
+  <div class="wrap">
+    <div class="sec-head"><h2>Developed by 31 researchers from 14 institutions</h2></div>
+    <ul class="inst-logos"><li tabindex="0" data-name="University of Oxford" aria-label="University of Oxford"><img src="/assets/img/logos/oxford.svg" alt="University of Oxford" loading="lazy" width="112" height="33"></li><li tabindex="0" data-name="National University of Singapore" aria-label="National University of Singapore"><img src="/assets/img/logos/nus.svg" alt="National University of Singapore" loading="lazy" width="89" height="41"></li><li tabindex="0" data-name="Nanyang Technological University" aria-label="Nanyang Technological University"><img src="/assets/img/logos/ntu.svg" alt="Nanyang Technological University" loading="lazy" width="100" height="36"></li><li tabindex="0" data-name="University of Rochester" aria-label="University of Rochester"><img src="/assets/img/logos/rochester.svg" alt="University of Rochester" loading="lazy" width="123" height="29"></li><li tabindex="0" data-name="The Chinese University of Hong Kong" aria-label="The Chinese University of Hong Kong"><img src="/assets/img/logos/cuhk.svg" alt="The Chinese University of Hong Kong" loading="lazy" width="140" height="25"></li><li tabindex="0" data-name="University of Macau" aria-label="University of Macau"><img src="/assets/img/logos/macau.svg" alt="University of Macau" loading="lazy" width="42" height="42"></li><li tabindex="0" data-name="Stanford University" aria-label="Stanford University"><img src="/assets/img/logos/stanford.svg" alt="Stanford University" loading="lazy" width="129" height="27"></li><li class="br" aria-hidden="true"></li><li tabindex="0" data-name="Imperial College London" aria-label="Imperial College London"><img src="/assets/img/logos/imperial.png" alt="Imperial College London" loading="lazy" width="182" height="20"></li><li tabindex="0" data-name="Monash University" aria-label="Monash University"><img src="/assets/img/logos/monash.svg" alt="Monash University" loading="lazy" width="108" height="33"></li><li tabindex="0" data-name="University of Cambridge" aria-label="University of Cambridge"><img src="/assets/img/logos/cambridge.svg" alt="University of Cambridge" loading="lazy" width="132" height="28"></li><li tabindex="0" data-name="University of California, Los Angeles" aria-label="University of California, Los Angeles"><img src="/assets/img/logos/ucla.svg" alt="University of California, Los Angeles" loading="lazy" width="104" height="34"></li><li tabindex="0" data-name="Harvard University" aria-label="Harvard University"><img src="/assets/img/logos/harvard.svg" alt="Harvard University" loading="lazy" width="113" height="31"></li><li tabindex="0" data-name="Microsoft Research" aria-label="Microsoft Research"><img src="/assets/img/logos/msr.svg" alt="Microsoft Research" loading="lazy" width="131" height="28"></li><li tabindex="0" data-name="Columbia University" aria-label="Columbia University"><img src="/assets/img/logos/columbia.svg" alt="Columbia University" loading="lazy" width="150" height="23"></li></ul>
+    <a class="btn" href="/team/">Meet the team →</a>
+  </div>
+</section>
+
+<section class="band" id="cite">
+  <div class="wrap two">
+    <div><h2>Citing the handbook</h2><p class="muted">If the handbook is useful in your work, please cite it. Every section can also be cited on its own with <em>Cite this section</em> in the reader; numbers online follow the PDF, so “Section 7.2” or “Figure 6.6” mean the same in both.</p></div>
+    <div class="citebox">
+      <div class="cite-tabs" role="tablist" aria-label="Citation format">
+        <button type="button" role="tab" aria-selected="true" data-ct="bib-main">BibTeX</button><button type="button" role="tab" aria-selected="false" data-ct="bib-plain">Plain text</button>
+      </div>
+      <div class="bibbox"><button type="button" class="copybtn" data-copy-active>Copy</button><pre id="bib-main">@book{wu2026spatial,
+  title     = {Spatial Intelligence: Foundations, Architectures, Methodologies,
+               Applications and Challenges},
+  author    = {Wu, Shengqiong and Zhao, Yu and Ju, Tianjie and Xu, Jundong and
+               Li, Bobo and Yang, Jingkang and Tian, Shulin and Zhang, Daoan and
+               Zhao, Yanguang and Ju, Xuan and Zhao, Haoyu and Zhou, Yuchen and
+               Li, Xiangtai and Zheng, Zhedong and Hsu, Joy and Kong, Xin and
+               Li, Ruining and Zhang, Cheng and Li, Chengzu and Duan, Jiafei and
+               Zhou, Yu and Li, Kenneth and Zheng, Chuanxia and Cui, Lei and
+               Wei, Furu and Liu, Ziwei and Feiner, Steven K. and Luo, Jiebo and
+               Cai, Jianfei and Yan, Shuicheng and Fei, Hao},
+  year      = {2026},
+  url       = {https://spatial-agi.github.io}
+}</pre><pre id="bib-plain" class="wrap-pre" hidden>Shengqiong Wu, Yu Zhao, Tianjie Ju, Jundong Xu, Bobo Li, Jingkang Yang, Shulin Tian, Daoan Zhang, Yanguang Zhao, Xuan Ju, Haoyu Zhao, Yuchen Zhou, Xiangtai Li, Zhedong Zheng, Joy Hsu, Xin Kong, Ruining Li, Cheng Zhang, Chengzu Li, Jiafei Duan, Yu (Bryan) Zhou, Kenneth Li, Chuanxia Zheng, Lei Cui, Furu Wei, Ziwei Liu, Steven K. Feiner, Jiebo Luo, Jianfei Cai, Shuicheng Yan, and Hao Fei. Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. 2026. https://spatial-agi.github.io</pre></div>
+    </div>
+  </div>
+</section>
+<script type="application/json" id="home-data">{"map": {"canal1": [0.49, 0.3465, 0.185, 0.1215], "road": [0.49, 0.355, 0.2525, 0.165], "canal2": [0.49, 0.36, 0.33, 0.218], "sea": [0.5, 0.37, 0.515, 0.4]}, "pins": [{"n": 4, "x": 0.385, "y": 0.385, "part": "II", "title": "Single-Modal Spatial Representation", "slug": "chapter-4", "sections": [{"num": "4.1", "title": "2D"}, {"num": "4.2", "title": "3D"}, {"num": "4.3", "title": "4D"}, {"num": "4.4", "title": "Language"}, {"num": "4.5", "title": "Audio"}, {"num": "4.6", "title": "Domain-Specific Representations"}]}, {"n": 5, "x": 0.555, "y": 0.285, "part": "II", "title": "Cross-Modal Spatial Representation", "slug": "chapter-5", "sections": [{"num": "5.1", "title": "Overview"}, {"num": "5.2", "title": "2D-text"}, {"num": "5.3", "title": "3D-text"}, {"num": "5.4", "title": "Audio-text"}, {"num": "5.5", "title": "Vision-vision"}]}, {"n": 6, "x": 0.5, "y": 0.125, "part": "III", "title": "Spatial Perception", "slug": "chapter-6", "sections": [{"num": "6.1", "title": "Spatial Entity Recognition"}, {"num": "6.2", "title": "Spatial Localization and Position Estimation"}, {"num": "6.3", "title": "Spatial Structure Construction"}, {"num": "6.4", "title": "Spatio-Temporal Perception"}, {"num": "6.5", "title": "Multimodal Spatial Perception"}]}, {"n": 7, "x": 0.655, "y": 0.47, "part": "III", "title": "Spatial Reasoning", "slug": "chapter-7", "sections": [{"num": "7.1", "title": "Rule-based Symbolic Spatial Reasoning"}, {"num": "7.2", "title": "Learning-based Spatial Reasoning"}, {"num": "7.3", "title": "Foundation Model-driven Spatial Reasoning"}, {"num": "7.4", "title": "Hybrid Spatial Reasoning"}, {"num": "7.5", "title": "Spatial Reasoning Benchmarks"}]}, {"n": 8, "x": 0.275, "y": 0.445, "part": "III", "title": "Spatial Reconstruction and Generation", "slug": "chapter-8", "sections": [{"num": "8.1", "title": "2D Spatial Generation"}, {"num": "8.2", "title": "3D Spatial Reconstruction and Generation"}, {"num": "8.3", "title": "Video Spatial Generation"}, {"num": "8.4", "title": "Motion Generation"}, {"num": "8.5", "title": "4D Spatial Generation"}, {"num": "8.6", "title": "World Modeling"}, {"num": "8.7", "title": "Programmatic and Symbolic Spatial Generation"}, {"num": "8.8", "title": "Summary and Outlook"}]}, {"n": 9, "x": 0.725, "y": 0.125, "part": "IV", "title": "Spatial Intelligence for Embodied Systems", "slug": "chapter-9", "sections": [{"num": "9.1", "title": "Robotic Manipulation"}, {"num": "9.2", "title": "Autonomous Driving"}, {"num": "9.3", "title": "Wearable AI System"}, {"num": "9.4", "title": "Aerial Agents"}, {"num": "9.5", "title": "Warehouse and Industrial Logistics"}]}, {"n": 10, "x": 0.915, "y": 0.335, "part": "IV", "title": "Spatial Intelligence for Virtual Realities", "slug": "chapter-10", "sections": [{"num": "10.1", "title": "AR/VR/XR"}, {"num": "10.2", "title": "Entertainment"}]}, {"n": 11, "x": 0.86, "y": 0.6, "part": "IV", "title": "Spatial Intelligence for Geo-spatial Systems", "slug": "chapter-11", "sections": [{"num": "11.1", "title": "Digital Twins"}, {"num": "11.2", "title": "GeoAI"}, {"num": "11.3", "title": "Aerospace Engineering"}]}, {"n": 12, "x": 0.245, "y": 0.615, "part": "IV", "title": "Spatial Intelligence for Biomedicine and Natural Sciences", "slug": "chapter-12", "sections": [{"num": "12.1", "title": "Medicine and Clinical Healthcare"}, {"num": "12.2", "title": "Natural Science"}]}, {"n": 13, "x": 0.075, "y": 0.39, "part": "IV", "title": "Spatial Intelligence for Intelligent Assistance", "slug": "chapter-13", "sections": [{"num": "13.1", "title": "Assistant"}]}, {"n": 14, "x": 0.2, "y": 0.14, "part": "IV", "title": "Spatial Intelligence for Others", "slug": "chapter-14", "sections": [{"num": "14.1", "title": "Architecture, Engineering, and Construction"}, {"num": "14.2", "title": "Sports Analytics and Performance"}, {"num": "14.3", "title": "Cultural Heritage and Archaeology"}, {"num": "14.4", "title": "Marine and Underwater Systems"}, {"num": "14.5", "title": "Retail and Smart Spaces"}, {"num": "14.6", "title": "Outlook"}]}, {"n": 15, "x": 0.5, "y": 0.062, "part": "V", "title": "Foundations: What Spatial Intelligence Requires", "slug": "chapter-15", "sections": [{"num": "15.1", "title": "Spatial Observability and Identifiability"}, {"num": "15.2", "title": "Representation and State Sufficiency"}, {"num": "15.3", "title": "Persistent World States and Belief Updating"}, {"num": "15.4", "title": "Predictive Validity and Physical Grounding"}, {"num": "15.5", "title": "Situated and Interactive Spatial Intelligence"}]}, {"n": 16, "x": 0.355, "y": 0.058, "part": "V", "title": "Research Gaps and Future Directions", "slug": "chapter-16", "sections": [{"num": "16.1", "title": "Research Gaps along the Loop"}, {"num": "16.2", "title": "Benchmarking Gaps"}, {"num": "16.3", "title": "Deployment Bottlenecks"}, {"num": "16.4", "title": "Future Directions"}]}], "eraPins": [{"x": 0.525, "y": 0.93, "roman": "I", "name": "Symbolic and cognitive", "years": "1950s–1980s", "url": "/read/1.2/#Ch1.S2.SS1", "sec": "1.2.1", "space": "discrete symbols and relations"}, {"x": 0.525, "y": 0.846, "roman": "II", "name": "Geometric and probabilistic", "years": "1980s–2012", "url": "/read/1.2/#Ch1.S2.SS2", "sec": "1.2.2", "space": "metric geometry under uncertainty"}, {"x": 0.525, "y": 0.768, "roman": "III", "name": "Learning-based", "years": "2012–2019", "url": "/read/1.2/#Ch1.S2.SS3", "sec": "1.2.3", "space": "learned, task-specific features"}, {"x": 0.525, "y": 0.722, "roman": "IV", "name": "Foundation models", "years": "2019–2023", "url": "/read/1.2/#Ch1.S2.SS4", "sec": "1.2.4", "space": "shared latent priors"}, {"x": 0.525, "y": 0.645, "roman": "V", "name": "World-centered", "years": "2023–", "url": "/read/1.2/#Ch1.S2.SS5", "sec": "1.2.5", "space": "an executable, persistent world state"}], "operators": [{"id": "perc", "name": "Perception", "sigsvg": "f<tspan font-size='9' dy='4'>perc<\/tspan><tspan dy='-4'> : 𝒪 → ℛ<\/tspan><tspan font-size='9' dy='4'>𝒮<\/tspan>", "sightml": "<i>f<\/i><sub>perc<\/sub> : 𝒪 → ℛ<sub>𝒮<\/sub>", "desc": "Extracts spatial structure from multimodal sensory inputs: recognizing objects and scene elements, estimating distances, identifying spatial layouts, and localizing entities within an environment."}, {"id": "reason", "name": "Reasoning & planning", "sigsvg": "f<tspan font-size='9' dy='4'>reason<\/tspan><tspan dy='-4'> : ℛ<\/tspan><tspan font-size='9' dy='4'>𝒮<\/tspan><tspan dy='-4'> → ℛ<\/tspan><tspan font-size='9' dy='4'>𝒮<\/tspan>", "sightml": "<i>f<\/i><sub>reason<\/sub> : ℛ<sub>𝒮<\/sub> → ℛ<sub>𝒮<\/sub>", "desc": "Elaborates the current world state by inferring relations and constraints already implicit in it: trajectory and path planning, occlusion reasoning, spatial causality, relational and commonsense inference."}, {"id": "pred", "name": "Prediction", "sigsvg": "f<tspan font-size='9' dy='4'>pred<\/tspan><tspan dy='-4'> : ℛ<\/tspan><tspan font-size='9' dy='4'>𝒮<\/tspan><tspan dy='-4'> × 𝒜 → ℛ<\/tspan><tspan font-size='9' dy='4'>𝒮<\/tspan>", "sightml": "<i>f<\/i><sub>pred<\/sub> : ℛ<sub>𝒮<\/sub> × 𝒜 → ℛ<sub>𝒮<\/sub>", "desc": "Advances the state in time: forecasts future spatial states consistent with physical laws and causal structure, and generates spatially aware images, videos, 3D or 4D scenes and motion."}, {"id": "act", "name": "Embodied action", "sigsvg": "f<tspan font-size='9' dy='4'>act<\/tspan><tspan dy='-4'> : ℛ<\/tspan><tspan font-size='9' dy='4'>𝒮<\/tspan><tspan dy='-4'> → 𝒜<\/tspan>", "sightml": "<i>f<\/i><sub>act<\/sub> : ℛ<sub>𝒮<\/sub> → 𝒜", "desc": "Reads the representation to act on the environment while pursuing goals: pose adjustment, navigation, grasping and manipulation, aligned with task objectives, human intent and social context."}], "eras": [{"roman": "I", "name": "Symbolic and cognitive", "years": "1950s–1980s", "rows": [["Space treated as", "discrete symbols and relations"], ["Core representations", "cognitive maps, topological graphs, predicates"], ["What it is for", "planning and inference by symbol manipulation"], ["Characteristic methods", "heuristic search, rule-based planning, logic"], ["Main fields", "cognitive science, classical AI, early robotics"], ["Left unsolved", "meaning asserted by rules, not inferred from noisy sensing"]], "url": "/read/1.2/#Ch1.S2.SS1", "sec": "1.2.1"}, {"roman": "II", "name": "Geometric and probabilistic", "years": "1980s–2012", "rows": [["Space treated as", "metric geometry under uncertainty"], ["Core representations", "occupancy grids, landmark maps, pose graphs"], ["What it is for", "a consistent pose and map from noisy sensing"], ["Characteristic methods", "Bayesian filtering, nonlinear least squares, multi-view geometry"], ["Main fields", "robotics, photogrammetry and vision, GIS"], ["Left unsolved", "features and pipelines engineered by hand"]], "url": "/read/1.2/#Ch1.S2.SS2", "sec": "1.2.2"}, {"roman": "III", "name": "Learning-based", "years": "2012–2019", "rows": [["Space treated as", "learned, task-specific features"], ["Core representations", "feature maps, depth and flow maps, point and voxel features"], ["What it is for", "perception objectives: detection, depth, motion"], ["Characteristic methods", "supervised and self-supervised deep networks"], ["Main fields", "computer vision, autonomous driving"], ["Left unsolved", "one model per task; no persistent world model"]], "url": "/read/1.2/#Ch1.S2.SS3", "sec": "1.2.3"}, {"roman": "IV", "name": "Foundation models", "years": "2019–2023", "rows": [["Space treated as", "shared latent priors"], ["Core representations", "pretrained embeddings, cross-modal alignment, neural fields"], ["What it is for", "transfer across tasks, modalities, and environments"], ["Characteristic methods", "large-scale pretraining, contrastive alignment, instruction tuning"], ["Main fields", "multimodal AI, neural rendering, embodied AI"], ["Left unsolved", "no persistent state that action updates"]], "url": "/read/1.2/#Ch1.S2.SS4", "sec": "1.2.4"}, {"roman": "V", "name": "World-centered", "years": "2023–", "rows": [["Space treated as", "an executable, persistent world state"], ["Core representations", "world models, action-conditioned dynamics, spatial memory"], ["What it is for", "long-horizon prediction, planning, and interaction"], ["Characteristic methods", "action-conditioned prediction, memory, closed-loop learning"], ["Main fields", "embodied AI, simulation and digital twins, AR/VR"], ["Left unsolved", "open: long-horizon consistency under motion and partial observability"]], "url": "/read/1.2/#Ch1.S2.SS5", "sec": "1.2.5"}], "partColors": {"I": "#A8722A", "II": "#3646F0", "III": "#7446D6", "IV": "#11899A", "V": "#C0436E"}}</script>
+</div>
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-brand">
+      <a class="brand" href="/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg><span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span></a>
+      <p>Foundations, Architectures, Methodologies, Applications and Challenges. Developed by 31 researchers from 14 institutions.</p>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Read</h4><a href="/read/">Contents</a><a href="/read/preface/">Preface</a><a href="/read/part-i/">Part I</a><a href="/read/part-ii/">Part II</a><a href="/read/part-iii/">Part III</a><a href="/read/part-iv/">Part IV</a><a href="/read/part-v/">Part V</a></div>
+      <div><h4>Explore</h4><a href="/explore/literature/">Literature</a><a href="/explore/datasets/">Datasets &amp; benchmarks</a><a href="/explore/tools/">Tools &amp; platforms</a><a href="/explore/timeline/">Milestones</a><a href="/explore/figures/">Figures</a><a href="/explore/glossary/">Glossary</a></div>
+      <div><h4>About</h4><a href="/team/">Team</a><a href="/#cite">Cite</a><a href="/contribute/">Contribute</a><a href="/contribute/#updates">Updates</a></div>
+    </div>
+  </div>
+  <div class="footer-base"><span>© 2026 The authors of <em>Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges</em>.</span><span>Built from the LaTeX source of the handbook.</span></div>
+</footer>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/home.js"></script></body>
 </html>

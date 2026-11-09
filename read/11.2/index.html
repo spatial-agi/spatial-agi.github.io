@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.2 GeoAI · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="11.2 GeoAI · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="11.2">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link is-current" href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-11/">Chapter 11</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-11/">Chapter 11 · Spatial Intelligence for Geo-spatial Systems</a></div>
+        <h1><span class="secnum">11.2</span>GeoAI</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=400" title="Open this page in the PDF">PDF p. 400</a><span class="dot">·</span>        <span>15 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:11.2 GeoAI">
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS1"><span class="secnum">11.2.1</span>Introduction<a class="anchor" href="#Ch11.S2.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">Geospatial artificial intelligence (GeoAI) applies machine learning to geographic data (satellite and UAV imagery, LiDAR, GNSS traces, and IoT sensor streams) to model and act on processes that unfold over terrain, cities, and the Earth system.
+It makes the geospatial domain a large-scale deployment target for the perception and scene-understanding capabilities surveyed in Part <a href="/read/part-iii/" class="xref" data-x="Pt3"><span>III</span></a>: the detection, segmentation, and remote-sensing techniques of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> (and the aerial and remote-sensing setting of Section <a href="/read/9.4/" class="xref" data-x="Ch9.S4"><span>9.4</span></a>) are here specialized to Earth-observation data and decision workflows at planetary scale.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS2"><span class="secnum">11.2.2</span>System Overview<a class="anchor" href="#Ch11.S2.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">A GeoAI workflow couples heterogeneous geospatial data to models that turn raw observations into spatially explicit decisions (Figure <a href="/read/11.2/#Ch11.F5" class="xref" data-x="Ch11.F5"><span>11.5</span></a>).
+Following the application taxonomy of the review by Boutayeb <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2698" data-k="boutayeb2024geoai">2698</a>]</cite>, we treat six domains as pivotal tasks: precision agriculture, the urban built environment, environmental monitoring, water resources, disaster management, and public health.
+The six share their inputs, largely the free Sentinel, Landsat, and MODIS archives, and until recently they shared a modeling pattern as well: a task-specific supervised network or tree ensemble trained for one region and one target, which the foundation models at the end of the section are beginning to replace.
+Table <a href="/read/11.2/#Ch11.T2" class="xref" data-x="Ch11.T2"><span>11.2</span></a> samples representative data sources, methods, and reported results across the six.</p>
+</div>
+<figure id="Ch11.F5" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/geoai-overview.webp" id="Ch11.F5.g1" class="fig-img" alt="" width="2000" height="1256" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.5</span><span>GeoAI as a data-to-decision loop: satellite, UAV, LiDAR, GNSS, and IoT observations feed alternative or combined CNN, transformer, and ensemble models, whose outputs serve six application domains and act back, through planning and policy, on the sensed world.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS3"><span class="secnum">11.2.3</span>Pivotal Task-1: Precision Agriculture<a class="anchor" href="#Ch11.S2.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS3.p1" class="ltx_para">
+<p class="ltx_p">Precision agriculture tailors irrigation, fertilization, and pest control to the conditions of each field, or each plant, instead of managing a field uniformly.
+GeoAI supplies the maps and predictions this requires through the complementary mapping, yield-estimation, and irrigation tasks of Figure <a href="/read/11.2/#Ch11.F6" class="xref" data-x="Ch11.F6"><span>11.6</span></a>.</p>
+</div>
+<figure id="Ch11.F6" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/geoai-agriculture.webp" id="Ch11.F6.g1" class="fig-img" alt="" width="2000" height="1586" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.6</span><span>Three GeoAI tasks for precision agriculture: (a) crop mapping, (b) yield and leaf-area-index (LAI) estimation, and (c) variable-rate precision irrigation. Maps and fitted points are schematic.</span></figcaption>
+</figure>
+<div id="Ch11.S2.SS3.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Crops Mapping.</span> Crop mapping turns a time series of satellite or UAV imagery into a per-pixel crop-type label, and the accuracy gains in recent work track the richness of the temporal signal.
+Han <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2699" data-k="han2023spatio">2699</a>]</cite> combine a ResNet feature extractor with cross-attention and spatio-temporal self-attention over Sentinel-1 SAR series, reaching 96% overall accuracy on the Brandenburg benchmark.
+3D convolutional networks over Sentinel-2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2700" data-k="gallo2023season">2700</a>]</cite> and Landsat <cite class="cites">[<a class="cite" href="/read/references/#ref-2701" data-k="MOHAMMADI2023272">2701</a>]</cite> series treat time as a third convolution axis, and fusing Sentinel-1 SAR with Sentinel-2 optical data maps rice phenological stages within the season <cite class="cites">[<a class="cite" href="/read/references/#ref-2702" data-k="tiwari2024automated">2702</a>]</cite>.
+Multi-season and SAR–optical inputs consistently beat single-date classification, in part because SAR sees through the cloud that interrupts optical series.
+At the other end of the resolution range, UAV imagery supports row-level segmentation, where U-Net outperforms LinkNet and PSPNet on sugarcane crop lines <cite class="cites">[<a class="cite" href="/read/references/#ref-2703" data-k="ribeiro2024automated">2703</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS3.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Yields Prediction.</span> Yield prediction regresses a continuous productivity estimate from the same imagery, and the usual design has two stages: extract a vegetation index or phenotype, then regress.
+Random forests over Sentinel-2, RTK GPS, and LiDAR variables predict cotton yield <cite class="cites">[<a class="cite" href="/read/references/#ref-2704" data-k="carneiro2023soil">2704</a>]</cite>, and an ensemble over Landsat-8 NDVI and agro-meteorological data reports R<sup>2</sup> 0.99 for tea yield on its test set <cite class="cites">[<a class="cite" href="/read/references/#ref-2705" data-k="ramzan2023multimodal">2705</a>]</cite>.
+UAV imagery earns its extra cost where the target is a fine-grained phenotype: Mask R-CNN extracts wheat-spike phenotypes that feed a yield regressor <cite class="cites">[<a class="cite" href="/read/references/#ref-2706" data-k="PengWZYLRLSX23">2706</a>]</cite>, and a linear mixed-effect model on fixed-wing UAV multispectral imagery estimates rice leaf-area index and biomass <cite class="cites">[<a class="cite" href="/read/references/#ref-2707" data-k="rs11111371">2707</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS3.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Precision Irrigation.</span> Irrigation closes the loop, turning maps and estimates into water-delivery decisions <cite class="cites">[<a class="cite" href="/read/references/#ref-2708" data-k="AbioyeAMBIROOR20">2708</a>]</cite>.
+One line of work detects irrigation infrastructure at scale, such as center-pivot systems in Sentinel-2 series with Mask R-CNN <cite class="cites">[<a class="cite" href="/read/references/#ref-2709" data-k="AlbuquerqueCSLB21">2709</a>]</cite> or irrigation types in NAIP aerial images with a U-Net and transfer learning <cite class="cites">[<a class="cite" href="/read/references/#ref-2710" data-k="RaeiANSPA22">2710</a>]</cite>.
+The other controls water locally: a drone system fuses RGB, thermal-infrared, and GPS data to find the driest zones of a field and sets valve flow with a random forest <cite class="cites">[<a class="cite" href="/read/references/#ref-2711" data-k="JalajamonyNMF23">2711</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS4"><span class="secnum">11.2.4</span>Pivotal Task-2: Urban Planning, Logistics, and Transport<a class="anchor" href="#Ch11.S2.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS4.p1" class="ltx_para">
+<p class="ltx_p">The second task turns GeoAI on the built environment. Figure <a href="/read/11.2/#Ch11.F7" class="xref" data-x="Ch11.F7"><span>11.7</span></a> presents five complementary tasks on a shared urban context, from built structure and temporal change to services, transport, and green infrastructure.</p>
+</div>
+<figure id="Ch11.F7" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/geoai-urban.webp" id="Ch11.F7.g1" class="fig-img" alt="" width="2000" height="1633" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.7</span><span>GeoAI for the built environment: (a) building and land-use extraction from overhead and street-view imagery; (b) temporal urban change; (c) sensor-supported digital twins and operational services; (d) mobility, routing, and infrastructure analysis; and (e) canopy, parks, green roofs, and biosecurity monitoring. Tasks are complementary rather than a mandatory serial pipeline. Shared map geometry, temporal trends, and the city illustration are schematic; arrows denote time, data flow, or travel direction within the corresponding panels.</span></figcaption>
+</figure>
+<div id="Ch11.S2.SS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Urban Data Extraction.</span> Land use and built form are classified from overhead and street-level imagery, and fusing the two views resolves ambiguities that neither settles alone.
+A fine-tuned EfficientNet classifies the 21 land-use classes of the UC Merced set <cite class="cites">[<a class="cite" href="/read/references/#ref-2712" data-k="AlemK22">2712</a>]</cite>, while a dual-branch network that pairs dilated convolutions on Google Earth imagery with an attention-based multi-view network on Street View detects informal urban villages <cite class="cites">[<a class="cite" href="/read/references/#ref-2713" data-k="ChenFNYGYGL22">2713</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Urban Dynamics.</span> Temporal models capture how urban form changes over time.
+An LSTM with attention simulates urban densification from land-use rasters of 2000, 2010, and 2020 <cite class="cites">[<a class="cite" href="/read/references/#ref-2714" data-k="el2023long">2714</a>]</cite>, and a pix2pix GAN predicts land-use and land-cover change by conditioning Landsat imagery on planning indicators <cite class="cites">[<a class="cite" href="/read/references/#ref-2715" data-k="SunMFWH21">2715</a>]</cite>.
+A static quantity such as urban solar exposure needs no temporal model; a feed-forward network on building geometry, occupancy, and orientation suffices <cite class="cites">[<a class="cite" href="/read/references/#ref-2716" data-k="tehrani2024predicting">2716</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Smart Cities.</span> The service layer turns these representations into live operation: video georeferencing and small-object detection inside an urban digital twin <cite class="cites">[<a class="cite" href="/read/references/#ref-222" data-k="HuLYHCYLY23">222</a>]</cite>, LSTM parking-occupancy prediction served to a mobile application <cite class="cites">[<a class="cite" href="/read/references/#ref-2717" data-k="CanliT21">2717</a>]</cite>, and detection of commercial signage in Street View imagery to map urban commerce <cite class="cites">[<a class="cite" href="/read/references/#ref-2718" data-k="YeWKXC19">2718</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS4.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Logistics and Transport.</span> Movement through the city splits into two problems with different tools.
+Flow forecasting is temporal: bus arrival times are predicted from a traffic-density matrix with recurrent and convolutional models <cite class="cites">[<a class="cite" href="/read/references/#ref-2719" data-k="PanovskiZ20">2719</a>]</cite>, a hybrid GRU–LSTM forecasts traffic from OpenStreetMap and GIS features <cite class="cites">[<a class="cite" href="/read/references/#ref-2720" data-k="ZafarHSCM22">2720</a>]</cite>, IODRNN decomposes its outputs incrementally to remove the lag in GNSS-based forecasts <cite class="cites">[<a class="cite" href="/read/references/#ref-2721" data-k="LuMPXC24">2721</a>]</cite>, and itinerary recommendation adds a denoising autoencoder with collaborative learning <cite class="cites">[<a class="cite" href="/read/references/#ref-2722" data-k="ChenZCWC20">2722</a>]</cite>.
+Infrastructure mapping is a segmentation problem: open LiDAR point clouds inventory rockfall-prone road slopes <cite class="cites">[<a class="cite" href="/read/references/#ref-2723" data-k="RuaNAM23">2723</a>]</cite>, SegNet on RapidEye imagery updates rural road networks <cite class="cites">[<a class="cite" href="/read/references/#ref-2724" data-k="kearney2020maintaining">2724</a>]</cite>, and U-Net with PointNet++ performs panoptic segmentation of railway environments from multimodal LiDAR <cite class="cites">[<a class="cite" href="/read/references/#ref-2725" data-k="grandio2023multimodal">2725</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS4.p6" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Green Infrastructure and Bio Security.</span> Vegetation monitoring moves from coverage to function to threat, and each step demands finer spatial and spectral resolution than the last.
+A semi-supervised DeepLabv3+ maps urban tree cover nationwide from high-resolution satellite imagery <cite class="cites">[<a class="cite" href="/read/references/#ref-2726" data-k="guo2023nationwide">2726</a>]</cite>; a Faster R-CNN tree inventory identifies seven canopy species and, through geographically weighted regression, their effect on land-surface temperature <cite class="cites">[<a class="cite" href="/read/references/#ref-2727" data-k="das2022geoai">2727</a>]</cite>; and biosecurity surveillance of invasive forest pests uses multispectral aerial imagery, where an instance-segmentation model reached an F1-score of 79% against 58% for a tile classifier <cite class="cites">[<a class="cite" href="/read/references/#ref-2728" data-k="carnegie2023airborne">2728</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS5"><span class="secnum">11.2.5</span>Pivotal Task-3: Environmental Monitoring<a class="anchor" href="#Ch11.S2.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS5.p1" class="ltx_para">
+<p class="ltx_p">The third task observes the Earth system itself, across the three fronts of Figure <a href="/read/11.2/#Ch11.F8" class="xref" data-x="Ch11.F8"><span>11.8</span></a>.</p>
+</div>
+<figure id="Ch11.F8" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/geoai-environment.webp" id="Ch11.F8.g1" class="fig-img" alt="" width="2000" height="1272" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.8</span><span>Three parallel GeoAI tasks for environmental monitoring: (a) climate and vegetation (NDVI/LAI trends), (b) atmospheric chemistry (NO<sub>2</sub>, SO<sub>2</sub>, aerosols), and (c) environmental impact of land-cover change. Maps and trends are illustrative, not measured changes.</span></figcaption>
+</figure>
+<div id="Ch11.S2.SS5.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Climate Change.</span> Long-term land-surface change is read mostly through vegetation records spanning decades of Landsat, Sentinel, and MODIS data, and the methods trade spatial detail against record length.
+Lou <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2729" data-k="lou2023deep">2729</a>]</cite> map land use and land cover on Google Earth Engine with a deep network and find rapid greening of the Qinghai–Tibet Plateau from 1988 to 2018.
+Deep-learning-enhanced spatiotemporal fusion reconstructs long-term NDVI in the Danjiang River Basin <cite class="cites">[<a class="cite" href="/read/references/#ref-2730" data-k="wang2023applying">2730</a>]</cite>, random forests retrieve vegetation phenology from MODIS more accurately than rule-based methods <cite class="cites">[<a class="cite" href="/read/references/#ref-2731" data-k="XinLLLZ20">2731</a>]</cite>, and a bidirectional LSTM produces the GLASS 250 m leaf-area-index product (version 6) from MODIS reflectance <cite class="cites">[<a class="cite" href="/read/references/#ref-2732" data-k="ma2022development">2732</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS5.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Atmospheric Chemistry.</span> Atmospheric composition is retrieved by learning the map from satellite radiances and meteorology to ground-measured concentrations.
+Nitrogen dioxide is the most studied target, estimated hourly from Sentinel-5P, meteorology, and sensor data with XGBoost <cite class="cites">[<a class="cite" href="/read/references/#ref-2733" data-k="kim2021importance">2733</a>]</cite> and daily across China with a random forest and K-means clustering over OMI data <cite class="cites">[<a class="cite" href="/read/references/#ref-9" data-k="dou2021estimates">9</a>]</cite>.
+A convolutional autoencoder coupled to WRF-Chem models volcanic SO<sub>2</sub> dispersion <cite class="cites">[<a class="cite" href="/read/references/#ref-2734" data-k="opio2023modeling">2734</a>]</cite>, AQNet fuses Sentinel-2 and Sentinel-5P to predict NO<sub>2</sub>, O<sub>3</sub>, and PM<sub><span class="ltx_font_italic">10</span></sub> <cite class="cites">[<a class="cite" href="/read/references/#ref-2735" data-k="rowley2023predicting">2735</a>]</cite>, an LSTM forecasts five pollutants from ground-station series <cite class="cites">[<a class="cite" href="/read/references/#ref-2736" data-k="seng2021spatiotemporal">2736</a>]</cite>, and a deep network derives aerosol absorption from the OMI ultraviolet aerosol index, validated against AERONET <cite class="cites">[<a class="cite" href="/read/references/#ref-2737" data-k="SunVVL21">2737</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS5.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Environmental Impacts.</span> Impact assessment links land-use change to ecological outcomes, and it is judged not only on accuracy but on whether it can name the responsible driver, which is why explainability recurs here.
+Neural networks on multi-temporal Landsat land-cover maps assess urban ecological quality <cite class="cites">[<a class="cite" href="/read/references/#ref-2738" data-k="alqadhi2024applying">2738</a>]</cite>; multiscale geographically weighted regression, random forests, and SHAP relate agricultural land to PM<sub><span class="ltx_font_italic">2.5</span></sub> concentrations <cite class="cites">[<a class="cite" href="/read/references/#ref-2739" data-k="gianquintieri2024implementation">2739</a>]</cite>; and interpretable ensembles measure the effect of climate change on agricultural land suitability <cite class="cites">[<a class="cite" href="/read/references/#ref-2740" data-k="ShevchenkoLTBGKNSKM24">2740</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS6"><span class="secnum">11.2.6</span>Pivotal Task-4: Water Resources Management and Precipitation Forecasting<a class="anchor" href="#Ch11.S2.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS6.p1" class="ltx_para">
+<p class="ltx_p">The fourth task addresses four complementary aspects of water resources in Figure <a href="/read/11.2/#Ch11.F9" class="xref" data-x="Ch11.F9"><span>11.9</span></a>.</p>
+</div>
+<figure id="Ch11.F9" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/geoai-water.webp" id="Ch11.F9.g1" class="fig-img" alt="" width="2000" height="1539" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.9</span><span>Four GeoAI tasks for water resources: (a) surface hydrology, (b) groundwater from GRACE storage anomalies and auxiliary data, (c) water quality calibrated against in-situ samples, and (d) radar-based precipitation nowcasting. The panels are parallel tasks, not successive stages of the water cycle; all values are schematic.</span></figcaption>
+</figure>
+<div id="Ch11.S2.SS6.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Hydrological Modeling.</span> Convolutional models dominate local surface geometry.
+Space-time image velocimetry on UAV video estimates river velocity and discharge, validated with LiDAR-derived terrain <cite class="cites">[<a class="cite" href="/read/references/#ref-2741" data-k="islam2023mutual">2741</a>]</cite>; U-Net extracts drainage ditches from LiDAR in low-relief terrain <cite class="cites">[<a class="cite" href="/read/references/#ref-2742" data-k="du2024drainage">2742</a>]</cite>; quadtree decomposition with multi-scale CNNs extracts coastlines at lower cost than FCN and U-Net baselines <cite class="cites">[<a class="cite" href="/read/references/#ref-2743" data-k="sun2024quadtree">2743</a>]</cite>; and a reflectance-transformation CNN maps bathymetry from Landsat and Sentinel-2 imagery <cite class="cites">[<a class="cite" href="/read/references/#ref-2744" data-k="ChanZX0WA24">2744</a>]</cite>.
+At basin scale, where streamflow depends on several precipitation products (MODIS, CHIRPS, MSWEP), super-ensembles that weight multiple regressors take over <cite class="cites">[<a class="cite" href="/read/references/#ref-2745" data-k="wegayehu2023super">2745</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS6.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Groundwater.</span> No optical sensor sees the water table, so groundwater models work from proxy variables and gravimetry.
+Static delineation of recharge or shallow-groundwater zones uses tree ensembles and deep networks over hydrogeological and remote-sensing variables <cite class="cites">[<a class="cite" href="/read/references/#ref-2746" data-k="al2024hybrid">2746</a>, <a class="cite" href="/read/references/#ref-2747" data-k="sahour2022identification">2747</a>, <a class="cite" href="/read/references/#ref-2748" data-k="nhu2024new">2748</a>]</cite>.
+GRACE/GRACE-FO measures total-water-storage changes; isolating groundwater requires auxiliary estimates of other water-storage components. Storage forecasting uses these gravity-derived anomalies, which a CNN–LSTM forecasts with an RMSE of 44.92 mm/month <cite class="cites">[<a class="cite" href="/read/references/#ref-2749" data-k="seo2021predicting">2749</a>]</cite> and which machine-learning regressors downscale to catchment resolution <cite class="cites">[<a class="cite" href="/read/references/#ref-2750" data-k="sabzehee2023enhancing">2750</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS6.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Water Quality.</span> Water quality is regressed from spectral reflectance against in-situ samples, and accuracy follows the optical signature of the constituent.
+Pigments with a clear signature are tractable: fusion of data and classifiers through higher-order SVD estimates chlorophyll-a in Lake Nicaragua <cite class="cites">[<a class="cite" href="/read/references/#ref-2751" data-k="sun2021ensemble">2751</a>]</cite>, and on UAV multispectral and hyperspectral data of a karst wetland, transformers and gradient boosting predict phycocyanin, dissolved oxygen, and chlorophyll-a, interpreted with SHAP <cite class="cites">[<a class="cite" href="/read/references/#ref-2752" data-k="yang2023monitoring">2752</a>]</cite>.
+Dissolved nutrients remain harder because their optical fingerprint is faint, whether estimated from MODIS with a spatiotemporal deep belief network <cite class="cites">[<a class="cite" href="/read/references/#ref-2753" data-k="wu2022spatiotemporal">2753</a>]</cite> or from Landsat-8 with an ANN <cite class="cites">[<a class="cite" href="/read/references/#ref-2754" data-k="vakili2020determination">2754</a>]</cite>.
+Optical water types themselves can be classified from Sentinel-2 with an SVM <cite class="cites">[<a class="cite" href="/read/references/#ref-2755" data-k="dasilva2021machine">2755</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS6.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Precipitation Forecasting.</span> Precipitation nowcasting predicts the next radar frames from the current sequence.
+HST-AFP fuses radar echoes with weather forecasts through attention <cite class="cites">[<a class="cite" href="/read/references/#ref-2756" data-k="niu2023heterogeneous">2756</a>]</cite>, STIN adds humidity, wind, and temperature <cite class="cites">[<a class="cite" href="/read/references/#ref-2757" data-k="jin2023spatiotemporal">2757</a>]</cite>, and PFST-LSTM adds pseudo-flow estimation to follow echo motion <cite class="cites">[<a class="cite" href="/read/references/#ref-2758" data-k="luo2020pfst">2758</a>]</cite>; at longer range, multi-model ensembles post-process numerical weather prediction <cite class="cites">[<a class="cite" href="/read/references/#ref-2759" data-k="sengoz2023machine">2759</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS7"><span class="secnum">11.2.7</span>Pivotal Task-5: Disaster Management<a class="anchor" href="#Ch11.S2.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS7.p1" class="ltx_para">
+<p class="ltx_p">The fifth task covers the disaster lifecycle (hazard or susceptibility mapping, event observation, and damage assessment) for earthquakes, floods, and forest fires, arranged as a grid in Figure <a href="/read/11.2/#Ch11.F10" class="xref" data-x="Ch11.F10"><span>11.10</span></a>.</p>
+</div>
+<figure id="Ch11.F10" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/geoai-disaster.webp" id="Ch11.F10.g1" class="fig-img" alt="" width="2000" height="1432" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.10</span><span>GeoAI for disaster management as a lifecycle-by-hazard grid: earthquakes, floods, and forest fires (columns) across hazard or susceptibility mapping, event observation, and post-event assessment (rows). All maps and severity scales are schematic.</span></figcaption>
+</figure>
+<div id="Ch11.S2.SS7.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Earthquakes.</span> For earthquakes the lifecycle includes hazard mapping, event-related observation, and damage assessment; these tasks should not be equated with reliable prediction of an exact earthquake.
+A CNN over elevation, vector, and attribute data maps seismic risk in north-eastern India <cite class="cites">[<a class="cite" href="/read/references/#ref-2760" data-k="jena2021earthquake">2760</a>]</cite>, and encoder–decoder LSTMs <cite class="cites">[<a class="cite" href="/read/references/#ref-2761" data-k="xiong2022gnss">2761</a>]</cite> and neural networks <cite class="cites">[<a class="cite" href="/read/references/#ref-2762" data-k="hafeez2021possible">2762</a>]</cite> detect ionospheric anomalies in GNSS total-electron-content data around events such as the 2019 Pakistan earthquake.
+After the event, LiDAR, orthophotos, and multispectral imagery estimate building vulnerability <cite class="cites">[<a class="cite" href="/read/references/#ref-2763" data-k="torres2019integration">2763</a>]</cite>, and change detection on multi-temporal photogrammetric point clouds classifies structural damage into grades <cite class="cites">[<a class="cite" href="/read/references/#ref-2764" data-k="zahs2023classification">2764</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS7.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Floods.</span> Floods lean on radar.
+Forecasting fuses meteorological, hydrological, and crowdsourced data, either comparing classical learners under cross-validation <cite class="cites">[<a class="cite" href="/read/references/#ref-2765" data-k="PuttinaovaratH20">2765</a>]</cite> or with a ConvLSTM that learns spatial rainfall patterns and their temporal dynamics jointly <cite class="cites">[<a class="cite" href="/read/references/#ref-2766" data-k="MoishinDPRA21">2766</a>]</cite>.
+Inundation mapping falls to SAR segmentation, which sees through cloud, as in an attention-augmented U-Net on dual-polarized Sentinel-1 imagery <cite class="cites">[<a class="cite" href="/read/references/#ref-2767" data-k="LiWCWJG22">2767</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS7.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Forest Fires.</span> Fire has the fullest lifecycle.
+Susceptibility is predicted from drone imagery with temperature and humidity sensing <cite class="cites">[<a class="cite" href="/read/references/#ref-2768" data-k="rathod2023multipurpose">2768</a>]</cite>, or from elevation, vegetation indices, and hydrometeorology with a neuro-fuzzy system tuned by an artificial bee colony <cite class="cites">[<a class="cite" href="/read/references/#ref-2769" data-k="PHAM2024102392">2769</a>]</cite>.
+Detection is trained on drone RGB and infrared imagery such as the FLAME 2 dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2770" data-k="ChenHWOARFCRW22">2770</a>]</cite> and can be distributed across sites with federated learning <cite class="cites">[<a class="cite" href="/read/references/#ref-2771" data-k="SiddiqueADBAA24">2771</a>]</cite>.
+Burn scars are delineated afterward by a U-Net on PlanetScope RGB and near-infrared imagery, with F1 up to 0.94 <cite class="cites">[<a class="cite" href="/read/references/#ref-2772" data-k="ChoPKKLS23">2772</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS8"><span class="secnum">11.2.8</span>Pivotal Task-6: Healthcare<a class="anchor" href="#Ch11.S2.SS8" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS8.p1" class="ltx_para">
+<p class="ltx_p">The sixth task brings GeoAI to public health, where spatial signals couple disease and environment (Figure <a href="/read/11.2/#Ch11.F11" class="xref" data-x="Ch11.F11"><span>11.11</span></a>).</p>
+</div>
+<figure id="Ch11.F11" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/geoai-health.webp" id="Ch11.F11.g1" class="fig-img" alt="" width="2000" height="1272" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.11</span><span>Three parallel GeoAI tasks for public health: (a) disease surveillance and incidence forecasting, (b) spatial spread modeled by graph message passing over regions, and (c) pollution exposure assessment. The panels are not causally linked; maps and intervals are illustrative, not surveillance results.</span></figcaption>
+</figure>
+<div id="Ch11.S2.SS8.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Infectious Diseases and Toxins.</span> Disease surveillance gains most from leading indicators, since search queries and geotagged posts surface an outbreak before clinical reporting does.
+Influenza forecasting combines CDC surveillance data with Google Flu Trends and climate in a multi-stage LSTM <cite class="cites">[<a class="cite" href="/read/references/#ref-2773" data-k="DBLP:journals/access/VennaTGRMN19">2773</a>]</cite>, with geotagged Twitter posts in a neural network tuned by an artificial-tree algorithm <cite class="cites">[<a class="cite" href="/read/references/#ref-2774" data-k="hu2018prediction">2774</a>]</cite>, and with search frequencies and health records in a network-based regression that exploits synchrony across U.S. states <cite class="cites">[<a class="cite" href="/read/references/#ref-2775" data-k="lu2019improved">2775</a>]</cite>; dengue in China is forecast from climate and weekly case counts, with support-vector regression performing best <cite class="cites">[<a class="cite" href="/read/references/#ref-2776" data-k="guo2017developing">2776</a>]</cite>.
+FINDER shows the payoff most clearly: it geolocates web-search signals of foodborne illness to restaurants, and the restaurants it flagged were three times more likely to pose food-safety risks than those found by complaint-based inspection <cite class="cites">[<a class="cite" href="/read/references/#ref-2777" data-k="SadilekCDMSBJRG18">2777</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS8.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Pandemics.</span> A pandemic shifts the question to transmission across geography.
+Geospatial similarity learning predicts respiratory-virus spread in new regions <cite class="cites">[<a class="cite" href="/read/references/#ref-2778" data-k="ZhaoHJCWWYR23">2778</a>]</cite>, and spatio-temporal regression tracks COVID-19 in Brazil <cite class="cites">[<a class="cite" href="/read/references/#ref-2779" data-k="da2021covid">2779</a>]</cite>.
+Detection networks catch what an epidemic curve misses: gatherings of people and vehicles in satellite imagery <cite class="cites">[<a class="cite" href="/read/references/#ref-2780" data-k="atek2022geospatial">2780</a>]</cite>, proximity between re-identified individuals in video <cite class="cites">[<a class="cite" href="/read/references/#ref-2781" data-k="ZhangLCZJ23">2781</a>]</cite>, and the drop in PM<sub><span class="ltx_font_italic">2.5</span></sub> during lockdown, measured from MODIS and Sentinel-5P <cite class="cites">[<a class="cite" href="/read/references/#ref-2782" data-k="TanLGJ22">2782</a>]</cite>.</p>
+</div>
+<div id="Ch11.S2.SS8.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Public Health.</span> Chronic exposure links where people are to what they breathe.
+On the mobility side, mobile health uses wireless devices for clinical and public-health purposes <cite class="cites">[<a class="cite" href="/read/references/#ref-2783" data-k="kahn2010mobile">2783</a>]</cite>, and the MD2K center turns mobile-sensor streams into markers of smoking, craving, and stress <cite class="cites">[<a class="cite" href="/read/references/#ref-2784" data-k="KumarAAaBCCCEEG15">2784</a>]</cite>.
+On the pollutant side, a geographically weighted gradient-boosting machine <cite class="cites">[<a class="cite" href="/read/references/#ref-2785" data-k="zhan2017spatiotemporal">2785</a>]</cite> and a neural network over MODIS aerosol optical depth and land-use features <cite class="cites">[<a class="cite" href="/read/references/#ref-2786" data-k="di2016assessing">2786</a>]</cite> map daily PM<sub><span class="ltx_font_italic">2.5</span></sub> across China and the United States.
+Exposure assessment is only as sharp as the coarser of the two spatial scales.</p>
+</div>
+<figure id="Ch11.T2" class="ltx_table">
+<figcaption><span class="cap-tag">Table 11.2</span><span>Representative data sources and methods for GeoAI, one or two per pivotal task. Numbers are each paper’s own test set and are not comparable across rows; cells without a number name the metric the paper reports.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Pivotal task</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative data source</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Precision agriculture</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Sentinel-1 SAR</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">STMA <cite class="cites">[<a class="cite" href="/read/references/#ref-2699" data-k="han2023spatio">2699</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">96% OA (Brandenburg)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Precision agriculture</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Landsat-8 NDVI + meteorology</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Ensemble <cite class="cites">[<a class="cite" href="/read/references/#ref-2705" data-k="ramzan2023multimodal">2705</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">R<sup>2</sup> 0.99</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Urban planning</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">UC Merced land use</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EfficientNet (fine-tuned) <cite class="cites">[<a class="cite" href="/read/references/#ref-2712" data-k="AlemK22">2712</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">accuracy</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Environmental monitoring</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Landsat, 1988–2018</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Deep LUCC mapping on GEE <cite class="cites">[<a class="cite" href="/read/references/#ref-2729" data-k="lou2023deep">2729</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LUCC accuracy</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Water resources</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GRACE / precipitation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">CNN–LSTM <cite class="cites">[<a class="cite" href="/read/references/#ref-2749" data-k="seo2021predicting">2749</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RMSE 44.92 mm/month</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Disaster (flood)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Sentinel-1 SAR</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Attention U-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-2767" data-k="LiWCWJG22">2767</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">precision / recall / F1</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Disaster (forest fire)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">PlanetScope (RGB+NIR)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">U-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-2772" data-k="ChoPKKLS23">2772</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">F1 0.94</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Healthcare</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">CDC / Google Flu / climate</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Multi-stage LSTM <cite class="cites">[<a class="cite" href="/read/references/#ref-2773" data-k="DBLP:journals/access/VennaTGRMN19">2773</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RMSE / MAPE</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS9"><span class="secnum">11.2.9</span>Established Tools and Systems<a class="anchor" href="#Ch11.S2.SS9" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS9.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Cloud geospatial platforms</span> provide planetary-scale storage and analysis next to the data. Google Earth Engine<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup> offers a petabyte-scale archive of satellite imagery with server-side analysis, Microsoft’s Planetary Computer<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup> pairs open Earth-observation data with a Python/STAC API, and commercial providers such as Esri ArcGIS<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup> and Descartes Labs<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup> deliver hosted GeoAI pipelines for enterprise and government users.</p>
+</div>
+<div id="Ch11.S2.SS9.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Open-source GIS and ML toolkits</span> carry the modeling layer. QGIS<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup> is the de facto open desktop GIS, while deep-learning libraries tailored to raster geospatial data, such as TorchGeo<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup> and Raster Vision<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup>, bridge PyTorch to satellite imagery, and Sentinel Hub<sup class="fn" id="fnref8"><a href="#fn8" data-fn="fn8">8</a></sup> streamlines on-demand access and processing of Copernicus archives.</p>
+</div>
+<div id="Ch11.S2.SS9.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Open Earth-observation programmes</span> supply the data foundation: the European Copernicus programme’s Sentinel constellation and NASA/USGS Landsat provide free, calibrated, multi-decadal imagery, complemented by gravimetric (GRACE/GRACE-FO), atmospheric (OMI, Sentinel-5P), and high-resolution commercial (WorldView, PlanetScope) sources that recur throughout the methods above.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS10"><span class="secnum">11.2.10</span>Toward Geospatial Foundation Models and GeoLLMs<a class="anchor" href="#Ch11.S2.SS10" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS10.p1" class="ltx_para">
+<p class="ltx_p">Almost every method surveyed above is a task-specific supervised model: a CNN, random forest, LSTM, or GAN trained from scratch for one crop, one hazard, or one pollutant. That design is being displaced by the same pretraining-and-transfer paradigm that reshaped the rest of the field (Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>), and the geospatial community has begun building its own foundation models. Masked-autoencoding backbones lead the shift: SatMAE <cite class="cites">[<a class="cite" href="/read/references/#ref-193" data-k="cong2022satmae">193</a>]</cite> adapts the masked image model to the temporal and multi-spectral structure of satellite imagery, Scale-MAE <cite class="cites">[<a class="cite" href="/read/references/#ref-2787" data-k="reed2023scalemae">2787</a>]</cite> makes the pretext task explicitly scale-aware so a single backbone serves the huge ground-sample-distance range Earth observation spans, and Prithvi <cite class="cites">[<a class="cite" href="/read/references/#ref-2788" data-k="jakubik2023foundation">2788</a>]</cite> packages such a backbone as a generalist model fine-tunable across flood mapping, burn-scar delineation, and crop segmentation. A single pretrained encoder thus stands in for the dozens of bespoke feature extractors that populate the tasks above.</p>
+</div>
+<div id="Ch11.S2.SS10.p2" class="ltx_para">
+<p class="ltx_p">The language side is moving just as fast. RemoteCLIP <cite class="cites">[<a class="cite" href="/read/references/#ref-2789" data-k="liu2024remoteclip">2789</a>]</cite> aligns remote-sensing imagery with text, giving open-vocabulary retrieval and zero-shot classification without per-class labels; GeoChat <cite class="cites">[<a class="cite" href="/read/references/#ref-2790" data-k="kuckreja2024geochat">2790</a>]</cite> grounds a large vision-language model on overhead imagery so an analyst can query a scene, ask for region-level descriptions, and obtain referring localizations in dialogue; and SegEarth-R1 <cite class="cites">[<a class="cite" href="/read/references/#ref-2791" data-k="li2025segearth">2791</a>]</cite> pushes further into pixel-level geospatial reasoning, generating segmentation masks from implicit, reasoning-heavy queries rather than fixed class names. These systems inherit the multimodal reasoning and world-model machinery of Part <a href="/read/part-iii/" class="xref" data-x="Pt3"><span>III</span></a> and specialize it to Earth observation, pointing toward GeoAI workflows driven by natural-language instructions rather than hand-built per-task pipelines.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S2.SS11"><span class="secnum">11.2.11</span>Challenges<a class="anchor" href="#Ch11.S2.SS11" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S2.SS11.p1" class="ltx_para">
+<p class="ltx_p">Most of the methods above were trained and tested in one region on one sensor, and that pattern shapes the open problems: whether a model transfers across regions and sensors, how heterogeneous and uneven data are reconciled, whether pipelines run at the scale and latency that operations need, and what new failure modes the geospatial foundation models bring.</p>
+</div>
+<section id="Ch11.S2.SS11.SSS0.Px1">
+<div id="Ch11.S2.SS11.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Generalization across Regions and Sensors.</strong> Few of the studies surveyed test a model outside the region, season, or sensor it was trained on, so their reported accuracies say little about transfer. Crop calendars, building styles, and spectral responses vary from place to place, and a crop map or flood segmenter trained on one country or one satellite can degrade sharply on another. Pretrained backbones such as Prithvi <cite class="cites">[<a class="cite" href="/read/references/#ref-2788" data-k="jakubik2023foundation">2788</a>]</cite> are motivated by exactly this gap, but systematic cross-region benchmarks remain rare.</p>
+</div>
+</section>
+<section id="Ch11.S2.SS11.SSS0.Px2">
+<div id="Ch11.S2.SS11.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Data Heterogeneity and Quality.</strong> Geospatial workflows combine imagery, sensor streams, vector layers, and crowdsourced inputs that differ in resolution, revisit time, and reliability, and the volume of these archives makes curation itself demanding <cite class="cites">[<a class="cite" href="/read/references/#ref-2698" data-k="boutayeb2024geoai">2698</a>]</cite>. Open-access data needs quality control before it can serve as training labels. Geospatial data is also strategically sensitive, which raises questions of data sovereignty, and adversarial manipulation of inputs is a threat that none of the methods above addresses.</p>
+</div>
+</section>
+<section id="Ch11.S2.SS11.SSS0.Px3">
+<div id="Ch11.S2.SS11.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Scale and Latency.</strong> Operational services such as flood mapping during an event, precipitation nowcasting, and traffic forecasting must ingest new acquisitions continuously and update their models as satellites deliver data, which strains pipelines built around one-off training runs. When several models are chained in one workflow, validation and deployment cost grow with each link, pushing systems toward distributed, modular architectures.</p>
+</div>
+</section>
+<section id="Ch11.S2.SS11.SSS0.Px4">
+<div id="Ch11.S2.SS11.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Open Problems for Geospatial Foundation Models.</strong> The foundation models of the previous subsection bring problems of their own: pretraining that fuses radar, optical, and hyperspectral sensors at very different resolutions; evaluation benchmarks that test geospatial reasoning rather than image-level recognition; and grounding language output in physically consistent, georeferenced coordinates, which dialogue systems such as GeoChat <cite class="cites">[<a class="cite" href="/read/references/#ref-2790" data-k="kuckreja2024geochat">2790</a>]</cite> do not yet guarantee.</p>
+</div>
+</section>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://earthengine.google.com/" title="" class="ltx_font_typewriter">https://earthengine.google.com/</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://planetarycomputer.microsoft.com/" title="" class="ltx_font_typewriter">https://planetarycomputer.microsoft.com/</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.arcgis.com/" title="" class="ltx_font_typewriter">https://www.arcgis.com/</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.descarteslabs.com/" title="" class="ltx_font_typewriter">https://www.descarteslabs.com/</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://qgis.org/" title="" class="ltx_font_typewriter">https://qgis.org/</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://github.com/microsoft/torchgeo" title="" class="ltx_font_typewriter">https://github.com/microsoft/torchgeo</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://rastervision.io/" title="" class="ltx_font_typewriter">https://rastervision.io/</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn8"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.sentinel-hub.com/" title="" class="ltx_font_typewriter">https://www.sentinel-hub.com/</a></span><a href="#fnref8" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/11.1/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">11.1 Digital Twins</span></a><a class="pager-next" href="/read/11.3/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">11.3 Aerospace Engineering</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch11.S2.SS1" data-spy="Ch11.S2.SS1"><span class="n">11.2.1</span>Introduction</a></li><li><a href="#Ch11.S2.SS2" data-spy="Ch11.S2.SS2"><span class="n">11.2.2</span>System Overview</a></li><li><a href="#Ch11.S2.SS3" data-spy="Ch11.S2.SS3"><span class="n">11.2.3</span>Pivotal Task-1: Precision Agriculture</a></li><li><a href="#Ch11.S2.SS4" data-spy="Ch11.S2.SS4"><span class="n">11.2.4</span>Pivotal Task-2: Urban Planning, Logistics, and Transport</a></li><li><a href="#Ch11.S2.SS5" data-spy="Ch11.S2.SS5"><span class="n">11.2.5</span>Pivotal Task-3: Environmental Monitoring</a></li><li><a href="#Ch11.S2.SS6" data-spy="Ch11.S2.SS6"><span class="n">11.2.6</span>Pivotal Task-4: Water Resources Management and Precipitation Forecasting</a></li><li><a href="#Ch11.S2.SS7" data-spy="Ch11.S2.SS7"><span class="n">11.2.7</span>Pivotal Task-5: Disaster Management</a></li><li><a href="#Ch11.S2.SS8" data-spy="Ch11.S2.SS8"><span class="n">11.2.8</span>Pivotal Task-6: Healthcare</a></li><li><a href="#Ch11.S2.SS9" data-spy="Ch11.S2.SS9"><span class="n">11.2.9</span>Established Tools and Systems</a></li><li><a href="#Ch11.S2.SS10" data-spy="Ch11.S2.SS10"><span class="n">11.2.10</span>Toward Geospatial Foundation Models and GeoLLMs</a></li><li><a href="#Ch11.S2.SS11" data-spy="Ch11.S2.SS11"><span class="n">11.2.11</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=11.2"><b>97</b> cited works</a><a href="/explore/datasets/?sec=11.2"><b>8</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=11.2" title="Earth Engine API, OSMnx"><b>2</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="11.2 GeoAI" data-url="/read/11.2/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%2011.2%20GeoAI&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/11.2/%20%28PDF%20p.%20400%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

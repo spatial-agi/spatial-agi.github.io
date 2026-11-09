@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.6 World Modeling · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="8.6 World Modeling · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #7446D6" data-page="8.6">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link is-current" href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iii/">Part III</a><span class="sep">/</span><a href="/read/chapter-8/">Chapter 8</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-8/">Chapter 8 · Spatial Reconstruction and Generation</a></div>
+        <h1><span class="secnum">8.6</span>World Modeling</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=312" title="Open this page in the PDF">PDF p. 312</a><span class="dot">·</span>        <span>24 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:8.6 World Modeling">
+<div id="Ch8.S6.p1" class="ltx_para">
+<p class="ltx_p">Despite its growing popularity across AI research, the notion of a “world model” does not yet enjoy a unified or universally agreed-upon definition.
+Its conceptual roots trace back to the psychologist Kenneth Craik, who argued in his 1943 monograph <em class="ltx_font_italic">The Nature of Explanation</em> that the mind “carries a ‘small-scale model’ of external reality and of its own possible actions within its head”.
+In its original form, a world model referred to an individual’s internal representation of external reality; contemporary AI has generalized the concept far beyond mental representations to structured models of physical and spatial environments.</p>
+</div>
+<div id="Ch8.S6.p2" class="ltx_para">
+<p class="ltx_p">Fei-Fei Li has framed the gap between current AI systems and physical understanding in these terms <cite class="cites">[<a class="cite" href="/read/references/#ref-5" data-k="Feifei2025spatial">5</a>]</cite>: modern LLMs resemble “wordsmiths in the dark”, fluent in symbols but divorced from the physical world that gives them meaning, and capable AI must instead understand, act within, and reason about three-dimensional space. On this view world models are new-generation <em class="ltx_font_italic">generative</em> models that simulate, predict, and imagine the world’s dynamics rather than only describe it, which ties world modeling directly to spatial intelligence.</p>
+</div>
+<div id="Ch8.S6.p3" class="ltx_para">
+<p class="ltx_p">Complementing Li’s generative perspective, another influential formulation comes from Yann LeCun <cite class="cites">[<a class="cite" href="/read/references/#ref-17" data-k="lecun2022path">17</a>]</cite>. He describes a world model as a system capable of predicting how the world will evolve given its current state and an action.
+Formally, it consumes the current state <math id="Ch8.S6.p3.m1" alttext="S(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(t)</annotation></semantics></math> and an action <math id="Ch8.S6.p3.m2" alttext="A(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(t)</annotation></semantics></math>, and produces a prediction of the next state <math id="Ch8.S6.p3.m3" alttext="S^{\prime}(t+1)" display="inline" data-pagefind-ignore="all"><semantics><mrow><msup><mi>S</mi><mo>′</mo></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S^{\prime}(t+1)</annotation></semantics></math>; in many cases, it also integrates external sensory observations <math id="Ch8.S6.p3.m4" alttext="O(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>O</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(t)</annotation></semantics></math> to update its internal state.
+This predictive relation can be written compactly as</p>
+<table id="Ch8.E71" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E71.m1" alttext="\hat{S}(t+1)=W_{\theta}\big{(}S(t),\,A(t),\,O(t)\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mover accent="true"><mi>S</mi><mo>^</mo></mover><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>W</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mi>O</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{S}(t+1)=W_{\theta}\big{(}S(t),\,A(t),\,O(t)\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.71)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch8.S6.p3.m5" alttext="W_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>W</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">W_{\theta}</annotation></semantics></math> denotes the learned world model parameterized by <math id="Ch8.S6.p3.m6" alttext="\theta" display="inline" data-pagefind-ignore="all"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>.
+Read against the conditional-generation backbone of this chapter (Eq. (<a href="/read/8.1/#Ch8.E2" class="xref" data-x="Ch8.E2"><span>8.2</span></a>)), <math id="Ch8.S6.p3.m7" alttext="W_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>W</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">W_{\theta}</annotation></semantics></math> occupies the position of the generator, but its decoder is a state-transition predictor rather than a pixel or geometry renderer; this is the sense in which world modeling extends Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a> from reconstruction toward prediction.
+What exactly constitutes a “state” remains open: some work defines it as a compact latent representation in which the world model operates at an abstract semantic level, much as human cognition forecasts events without simulating every physical detail.</p>
+</div>
+<div id="Ch8.S6.p4" class="ltx_para">
+<p class="ltx_p">Although no single definition of world modeling has been universally accepted, a survey of the literature <cite class="cites">[<a class="cite" href="/read/references/#ref-2314" data-k="fung2025embodied">2314</a>, <a class="cite" href="/read/references/#ref-2315" data-k="Xintao2025blog">2315</a>, <a class="cite" href="/read/references/#ref-2316" data-k="li2025comprehensive">2316</a>, <a class="cite" href="/read/references/#ref-2317" data-k="ding2025understanding">2317</a>, <a class="cite" href="/read/references/#ref-186" data-k="kong20253d">186</a>]</cite> reveals three recurring paradigms, three realizations of Eq. (<a href="/read/8.6/#Ch8.E71" class="xref" data-x="Ch8.E71"><span>8.71</span></a>) that differ in what they predict.
+<span class="ltx_font_bold">Representation world models</span> learn abstract latent spaces that capture the state and dynamics of the environment.
+<span class="ltx_font_bold">Generative world models</span> explicitly simulate or generate future states of the world through data-driven or hybrid mechanisms.
+<span class="ltx_font_bold">Mental world models</span> aim to infer and represent the mental states of humans or agents, enabling social reasoning and Theory-of-Mind (ToM) capabilities.
+Figure <a href="/read/8.6/#Ch8.F24" class="xref" data-x="Ch8.F24"><span>8.24</span></a> contrasts them side by side.</p>
+</div>
+<figure id="Ch8.F24" class="ltx_figure"><img src="/assets/figures/figures/web/world_modeling_tikz.webp" id="Ch8.F24.g1" class="fig-img" alt="" width="2000" height="1055" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 8.24</span><span>Three paradigms of world modeling, all instances of the transition <math id="Ch8.F24.m2" alttext="\hat{S}(t{+}1)=W_{\theta}(S(t),A(t),O(t))" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mover accent="true"><mi>S</mi><mo>^</mo></mover><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>W</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>,</mo><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>,</mo><mrow><mi>O</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\hat{S}(t{+}1)=W_{\theta}(S(t),A(t),O(t))</annotation></semantics></math> of Eq. (<a href="/read/8.6/#Ch8.E71" class="xref" data-x="Ch8.E71"><span>8.71</span></a>), differing in what they predict: (a) a latent state, (b) future observations, and (c) another agent’s mental state and next action.</span></figcaption>
+</figure>
+<section>
+<h2 class="h-subsection" id="Ch8.S6.SS1"><span class="secnum">8.6.1</span>Representation World Model<a class="anchor" href="#Ch8.S6.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section>
+<h3 class="h-subsubsection" id="Ch8.S6.SS1.SSS1"><span class="secnum">8.6.1.1</span>Definition<a class="anchor" href="#Ch8.S6.SS1.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S6.SS1.SSS1.p1" class="ltx_para">
+<p class="ltx_p">A representation world model learns an internal latent description of the environment by compressing multimodal observations into structured, predictive embeddings, prioritizing the extraction of physical and semantic regularities over the generation of photorealistic pixels.
+Much as LLMs learn abstract linguistic representations through self-supervised pretraining, representation world models are trained on “world data” to infer the principles that govern physical and semantic dynamics; the objective is to predict how the world evolves at an abstract level, not to reconstruct pixels.
+The latent state is meant to encode objects and their properties (shape, size, appearance, material), their spatial relations (topology, distance, configuration), the dynamics that govern how the scene evolves, and the causal dependence of outcomes on actions. With such a state, an agent can predict over long horizons, reason, and plan without operating in high-dimensional sensory space.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S6.SS1.SSS2"><span class="secnum">8.6.1.2</span>Multimodal Perception<a class="anchor" href="#Ch8.S6.SS1.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S6.SS1.SSS2.p1" class="ltx_para">
+<p class="ltx_p">A world model draws on several sensory streams, whose encoding is the subject of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>. Vision dominates: images and especially video carry objects, geometry, interaction, and temporal dynamics, and modern systems rely on high-capacity encoders trained with contrastive vision–language objectives for semantic and geometric priors. Audio adds direct evidence about events and the physical state of the surroundings, which language conveys only symbolically. Touch is indispensable where vision is unreliable, occluded, or unavailable (grasping inside a bag, fine manipulation, tool use), yet it remains underexplored because tactile sensors are limited and tactile data are hard to collect at scale.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S6.SS1.SSS3"><span class="secnum">8.6.1.3</span>World Representation Modeling<a class="anchor" href="#Ch8.S6.SS1.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><section id="Ch8.S6.SS1.SSS3.Px1">
+<div id="Ch8.S6.SS1.SSS3.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Vision-oriented Modeling.</strong> A major line of representation world modeling builds latent spaces from visual observations: video frames are encoded into a compact latent space by self-supervised learning, and a transition model predicts future latent states from past latents and actions, which captures the dynamics of the visual world more efficiently than pixel-space prediction.
+Concretely, an encoder <math id="Ch8.S6.SS1.SSS3.Px1.p1.m1" alttext="E_{\phi}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>E</mi><mi>ϕ</mi></msub><annotation encoding="application/x-tex">E_{\phi}</annotation></semantics></math> maps observations to latent states and a predictor <math id="Ch8.S6.SS1.SSS3.Px1.p1.m2" alttext="P_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>P</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">P_{\theta}</annotation></semantics></math> is trained to minimize a prediction loss defined entirely in latent space,</p>
+<table id="Ch8.E72" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E72.m1" alttext="\mathcal{L}_{\text{rep}}(\theta,\phi)=\mathbb{E}\!\left[\,\big{\lVert}P_{%
+\theta}\big{(}E_{\phi}(O_{\leq t}),\,A(t)\big{)}-\operatorname{sg}\!\big{(}E_{%
+\bar{\phi}}(O_{t+1})\big{)}\big{\rVert}^{2}\,\right]," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msub><mi>ℒ</mi><mtext>rep</mtext></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>ϕ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mpadded width="0.497em"><mi>𝔼</mi></mpadded><mo>⁢</mo><mrow><mo>[</mo><msup><mrow><mo fence="true" lspace="0.170em" mathsize="120%" rspace="0em">∥</mo><mrow><mrow><msub><mi>P</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msub><mi>E</mi><mi>ϕ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>O</mi><mrow><mi></mi><mo>≤</mo><mi>t</mi></mrow></msub><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo>−</mo><mrow><mpadded width="0.812em"><mi>sg</mi></mpadded><mo>⁡</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msub><mi>E</mi><mover accent="true"><mi>ϕ</mi><mo>¯</mo></mover></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>O</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo fence="true" lspace="0em" mathsize="120%" rspace="0em">∥</mo></mrow><mn>2</mn></msup><mo>]</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathcal{L}_{\text{rep}}(\theta,\phi)=\mathbb{E}\!\left[\,\big{\lVert}P_{%
+\theta}\big{(}E_{\phi}(O_{\leq t}),\,A(t)\big{)}-\operatorname{sg}\!\big{(}E_{%
+\bar{\phi}}(O_{t+1})\big{)}\big{\rVert}^{2}\,\right],</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.72)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch8.S6.SS1.SSS3.Px1.p1.m3" alttext="\operatorname{sg}(\cdot)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>sg</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{sg}(\cdot)</annotation></semantics></math> denotes the stop-gradient operator and <math id="Ch8.S6.SS1.SSS3.Px1.p1.m4" alttext="E_{\bar{\phi}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>E</mi><mover accent="true"><mi>ϕ</mi><mo>¯</mo></mover></msub><annotation encoding="application/x-tex">E_{\bar{\phi}}</annotation></semantics></math> a slowly updated target encoder.
+This objective instantiates the transition of Eq. (<a href="/read/8.6/#Ch8.E71" class="xref" data-x="Ch8.E71"><span>8.71</span></a>) with the predicted state <math id="Ch8.S6.SS1.SSS3.Px1.p1.m5" alttext="\hat{S}(t+1)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mover accent="true"><mi>S</mi><mo>^</mo></mover><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat{S}(t+1)</annotation></semantics></math> taken to be an abstract embedding rather than raw pixels (Figure <a href="/read/8.6/#Ch8.F24" class="xref" data-x="Ch8.F24"><span>8.24</span></a>(a)), which is precisely what allows representation world models to capture dynamics efficiently while discarding perceptually salient yet predictively irrelevant detail.</p>
+</div>
+<div id="Ch8.S6.SS1.SSS3.Px1.p2" class="ltx_para">
+<p class="ltx_p">The <em class="ltx_font_italic">World Models</em> architecture <cite class="cites">[<a class="cite" href="/read/references/#ref-4" data-k="ha2018world">4</a>]</cite> decomposes the problem into a VAE-based vision model, an RNN-based memory model, and a lightweight controller; the vision and memory components learn latent dynamics from raw pixels without supervision, and the controller then learns its behavior inside the “dreamed” environment, which greatly simplifies policy learning.
+The Dreamer agents carry this idea into reinforcement learning at scale: Dreamer <cite class="cites">[<a class="cite" href="/read/references/#ref-147" data-k="hafner2019dreamer">147</a>]</cite> learns a latent dynamics model from pixels and trains an actor and critic entirely on imagined latent trajectories, and DreamerV3 <cite class="cites">[<a class="cite" href="/read/references/#ref-152" data-k="hafner2023mastering">152</a>]</cite> applies a single configuration across a wide range of domains. MuZero <cite class="cites">[<a class="cite" href="/read/references/#ref-148" data-k="schrittwieser2020mastering">148</a>]</cite> learns a model that predicts only the quantities planning needs (reward, value, and policy) and plans with it by tree search, mastering Atari, Go, chess, and shogi without being given the rules.</p>
+</div>
+<div id="Ch8.S6.SS1.SSS3.Px1.p3" class="ltx_para">
+<p class="ltx_p">Yann LeCun’s autonomous intelligence framework proposes the Joint Embedding Predictive Architecture (JEPA) <cite class="cites">[<a class="cite" href="/read/references/#ref-17" data-k="lecun2022path">17</a>]</cite> as the core mechanism for constructing world models.
+JEPA learns latent representations and predictions through self-supervised objectives rather than pixel-level reconstruction, and Eq. (<a href="/read/8.6/#Ch8.E72" class="xref" data-x="Ch8.E72"><span>8.72</span></a>) is its generic form.
+I-JEPA <cite class="cites">[<a class="cite" href="/read/references/#ref-151" data-k="assran2023jepa">151</a>]</cite> first instantiated it on images, predicting the embeddings of masked target regions from a visible context block, and V-JEPA <cite class="cites">[<a class="cite" href="/read/references/#ref-2318" data-k="bardes2024vjepa">2318</a>]</cite> carried the same feature-prediction objective to video, predicting masked spatio-temporal embeddings <em class="ltx_font_italic">in latent space</em> with no pixel reconstruction, text, or negative examples, and so avoiding the cost and ambiguity of pixel prediction.
+V-JEPA 2 <cite class="cites">[<a class="cite" href="/read/references/#ref-155" data-k="assran2025vjepa">155</a>]</cite> turns this encoder into a world model. Pretrained on more than a million hours of internet video, it is extended with an action-conditioned predictor, V-JEPA 2-AC, post-trained on less than 62 hours of unlabeled robot video; deployed zero-shot on Franka arms, it picks and places objects by planning actions whose predicted embeddings reach a goal image.</p>
+</div>
+<div id="Ch8.S6.SS1.SSS3.Px1.p4" class="ltx_para">
+<p class="ltx_p">The stop-gradient and slowly updated target encoder in Eq. (<a href="/read/8.6/#Ch8.E72" class="xref" data-x="Ch8.E72"><span>8.72</span></a>) exist only to keep the representation from collapsing, and the most recent JEPA work removes them. LeJEPA <cite class="cites">[<a class="cite" href="/read/references/#ref-2319" data-k="balestriero2025lejepa">2319</a>]</cite> shows that an isotropic Gaussian is the optimal embedding distribution for downstream prediction and enforces it with a single sketched regularizer (SIGReg), leaving one trade-off hyperparameter and no teacher–student machinery. LeWorldModel <cite class="cites">[<a class="cite" href="/read/references/#ref-2320" data-k="maes2026leworldmodel">2320</a>]</cite> uses the same regularizer to train an action-conditioned JEPA world model end to end from raw pixels with only two loss terms; at about 15M parameters it trains on a single GPU, plans up to 48 times faster than world models built on foundation-model encoders, and its latents encode physical quantities well enough to flag physically implausible events.
+The principle has also reached language: VL-JEPA <cite class="cites">[<a class="cite" href="/read/references/#ref-200" data-k="chen2025vl">200</a>]</cite> predicts continuous embeddings of the target text instead of generating tokens, and LLM-JEPA <cite class="cites">[<a class="cite" href="/read/references/#ref-2321" data-k="huang2026llmjepa">2321</a>]</cite> adds an embedding-prediction objective to the next-token training of language models.</p>
+</div>
+<div id="Ch8.S6.SS1.SSS3.Px1.p5" class="ltx_para">
+<p class="ltx_p">DINO-World <cite class="cites">[<a class="cite" href="/read/references/#ref-2322" data-k="baldassarre2025back">2322</a>]</cite> instead freezes DINOv2 as a universal visual encoder, whose features are already semantic, geometric, and object-centric, learns a latent-space predictor from large-scale unlabeled video, and adds action-conditioned prediction to model how interventions change future visual states.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS1.SSS3.Px2">
+<div id="Ch8.S6.SS1.SSS3.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Hybrid World Modeling.</strong> Another important direction expands representation learning beyond vision by incorporating additional modalities such as LiDAR, camera trajectories, or multi-view geometric signals.
+These hybrid models aim to overcome the limitations of purely visual latent spaces by injecting explicit spatial structure, depth cues, and geometric consistency constraints.
+For instance, MUVO <cite class="cites">[<a class="cite" href="/read/references/#ref-1446" data-k="bogdoll2025muvo">1446</a>]</cite> is a multimodal generative world model that learns jointly from synchronized camera and LiDAR streams.
+By integrating LiDAR-derived depth priors into the latent world representation, MUVO achieves more reliable 3D scene prediction, improved object motion modeling, and long-horizon forecasting in autonomous driving environments.
+UniWorld <cite class="cites">[<a class="cite" href="/read/references/#ref-2323" data-k="min2023uniworld">2323</a>]</cite> introduces a unified pretrained architecture that merges 3D object detection, motion prediction, and scene representation learning.
+Through joint training of BEV features, temporal dynamics, and multisensor context, UniWorld produces a structured latent state that simultaneously supports perception and trajectory forecasting.
+Aether <cite class="cites">[<a class="cite" href="/read/references/#ref-2324" data-k="zhu2025aether">2324</a>]</cite> proposes a geometry-aware unified world model where camera trajectories are treated as explicit action signals.
+This allows the model to learn action-conditioned scene transitions and perform predictive visual planning.
+By binding egomotion with geometric consistency constraints, Aether generates spatially coherent future predictions and supports counterfactual simulation within a 3D-aware latent space.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS1.SSS3.Px3">
+<div id="Ch8.S6.SS1.SSS3.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Language-oriented World Modeling.</strong> A final category examines language as a central medium for latent world representation.
+This raises an important question: <em class="ltx_font_italic">can LLMs themselves be viewed as world models?</em>
+From a formal perspective, LLMs indeed share structural similarities with classical world models.
+They maintain internal states, treat textual context as observations, accept prompts as actions that alter these states, and generate predictions that correspond to inferred future states.
+Models such as Dynalang <cite class="cites">[<a class="cite" href="/read/references/#ref-2325" data-k="lin2023learning">2325</a>]</cite> demonstrate that natural language can serve as a universal intermediate representation for encoding environment states, predicting transitions, and expressing causal relations.
+LLMs also exhibit emergent knowledge of commonsense physics, intuitive causality, and human behavior derived from massive text corpora.
+However, their limitations remain clear: they are trained on symbolic descriptions rather than direct interaction with the physical world; their internal dynamics reflect linguistic statistics more than physical laws; and their world representations tend to be sparse, fragmented, and disconnected from geometric or temporal continuity.
+Thus, while LLMs can be interpreted as language-driven world models, their predictive capacity is primarily symbolic and semantic, rather than grounded in spatial or physical understanding.</p>
+</div>
+</section>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S6.SS2"><span class="secnum">8.6.2</span>Generative World Model<a class="anchor" href="#Ch8.S6.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S6.SS2.p1" class="ltx_para">
+<p class="ltx_p">In contrast to representation-based foundation models, generative world models focus on explicitly predicting future states or synthesizing the evolution of the environment over time.
+Rather than only learning compact latent encodings, these models aim to simulate how the world might change under different conditions, capturing temporal dynamics and causal structure.
+Whereas the representation paradigm of Eq. (<a href="/read/8.6/#Ch8.E72" class="xref" data-x="Ch8.E72"><span>8.72</span></a>) predicts in an abstract latent space, generative world models learn an explicit conditional distribution over future observations and can be unrolled autoregressively over a horizon <math id="Ch8.S6.SS2.p1.m1" alttext="H" display="inline" data-pagefind-ignore="all"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>,</p>
+<table id="Ch8.E73" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E73.m1" alttext="p_{\theta}\big{(}O_{t+1:t+H}\mid O_{\leq t},\,A_{t:t+H-1}\big{)}=\prod_{k=0}^{%
+H-1}p_{\theta}\big{(}O_{t+k+1}\mid O_{\leq t+k},\,A(t+k)\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msub><mi>O</mi><mrow><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>t</mi><mo>+</mo><mi>H</mi></mrow></mrow></msub><mo>∣</mo><mrow><msub><mi>O</mi><mrow><mi></mi><mo>≤</mo><mi>t</mi></mrow></msub><mo rspace="0.337em">,</mo><msub><mi>A</mi><mrow><mi>t</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mi>t</mi><mo>+</mo><mi>H</mi></mrow><mo>−</mo><mn>1</mn></mrow></mrow></msub></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo rspace="0.111em">=</mo><mrow><munderover><mo movablelimits="false">∏</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>H</mi><mo>−</mo><mn>1</mn></mrow></munderover><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msub><mi>O</mi><mrow><mi>t</mi><mo>+</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><mrow><msub><mi>O</mi><mrow><mi></mi><mo>≤</mo><mrow><mi>t</mi><mo>+</mo><mi>k</mi></mrow></mrow></msub><mo rspace="0.337em">,</mo><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mi>k</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">p_{\theta}\big{(}O_{t+1:t+H}\mid O_{\leq t},\,A_{t:t+H-1}\big{)}=\prod_{k=0}^{%
+H-1}p_{\theta}\big{(}O_{t+k+1}\mid O_{\leq t+k},\,A(t+k)\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.73)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">so that sampling from Eq. (<a href="/read/8.6/#Ch8.E73" class="xref" data-x="Ch8.E73"><span>8.73</span></a>) realizes the transition of Eq. (<a href="/read/8.6/#Ch8.E71" class="xref" data-x="Ch8.E71"><span>8.71</span></a>) directly in observation space (Figure <a href="/read/8.6/#Ch8.F24" class="xref" data-x="Ch8.F24"><span>8.24</span></a>(b)).
+This explicit synthesis is what allows generative world models to be rendered, inspected, and acted within, at the cost of having to model a high-dimensional output distribution.
+Broadly, generative world models can be grouped into two main families:
+<em class="ltx_font_italic">physics-driven simulation</em>, which relies on hand-crafted rules and equations,
+and <em class="ltx_font_italic">learning-driven world generation</em>, which learns world dynamics directly from data.
+The former can be viewed as the deterministic limit of the latter: it fixes the transition of Eq. (<a href="/read/8.6/#Ch8.E73" class="xref" data-x="Ch8.E73"><span>8.73</span></a>) to a hand-specified rule set instead of a learned distribution, trading sample diversity and coverage for exact reproducibility and verifiability.
+A third route, growing quickly since 2024, sits between the two: a learned model writes the rules as code and a simulator executes them (Section <a href="/read/8.6/#Ch8.S6.SS2.SSS3" class="xref" data-x="Ch8.S6.SS2.SSS3"><span>8.6.2.3</span></a>).</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S6.SS2.SSS1"><span class="secnum">8.6.2.1</span>Physics-driven Simulation<a class="anchor" href="#Ch8.S6.SS2.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S6.SS2.SSS1.p1" class="ltx_para">
+<p class="ltx_p">Physics-driven simulation builds interactive virtual worlds from human-designed physical, geometric, and logical rules rather than from learned latent spaces. The environment is governed by predefined physical laws, rendering rules, collision logic, and behavioral scripts, specified top-down as explicit mathematical formulations, so the same initial conditions always produce the same outcome; this determinism, together with interpretability and verifiability, is what makes such systems suitable for safety-critical engineering.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS1.p2" class="ltx_para">
+<p class="ltx_p">Game engines are the canonical example. Physics engines such as Bullet, Havok, PhysX, and Box2D implement Newtonian, rigid-body, soft-body, cloth, particle, and volumetric dynamics, and the engines around them add acceleration structures (<span class="ltx_font_italic">e.g.,</span> , BVH trees), real-time ray tracing, and navigation meshes for path planning, which gives them a natural foothold in spatial-intelligence tasks. Film production relies on the same principle at higher fidelity: pipelines built on Pixar USD, Maya, or Houdini simulate cloth, hair, smoke, fire, and fluids with differential-equation and fluid solvers (<span class="ltx_font_italic">e.g.,</span> , FLIP/MantaFlow) and physically based path tracing. Engineering, architecture, and scientific visualization extend rule-based simulation to structural mechanics, electromagnetics, illumination, and material response through finite element methods, computational fluid dynamics, and photonic simulation.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS1.p3" class="ltx_para">
+<p class="ltx_p">For embodied AI, physics-driven simulators such as CARLA <cite class="cites">[<a class="cite" href="/read/references/#ref-2326" data-k="dosovitskiy2017carla">2326</a>]</cite>, AirSim, and Isaac Sim <cite class="cites">[<a class="cite" href="/read/references/#ref-2327" data-k="NVIDIA2021Isaac">2327</a>]</cite> remain the standard platforms for testing and training in autonomous driving, navigation, and manipulation, because they model lighting, collisions, dynamics, and sensor noise closely enough to yield data distributions near those of the real world. The same engines underpin digital twins built on platforms such as NVIDIA Omniverse, Unity, and Unreal Engine, which are discussed in Part IV, Section <a href="/read/11.1/" class="xref" data-x="Ch11.S1"><span>11.1</span></a>.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S6.SS2.SSS2"><span class="secnum">8.6.2.2</span>Learning-driven World Generation<a class="anchor" href="#Ch8.S6.SS2.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S6.SS2.SSS2.p1" class="ltx_para">
+<p class="ltx_p">In contrast to simulation frameworks based on explicit physical rules, learning-driven world generation seeks to acquire world structure, dynamics, and causal regularities directly from large-scale data, in a bottom-up fashion.
+These models do not encode Newtonian equations, lighting models, or geometric constraints by hand; instead, world behavior emerges as statistical patterns during training.
+For example, a model may never be given the analytic form of the gravity equation, yet by observing countless videos of falling objects, it can still infer the regularity that objects tend to accelerate downward.
+The resulting world models are probabilistic and can exhibit complex, emergent behaviors without explicit programming.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS2.p2" class="ltx_para">
+<p class="ltx_p">Current learning-driven world generation follows two technical directions:
+(1) video-centric generative models that learn dynamic world evolution in pixel or latent space,
+and (2) 3D/4D asset generation methods that directly model spatially structured worlds in three or four dimensions.</p>
+</div>
+<section id="Ch8.S6.SS2.SSS2.Px1">
+<div id="Ch8.S6.SS2.SSS2.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Video-centric Generative World Models.</strong> Recent advances in video generation have renewed interest in the idea of a “world simulator”.
+Video models are intrinsically suited to encoding spatiotemporal structure, and when they produce sequences that are not only visually coherent but also consistent with basic physical intuition, they begin to resemble implicit world models.
+This became especially prominent with the release of OpenAI Sora <cite class="cites">[<a class="cite" href="/read/references/#ref-1991" data-k="sora2024">1991</a>]</cite>, whose generated videos demonstrate strong temporal consistency, long-horizon stability, and apparent physical plausibility, prompting the community to reconsider whether deep video generation might be converging towards a form of physical world modeling.
+Subsequently, Google DeepMind’s Genie 3 <cite class="cites">[<a class="cite" href="/read/references/#ref-157" data-k="genie3">157</a>]</cite> extended video generation from passive “watchable” content to interactive experiences: the model updates the generated world in response to user actions, enabling agent-in-the-loop, closed-loop world simulation, complementing the action-conditioned scene generators surveyed in §<a href="/read/8.2/#Ch8.S2.SS2" class="xref" data-x="Ch8.S2.SS2"><span>8.2.2</span></a>.
+World Labs’ RTFM <cite class="cites">[<a class="cite" href="/read/references/#ref-1820" data-k="worldlabs_rtfm">1820</a>]</cite> further highlights real-time performance, achieving high frame-rate and low-latency prediction. Systems such as Wan <cite class="cites">[<a class="cite" href="/read/references/#ref-1990" data-k="wan2025wan">1990</a>]</cite>, Emu3.5 <cite class="cites">[<a class="cite" href="/read/references/#ref-206" data-k="cui2025emu35">206</a>]</cite>, OpenAI Sora 2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2328" data-k="sora2">2328</a>]</cite>, and Veo 3 <cite class="cites">[<a class="cite" href="/read/references/#ref-2329" data-k="veo3">2329</a>]</cite> continue this trajectory, gradually pushing video generation from mere visual fidelity towards world coherence, physical consistency, and interactivity.
+Action-conditioned diffusion has also turned games into testbeds: GameNGen <cite class="cites">[<a class="cite" href="/read/references/#ref-1818" data-k="valevski2024diffusion">1818</a>]</cite> simulates the game DOOM interactively in real time, and DIAMOND <cite class="cites">[<a class="cite" href="/read/references/#ref-1819" data-k="alonso2024diffusionworldmodelingvisual">1819</a>]</cite> trains reinforcement-learning agents entirely inside a diffusion world model of Atari games, while NVIDIA’s Cosmos <cite class="cites">[<a class="cite" href="/read/references/#ref-156" data-k="nvidia2025cosmos">156</a>]</cite> offers pretrained video world foundation models intended to be post-trained as simulators for robotics and driving.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS2.Px1.p2" class="ltx_para">
+<p class="ltx_p">Video world models are particularly promising in autonomous driving. GAIA-1 <cite class="cites">[<a class="cite" href="/read/references/#ref-2330" data-k="hu2023gaia">2330</a>]</cite> proposes a generative world model tailored for driving scenarios, built around a spatiotemporal Transformer that generates future multi-view scenes based on past observations.
+By implicitly capturing traffic patterns, pedestrian behavior, scene geometry, and multi-agent motion, GAIA-1 can support closed-loop evaluation, behavior prediction, and synthetic data generation, thereby reducing the cost and risk of traditional real-world testing.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS2.SSS2.Px2">
+<div id="Ch8.S6.SS2.SSS2.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">3D/4D Asset Generation as World Modeling.</strong> A complementary avenue is to build world models that operate directly on structured three- or four-dimensional representations, such as 3D geometry, occupancy fields, or 4D spatiotemporal volumes.
+Unlike video-based approaches that primarily model dynamics in pixel space, these methods explicitly parameterize geometry and temporal evolution, making it easier to represent interactive, spatially consistent worlds.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS2.Px2.p2" class="ltx_para">
+<p class="ltx_p">Genesis <cite class="cites">[<a class="cite" href="/read/references/#ref-2331" data-k="Genesis">2331</a>]</cite> exemplifies this direction. It is not only a generative 3D/4D physics simulation platform, but also integrates a vision-language model-driven “world-building agent” that uses a tool API to create dynamic 4D environments (geometry plus dynamics).
+These generated worlds can be rendered into multiple modalities (RGB, depth, semantics, contact events, etc.), providing rich supervision for training embodied AI systems.
+Genesis thus combines a unified physics engine with generative agents for large-scale world construction.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS2.Px2.p3" class="ltx_para">
+<p class="ltx_p">Autonomous driving again serves as a natural application domain for 3D world models.
+DriveArena <cite class="cites">[<a class="cite" href="/read/references/#ref-2332" data-k="yang2025drivearena">2332</a>]</cite> builds a closed-loop generative simulation platform, allowing planning modules to iteratively probe and learn within synthesized 3D driving environments.
+Its diffusion-model-based multi-agent scene generation can rapidly produce long, interactive driving episodes.
+OccWorld <cite class="cites">[<a class="cite" href="/read/references/#ref-2333" data-k="zheng2024occworld">2333</a>]</cite> and OccSora <cite class="cites">[<a class="cite" href="/read/references/#ref-2334" data-k="wang2024occsora">2334</a>]</cite> adopt 4D occupancy grids as the core representation, predicting future 3D occupancy over time from continuous video and sensor streams, thereby providing a unified motion-and-structure world model.
+Copilot4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2335" data-k="zhang2023copilot4d">2335</a>]</cite> tokenizes LiDAR scans and forecasts future LiDAR point clouds with discrete diffusion, learning a world model from unlabeled sensor data alone.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS2.Px2.p4" class="ltx_para">
+<p class="ltx_p">Generating <em class="ltx_font_italic">interactive</em> 3D worlds brings generative world models closest to their conceptual ideal.
+Marble <cite class="cites">[<a class="cite" href="/read/references/#ref-158" data-k="Feifei2025Marble">158</a>]</cite> from World Labs combines action-conditioned generation, geometric consistency constraints, and multimodal inputs, so that users can act within the generated world and observe the consequences.
+Its next-generation model, Atlas <cite class="cites">[<a class="cite" href="/read/references/#ref-2336" data-k="worldlabs2026atlas">2336</a>]</cite>, is an omni world model pretrained from scratch on text, images, video, and 3D: an autoregressive diffusion transformer that conditions every generated image and depth map on an explicit camera pose and grounds them all in a shared 3D context, so that the same model generates camera-controlled video of up to a minute, reconstructs scenes from a handful of images, and exports its output as point clouds or 3D Gaussian splats. World Labs reports that it outperforms specialized open-source reconstruction models, and that it will power future versions of Marble.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S6.SS2.SSS3"><span class="secnum">8.6.2.3</span>Code-and-Simulator World Models<a class="anchor" href="#Ch8.S6.SS2.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S6.SS2.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Between hand-written simulation and learned generation sits a route that has grown quickly since 2024: a language model <em class="ltx_font_italic">writes</em> the world model as executable code, and a simulator or engine runs it. The learned component is the author of the rules, not the rules themselves,</p>
+<table id="Ch8.E74" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E74.m1" alttext="\mathcal{P}\sim p_{\theta}\big{(}\mathcal{P}\mid c\big{)},\qquad\hat{S}(t+1)=%
+\mathrm{Sim}\big{(}S(t),\,A(t);\,\mathcal{P}\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>𝒫</mi><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>𝒫</mi><mo>∣</mo><mi>c</mi></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><mrow><mover accent="true"><mi>S</mi><mo>^</mo></mover><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>Sim</mi><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.337em">;</mo><mi>𝒫</mi><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathcal{P}\sim p_{\theta}\big{(}\mathcal{P}\mid c\big{)},\qquad\hat{S}(t+1)=%
+\mathrm{Sim}\big{(}S(t),\,A(t);\,\mathcal{P}\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.74)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch8.S6.SS2.SSS3.p1.m1" alttext="c" display="inline" data-pagefind-ignore="all"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> is the conditioning context (a description, observations, or a history of interactions), <math id="Ch8.S6.SS2.SSS3.p1.m2" alttext="\mathcal{P}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal{P}</annotation></semantics></math> the generated program, and <math id="Ch8.S6.SS2.SSS3.p1.m3" alttext="\mathrm{Sim}" display="inline" data-pagefind-ignore="all"><semantics><mi>Sim</mi><annotation encoding="application/x-tex">\mathrm{Sim}</annotation></semantics></math> the interpreter or engine that executes it: plain Python, a physics engine such as MuJoCo or PyChrono, or Blender. Compared with Eq. (<a href="/read/8.6/#Ch8.E71" class="xref" data-x="Ch8.E71"><span>8.71</span></a>), the learned <math id="Ch8.S6.SS2.SSS3.p1.m4" alttext="W_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>W</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">W_{\theta}</annotation></semantics></math> is replaced by a program that can be read, tested, and repaired, so the resulting world keeps the determinism and verifiability of physics-driven simulation while gaining the open-endedness of a generative model. The scene programs of Section <a href="/read/8.7/" class="xref" data-x="Ch8.S7"><span>8.7</span></a> rest on the same idea; the difference here is that <math id="Ch8.S6.SS2.SSS3.p1.m5" alttext="\mathcal{P}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal{P}</annotation></semantics></math> encodes how the world changes under actions, not only how it is laid out.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS3.p2" class="ltx_para">
+<p class="ltx_p">In one line of work, code is an agent’s transition model. Code World Models <cite class="cites">[<a class="cite" href="/read/references/#ref-2337" data-k="dainese2024codeworld">2337</a>]</cite> synthesize Python implementations of reinforcement-learning environments with a generate, improve, and fix search over programs (GIF-MCTS), evaluated on a benchmark of 18 environments, and plan with them faster and more sample-efficiently than with learned dynamics; WorldCoder <cite class="cites">[<a class="cite" href="/read/references/#ref-2338" data-k="tang2024worldcoder">2338</a>]</cite> builds its world model as a program from its own interactions and transfers knowledge to a new environment by editing that program.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS3.p3" class="ltx_para">
+<p class="ltx_p">In the other, code builds a simulated 3D world. SceneCraft <cite class="cites">[<a class="cite" href="/read/references/#ref-2339" data-k="hu2024scenecraft">2339</a>]</cite> turns a description into Blender Python, planning with a scene graph, converting spatial relations into numerical layout constraints, and checking renders with a vision-language model. GenSim <cite class="cites">[<a class="cite" href="/read/references/#ref-2340" data-k="wang2023gensim">2340</a>]</cite> and RoboGen <cite class="cites">[<a class="cite" href="/read/references/#ref-199" data-k="wang2023robogen">199</a>]</cite> have language models write robotic simulation tasks, scenes, and rewards, making the simulator an open-ended source of training data, and the world-building agent of Genesis <cite class="cites">[<a class="cite" href="/read/references/#ref-2331" data-k="Genesis">2331</a>]</cite> follows the same pattern. Recent systems close the loop with the simulator itself.
+Code2Worlds <cite class="cites">[<a class="cite" href="/read/references/#ref-2341" data-k="zhang2026code2worlds">2341</a>]</cite> generates 4D worlds as Blender code refined by a vision-language motion critic; Code2Worlds-2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2342" data-k="zhang2026code2worlds2">2342</a>]</cite> compiles such worlds into physically valid MuJoCo scenes and revises them from penetration, contact, and stability signals; and ChronoAgentic <cite class="cites">[<a class="cite" href="/read/references/#ref-2343" data-k="wang2026chronoagentic">2343</a>]</cite> has cooperating agents write and repair PyChrono simulations, meeting the joint semantic and physical correctness criterion on 82.5% of PhyWorldBench demos against 52.5% for the best of ten text-to-video models.</p>
+</div>
+<div id="Ch8.S6.SS2.SSS3.p4" class="ltx_para">
+<p class="ltx_p">The price is coverage.
+A program can express only what its simulator supports, so photorealistic appearance, deformable and fluid materials, and open-ended visual variety still favor learned generators, while code-and-simulator models win where physical correctness has to be checked.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S6.SS3"><span class="secnum">8.6.3</span>Mental World Modeling<a class="anchor" href="#Ch8.S6.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S6.SS3.p1" class="ltx_para">
+<p class="ltx_p">Physical world models enable agents to understand and predict how the external environment evolves.
+However, intelligent behavior in real-world settings also requires an internal model of <em class="ltx_font_italic">other minds</em>.
+Humans naturally construct such models, <span class="ltx_font_italic">i.e.,</span> , often referred to as <em class="ltx_font_italic">mental models</em>, to reason about others’ beliefs, desires, intentions, emotions, and social context.
+This ability, commonly associated with <em class="ltx_font_italic">Theory of Mind (ToM)</em> <cite class="cites">[<a class="cite" href="/read/references/#ref-2344" data-k="astington1995theory">2344</a>]</cite>, underlies human social interaction, collaboration, communication, and decision-making.</p>
+</div>
+<div id="Ch8.S6.SS3.p2" class="ltx_para">
+<p class="ltx_p">Craik’s “small-scale models” of reality are the origin of this notion too <cite class="cites">[<a class="cite" href="/read/references/#ref-2345" data-k="nersessian1993theoretician">2345</a>, <a class="cite" href="/read/references/#ref-2346" data-k="staggers1993mental">2346</a>]</cite>, and Johnson-Laird later argued that human reasoning, problem solving, and causal inference rely on abstract internal representations of situations rather than on replaying detailed physical dynamics.
+These representations selectively capture the most relevant structure, <span class="ltx_font_italic">i.e.,</span> , objects, relations, causal dependencies, and possible outcomes, while abstracting away low-level perceptual details.
+For example, when cycling, a human does not mentally simulate every joint torque or physical trajectory; instead, one imagines “whether I would fall or not” when encountering an obstacle.
+This high-level, conceptual simulation is a defining property of mental world modeling.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S6.SS3.SSS1"><span class="secnum">8.6.3.1</span>From Physical to Cognitive Mental World Models<a class="anchor" href="#Ch8.S6.SS3.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S6.SS3.SSS1.p1" class="ltx_para">
+<p class="ltx_p">Human mental simulation operates by combining current observations with stored knowledge to predict plausible futures.
+Perception provides the immediate sensory input, which is then transformed into an internal symbolic and probabilistic representation of the world.
+Within this representation, the brain runs rapid, approximate simulations that evaluate different hypothetical actions.
+These simulations are not physically precise but are cognitively meaningful: they help determine risks, anticipate others’ responses, or evaluate alternative courses of action.
+In this sense, mental models serve as a compact, abstract, and counterfactual “world engine” for decision making.</p>
+</div>
+<div id="Ch8.S6.SS3.SSS1.p2" class="ltx_para">
+<p class="ltx_p">In artificial systems, the distinction between physical and mental world models mirrors that in human
+cognition.
+Physical world models predict state transitions in the environment (<span class="ltx_font_italic">e.g.,</span> , dynamics, geometry, object motion), whereas <em class="ltx_font_italic">mental world models</em> encode the latent mental states of human users or other agents.
+These models allow an AI system to reason about what humans know, believe, want, or intend to do, capabilities that embodied agents, collaborative robots, intelligent tutors, and multi-agent planners all need.</p>
+</div>
+<div id="Ch8.S6.SS3.SSS1.p3" class="ltx_para">
+<p class="ltx_p">Inspired by the Belief-Desire-Intention (BDI) <cite class="cites">[<a class="cite" href="/read/references/#ref-2347" data-k="rao1995bdi">2347</a>, <a class="cite" href="/read/references/#ref-2348" data-k="georgeff1998belief">2348</a>]</cite> framework, a mental world model for AI typically includes a small set of structured variables.
+<span class="ltx_font_bold">Beliefs.</span> These are representations of what the human knows, perceives, or believes about the world.
+<span class="ltx_font_bold">Desires.</span> These capture user goals, preferences, motivations, and values.
+<span class="ltx_font_bold">Intentions.</span> These are planned or ongoing actions that the agent expects the human (or another agent) to follow.
+Such decomposition enables an AI system to explicitly reason about human rationality, goal pursuit, and action planning.
+Formally, a mental world model can be cast as the inference of a latent mental state <math id="Ch8.S6.SS3.SSS1.p3.m1" alttext="M(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>M</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">M(t)</annotation></semantics></math>, comprising the beliefs, desires, and intentions above, from observed behavior, followed by a prediction of the other agent’s next action,</p>
+<table id="Ch8.E75" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E75.m1" alttext="\hat{M}(t)=\operatorname*{arg\,max}_{M}\,p\big{(}M\mid O_{\leq t}\big{)},%
+\qquad\hat{A}^{\text{other}}(t+1)=\pi\big{(}\hat{M}(t)\big{)}." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mrow><mover accent="true"><mi>M</mi><mo>^</mo></mover><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><munder><mrow><mi>arg</mi><mo lspace="0.170em">⁢</mo><mi>max</mi></mrow><mi>M</mi></munder><mo>⁡</mo><mi>p</mi></mrow><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>M</mi><mo>∣</mo><msub><mi>O</mi><mrow><mi></mi><mo>≤</mo><mi>t</mi></mrow></msub></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><mrow><msup><mover accent="true"><mi>A</mi><mo>^</mo></mover><mtext>other</mtext></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>π</mi><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mover accent="true"><mi>M</mi><mo>^</mo></mover><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\hat{M}(t)=\operatorname*{arg\,max}_{M}\,p\big{(}M\mid O_{\leq t}\big{)},%
+\qquad\hat{A}^{\text{other}}(t+1)=\pi\big{(}\hat{M}(t)\big{)}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.75)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">This formulation mirrors the transition of Eq. (<a href="/read/8.6/#Ch8.E71" class="xref" data-x="Ch8.E71"><span>8.71</span></a>) but replaces the physical state with the inferred mental state of another agent (Figure <a href="/read/8.6/#Ch8.F24" class="xref" data-x="Ch8.F24"><span>8.24</span></a>(c)), so that the predicted quantity is no longer how the environment will evolve but how a human or peer agent is likely to act.</p>
+</div>
+<div id="Ch8.S6.SS3.SSS1.p4" class="ltx_para">
+<p class="ltx_p">Machine Theory of Mind is now measured directly. ToMi <cite class="cites">[<a class="cite" href="/read/references/#ref-2349" data-k="le2019tomi">2349</a>]</cite> tests false-belief reasoning in short stories with controls against shortcut solutions, BigToM <cite class="cites">[<a class="cite" href="/read/references/#ref-2350" data-k="gandhi2023bigtom">2350</a>]</cite> generates controlled social scenarios with language models to probe whether models infer beliefs from percepts and actions, and MMToM-QA <cite class="cites">[<a class="cite" href="/read/references/#ref-2351" data-k="jin2024mmtomqa">2351</a>]</cite> poses belief and goal questions about a person acting in a household from video and text together. Large language and multimodal models remain unreliable on these tests, whereas MMToM-QA’s BIP-ALM, which performs Bayesian inverse planning over a symbolic state with a language model scoring the likelihoods, does better; it is an explicit instance of the inference in Eq. (<a href="/read/8.6/#Ch8.E75" class="xref" data-x="Ch8.E75"><span>8.75</span></a>).</p>
+</div>
+<section id="Ch8.S6.SS3.SSS1.Px1">
+<div id="Ch8.S6.SS3.SSS1.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Dimensions of Mental State Representation.</strong> Beyond the belief-desire-intention core, a mental world model for embodied agents must span several further layers of internal state and social context.
+It has to read <em class="ltx_font_italic">affect</em>, recognizing emotional cues and how they shift a person’s risk tolerance and willingness to cooperate.
+It has to represent <em class="ltx_font_italic">social dynamics</em>: the relationships, roles, group structures, and cultural norms that shape behavior.
+And it has to interpret <em class="ltx_font_italic">communication</em>, both the verbal channel and the non-verbal one carried by tone, gesture, posture, and facial expression.
+These layers are what turn a bare goal estimate into a socially situated account of why a person acts as they do.</p>
+</div>
+<div id="Ch8.S6.SS3.SSS1.Px1.p2" class="ltx_para">
+<p class="ltx_p">Human spatial reasoning is social as well as geometric, which ties mental modeling to spatial intelligence.
+To assist or collaborate with humans in homes, factories, classrooms, or vehicles, an agent must infer the intention behind a spatial action (<span class="ltx_font_italic">e.g.,</span> , where a person intends to move next), anticipate trajectories from goals or habits, adapt navigation or manipulation to user preferences, and interpret spatial configurations that reflect what a person believes or misunderstands.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S6.SS3.SSS2"><span class="secnum">8.6.3.2</span>A Joint Physical-Mental Formulation<a class="anchor" href="#Ch8.S6.SS3.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S6.SS3.SSS2.p1" class="ltx_para">
+<p class="ltx_p">The benchmarks above still treat the mental state as something inferred next to a world model, not as part of it: Eq. (<a href="/read/8.6/#Ch8.E75" class="xref" data-x="Ch8.E75"><span>8.75</span></a>) estimates another agent’s mind, but the environment it acts in is predicted separately.
+Mental World Modeling (MWM) <cite class="cites">[<a class="cite" href="/read/references/#ref-2352" data-k="fei2026mental">2352</a>]</cite> makes the mental state part of the state that the world model of Eq. (<a href="/read/8.6/#Ch8.E71" class="xref" data-x="Ch8.E71"><span>8.71</span></a>) rolls forward.
+We follow its notation, in which subscripts index time, so that <math id="Ch8.S6.SS3.SSS2.p1.m1" alttext="s_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>s</mi><mi>t</mi></msub><annotation encoding="application/x-tex">s_{t}</annotation></semantics></math> and <math id="Ch8.S6.SS3.SSS2.p1.m2" alttext="a_{t}^{\epsilon}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>a</mi><mi>t</mi><mi>ϵ</mi></msubsup><annotation encoding="application/x-tex">a_{t}^{\epsilon}</annotation></semantics></math> play the roles of <math id="Ch8.S6.SS3.SSS2.p1.m3" alttext="S(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(t)</annotation></semantics></math> and <math id="Ch8.S6.SS3.SSS2.p1.m4" alttext="A(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(t)</annotation></semantics></math> above.
+The case for a joint state is that neither half suffices alone. For a target agent <math id="Ch8.S6.SS3.SSS2.p1.m5" alttext="\epsilon" display="inline" data-pagefind-ignore="all"><semantics><mi>ϵ</mi><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math> whose true action distribution is <math id="Ch8.S6.SS3.SSS2.p1.m6" alttext="p^{\star}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>p</mi><mo>⋆</mo></msup><annotation encoding="application/x-tex">p^{\star}</annotation></semantics></math>, a physical-only representation fails whenever</p>
+<table id="Ch8.E76" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E76.m1" alttext="p^{\star}\big{(}a_{t}^{\epsilon}\mid s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{ment}%
+}\big{)}\neq p^{\star}\big{(}a_{t}^{\epsilon}\mid s_{t}^{\mathrm{phy}},\tilde{%
+s}_{t}^{\mathrm{ment}}\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msup><mi>p</mi><mo>⋆</mo></msup><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo>∣</mo><mrow><msubsup><mi>s</mi><mi>t</mi><mi>phy</mi></msubsup><mo>,</mo><msubsup><mi>s</mi><mi>t</mi><mi>ment</mi></msubsup></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo>≠</mo><mrow><msup><mi>p</mi><mo>⋆</mo></msup><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo>∣</mo><mrow><msubsup><mi>s</mi><mi>t</mi><mi>phy</mi></msubsup><mo>,</mo><msubsup><mover accent="true"><mi>s</mi><mo>~</mo></mover><mi>t</mi><mi>ment</mi></msubsup></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">p^{\star}\big{(}a_{t}^{\epsilon}\mid s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{ment}%
+}\big{)}\neq p^{\star}\big{(}a_{t}^{\epsilon}\mid s_{t}^{\mathrm{phy}},\tilde{%
+s}_{t}^{\mathrm{ment}}\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.76)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">that is, whenever two scenes that are physically identical but differ in what people believe or want (<math id="Ch8.S6.SS3.SSS2.p1.m7" alttext="s_{t}^{\mathrm{ment}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>s</mi><mi>t</mi><mi>ment</mi></msubsup><annotation encoding="application/x-tex">s_{t}^{\mathrm{ment}}</annotation></semantics></math> versus <math id="Ch8.S6.SS3.SSS2.p1.m8" alttext="\tilde{s}_{t}^{\mathrm{ment}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mover accent="true"><mi>s</mi><mo>~</mo></mover><mi>t</mi><mi>ment</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}_{t}^{\mathrm{ment}}</annotation></semantics></math>) lead to different actions; the symmetric condition, with the mental state held fixed and the physical state changed, rules out a mental-only representation.</p>
+</div>
+<section id="Ch8.S6.SS3.SSS2.Px1">
+<div id="Ch8.S6.SS3.SSS2.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Joint State.</strong> The world state is the pair</p>
+<table id="Ch8.E77" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E77.m1" alttext="s_{t}=\big{(}s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{ment}}\big{)}\in\mathcal{S}^{%
+\mathrm{phy}}\times\mathcal{S}^{\mathrm{ment}},\qquad s_{t}^{\mathrm{ment}}=%
+\big{(}\{m_{t}^{i}\}_{i\in\mathcal{I}},\,\{m_{t}^{G}\}_{G\in\mathcal{G}},\,R_{%
+t}^{\mathrm{ment}},\,\alpha_{t}\big{)}." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msub><mi>s</mi><mi>t</mi></msub><mo>=</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><msubsup><mi>s</mi><mi>t</mi><mi>phy</mi></msubsup><mo>,</mo><msubsup><mi>s</mi><mi>t</mi><mi>ment</mi></msubsup><mo maxsize="120%" minsize="120%">)</mo></mrow><mo>∈</mo><mrow><msup><mi>𝒮</mi><mi>phy</mi></msup><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mi>𝒮</mi><mi>ment</mi></msup></mrow></mrow><mo rspace="2.167em">,</mo><mrow><msubsup><mi>s</mi><mi>t</mi><mi>ment</mi></msubsup><mo>=</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><msub><mrow><mo stretchy="false">{</mo><msubsup><mi>m</mi><mi>t</mi><mi>i</mi></msubsup><mo stretchy="false">}</mo></mrow><mrow><mi>i</mi><mo>∈</mo><mi>ℐ</mi></mrow></msub><mo rspace="0.337em">,</mo><msub><mrow><mo stretchy="false">{</mo><msubsup><mi>m</mi><mi>t</mi><mi>G</mi></msubsup><mo stretchy="false">}</mo></mrow><mrow><mi>G</mi><mo>∈</mo><mi>𝒢</mi></mrow></msub><mo rspace="0.337em">,</mo><msubsup><mi>R</mi><mi>t</mi><mi>ment</mi></msubsup><mo rspace="0.337em">,</mo><msub><mi>α</mi><mi>t</mi></msub><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">s_{t}=\big{(}s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{ment}}\big{)}\in\mathcal{S}^{%
+\mathrm{phy}}\times\mathcal{S}^{\mathrm{ment}},\qquad s_{t}^{\mathrm{ment}}=%
+\big{(}\{m_{t}^{i}\}_{i\in\mathcal{I}},\,\{m_{t}^{G}\}_{G\in\mathcal{G}},\,R_{%
+t}^{\mathrm{ment}},\,\alpha_{t}\big{)}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.77)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">The physical part collects the objects, the embodied characters, their spatial and contact relations, and the environmental conditions of the scene. The mental part holds an individual state <math id="Ch8.S6.SS3.SSS2.Px1.p1.m1" alttext="m_{t}^{i}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>m</mi><mi>t</mi><mi>i</mi></msubsup><annotation encoding="application/x-tex">m_{t}^{i}</annotation></semantics></math> for every agent <math id="Ch8.S6.SS3.SSS2.Px1.p1.m2" alttext="i" display="inline" data-pagefind-ignore="all"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> in the set <math id="Ch8.S6.SS3.SSS2.Px1.p1.m3" alttext="\mathcal{I}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℐ</mi><annotation encoding="application/x-tex">\mathcal{I}</annotation></semantics></math>, optional states <math id="Ch8.S6.SS3.SSS2.Px1.p1.m4" alttext="m_{t}^{G}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>m</mi><mi>t</mi><mi>G</mi></msubsup><annotation encoding="application/x-tex">m_{t}^{G}</annotation></semantics></math> for groups <math id="Ch8.S6.SS3.SSS2.Px1.p1.m5" alttext="G\in\mathcal{G}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>G</mi><mo>∈</mo><mi>𝒢</mi></mrow><annotation encoding="application/x-tex">G\in\mathcal{G}</annotation></semantics></math>, the social attitudes and role relations <math id="Ch8.S6.SS3.SSS2.Px1.p1.m6" alttext="R_{t}^{\mathrm{ment}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>R</mi><mi>t</mi><mi>ment</mi></msubsup><annotation encoding="application/x-tex">R_{t}^{\mathrm{ment}}</annotation></semantics></math> between agents, and the atmosphere <math id="Ch8.S6.SS3.SSS2.Px1.p1.m7" alttext="\alpha_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>α</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\alpha_{t}</annotation></semantics></math> of the setting. Each individual state extends the belief-desire-intention core introduced above,</p>
+<table id="Ch8.E78" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E78.m1" alttext="m_{t}^{i}=\big{(}\mathrm{id}_{t}^{i},\,b_{t}^{i},\,q_{t}^{i},\,g_{t}^{i},\,%
+\iota_{t}^{i},\,e_{t}^{i},\,d_{t}^{i},\,n_{t}^{i},\,c_{t}^{i}\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msubsup><mi>m</mi><mi>t</mi><mi>i</mi></msubsup><mo>=</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><msubsup><mi>id</mi><mi>t</mi><mi>i</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>b</mi><mi>t</mi><mi>i</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>q</mi><mi>t</mi><mi>i</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>g</mi><mi>t</mi><mi>i</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>ι</mi><mi>t</mi><mi>i</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>e</mi><mi>t</mi><mi>i</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>d</mi><mi>t</mi><mi>i</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>n</mi><mi>t</mi><mi>i</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>c</mi><mi>t</mi><mi>i</mi></msubsup><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">m_{t}^{i}=\big{(}\mathrm{id}_{t}^{i},\,b_{t}^{i},\,q_{t}^{i},\,g_{t}^{i},\,%
+\iota_{t}^{i},\,e_{t}^{i},\,d_{t}^{i},\,n_{t}^{i},\,c_{t}^{i}\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.78)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">with identity attributes, beliefs, attention focus, goals, intentions, emotions, dispositions, norms, and behavioral constraints.
+Beliefs, goals, and intentions are the BDI variables; emotions, norms, and the relations <math id="Ch8.S6.SS3.SSS2.Px1.p1.m8" alttext="R_{t}^{\mathrm{ment}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>R</mi><mi>t</mi><mi>ment</mi></msubsup><annotation encoding="application/x-tex">R_{t}^{\mathrm{ment}}</annotation></semantics></math> turn the affect and social-dynamics layers discussed above into explicit state variables.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS3.SSS2.Px2">
+<div id="Ch8.S6.SS3.SSS2.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Target-Specific Observation.</strong> The model reasons from the perspective of one target agent <math id="Ch8.S6.SS3.SSS2.Px2.p1.m1" alttext="\epsilon\in\mathcal{I}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ϵ</mi><mo>∈</mo><mi>ℐ</mi></mrow><annotation encoding="application/x-tex">\epsilon\in\mathcal{I}</annotation></semantics></math>, which sees only a rendering of the joint state:</p>
+<table id="Ch8.E79" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E79.m1" alttext="o_{t}^{\epsilon}=\Omega_{\epsilon}(s_{t})=\Big{(}\Omega_{\epsilon}^{\mathrm{%
+phy}}\big{(}s_{t}^{\mathrm{phy}};\,\kappa_{t}^{\epsilon}\big{)},\;\Omega_{%
+\epsilon}^{\mathrm{ment}}\big{(}s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{ment}};\,%
+\rho_{t}^{\epsilon}\big{)}\Big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msubsup><mi>o</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo>=</mo><mrow><msub><mi mathvariant="normal">Ω</mi><mi>ϵ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo maxsize="160%" minsize="160%">(</mo><mrow><msubsup><mi mathvariant="normal">Ω</mi><mi>ϵ</mi><mi>phy</mi></msubsup><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><msubsup><mi>s</mi><mi>t</mi><mi>phy</mi></msubsup><mo rspace="0.337em">;</mo><msubsup><mi>κ</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo rspace="0.447em">,</mo><mrow><msubsup><mi mathvariant="normal">Ω</mi><mi>ϵ</mi><mi>ment</mi></msubsup><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><msubsup><mi>s</mi><mi>t</mi><mi>phy</mi></msubsup><mo>,</mo><msubsup><mi>s</mi><mi>t</mi><mi>ment</mi></msubsup><mo rspace="0.337em">;</mo><msubsup><mi>ρ</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo maxsize="160%" minsize="160%">)</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">o_{t}^{\epsilon}=\Omega_{\epsilon}(s_{t})=\Big{(}\Omega_{\epsilon}^{\mathrm{%
+phy}}\big{(}s_{t}^{\mathrm{phy}};\,\kappa_{t}^{\epsilon}\big{)},\;\Omega_{%
+\epsilon}^{\mathrm{ment}}\big{(}s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{ment}};\,%
+\rho_{t}^{\epsilon}\big{)}\Big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.79)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch8.S6.SS3.SSS2.Px2.p1.m2" alttext="\kappa_{t}^{\epsilon}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>κ</mi><mi>t</mi><mi>ϵ</mi></msubsup><annotation encoding="application/x-tex">\kappa_{t}^{\epsilon}</annotation></semantics></math> is the target’s perceptual access (position, line of sight, hearing range, available modalities) and <math id="Ch8.S6.SS3.SSS2.Px2.p1.m3" alttext="\rho_{t}^{\epsilon}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>ρ</mi><mi>t</mi><mi>ϵ</mi></msubsup><annotation encoding="application/x-tex">\rho_{t}^{\epsilon}</annotation></semantics></math> its social and cognitive perspective (role, prior beliefs, relationships to others, awareness of norms, Theory-of-Mind capacity). The mental part of the observation contains the target’s view of its own state and its estimates <math id="Ch8.S6.SS3.SSS2.Px2.p1.m4" alttext="\widehat{m}^{\,j,(\ell)}_{t,\epsilon}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mover accent="true"><mi>m</mi><mo>^</mo></mover><mrow><mi>t</mi><mo>,</mo><mi>ϵ</mi></mrow><mrow><mi>j</mi><mo>,</mo><mrow><mo stretchy="false">(</mo><mi mathvariant="normal">ℓ</mi><mo stretchy="false">)</mo></mrow></mrow></msubsup><annotation encoding="application/x-tex">\widehat{m}^{\,j,(\ell)}_{t,\epsilon}</annotation></semantics></math> of every other agent <math id="Ch8.S6.SS3.SSS2.Px2.p1.m5" alttext="j" display="inline" data-pagefind-ignore="all"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>, nested up to a depth <math id="Ch8.S6.SS3.SSS2.Px2.p1.m6" alttext="L" display="inline" data-pagefind-ignore="all"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>; at the first level they are sampled as</p>
+<table id="Ch8.E80" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E80.m1" alttext="\widehat{m}^{\,j,(1)}_{t,\epsilon}\sim Q^{(1)}_{\epsilon}\big{(}m_{t}^{j}\mid o%
+_{t}^{\epsilon,\mathrm{phy}},\,m_{t}^{\epsilon},\,R_{t}^{\mathrm{ment}},\,%
+\alpha_{t}\big{)}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msubsup><mover accent="true"><mi>m</mi><mo>^</mo></mover><mrow><mi>t</mi><mo>,</mo><mi>ϵ</mi></mrow><mrow><mi>j</mi><mo>,</mo><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mrow></msubsup><mo>∼</mo><mrow><msubsup><mi>Q</mi><mi>ϵ</mi><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msubsup><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msubsup><mi>m</mi><mi>t</mi><mi>j</mi></msubsup><mo>∣</mo><mrow><msubsup><mi>o</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>phy</mi></mrow></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>m</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo rspace="0.337em">,</mo><msubsup><mi>R</mi><mi>t</mi><mi>ment</mi></msubsup><mo rspace="0.337em">,</mo><msub><mi>α</mi><mi>t</mi></msub></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\widehat{m}^{\,j,(1)}_{t,\epsilon}\sim Q^{(1)}_{\epsilon}\big{(}m_{t}^{j}\mid o%
+_{t}^{\epsilon,\mathrm{phy}},\,m_{t}^{\epsilon},\,R_{t}^{\mathrm{ment}},\,%
+\alpha_{t}\big{)},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.80)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">which is the inference of Eq. (<a href="/read/8.6/#Ch8.E75" class="xref" data-x="Ch8.E75"><span>8.75</span></a>), made stochastic and conditioned on the target’s own mind and social context. Spatial access enters the mental model directly through <math id="Ch8.S6.SS3.SSS2.Px2.p1.m7" alttext="\kappa_{t}^{\epsilon}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>κ</mi><mi>t</mi><mi>ϵ</mi></msubsup><annotation encoding="application/x-tex">\kappa_{t}^{\epsilon}</annotation></semantics></math>: what the target can see from where it stands bounds what it can believe, so a poor decision can follow from an object outside its view as much as from a mistaken belief.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS3.SSS2.Px3">
+<div id="Ch8.S6.SS3.SSS2.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Action and Coupled Transition.</strong> The target proposes <math id="Ch8.S6.SS3.SSS2.Px3.p1.m1" alttext="K" display="inline" data-pagefind-ignore="all"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> candidate actions <math id="Ch8.S6.SS3.SSS2.Px3.p1.m2" alttext="\mathcal{A}_{t}^{\epsilon}=\Pi_{\epsilon}^{K}(o_{t}^{\epsilon})=\{a^{\epsilon}%
+_{t,1},\dots,a^{\epsilon}_{t,K}\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msubsup><mi>𝒜</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo>=</mo><mrow><msubsup><mi mathvariant="normal">Π</mi><mi>ϵ</mi><mi>K</mi></msubsup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>o</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo stretchy="false">{</mo><msubsup><mi>a</mi><mrow><mi>t</mi><mo>,</mo><mn>1</mn></mrow><mi>ϵ</mi></msubsup><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msubsup><mi>a</mi><mrow><mi>t</mi><mo>,</mo><mi>K</mi></mrow><mi>ϵ</mi></msubsup><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{A}_{t}^{\epsilon}=\Pi_{\epsilon}^{K}(o_{t}^{\epsilon})=\{a^{\epsilon}%
+_{t,1},\dots,a^{\epsilon}_{t,K}\}</annotation></semantics></math>. Each action has a physical carrier and a mental content, <math id="Ch8.S6.SS3.SSS2.Px3.p1.m3" alttext="a_{t}^{\epsilon}=(a_{t}^{\epsilon,\mathrm{phy}},a_{t}^{\epsilon,\mathrm{ment}})" display="inline" data-pagefind-ignore="all"><semantics><mrow><msubsup><mi>a</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo>=</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>phy</mi></mrow></msubsup><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>ment</mi></mrow></msubsup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">a_{t}^{\epsilon}=(a_{t}^{\epsilon,\mathrm{phy}},a_{t}^{\epsilon,\mathrm{ment}})</annotation></semantics></math> (approaching someone, and meaning to comfort them), and the policy factorizes as <math id="Ch8.S6.SS3.SSS2.Px3.p1.m4" alttext="\Pi_{\epsilon}(a_{t}^{\epsilon,\mathrm{phy}},a_{t}^{\epsilon,\mathrm{ment}}%
+\mid o_{t}^{\epsilon})=\Pi_{\epsilon}^{\mathrm{phy}}(a_{t}^{\epsilon,\mathrm{%
+phy}}\mid o_{t}^{\epsilon})\,\Pi_{\epsilon}^{\mathrm{ment}}(a_{t}^{\epsilon,%
+\mathrm{ment}}\mid a_{t}^{\epsilon,\mathrm{phy}},o_{t}^{\epsilon})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi mathvariant="normal">Π</mi><mi>ϵ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>phy</mi></mrow></msubsup><mo>,</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>ment</mi></mrow></msubsup><mo>∣</mo><msubsup><mi>o</mi><mi>t</mi><mi>ϵ</mi></msubsup></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msubsup><mi mathvariant="normal">Π</mi><mi>ϵ</mi><mi>phy</mi></msubsup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>phy</mi></mrow></msubsup><mo>∣</mo><msubsup><mi>o</mi><mi>t</mi><mi>ϵ</mi></msubsup></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0.170em">⁢</mo><msubsup><mi mathvariant="normal">Π</mi><mi>ϵ</mi><mi>ment</mi></msubsup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>ment</mi></mrow></msubsup><mo>∣</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>phy</mi></mrow></msubsup><mo>,</mo><msubsup><mi>o</mi><mi>t</mi><mi>ϵ</mi></msubsup></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\Pi_{\epsilon}(a_{t}^{\epsilon,\mathrm{phy}},a_{t}^{\epsilon,\mathrm{ment}}%
+\mid o_{t}^{\epsilon})=\Pi_{\epsilon}^{\mathrm{phy}}(a_{t}^{\epsilon,\mathrm{%
+phy}}\mid o_{t}^{\epsilon})\,\Pi_{\epsilon}^{\mathrm{ment}}(a_{t}^{\epsilon,%
+\mathrm{ment}}\mid a_{t}^{\epsilon,\mathrm{phy}},o_{t}^{\epsilon})</annotation></semantics></math>. The world model then predicts the next joint state with a staged transition,</p>
+<table id="Ch8.E81" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E81.m1" alttext="T_{\theta}\big{(}s_{t+1}\mid s_{t},a_{t}^{\epsilon}\big{)}=T_{\theta}^{\mathrm%
+{phy}}\big{(}s_{t+1}^{\mathrm{phy}}\mid s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{%
+ment}},a_{t}^{\epsilon,\mathrm{phy}}\big{)}\cdot T_{\theta}^{\mathrm{ment}}%
+\big{(}s_{t+1}^{\mathrm{ment}}\mid s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{ment}},%
+a_{t}^{\epsilon,\mathrm{phy}},a_{t}^{\epsilon,\mathrm{ment}}\big{)}." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msub><mi>T</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><mrow><msub><mi>s</mi><mi>t</mi></msub><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mi>ϵ</mi></msubsup></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mrow><msubsup><mi>T</mi><mi>θ</mi><mi>phy</mi></msubsup><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msubsup><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mi>phy</mi></msubsup><mo>∣</mo><mrow><msubsup><mi>s</mi><mi>t</mi><mi>phy</mi></msubsup><mo>,</mo><msubsup><mi>s</mi><mi>t</mi><mi>ment</mi></msubsup><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>phy</mi></mrow></msubsup></mrow></mrow><mo maxsize="120%" minsize="120%" rspace="0.055em">)</mo></mrow></mrow><mo rspace="0.222em">⋅</mo><msubsup><mi>T</mi><mi>θ</mi><mi>ment</mi></msubsup></mrow><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msubsup><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mi>ment</mi></msubsup><mo>∣</mo><mrow><msubsup><mi>s</mi><mi>t</mi><mi>phy</mi></msubsup><mo>,</mo><msubsup><mi>s</mi><mi>t</mi><mi>ment</mi></msubsup><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>phy</mi></mrow></msubsup><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>ment</mi></mrow></msubsup></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">T_{\theta}\big{(}s_{t+1}\mid s_{t},a_{t}^{\epsilon}\big{)}=T_{\theta}^{\mathrm%
+{phy}}\big{(}s_{t+1}^{\mathrm{phy}}\mid s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{%
+ment}},a_{t}^{\epsilon,\mathrm{phy}}\big{)}\cdot T_{\theta}^{\mathrm{ment}}%
+\big{(}s_{t+1}^{\mathrm{ment}}\mid s_{t}^{\mathrm{phy}},s_{t}^{\mathrm{ment}},%
+a_{t}^{\epsilon,\mathrm{phy}},a_{t}^{\epsilon,\mathrm{ment}}\big{)}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.81)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">The asymmetry is deliberate. An intention moves nothing until it is carried out physically, so the physical factor ignores <math id="Ch8.S6.SS3.SSS2.Px3.p1.m5" alttext="a_{t}^{\epsilon,\mathrm{ment}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>a</mi><mi>t</mi><mrow><mi>ϵ</mi><mo>,</mo><mi>ment</mi></mrow></msubsup><annotation encoding="application/x-tex">a_{t}^{\epsilon,\mathrm{ment}}</annotation></semantics></math>; the mental factor depends on both components, because the same reassuring words land differently when the speaker is approaching than when walking away. The physical factor still conditions on the mental state, since what objects, space, and visibility allow is joined by what other agents intend to do. Those other agents are not controlled: their actions <math id="Ch8.S6.SS3.SSS2.Px3.p1.m6" alttext="a_{t}^{-\epsilon}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>a</mi><mi>t</mi><mrow><mo>−</mo><mi>ϵ</mi></mrow></msubsup><annotation encoding="application/x-tex">a_{t}^{-\epsilon}</annotation></semantics></math> are marginalized under the simulator’s predictive distribution,</p>
+<table id="Ch8.E82" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E82.m1" alttext="T_{\theta}\big{(}s_{t+1}\mid s_{t},a_{t}^{\epsilon}\big{)}=\int T_{\theta}\big%
+{(}s_{t+1}\mid s_{t},a_{t}^{\epsilon},a_{t}^{-\epsilon}\big{)}\,p\big{(}a_{t}^%
+{-\epsilon}\mid s_{t}\big{)}\,\mathrm{d}a_{t}^{-\epsilon}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msub><mi>T</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><mrow><msub><mi>s</mi><mi>t</mi></msub><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mi>ϵ</mi></msubsup></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mo rspace="0.111em">=</mo><mrow><mo>∫</mo><mrow><msub><mi>T</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><mrow><msub><mi>s</mi><mi>t</mi></msub><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mi>ϵ</mi></msubsup><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mrow><mo>−</mo><mi>ϵ</mi></mrow></msubsup></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow><mo lspace="0.170em">⁢</mo><mi>p</mi><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mrow><mo>−</mo><mi>ϵ</mi></mrow></msubsup><mo>∣</mo><msub><mi>s</mi><mi>t</mi></msub></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow><mo lspace="0.170em">⁢</mo><mrow><mo rspace="0em">d</mo><msubsup><mi>a</mi><mi>t</mi><mrow><mo>−</mo><mi>ϵ</mi></mrow></msubsup></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">T_{\theta}\big{(}s_{t+1}\mid s_{t},a_{t}^{\epsilon}\big{)}=\int T_{\theta}\big%
+{(}s_{t+1}\mid s_{t},a_{t}^{\epsilon},a_{t}^{-\epsilon}\big{)}\,p\big{(}a_{t}^%
+{-\epsilon}\mid s_{t}\big{)}\,\mathrm{d}a_{t}^{-\epsilon},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.82)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">with <math id="Ch8.S6.SS3.SSS2.Px3.p1.m7" alttext="p(a_{t}^{-\epsilon}\mid s_{t})=\prod_{j\neq\epsilon}\Pi_{j}\big{(}a_{t}^{j}%
+\mid\Omega_{j}(s_{t})\big{)}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>p</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mrow><mo>−</mo><mi>ϵ</mi></mrow></msubsup><mo>∣</mo><msub><mi>s</mi><mi>t</mi></msub></mrow><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.111em">=</mo><mrow><msub><mo>∏</mo><mrow><mi>j</mi><mo>≠</mo><mi>ϵ</mi></mrow></msub><mrow><msub><mi mathvariant="normal">Π</mi><mi>j</mi></msub><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><msubsup><mi>a</mi><mi>t</mi><mi>j</mi></msubsup><mo>∣</mo><mrow><msub><mi mathvariant="normal">Ω</mi><mi>j</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">p(a_{t}^{-\epsilon}\mid s_{t})=\prod_{j\neq\epsilon}\Pi_{j}\big{(}a_{t}^{j}%
+\mid\Omega_{j}(s_{t})\big{)}</annotation></semantics></math> for simultaneous moves, so that every agent still acts on its own partial observation. The whole pipeline, <math id="Ch8.S6.SS3.SSS2.Px3.p1.m8" alttext="s_{t}\xrightarrow{\Omega_{\epsilon}}o_{t}^{\epsilon}\xrightarrow{\Pi_{\epsilon%
+}}a_{t}^{\epsilon}\xrightarrow{T_{\theta}}s_{t+1}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>s</mi><mi>t</mi></msub><mover accent="true"><mo stretchy="false">→</mo><msub><mi mathvariant="normal">Ω</mi><mi>ϵ</mi></msub></mover><msubsup><mi>o</mi><mi>t</mi><mi>ϵ</mi></msubsup><mover accent="true"><mo stretchy="false">→</mo><msub><mi mathvariant="normal">Π</mi><mi>ϵ</mi></msub></mover><msubsup><mi>a</mi><mi>t</mi><mi>ϵ</mi></msubsup><mover accent="true"><mo stretchy="false">→</mo><msub><mi>T</mi><mi>θ</mi></msub></mover><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">s_{t}\xrightarrow{\Omega_{\epsilon}}o_{t}^{\epsilon}\xrightarrow{\Pi_{\epsilon%
+}}a_{t}^{\epsilon}\xrightarrow{T_{\theta}}s_{t+1}</annotation></semantics></math>, is Eq. (<a href="/read/8.6/#Ch8.E71" class="xref" data-x="Ch8.E71"><span>8.71</span></a>) with a mental component added to the state and a perspective added to the observation.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS3.SSS2.Px4">
+<div id="Ch8.S6.SS3.SSS2.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Evaluating Candidate Futures.</strong> Simulating each candidate gives a branch <math id="Ch8.S6.SS3.SSS2.Px4.p1.m1" alttext="\hat{s}^{k}_{t+1}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mover accent="true"><mi>s</mi><mo>^</mo></mover><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mi>k</mi></msubsup><annotation encoding="application/x-tex">\hat{s}^{k}_{t+1}</annotation></semantics></math>, and the predicted decision is the branch of highest value,</p>
+<table id="Ch8.E83" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E83.m1" alttext="\hat{k}=\operatorname*{arg\,max}_{k\in\{1,\dots,K\}}\,r_{k}." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mover accent="true"><mi>k</mi><mo>^</mo></mover><mo>=</mo><mrow><munder><mrow><mi>arg</mi><mo lspace="0.170em">⁢</mo><mi>max</mi></mrow><mrow><mi>k</mi><mo>∈</mo><mrow><mo stretchy="false">{</mo><mn>1</mn><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mi>K</mi><mo stretchy="false">}</mo></mrow></mrow></munder><mo>⁡</mo><msub><mi>r</mi><mi>k</mi></msub></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\hat{k}=\operatorname*{arg\,max}_{k\in\{1,\dots,K\}}\,r_{k}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.83)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">In MENTIS, the training-free and fully inspectable baseline of MWM, the branch value <math id="Ch8.S6.SS3.SSS2.Px4.p1.m2" alttext="r_{k}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>r</mi><mi>k</mi></msub><annotation encoding="application/x-tex">r_{k}</annotation></semantics></math> is a weighted combination of normalized scores for physical plausibility, mental consistency, and social appropriateness, and a binary safety and legality veto sets it to zero. Each formal component maps to a module: a state parser recovers <math id="Ch8.S6.SS3.SSS2.Px4.p1.m3" alttext="\hat{s}_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mover accent="true"><mi>s</mi><mo>^</mo></mover><mi>t</mi></msub><annotation encoding="application/x-tex">\hat{s}_{t}</annotation></semantics></math>, an observation generator implements <math id="Ch8.S6.SS3.SSS2.Px4.p1.m4" alttext="\Omega_{\epsilon}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi mathvariant="normal">Ω</mi><mi>ϵ</mi></msub><annotation encoding="application/x-tex">\Omega_{\epsilon}</annotation></semantics></math>, an action parser structures the candidates, a world-state transitor implements <math id="Ch8.S6.SS3.SSS2.Px4.p1.m5" alttext="T_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>T</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">T_{\theta}</annotation></semantics></math>, and an evaluator assigns <math id="Ch8.S6.SS3.SSS2.Px4.p1.m6" alttext="r_{k}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>r</mi><mi>k</mi></msub><annotation encoding="application/x-tex">r_{k}</annotation></semantics></math>. On situated decision scenarios presented as text, image, and sounding-video stories, experiments across eight LLM-based world models indicate that the explicit mental component is what makes a person’s actual decision predictable <cite class="cites">[<a class="cite" href="/read/references/#ref-2352" data-k="fei2026mental">2352</a>]</cite>.</p>
+</div>
+</section>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S6.SS4"><span class="secnum">8.6.4</span>Discussions and Challenges<a class="anchor" href="#Ch8.S6.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section id="Ch8.S6.SS4.SSS0.Px1">
+<div id="Ch8.S6.SS4.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Representation-based World Models as an Alternative Foundation Model Paradigm.</strong> Representation world models may emerge as a parallel paradigm to current LLMs, functioning as large-scale foundational models trained through massive self-supervised representation learning to capture physical regularities, causal dynamics, and environmental constraints.
+Unlike LLMs, which learn the world indirectly through linguistic abstraction, representation world models aim to model the physical world directly from multimodal observations.
+Such models could serve video generation, action prediction in VLA systems, 3D and 4D understanding and generation, and decision-making in autonomous driving.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS4.SSS0.Px2">
+<div id="Ch8.S6.SS4.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">The Necessity of Multi-source Intelligence Integration.</strong> World models will likely require the integration of heterogeneous informational sources.
+On the one hand, LLMs embody language-driven intelligence, while world models emphasize physically grounded intelligence; rather than being mutually exclusive, a truly capable world model must incorporate both forms of reasoning.
+On the other hand, accurate world understanding requires far more than visual perception alone: audio, speech, tactile signals, force feedback, and even proprioception provide essential supplementary cues about the dynamics and structure of the physical environment. Yet the current research community focuses overwhelmingly on visual-only modeling.
+Building world models that holistically integrate multimodal sensory information remains a major challenge.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS4.SSS0.Px3">
+<div id="Ch8.S6.SS4.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Unifying Physical Modeling and Mental Modeling.</strong> Another promising direction is the integration of physical and mental modeling within a unified world-modeling framework.
+Embodied agents operating in real environments must simultaneously reason about the physical evolution of the environment and the mental or behavioral responses of humans (or other agents).
+Recent work in multi-agent systems, social navigation, pedagogical reasoning, human-robot collaboration, and interactive LLM agents emphasizes the growing need for AI systems to build internal hypotheses about both external dynamics and human mental states.
+Mental World Modeling <cite class="cites">[<a class="cite" href="/read/references/#ref-2352" data-k="fei2026mental">2352</a>]</cite> is an early formulation of such a joint state (Section <a href="/read/8.6/#Ch8.S6.SS3.SSS2" class="xref" data-x="Ch8.S6.SS3.SSS2"><span>8.6.3.2</span></a>).
+Ultimately, scalable general-purpose world models must simulate not only <em class="ltx_font_italic">what will happen</em> but also <em class="ltx_font_italic">what others believe, intend, desire, or misunderstand</em>.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS4.SSS0.Px4">
+<div id="Ch8.S6.SS4.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Balance between Generative Fidelity and Physical Correctness.</strong> A central challenge for learning-driven world models is reconciling generative expressiveness with physical accuracy.
+High-capacity video generators often produce visually stunning but physically implausible outcomes, while models optimized for strict physical consistency may underperform in realism or diversity.
+Achieving stable long-horizon predictions without temporal drift or compounding errors remains unsolved.
+Designing architectures, training objectives, and constraints that jointly enforce physical laws, spatial coherence, and generative flexibility is a key open problem for the next generation of world simulators.</p>
+</div>
+</section>
+<section id="Ch8.S6.SS4.SSS0.Px5">
+<div id="Ch8.S6.SS4.SSS0.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Evaluation, Benchmarks, and Verifiability of World Models.</strong> Unlike language models, which can be evaluated through perplexity, benchmarks, or task accuracy, world models lack standardized, reliable, and comprehensive evaluation protocols.
+Physical correctness, causal consistency, interactive fidelity, multimodal coherence, and long-horizon stability are difficult to quantify in a unified manner.
+Furthermore, world models that aim to simulate open-ended environments raise issues of verifiability, reproducibility, and safety: how can we assess whether a world model reliably generalizes to unseen real-world scenarios, or whether its internal dynamics exhibit hidden biases or unsafe behaviors?
+Establishing principled evaluation methodologies and shared benchmarks for both representation-based and generative world models is an urgent research direction.</p>
+</div>
+</section>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/8.5/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">8.5 4D Spatial Generation</span></a><a class="pager-next" href="/read/8.7/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">8.7 Programmatic and Symbolic Spatial Generation</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch8.S6.SS1" data-spy="Ch8.S6.SS1"><span class="n">8.6.1</span>Representation World Model</a></li><li><a href="#Ch8.S6.SS2" data-spy="Ch8.S6.SS2"><span class="n">8.6.2</span>Generative World Model</a></li><li><a href="#Ch8.S6.SS3" data-spy="Ch8.S6.SS3"><span class="n">8.6.3</span>Mental World Modeling</a></li><li><a href="#Ch8.S6.SS4" data-spy="Ch8.S6.SS4"><span class="n">8.6.4</span>Discussions and Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=8.6"><b>60</b> cited works</a><a href="/explore/tools/?sec=8.6" title="MuJoCo, Isaac Lab, Genesis, CARLA, AirSim, DINOv2"><b>8</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="8.6 World Modeling" data-url="/read/8.6/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%208.6%20World%20Modeling&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/8.6/%20%28PDF%20p.%20312%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

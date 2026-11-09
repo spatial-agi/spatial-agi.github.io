@@ -1,0 +1,1428 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.5 Multimodal Spatial Perception · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="6.5 Multimodal Spatial Perception · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #7446D6" data-page="6.5">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link is-current" href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iii/">Part III</a><span class="sep">/</span><a href="/read/chapter-6/">Chapter 6</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-6/">Chapter 6 · Spatial Perception</a></div>
+        <h1><span class="secnum">6.5</span>Multimodal Spatial Perception</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=150" title="Open this page in the PDF">PDF p. 150</a><span class="dot">·</span>        <span>20 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:6.5 Multimodal Spatial Perception">
+<div id="Ch6.S5.p1" class="ltx_para">
+<p class="ltx_p">The preceding sections perceive space largely through vision. Yet vision alone is often incomplete: it is blind past occluders, silent about what lies outside the frame, and mute on which entity a person actually means. Multimodal spatial perception closes these gaps by grounding spatial understanding in signals beyond the image. The section takes two complementary couplings: audio-visual spatial localization, which uses sound to place events that vision may miss, and vision-language grounding, which ties linguistic reference to the specific entity or region it denotes. Neither adds a new spatial primitive; each supplies a channel of evidence that makes perception more complete where a single modality falls short.</p>
+</div>
+<section>
+<h2 class="h-subsection" id="Ch6.S5.SS1"><span class="secnum">6.5.1</span>Audio-Visual Spatial Localization<a class="anchor" href="#Ch6.S5.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch6.S5.SS1.p1" class="ltx_para">
+<p class="ltx_p">Humans localize a sound by combining auditory cues (interaural level and time differences, spectral shaping) with visual context (lip motion, object dynamics) <cite class="cites">[<a class="cite" href="/read/references/#ref-324" data-k="blauert1997spatial">324</a>]</cite>. Audio-visual spatial localization (AV-SL) asks a machine to do the same: find the pixel region, object, or 3D point that a sound comes from, under reverberation, noise, occlusion, and several simultaneous sources <cite class="cites">[<a class="cite" href="/read/references/#ref-398" data-k="arandjelovic2017look">398</a>, <a class="cite" href="/read/references/#ref-399" data-k="owens2018audio">399</a>]</cite>. The two modalities are complementary. Binaural or array audio supplies directional cues, while distance requires additional geometric, near-field, or learned evidence; vision says which entities are plausible sounders and separates acoustically confusable ones (two similar instruments, only one playing). Spatial audio for AR/VR <cite class="cites">[<a class="cite" href="/read/references/#ref-329" data-k="morgado2018self">329</a>]</cite>, teleconferencing <cite class="cites">[<a class="cite" href="/read/references/#ref-1064" data-k="tao2021talknet">1064</a>]</cite>, and audio-guided navigation <cite class="cites">[<a class="cite" href="/read/references/#ref-46" data-k="chen2020soundspaces">46</a>]</cite> are the main consumers.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch6.S5.SS1.SSS1"><span class="secnum">6.5.1.1</span>Task Definition<a class="anchor" href="#Ch6.S5.SS1.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch6.S5.SS1.SSS1.p1" class="ltx_para">
+<p class="ltx_p">The input is an audio stream <math id="Ch6.S5.SS1.SSS1.p1.m1" alttext="A" display="inline" data-pagefind-ignore="all"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> (mono, binaural, or multichannel, optionally ambisonic <cite class="cites">[<a class="cite" href="/read/references/#ref-326" data-k="zotter2019ambisonics">326</a>]</cite>) time-aligned with a video <math id="Ch6.S5.SS1.SSS1.p1.m2" alttext="V" display="inline" data-pagefind-ignore="all"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> (RGB, depth, or multi-view) of the same interval; the audio may contain zero, one, or several sources, and the video may show silent objects that look like sounders. The output localizes the sounding entity in a form that depends on the variant: a 2D heatmap or mask, a face or body box with a speaking state, an event class with its temporal extent and direction of arrival (DOA, azimuth and elevation) and optionally distance <cite class="cites">[<a class="cite" href="/read/references/#ref-1065" data-k="politis2023dataset">1065</a>]</cite>, a 2D location with depth, or a 3D point or trajectory in camera or world coordinates. When the source is off screen or silent, the correct output is a null prediction rather than the nearest plausible object.</p>
+</div>
+<div id="Ch6.S5.SS1.SSS1.p2" class="ltx_para">
+<p class="ltx_p">Five variants are in common use. Visual sound source localization (VSSL) highlights the sounding region of a frame or clip as a class-agnostic heatmap, in single- and multi-source settings and increasingly with negative or off-screen audio as a robustness test. Active speaker detection (ASD) decides who is speaking and localizes the talker as a face track, often under streaming constraints <cite class="cites">[<a class="cite" href="/read/references/#ref-1064" data-k="tao2021talknet">1064</a>]</cite>. Audio-visual sound event localization and detection (AV-SELD) couples what and when with where: event class, temporal extent, DOA, and in recent benchmarks distance <cite class="cites">[<a class="cite" href="/read/references/#ref-1065" data-k="politis2023dataset">1065</a>]</cite>. The 2.5D variant adds depth or range to a 2D localization from monocular depth <cite class="cites">[<a class="cite" href="/read/references/#ref-140" data-k="DepthAnything">140</a>]</cite>, stereo, or echoes <cite class="cites">[<a class="cite" href="/read/references/#ref-328" data-k="gao2020visualechoes">328</a>]</cite>; and 3D DOA estimation returns a spatial bearing, whereas source-position or trajectory estimation additionally uses range or triangulation constraints from calibrated cameras, arrays, or egocentric rigs <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch6.S5.SS1.SSS2"><span class="secnum">6.5.1.2</span>Methodology<a class="anchor" href="#Ch6.S5.SS1.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch6.S5.SS1.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Figure <a href="/read/6.5/#Ch6.F26" class="xref" data-x="Ch6.F26"><span>6.26</span></a> maps the five variants onto four method families.</p>
+</div>
+<figure id="Ch6.F26" class="ltx_figure"><img src="/assets/figures/figures/part3/section6/audio_video_spatial_localization.webp" id="Ch6.F26.g1" class="fig-img" alt="" width="2000" height="1031" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 6.26</span><span>Audio-visual spatial localization. <span class="ltx_font_italic">Top</span>: task outputs for (i) VSSL, (ii) ASD, (iii) AV-SELD, (iv) 2.5D localization, and (v) 3D localization and tracking. <span class="ltx_font_italic">Bottom</span>: method families (A) cross-modal correspondence, (B) audio–lip synchrony, (C) joint spatial event prediction, and (D) geometric lifting or fusion; neutral connectors mark principal task–family associations, not computational flow. Directional arrows inside panels indicate prediction or information flow. The 2.5D panel links a selected image location to depth; 3D position additionally requires range or triangulation constraints. Scene imagery and overlays are illustrative.</span></figcaption>
+</figure>
+<section id="Ch6.S5.SS1.SSS2.Px1">
+<div id="Ch6.S5.SS1.SSS2.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Cross-Modal Correspondence (VSSL).</strong> VSSL is learned almost entirely without location labels, from the co-occurrence of sound and image. An audio encoder maps the clip to an embedding <math id="Ch6.S5.SS1.SSS2.Px1.p1.m1" alttext="\mathbf{a}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐚</mi><annotation encoding="application/x-tex">\mathbf{a}</annotation></semantics></math>, a visual encoder maps the frame to a feature map <math id="Ch6.S5.SS1.SSS2.Px1.p1.m2" alttext="\mathbf{v}(\mathbf{x})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐯</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{v}(\mathbf{x})</annotation></semantics></math>, and the localization map is the per-position similarity</p>
+<table id="Ch6.E44" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E44.m1" alttext="S(\mathbf{x})=\frac{\mathbf{a}^{\top}\mathbf{v}(\mathbf{x})}{\|\mathbf{a}\|\,%
+\|\mathbf{v}(\mathbf{x})\|}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mfrac><mrow><msup><mi>𝐚</mi><mo>⊤</mo></msup><mo>⁢</mo><mi>𝐯</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mrow><mrow><mo stretchy="false">‖</mo><mi>𝐚</mi><mo stretchy="false">‖</mo></mrow><mo lspace="0.170em">⁢</mo><mrow><mo stretchy="false">‖</mo><mrow><mi>𝐯</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">‖</mo></mrow></mrow></mfrac></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">S(\mathbf{x})=\frac{\mathbf{a}^{\top}\mathbf{v}(\mathbf{x})}{\|\mathbf{a}\|\,%
+\|\mathbf{v}(\mathbf{x})\|},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.44)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">trained so that matching audio-image pairs score higher than mismatched ones <cite class="cites">[<a class="cite" href="/read/references/#ref-1066" data-k="senocak2018learning">1066</a>, <a class="cite" href="/read/references/#ref-399" data-k="owens2018audio">399</a>]</cite>; Sound of Pixels <cite class="cites">[<a class="cite" href="/read/references/#ref-400" data-k="zhao2018sound">400</a>]</cite> instead mixes two clips and asks the network to separate them conditioned on pixel features, which forces the same alignment. Later work targets the failure modes of co-occurrence. LVS <cite class="cites">[<a class="cite" href="/read/references/#ref-1067" data-k="chen2021localizing">1067</a>]</cite> mines hard negatives inside the same image (regions that look like sounders but do not match the audio) and introduces VGG-SS with explicit negative-audio evaluation; deep multimodal clustering <cite class="cites">[<a class="cite" href="/read/references/#ref-1068" data-k="hu2019deep">1068</a>]</cite> and coarse-to-fine mixture objectives <cite class="cites">[<a class="cite" href="/read/references/#ref-1069" data-k="qian2020multiple">1069</a>]</cite> handle several sources at once; and SLAVC <cite class="cites">[<a class="cite" href="/read/references/#ref-1070" data-k="mo2022closer">1070</a>]</cite> shows that earlier methods depend on early stopping and adds momentum encoders and extreme visual dropout so that the alignment does not collapse onto background.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS1.SSS2.Px2">
+<div id="Ch6.S5.SS1.SSS2.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Audio–Lip Alignment (ASD).</strong> ASD runs a face detector and tracker and then decides, per track and per frame, whether the visible mouth produced the audio. The decision rests on audio-visual synchrony: a visual encoder over the lip region and an audio encoder over the spectrogram are compared across time <cite class="cites">[<a class="cite" href="/read/references/#ref-330" data-k="afouras2020self">330</a>]</cite>, and TalkNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1064" data-k="tao2021talknet">1064</a>]</cite> adds long-term temporal modeling of both streams with cross-attention, which is what separates a brief pause from a non-speaker. Active Speakers in Context <cite class="cites">[<a class="cite" href="/read/references/#ref-1071" data-k="alcazar2020active">1071</a>]</cite> scores each candidate jointly with the other faces in the frame, and ASDNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1072" data-k="kopuklu2021how">1072</a>]</cite> makes the three stages explicit (per-frame audio-visual encoding, inter-speaker relation modeling, temporal modeling), with each stage trained for its role.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS1.SSS2.Px3">
+<div id="Ch6.S5.SS1.SSS2.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Joint Event and DOA Prediction (AV-SELD).</strong> SELDnet <cite class="cites">[<a class="cite" href="/read/references/#ref-1073" data-k="adavanne2018sound">1073</a>]</cite> set the template: a convolutional recurrent network over multichannel spectrogram features with two heads, one classifying active events per frame and one regressing their DOA. ACCDOA <cite class="cites">[<a class="cite" href="/read/references/#ref-1074" data-k="shimada2021accdoa">1074</a>]</cite> folds the two into one output, a vector per class whose direction is the DOA and whose length is the activity, which removes the need to balance two losses; the DCASE challenge tracks <cite class="cites">[<a class="cite" href="/read/references/#ref-1075" data-k="politis2020overview">1075</a>]</cite> standardized the protocol, and STARSS23 <cite class="cites">[<a class="cite" href="/read/references/#ref-1065" data-k="politis2023dataset">1065</a>]</cite> added video and source distance.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS1.SSS2.Px4">
+<div id="Ch6.S5.SS1.SSS2.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Geometric Lifting (2.5D and 3D).</strong> Lifting a 2D localization to metric space uses geometry rather than learned correspondence alone. VisualEchoes <cite class="cites">[<a class="cite" href="/read/references/#ref-328" data-k="gao2020visualechoes">328</a>]</cite> shows that echoes of an emitted chirp carry depth: the time and spectrum of the return, fused with the image, improve monocular depth estimation and give the 2.5D variant its range. Audio-visual spatial alignment <cite class="cites">[<a class="cite" href="/read/references/#ref-331" data-k="morgado2020learning">331</a>]</cite> learns representations by predicting whether 360<sup>∘</sup> video and ambisonic audio are spatially consistent, a pretext that encodes direction, and self-supervised spatial audio generation <cite class="cites">[<a class="cite" href="/read/references/#ref-329" data-k="morgado2018self">329</a>]</cite> learns the inverse mapping from 360<sup>∘</sup> video to ambisonics. Full 3D systems combine classical array processing (time differences of arrival from GCC-PHAT <cite class="cites">[<a class="cite" href="/read/references/#ref-1076" data-k="knapp1976generalized">1076</a>]</cite>, steered-response-power beamforming <cite class="cites">[<a class="cite" href="/read/references/#ref-1077" data-k="dibiase2001robust">1077</a>]</cite>) with calibrated cameras and triangulation, and in simulation (SoundSpaces <cite class="cites">[<a class="cite" href="/read/references/#ref-46" data-k="chen2020soundspaces">46</a>, <a class="cite" href="/read/references/#ref-47" data-k="chen2022soundspaces">47</a>]</cite>) with the agent’s own motion.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch6.S5.SS1.SSS3"><span class="secnum">6.5.1.3</span>Datasets and Metrics<a class="anchor" href="#Ch6.S5.SS1.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch6.S5.SS1.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Table <a href="/read/6.5/#Ch6.T31" class="xref" data-x="Ch6.T31"><span>6.31</span></a> pairs each variant with its benchmarks and metrics; there is no shared benchmark across variants because their outputs differ.</p>
+</div>
+<figure id="Ch6.T31" class="ltx_table">
+<figcaption><span class="cap-tag">Table 6.31</span><span>AV-SL task variants with representative datasets, outputs, and metrics. Newer VSSL test suites add negative or off-screen audio to measure robustness.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:52.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold" style="font-size:90%;">Task</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:147.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold" style="font-size:90%;">Representative Datasets</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold" style="font-size:90%;">Primary Outputs</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_middle ltx_border_tt" style="width:104.1pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold" style="font-size:90%;">Typical Metrics</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:52.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">VSSL (2D)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:147.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">Flickr-SoundNet </span><cite class="cites">[<a class="cite" href="/read/references/#ref-1066" data-k="senocak2018learning">1066</a>]</cite><span style="font-size:90%;">, MUSIC </span><cite class="cites">[<a class="cite" href="/read/references/#ref-400" data-k="zhao2018sound">400</a>]</cite><span style="font-size:90%;">, VGG-SS </span><cite class="cites">[<a class="cite" href="/read/references/#ref-1067" data-k="chen2021localizing">1067</a>]</cite><span style="font-size:90%;"> (from VGG-Sound </span><cite class="cites">[<a class="cite" href="/read/references/#ref-1078" data-k="chen2020vggsound">1078</a>]</cite><span style="font-size:90%;">), AVSBench </span><cite class="cites">[<a class="cite" href="/read/references/#ref-1079" data-k="zhou2022avs">1079</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">heatmap / mask</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_middle ltx_border_t" style="width:104.1pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">cIoU, AUC; AP with negatives</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">ASD</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">AVA-ActiveSpeaker </span><cite class="cites">[<a class="cite" href="/read/references/#ref-1080" data-k="roth2020ava">1080</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">talker boxes + speaking state</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_middle" style="width:104.1pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">mAP</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">AV-SELD</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">STARSS23 </span><cite class="cites">[<a class="cite" href="/read/references/#ref-1065" data-k="politis2023dataset">1065</a>]</cite><span style="font-size:90%;">, DCASE SELD tracks </span><cite class="cites">[<a class="cite" href="/read/references/#ref-1075" data-k="politis2020overview">1075</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">event + time + DOA (+ distance)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_middle" style="width:104.1pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">F-score, error rate, DOA error, distance error</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">2.5D</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">Replica / Matterport3D echo splits </span><cite class="cites">[<a class="cite" href="/read/references/#ref-328" data-k="gao2020visualechoes">328</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">2D + depth</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_middle" style="width:104.1pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">AbsRel, RMSE</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:52.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">3D DOA / trajectory</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:147.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">STARSS23 positions </span><cite class="cites">[<a class="cite" href="/read/references/#ref-1065" data-k="politis2023dataset">1065</a>]</cite><span style="font-size:90%;">, SoundSpaces </span><cite class="cites">[<a class="cite" href="/read/references/#ref-46" data-k="chen2020soundspaces">46</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">DOA / 3D point / trajectory</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_middle ltx_border_bb" style="width:104.1pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span style="font-size:90%;">angular error, positional error</span></span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+<div id="Ch6.S5.SS1.SSS3.p2" class="ltx_para">
+<p class="ltx_p">VSSL is scored by thresholding the localization map and computing its IoU with the annotated region (cIoU, the fraction of test images above 0.5) and the area under the IoU-threshold curve (AUC) <cite class="cites">[<a class="cite" href="/read/references/#ref-1066" data-k="senocak2018learning">1066</a>]</cite>; the extended VGG-SS and Flickr protocols add clips whose audio has no visible source and report average precision over the decision to localize at all <cite class="cites">[<a class="cite" href="/read/references/#ref-1067" data-k="chen2021localizing">1067</a>, <a class="cite" href="/read/references/#ref-1070" data-k="mo2022closer">1070</a>]</cite>. ASD uses detection-style mAP over face tracks with speaking labels <cite class="cites">[<a class="cite" href="/read/references/#ref-1080" data-k="roth2020ava">1080</a>]</cite>. SELD combines detection (F-score, error rate) with localization (DOA error, localization recall) <cite class="cites">[<a class="cite" href="/read/references/#ref-1075" data-k="politis2020overview">1075</a>]</cite>, with distance error added in STARSS23 <cite class="cites">[<a class="cite" href="/read/references/#ref-1065" data-k="politis2023dataset">1065</a>]</cite>; 2.5D inherits the depth metrics of Section <a href="/read/6.2/#Ch6.S2.SS1" class="xref" data-x="Ch6.S2.SS1"><span>6.2.1</span></a>, and 3D settings report angular and positional error.</p>
+</div>
+<div id="Ch6.S5.SS1.SSS3.p3" class="ltx_para">
+<p class="ltx_p">Table <a href="/read/6.5/#Ch6.T32" class="xref" data-x="Ch6.T32"><span>6.32</span></a> collects the two variants with a stable leaderboard. On VSSL the negative-audio protocol changes the ranking: LVS leads the earlier methods on the standard Flickr test but drops to 9.8 AP when silent clips are mixed in, whereas SLAVC holds both. ASD on AVA-ActiveSpeaker has moved from 79.2 mAP for the dataset baseline to above 93 with explicit temporal and inter-speaker modeling, and the remaining differences among top systems are about latency and streaming rather than accuracy. AV-SELD has no such table: each DCASE edition changes the data and the metric, and the STARSS23 distance extension is not comparable to the DOA-only tracks that SELDnet and ACCDOA were evaluated on.</p>
+</div>
+<figure id="Ch6.T32" class="ltx_table">
+<figcaption><span class="cap-tag">Table 6.32</span><span>Visual sound source localization and active speaker detection. VSSL: cIoU (%) on the Flickr-SoundNet and VGG-SS test sets, and AP (%) on their extended versions with negative audio, all models trained on VGG-Sound 144k, as reported in the SLAVC comparison <cite class="cites">[<a class="cite" href="/read/references/#ref-1070" data-k="mo2022closer">1070</a>]</cite>. ASD: mAP (%) on AVA-ActiveSpeaker val, from the TalkNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1064" data-k="tao2021talknet">1064</a>]</cite> and ASDNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1072" data-k="kopuklu2021how">1072</a>]</cite> papers.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr" style="background-color:#C9CBD1;">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;" colspan="6">
+<math id="Ch6.T32.m1" style="background-color:#C9CBD1;" alttext="\bullet" display="inline" data-pagefind-ignore="all"><semantics><mo mathbackground="#C9CBD1">∙</mo><annotation encoding="application/x-tex">\bullet</annotation></semantics></math><span style="background-color:#C9CBD1;"> <span class="ltx_font_italic">Visual sound source localization</span></span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Design</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Flickr cIoU</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">VGG-SS cIoU</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Ext. Flickr AP</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Ext. VGG-SS AP</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Attention10k <cite class="cites">[<a class="cite" href="/read/references/#ref-1066" data-k="senocak2018learning">1066</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Audio-guided attention</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">42.3</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">18.5</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">DMC <cite class="cites">[<a class="cite" href="/read/references/#ref-1068" data-k="hu2019deep">1068</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Multimodal clustering</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">55.6</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">23.9</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LVS <cite class="cites">[<a class="cite" href="/read/references/#ref-1067" data-k="chen2021localizing">1067</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Hard negatives</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">71.9</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">34.4</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">9.8</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">5.2</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SLAVC <cite class="cites">[<a class="cite" href="/read/references/#ref-1070" data-k="mo2022closer">1070</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Momentum encoder, dropout</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">83.2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">37.2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">51.6</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">33.0</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" style="background-color:#C9CBD1;">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;" colspan="6">
+<math id="Ch6.T32.m2" style="background-color:#C9CBD1;" alttext="\bullet" display="inline" data-pagefind-ignore="all"><semantics><mo mathbackground="#C9CBD1">∙</mo><annotation encoding="application/x-tex">\bullet</annotation></semantics></math><span style="background-color:#C9CBD1;"> <span class="ltx_font_italic">Active speaker detection (AVA-ActiveSpeaker val, mAP)</span></span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Design</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">mAP</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">AVA baseline <cite class="cites">[<a class="cite" href="/read/references/#ref-1080" data-k="roth2020ava">1080</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Audio-visual fusion</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">79.2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ASC <cite class="cites">[<a class="cite" href="/read/references/#ref-1071" data-k="alcazar2020active">1071</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Inter-speaker context</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">87.1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TalkNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1064" data-k="tao2021talknet">1064</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Long-term temporal, cross-attention</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">92.3</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ASDNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1072" data-k="kopuklu2021how">1072</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:112.7pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Three-stage architecture</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">93.5</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:39.0pt;padding-left:3.4pt;padding-right:3.4pt;"></td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch6.S5.SS1.SSS4"><span class="secnum">6.5.1.4</span>Challenges<a class="anchor" href="#Ch6.S5.SS1.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch6.S5.SS1.SSS4.p1" class="ltx_para">
+<p class="ltx_p">Co-occurrence is not causation. A model that has learned which objects usually make which sounds will localize a guitar whether or not it is playing, and the negative-audio protocols <cite class="cites">[<a class="cite" href="/read/references/#ref-1067" data-k="chen2021localizing">1067</a>, <a class="cite" href="/read/references/#ref-1070" data-k="mo2022closer">1070</a>]</cite> exist because the standard tests rewarded exactly this; the open problem is grounding on the acoustic evidence itself, which matters most for off-screen and silent cases where the right answer is no localization.</p>
+</div>
+<div id="Ch6.S5.SS1.SSS4.p2" class="ltx_para">
+<p class="ltx_p">Going from 2D saliency to metric 3D requires semantics and geometry together. Depth foundation models <cite class="cites">[<a class="cite" href="/read/references/#ref-140" data-k="DepthAnything">140</a>]</cite> (Section <a href="/read/6.2/#Ch6.S2.SS1" class="xref" data-x="Ch6.S2.SS1"><span>6.2.1</span></a>) and self-supervised visual features <cite class="cites">[<a class="cite" href="/read/references/#ref-958" data-k="dinov2">958</a>]</cite> now supply priors that AV-SL pipelines previously learned from scratch, and STARSS23’s joint event, time, DOA, and distance protocol <cite class="cites">[<a class="cite" href="/read/references/#ref-1065" data-k="politis2023dataset">1065</a>]</cite> is the first benchmark that scores all four at once; multi-object objectives for overlapping events are the current frontier there.</p>
+</div>
+<div id="Ch6.S5.SS1.SSS4.p3" class="ltx_para">
+<p class="ltx_p">Multiple simultaneous sources, identity through occlusion, and on-screen/off-screen transitions over long videos <cite class="cites">[<a class="cite" href="/read/references/#ref-1069" data-k="qian2020multiple">1069</a>, <a class="cite" href="/read/references/#ref-1081" data-k="tian2018audio">1081</a>]</cite> are the AV-SL form of the identity problem of Section <a href="/read/6.4/#Ch6.S4.SS2" class="xref" data-x="Ch6.S4.SS2"><span>6.4.2</span></a> and the pose-continuity problem of Section <a href="/read/6.2/#Ch6.S2.SS5" class="xref" data-x="Ch6.S2.SS5"><span>6.2.5</span></a>. Streaming use adds causal encoders, low-latency fusion, calibration drift, and graceful fallback when one modality is missing <cite class="cites">[<a class="cite" href="/read/references/#ref-1064" data-k="tao2021talknet">1064</a>, <a class="cite" href="/read/references/#ref-1072" data-k="kopuklu2021how">1072</a>]</cite>.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch6.S5.SS2"><span class="secnum">6.5.2</span>Vision-Language Grounding<a class="anchor" href="#Ch6.S5.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch6.S5.SS2.p1" class="ltx_para">
+<p class="ltx_p">Vision-language grounding ties a linguistic reference to the element of a scene it denotes. Given <span class="ltx_font_italic">“Put your hand on the small mug on the right side of the table behind the blue book”</span>, a grounded system must resolve the noun phrase, its attributes, and its spatial relations to one particular mug in the image; this referential link is what instruction following, multimodal dialogue, and human-robot interaction build on.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch6.S5.SS2.SSS1"><span class="secnum">6.5.2.1</span>Task Definition<a class="anchor" href="#Ch6.S5.SS2.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch6.S5.SS2.SSS1.p1" class="ltx_para">
+<p class="ltx_p">The input is a scene <math id="Ch6.S5.SS2.SSS1.p1.m1" alttext="S" display="inline" data-pagefind-ignore="all"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> (an image, a video, or a 3D environment) and a query <math id="Ch6.S5.SS2.SSS1.p1.m2" alttext="Q" display="inline" data-pagefind-ignore="all"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>, from a bare noun phrase (“the red cup”) to a sentence with attributes, relations, actions, or an implicit goal (“the person who is waving”, “something to open the box with”). The output <math id="Ch6.S5.SS2.SSS1.p1.m3" alttext="\mathcal{R}(Q,S)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ℛ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>Q</mi><mo>,</mo><mi>S</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{R}(Q,S)</annotation></semantics></math> is the referred region in the form the variant requires: a box, a mask, a set of regions (possibly empty), a per-frame mask track, or a 3D box. Two formulations recur through the methods below: ranking a set of candidate regions <math id="Ch6.S5.SS2.SSS1.p1.m4" alttext="r" display="inline" data-pagefind-ignore="all"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> by a cross-modal score, or regressing the region directly,</p>
+<table id="Ch6.E45" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch6.E45.m1" alttext="\hat{r}=\arg\max_{r\in\mathcal{C}(S)}s\big{(}\phi(Q),\psi(S,r)\big{)}\qquad%
+\text{or}\qquad\hat{r}=f_{\theta}(S,Q)," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mover accent="true"><mi>r</mi><mo>^</mo></mover><mo>=</mo><mrow><mrow><mrow><mi>arg</mi><mo lspace="0.167em">⁡</mo><mrow><munder><mi>max</mi><mrow><mi>r</mi><mo>∈</mo><mrow><mi>𝒞</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>S</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></munder><mo lspace="0.167em">⁡</mo><mi>s</mi></mrow></mrow><mo>⁢</mo><mrow><mo maxsize="120%" minsize="120%">(</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>Q</mi><mo stretchy="false">)</mo></mrow></mrow><mo>,</mo><mrow><mi>ψ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>S</mi><mo>,</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="120%" minsize="120%">)</mo></mrow></mrow><mspace width="2em"></mspace><mtext>or</mtext></mrow></mrow><mspace width="2em"></mspace><mrow><mover accent="true"><mi>r</mi><mo>^</mo></mover><mo>=</mo><mrow><msub><mi>f</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>S</mi><mo>,</mo><mi>Q</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{r}=\arg\max_{r\in\mathcal{C}(S)}s\big{(}\phi(Q),\psi(S,r)\big{)}\qquad%
+\text{or}\qquad\hat{r}=f_{\theta}(S,Q),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6.45)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">with <math id="Ch6.S5.SS2.SSS1.p1.m5" alttext="\phi" display="inline" data-pagefind-ignore="all"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> and <math id="Ch6.S5.SS2.SSS1.p1.m6" alttext="\psi" display="inline" data-pagefind-ignore="all"><semantics><mi>ψ</mi><annotation encoding="application/x-tex">\psi</annotation></semantics></math> the text and region encoders and <math id="Ch6.S5.SS2.SSS1.p1.m7" alttext="\mathcal{C}(S)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒞</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>S</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{C}(S)</annotation></semantics></math> a proposal set.</p>
+</div>
+<figure id="Ch6.F27" class="ltx_figure"><img src="/assets/figures/figures/part3/section6/visual_language_graounding_task.webp" id="Ch6.F27.g1" class="fig-img" alt="" width="2000" height="475" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 6.27</span><span>Vision-language grounding task variants: (i) REC / RES <cite class="cites">[<a class="cite" href="/read/references/#ref-1082" data-k="yu2016modeling">1082</a>, <a class="cite" href="/read/references/#ref-1083" data-k="mao2016generation">1083</a>]</cite>; (ii) generalized REC / RES with zero, one, or multiple targets <cite class="cites">[<a class="cite" href="/read/references/#ref-1084" data-k="liu2023gres">1084</a>]</cite>; (iii) reasoning grounding <cite class="cites">[<a class="cite" href="/read/references/#ref-1085" data-k="lai2024lisa">1085</a>]</cite>; (iv) video referring and reasoning grounding <cite class="cites">[<a class="cite" href="/read/references/#ref-1086" data-k="luo2026drV">1086</a>]</cite>; (v) 3D and embodied grounding <cite class="cites">[<a class="cite" href="/read/references/#ref-1087" data-k="chen20263d">1087</a>]</cite>.</span></figcaption>
+</figure>
+<div id="Ch6.S5.SS2.SSS1.p2" class="ltx_para">
+<p class="ltx_p">Figure <a href="/read/6.5/#Ch6.F27" class="xref" data-x="Ch6.F27"><span>6.27</span></a> lays out the five variants, which differ in scene modality, output granularity, and query complexity.</p>
+</div>
+<div id="Ch6.S5.SS2.SSS1.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Referring expression comprehension and segmentation (REC / RES).</span> One image, one expression, one target, returned as a box (REC) or a mask (RES). RefCOCO and RefCOCO+ <cite class="cites">[<a class="cite" href="/read/references/#ref-1082" data-k="yu2016modeling">1082</a>]</cite> (short phrases, the latter without location words) and RefCOCOg <cite class="cites">[<a class="cite" href="/read/references/#ref-1083" data-k="mao2016generation">1083</a>]</cite> (longer descriptions), all on MS COCO <cite class="cites">[<a class="cite" href="/read/references/#ref-440" data-k="lin2014microsoft">440</a>]</cite> images collected through ReferItGame <cite class="cites">[<a class="cite" href="/read/references/#ref-1088" data-k="kazemzadeh2014referitgame">1088</a>]</cite> or Mechanical Turk, have been the standard benchmarks for a decade; Flickr30k Entities <cite class="cites">[<a class="cite" href="/read/references/#ref-1089" data-k="plummer2015flickr30k">1089</a>, <a class="cite" href="/read/references/#ref-1090" data-k="young2014image">1090</a>]</cite> grounds every entity mention of a caption at once.</p>
+</div>
+<div id="Ch6.S5.SS2.SSS1.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Generalized REC / RES (GREC / GRES).</span> An expression may match zero, one, or several objects (“the red carrots” versus “the unicorn”), which single-target methods cannot represent. gRefCOCO <cite class="cites">[<a class="cite" href="/read/references/#ref-1084" data-k="liu2023gres">1084</a>]</cite>, Ref-ZOM <cite class="cites">[<a class="cite" href="/read/references/#ref-1091" data-k="hu2023beyond">1091</a>]</cite>, PhraseCut <cite class="cites">[<a class="cite" href="/read/references/#ref-1092" data-k="wu2020phrasecut">1092</a>]</cite>, and OmniLabel <cite class="cites">[<a class="cite" href="/read/references/#ref-1093" data-k="schulter2023omnilabel">1093</a>]</cite> evaluate this setting, and MaskGroups-HQ <cite class="cites">[<a class="cite" href="/read/references/#ref-1094" data-k="cao2025refer">1094</a>]</cite> generalizes the prompt itself to arbitrary groups of masks specified by text and reference masks. The output is a set, so the metric must be as well (§Datasets and Metrics).</p>
+</div>
+<div id="Ch6.S5.SS2.SSS1.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Reasoning grounding.</span> Some queries require inference beyond noun matching: “the loser” needs a judgment about the people shown, “turn on the TV” needs the remote. CLEVR-Ref+ <cite class="cites">[<a class="cite" href="/read/references/#ref-1095" data-k="liu2019clevr">1095</a>]</cite> diagnoses this on rendered scenes with ground-truth reasoning programs; ReasonSeg <cite class="cites">[<a class="cite" href="/read/references/#ref-1085" data-k="lai2024lisa">1085</a>]</cite> poses implicit, multi-step queries on real images with mask output, extended by MMR <cite class="cites">[<a class="cite" href="/read/references/#ref-1096" data-k="jang2025mmr">1096</a>]</cite> (194K implicit queries, multi-target and part-level), ReasonSeg-Inst <cite class="cites">[<a class="cite" href="/read/references/#ref-1097" data-k="yang2023lisa++">1097</a>]</cite> (instance level), and MC-Bench <cite class="cites">[<a class="cite" href="/read/references/#ref-1098" data-k="xu2024mcbench">1098</a>]</cite> (instances across image pairs). Ref-Adv <cite class="cites">[<a class="cite" href="/read/references/#ref-1099" data-k="dong2026ref">1099</a>]</cite> keeps the classic REC format but makes expressions minimally sufficient, negation-heavy, and paired with same-category distractors.</p>
+</div>
+<div id="Ch6.S5.SS2.SSS1.p6" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Video referring and reasoning grounding.</span> The referent must be found in every frame through motion, appearance change, and occlusion, and the query may name it by what it does (“the man waving his hand”). Refer-Youtube-VOS <cite class="cites">[<a class="cite" href="/read/references/#ref-246" data-k="seo2020urvos">246</a>]</cite>, Refer-DAVIS17 <cite class="cites">[<a class="cite" href="/read/references/#ref-1100" data-k="khoreva2018video">1100</a>]</cite>, A2D- and JHMDB-Sentences <cite class="cites">[<a class="cite" href="/read/references/#ref-1101" data-k="gavrilyuk2018actor">1101</a>]</cite>, MeViS <cite class="cites">[<a class="cite" href="/read/references/#ref-1102" data-k="ding2023mevis">1102</a>]</cite>, ReVOS <cite class="cites">[<a class="cite" href="/read/references/#ref-1103" data-k="yan2024visa">1103</a>]</cite>, and ReasonVOS <cite class="cites">[<a class="cite" href="/read/references/#ref-1104" data-k="bai2024one">1104</a>]</cite> add language to existing segmentation and actor-action datasets; Ref-VPS <cite class="cites">[<a class="cite" href="/read/references/#ref-1105" data-k="bagchi2025refereverything">1105</a>]</cite> extends the referent from objects to processes such as smoke spreading or waves breaking, which have no object boundary at all. Tracking machinery is usually folded in to carry identity across frames <cite class="cites">[<a class="cite" href="/read/references/#ref-1106" data-k="fang2025decoupled">1106</a>]</cite>.</p>
+</div>
+<div id="Ch6.S5.SS2.SSS1.p7" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">3D and embodied grounding.</span> The scene is a point cloud or a set of views, and the query refers to an object in 3D (“the chair next to the window”). ScanRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-373" data-k="chen2020scanrefer">373</a>]</cite> requires detecting the referent as a 3D box and Multi3DRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-1107" data-k="zhang2023multi3drefer">1107</a>]</cite> allows zero to many targets; ReferIt3D <cite class="cites">[<a class="cite" href="/read/references/#ref-374" data-k="achlioptas2020referit3d">374</a>]</cite> provides the object instances and scores selection among them; Instruct3D <cite class="cites">[<a class="cite" href="/read/references/#ref-1108" data-k="he2024segpoint">1108</a>]</cite> and Multi3DRes <cite class="cites">[<a class="cite" href="/read/references/#ref-1109" data-k="wu20243d">1109</a>]</cite> ask for point-level masks from instruction-style queries. Embodied grounding makes the output an action: an agent told “go pick up the red cup on the right” must identify the cup and reach it <cite class="cites">[<a class="cite" href="/read/references/#ref-201" data-k="zhen20243d">201</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch6.S5.SS2.SSS2"><span class="secnum">6.5.2.2</span>Methodology<a class="anchor" href="#Ch6.S5.SS2.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><figure id="Ch6.F28" class="ltx_figure"><img src="/assets/figures/figures/part3/section6/visual_language_graounding_method.webp" id="Ch6.F28.g1" class="fig-img" alt="" width="2000" height="417" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 6.28</span><span>Vision-language grounding method families: (i) proposal ranking, (ii) compositional reasoning, (iii) end-to-end grounding, (iv) grounded pre-training, (v) foundation models, and (vi) tool-augmented agents. Panels (i)-(iv) correspond to families (A)-(D) in the text, (v) to (E)-(F), and (vi) to (G); family (H), generation for grounding, is not depicted.</span></figcaption>
+</figure>
+<div id="Ch6.S5.SS2.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Figure <a href="/read/6.5/#Ch6.F28" class="xref" data-x="Ch6.F28"><span>6.28</span></a> organizes the methods into eight families, (A) to (H). They are trajectories rather than eras: the oldest paradigm has resurfaced at foundation-model scale.</p>
+</div>
+<section id="Ch6.S5.SS2.SSS2.Px1">
+<div id="Ch6.S5.SS2.SSS2.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">(A) Proposal Ranking.</strong> The first grounding models instantiate the ranking form of Eq. (<a href="/read/6.5/#Ch6.E45" class="xref" data-x="Ch6.E45"><span>6.45</span></a>): detect region proposals, embed them and the query in a joint space, and pick the best-scoring region. Deep Fragment Embeddings <cite class="cites">[<a class="cite" href="/read/references/#ref-1110" data-k="karpathy2014deep">1110</a>]</cite> aligned sentence fragments with detected regions, and scene-graph CRFs <cite class="cites">[<a class="cite" href="/read/references/#ref-598" data-k="johnson2015image">598</a>]</cite> grounded structured queries to regions for retrieval. Proposal quality bounded these methods and context-dependent expressions defeated them. The same two-stage shape has returned with far stronger proposals: RAS <cite class="cites">[<a class="cite" href="/read/references/#ref-1094" data-k="cao2025refer">1094</a>]</cite> has a segmentation foundation model propose candidate masks and a mask-centric multimodal LLM <em class="ltx_font_italic">select</em> the group that satisfies the prompt, and this non-autoregressive selection beats mask generation in both accuracy and latency.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS2.SSS2.Px2">
+<div id="Ch6.S5.SS2.SSS2.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">(B) Compositional Reasoning.</strong> Modular networks parse the expression and route its parts to dedicated modules. CMN <cite class="cites">[<a class="cite" href="/read/references/#ref-1111" data-k="hu2017modeling">1111</a>]</cite> decomposes an expression into a subject–relationship–object triplet handled by localization and relationship modules; MAttNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1112" data-k="yu2018mattnet">1112</a>]</cite> soft-parses phrases into appearance, location, and relationship attention modules; dynamic graph attention <cite class="cites">[<a class="cite" href="/read/references/#ref-1113" data-k="yang2019dynamic">1113</a>]</cite> reasons over the linguistic structure on a scene graph. These models disambiguate compositional queries (“the man behind the woman in red”) but inherit every parsing error.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS2.SSS2.Px3">
+<div id="Ch6.S5.SS2.SSS2.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">(C) End-to-End Grounding.</strong> The regression form of Eq. (<a href="/read/6.5/#Ch6.E45" class="xref" data-x="Ch6.E45"><span>6.45</span></a>) removes proposals: a single network fuses the sentence embedding with the image feature map and predicts the box. One-Stage Grounding <cite class="cites">[<a class="cite" href="/read/references/#ref-1114" data-k="yang2019fast">1114</a>]</cite> did this with a detector head, TransVG <cite class="cites">[<a class="cite" href="/read/references/#ref-1115" data-k="deng2021transvg">1115</a>]</cite> with a pure Transformer in which a learnable token attends over visual and textual tokens and regresses coordinates. On the segmentation side, CRIS <cite class="cites">[<a class="cite" href="/read/references/#ref-245" data-k="wang2022cris">245</a>]</cite> transfers CLIP’s image-text alignment to the pixel level with text-to-pixel contrastive learning and made end-to-end RES the standard formulation.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS2.SSS2.Px4">
+<div id="Ch6.S5.SS2.SSS2.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">(D) Grounded Pre-Training.</strong> Phrase-region alignment learned at scale turned grounding into an open-vocabulary capability. MDETR <cite class="cites">[<a class="cite" href="/read/references/#ref-360" data-k="kamath2021mdetr">360</a>]</cite> trains a DETR-style set predictor on text-aligned detection corpora so that every box is tied to a span of the caption; GLIP <cite class="cites">[<a class="cite" href="/read/references/#ref-361" data-k="li2022grounded">361</a>]</cite> reformulates detection as phrase grounding and scales to 27M region-caption pairs, giving zero-shot transfer; RegionCLIP <cite class="cites">[<a class="cite" href="/read/references/#ref-351" data-k="zhong2022regionclip">351</a>]</cite> adds region-level contrastive alignment, and Grounding DINO <cite class="cites">[<a class="cite" href="/read/references/#ref-362" data-k="liu2024grounding">362</a>]</cite> deep language fusion at every stage of a DINO detector, which made it the default open-vocabulary detector of later tool chains (family (G)). The residual weakness is the <em class="ltx_font_italic">entity shortcut</em>: models latch onto object names and ignore the description. DesCo <cite class="cites">[<a class="cite" href="/read/references/#ref-1116" data-k="li2023desco">1116</a>]</cite> counters it in the data, pre-training on LLM-generated rich descriptions with context-sensitive negative queries, which raises description-conditioned detection on LVIS and OmniLabel.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS2.SSS2.Px5">
+<div id="Ch6.S5.SS2.SSS2.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">(E) Grounding MLLMs.</strong> The first multimodal LLMs built for grounding gave the language backbone a region interface. Kosmos-2 <cite class="cites">[<a class="cite" href="/read/references/#ref-1117" data-k="peng2023kosmos">1117</a>]</cite> emits location tokens that hyperlink phrases to boxes inside the generated text; Ferret <cite class="cites">[<a class="cite" href="/read/references/#ref-1118" data-k="you2023ferret">1118</a>]</cite> and Ferret-v2 <cite class="cites">[<a class="cite" href="/read/references/#ref-1119" data-k="zhang2024ferret">1119</a>]</cite> encode boxes, points, and free-form regions as inputs at any resolution. Mask output comes from attaching a decoder: LISA <cite class="cites">[<a class="cite" href="/read/references/#ref-1085" data-k="lai2024lisa">1085</a>]</cite> decodes a dedicated segmentation token’s embedding into a mask, which is what makes reasoning segmentation possible, and LISA++ <cite class="cites">[<a class="cite" href="/read/references/#ref-1097" data-k="yang2023lisa++">1097</a>]</cite> extends it to instances within a dialogue; GLaMM <cite class="cites">[<a class="cite" href="/read/references/#ref-1120" data-k="rasheed2024glamm">1120</a>]</cite> unifies phrase grounding, referring segmentation, and free-form conversation under a grounded-conversation objective; Sa2VA <cite class="cites">[<a class="cite" href="/read/references/#ref-1121" data-k="yuan2025sa2va">1121</a>]</cite> couples a LLaVA-style backbone to SAM 2 <cite class="cites">[<a class="cite" href="/read/references/#ref-482" data-k="ravi2024sam2">482</a>]</cite> and carries dense grounding from images to video referring segmentation. Moondream 3’s segmentation extension <cite class="cites">[<a class="cite" href="/read/references/#ref-1122" data-k="reid2026moondream">1122</a>]</cite> dispenses with the decoder and writes the mask autoregressively as a vector path, refined by a lightweight head and trained with reinforcement learning on mask overlap.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS2.SSS2.Px6">
+<div id="Ch6.S5.SS2.SSS2.Px6.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">(F) Generalist MLLMs.</strong> A parallel line keeps no grounding component at all: the model writes coordinates as plain text, and grounding is one capability among many. Florence-2 <cite class="cites">[<a class="cite" href="/read/references/#ref-1123" data-k="xiao2024florence">1123</a>]</cite> is the compact case, a sequence-to-sequence model trained on the 5.4B-annotation FLD-5B corpus that casts captioning, detection, grounding, and polygon-vertex segmentation into one text interface, with mask accuracy below the decoder-based models of family (E). The frontier generalists, Gemini <cite class="cites">[<a class="cite" href="/read/references/#ref-1124" data-k="reid2024gemini">1124</a>]</cite>, Qwen2.5-VL and Qwen3-VL <cite class="cites">[<a class="cite" href="/read/references/#ref-1125" data-k="bai2025qwen2.5vl">1125</a>]</cite>, InternVL 2.5 and InternVL 3 <cite class="cites">[<a class="cite" href="/read/references/#ref-1126" data-k="chen2024expanding">1126</a>, <a class="cite" href="/read/references/#ref-1127" data-k="zhu2025internvl3">1127</a>]</cite>, and Seed1.5-VL <cite class="cites">[<a class="cite" href="/read/references/#ref-1128" data-k="guo2025seed1.5vl">1128</a>]</cite>, now match or exceed the specialists on the RefCOCO family from prompting alone (Table <a href="/read/6.5/#Ch6.T34" class="xref" data-x="Ch6.T34"><span>6.34</span></a>); Llama 3 <cite class="cites">[<a class="cite" href="/read/references/#ref-1129" data-k="grattafiori2024llama">1129</a>]</cite> folds phrase-to-box and phrase-to-mask annotations into its multimodal pre-training but reports no REC numbers.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS2.SSS2.Px7">
+<div id="Ch6.S5.SS2.SSS2.Px7.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">(G) Tool-Augmented Agents.</strong> A third line delegates localization to specialist models under an outer control loop, which has moved from fixed pipelines to generated programs to learned tool use. Grounded SAM <cite class="cites">[<a class="cite" href="/read/references/#ref-1130" data-k="ren2024grounded">1130</a>]</cite> chains Grounding DINO boxes into SAM <cite class="cites">[<a class="cite" href="/read/references/#ref-138" data-k="kirillov2023sam">138</a>]</cite> masks without training; ViperGPT <cite class="cites">[<a class="cite" href="/read/references/#ref-1131" data-k="suris2023vipergpt">1131</a>]</cite> has a code LLM write a Python program that calls perception APIs, so that logic and arithmetic are symbolic and perception is delegated, with interpretable intermediate steps. SegAgent <cite class="cites">[<a class="cite" href="/read/references/#ref-1132" data-k="zhu2025segagent">1132</a>]</cite> treats mask annotation as a sequential decision process, imitating the click sequences of human annotators on an interactive segmenter; DeepEyes <cite class="cites">[<a class="cite" href="/read/references/#ref-1133" data-k="zheng2025deepeyes">1133</a>]</cite> internalizes the tool, using reinforcement learning to make the model emit coordinates that trigger zoom-in crops inside its own chain of thought. SAM 3 Agent <cite class="cites">[<a class="cite" href="/read/references/#ref-1134" data-k="carion2025sam">1134</a>]</cite> wraps SAM 3, whose concept prompts return every instance matching a noun phrase, with an MLLM that proposes phrases, inspects the returned masks, and selects those satisfying the full expression, which gives zero-shot referring and reasoning segmentation without grounding-specific training.</p>
+</div>
+</section>
+<section id="Ch6.S5.SS2.SSS2.Px8">
+<div id="Ch6.S5.SS2.SSS2.Px8.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">(H) Generation for Grounding.</strong> The newest family treats a large text-to-image or text-to-video generator as a grounding model, on the premise that generative pre-training already induces a fine-grained map from language to spatial and temporal structure. VD-IT <cite class="cites">[<a class="cite" href="/read/references/#ref-1135" data-k="zhu2024exploring">1135</a>]</cite> uses a frozen text-to-video diffusion model as the feature extractor for referring video segmentation and finds its features more temporally consistent and better aligned with language than discriminative video backbones; ReferEverything <cite class="cites">[<a class="cite" href="/read/references/#ref-1105" data-k="bagchi2025refereverything">1105</a>]</cite> keeps the generator intact and fine-tunes it to predict mask latents decoded by the frozen VAE, which transfers zero-shot to rare objects, “stuff”, and the amorphous processes of Ref-VPS. Vision Banana <cite class="cites">[<a class="cite" href="/read/references/#ref-1136" data-k="gabeur2026image">1136</a>]</cite> instruction-tunes a state-of-the-art image generator to render the task output as an image, segmentation as painting the referred region a prescribed color, and matches specialist systems zero-shot while keeping its generative ability. Grounding quality in this family rises with the underlying generator.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch6.S5.SS2.SSS3"><span class="secnum">6.5.2.3</span>Datasets and Metrics<a class="anchor" href="#Ch6.S5.SS2.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch6.S5.SS2.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Table <a href="/read/6.5/#Ch6.T33" class="xref" data-x="Ch6.T33"><span>6.33</span></a> lists the benchmarks by variant. Annotation cost rises steeply from a 2D box to a per-frame mask to a 3D box, so image-level REC/RES corpora dominate in size and maturity, video referring sets are an order of magnitude smaller, and 3D corpora smaller still. Within the image benchmarks a generational split has opened. RefCOCO/+/g now serve mainly as training corpora: specialists and generalist MLLMs report Acc@0.5 above 90% on them, an audit found label errors in 14%, 24%, and 5% of RefCOCO, RefCOCO+, and RefCOCOg <cite class="cites">[<a class="cite" href="/read/references/#ref-1137" data-k="chen2025revisiting">1137</a>]</cite>, and much of the score survives shuffling the word order of the expression <cite class="cites">[<a class="cite" href="/read/references/#ref-1099" data-k="dong2026ref">1099</a>]</cite>. The evaluation-oriented replacements are built to expose what saturation hides: Ref-L4 <cite class="cites">[<a class="cite" href="/read/references/#ref-1137" data-k="chen2025revisiting">1137</a>]</cite> (cleaned labels, long expressions, a 365-category vocabulary), Ref-Adv <cite class="cites">[<a class="cite" href="/read/references/#ref-1099" data-k="dong2026ref">1099</a>]</cite> (shortcut-suppressed, where the same models fall to roughly 60%), HC-RefLoCo <cite class="cites">[<a class="cite" href="/read/references/#ref-1138" data-k="wei2024hcrefloco">1138</a>]</cite>, GigaGrounding <cite class="cites">[<a class="cite" href="/read/references/#ref-1139" data-k="ma2024gigaground">1139</a>]</cite>, and GroundingME <cite class="cites">[<a class="cite" href="/read/references/#ref-1140" data-k="li2026groundingme">1140</a>]</cite>, which scores discrimination, spatial reasoning, limited visibility, and the rejection of ungroundable queries, and on which the best model resolves 45% of samples while most score zero on rejection.</p>
+</div>
+<figure id="Ch6.T33" class="ltx_table">
+<figcaption><span class="cap-tag">Table 6.33</span><span>Common vision-language grounding tasks with representative datasets and typical evaluation metrics; several tasks share datasets (<span class="ltx_font_italic">e.g.,</span> , RefCOCO underlies both REC and RES).</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Task</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:147.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative Datasets</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Primary Outputs</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:95.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Typical Metrics</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">REC / RES</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:147.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RefCOCO/+/g, Flickr30k Entities, Ref-L4, Ref-Adv, GroundingME</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">box / mask</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Acc@0.5; gIoU / cIoU (RES)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GREC / GRES</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">gRefCOCO, OmniLabel, PhraseCut, Ref-ZOM, MaskGroups-HQ</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">multi-box / multi-mask</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">F1, N-acc, gIoU / cIoU, AP<math id="Ch6.T33.m1" alttext="{}_{\text{descr}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi></mi><mtext>descr</mtext></msub><annotation encoding="application/x-tex">{}_{\text{descr}}</annotation></semantics></math></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Reasoning grounding</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">CLEVR-Ref+, ReasonSeg, ReasonSeg-Inst, MMR, MC-Bench</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">mask (or box)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">gIoU / cIoU, Acc@0.5</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Video referring</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MeViS, Refer-YT-VOS, Refer-DAVIS17, ReVOS, A2D-Sent., Ref-VPS</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">per-frame mask</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch6.T33.m2" alttext="\mathcal{J}\&amp;\mathcal{F}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒥</mi><mo lspace="0.222em" rspace="0.222em">&amp;</mo><mi>ℱ</mi></mrow><annotation encoding="application/x-tex">\mathcal{J}\&amp;\mathcal{F}</annotation></semantics></math>; mAP (A2D-Sent.)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3D / Embodied</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:147.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ScanRefer, ReferIt3D, Multi3DRefer, Instruct3D</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:78.0pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3D box / 3D mask</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:95.4pt;padding-left:4.0pt;padding-right:4.0pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Acc@0.25/0.5, F1@0.5, mIoU</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+<div id="Ch6.S5.SS2.SSS3.p2" class="ltx_para">
+<p class="ltx_p">Every metric here is built on the IoU of predicted and reference regions (Section <a href="/read/6.4/#Ch6.S4.SS2" class="xref" data-x="Ch6.S4.SS2"><span>6.4.2</span></a> gives the mask form). REC reports Accuracy@0.5, the fraction of expressions whose box reaches IoU <math id="Ch6.S5.SS2.SSS3.p2.m1" alttext="\geq 0.5" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi></mi><mo>≥</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">\geq 0.5</annotation></semantics></math>, with stricter thresholds and the threshold-averaged mAcc <cite class="cites">[<a class="cite" href="/read/references/#ref-1137" data-k="chen2025revisiting">1137</a>]</cite> increasingly added; phrase grounding, where several proposals may be returned, reports Recall@<math id="Ch6.S5.SS2.SSS3.p2.m2" alttext="k" display="inline" data-pagefind-ignore="all"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>. For set-valued outputs (GREC / GRES) the prediction is compared with the ground-truth set through per-expression F1 over boxes or masks <cite class="cites">[<a class="cite" href="/read/references/#ref-1091" data-k="hu2023beyond">1091</a>]</cite> and a no-target accuracy for expressions with no referent <cite class="cites">[<a class="cite" href="/read/references/#ref-1084" data-k="liu2023gres">1084</a>]</cite>, and OmniLabel’s AP<math id="Ch6.S5.SS2.SSS3.p2.m3" alttext="{}_{\text{descr}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi></mi><mtext>descr</mtext></msub><annotation encoding="application/x-tex">{}_{\text{descr}}</annotation></semantics></math> computes average precision over free-form descriptions including negative ones <cite class="cites">[<a class="cite" href="/read/references/#ref-1093" data-k="schulter2023omnilabel">1093</a>]</cite>. Segmentation reports two aggregates that differ in weighting: gIoU (also called mIoU) averages per-sample IoU and so weights every expression equally, whereas cIoU accumulates intersection and union over the whole set before dividing and so weights large objects more; reasoning and referring segmentation papers report both <cite class="cites">[<a class="cite" href="/read/references/#ref-1085" data-k="lai2024lisa">1085</a>]</cite>, often with Precision@<math id="Ch6.S5.SS2.SSS3.p2.m4" alttext="X" display="inline" data-pagefind-ignore="all"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> for the distribution of mask quality and a boundary IoU for edge accuracy <cite class="cites">[<a class="cite" href="/read/references/#ref-1122" data-k="reid2026moondream">1122</a>]</cite>. Video referring segmentation uses the <math id="Ch6.S5.SS2.SSS3.p2.m5" alttext="\mathcal{J}\&amp;\mathcal{F}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒥</mi><mo lspace="0.222em" rspace="0.222em">&amp;</mo><mi>ℱ</mi></mrow><annotation encoding="application/x-tex">\mathcal{J}\&amp;\mathcal{F}</annotation></semantics></math> composite of Section <a href="/read/6.4/#Ch6.S4.SS2" class="xref" data-x="Ch6.S4.SS2"><span>6.4.2</span></a>.</p>
+</div>
+<div id="Ch6.S5.SS2.SSS3.p3" class="ltx_para">
+<p class="ltx_p">Table <a href="/read/6.5/#Ch6.T34" class="xref" data-x="Ch6.T34"><span>6.34</span></a> reports the two variants on which the families can be compared. On REC the step from proposal ranking and modular reasoning (MAttNet) to end-to-end regression (TransVG) and then to grounded pre-training (MDETR, Grounding DINO) is about 14 points of RefCOCO Acc@0.5, and the generalist MLLMs (Qwen2.5-VL, InternVL 2.5) sit at or above the best specialist without benchmark-specific training. On RES the grounding MLLMs with a mask decoder have passed the end-to-end specialists (CRIS to Sa2VA is eleven cIoU points on RefCOCO), and Sa2VA’s video columns show the same model carrying over to referring video segmentation; on ReasonSeg, LISA-7B reaches 52.9 gIoU after fine-tuning where open-vocabulary segmenters stay below 30 <cite class="cites">[<a class="cite" href="/read/references/#ref-1085" data-k="lai2024lisa">1085</a>]</cite>. The tool-augmented and generative families are evaluated zero-shot on subsets of these benchmarks and are not directly comparable here. What the table cannot show is cross-variant breadth: methods strong on image REC routinely degrade on video, reasoning, and 3D grounding, and no single architecture leads all five variants.</p>
+</div>
+<figure id="Ch6.T34" class="ltx_table">
+<figcaption><span class="cap-tag">Table 6.34</span><span>Representative grounding methods. REC: Acc@0.5 (%) on RefCOCO val / testA / testB and RefCOCOg val, from the Grounding DINO <cite class="cites">[<a class="cite" href="/read/references/#ref-362" data-k="liu2024grounding">362</a>]</cite>, Ferret <cite class="cites">[<a class="cite" href="/read/references/#ref-1118" data-k="you2023ferret">1118</a>]</cite>, and Qwen2.5-VL <cite class="cites">[<a class="cite" href="/read/references/#ref-1125" data-k="bai2025qwen2.5vl">1125</a>]</cite> comparisons. RES: cIoU (%) on the RefCOCO / RefCOCO+ / RefCOCOg val splits and <math id="Ch6.T34.m2" alttext="\mathcal{J}\&amp;\mathcal{F}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒥</mi><mo lspace="0.222em" rspace="0.222em">&amp;</mo><mi>ℱ</mi></mrow><annotation encoding="application/x-tex">\mathcal{J}\&amp;\mathcal{F}</annotation></semantics></math> on MeViS and Ref-DAVIS17, from the Sa2VA comparison <cite class="cites">[<a class="cite" href="/read/references/#ref-1121" data-k="yuan2025sa2va">1121</a>]</cite> (CRIS from its own paper, ResNet-101).</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr" style="background-color:#C9CBD1;">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;" colspan="6">
+<math id="Ch6.T34.m3" style="background-color:#C9CBD1;" alttext="\bullet" display="inline" data-pagefind-ignore="all"><semantics><mo mathbackground="#C9CBD1">∙</mo><annotation encoding="application/x-tex">\bullet</annotation></semantics></math><span style="background-color:#C9CBD1;"> <span class="ltx_font_italic">Referring expression comprehension (Acc@0.5)</span></span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Family</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_align_middle" style="padding-left:4.3pt;padding-right:4.3pt;" colspan="3"><span class="ltx_font_bold">RefCOCO</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">RefCOCOg</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">val</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">testA</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">testB</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">val</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MAttNet <cite class="cites">[<a class="cite" href="/read/references/#ref-1112" data-k="yu2018mattnet">1112</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(B) modular attention</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">76.7</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">81.1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">70.0</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">66.6</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TransVG <cite class="cites">[<a class="cite" href="/read/references/#ref-1115" data-k="deng2021transvg">1115</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(C) end-to-end Transformer</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">81.0</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">82.7</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">78.4</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">68.7</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MDETR <cite class="cites">[<a class="cite" href="/read/references/#ref-360" data-k="kamath2021mdetr">360</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(D) grounded pre-training</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">86.8</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">89.6</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">81.4</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">81.6</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Grounding DINO-L <cite class="cites">[<a class="cite" href="/read/references/#ref-362" data-k="liu2024grounding">362</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(D) grounded pre-training</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">90.6</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">93.2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">88.2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">86.1</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Ferret-13B <cite class="cites">[<a class="cite" href="/read/references/#ref-1118" data-k="you2023ferret">1118</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(E) grounding MLLM</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">89.5</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">92.4</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">84.4</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">85.8</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Qwen2.5-VL-72B <cite class="cites">[<a class="cite" href="/read/references/#ref-1125" data-k="bai2025qwen2.5vl">1125</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(F) generalist MLLM</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">92.7</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">94.6</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">89.7</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">89.9</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">InternVL2.5-78B <cite class="cites">[<a class="cite" href="/read/references/#ref-1126" data-k="chen2024expanding">1126</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(F) generalist MLLM</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">93.7</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">95.6</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">92.5</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">92.7</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" style="background-color:#C9CBD1;">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;" colspan="6">
+<math id="Ch6.T34.m4" style="background-color:#C9CBD1;" alttext="\bullet" display="inline" data-pagefind-ignore="all"><semantics><mo mathbackground="#C9CBD1">∙</mo><annotation encoding="application/x-tex">\bullet</annotation></semantics></math><span style="background-color:#C9CBD1;"> <span class="ltx_font_italic">Referring segmentation (cIoU) and video referring segmentation (<math id="Ch6.T34.m5" alttext="\mathcal{J}\&amp;\mathcal{F}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi mathbackground="#C9CBD1">𝒥</mi><mo lspace="0.222em" mathbackground="#C9CBD1" rspace="0.222em">&amp;</mo><mi mathbackground="#C9CBD1">ℱ</mi></mrow><annotation encoding="application/x-tex">\mathcal{J}\&amp;\mathcal{F}</annotation></semantics></math>)</span></span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Family</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">RefCOCO</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">RefCOCO+</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">RefCOCOg</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">MeViS / Ref-DAVIS17</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">CRIS <cite class="cites">[<a class="cite" href="/read/references/#ref-245" data-k="wang2022cris">245</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(C) end-to-end, CLIP</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">70.5</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">62.3</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">59.9</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LISA-7B <cite class="cites">[<a class="cite" href="/read/references/#ref-1085" data-k="lai2024lisa">1085</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(E) mask-decoder MLLM</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">74.9</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">65.1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">67.9</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">GLaMM-7B <cite class="cites">[<a class="cite" href="/read/references/#ref-1120" data-k="rasheed2024glamm">1120</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(E) grounded conversation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">79.5</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">72.6</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">74.2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VISA-13B <cite class="cites">[<a class="cite" href="/read/references/#ref-1103" data-k="yan2024visa">1103</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(E) video reasoning MLLM</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">–</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">44.5 / 70.4</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:112.7pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Sa2VA-8B <cite class="cites">[<a class="cite" href="/read/references/#ref-1121" data-k="yuan2025sa2va">1121</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:95.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">(E) MLLM + SAM 2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">81.9</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">76.5</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">78.9</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:43.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">46.9 / 75.2</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch6.S5.SS2.SSS4"><span class="secnum">6.5.2.4</span>Challenges<a class="anchor" href="#Ch6.S5.SS2.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch6.S5.SS2.SSS4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Ambiguity and interaction.</span> “The guy on the right” depends on the viewpoint, and “the red cup” presumes one salient red cup. People resolve this through shared context or a follow-up question; grounding models make an arbitrary choice or fall back on a dataset bias such as the largest instance. Recognizing that an expression matches several entities, abstaining under uncertainty, and asking for clarification are outside almost every current benchmark, which is one-shot (one query, one image), while real use is a dialogue with memory of what was grounded before.</p>
+</div>
+<div id="Ch6.S5.SS2.SSS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Reasoning and commonsense.</span> “The tool needed to open the box” cannot be resolved from the image alone, and adversarial evaluation shows that much of current REC accuracy rests on shortcut matching rather than reasoning <cite class="cites">[<a class="cite" href="/read/references/#ref-1099" data-k="dong2026ref">1099</a>]</cite>. LLM-based models carry the knowledge but may answer “a key” when none is visible, and vision-only models lack it entirely; reasoning-driven segmentation <cite class="cites">[<a class="cite" href="/read/references/#ref-1085" data-k="lai2024lisa">1085</a>]</cite> and agentic active perception <cite class="cites">[<a class="cite" href="/read/references/#ref-1133" data-k="zheng2025deepeyes">1133</a>]</cite> are the two bridges. Video adds temporal and causal structure (“the man who picks up the phone and then leaves”, “the car that caused the accident”) that current video grounding, which attends mostly to appearance and simple motion, does not capture.</p>
+</div>
+<div id="Ch6.S5.SS2.SSS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Open world and 3D.</span> Open-vocabulary detectors and CLIP-based models have blind spots on rare objects, fine-grained distinctions (viola versus violin), proper nouns, and figurative references (“the blue crown” for a cap), and per-category analyses of large multimodal models show a strong bias toward common training categories <cite class="cites">[<a class="cite" href="/read/references/#ref-1137" data-k="chen2025revisiting">1137</a>]</cite>. Description-conditioned pre-training <cite class="cites">[<a class="cite" href="/read/references/#ref-1116" data-k="li2023desco">1116</a>]</cite> and generative pre-training <cite class="cites">[<a class="cite" href="/read/references/#ref-1105" data-k="bagchi2025refereverything">1105</a>, <a class="cite" href="/read/references/#ref-1136" data-k="gabeur2026image">1136</a>]</cite> are the routes to long-tail coverage that do not require labeling it. Functional references (“the driver’s seat”) also imply spatial context that only 3D understanding resolves, and the 3D-language work surveyed above <cite class="cites">[<a class="cite" href="/read/references/#ref-1141" data-k="hong20233d">1141</a>, <a class="cite" href="/read/references/#ref-201" data-k="zhen20243d">201</a>]</cite> will grow with augmented reality and robotics.</p>
+</div>
+<div id="Ch6.S5.SS2.SSS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Efficiency and evaluation.</span> The strongest systems are multi-model tool chains or LLMs with vision adapters and do not fit AR glasses or robots; compact models <cite class="cites">[<a class="cite" href="/read/references/#ref-1123" data-k="xiao2024florence">1123</a>, <a class="cite" href="/read/references/#ref-1122" data-k="reid2026moondream">1122</a>]</cite> and non-autoregressive selection <cite class="cites">[<a class="cite" href="/read/references/#ref-1094" data-k="cao2025refer">1094</a>]</cite> show that accuracy does not require scale, but the accuracy-efficiency frontier is unmapped. Evaluation has the saturation problem described under §Datasets and Metrics, and the new benchmarks, each with its own protocol, risk a cycle of leaderboard chasing; a single protocol spanning image, video, 3D, and dialogue, scoring rejection and clarification as well as localization, does not yet exist.</p>
+</div>
+</section>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/6.4/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">6.4 Spatio-Temporal Perception</span></a><a class="pager-next" href="/read/chapter-7/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Chapter 7: Spatial Reasoning</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch6.S5.SS1" data-spy="Ch6.S5.SS1"><span class="n">6.5.1</span>Audio-Visual Spatial Localization</a></li><li><a href="#Ch6.S5.SS2" data-spy="Ch6.S5.SS2"><span class="n">6.5.2</span>Vision-Language Grounding</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=6.5"><b>105</b> cited works</a><a href="/explore/datasets/?sec=6.5"><b>10</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=6.5" title="Segment Anything, SAM 2, Grounding DINO, CLIP, Qwen2.5-VL"><b>5</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="6.5 Multimodal Spatial Perception" data-url="/read/6.5/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%206.5%20Multimodal%20Spatial%20Perception&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/6.5/%20%28PDF%20p.%20150%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

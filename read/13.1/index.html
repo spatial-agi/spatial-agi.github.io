@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13.1 Assistant · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="13.1 Assistant · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="13.1">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link is-current" href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-13/">Chapter 13</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-13/">Chapter 13 · Spatial Intelligence for Intelligent Assistance</a></div>
+        <h1><span class="secnum">13.1</span>Assistant</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=434" title="Open this page in the PDF">PDF p. 434</a><span class="dot">·</span>        <span>16 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:13.1 Assistant">
+<section>
+<h2 class="h-subsection" id="Ch13.S1.SS1"><span class="secnum">13.1.1</span>Introduction<a class="anchor" href="#Ch13.S1.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch13.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">An intelligent assistant is a generalist embodied agent that shares the user’s own private, unstructured world and acts on the user’s behalf.
+Unlike the domain agents of the preceding sections, which are optimized for a bounded operational envelope (a road network, a warehouse aisle, an operating theater), the assistant must function inside the open-ended geometry of a home, an office, or a sidewalk, in the continuous physical presence of the person it serves.
+Its defining spatial challenge is therefore not a new perception, reasoning, generation, or memory primitive: those capabilities are surveyed in Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> (perception), Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a> (reasoning), Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a> (generation), and Section <a href="/read/7.3/#Ch7.S3.SS6" class="xref" data-x="Ch7.S3.SS6"><span>7.3.6</span></a> (retrieval- and memory-augmented spatial reasoning).
+The challenge here is rather to build and maintain a persistent, personalized, and queryable spatial-semantic model of the user’s environment, to ground human intent onto that model, and to act on it legibly and safely while a person occupies the same space.</p>
+</div>
+<div id="Ch13.S1.SS1.p2" class="ltx_para">
+<p class="ltx_p">Three properties separate the assistant from the embodied agents discussed elsewhere in this part. The environment is the user’s own, so the assistant cannot assume an engineered layout and must instead generalize across the long tail of real homes.
+It is also personalized: the same instruction (“tidy up,” “take me to the exit”) resolves to different geometric goals for different users, so the spatial model must absorb individual preference.
+And because the human is always co-present, otherwise routine motion becomes a social act that must be predictable, comfortable, and safe. These three demands (an unengineered space, an individual user, and a person sharing that space) recur across every regime in which the assistant operates.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch13.S1.SS2"><span class="secnum">13.1.2</span>System Overview<a class="anchor" href="#Ch13.S1.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch13.S1.SS2.p1" class="ltx_para">
+<p class="ltx_p">Across these settings, every assistant closes the same loop. It <span class="ltx_font_bold">perceives</span> the environment and the user, <span class="ltx_font_bold">represents</span> what it perceives in a persistent spatial-semantic memory, <span class="ltx_font_bold">grounds</span> a natural-language or gestural instruction onto that memory, <span class="ltx_font_bold">reasons</span> about a goal-directed plan, <span class="ltx_font_bold">acts</span> on the physical or informational world, and observes the human’s <span class="ltx_font_bold">feedback</span>, which re-grounds the next interaction.
+The persistent memory is the part that distinguishes an assistant from a single-shot perception or manipulation system: because the assistant lives in one place over long horizons, it can accumulate a map of where objects belong, where the user tends to be, and how the user prefers tasks to be performed.
+Long-horizon mobile-manipulation benchmarks such as EMMOE instantiate one slice of this loop (language-conditioned planning and action in open environments) but still leave persistent personalization, memory update, and human feedback as broader assistant-level requirements <cite class="cites">[<a class="cite" href="/read/references/#ref-2945" data-k="li2025emmoe">2945</a>]</cite>. Figure <a href="/read/13.1/#Ch13.F1" class="xref" data-x="Ch13.F1"><span>13.1</span></a> schematizes the loop, with the spatial-semantic memory at its center and the human present at every stage.</p>
+</div>
+<figure id="Ch13.F1" class="ltx_figure"><img src="/assets/figures/figures/part4/section13/assistant_overview.webp" id="Ch13.F1.g1" class="fig-img" alt="" width="2000" height="1335" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 13.1</span><span>The intelligent-assistant loop. User and scene observations populate persistent room–object memory; instructions are grounded to specific objects and target states before planning. Alternative outputs illustrate household management, shared-space collaboration, and audio/haptic assistance. Memory links denote spatial associations; the dashed ellipse marks shared interaction space. User responses and observed changes close the feedback loop.</span></figcaption>
+</figure>
+<div id="Ch13.S1.SS2.p2" class="ltx_para">
+<p class="ltx_p">The assistant is deployed in three escalating regimes of human-proximity, which organize the remainder of this section.
+In the first, the assistant acts <em class="ltx_font_italic">on</em> the space while the human is a beneficiary at a distance: it tidies, fetches, and searches.
+In the second, the assistant acts <em class="ltx_font_italic">alongside</em> the human as a partner that must move and manipulate in shared space without intruding.
+In the third, the assistant acts <em class="ltx_font_italic">for</em> a vulnerable human, standing in for an impaired capability under hard safety, privacy, and accessibility constraints.
+The three regimes share the loop above but place progressively more weight on modeling the person rather than the place; Table <a href="/read/13.1/#Ch13.T1" class="xref" data-x="Ch13.T1"><span>13.1</span></a> collects benchmarks for all three.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch13.S1.SS3"><span class="secnum">13.1.3</span>Pivotal Task-1: Managing the Physical Environment<a class="anchor" href="#Ch13.S1.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch13.S1.SS3.p1" class="ltx_para">
+<p class="ltx_p">The most autonomous regime asks the assistant to maintain the physical state of a human environment with little real-time supervision. A persistent model of the dwelling supports two complementary operations: grounding instructions for physical action, and retrieving remembered evidence to answer queries. New observations update the model, including after an action changes the environment. Figure <a href="/read/13.1/#Ch13.F2" class="xref" data-x="Ch13.F2"><span>13.2</span></a> separates these action and recall branches around their shared home memory.</p>
+</div>
+<div id="Ch13.S1.SS3.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Representing the home.</span> Everything downstream depends on a queryable model of the space, which extends the scene-understanding methods of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> into a persistent, semantically indexed memory. The memory architectures themselves are treated in Section <a href="/read/7.3/#Ch7.S3.SS6" class="xref" data-x="Ch7.S3.SS6"><span>7.3.6</span></a>; here they are the infrastructure that lets an assistant know not only <em class="ltx_font_italic">where</em> surfaces are, but <em class="ltx_font_italic">what</em> and <em class="ltx_font_italic">whose</em>.
+The 3D scene graph <cite class="cites">[<a class="cite" href="/read/references/#ref-341" data-k="armeni20193dsg">341</a>]</cite> introduced a hierarchical structure that unifies objects, rooms, and cameras with the underlying geometry, and Hydra <cite class="cites">[<a class="cite" href="/read/references/#ref-1554" data-k="hughes2022hydra">1554</a>]</cite> brought such graphs into real-time, loop-closure-optimized robot perception so that the memory stays current as the assistant moves.
+To make the memory addressable by free-form language, ConceptFusion <cite class="cites">[<a class="cite" href="/read/references/#ref-2946" data-k="jatavallabhula2023conceptfusion">2946</a>]</cite> builds an open-set, multimodal 3D map that answers text, image, or click queries, and ConceptGraphs <cite class="cites">[<a class="cite" href="/read/references/#ref-1555" data-k="gu2024conceptgraphs">1555</a>]</cite> fuses foundation-model outputs across views into a captioned, language-queryable 3D scene graph suitable for planning.
+This open-vocabulary memory is what lets an assistant act on objects it was never explicitly trained to recognize.</p>
+</div>
+<figure id="Ch13.F2" class="ltx_figure"><img src="/assets/figures/figures/part4/section13/assistant_managing.webp" id="Ch13.F2.g1" class="fig-img" alt="" width="2000" height="1460" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 13.2</span><span>Managing the physical environment through a shared home memory. Observations maintain room, object, and relation records; grounded instructions drive manipulation, while queries independently retrieve last-seen evidence. Physical outcomes are re-observed to update memory.</span></figcaption>
+</figure>
+<div id="Ch13.S1.SS3.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Acting on the space: tidy-up and rearrangement.</span> Restoring order is the canonical management task, framed by Batra <span class="ltx_font_italic">et al.<cite class="cites">[<a class="cite" href="/read/references/#ref-2947" data-k="batra2020rearrangement">2947</a>]</cite></span> as bringing an environment from an arbitrary configuration into a target spatial state.
+The benchmark substrate includes the Visual Room Rearrangement (RoomR) challenge <cite class="cites">[<a class="cite" href="/read/references/#ref-2948" data-k="weihs2021visual">2948</a>]</cite>, which asks an agent to observe a goal arrangement and then reset one to five displaced objects, and Housekeep <cite class="cites">[<a class="cite" href="/read/references/#ref-2949" data-k="kant2022housekeep">2949</a>]</cite>, which removes the explicit goal and instead judges placements against human preferences over nearly two thousand objects.
+Method work has moved from fixed rules to learned commonsense priors.
+TIDEE <cite class="cites">[<a class="cite" href="/read/references/#ref-2950" data-k="sarch2022tidee">2950</a>]</cite> tidies a never-before-seen room from pixels using a visuo-semantic out-of-place detector and an associative memory of where receptacles tend to be, and TidyBot <cite class="cites">[<a class="cite" href="/read/references/#ref-2951" data-k="wu2023tidybot">2951</a>]</cite> makes the placement <em class="ltx_font_italic">preference-aware</em>, using few-shot summarization with a large language model to generalize a particular user’s tidying rules from a handful of examples.
+The shift these systems mark, from a universal notion of tidiness to one conditioned on the resident, is exactly the personalization property that defines the assistant.</p>
+</div>
+<div id="Ch13.S1.SS3.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Acting on the space: open-vocabulary mobile manipulation.</span> Tidying a real home requires picking and placing arbitrary objects at arbitrary locations, the task formalized as open-vocabulary mobile manipulation by HomeRobot <cite class="cites">[<a class="cite" href="/read/references/#ref-2952" data-k="yenamandra2023homerobot">2952</a>]</cite>, which pairs a simulation and real benchmark with a software stack for the Hello Robot Stretch.
+Notable deployment evidence comes from OK-Robot <cite class="cites">[<a class="cite" href="/read/references/#ref-2953" data-k="liu2024okrobot">2953</a>]</cite>, which combines a phone-scanned dense vision-language map with off-the-shelf navigation and grasping to achieve zero-shot pick-and-drop across ten real homes, and from Mobile ALOHA <cite class="cites">[<a class="cite" href="/read/references/#ref-2954" data-k="fu2024mobilealoha">2954</a>]</cite>, which shows that low-cost whole-body teleoperation plus imitation learning can acquire dexterous bimanual household skills.
+These systems lean directly on the manipulation primitives of Section <a href="/read/9.1/" class="xref" data-x="Ch9.S1"><span>9.1</span></a>, increasingly instantiated as generalist vision-language-action policies (<span class="ltx_font_italic">e.g.,</span> , OpenVLA <cite class="cites">[<a class="cite" href="/read/references/#ref-99" data-k="kim2024openvla">99</a>]</cite>, <math id="Ch13.S1.SS3.p4.m1" alttext="\pi_{0}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>π</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\pi_{0}</annotation></semantics></math> <cite class="cites">[<a class="cite" href="/read/references/#ref-100" data-k="black2024pi0">100</a>]</cite>) that fold perception, grounding, and control into one model; the assistant contribution is to drive them in unstructured homes from open-vocabulary goals rather than in an engineered cell.
+Commercial and pre-commercial examples illustrate the same pressure from different directions: mapping vacuum robots such as iRobot’s Roomba, which build semantic room maps for targeted cleaning,<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup> represent the mature narrow end, while emerging home-humanoid platforms such as 1X’s Neo<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup> and Figure<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup> show how the field is attempting, so far without a general-purpose result, to generalize mobile manipulation into domestic settings.</p>
+</div>
+<div id="Ch13.S1.SS3.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Searching and recalling the model.</span> The dual of acting on the space is querying it: an assistant is, among other things, a search engine for the physical world that answers “where did I leave my keys?” Object-goal navigation supplies the active half, with goal-oriented semantic exploration (SemExp) <cite class="cites">[<a class="cite" href="/read/references/#ref-1416" data-k="chaplot2020object">1416</a>]</cite> building an episodic semantic map and a policy that exploits object co-occurrence to find a target efficiently rather than searching blindly.
+Embodied question answering <cite class="cites">[<a class="cite" href="/read/references/#ref-1404" data-k="das2018embodied">1404</a>]</cite> couples navigation with answering, and its open-vocabulary successor OpenEQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1563" data-k="majumdar2024openeqa">1563</a>]</cite> spans both an episodic-memory setting, in which the assistant must recall what it has already seen, and an active-exploration setting, over more than a hundred real environments.
+For wearable assistants that record the user’s day, the same recall problem becomes natural-language search of long egocentric video, the episodic-memory task defined by Ego4D <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite>.
+This is the application-facing counterpart of the memory-augmented reasoning systems in Section <a href="/read/7.3/#Ch7.S3.SS6" class="xref" data-x="Ch7.S3.SS6"><span>7.3.6</span></a>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch13.S1.SS4"><span class="secnum">13.1.4</span>Pivotal Task-2: Co-habiting and Collaborating<a class="anchor" href="#Ch13.S1.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch13.S1.SS4.p1" class="ltx_para">
+<p class="ltx_p">As the distance between assistant and human shrinks, spatial intelligence must become social intelligence. The assistant must model the human as a co-located agent with intent, viewpoint, and comfort zones, not as a moving obstacle or a bare command source, and act predictably and collaboratively. Running through every part of this task is the reconciliation of reference frames: the assistant’s own egocentric view, the human’s egocentric view, and a shared allocentric map must be kept aligned.</p>
+</div>
+<figure id="Ch13.F3" class="ltx_figure"><img src="/assets/figures/figures/part4/section13/assistant_collaborating.webp" id="Ch13.F3.g1" class="fig-img" alt="" width="2000" height="1272" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 13.3</span><span>Collaborating in shared space: (a) person- and context-dependent comfort zones and (b) aligned robot/human views inform an interaction-aware plan; (c) navigation and handover illustrate alternative behaviors. Dashed rings indicate comfort regions, and dashed sight lines associate views with shared objects.</span></figcaption>
+</figure>
+<div id="Ch13.S1.SS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Socially-aware navigation.</span> Moving through a populated space is not collision avoidance; it is adherence to the unwritten contracts of proxemics. The classical account is the social force model <cite class="cites">[<a class="cite" href="/read/references/#ref-2955" data-k="helbing1995social">2955</a>]</cite>, which casts pedestrian motion as attraction to a goal under repulsion from others, operationalizing Hall’s anthropological zones of personal space.
+Data-driven successors learn the interaction directly: Social LSTM <cite class="cites">[<a class="cite" href="/read/references/#ref-2249" data-k="alahi2016social">2249</a>]</cite> couples per-person recurrent predictors through a social-pooling layer to forecast jointly plausible trajectories, and deep reinforcement-learning planners such as the attention-based crowd-robot model <cite class="cites">[<a class="cite" href="/read/references/#ref-2956" data-k="chen2019crowdrobot">2956</a>]</cite> weigh neighbors to navigate dense crowds while avoiding the “freezing robot” failure that purely reactive planners suffer <cite class="cites">[<a class="cite" href="/read/references/#ref-2957" data-k="trautman2010unfreezing">2957</a>]</cite>.
+Progress is measured on human-demonstration corpora such as SCAND <cite class="cites">[<a class="cite" href="/read/references/#ref-2958" data-k="karnan2022socially">2958</a>]</cite>, which records hours of socially compliant teleoperation for imitation and inverse reinforcement learning.
+The trend is toward anticipatory planning, in which the assistant infers the human’s intended path and yields proactively, and toward learnable cost functions that adapt passing distances to individual or cultural preference rather than enforcing one universal margin.</p>
+</div>
+<div id="Ch13.S1.SS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Grounded instruction following and spatial dialogue.</span> A collaborating assistant must resolve spatial language against what it sees, including the deictic references (“put it next to the <em class="ltx_font_italic">other</em> bowl,” “the one over <em class="ltx_font_italic">there</em>”) that pervade human speech.
+Vision-and-language navigation, introduced with the Room-to-Room benchmark <cite class="cites">[<a class="cite" href="/read/references/#ref-1415" data-k="anderson2018vision">1415</a>]</cite>, established the problem of following natural-language route instructions in photorealistic buildings; ALFRED <cite class="cites">[<a class="cite" href="/read/references/#ref-1307" data-k="shridhar2020alfred">1307</a>]</cite> extended it to long-horizon household tasks with irreversible state changes, and TEACh <cite class="cites">[<a class="cite" href="/read/references/#ref-1308" data-k="Padmakumar2022TEACh">1308</a>]</cite> cast the task as a two-agent dialogue in which a commander and follower must build shared spatial reference over multiple turns.
+Resolving a referring expression to a specific object in a cluttered 3D scene is studied directly by ScanRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-373" data-k="chen2020scanrefer">373</a>]</cite> and ReferIt3D <cite class="cites">[<a class="cite" href="/read/references/#ref-374" data-k="achlioptas2020referit3d">374</a>]</cite>, whose same-class distractors force the model to rely on spatial relations rather than appearance.
+These benchmarks build on the reasoning capabilities of Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>; the assistant requirement is to maintain a spatial working memory that links current observations to earlier instructions so that deixis can be resolved.</p>
+</div>
+<div id="Ch13.S1.SS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Shared autonomy and collaboration.</span> When full autonomy is brittle, the assistant acts as a third hand under shared control.
+The defining formulation is shared autonomy via hindsight optimization <cite class="cites">[<a class="cite" href="/read/references/#ref-2959" data-k="javdani2018shared">2959</a>]</cite>, in which the robot infers a distribution over the user’s spatial goal and assists toward it without committing to a single confident prediction, formalizing the earlier policy-blending account of arbitration between human and robot intent <cite class="cites">[<a class="cite" href="/read/references/#ref-2960" data-k="dragan2013policy">2960</a>]</cite>.
+Equally important is making the assistant’s own motion readable: legible motion <cite class="cites">[<a class="cite" href="/read/references/#ref-2639" data-k="dragan2013legibility">2639</a>]</cite> shapes a reaching trajectory so a human can quickly infer its intended target, which is what allows close-quarters collaboration to feel safe. Physical handovers, where giver and receiver must coordinate in space and time <cite class="cites">[<a class="cite" href="/read/references/#ref-2961" data-k="strabala2013handover">2961</a>]</cite>, are the elementary collaborative act on which assistive manipulation is built.</p>
+</div>
+<div id="Ch13.S1.SS4.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Perspective-taking and egocentric grounding.</span> Many assistants observe the world from a wearable, first-person viewpoint, so the frame-alignment problem becomes explicit.
+Ego4D <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite> and its successors anchor egocentric perception at scale, and dedicated capture platforms such as Project Aria<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup> supply the calibrated multi-sensor first-person stream such assistants run on, while spatial-VQA backbones such as SpatialVLM <cite class="cites">[<a class="cite" href="/read/references/#ref-229" data-k="chen2024spatialvlm">229</a>]</cite> give a vision-language model the quantitative 3D reasoning (distances, sizes, directions) needed to answer spatial questions about the user’s scene.
+The hardware and pose-estimation side of wearable sensing is treated in Section <a href="/read/9.3/" class="xref" data-x="Ch9.S3"><span>9.3</span></a>, and the augmented-reality runtime that renders guidance into the user’s view is treated in Section <a href="/read/10.1/" class="xref" data-x="Ch10.S1"><span>10.1</span></a>; here the contribution is the reasoning that converts a first-person observation into a collaborative action in the human’s frame.
+Embodied-AR applications make this alignment problem explicit when directions, warnings, or manipulation cues must be registered into the user’s view <cite class="cites">[<a class="cite" href="/read/references/#ref-2962" data-k="yang2025embodiedar">2962</a>]</cite>. Figure <a href="/read/13.1/#Ch13.F3" class="xref" data-x="Ch13.F3"><span>13.3</span></a> illustrates the elements of this regime.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch13.S1.SS5"><span class="secnum">13.1.5</span>Pivotal Task-3: Empowering Vulnerable Users<a class="anchor" href="#Ch13.S1.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch13.S1.SS5.p1" class="ltx_para">
+<p class="ltx_p">The highest-impact regime uses spatial intelligence to compensate for a sensory, cognitive, or motor impairment, acting as a prosthesis for the user’s perception or agency. The assistant translates the environment into a queryable, navigable, and actionable representation and delivers it through a channel the user can still use (audio, haptics, or physical action). Because the loop closes around a vulnerable person in their own home, safety, privacy, and personalization are design constraints from the start.</p>
+</div>
+<figure id="Ch13.F4" class="ltx_figure"><img src="/assets/figures/figures/part4/section13/assistant_empowering.webp" id="Ch13.F4.g1" class="fig-img" alt="" width="2000" height="1680" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 13.4</span><span>Personalized assistance combines observed spatial state with user goals and access needs. Consent, confidence, and clearance checks gate audio/haptic cues, stepwise guidance, and shared control; uncertainty or missing permission prompts clarification or a pause. Shared control also receives the user’s command. Scenes are illustrative.</span></figcaption>
+</figure>
+<div id="Ch13.S1.SS5.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Assistance for the blind and visually impaired.</span> For blind and low-vision users, spatial intelligence turns an unknown and hazardous environment into a queryable one. The oldest strand is sensory substitution, exemplified by the vOICe <cite class="cites">[<a class="cite" href="/read/references/#ref-2963" data-k="meijer1992voice">2963</a>]</cite>, which sonifies the spatial structure of an image into sound.
+The modern strand is conversational visual question answering: VizWiz <cite class="cites">[<a class="cite" href="/read/references/#ref-2964" data-k="bigham2010vizwiz">2964</a>]</cite> introduced a deployed system in which a blind user photographs their surroundings and asks a spoken question, and the VizWiz Grand Challenge <cite class="cites">[<a class="cite" href="/read/references/#ref-2965" data-k="gurari2018vizwiz">2965</a>]</cite> turned the resulting real-world distribution, including blurry and unanswerable images, into the reference benchmark for assistive VQA.
+Indoor wayfinding is addressed by smartphone navigation aids such as NavCog <cite class="cites">[<a class="cite" href="/read/references/#ref-2966" data-k="ahmetovic2016navcog">2966</a>]</cite>, which deliver turn-by-turn audio guidance from accurate beacon-based localization, and by three-dimensional spatial audio that places points of interest around the user.
+Commercial assistive applications include Microsoft’s Seeing AI for scene and text narration<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup>, Be My Eyes for volunteer- and model-mediated visual assistance<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup>, and wearable systems from OrCam<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup>, Envision<sup class="fn" id="fnref8"><a href="#fn8" data-fn="fn8">8</a></sup>, and biped.ai<sup class="fn" id="fnref9"><a href="#fn9" data-fn="fn9">9</a></sup> for scene description and obstacle warning.
+These tools move from passive obstacle warning to active interrogation, in which the user asks “is there a free seat?” or “read the sign on the door” and the assistant retrieves the answer.</p>
+</div>
+<div id="Ch13.S1.SS5.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Cognitive and mobility assistance.</span> For users with cognitive decline or limited mobility, spatial assistants provide external scaffolding for the activities of daily living.
+Ambient assisted living systems such as the CASAS smart home <cite class="cites">[<a class="cite" href="/read/references/#ref-2967" data-k="cook2013casas">2967</a>]</cite> instrument a dwelling to track the resident’s location and activity, learning the spatio-temporal patterns whose violation (a fall, a missed meal) signals a need to intervene; wearable accelerometry supplies the canonical fall-detection paradigm <cite class="cites">[<a class="cite" href="/read/references/#ref-2968" data-k="bourke2007evaluation">2968</a>]</cite>.</p>
+</div>
+<div id="Ch13.S1.SS5.p4" class="ltx_para">
+<p class="ltx_p">Where monitoring gives way to physical action, the assistant becomes a shared-control effector.
+Smart wheelchairs <cite class="cites">[<a class="cite" href="/read/references/#ref-2969" data-k="simpson2005smart">2969</a>]</cite> and wheelchair-mounted assistive arms use collaborative control to enforce spatial safety zones, for example forbidding a chair from driving down a staircase, so that the user retains mobility without constant supervision; the goal-arbitration that underlies such control is the same shared-autonomy machinery introduced above, here cast as a decision-theoretic problem <cite class="cites">[<a class="cite" href="/read/references/#ref-2970" data-k="ghorbel2018decision">2970</a>]</cite>.
+Assistive feeding <cite class="cites">[<a class="cite" href="/read/references/#ref-2971" data-k="bhattacharjee2019towards">2971</a>]</cite> shows how fine spatial reasoning (where to acquire a bite, how to transfer it to the user’s mouth) becomes a caregiving act.
+The platform lineage runs from Robots for Humanity <cite class="cites">[<a class="cite" href="/read/references/#ref-2972" data-k="chen2013robots">2972</a>]</cite>, which let a man with quadriplegia perform self-care through a teleoperated PR2, to the affordable Stretch mobile manipulator <cite class="cites">[<a class="cite" href="/read/references/#ref-2973" data-k="kemp2022design">2973</a>]</cite>, with physics-based simulation of caregiving tasks consolidated in Assistive Gym <cite class="cites">[<a class="cite" href="/read/references/#ref-2974" data-k="erickson2020assistive">2974</a>]</cite>.
+Commercial assistive hardware in this space includes the Kinova JACO arm<sup class="fn" id="fnref10"><a href="#fn10" data-fn="fn10">10</a></sup> and the Obi feeding device<sup class="fn" id="fnref11"><a href="#fn11" data-fn="fn11">11</a></sup>.
+This regime overlaps the clinical setting of Section <a href="/read/12.1/" class="xref" data-x="Ch12.S1"><span>12.1</span></a>, but the boundary is clear: there the focus is diagnosis and surgical intervention, whereas here it is daily living in the home. Figure <a href="/read/13.1/#Ch13.F4" class="xref" data-x="Ch13.F4"><span>13.4</span></a> summarizes the compensation principle.</p>
+</div>
+<figure id="Ch13.T1" class="ltx_table">
+<figcaption><span class="cap-tag">Table 13.1</span><span>Representative benchmarks across the three assistant regimes. Where a benchmark has no standard method, the method column names the benchmark paper’s own baselines.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Regime / Pivot</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Managing (rearrangement)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Visual Room Rearrangement <cite class="cites">[<a class="cite" href="/read/references/#ref-2948" data-k="weihs2021visual">2948</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TIDEE <cite class="cites">[<a class="cite" href="/read/references/#ref-2950" data-k="sarch2022tidee">2950</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">objects restored / episode success</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Managing (preference tidy)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Housekeep <cite class="cites">[<a class="cite" href="/read/references/#ref-2949" data-k="kant2022housekeep">2949</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LLM-based planner (paper baseline) <cite class="cites">[<a class="cite" href="/read/references/#ref-2949" data-k="kant2022housekeep">2949</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">correct-placement rate</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Managing (mobile manip.)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">HomeRobot OVMM <cite class="cites">[<a class="cite" href="/read/references/#ref-2952" data-k="yenamandra2023homerobot">2952</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">modular and RL baselines <cite class="cites">[<a class="cite" href="/read/references/#ref-2952" data-k="yenamandra2023homerobot">2952</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">overall success rate</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Managing (search / recall)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1404" data-k="das2018embodied">1404</a>]</cite> / OpenEQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1563" data-k="majumdar2024openeqa">1563</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VLM with episodic memory (paper baselines) <cite class="cites">[<a class="cite" href="/read/references/#ref-1563" data-k="majumdar2024openeqa">1563</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LLM-Match score</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Collaborating (navigation)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SCAND <cite class="cites">[<a class="cite" href="/read/references/#ref-2958" data-k="karnan2022socially">2958</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">imitation from demonstrations <cite class="cites">[<a class="cite" href="/read/references/#ref-2958" data-k="karnan2022socially">2958</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">demonstration corpus (no leaderboard)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Collaborating (instruction)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ALFRED <cite class="cites">[<a class="cite" href="/read/references/#ref-1307" data-k="shridhar2020alfred">1307</a>]</cite> / TEACh <cite class="cites">[<a class="cite" href="/read/references/#ref-1308" data-k="Padmakumar2022TEACh">1308</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">seq2seq baselines <cite class="cites">[<a class="cite" href="/read/references/#ref-1307" data-k="shridhar2020alfred">1307</a>, <a class="cite" href="/read/references/#ref-1308" data-k="Padmakumar2022TEACh">1308</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">task / goal-condition success</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Collaborating (grounding)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ScanRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-373" data-k="chen2020scanrefer">373</a>]</cite> / ReferIt3D <cite class="cites">[<a class="cite" href="/read/references/#ref-374" data-k="achlioptas2020referit3d">374</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ScanRefer baseline <cite class="cites">[<a class="cite" href="/read/references/#ref-373" data-k="chen2020scanrefer">373</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Acc@0.25 / 0.5 IoU</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Empowering (BVI VQA)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VizWiz <cite class="cites">[<a class="cite" href="/read/references/#ref-2965" data-k="gurari2018vizwiz">2965</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VQA baselines <cite class="cites">[<a class="cite" href="/read/references/#ref-2965" data-k="gurari2018vizwiz">2965</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VQA accuracy</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Empowering (assistive ADL)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Assistive Gym <cite class="cites">[<a class="cite" href="/read/references/#ref-2974" data-k="erickson2020assistive">2974</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RL policies (paper baselines) <cite class="cites">[<a class="cite" href="/read/references/#ref-2974" data-k="erickson2020assistive">2974</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">task success / reward</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch13.S1.SS6"><span class="secnum">13.1.6</span>Established Tools and Systems<a class="anchor" href="#Ch13.S1.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch13.S1.SS6.p1" class="ltx_para">
+<p class="ltx_p">Deployed assistants have so far approached the persistent, personalized spatial model of this section from opposite ends: software agents know a great deal about the user but nothing about the user’s space, while home robots occupy the space but act with limited autonomy.</p>
+</div>
+<div id="Ch13.S1.SS6.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Personal agents.</span> The most widely used assistants now act on a user’s behalf in the digital world. OpenAI’s ChatGPT agent<sup class="fn" id="fnref12"><a href="#fn12" data-fn="fn12">12</a></sup> (July 2025) runs on its own virtual computer, browsing and filling in forms across multi-step tasks and asking permission before consequential actions. Meta’s Muse<sup class="fn" id="fnref13"><a href="#fn13" data-fn="fn13">13</a></sup> (September 2026), billed as a personal agent for everyday users, likewise runs in an isolated virtual machine and handles errands such as shopping and travel booking, and its request for access to email, calendars, and payments made privacy the main point of public debate around its launch. Voice assistants are being rebuilt on the same models: Amazon’s Alexa+<sup class="fn" id="fnref14"><a href="#fn14" data-fn="fn14">14</a></sup>, generally available in the United States since February 2026, adds generative dialogue to the smart-home control that Alexa already provided, and Apple’s Siri<sup class="fn" id="fnref15"><a href="#fn15" data-fn="fn15">15</a></sup> is being rebuilt on Google’s Gemini models, adding personal context and on-screen awareness. For spatial intelligence, these agents matter mainly as the layer that holds personal context and preference; apart from smart-home control, none of them maintains a model of the physical home.</p>
+</div>
+<div id="Ch13.S1.SS6.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Camera-grounded assistants.</span> A second line brings the physical world into the conversation through a camera. Gemini Live’s camera mode<sup class="fn" id="fnref16"><a href="#fn16" data-fn="fn16">16</a></sup>, the product form of Google’s Project Astra, lets a user point a phone at the surroundings and ask about what it sees, and Meta AI on camera glasses does the same from the wearer’s viewpoint (Section <a href="/read/9.3/" class="xref" data-x="Ch9.S3"><span>9.3</span></a>). These systems answer spatial questions about the current view, and the assistive applications of Pivotal Task-3 build on the same capability, but they keep at most a short history of what they have seen, so the long-horizon spatial memory this section calls for remains outside them.</p>
+</div>
+<div id="Ch13.S1.SS6.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Home robots.</span> Embodied assistants remain the least mature tier. Beyond mapping vacuums, the home humanoids introduced under Pivotal Task-1 are moving toward sale: 1X opened preorders for NEO in October 2025, at $20,000 or a monthly subscription, with first deliveries promised for 2026 and with remote operators teleoperating tasks that its onboard autonomy cannot yet complete, and Figure’s third-generation humanoid, Figure 03 (2025), is designed for homes and driven by its Helix vision-language-action model. The reliance on teleoperation shows how far these products are from the autonomous, open-vocabulary mobile manipulation of Pivotal Task-1, and it raises the in-home privacy question discussed below.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch13.S1.SS7"><span class="secnum">13.1.7</span>Challenges<a class="anchor" href="#Ch13.S1.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch13.S1.SS7.p1" class="ltx_para">
+<p class="ltx_p">The three regimes share a common obstacle: the assistant must be reliable in the one setting that resists engineering, namely a real person’s private and unstructured life.
+The challenges below are ordered from the perceptual frontier (generalization, memory) through the human frontier (personalization, social safety) to the deployment frontier (privacy, compute, trust), and each cuts across all three pivotal tasks above.
+Governance benchmarks for embodied agents have begun to measure the deployment end directly, testing whether a system stays controllable, recoverable, and auditable under perturbation rather than only whether it completes tasks <cite class="cites">[<a class="cite" href="/read/references/#ref-2975" data-k="qin2026embodiedgovbench">2975</a>]</cite>.</p>
+</div>
+<div id="Ch13.S1.SS7.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Generalization to unstructured homes.</span> An assistant cannot be retrained per household, yet homes vary without bound in layout, lighting, and contents.
+Zero-shot results such as OK-Robot <cite class="cites">[<a class="cite" href="/read/references/#ref-2953" data-k="liu2024okrobot">2953</a>]</cite> are encouraging but remain far from the reliability a daily aide requires, and closing the gap depends on the open-vocabulary representations and sim-to-real transfer surveyed in Part III rather than on more in-domain data.</p>
+</div>
+<div id="Ch13.S1.SS7.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Long-horizon spatial memory.</span> Because the assistant persists in one place, it must remember spatial state over days and weeks: where objects were last seen, which routines the user follows, what was already done.
+Real-time scene-graph memories <cite class="cites">[<a class="cite" href="/read/references/#ref-1554" data-k="hughes2022hydra">1554</a>]</cite> and episodic-memory benchmarks <cite class="cites">[<a class="cite" href="/read/references/#ref-1563" data-k="majumdar2024openeqa">1563</a>]</cite> begin to address this, but the general memory mechanisms are treated in Section <a href="/read/7.3/#Ch7.S3.SS6" class="xref" data-x="Ch7.S3.SS6"><span>7.3.6</span></a>; the assistant-specific unsolved problem is maintaining a consistent, updatable, and forgetting-resistant model over long deployments in a private home.</p>
+</div>
+<div id="Ch13.S1.SS7.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Personalization and preference learning.</span> The assistant’s geometric goals are user-specific, so it must learn an individual’s placement rules, comfort distances, and routines from sparse interaction.
+Few-shot preference summarization <cite class="cites">[<a class="cite" href="/read/references/#ref-2951" data-k="wu2023tidybot">2951</a>]</cite> and learnable social cost functions are early steps, but acquiring rich preferences without burdening the user remains an open problem.</p>
+</div>
+<div id="Ch13.S1.SS7.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Social compliance and safety.</span> Operating in continuous contact with people turns motion into a social and safety-critical act.
+Anticipatory, legible navigation and motion <cite class="cites">[<a class="cite" href="/read/references/#ref-2957" data-k="trautman2010unfreezing">2957</a>, <a class="cite" href="/read/references/#ref-2639" data-k="dragan2013legibility">2639</a>]</cite> and shared-control safety zones <cite class="cites">[<a class="cite" href="/read/references/#ref-2970" data-k="ghorbel2018decision">2970</a>]</cite> mitigate risk, yet guaranteeing comfort and physical safety across the diversity of real human behavior is far from settled.</p>
+</div>
+<div id="Ch13.S1.SS7.p6" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Privacy of persistent in-home perception.</span> An assistant that continuously perceives a private home raises acute privacy concerns, the more so for assistive cameras worn by users who cannot themselves audit what is captured.
+The concern becomes sharper when assistance depends on remote operation or cloud annotation, because the raw spatial stream itself may reveal the user’s routines and vulnerabilities. Persistent spatial memory must be reconciled with selective perception, on-device processing, and user control over what is retained.</p>
+</div>
+<div id="Ch13.S1.SS7.p7" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">On-device compute and trust.</span> Wearable and home platforms are power- and thermally constrained, forcing the heavy perception and reasoning stacks of Part III onto efficient, often on-device, inference.
+Compounding this, assistance for vulnerable users is safety-critical, so calibrated reliability and appropriate user trust, neither over- nor under-reliance, are prerequisites for deployment rather than refinements of it.</p>
+</div>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.irobot.com" title="" class="ltx_font_typewriter">https://www.irobot.com</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.1x.tech/neo" title="" class="ltx_font_typewriter">https://www.1x.tech/neo</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.figure.ai" title="" class="ltx_font_typewriter">https://www.figure.ai</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.projectaria.com" title="" class="ltx_font_typewriter">https://www.projectaria.com</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.seeingai.com" title="" class="ltx_font_typewriter">https://www.seeingai.com</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.bemyeyes.com" title="" class="ltx_font_typewriter">https://www.bemyeyes.com</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.orcam.com" title="" class="ltx_font_typewriter">https://www.orcam.com</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn8"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.letsenvision.com" title="" class="ltx_font_typewriter">https://www.letsenvision.com</a></span><a href="#fnref8" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn9"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://biped.ai" title="" class="ltx_font_typewriter">https://biped.ai</a></span><a href="#fnref9" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn10"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.kinovarobotics.com" title="" class="ltx_font_typewriter">https://www.kinovarobotics.com</a></span><a href="#fnref10" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn11"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://meetobi.com" title="" class="ltx_font_typewriter">https://meetobi.com</a></span><a href="#fnref11" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn12"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://openai.com/index/introducing-chatgpt-agent/" title="" class="ltx_font_typewriter">https://openai.com/index/introducing-chatgpt-agent/</a></span><a href="#fnref12" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn13"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.cnbc.com/2026/09/08/meta-personal-ai-agents-public-reckoning-privacy-safety.html" title="" target="_blank" rel="noopener">CNBC, 8 September 2026</a>.</span><a href="#fnref13" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn14"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.aboutamazon.com" title="" class="ltx_font_typewriter">https://www.aboutamazon.com</a></span><a href="#fnref14" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn15"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.apple.com/siri/" title="" class="ltx_font_typewriter">https://www.apple.com/siri/</a></span><a href="#fnref15" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn16"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://gemini.google/" title="" class="ltx_font_typewriter">https://gemini.google/</a></span><a href="#fnref16" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/chapter-13/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">Chapter 13: Spatial Intelligence for Intelligent Assistance</span></a><a class="pager-next" href="/read/chapter-14/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Chapter 14: Spatial Intelligence for Others</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch13.S1.SS1" data-spy="Ch13.S1.SS1"><span class="n">13.1.1</span>Introduction</a></li><li><a href="#Ch13.S1.SS2" data-spy="Ch13.S1.SS2"><span class="n">13.1.2</span>System Overview</a></li><li><a href="#Ch13.S1.SS3" data-spy="Ch13.S1.SS3"><span class="n">13.1.3</span>Pivotal Task-1: Managing the Physical Environment</a></li><li><a href="#Ch13.S1.SS4" data-spy="Ch13.S1.SS4"><span class="n">13.1.4</span>Pivotal Task-2: Co-habiting and Collaborating</a></li><li><a href="#Ch13.S1.SS5" data-spy="Ch13.S1.SS5"><span class="n">13.1.5</span>Pivotal Task-3: Empowering Vulnerable Users</a></li><li><a href="#Ch13.S1.SS6" data-spy="Ch13.S1.SS6"><span class="n">13.1.6</span>Established Tools and Systems</a></li><li><a href="#Ch13.S1.SS7" data-spy="Ch13.S1.SS7"><span class="n">13.1.7</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=13.1"><b>48</b> cited works</a><a href="/explore/datasets/?sec=13.1"><b>9</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=13.1" title="Matterport3D Simulator, OpenVLA, openpi"><b>3</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="13.1 Assistant" data-url="/read/13.1/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%2013.1%20Assistant&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/13.1/%20%28PDF%20p.%20434%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

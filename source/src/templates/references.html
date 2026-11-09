@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% set section_nav = 'read' %}
+{% block title %}References · Spatial Intelligence Handbook{% endblock %}
+{% block bodyclass %}is-reader{% endblock %}
+{% block main %}
+<div class="reader" style="--pc: #3646F0" data-page="references">
+  <aside class="reader-toc"><div class="reader-toc-in">{% include "partials/toc_side.html" %}</div></aside>
+  <main class="reader-main">
+    <nav class="crumbs"><a href="/read/">Contents</a></nav>
+    <header class="page-head"><h1>References</h1><div class="meta"><span>{{ refs|length }} works, numbered as in the PDF</span><span class="dot">·</span><a href="/explore/literature/">Search and filter them in the literature explorer</a></div></header>
+    <ol class="reflist">
+      {% for r in refs %}<li id="ref-{{ r.num }}" value="{{ r.num }}"><span class="ra">{{ r.authors|join(', ') }}</span>{% if r.authors %}. {% endif %}<span class="rt">{{ r.title }}</span>.{% if r.venue %} <span class="rv">{{ r.venue }}</span>,{% endif %} {{ r.year }}.{% if r.arxiv %} <a href="https://arxiv.org/abs/{{ r.arxiv }}" target="_blank" rel="noopener">arXiv</a>{% endif %}{% if r.doi %} <a href="https://doi.org/{{ r.doi }}" target="_blank" rel="noopener">DOI</a>{% endif %}{% if r.url and not r.arxiv %} <a href="{{ r.url }}" target="_blank" rel="noopener">Link</a>{% endif %}</li>
+      {% endfor %}
+    </ol>
+  </main>
+  <aside class="reader-aside"></aside>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block scripts %}<script type="module" src="/assets/js/reader.js"></script>{% endblock %}

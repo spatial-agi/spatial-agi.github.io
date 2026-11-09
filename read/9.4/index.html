@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.4 Aerial Agents · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="9.4 Aerial Agents · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="9.4">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link is-current" href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-9/">Chapter 9</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-9/">Chapter 9 · Spatial Intelligence for Embodied Systems</a></div>
+        <h1><span class="secnum">9.4</span>Aerial Agents</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=358" title="Open this page in the PDF">PDF p. 358</a><span class="dot">·</span>        <span>21 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:9.4 Aerial Agents">
+<section>
+<h2 class="h-subsection" id="Ch9.S4.SS1"><span class="secnum">9.4.1</span>Introduction<a class="anchor" href="#Ch9.S4.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">Aerial agents (satellites, high-altitude platform stations (HAPS), and unmanned aerial vehicles (UAVs)) acquire rich, dynamic, large-scale observations from the sky and near space and, increasingly, perceive, decide, and act on them autonomously through onboard processing and adaptive control (Table <a href="/read/9.4/#Ch9.T5" class="xref" data-x="Ch9.T5"><span>9.5</span></a>).
+The aerial domain is a demanding testbed for the spatial capabilities surveyed in Part <a href="/read/part-iii/" class="xref" data-x="Pt3"><span>III</span></a>: it stresses perception across extreme scale and viewpoint changes (Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>) and decision-making under partial observability and tight latency budgets (Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>), across platform tiers that differ in altitude, resolution, endurance, and latency by orders of magnitude.</p>
+</div>
+<div id="Ch9.S4.SS1.p2" class="ltx_para">
+<p class="ltx_p">Satellites supply the global tier. Navigation constellations, namely GPS <cite class="cites">[<a class="cite" href="/read/references/#ref-2472" data-k="enge1994global">2472</a>, <a class="cite" href="/read/references/#ref-2473" data-k="leick2015gps">2473</a>]</cite> within the broader Global Navigation Satellite System (GNSS) <cite class="cites">[<a class="cite" href="/read/references/#ref-2474" data-k="kaplan2017understanding">2474</a>]</cite>, Russia’s GLONASS <cite class="cites">[<a class="cite" href="/read/references/#ref-2475" data-k="ivanov1992glonass">2475</a>]</cite>, the European Union’s Galileo <cite class="cites">[<a class="cite" href="/read/references/#ref-2476" data-k="benedicto2000galileo">2476</a>]</cite>, and China’s BeiDou <cite class="cites">[<a class="cite" href="/read/references/#ref-2477" data-k="yang2019introduction">2477</a>, <a class="cite" href="/read/references/#ref-2478" data-k="yang2020basic">2478</a>]</cite>, provide the positioning, navigation, and timing on which vehicles <cite class="cites">[<a class="cite" href="/read/references/#ref-2479" data-k="li2022real">2479</a>]</cite>, smartphones <cite class="cites">[<a class="cite" href="/read/references/#ref-2480" data-k="zangenehnejad2021gnss">2480</a>]</cite>, network synchronization <cite class="cites">[<a class="cite" href="/read/references/#ref-2481" data-k="hasan2018gnss">2481</a>]</cite>, and every lower aerial tier rely.
+Earth-observation satellites operate continuously over years, which suits long-term, wide-area monitoring that neither ground sensors nor short-endurance UAVs can provide: seasonal vegetation dynamics <cite class="cites">[<a class="cite" href="/read/references/#ref-2482" data-k="malingreau1986global">2482</a>]</cite>, wildlife migration <cite class="cites">[<a class="cite" href="/read/references/#ref-2483" data-k="dobrynin2017integration">2483</a>]</cite>, river-basin ecosystem health <cite class="cites">[<a class="cite" href="/read/references/#ref-2484" data-k="ferreira2013estimating">2484</a>]</cite>, deforestation <cite class="cites">[<a class="cite" href="/read/references/#ref-2485" data-k="tucker2000strategies">2485</a>, <a class="cite" href="/read/references/#ref-2486" data-k="finer2018combating">2486</a>]</cite>, desertification <cite class="cites">[<a class="cite" href="/read/references/#ref-2487" data-k="del1998status">2487</a>, <a class="cite" href="/read/references/#ref-2488" data-k="collado2002satellite">2488</a>]</cite>, biodiversity loss <cite class="cites">[<a class="cite" href="/read/references/#ref-2489" data-k="turner2015free">2489</a>]</cite>, and climate indicators such as land surface temperature, ocean color, and atmospheric composition <cite class="cites">[<a class="cite" href="/read/references/#ref-2490" data-k="yang2013role">2490</a>, <a class="cite" href="/read/references/#ref-2491" data-k="kaufman2002satellite">2491</a>]</cite>, together with ecological conservation <cite class="cites">[<a class="cite" href="/read/references/#ref-2492" data-k="pettorelli2014satellite">2492</a>, <a class="cite" href="/read/references/#ref-2493" data-k="boyle2014high">2493</a>]</cite>, multispectral and hyperspectral resource discovery <cite class="cites">[<a class="cite" href="/read/references/#ref-2494" data-k="verbyla2022satellite">2494</a>, <a class="cite" href="/read/references/#ref-2495" data-k="pettorelli2019satellite">2495</a>]</cite>, precision agriculture <cite class="cites">[<a class="cite" href="/read/references/#ref-2496" data-k="perez2012gnss">2496</a>, <a class="cite" href="/read/references/#ref-2497" data-k="guo2018multi">2497</a>]</cite> and crop-yield estimation <cite class="cites">[<a class="cite" href="/read/references/#ref-2498" data-k="maas1988using">2498</a>, <a class="cite" href="/read/references/#ref-2499" data-k="ferencz2004crop">2499</a>]</cite>, and the detection of algal blooms <cite class="cites">[<a class="cite" href="/read/references/#ref-2500" data-k="fang2022global">2500</a>]</cite> and pollutant leakage <cite class="cites">[<a class="cite" href="/read/references/#ref-2501" data-k="pandey2019satellite">2501</a>]</cite>.</p>
+</div>
+<figure id="Ch9.T5" class="ltx_table">
+<figcaption class="ltx_centering"><span class="cap-tag">Table 9.5</span><span>Comparison of satellite, HAPS, and UAV platforms.</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt" style="padding-left:7.1pt;padding-right:7.1pt;"><span class="ltx_font_bold" style="font-size:90%;">Parameter</span></td>
+<td class="ltx_td ltx_align_left ltx_border_tt" style="padding-left:7.1pt;padding-right:7.1pt;"><span class="ltx_font_bold" style="font-size:90%;">Satellite</span></td>
+<td class="ltx_td ltx_align_left ltx_border_tt" style="padding-left:7.1pt;padding-right:7.1pt;"><span class="ltx_font_bold" style="font-size:90%;">HAPS</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_border_tt" style="padding-left:7.1pt;padding-right:7.1pt;"><span class="ltx_font_bold" style="font-size:90%;">UAV</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Altitude</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">500–36,000 km</span></td>
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">20–50 km</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_border_t" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">¡ 10 km</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Spatial Resolution</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">m to sub-m</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">dm to cm</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">cm-level</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Temporal Coverage</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Hours–days revisit</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Persistent (regional)</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Real-time (local)</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Coverage Area</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Global/regional</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Regional</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Localized</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Endurance</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Years</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Months</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Hours</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Maneuverability</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Minimal</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Limited</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">High</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Data Latency</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">High</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Medium</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Low</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Payload Capacity</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">High</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Moderate</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Low</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Onboard Processing</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Limited</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Moderate</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">High</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Atmospheric Impact</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Minimal</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Low</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">High</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Deployment Speed</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Slow</span></td>
+<td class="ltx_td ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Medium</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Fast</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Cost Structure</span></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">High (low per area)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Medium</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_border_bb" style="padding-left:7.1pt;padding-right:7.1pt;"><span style="font-size:90%;">Low (high per area)</span></td>
+</tr>
+</table>
+</figure>
+<div id="Ch9.S4.SS1.p3" class="ltx_para">
+<p class="ltx_p">Differently, UAVs, commonly known as drones, have gained widespread popularity due to their agility, low operational cost, and capability for autonomous operation. Equipped with onboard sensors and processing units, UAVs can perceive their surroundings, plan flight paths, and adapt to dynamic conditions in real time. This unique perspective allows UAVs to capture high-resolution imagery and video from flexible vantage points, enabling frequent revisits and reduced occlusions in complex environments. Compared to satellites, UAVs excel in capturing fine-grained, localized data, and can be rapidly deployed to areas of interest, including hazardous or otherwise inaccessible regions. They now serve aerial photography <cite class="cites">[<a class="cite" href="/read/references/#ref-2502" data-k="zhao2023ms">2502</a>, <a class="cite" href="/read/references/#ref-2503" data-k="shao2022efficient">2503</a>]</cite>, cinematography <cite class="cites">[<a class="cite" href="/read/references/#ref-2504" data-k="pitas2022autonomous">2504</a>, <a class="cite" href="/read/references/#ref-2505" data-k="dang2022path">2505</a>]</cite>, environmental mapping <cite class="cites">[<a class="cite" href="/read/references/#ref-2506" data-k="zheng2020university">2506</a>, <a class="cite" href="/read/references/#ref-2507" data-k="wang2021each">2507</a>, <a class="cite" href="/read/references/#ref-2508" data-k="lin2022joint">2508</a>]</cite>, precision agriculture <cite class="cites">[<a class="cite" href="/read/references/#ref-2509" data-k="goodrich2023placement">2509</a>, <a class="cite" href="/read/references/#ref-2510" data-k="shamshiri2018fundamental">2510</a>]</cite>, geolocalization <cite class="cites">[<a class="cite" href="/read/references/#ref-2511" data-k="liu2019lending">2511</a>, <a class="cite" href="/read/references/#ref-2512" data-k="shi2019spatial">2512</a>, <a class="cite" href="/read/references/#ref-2513" data-k="shi2020optimal">2513</a>, <a class="cite" href="/read/references/#ref-2514" data-k="shi2020looking">2514</a>, <a class="cite" href="/read/references/#ref-2515" data-k="shi2022beyond">2515</a>, <a class="cite" href="/read/references/#ref-2516" data-k="shi2022accurate">2516</a>, <a class="cite" href="/read/references/#ref-2517" data-k="shi2022cvlnet">2517</a>, <a class="cite" href="/read/references/#ref-2518" data-k="shi2023boosting">2518</a>, <a class="cite" href="/read/references/#ref-2519" data-k="song2023learning">2519</a>]</cite>, and last-mile delivery <cite class="cites">[<a class="cite" href="/read/references/#ref-2520" data-k="sorbelli2023wind">2520</a>, <a class="cite" href="/read/references/#ref-2521" data-k="dissanayaka2023review">2521</a>]</cite>.</p>
+</div>
+<div id="Ch9.S4.SS1.p4" class="ltx_para">
+<p class="ltx_p">Filling the altitude gap between satellite systems and UAVs, emerging platforms such as stratospheric balloons, solar-powered high-altitude platform stations, and small satellite constellations (<span class="ltx_font_italic">e.g.,</span> , CubeSats <cite class="cites">[<a class="cite" href="/read/references/#ref-2522" data-k="lemmer2017propulsion">2522</a>]</cite>) are increasingly being integrated into aerial observation networks.
+These high-altitude platform stations (HAPS) offer complementary advantages: HAPS <cite class="cites">[<a class="cite" href="/read/references/#ref-2523" data-k="gonzalo2018capabilities">2523</a>]</cite> provide persistent regional coverage with higher spatial resolution than satellites, while orbital systems <cite class="cites">[<a class="cite" href="/read/references/#ref-2524" data-k="cunningham2004national">2524</a>]</cite> enable global, long-term monitoring at varying temporal and spectral scales.
+Together, they form a multi-tiered aerial ecosystem capable of capturing heterogeneous multimedia data, from visible and thermal imagery to hyperspectral and LiDAR scans, across spatiotemporal scales unattainable by any single platform alone.
+For instance, solar-powered HAPS such as Airbus Zephyr <cite class="cites">[<a class="cite" href="/read/references/#ref-2525" data-k="kothe2019flight">2525</a>]</cite> or HAWK30 by AeroVironment/HAPSMobile <cite class="cites">[<a class="cite" href="/read/references/#ref-2526" data-k="fladeland2019demonstrating">2526</a>]</cite> can operate autonomously in the stratosphere (about 20 km altitude) for weeks, offering persistent observation and communication relay services with sub-meter resolution, which is superior to most Earth observation satellites and at lower cost than maintaining UAV fleets.</p>
+</div>
+<div id="Ch9.S4.SS1.p5" class="ltx_para">
+<p class="ltx_p">A growing trend is the coordination of heterogeneous aerial agents into cooperative networks, where satellites offer global context, HAPS serve as communication relays or edge computing nodes, and UAVs execute localized missions, enabling real-time, closed-loop intelligence. The utility of these systems is further amplified by advances in artificial intelligence, including machine learning, computer vision, big data analytics, and transfer learning <cite class="cites">[<a class="cite" href="/read/references/#ref-2527" data-k="wang2024multiple">2527</a>, <a class="cite" href="/read/references/#ref-2528" data-k="wang2022learning">2528</a>, <a class="cite" href="/read/references/#ref-2529" data-k="zheng2022adaptive">2529</a>]</cite>. These technologies empower intelligent processing of massive aerial datasets, enabling automated image and video analysis <cite class="cites">[<a class="cite" href="/read/references/#ref-2530" data-k="liu2023robust">2530</a>, <a class="cite" href="/read/references/#ref-2531" data-k="li2021uav">2531</a>, <a class="cite" href="/read/references/#ref-2532" data-k="9854892">2532</a>, <a class="cite" href="/read/references/#ref-2533" data-k="zheng2019unsupervised">2533</a>, <a class="cite" href="/read/references/#ref-2534" data-k="wang2023context">2534</a>, <a class="cite" href="/read/references/#ref-2535" data-k="ju2025video2bev">2535</a>]</cite>, real-time object detection and tracking <cite class="cites">[<a class="cite" href="/read/references/#ref-2536" data-k="zhang2019eye">2536</a>, <a class="cite" href="/read/references/#ref-2537" data-k="wen2021detection">2537</a>]</cite>, predictive modeling for urban dynamics <cite class="cites">[<a class="cite" href="/read/references/#ref-2538" data-k="fang2022cognitive">2538</a>, <a class="cite" href="/read/references/#ref-2539" data-k="shi2022geometry">2539</a>]</cite>, natural language-based control interfaces <cite class="cites">[<a class="cite" href="/read/references/#ref-2540" data-k="chu2024towards">2540</a>]</cite>, and city-scale digital twin simulations <cite class="cites">[<a class="cite" href="/read/references/#ref-2541" data-k="zheng2022citysim">2541</a>]</cite>. Data privacy, airspace integration, energy efficiency, and operational robustness remain open, and are taken up in the Challenges below.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S4.SS2"><span class="secnum">9.4.2</span>System Overview<a class="anchor" href="#Ch9.S4.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">An aerial agent realizes a sensing-to-action loop that spans the multi-tier ecosystem of Table <a href="/read/9.4/#Ch9.T5" class="xref" data-x="Ch9.T5"><span>9.5</span></a>: satellites supply global context and positioning, HAPS act as persistent regional relays and edge-computing nodes, and UAVs execute localized, low-latency missions at the point of interest. Across this stack, spatial intelligence is exercised through three complementary stages, which constitute the pivotal tasks of this section. Cross-view perception anchors aerial and ground observations to a common geographic frame, so that what a drone sees can be matched to a map or a street-level query (Pivotal Task-1); remote-sensing detection and environmental understanding turn that imagery into structured scene knowledge about objects, layouts, and human activity (Pivotal Task-2); and autonomous navigation and decision making convert perception into flight plans and control actions in unseen environments (Pivotal Task-3). Figure <a href="/read/9.4/#Ch9.F15" class="xref" data-x="Ch9.F15"><span>9.15</span></a> sketches this pipeline, with a feedback path from action back onto sensing that ties the three stages into one closed loop rather than a feed-forward chain.</p>
+</div>
+<figure id="Ch9.F15" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/aerial_overview.webp" id="Ch9.F15.g1" class="fig-img" alt="" width="2000" height="1002" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.15</span><span>Spatial intelligence for aerial agents as a closed loop from multi-tier aerial sensing (satellite, HAPS, UAV, GNSS, onboard sensors), through three complementary core capabilities, to flight plans with 6-DoF pose targets and downstream flight control. The controller executes the plan; subsequent observations close the sensing loop. The core comprises cross-view geolocalization, detection and environmental understanding, and navigation and decision making. Land-use, water, and infrastructure layers are parallel examples. Platform and scene imagery is illustrative.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S4.SS3"><span class="secnum">9.4.3</span>Pivotal Task-1: Ground-Air Collaborative Perception and Visual Geolocalization<a class="anchor" href="#Ch9.S4.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S4.SS3.p1" class="ltx_para">
+<p class="ltx_p">A foundational requirement of any aerial system is to place its observations on the map: the integration of ground-level and aerial views for cross-modal understanding enables visual geolocalization, determining the geographic location of a query image by matching it against a reference database. This task anchors the perception stage of the system and is particularly challenging due to the large modality gap between ground street-view images and overhead (aerial or satellite) imagery, an instance of the cross-view correspondence problem treated more generally in Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>.
+For instance, the <span class="ltx_font_italic">University-1652</span> dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2506" data-k="zheng2020university">2506</a>]</cite> has become a benchmark for this task, offering ground, drone and satellite image triplets of campus buildings, thus facilitating research on cross-view matching and localization. Such capabilities are critical for urban search-and-rescue, augmented reality, and infrastructure monitoring, where precise alignment between ground observations and aerial maps is essential.
+Progress has come from bridging the modality gap, encoding spatial structure into a viewpoint-invariant representation, and exploiting multiple views per location (Figure <a href="/read/9.4/#Ch9.F16" class="xref" data-x="Ch9.F16"><span>9.16</span></a>).</p>
+</div>
+<div id="Ch9.S4.SS3.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Bridging the modality gap.</span> Most extant research frames geolocalization as a cross-view image retrieval problem, where the core challenge is to learn a viewpoint-invariant representation that effectively bridges the disparity between images captured from different perspectives. Recent advances in deep learning have led to the widespread application of Convolutional Neural Networks (CNNs) and Vision Transformers (ViTs) for extracting robust visual features. One prominent line of inquiry employs metric learning to construct a shared latent space for images acquired from diverse platforms. Workman <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2542" data-k="workman2015location">2542</a>]</cite> show that a CNN pre-trained on the Places dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-596" data-k="zhou2014learning">596</a>]</cite> can, by itself, yield highly discriminative features without explicit fine-tuning for the task. The integration of contrastive loss, which minimizes the distance between positive pairs in the feature space, further enhances geolocalization performance <cite class="cites">[<a class="cite" href="/read/references/#ref-2543" data-k="workman2015wide">2543</a>, <a class="cite" href="/read/references/#ref-2544" data-k="lin2015learning">2544</a>]</cite>. Liu <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2545" data-k="liu2019stochastic">2545</a>]</cite> introduce the Stochastic Attraction and Repulsion Embedding (SARE) loss, which minimizes the Kullback-Leibler divergence between the learned and actual data distributions, and more recently Deuser <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2546" data-k="deuser2023sample4geo">2546</a>]</cite> show that hard negative sampling strategies also significantly influence the final discriminative power.</p>
+</div>
+<div id="Ch9.S4.SS3.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Encoding spatial structure.</span> Another significant body of work addresses the problem of spatial misalignment in ground-to-aerial matching, injecting geometric priors into the representation. Vo <span class="ltx_font_italic">et al.</span>evaluate various network architectures and propose an orientation regression loss to train an orientation-aware network <cite class="cites">[<a class="cite" href="/read/references/#ref-2547" data-k="vo2016localizing">2547</a>]</cite>. Zhai <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2548" data-k="zhai2017predicting">2548</a>]</cite> utilize semantic segmentation maps to facilitate semantic alignment, while Hu <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2549" data-k="hu2018cvm">2549</a>]</cite> incorporate a NetVLAD layer to extract more discriminative features. Subsequently, Liu <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2511" data-k="liu2019lending">2511</a>]</cite> propose a Siamese Network to explicitly integrate spatial cues, such as orientation maps, into the training process, and Shi <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2513" data-k="shi2020optimal">2513</a>]</cite> introduce a spatial-aware layer to improve localization performance. Given that each location has multiple training images from different viewpoints, Zheng <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2506" data-k="zheng2020university">2506</a>]</cite> train a multi-branch CNN as a base model. Building upon this multi-branch architecture, Wang <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2507" data-k="wang2021each">2507</a>]</cite> further partition the feature map into multiple segments to improve matching discriminability, while Lin <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2508" data-k="lin2022joint">2508</a>]</cite> incorporate keypoint detection into the learning process. More recently, researchers resort to ViT structures: L2LTR <cite class="cites">[<a class="cite" href="/read/references/#ref-2550" data-k="yang2021cross">2550</a>]</cite> adopts a hybrid CNN-ViT architecture, leveraging CNNs to extract high-level semantic features and ViTs to encode them into global representations; GeoDTR <cite class="cites">[<a class="cite" href="/read/references/#ref-2551" data-k="zhang2023cross">2551</a>]</cite> further enhances geometric reasoning by introducing a ViT-based layout extractor that generates geometry-aware attention maps; and TransGeo <cite class="cites">[<a class="cite" href="/read/references/#ref-2552" data-k="zhu2022transgeo">2552</a>]</cite> advances the paradigm with a two-branch ViT model and a two-stage coarse-to-fine learning strategy.</p>
+</div>
+<figure id="Ch9.F16" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/aerial_geoloc.webp" id="Ch9.F16.g1" class="fig-img" alt="" width="2000" height="1044" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.16</span><span>Cross-view visual geolocalization as viewpoint-invariant metric learning: the illustrated shared encoder embeds ground, drone, and satellite views so that same-place (positive) pairs cluster and different-place negatives separate. Architecture variants may instead use view-specific branches. Arrows within the feature-space sketch indicate attraction and repulsion during representation learning, not geographic motion. Synthetic views illustrate a common site rather than a calibrated image triplet.</span></figcaption>
+</figure>
+<figure id="Ch9.T6" class="ltx_table">
+<figcaption class="ltx_centering"><span class="cap-tag">Table 9.6</span><span>Comparison of visual geolocalization datasets. R@K: recall at top <math id="Ch9.T6.m2" alttext="K" display="inline" data-pagefind-ignore="all"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>; AP: average precision; PR: precision-recall.</span></figcaption>
+<div class="ltx_inline-block ltx_align_center" style="width:433.6pt;height:40.1pt;vertical-align:-0.0pt;"><span style="transform:translate(-367.7pt,34.0pt) scale(0.370909753953681,0.370909753953681) ;">
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Dataset</span></td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">Univ.-1652 </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2506" data-k="zheng2020university">2506</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">SUES-200 </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2553" data-k="zhu2023sues">2553</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">CVUSA </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2548" data-k="zhai2017predicting">2548</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">CVACT </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2511" data-k="liu2019lending">2511</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">Lin </span><span class="ltx_font_italic" style="font-size:90%;">et al.</span><span style="font-size:90%;"> </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2544" data-k="lin2015learning">2544</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">Tian </span><span class="ltx_font_italic" style="font-size:90%;">et al.</span><span style="font-size:90%;"> </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2554" data-k="tian2017cross">2554</a>]</cite>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_tt" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">Vo </span><span class="ltx_font_italic" style="font-size:90%;">et al.</span><span style="font-size:90%;"> </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2547" data-k="vo2016localizing">2547</a>]</cite>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">#Train imgs.</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">701</span><math id="Ch9.T6.m3" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo mathsize="90%">×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math><span style="font-size:90%;">71.6</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">120 loc.</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">35.5k</span><math id="Ch9.T6.m4" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo mathsize="90%">×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math><span style="font-size:90%;">2</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">35.5k</span><math id="Ch9.T6.m5" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo mathsize="90%">×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math><span style="font-size:90%;">2</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">37.5k</span><math id="Ch9.T6.m6" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo mathsize="90%">×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math><span style="font-size:90%;">2</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">15.7k</span><math id="Ch9.T6.m7" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo mathsize="90%">×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math><span style="font-size:90%;">2</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">900k</span><math id="Ch9.T6.m8" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo mathsize="90%">×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math><span style="font-size:90%;">2</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Platform</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Drone, Ground, Sat.</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Drone, Sat.</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Ground, Sat.</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Ground, Sat.</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">Ground, 45</span><sup><span class="ltx_font_italic" style="font-size:90%;">∘</span></sup><span style="font-size:90%;"> Aerial</span>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;">
+<span style="font-size:90%;">Ground, 45</span><sup><span class="ltx_font_italic" style="font-size:90%;">∘</span></sup><span style="font-size:90%;"> Aerial</span>
+</td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Ground, Sat.</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Imgs./loc.</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">54+16.6+1</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">drone + 1</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">1+1</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">1+1</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">1+1</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">1+1</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">1+1</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Target</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Building</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Diverse</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">User</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">User</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Building</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Building</span></td>
+<td class="ltx_td ltx_align_center" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">User</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">Eval.</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">R@K, AP</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">R@K, AP</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">R@K</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">R@K</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">PR, AP</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">PR, AP</span></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" style="padding-left:3.0pt;padding-right:3.0pt;"><span style="font-size:90%;">R@K</span></td>
+</tr>
+</table>
+</span></div>
+</figure>
+<div id="Ch9.S4.SS3.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">From image pairs to multi-view benchmarks.</span> The maturation of these methods is closely tied to the datasets that score them (see Table <a href="/read/9.4/#Ch9.T6" class="xref" data-x="Ch9.T6"><span>9.6</span></a>). The majority of prior geolocalization datasets are based on image pairs, designed for matching images from two distinct platforms such as terrestrial cameras and satellites. One of the earliest contributions <cite class="cites">[<a class="cite" href="/read/references/#ref-2544" data-k="lin2015learning">2544</a>]</cite> leverages public sources to create 78,000 image pairs spanning a 45-degree bird’s-eye perspective and the ground. In a similar vein, Tian <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2554" data-k="tian2017cross">2554</a>]</cite> compile image pairs for urban localization, positing that buildings are crucial for this task and thus incorporating building detection into their pipeline. The CVUSA <cite class="cites">[<a class="cite" href="/read/references/#ref-2548" data-k="zhai2017predicting">2548</a>]</cite> and CVACT <cite class="cites">[<a class="cite" href="/read/references/#ref-2511" data-k="liu2019lending">2511</a>]</cite> datasets instead address matching panoramic ground-view images with satellite-view images, which is particularly useful for user localization when GPS data is unavailable. A key distinction is one of objective: the latter two focus on localizing the user who captures the photograph, while the former focus on localizing a specific target within the image, so that multiple views of the target are more beneficial for the target-localization datasets (Lin <span class="ltx_font_italic">et al.</span>, Tian <span class="ltx_font_italic">et al.</span>) because they encourage the model to learn the target’s structure. However, most existing datasets typically provide only two views of a given location. The University-1652 dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2506" data-k="zheng2020university">2506</a>]</cite> addresses this by including a greater number of views per target, thereby fostering more robust viewpoint-invariant features; SUES-200 <cite class="cites">[<a class="cite" href="/read/references/#ref-2553" data-k="zhu2023sues">2553</a>]</cite> follows a similar multi-view strategy with drone-captured real-world data. Wang <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2527" data-k="wang2024multiple">2527</a>]</cite> further extend University-1652 to multi-weather evaluation (rain, fog, and other complex conditions), while Chu <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2540" data-k="chu2024towards">2540</a>]</cite> introduce linguistic annotations and a language-based query setting for a more intuitive user experience.</p>
+</div>
+<div id="Ch9.S4.SS3.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Metrics.</span> These benchmarks are scored by retrieval metrics that reflect their gallery structure. Several datasets <cite class="cites">[<a class="cite" href="/read/references/#ref-2511" data-k="liu2019lending">2511</a>, <a class="cite" href="/read/references/#ref-2548" data-k="zhai2017predicting">2548</a>, <a class="cite" href="/read/references/#ref-2547" data-k="vo2016localizing">2547</a>]</cite> adopt Recall@K, defined as 1 if a correct match appears within the top K retrieved images; Recall@K is highly sensitive to the rank of the first correct match and is best suited for test sets containing only a single ground-truth match in the gallery. In contrast, datasets such as University-1652 <cite class="cites">[<a class="cite" href="/read/references/#ref-2506" data-k="zheng2020university">2506</a>]</cite> and SUES-200 <cite class="cites">[<a class="cite" href="/read/references/#ref-2553" data-k="zhu2023sues">2553</a>]</cite> include multiple ground-truth matches from various viewpoints, where Recall@K fails to comprehensively reflect retrieval performance; they therefore also employ Average Precision (AP), as used by Lin <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2544" data-k="lin2015learning">2544</a>]</cite> and Tian <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2554" data-k="tian2017cross">2554</a>]</cite>. AP, defined as the area under the Precision-Recall (PR) curve, considers all ground-truth images in the gallery, and recent evaluations usually report both Recall@K and the mean Average Precision (mAP) across all queries.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S4.SS4"><span class="secnum">9.4.4</span>Pivotal Task-2: Remote Sensing Detection and Environmental Understanding<a class="anchor" href="#Ch9.S4.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S4.SS4.p1" class="ltx_para">
+<p class="ltx_p">Once observations are geolocalized, the next stage turns aerial imagery into structured scene knowledge. Aerial platforms are integral to large-scale environmental monitoring and public safety, facilitating fine-grained object detection in complex scenes, a specialization of the detection and segmentation machinery of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> to the aerial viewpoint. Prominent datasets such as <span class="ltx_font_italic">DOTA</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2555" data-k="xia2018dota">2555</a>]</cite>, <span class="ltx_font_italic">DOTA-v2</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2555" data-k="xia2018dota">2555</a>, <a class="cite" href="/read/references/#ref-2556" data-k="ding2021object">2556</a>]</cite>, and <span class="ltx_font_italic">VisDrone</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2557" data-k="du2019visdrone">2557</a>]</cite> provide comprehensive annotations for detecting various objects, including vehicles and pedestrians, under a wide range of weather, illumination, and scale conditions. These benchmarks have spurred the development of robust detection models specifically engineered to address challenges inherent to aerial perspectives, such as extreme aspect ratios, dense object clustering, and diminutive object sizes. A significant application is found in UAV-based wildlife monitoring, where systems are deployed for animal census in conservation areas <cite class="cites">[<a class="cite" href="/read/references/#ref-2558" data-k="vermeulen2013unmanned">2558</a>]</cite>, highlighting the utility of aerial technologies in promoting ecological sustainability. Figure <a href="/read/9.4/#Ch9.F17" class="xref" data-x="Ch9.F17"><span>9.17</span></a> relates the aerial-specific difficulties of orientation, scale, and density to the detectors built for them and to the human-centric understanding that aerial video enables.</p>
+</div>
+<figure id="Ch9.F17" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/aerial_detection.webp" id="Ch9.F17.g1" class="fig-img" alt="" width="2000" height="1265" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.17</span><span>Remote-sensing detection from the aerial viewpoint: arbitrary orientation, extreme scale variation, and dense small objects (top) motivate (1) oriented-object detection and (2) multi-scale feature learning, which provide complementary representations for human-centric understanding (bottom). Person re-identification matches identities across views; action examples are alternative classes, not a prescribed sequence; tracking maintains identities across frames. Synthetic scenes illustrate these tasks.</span></figcaption>
+</figure>
+<div id="Ch9.S4.SS4.p2" class="ltx_para">
+<p class="ltx_p">Beyond object detection, as shown in Table <a href="/read/9.4/#Ch9.T7" class="xref" data-x="Ch9.T7"><span>9.7</span></a>, with the proliferation of UAVs in smart-city and other human-centric applications, human behavior understanding <cite class="cites">[<a class="cite" href="/read/references/#ref-2531" data-k="li2021uav">2531</a>]</cite> has emerged as a critical and formidable research challenge, including person re-identification and action recognition. For instance, the UAV person re-identification (re-ID) task <cite class="cites">[<a class="cite" href="/read/references/#ref-2559" data-k="albaluchi2025uav">2559</a>]</cite> is designed to address cross-drone identity matching amid substantial viewpoint and illumination variations, thereby motivating the creation of view-invariant feature representations. In conjunction with resources like <span class="ltx_font_italic">VisDrone</span>, which contains multi-target tracking sequences from mobile UAVs, these datasets facilitate the design of intelligent video analytics systems capable of performing long-term human behavior analysis and anomaly detection in dynamic environments.</p>
+</div>
+<figure id="Ch9.T7" class="ltx_table">
+<figcaption><span class="cap-tag">Table 9.7</span><span>Comparison of UAV-based human and object datasets.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Feature</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">UAV-Human</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2531" data-k="li2021uav">2531</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">DOTA-v2</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2555" data-k="xia2018dota">2555</a>, <a class="cite" href="/read/references/#ref-2556" data-k="ding2021object">2556</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">VisDrone</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2557" data-k="du2019visdrone">2557</a>]</cite></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Primary Focus</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Human Behavior Understanding</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Object Detection</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Object Detection / Tracking / Crowd Counting</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Data Type</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Videos &amp; Images</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Images</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Videos &amp; Images</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">#Images</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">22,476 frames for pose estimation, 41,290 frames for re-ID, 22,263 frames for attribute recognition</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">11,268</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">10,209</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">#Videos</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">67,428</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">N/A</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">288</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">#Categories</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">155 action categories</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">18 object categories</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">10 object categories</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">#Instances</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">119 subjects for action recognition, 1,144 identities for re-ID</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1,793,658</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">¿ 2.6 million annotated bounding boxes</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Sensor Modalities</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RGB, Depth, Infrared (IR), Fisheye, Night-Vision</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RGB (from Google Earth, aerial) &amp; Grayscale (from satellites)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RGB</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Image Resolution</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1920<math id="Ch9.T7.m1" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>1080 (RGB), 640<math id="Ch9.T7.m2" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>576 (Depth,IR), 640<math id="Ch9.T7.m3" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>480(Fisheye, Night-Vision),</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">800<math id="Ch9.T7.m4" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>800 to 20,000<math id="Ch9.T7.m5" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>20,000 pixels</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2000<math id="Ch9.T7.m6" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>1500 (image), 3840<math id="Ch9.T7.m7" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>2160 (video)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Annotation Format</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Bounding boxes, 17 keypoints for pose</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Oriented Bounding Boxes (Quadrilaterals)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Bounding boxes with attributes (<span class="ltx_font_italic">e.g.,</span> , occlusion)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Scene Diversity</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Urban and rural, daytime and nighttime</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Wide area, diverse landscapes (ports, airports, cities, etc.)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">14 different cities, urban and rural, various weather and lighting</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Platform</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Drone (DJI Matrice 100)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Satellite, Aerial Platforms</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Drone</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+<div id="Ch9.S4.SS4.p3" class="ltx_para">
+<p class="ltx_p">Remote sensing object detection is primarily challenged by the prevalence of arbitrarily oriented objects and substantial scale variations <cite class="cites">[<a class="cite" href="/read/references/#ref-2555" data-k="xia2018dota">2555</a>, <a class="cite" href="/read/references/#ref-2556" data-k="ding2021object">2556</a>, <a class="cite" href="/read/references/#ref-2560" data-k="sun2022fair1m">2560</a>, <a class="cite" href="/read/references/#ref-2561" data-k="liu2016ship">2561</a>, <a class="cite" href="/read/references/#ref-2562" data-k="cheng2022anchor">2562</a>, <a class="cite" href="/read/references/#ref-2563" data-k="yao2023automated">2563</a>]</cite>, and existing research can be broadly organized along two corresponding fronts.
+<span class="ltx_font_bold">Detection of arbitrarily oriented objects.</span> A significant line of work focuses on developing specialized oriented object detection (OOD) methods. Early approaches often augment horizontal bounding boxes (HBBs) with an angle parameter, employing techniques such as feature refinement in the detector neck <cite class="cites">[<a class="cite" href="/read/references/#ref-2564" data-k="yang2019scrdet">2564</a>, <a class="cite" href="/read/references/#ref-2565" data-k="yang2021r3det">2565</a>]</cite>, extraction of rotated regions of interest (RoIs) <cite class="cites">[<a class="cite" href="/read/references/#ref-2566" data-k="ding2019learning">2566</a>, <a class="cite" href="/read/references/#ref-2567" data-k="xie2021oriented">2567</a>]</cite>, or designing specific OOD heads <cite class="cites">[<a class="cite" href="/read/references/#ref-2568" data-k="hou2022shape">2568</a>, <a class="cite" href="/read/references/#ref-2569" data-k="han2021redet">2569</a>, <a class="cite" href="/read/references/#ref-2570" data-k="ming2021dynamic">2570</a>]</cite>. However, these methods frequently suffer from boundary discontinuity and representation ambiguity due to their reliance on angle parameters. To mitigate these issues, subsequent research has explored more flexible <span class="ltx_font_italic">object representations</span>: some methods describe oriented objects using points <cite class="cites">[<a class="cite" href="/read/references/#ref-2571" data-k="fu2020point">2571</a>, <a class="cite" href="/read/references/#ref-2572" data-k="li2022oriented">2572</a>]</cite> or gliding vertexes <cite class="cites">[<a class="cite" href="/read/references/#ref-2573" data-k="xu2020gliding">2573</a>]</cite>, while others model them with Gaussian distributions <cite class="cites">[<a class="cite" href="/read/references/#ref-2574" data-k="yang2021rethinking">2574</a>, <a class="cite" href="/read/references/#ref-2575" data-k="yang2021learning">2575</a>, <a class="cite" href="/read/references/#ref-2576" data-k="cheng2022dual">2576</a>]</cite> and design corresponding loss functions <cite class="cites">[<a class="cite" href="/read/references/#ref-2577" data-k="qian2021learning">2577</a>]</cite>.
+<span class="ltx_font_bold">Handling substantial scale variations.</span> Another research direction designs specialized backbones and feature extraction strategies to cope with large scale variations in remote sensing images (RSIs). A common strategy is multi-scale feature learning, achieved through data augmentation <cite class="cites">[<a class="cite" href="/read/references/#ref-2578" data-k="zhao2019multi">2578</a>, <a class="cite" href="/read/references/#ref-2579" data-k="shamsolmoali2021rotation">2579</a>, <a class="cite" href="/read/references/#ref-2580" data-k="chen2020stitcher">2580</a>]</cite>, multi-scale feature integration <cite class="cites">[<a class="cite" href="/read/references/#ref-2581" data-k="zhang2019hierarchical">2581</a>, <a class="cite" href="/read/references/#ref-2582" data-k="zheng2020hynet">2582</a>, <a class="cite" href="/read/references/#ref-2583" data-k="9382268">2583</a>, <a class="cite" href="/read/references/#ref-411" data-k="liu2016ssd">411</a>]</cite>, enhanced feature pyramid networks (FPNs) <cite class="cites">[<a class="cite" href="/read/references/#ref-597" data-k="lin2017feature">597</a>, <a class="cite" href="/read/references/#ref-2584" data-k="hou2022refined">2584</a>, <a class="cite" href="/read/references/#ref-2585" data-k="zhang2021laplacian">2585</a>, <a class="cite" href="/read/references/#ref-2586" data-k="guo2020rotational">2586</a>]</cite>, or multi-scale anchor generation <cite class="cites">[<a class="cite" href="/read/references/#ref-2587" data-k="guo2018geospatial">2587</a>, <a class="cite" href="/read/references/#ref-2588" data-k="hou2021self">2588</a>, <a class="cite" href="/read/references/#ref-2589" data-k="qiu2019a2rmnet">2589</a>]</cite>. Other works focus on ensuring equivalent receptive fields for objects of different orientations <cite class="cites">[<a class="cite" href="/read/references/#ref-2569" data-k="han2021redet">2569</a>, <a class="cite" href="/read/references/#ref-2590" data-k="pu2023adaptive">2590</a>]</cite>. More recently, some methods <cite class="cites">[<a class="cite" href="/read/references/#ref-2591" data-k="Li_2023_ICCV">2591</a>]</cite> have employed large kernel convolutions <cite class="cites">[<a class="cite" href="/read/references/#ref-237" data-k="liu2022convnet">237</a>, <a class="cite" href="/read/references/#ref-2592" data-k="ding2022scaling">2592</a>, <a class="cite" href="/read/references/#ref-2593" data-k="liu2022more">2593</a>]</cite> to enlarge the spatial receptive field for large objects, though this can introduce background noise for smaller ones, while others harness multi-scale convolution kernels and attention to address scale variance <cite class="cites">[<a class="cite" href="/read/references/#ref-2594" data-k="guo2022segnext">2594</a>, <a class="cite" href="/read/references/#ref-2595" data-k="dai2023multi">2595</a>, <a class="cite" href="/read/references/#ref-2596" data-k="zhang2022multiscale">2596</a>, <a class="cite" href="/read/references/#ref-2597" data-k="cai2024poly">2597</a>]</cite>.</p>
+</div>
+<div id="Ch9.S4.SS4.p4" class="ltx_para">
+<p class="ltx_p">These method fronts are evaluated on a complementary set of benchmarks and metrics. The VisDrone dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2557" data-k="du2019visdrone">2557</a>]</cite> provides a comprehensive benchmark for drone-captured imagery, featuring urban and rural scenes with challenges like varying altitudes and occlusions; DOTA-v2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2555" data-k="xia2018dota">2555</a>, <a class="cite" href="/read/references/#ref-2556" data-k="ding2021object">2556</a>]</cite> focuses on oriented object detection in high-resolution satellite images, emphasizing rotated bounding boxes for objects like planes and ships; and UAV-Human <cite class="cites">[<a class="cite" href="/read/references/#ref-2531" data-k="li2021uav">2531</a>]</cite> targets human behavior understanding from UAVs, with multi-modal sequences for pose and action analysis. Complementary datasets, such as UAVDT <cite class="cites">[<a class="cite" href="/read/references/#ref-2598" data-k="du2018uavdt">2598</a>]</cite> for traffic surveillance and iSAID <cite class="cites">[<a class="cite" href="/read/references/#ref-2599" data-k="waqas2019isaid">2599</a>]</cite> for instance segmentation, broaden the scope of aerial detection tasks and collectively enable cross-dataset fine-tuning to mitigate domain gaps. Evaluation extends standard metrics to address orientation, scale, and density: the primary metric, mean Average Precision (mAP), is computed as the area under the precision-recall curve, typically at an Intersection over Union (IoU) threshold of 0.5 (mAP@0.5) or across 0.5:0.95 for stricter assessment <cite class="cites">[<a class="cite" href="/read/references/#ref-440" data-k="lin2014microsoft">440</a>]</cite>, and for oriented detection, as in DOTA-v2, rotated IoU variants ensure alignment with object headings <cite class="cites">[<a class="cite" href="/read/references/#ref-2555" data-k="xia2018dota">2555</a>]</cite>. Per-class and per-size Average Precision exposes imbalances, and small objects (<math id="Ch9.S4.SS4.p4.m1" alttext="&lt;32\times 32" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi></mi><mo>&lt;</mo><mrow><mn>32</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>32</mn></mrow></mrow><annotation encoding="application/x-tex">&lt;32\times 32</annotation></semantics></math> pixels) remain the main source of error on drone imagery <cite class="cites">[<a class="cite" href="/read/references/#ref-2557" data-k="du2019visdrone">2557</a>]</cite>. Additional metrics include precision, recall, and F1-score to assess false positives (<span class="ltx_font_italic">e.g.,</span> , background clutter) and misses (<span class="ltx_font_italic">e.g.,</span> , occlusions), while Frames Per Second (FPS) is critical for real-time UAV deployment, targeting 30+ FPS <cite class="cites">[<a class="cite" href="/read/references/#ref-2600" data-k="yang2023laiyolo">2600</a>]</cite>. Video-specific metrics like Multiple Object Tracking Accuracy (MOTA) are used for dynamic scenes in datasets like UAV-Human <cite class="cites">[<a class="cite" href="/read/references/#ref-2531" data-k="li2021uav">2531</a>]</cite>. Modern real-time detectors of the YOLO family <cite class="cites">[<a class="cite" href="/read/references/#ref-2601" data-k="wang2024yolov9">2601</a>]</cite> are increasingly adapted to the aerial setting, though aggregated aerial mAP still trails their COCO-level performance owing to small-object and orientation hardness, keeping open gaps such as multi-modal fusion and zero-shot adaptation active.</p>
+</div>
+<figure id="Ch9.F18" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/aerial_navigation.webp" id="Ch9.F18.g1" class="fig-img" alt="" width="2000" height="851" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.18</span><span>Autonomous aerial navigation from a language instruction: a UAV observation is grounded into a semantic-topometric graph; the instruction and graph condition an LLM planner that produces pose waypoints with velocity. The displayed route is a top-down projection, with attitude and altitude encoded in the waypoint state. Multi-drone planning is an extension with coordinated altitude separation. SR: success rate; SPL: success weighted by path length; NE: navigation error. Metric glyphs indicate evaluation criteria, not measured scores; scenes and graph geometry are schematic.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S4.SS5"><span class="secnum">9.4.5</span>Pivotal Task-3: Autonomous Aerial Navigation and Decision Making<a class="anchor" href="#Ch9.S4.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S4.SS5.p1" class="ltx_para">
+<p class="ltx_p">The final stage closes the loop, converting perception into action. Traditional UAV geolocalization addresses basic aerial navigation by matching a query (<span class="ltx_font_italic">e.g.,</span> , a satellite image or textual description) to a database of historical flight paths or geographic points <cite class="cites">[<a class="cite" href="/read/references/#ref-2506" data-k="zheng2020university">2506</a>, <a class="cite" href="/read/references/#ref-2540" data-k="chu2024towards">2540</a>]</cite>. However, a critical distinction exists between such perception-oriented tasks and the overarching goal of autonomous navigation: the latter requires complex decision-making and control to bridge perception to action, drawing on the spatial-reasoning and planning paradigms of Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>. In practical scenarios, the objective is often for an aerial agent to autonomously locate a destination, particularly an unexplored target, through environmental exploration and, when available, collaboration with a map. This goal introduces significant challenges in generalization to unseen environments, including novel objects, unmapped regions, and interaction with the environment. For instance, recent benchmarks adapted from general Vision-Language Navigation (VLN) have begun to address this by requiring models to output a detailed flight plan with 6-DoF control signals <cite class="cites">[<a class="cite" href="/read/references/#ref-2602" data-k="wang2024towards">2602</a>]</cite>. Figure <a href="/read/9.4/#Ch9.F18" class="xref" data-x="Ch9.F18"><span>9.18</span></a> follows the problem from the perception-to-action gap to foundation-model-driven VLN and multi-agent extensions.</p>
+</div>
+<figure id="Ch9.T8" class="ltx_table">
+<figcaption class="ltx_centering" style="font-size:90%;"><span class="cap-tag">Table 9.8</span>Comparison of recent aerial VLN datasets.</figcaption>
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span class="ltx_font_bold" style="font-size:90%;">Dataset</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_left ltx_border_tt"><span class="ltx_font_bold" style="font-size:90%;">Yr</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span class="ltx_font_bold" style="font-size:90%;">Env.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:56.9pt;"><span class="ltx_font_bold" style="font-size:90%;">Size</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span class="ltx_font_bold" style="font-size:90%;">Modalities</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_tt">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:99.6pt;"><span class="ltx_font_bold" style="font-size:90%;">Key Features</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">UAVA </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2603" data-k="albanis2020dronepose">2603</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_left ltx_border_t"><span style="font-size:90%;">2020</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Indoor simulated (MP3D)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:56.9pt;"><span style="font-size:90%;">90 traj.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">RGB, depth, flow, ego/exo views</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_t">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:99.6pt;"><span style="font-size:90%;">Photorealistic UAV assist; vision/robotics tasks; gamified traj.</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">AVDN </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2604" data-k="fan2022aerial">2604</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_left"><span style="font-size:90%;">2022</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Outdoor simulated (xView)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:56.9pt;"><span style="font-size:90%;">3,064 traj. with dialog</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">RGB, dialog</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:99.6pt;"><span style="font-size:90%;">Async human dialogs; attn. for interactive nav.</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">AerialVLN </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2605" data-k="liu2023aerialvln">2605</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_left"><span style="font-size:90%;">2023</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Outdoor simulated (cities)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:56.9pt;"><span style="font-size:90%;">8,446 traj. and 25,338 instructions</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">RGB, lang. instr.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:99.6pt;"><span style="font-size:90%;">Synthetic VLN; landmark nav in urban scenes.</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">CityNav </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2606" data-k="lee2024citynav">2606</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_left"><span style="font-size:90%;">2024</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Real-world (UK cities)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:56.9pt;"><span style="font-size:90%;">32,637 traj./instr.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">3D point clouds, RGB, geo-lang</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:99.6pt;"><span style="font-size:90%;">Real 3D scans (4.65 km²); human demos; scalable VLN.</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">UAV-Need-Help </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2602" data-k="wang2024towards">2602</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_left"><span style="font-size:90%;">2024</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Outdoor simulated (OpenUAV)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:56.9pt;"><span style="font-size:90%;">12,149 traj.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">RGB, lang. instr.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:99.6pt;"><span style="font-size:90%;">Continuous 6-DoF traj.; target-oriented.</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">OpenFly </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2607" data-k="gao2025openfly">2607</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_left"><span style="font-size:90%;">2025</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Outdoor real/sim (18 scenes)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:56.9pt;"><span style="font-size:90%;">100k traj.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">3D point clouds, RGB, lang. instr.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_top">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:99.6pt;"><span style="font-size:90%;">Large-scale; real-to-sim transfer.</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">AirV2X </span><cite class="cites">[<a class="cite" href="/read/references/#ref-2608" data-k="gao2025airv2x">2608</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_left ltx_border_bb"><span style="font-size:90%;">2025</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:71.1pt;"><span style="font-size:90%;">Outdoor simulated (CARLA+AirSim)</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:56.9pt;"><span style="font-size:90%;">6.73 hours of UAV-ground traj.</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:85.4pt;"><span style="font-size:90%;">3D point clouds, RGB</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_nopad_r ltx_align_justify ltx_align_top ltx_border_bb">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p" style="width:99.6pt;"><span style="font-size:90%;">V2X collab; drone strategies; reduces occlusions.</span></span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+<div id="Ch9.S4.SS5.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">From visual perception to language-guided planning.</span> Recent years have witnessed significant progress in UAV navigation, with a primary focus on visual perception <cite class="cites">[<a class="cite" href="/read/references/#ref-2609" data-k="loquercio2018dronet">2609</a>, <a class="cite" href="/read/references/#ref-2610" data-k="kang2019generalization">2610</a>, <a class="cite" href="/read/references/#ref-2611" data-k="giusti2015machine">2611</a>, <a class="cite" href="/read/references/#ref-2612" data-k="smolyanskiy2017toward">2612</a>, <a class="cite" href="/read/references/#ref-2613" data-k="fan2020learn">2613</a>, <a class="cite" href="/read/references/#ref-2614" data-k="bozcan2020air">2614</a>, <a class="cite" href="/read/references/#ref-2615" data-k="majdik2017zurich">2615</a>]</cite> and collision avoidance <cite class="cites">[<a class="cite" href="/read/references/#ref-2616" data-k="xu2025navrl">2616</a>, <a class="cite" href="/read/references/#ref-2617" data-k="singla2019memory">2617</a>]</cite>. Building on this aerial-perception foundation, Vision-and-Language Navigation (VLN) for UAVs remains an emerging area of research. To address it, recent efforts have leveraged Large Multi-modal Models (LMMs) to harness general knowledge for navigation planning: STMR <cite class="cites">[<a class="cite" href="/read/references/#ref-2618" data-k="gao2024aerial">2618</a>]</cite> builds upon AerialVLN <cite class="cites">[<a class="cite" href="/read/references/#ref-2605" data-k="liu2023aerialvln">2605</a>]</cite> with a zero-shot LLM-based framework utilizing a Semantic-TopoMetric Representation for enhanced spatial reasoning. A parallel line reframes UAV autonomy as a full agentic loop rather than one-shot instruction following. AeroVerse <cite class="cites">[<a class="cite" href="/read/references/#ref-2619" data-k="yao2024aeroverse">2619</a>]</cite> assembles a simulator, real-virtual pre-training corpora, and five downstream tasks, <span class="ltx_font_italic">i.e.,</span> , scene awareness, spatial reasoning, navigational exploration, task planning, and motion decision, to train aerospace embodied world models, and proposes SkyAgentX as a unified perception-reasoning-navigation-planning agent; AirVista-II <cite class="cites">[<a class="cite" href="/read/references/#ref-2620" data-k="lin2025airvista">2620</a>]</cite> pursues zero-shot dynamic-scene semantic understanding via agent-based task scheduling and adaptive keyframe selection; and PRPSearcher <cite class="cites">[<a class="cite" href="/read/references/#ref-2621" data-k="ji2025uavsearch">2621</a>]</cite> casts aerial visual object search over the CityAVOS benchmark as a perception-reasoning-planning problem solved by a multimodal LLM agent. Complementary systems such as NeLV <cite class="cites">[<a class="cite" href="/read/references/#ref-2622" data-k="yuan2025nelv">2622</a>]</cite> operationalize the language-to-flight pipeline end to end, chaining an LLM parser, route and path planners, and a control platform across short-, medium-, and long-range missions. Beyond single-agent setups, some works have begun to explore multi-drone systems; for instance, Wu <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2623" data-k="wu2025aeroduo">2623</a>]</cite> deploy two drones flying at different altitudes to facilitate planning.</p>
+</div>
+<div id="Ch9.S4.SS5.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Datasets and simulators.</span> As shown in Table <a href="/read/9.4/#Ch9.T8" class="xref" data-x="Ch9.T8"><span>9.8</span></a>, several foundational frameworks and datasets have been established. One of the early works, <span class="ltx_font_italic">i.e.,</span> , UAVA <cite class="cites">[<a class="cite" href="/read/references/#ref-2603" data-k="albanis2020dronepose">2603</a>]</cite>, leverages the panorama images in the Matterport3D dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-340" data-k="chang2017matterport3d">340</a>]</cite> to render the indoor environment, while harnessing the camera viewpoints as physically available flight anchors to generate trajectories. AerialVLN <cite class="cites">[<a class="cite" href="/read/references/#ref-2605" data-k="liu2023aerialvln">2605</a>]</cite> introduces a large-scale dataset with an effective baseline, and further infrastructure contributions include datasets such as CityNav <cite class="cites">[<a class="cite" href="/read/references/#ref-2606" data-k="lee2024citynav">2606</a>]</cite>, AVDN <cite class="cites">[<a class="cite" href="/read/references/#ref-2604" data-k="fan2022aerial">2604</a>]</cite>, and OpenFly <cite class="cites">[<a class="cite" href="/read/references/#ref-2607" data-k="gao2025openfly">2607</a>]</cite>. Notably, UAV-Need-Help <cite class="cites">[<a class="cite" href="/read/references/#ref-2602" data-k="wang2024towards">2602</a>]</cite> provides a realistic UAV dynamics simulator, <span class="ltx_font_italic">i.e.,</span> , OpenUAV, alongside its evaluation protocol; OpenUAV is further used in HaL-13k <cite class="cites">[<a class="cite" href="/read/references/#ref-2623" data-k="wu2025aeroduo">2623</a>]</cite> to simulate two drones at different altitudes. Additional observation agents, such as road infrastructures and vehicles with depth sensing, have also been incorporated to enrich environmental understanding <cite class="cites">[<a class="cite" href="/read/references/#ref-2608" data-k="gao2025airv2x">2608</a>]</cite>.</p>
+</div>
+<div id="Ch9.S4.SS5.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Metrics.</span> Evaluation metrics for UAV aerial navigation, especially VLN, measure how well a model navigates a drone based on visual inputs and language instructions. Common metrics include Success Rate (SR), which checks if the UAV reaches the target location within a specified distance, and Success weighted by Path Length (SPL), which balances success with how efficiently the drone travels (shorter paths score higher). Path Length (PL) measures the total distance traveled, while Navigation Error (NE) calculates the distance between the final position and the goal. Together these metrics assess both accuracy (reaching the target) and efficiency (taking an optimal route), providing a clear way to compare model performance across datasets like UAVA, AerialVLN, and CityNav.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S4.SS6"><span class="secnum">9.4.6</span>Established Tools and Systems<a class="anchor" href="#Ch9.S4.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S4.SS6.p1" class="ltx_para">
+<p class="ltx_p">Beyond the methods and benchmarks above, the aerial domain rests on a real-world layer of simulators, platforms, and infrastructure that turns research prototypes into deployable systems; we group it into three tiers.</p>
+</div>
+<div id="Ch9.S4.SS6.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Simulation environments and benchmarks.</span> Because flight data is costly and safety-critical to collect, high-fidelity simulation underpins much of the field. The OpenUAV simulator released with UAV-Need-Help <cite class="cites">[<a class="cite" href="/read/references/#ref-2602" data-k="wang2024towards">2602</a>]</cite> supplies realistic UAV dynamics and a continuous 6-DoF evaluation protocol, and is reused to simulate multi-altitude drone teams in HaL-13k <cite class="cites">[<a class="cite" href="/read/references/#ref-2623" data-k="wu2025aeroduo">2623</a>]</cite>; OpenFly <cite class="cites">[<a class="cite" href="/read/references/#ref-2607" data-k="gao2025openfly">2607</a>]</cite> targets large-scale real-to-sim transfer across diverse scenes; and AerialVLN <cite class="cites">[<a class="cite" href="/read/references/#ref-2605" data-k="liu2023aerialvln">2605</a>]</cite> pairs a city-scale synthetic environment with a navigation baseline. Photorealistic indoor rendering for UAV tasks is provided through Matterport3D <cite class="cites">[<a class="cite" href="/read/references/#ref-340" data-k="chang2017matterport3d">340</a>]</cite> in UAVA <cite class="cites">[<a class="cite" href="/read/references/#ref-2603" data-k="albanis2020dronepose">2603</a>]</cite>, while V2X-style multi-agent simulation combines CARLA and Microsoft AirSim<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup> in AirV2X <cite class="cites">[<a class="cite" href="/read/references/#ref-2608" data-k="gao2025airv2x">2608</a>]</cite>.</p>
+</div>
+<div id="Ch9.S4.SS6.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Commercial platforms and vendors.</span> On the hardware side, consumer and enterprise drones from DJI<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup> (whose Matrice series collects datasets such as UAV-Human) and autonomy-focused vendors such as Skydio<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup> dominate the UAV tier. In the stratospheric tier, solar-powered HAPS such as Airbus Zephyr <cite class="cites">[<a class="cite" href="/read/references/#ref-2525" data-k="kothe2019flight">2525</a>]</cite> and AeroVironment/HAPSMobile’s HAWK30 <cite class="cites">[<a class="cite" href="/read/references/#ref-2526" data-k="fladeland2019demonstrating">2526</a>]</cite> provide persistent regional coverage, complemented by small-satellite constellations built on CubeSat platforms <cite class="cites">[<a class="cite" href="/read/references/#ref-2522" data-k="lemmer2017propulsion">2522</a>]</cite> and broader HAPS programs <cite class="cites">[<a class="cite" href="/read/references/#ref-2523" data-k="gonzalo2018capabilities">2523</a>]</cite>.</p>
+</div>
+<div id="Ch9.S4.SS6.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Connectivity and positioning infrastructure.</span> Aerial autonomy ultimately depends on shared positioning and communication backbones: the GNSS constellations introduced above (GPS <cite class="cites">[<a class="cite" href="/read/references/#ref-2472" data-k="enge1994global">2472</a>]</cite>, GLONASS <cite class="cites">[<a class="cite" href="/read/references/#ref-2475" data-k="ivanov1992glonass">2475</a>]</cite>, Galileo <cite class="cites">[<a class="cite" href="/read/references/#ref-2476" data-k="benedicto2000galileo">2476</a>]</cite>, and BeiDou <cite class="cites">[<a class="cite" href="/read/references/#ref-2477" data-k="yang2019introduction">2477</a>]</cite>) supply global timing and localization, while space-based broadband relays such as Starlink <cite class="cites">[<a class="cite" href="/read/references/#ref-2624" data-k="michel2022first">2624</a>]</cite> and orbital observation systems <cite class="cites">[<a class="cite" href="/read/references/#ref-2524" data-k="cunningham2004national">2524</a>]</cite> increasingly serve as the connectivity layer for coordinated, real-time aerial operations.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S4.SS7"><span class="secnum">9.4.7</span>Challenges<a class="anchor" href="#Ch9.S4.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S4.SS7.p1" class="ltx_para">
+<p class="ltx_p">Aerial autonomy is limited less by any single model than by the gaps between platforms, scales, and operating conditions. Four threads follow the pipeline in order: fusing heterogeneous platforms into a coherent situational model, perceiving small objects and complex activities reliably, navigating unseen and GPS-denied environments, and meeting the ethical and operational constraints under which any of this can be deployed.</p>
+</div>
+<section id="Ch9.S4.SS7.SSS0.Px1">
+<div id="Ch9.S4.SS7.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Heterogeneous-Platform Fusion.</strong> A primary obstacle lies in integrating aerial agents with heterogeneous platforms for robust environmental perception. Coordinating a UAV with ground-based sensors or satellite systems to construct a cohesive situational-awareness model remains complex, particularly in dynamic or cluttered settings where the platforms differ in resolution, latency, and viewpoint (Table <a href="/read/9.4/#Ch9.T5" class="xref" data-x="Ch9.T5"><span>9.5</span></a>). Reconciling these asynchronous, multi-resolution streams into a single consistent representation, without one modality’s noise corrupting the fused estimate, is the standing difficulty, and it motivates the V2X-style cooperative-perception efforts that incorporate road infrastructure and ground vehicles as additional observers.</p>
+</div>
+</section>
+<section id="Ch9.S4.SS7.SSS0.Px2">
+<div id="Ch9.S4.SS7.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Small-Object and Complex-Activity Understanding.</strong> Aerial perception is defined by extremes of scale and density. The recognition of small objects, such as identifying debris in disaster zones or distinguishing wildlife in ecological surveys, demands high-resolution imaging and detectors robust to dense clustering, which often strain onboard computational resources. Understanding complex activities, such as discerning human behavior during search-and-rescue missions, compounds the problem by requiring nuanced spatio-temporal and contextual analysis that current systems struggle to deliver consistently. Closing this gap calls for detectors and activity models that remain accurate at extreme scale variation while fitting a UAV’s tight compute and power budget.</p>
+</div>
+</section>
+<section id="Ch9.S4.SS7.SSS0.Px3">
+<div id="Ch9.S4.SS7.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Navigation in Unseen and GPS-denied Environments.</strong> Autonomous operation in unseen or GPS-denied environments, such as dense urban canyons or subterranean spaces, further complicates the action stage, as agents must rely on real-time mapping and obstacle avoidance without pre-existing data. The core requirement is generalization: a navigation policy must extend to novel objects, unmapped regions, and genuinely interactive scenarios, rather than replaying matched trajectories. This is precisely the gap that foundation-model-driven VLN and multi-altitude cooperative planning aim to narrow, but validating such behavior to a safety standard in the open world remains open.</p>
+</div>
+</section>
+<section id="Ch9.S4.SS7.SSS0.Px4">
+<div id="Ch9.S4.SS7.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Privacy, Airspace, and Operational Robustness.</strong> Beyond perception and navigation, several ethical and operational challenges persist. Data-privacy concerns arise when aerial agents capture high-fidelity multimedia data, potentially compromising individual rights without stringent safeguards, motivating privacy-preserving approaches such as federated learning. Airspace integration poses another hurdle, as regulatory frameworks struggle to accommodate the proliferation of aerial agents alongside traditional aviation, necessitating harmonized protocols to ensure safety. Energy efficiency remains a critical bottleneck, since prolonged missions demand lightweight yet powerful power sources and motivate renewable solutions such as solar-powered propulsion. Finally, operational robustness is challenged by environmental uncertainties, such as extreme weather or electromagnetic interference, that can disrupt system reliability. Advances in artificial intelligence and sensor fusion that address these constraints, rather than perception accuracy alone, are what will let aerial agents move from bounded demonstrations toward dependable, large-scale deployment.</p>
+</div>
+</section>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://microsoft.github.io/AirSim/" title="" class="ltx_font_typewriter">https://microsoft.github.io/AirSim/</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.dji.com/" title="" class="ltx_font_typewriter">https://www.dji.com/</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.skydio.com/" title="" class="ltx_font_typewriter">https://www.skydio.com/</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/9.3/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">9.3 Wearable AI System</span></a><a class="pager-next" href="/read/9.5/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">9.5 Warehouse and Industrial Logistics</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch9.S4.SS1" data-spy="Ch9.S4.SS1"><span class="n">9.4.1</span>Introduction</a></li><li><a href="#Ch9.S4.SS2" data-spy="Ch9.S4.SS2"><span class="n">9.4.2</span>System Overview</a></li><li><a href="#Ch9.S4.SS3" data-spy="Ch9.S4.SS3"><span class="n">9.4.3</span>Pivotal Task-1: Ground-Air Collaborative Perception and Visual Geolocalization</a></li><li><a href="#Ch9.S4.SS4" data-spy="Ch9.S4.SS4"><span class="n">9.4.4</span>Pivotal Task-2: Remote Sensing Detection and Environmental Understanding</a></li><li><a href="#Ch9.S4.SS5" data-spy="Ch9.S4.SS5"><span class="n">9.4.5</span>Pivotal Task-3: Autonomous Aerial Navigation and Decision Making</a></li><li><a href="#Ch9.S4.SS6" data-spy="Ch9.S4.SS6"><span class="n">9.4.6</span>Established Tools and Systems</a></li><li><a href="#Ch9.S4.SS7" data-spy="Ch9.S4.SS7"><span class="n">9.4.7</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=9.4"><b>159</b> cited works</a><a href="/explore/datasets/?sec=9.4"><b>18</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=9.4" title="CARLA, AirSim, Ultralytics YOLO"><b>3</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="9.4 Aerial Agents" data-url="/read/9.4/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%209.4%20Aerial%20Agents&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/9.4/%20%28PDF%20p.%20358%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

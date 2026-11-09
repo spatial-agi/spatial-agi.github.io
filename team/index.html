@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="Team · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" ><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" aria-current="page">Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="wrap xp-body team-body">
+  <h1 class="sr-only">Team</h1>
+  <div class="au-grid">
+    <article class="au" data-parts="I II III IV V" style="--pc: #A8722A">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">SW</div>
+        <div class="au-id">
+          <h2>Shengqiong Wu</h2>
+          <div class="au-aff">University of Oxford</div>
+          <div class="au-badges"><span class="au-role">First author</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>multimodal foundation models</em><em>multimodal agents</em><em>cross-modal modeling and reasoning</em><em>physics-grounded vision generation</em><em>spatial intelligence</em></div>      <div class="au-links">
+<a href="https://sqwu.top/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=RJJLKR0AAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="uwgnoiqgnehs" data-d="moc.liamg" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>19</span></summary>
+        <ul class="au-items"><li><a href="/read/chapter-1/">Part I, Introduction and Background, Chapters 1–3 (with Hao Fei)</a></li><li><a href="/read/4.5/">Audio, Section 4.5</a></li><li><a href="/read/6.4/#Ch6.S4.SS2">Object Tracking, Section 6.4.2</a></li><li><a href="/read/7.1/#Ch7.S1.SS2">Physical Reasoning, Section 7.1.2</a></li><li><a href="/read/7.2/#Ch7.S2.SS4">Differentiable Optimization Layers for Spatial Reasoning, Section 7.2.4</a></li><li><a href="/read/7.2/#Ch7.S2.SS5">Reinforcement Learning with Spatial Inductive Biases, Section 7.2.5</a></li><li><a href="/read/7.4/">Hybrid Spatial Reasoning, Section 7.4</a></li><li><a href="/read/7.5/">Spatial Reasoning Benchmarks, Section 7.5</a></li><li><a href="/read/8.2/#Ch8.S2.SS1">3D Object Synthesis, Section 8.2.1</a></li><li><a href="/read/8.2/#Ch8.S2.SS3">3D Scene Reconstruction, Section 8.2.3</a></li><li><a href="/read/8.2/#Ch8.S2.SS5">3D Scene Editing, Section 8.2.5</a></li><li><a href="/read/8.3/#Ch8.S3.SS6">Summary, Challenges, and Future Directions of Video Spatial Generation, Section 8.3.6</a></li><li><a href="/read/8.4/">Introduction to Motion Generation, Section 8.4</a></li><li><a href="/read/8.7/">Programmatic and Symbolic Spatial Generation, Section 8.7</a></li><li><a href="/read/8.8/">Summary and Outlook of Spatial Generation, Section 8.8</a></li><li><a href="/read/11.3/">Aerospace Engineering, Section 11.3</a></li><li><a href="/read/chapter-14/">Spatial Intelligence for Others, Chapter 14</a></li><li><a href="/read/chapter-15/">Part V, Discussions and Futures, Chapters 15–17</a></li><li><a href="/read/chapter-4/">Introductions to Parts II–IV, to Chapters 4 and 6–14, and to the sections of Chapters 6–8</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III IV" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">YZ</div>
+        <div class="au-id">
+          <h2>Yu Zhao</h2>
+          <div class="au-aff">National University of Singapore</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<p class="au-pending">Profile details coming soon.</p>      <div class="au-links">
+      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>9</span></summary>
+        <ul class="au-items"><li><a href="/read/6.2/#Ch6.S2.SS3">Height and Distance Estimation, Section 6.2.3</a></li><li><a href="/read/6.3/#Ch6.S3.SS3">Layout Estimation and Room Parsing, Section 6.3.3</a></li><li><a href="/read/6.3/#Ch6.S3.SS5">Mapping and SLAM, Section 6.3.5</a></li><li><a href="/read/6.2/#Ch6.S2.SS2">Surface Normal Estimation, Section 6.2.2</a></li><li><a href="/read/6.2/#Ch6.S2.SS4">Visual Odometry and Camera Pose Estimation, Section 6.2.4</a></li><li><a href="/read/6.4/#Ch6.S4.SS1">Scene Flow Estimation, Section 6.4.1</a></li><li><a href="/read/8.4/#Ch8.S4.SS1">Motion Generation, Sections 8.4.1–8.4.4</a></li><li><a href="/read/9.2/">Autonomous Driving, Section 9.2</a></li><li><a href="/read/11.2/">GeoAI, Section 11.2</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="V" style="--pc: #C0436E">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">TJ</div>
+        <div class="au-id">
+          <h2>Tianjie Ju</h2>
+          <div class="au-aff">National University of Singapore</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>MLLM agents</em><em>geospatial reasoning</em><em>world modeling</em><em>AI scientist</em></div>      <div class="au-links">
+<a href="https://jometeorie.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=f8PPcnoAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="eijnaituj" data-d="gs.ude.sun" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>3</span></summary>
+        <ul class="au-items"><li><a href="/read/chapter-15/">Foundations: What Spatial Intelligence Requires, Chapter 15</a></li><li><a href="/read/chapter-16/">Research Gaps and Future Directions, Chapter 16</a></li><li>Content Screening</li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III IV" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">JX</div>
+        <div class="au-id">
+          <h2>Jundong Xu</h2>
+          <div class="au-aff">National University of Singapore</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>symbolic reasoning</em><em>logic and reasoning</em><em>neuro-symbolic frameworks</em></div>      <div class="au-links">
+<a href="https://aiden0526.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=kx4xFzMAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="ux.gnodnuj" data-d="ude.sun.u" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>6</span></summary>
+        <ul class="au-items"><li><a href="/read/7.1/#Ch7.S1.SS1">Geometric and Algebraic Reasoning, Section 7.1.1</a></li><li><a href="/read/7.1/#Ch7.S1.SS3">Topological and Graph-based Reasoning, Section 7.1.3</a></li><li><a href="/read/7.1/#Ch7.S1.SS4">Constraint-based Spatial Solving, Section 7.1.4</a></li><li><a href="/read/7.1/#Ch7.S1.SS5">Rule-based and Programmatic Reasoning, Section 7.1.5</a></li><li><a href="/read/7.1/#Ch7.S1.SS6">Causal Reasoning, Section 7.1.6</a></li><li><a href="/read/9.5/">Warehouse and Industrial Logistics, Section 9.5</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III IV" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">BL</div>
+        <div class="au-id">
+          <h2>Bobo Li</h2>
+          <div class="au-aff">National University of Singapore</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>large language models</em><em>language agents</em><em>cognitive intelligence</em></div>      <div class="au-links">
+<a href="https://libobo.site/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=90mnP8MAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="obobil" data-d="gs.ude.sun" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>5</span></summary>
+        <ul class="au-items"><li><a href="/read/6.4/#Ch6.S4.SS3">Temporal Localization, Section 6.4.3</a></li><li><a href="/read/7.2/#Ch7.S2.SS6">Multi-agent Spatial Reasoning, Section 7.2.6</a></li><li><a href="/read/8.1/#Ch8.S1.SS1">Text-to-image Generation, Section 8.1.1</a></li><li><a href="/read/10.2/">Entertainment, Section 10.2</a></li><li><a href="/read/10.1/">AR/VR/XR, Section 10.1 (with Xin Kong)</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III IV" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">JY</div>
+        <div class="au-id">
+          <h2>Jingkang Yang</h2>
+          <div class="au-aff">Nanyang Technological University</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>large multimodal models</em><em>world models</em><em>egocentric data</em><em>scene understanding</em><em>AI safety</em><em>out-of-distribution detection</em></div>      <div class="au-links">
+<a href="https://www.jingkangyang.com/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=S-YjbUYAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="100gnakgnijgnay" data-d="moc.liamg" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>5</span></summary>
+        <ul class="au-items"><li><a href="/read/7.3/#Ch7.S3.SS3">Chain-of-Thought for Spatial Reasoning, Section 7.3.3 (with Shulin Tian)</a></li><li><a href="/read/7.3/#Ch7.S3.SS5">Tool-augmented Reasoning, Section 7.3.5 (with Shulin Tian)</a></li><li><a href="/read/7.3/#Ch7.S3.SS6">Retrieval- & Memory-augmented Spatial Reasoning, Section 7.3.6 (with Shulin Tian)</a></li><li><a href="/read/7.3/#Ch7.S3.SS7">Agentic Spatial Reasoning, Section 7.3.7 (with Shulin Tian)</a></li><li><a href="/read/13.1/">Assistant, Section 13.1 (with Shulin Tian)</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III IV" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">ST</div>
+        <div class="au-id">
+          <h2>Shulin Tian</h2>
+          <div class="au-aff">Nanyang Technological University</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>multimodal agents</em><em>visual reasoning</em><em>long-horizon multimodal understanding</em><em>tool-augmented reasoning</em></div>      <div class="au-links">
+<a href="https://shulin16.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=8COQQ8QAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="200niluhs" data-d="gs.ude.utn" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>5</span></summary>
+        <ul class="au-items"><li><a href="/read/7.3/#Ch7.S3.SS3">Chain-of-Thought for Spatial Reasoning, Section 7.3.3 (with Jingkang Yang)</a></li><li><a href="/read/7.3/#Ch7.S3.SS5">Tool-augmented Reasoning, Section 7.3.5 (with Jingkang Yang)</a></li><li><a href="/read/7.3/#Ch7.S3.SS6">Retrieval- & Memory-augmented Spatial Reasoning, Section 7.3.6 (with Jingkang Yang)</a></li><li><a href="/read/7.3/#Ch7.S3.SS7">Agentic Spatial Reasoning, Section 7.3.7 (with Jingkang Yang)</a></li><li><a href="/read/13.1/">Assistant, Section 13.1 (with Jingkang Yang)</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III IV" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">DZ</div>
+        <div class="au-id">
+          <h2>Daoan Zhang</h2>
+          <div class="au-aff">University of Rochester</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>generative models</em><em>multimodal agents</em><em>AI for science</em></div>      <div class="au-links">
+<a href="https://dwan.ch/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=yeLdvGoAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="gnahz.naoad" data-d="ude.retsehcor" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>4</span></summary>
+        <ul class="au-items"><li><a href="/read/6.5/#Ch6.S5.SS1">Audio-Visual Spatial Localization, Section 6.5.1</a></li><li><a href="/read/8.1/#Ch8.S1.SS2">2D Spatial-aware Image Generation, Section 8.1.2</a></li><li><a href="/read/8.1/#Ch8.S1.SS3">2D Spatial Inpainting & Editing, Section 8.1.3</a></li><li><a href="/read/12.1/">Medicine and Clinical Healthcare, Section 12.1</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III IV" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">YZ</div>
+        <div class="au-id">
+          <h2>Yanguang Zhao</h2>
+          <div class="au-aff">National University of Singapore</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<p class="au-pending">Profile details coming soon.</p>      <div class="au-links">
+      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>3</span></summary>
+        <ul class="au-items"><li><a href="/read/6.1/#Ch6.S1.SS3">Keypoint and Landmark Detection, Section 6.1.3</a></li><li><a href="/read/6.2/#Ch6.S2.SS1">Depth Estimation, Section 6.2.1</a></li><li><a href="/read/12.2/">Natural Science, Section 12.2</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">XJ</div>
+        <div class="au-id">
+          <h2>Xuan Ju</h2>
+          <div class="au-aff">The Chinese University of Hong Kong</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>multimodal learning</em><em>image generation</em><em>video generation</em></div>      <div class="au-links">
+<a href="https://juxuan27.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=pWzvK20AAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="72.nauxuj" data-d="moc.liamg" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>5</span></summary>
+        <ul class="au-items"><li><a href="/read/8.3/#Ch8.S3.SS1">Text-to-Video Generation, Section 8.3.1</a></li><li><a href="/read/8.3/#Ch8.S3.SS2">Spatial Controlled Video Generation, Section 8.3.2</a></li><li><a href="/read/8.3/#Ch8.S3.SS3">Temporal Controlled Video Generation, Section 8.3.3</a></li><li><a href="/read/8.3/#Ch8.S3.SS4">Other Controlled Video Generation, Section 8.3.4</a></li><li><a href="/read/8.3/#Ch8.S3.SS5">Video Editing, Section 8.3.5</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="II III" style="--pc: #3646F0">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">HZ</div>
+        <div class="au-id">
+          <h2>Haoyu Zhao</h2>
+          <div class="au-aff">The Chinese University of Hong Kong</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>embodied intelligence</em><em>simulated data generation</em><em>3D simulation</em><em>3D vision</em><em>AI for medical imaging</em></div>      <div class="au-links">
+<a href="https://maxwell-zhao.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=VVTMCA0AAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="oahz.uyoah" data-d="kh.ude.khuc.knil" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>2</span></summary>
+        <ul class="au-items"><li><a href="/read/4.2/">3D Representations, Section 4.2</a></li><li><a href="/read/8.5/">4D Spatial Generation, Section 8.5</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">YZ</div>
+        <div class="au-id">
+          <h2>Yuchen Zhou</h2>
+          <div class="au-aff">National University of Singapore</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>multimodal physical-world perception and interaction</em><em>vision-language models</em><em>embodied foundation models</em><em>human-robot interaction</em></div>      <div class="au-links">
+<a href="https://yuchen2199.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=A4jp2FMAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="uohznawe" data-d="moc.tnecnet" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>5</span></summary>
+        <ul class="au-items"><li><a href="/read/6.3/#Ch6.S3.SS1">Spatial Relation Extraction, Section 6.3.1</a></li><li><a href="/read/6.3/#Ch6.S3.SS2">Scene Graph Generation, Section 6.3.2</a></li><li><a href="/read/6.3/#Ch6.S3.SS4">Action Detection, Section 6.3.4</a></li><li><a href="/read/7.3/#Ch7.S3.SS1">LLM/VLM-centric Spatial Reasoning, Section 7.3.1</a></li><li><a href="/read/7.3/#Ch7.S3.SS2">VLA-based Spatial Reasoning, Section 7.3.2</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="II III" style="--pc: #3646F0">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">XL</div>
+        <div class="au-id">
+          <h2>Xiangtai Li</h2>
+          <div class="au-aff">Nanyang Technological University</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>computer vision</em><em>multi-modal learning</em><em>large language models</em><em>AIGC</em></div>      <div class="au-links">
+<a href="https://lxtgh.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=FL3ReD0AAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="il.iatgnaix" data-d="moc.ecnadetyb" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>3</span></summary>
+        <ul class="au-items"><li><a href="/read/4.1/">2D Representations, Section 4.1</a></li><li><a href="/read/6.1/#Ch6.S1.SS1">Object Detection, Section 6.1.1</a></li><li><a href="/read/6.1/#Ch6.S1.SS2">Segmentation, Section 6.1.2</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="IV" style="--pc: #11899A">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">ZZ</div>
+        <div class="au-id">
+          <h2>Zhedong Zheng</h2>
+          <div class="au-aff">University of Macau</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>data-centric AI</em><em>AIGC and synthetic data</em><em>uncertainty estimation</em><em>spatial intelligence</em><em>object re-identification</em><em>domain adaptation</em></div>      <div class="au-links">
+<a href="https://www.zdzheng.xyz/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=XT17oUEAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="gnehzgnodehz" data-d="om.ude.mu" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>1</span></summary>
+        <ul class="au-items"><li><a href="/read/9.4/">Aerial Agents, Section 9.4</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="II" style="--pc: #3646F0">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">JH</div>
+        <div class="au-id">
+          <h2>Joy Hsu</h2>
+          <div class="au-aff">Stanford University</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>multimodal reasoning models</em><em>agentic systems</em><em>generalization across domains</em><em>long-horizon tasks</em></div>      <div class="au-links">
+<a href="https://joycjhsu.github.io/" target="_blank" rel="noopener">Homepage</a><a class="au-mail" data-u="ush.jc.yoj" data-d="moc.liamg" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>2</span></summary>
+        <ul class="au-items"><li><a href="/read/4.6/">Domain-Specific Representations, Section 4.6</a></li><li><a href="/read/chapter-5/">Cross-Modal Spatial Representation, Chapter 5</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="II III IV" style="--pc: #3646F0">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">XK</div>
+        <div class="au-id">
+          <h2>Xin Kong</h2>
+          <div class="au-aff">Imperial College London</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>world models</em><em>physical AI</em><em>robotics</em></div>      <div class="au-links">
+<a href="https://kxhit.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=eddJsWsAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="122gnoknix" data-d="moc.liamg" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>3</span></summary>
+        <ul class="au-items"><li><a href="/read/4.3/">4D Representations, Section 4.3 (with Chuanxia Zheng)</a></li><li><a href="/read/8.2/#Ch8.S2.SS2">3D Scene Synthesis, Section 8.2.2</a></li><li><a href="/read/10.1/">AR/VR/XR, Section 10.1 (with Bettina Schlager)</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III IV" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">RL</div>
+        <div class="au-id">
+          <h2>Ruining Li</h2>
+          <div class="au-aff">University of Oxford</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>world modelling</em><em>generative simulation</em><em>physically-grounded video and 3D generative models</em><em>embodied AI</em></div>      <div class="au-links">
+<a href="https://ruiningli.com/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=JmQkXLUAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="il.gniniur" data-d="ku.ca.xo.ercanil" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>2</span></summary>
+        <ul class="au-items"><li><a href="/read/7.3/#Ch7.S3.SS8">World-Model-based Spatial Reasoning, Section 7.3.8 (with Hao Fei)</a></li><li><a href="/read/11.1/">Digital Twins, Section 11.1</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">CZ</div>
+        <div class="au-id">
+          <h2>Cheng Zhang</h2>
+          <div class="au-aff">Monash University</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>3D generation</em><em>novel view synthesis</em><em>image generation</em></div>      <div class="au-links">
+<a href="https://chengzhag.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=2uEyZJQAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="gnahz.gnehc" data-d="ude.hsanom" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>1</span></summary>
+        <ul class="au-items"><li><a href="/read/8.2/#Ch8.S2.SS4">3D Panorama Synthesis, Section 8.2.4</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">CL</div>
+        <div class="au-id">
+          <h2>Chengzu Li</h2>
+          <div class="au-aff">University of Cambridge</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>visual intelligence</em><em>spatial reasoning</em><em>multimodal LLMs</em><em>video generation models</em><em>multimodal agents</em></div>      <div class="au-links">
+<a href="https://chengzu-li.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=t_Bwt70AAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="719lc" data-d="ku.ca.mac" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>5</span></summary>
+        <ul class="au-items"><li><a href="/read/6.1/#Ch6.S1.SS4">Scene Classification, Section 6.1.4 (with Hao Fei)</a></li><li><a href="/read/7.2/#Ch7.S2.SS1">Implicit Neural Spatial Reasoning, Section 7.2.1 (with Hao Fei)</a></li><li><a href="/read/7.2/#Ch7.S2.SS2">Explicit Structured Neural Reasoning, Section 7.2.2 (with Hao Fei)</a></li><li><a href="/read/7.2/#Ch7.S2.SS3">Geometry-aware Neural Spatial Reasoning, Section 7.2.3 (with Hao Fei)</a></li><li><a href="/read/7.3/#Ch7.S3.SS4">Code/DSL Generation for Spatial Reasoning, Section 7.3.4 (with Hao Fei)</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="IV" style="--pc: #11899A">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">JD</div>
+        <div class="au-id">
+          <h2>Jiafei Duan</h2>
+          <div class="au-aff">National University of Singapore</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>robot learning</em><em>embodied AI</em><em>robotics foundation models</em></div>      <div class="au-links">
+<a href="https://jiafei1224.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=d1WCSJIAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="fjnaud" data-d="gs.ude.sun.pmoc" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>1</span></summary>
+        <ul class="au-items"><li><a href="/read/9.1/">Robotic Manipulation, Section 9.1</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="III" style="--pc: #7446D6">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">YZ</div>
+        <div class="au-id">
+          <h2>Yu (Bryan) Zhou</h2>
+          <div class="au-aff">University of California, Los Angeles</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>multimodal learning</em><em>vision and language</em><em>embodied learning</em></div>      <div class="au-links">
+<a href="https://yu-bryan-zhou.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=61rJc-YAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="uohzuy" data-d="ude.alcu.sc" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>1</span></summary>
+        <ul class="au-items"><li><a href="/read/6.5/#Ch6.S5.SS2">Vision-Language Grounding, Section 6.5.2</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="II" style="--pc: #3646F0">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">KL</div>
+        <div class="au-id">
+          <h2>Kenneth Li</h2>
+          <div class="au-aff">Harvard University</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+      <div class="au-links">
+<a href="https://likenneth.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=XkV5uOAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="ia.htennekil" data-d="moc.liamg" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>1</span></summary>
+        <ul class="au-items"><li><a href="/read/4.4/">Language Representations, Section 4.4</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts="II" style="--pc: #3646F0">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">CZ</div>
+        <div class="au-id">
+          <h2>Chuanxia Zheng</h2>
+          <div class="au-aff">Nanyang Technological University</div>
+          <div class="au-badges"></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>physical AI</em><em>spatial AI</em><em>generative AI</em><em>perceiving, reconstructing and simulating the physical world</em></div>      <div class="au-links">
+<a href="https://physicalvision.github.io/people/~chuanxia" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=mvpE6bIAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="gnehz.aixnauhc" data-d="gs.ude.utn" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>1</span></summary>
+        <ul class="au-items"><li><a href="/read/4.3/">4D Representations, Section 4.3 (with Xin Kong)</a></li></ul>
+      </details>
+    </article>
+    <article class="au" data-parts=" adv" style="--pc: #6A7189">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">LC</div>
+        <div class="au-id">
+          <h2>Lei Cui</h2>
+          <div class="au-aff">Microsoft Research</div>
+          <div class="au-badges"><span class="au-role au-role-adv">Reviewing &amp; advisory</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>foundation models</em><em>multimodal AI</em></div>      <div class="au-links">
+<a href="https://www.microsoft.com/en-us/research/people/lecu/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=ajJQoUcAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="ucel" data-d="moc.tfosorcim" href="#">E-mail</a>      </div>
+      <p class="au-adv">Reviewed the manuscript and provided comments and feedback that shaped the direction of the handbook.</p>
+    </article>
+    <article class="au" data-parts=" adv" style="--pc: #6A7189">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">FW</div>
+        <div class="au-id">
+          <h2>Furu Wei</h2>
+          <div class="au-aff">Microsoft Research</div>
+          <div class="au-badges"><span class="au-role au-role-adv">Reviewing &amp; advisory</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>large foundation models</em><em>general AI</em><em>natural language processing</em><em>speech</em><em>multimodal AI</em></div>      <div class="au-links">
+<a href="https://thegenerality.com/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=G-V1VpwAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="iewuf" data-d="moc.tfosorcim" href="#">E-mail</a>      </div>
+      <p class="au-adv">Reviewed the manuscript and provided comments and feedback that shaped the direction of the handbook.</p>
+    </article>
+    <article class="au" data-parts=" adv" style="--pc: #6A7189">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">ZL</div>
+        <div class="au-id">
+          <h2>Ziwei Liu</h2>
+          <div class="au-aff">Nanyang Technological University</div>
+          <div class="au-badges"><span class="au-role au-role-adv">Reviewing &amp; advisory</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>computer vision</em><em>machine learning</em><em>computer graphics</em></div>      <div class="au-links">
+<a href="https://liuziwei7.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=lc45xlcAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="uil.iewiz" data-d="gs.ude.utn" href="#">E-mail</a>      </div>
+      <p class="au-adv">Reviewed the manuscript and provided comments and feedback that shaped the direction of the handbook.</p>
+    </article>
+    <article class="au" data-parts=" adv" style="--pc: #6A7189">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">SF</div>
+        <div class="au-id">
+          <h2>Steven K. Feiner</h2>
+          <div class="au-aff">Columbia University</div>
+          <div class="au-badges"><span class="au-role au-role-adv">Reviewing &amp; advisory</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>human-computer interaction</em><em>augmented and virtual reality</em><em>3D and 2D user interfaces</em><em>automated design of graphics and multimedia</em><em>mobile and wearable computing</em><em>information visualization</em></div>      <div class="au-links">
+<a href="https://www.cs.columbia.edu/~feiner/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=PogsVkYAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="renief" data-d="ude.aibmuloc.sc" href="#">E-mail</a>      </div>
+      <p class="au-adv">Reviewed the manuscript and provided comments and feedback that shaped the direction of the handbook.</p>
+    </article>
+    <article class="au" data-parts=" adv" style="--pc: #6A7189">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">JL</div>
+        <div class="au-id">
+          <h2>Jiebo Luo</h2>
+          <div class="au-aff">University of Rochester</div>
+          <div class="au-badges"><span class="au-role au-role-adv">Reviewing &amp; advisory</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>computer vision</em><em>machine learning</em><em>data mining</em><em>social media</em><em>computational social science</em><em>digital health</em></div>      <div class="au-links">
+<a href="https://www.cs.rochester.edu/u/jluo/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=CcbnBvgAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="oulj" data-d="ude.retsehcor.sc" href="#">E-mail</a>      </div>
+      <p class="au-adv">Reviewed the manuscript and provided comments and feedback that shaped the direction of the handbook.</p>
+    </article>
+    <article class="au" data-parts=" adv" style="--pc: #6A7189">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">JC</div>
+        <div class="au-id">
+          <h2>Jianfei Cai</h2>
+          <div class="au-aff">Monash University</div>
+          <div class="au-badges"><span class="au-role au-role-adv">Reviewing &amp; advisory</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>visual computing</em><em>computer vision</em><em>multimedia</em></div>      <div class="au-links">
+<a href="https://jianfei-cai.github.io/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=N6czCoUAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="iac.iefnaij" data-d="ude.hsanom" href="#">E-mail</a>      </div>
+      <p class="au-adv">Reviewed the manuscript and provided comments and feedback that shaped the direction of the handbook.</p>
+    </article>
+    <article class="au" data-parts=" adv" style="--pc: #6A7189">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">SY</div>
+        <div class="au-id">
+          <h2>Shuicheng Yan</h2>
+          <div class="au-aff">National University of Singapore</div>
+          <div class="au-badges"><span class="au-role au-role-adv">Reviewing &amp; advisory</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>e-AGI (efficient, executive, evolving)</em><em>computer vision</em><em>machine learning</em></div>      <div class="au-links">
+<a href="https://www.lv-lab.org/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=DNuiPHwAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="csnay" data-d="gs.ude.sun.pmoc" href="#">E-mail</a>      </div>
+      <p class="au-adv">Reviewed the manuscript and provided comments and feedback that shaped the direction of the handbook.</p>
+    </article>
+    <article class="au" data-parts="I III IV" style="--pc: #A8722A">
+      <div class="au-top">
+        <div class="au-av" aria-hidden="true">HF</div>
+        <div class="au-id">
+          <h2>Hao Fei</h2>
+          <div class="au-aff">University of Oxford</div>
+          <div class="au-badges"><span class="au-role">Project lead</span></div>
+        </div>
+      </div>
+<div class="au-topics"><span>Expertise</span><em>natural language processing</em><em>computer vision</em><em>multimodal / vision-language learning</em></div>      <div class="au-links">
+<a href="https://haofei.vip/" target="_blank" rel="noopener">Homepage</a><a href="https://scholar.google.com/citations?user=YGDX46AAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a class="au-mail" data-u="9147iefoah" data-d="moc.liamg" href="#">E-mail</a>      </div>
+      <details class="au-more">
+        <summary>Writing contributions <span>11</span></summary>
+        <ul class="au-items"><li><a href="/read/chapter-1/">Part I, Introduction and Background, Chapters 1–3 (with Shengqiong Wu)</a></li><li><a href="/read/6.1/#Ch6.S1.SS4">Scene Classification, Section 6.1.4 (with Chengzu Li)</a></li><li><a href="/read/6.2/#Ch6.S2.SS5">Pose Estimation, Section 6.2.5</a></li><li><a href="/read/7.2/#Ch7.S2.SS1">Implicit Neural Spatial Reasoning, Section 7.2.1 (with Chengzu Li)</a></li><li><a href="/read/7.2/#Ch7.S2.SS2">Explicit Structured Neural Reasoning, Section 7.2.2 (with Chengzu Li)</a></li><li><a href="/read/7.2/#Ch7.S2.SS3">Geometry-aware Neural Spatial Reasoning, Section 7.2.3 (with Chengzu Li)</a></li><li><a href="/read/7.3/#Ch7.S3.SS4">Code/DSL Generation for Spatial Reasoning, Section 7.3.4 (with Chengzu Li)</a></li><li><a href="/read/7.3/#Ch7.S3.SS8">World-Model-based Spatial Reasoning, Section 7.3.8 (with Ruining Li)</a></li><li><a href="/read/8.6/">World Modeling, Section 8.6</a></li><li><a href="/read/9.3/">Wearable AI System, Section 9.3</a></li><li>Figures: drew part of the handbook's illustrations, most notably the teaser figure</li></ul>
+      </details>
+    </article>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.au-mail').forEach(a => {
+  const r = s => s.split('').reverse().join(''), addr = r(a.dataset.u) + '@' + r(a.dataset.d);
+  a.href = 'mailto:' + addr; a.textContent = addr; a.classList.add('is-mail');
+});
+</script>
+</div>
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-brand">
+      <a class="brand" href="/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg><span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span></a>
+      <p>Foundations, Architectures, Methodologies, Applications and Challenges. Developed by 31 researchers from 14 institutions.</p>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Read</h4><a href="/read/">Contents</a><a href="/read/preface/">Preface</a><a href="/read/part-i/">Part I</a><a href="/read/part-ii/">Part II</a><a href="/read/part-iii/">Part III</a><a href="/read/part-iv/">Part IV</a><a href="/read/part-v/">Part V</a></div>
+      <div><h4>Explore</h4><a href="/explore/literature/">Literature</a><a href="/explore/datasets/">Datasets &amp; benchmarks</a><a href="/explore/tools/">Tools &amp; platforms</a><a href="/explore/timeline/">Milestones</a><a href="/explore/figures/">Figures</a><a href="/explore/glossary/">Glossary</a></div>
+      <div><h4>About</h4><a href="/team/">Team</a><a href="/#cite">Cite</a><a href="/contribute/">Contribute</a><a href="/contribute/#updates">Updates</a></div>
+    </div>
+  </div>
+  <div class="footer-base"><span>© 2026 The authors of <em>Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges</em>.</span><span>Built from the LaTeX source of the handbook.</span></div>
+</footer>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>

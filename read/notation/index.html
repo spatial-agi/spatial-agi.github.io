@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notation · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="Notation · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #3646F0" data-page="notation">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front is-current" href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a></nav>
+    <header class="page-head kind-front">
+        <h1>Notation</h1>
+      <div class="meta">
+        <span>5 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:Notation">
+<div id="Chx2.p1" class="ltx_para">
+<p class="ltx_p">Symbols are listed in chapter order, with the meanings used in the referenced sections.</p>
+</div>
+<figure id="Chx2.T1" class="ltx_table">
+<table class="ltx_tabular striped">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><span class="ltx_font_bold">Symbol</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_font_bold">Description</span></td>
+<td class="ltx_td ltx_align_left"><span class="ltx_font_bold">Reference</span></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m1" alttext="\mathcal{E}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℰ</mi><annotation encoding="application/x-tex">\mathcal{E}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Physical or simulated environment.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m2" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">AI system or agent.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m3" alttext="\mathcal{T},\;t\in\mathcal{T}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>𝒯</mi><mo rspace="0.447em">,</mo><mi>t</mi></mrow><mo>∈</mo><mi>𝒯</mi></mrow><annotation encoding="application/x-tex">\mathcal{T},\;t\in\mathcal{T}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Task space and a task in that space.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m4" alttext="\mathcal{R}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℛ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\mathcal{R}_{\mathcal{S}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Internal spatial representation space of the system.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m5" alttext="\Phi_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\Phi_{\mathcal{S}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Mapping from the environment to the internal spatial representation space.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m6" alttext="\mathcal{F}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℱ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\mathcal{F}_{\mathcal{S}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Set of operators for perception, reasoning, prediction, and action.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m7" alttext="\mathcal{O},\;\mathcal{A}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒪</mi><mo rspace="0.447em">,</mo><mi>𝒜</mi></mrow><annotation encoding="application/x-tex">\mathcal{O},\;\mathcal{A}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Observation space and action space, respectively.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m8" alttext="f^{\mathcal{S}}_{\mathrm{perc}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mi>perc</mi><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">f^{\mathcal{S}}_{\mathrm{perc}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Operator that maps observations to spatial representations.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m9" alttext="f^{\mathcal{S}}_{\mathrm{reason}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mi>reason</mi><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">f^{\mathcal{S}}_{\mathrm{reason}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Reasoning operator inferring relations and constraints in the current representation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m10" alttext="f^{\mathcal{S}}_{\mathrm{pred}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mi>pred</mi><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">f^{\mathcal{S}}_{\mathrm{pred}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Prediction operator mapping a representation and an action to a future representation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m11" alttext="f^{\mathcal{S}}_{\mathrm{act}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mi>act</mi><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">f^{\mathcal{S}}_{\mathrm{act}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Action operator mapping a spatial representation to an action.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m12" alttext="\pi_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>π</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\pi_{\mathcal{S}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Task-conditioned policy for selecting actions.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m13" alttext="\mathcal{R}^{\mathcal{S}}_{t}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>ℛ</mi><mi>t</mi><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">\mathcal{R}^{\mathcal{S}}_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Internal spatial representation state at time <math id="Chx2.T1.m14" alttext="t" display="inline" data-pagefind-ignore="all"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m15" alttext="a^{\mathcal{S}}_{t},\;o_{t+1}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msubsup><mi>a</mi><mi>t</mi><mi>𝒮</mi></msubsup><mo rspace="0.447em">,</mo><msub><mi>o</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">a^{\mathcal{S}}_{t},\;o_{t+1}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Selected action and subsequent observation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m16" alttext="\Psi_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi mathvariant="normal">Ψ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\Psi_{\mathcal{S}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Update function for the internal spatial representation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/2.2/#Ch2.S2.SS2" class="xref" data-x="Ch2.S2.SS2"><span>2.2.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m17" alttext="\Omega" display="inline" data-pagefind-ignore="all"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Image grid or domain of pixel coordinates.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.1/#Ch4.S1.SS1" class="xref" data-x="Ch4.S1.SS1"><span>4.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m18" alttext="I,\;V" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>I</mi><mo rspace="0.447em">,</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">I,\;V</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Image and video, respectively.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.1/#Ch4.S1.SS1" class="xref" data-x="Ch4.S1.SS1"><span>4.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m19" alttext="S,\;\mathcal{L}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>S</mi><mo rspace="0.447em">,</mo><mi>ℒ</mi></mrow><annotation encoding="application/x-tex">S,\;\mathcal{L}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Segmentation map and its set of labels.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.1/#Ch4.S1.SS2" class="xref" data-x="Ch4.S1.SS2"><span>4.1.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m20" alttext="D(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>D</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">D(u,v)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Depth value at pixel <math id="Chx2.T1.m21" alttext="(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.1/#Ch4.S1.SS3" class="xref" data-x="Ch4.S1.SS3"><span>4.1.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m22" alttext="\mathbf{N}(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐍</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{N}(u,v)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Unit surface normal at pixel <math id="Chx2.T1.m23" alttext="(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.1/#Ch4.S1.SS4" class="xref" data-x="Ch4.S1.SS4"><span>4.1.4</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m24" alttext="\mathbf{F}(u,v)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐅</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{F}(u,v)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Optical flow giving horizontal and vertical pixel displacement.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.1/#Ch4.S1.SS6" class="xref" data-x="Ch4.S1.SS6"><span>4.1.6</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m25" alttext="\mathcal{K},\;H_{k}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒦</mi><mo rspace="0.447em">,</mo><msub><mi>H</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\mathcal{K},\;H_{k}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Set of keypoint locations and the heatmap for keypoint <math id="Chx2.T1.m26" alttext="k" display="inline" data-pagefind-ignore="all"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.1/#Ch4.S1.SS7" class="xref" data-x="Ch4.S1.SS7"><span>4.1.7</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m27" alttext="P=\{p_{i}\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>P</mi><mo>=</mo><mrow><mo stretchy="false">{</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">P=\{p_{i}\}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Point cloud with 3D coordinates and optional attributes.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.2/#Ch4.S2.SS3" class="xref" data-x="Ch4.S2.SS3"><span>4.2.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m28" alttext="M=(V,F)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>V</mi><mo>,</mo><mi>F</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">M=(V,F)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Triangle mesh with vertex set <math id="Chx2.T1.m29" alttext="V" display="inline" data-pagefind-ignore="all"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> and face set <math id="Chx2.T1.m30" alttext="F" display="inline" data-pagefind-ignore="all"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.2/#Ch4.S2.SS4" class="xref" data-x="Ch4.S2.SS4"><span>4.2.4</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m31" alttext="f(\mathbf{x})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>f</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(\mathbf{x})</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Implicit scalar field whose level set defines a surface; a signed distance function in the SDF case.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.2/#Ch4.S2.SS5" class="xref" data-x="Ch4.S2.SS5"><span>4.2.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m32" alttext="F_{\Theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>F</mi><mi mathvariant="normal">Θ</mi></msub><annotation encoding="application/x-tex">F_{\Theta}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Neural radiance field mapping position and viewing direction to color and volume density.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.2/#Ch4.S2.SS6" class="xref" data-x="Ch4.S2.SS6"><span>4.2.6</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m33" alttext="\mathbf{x},\;\mathbf{d}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐱</mi><mo rspace="0.447em">,</mo><mi>𝐝</mi></mrow><annotation encoding="application/x-tex">\mathbf{x},\;\mathbf{d}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">3D query position and viewing direction in a radiance field.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.2/#Ch4.S2.SS6" class="xref" data-x="Ch4.S2.SS6"><span>4.2.6</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m34" alttext="\sigma,\;\mathbf{c}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>σ</mi><mo rspace="0.447em">,</mo><mi>𝐜</mi></mrow><annotation encoding="application/x-tex">\sigma,\;\mathbf{c}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Volume density and emitted RGB color in a radiance field.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.2/#Ch4.S2.SS6" class="xref" data-x="Ch4.S2.SS6"><span>4.2.6</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m35" alttext="\bm{\mu},\;\bm{\Sigma}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝝁</mi><mo rspace="0.447em">,</mo><mi>𝚺</mi></mrow><annotation encoding="application/x-tex">\bm{\mu},\;\bm{\Sigma}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Center and covariance matrix of a 3D Gaussian primitive.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.2/#Ch4.S2.SS7" class="xref" data-x="Ch4.S2.SS7"><span>4.2.7</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m36" alttext="\alpha_{i},\;c_{i}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>α</mi><mi>i</mi></msub><mo rspace="0.447em">,</mo><msub><mi>c</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\alpha_{i},\;c_{i}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Opacity and color of the <math id="Chx2.T1.m37" alttext="i" display="inline" data-pagefind-ignore="all"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>-th Gaussian primitive.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.2/#Ch4.S2.SS7" class="xref" data-x="Ch4.S2.SS7"><span>4.2.7</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m38" alttext="\Delta\mathbf{x}(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>𝐱</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Delta\mathbf{x}(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Time-dependent displacement from a reference 3D position.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.3/#Ch4.S3.SS4" class="xref" data-x="Ch4.S3.SS4"><span>4.3.4</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m39" alttext="\mathcal{G}(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒢</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{G}(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Time-dependent collection of Gaussian primitives in a dynamic scene.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/4.3/#Ch4.S3.SS5" class="xref" data-x="Ch4.S3.SS5"><span>4.3.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m40" alttext="b_{i},\;c_{i},\;s_{i}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>b</mi><mi>i</mi></msub><mo rspace="0.447em">,</mo><msub><mi>c</mi><mi>i</mi></msub><mo rspace="0.447em">,</mo><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">b_{i},\;c_{i},\;s_{i}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Bounding box, class label, and confidence score of detection <math id="Chx2.T1.m41" alttext="i" display="inline" data-pagefind-ignore="all"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.1/#Ch6.S1.SS1" class="xref" data-x="Ch6.S1.SS1"><span>6.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m42" alttext="f_{\theta},\;\theta" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>f</mi><mi>θ</mi></msub><mo rspace="0.447em">,</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">f_{\theta},\;\theta</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Parameterized prediction model and its learned parameters.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.1/#Ch6.S1.SS3" class="xref" data-x="Ch6.S1.SS3"><span>6.1.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m43" alttext="\mathbb{I}(\cdot)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝕀</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbb{I}(\cdot)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Indicator function, equal to one when its condition holds and zero otherwise.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.1/#Ch6.S1.SS3" class="xref" data-x="Ch6.S1.SS3"><span>6.1.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m44" alttext="Z,\;f,\;B,\;d" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>Z</mi><mo rspace="0.447em">,</mo><mi>f</mi><mo rspace="0.447em">,</mo><mi>B</mi><mo rspace="0.447em">,</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">Z,\;f,\;B,\;d</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Stereo depth, focal length, camera baseline, and disparity, with <math id="Chx2.T1.m45" alttext="Z=fB/d" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>Z</mi><mo>=</mo><mrow><mrow><mi>f</mi><mo>⁢</mo><mi>B</mi></mrow><mo>/</mo><mi>d</mi></mrow></mrow><annotation encoding="application/x-tex">Z=fB/d</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.2/#Ch6.S2.SS1" class="xref" data-x="Ch6.S2.SS1"><span>6.2.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m46" alttext="K" display="inline" data-pagefind-ignore="all"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Camera intrinsic matrix.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.2/#Ch6.S2.SS3" class="xref" data-x="Ch6.S2.SS3"><span>6.2.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m47" alttext="R,\;\mathbf{t}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>R</mi><mo rspace="0.447em">,</mo><mi>𝐭</mi></mrow><annotation encoding="application/x-tex">R,\;\mathbf{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Rotation and translation mapping world coordinates into the camera frame.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.2/#Ch6.S2.SS3" class="xref" data-x="Ch6.S2.SS3"><span>6.2.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m48" alttext="\mathbf{T}_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝐓</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{T}_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Camera pose at time <math id="Chx2.T1.m49" alttext="t" display="inline" data-pagefind-ignore="all"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, represented by a rigid transformation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.2/#Ch6.S2.SS4" class="xref" data-x="Ch6.S2.SS4"><span>6.2.4</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m50" alttext="\Delta\mathbf{T}_{i\to j}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><msub><mi>𝐓</mi><mrow><mi>i</mi><mo stretchy="false">→</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\Delta\mathbf{T}_{i\to j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Relative camera transformation from frame <math id="Chx2.T1.m51" alttext="i" display="inline" data-pagefind-ignore="all"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> to frame <math id="Chx2.T1.m52" alttext="j" display="inline" data-pagefind-ignore="all"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.2/#Ch6.S2.SS4" class="xref" data-x="Ch6.S2.SS4"><span>6.2.4</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m53" alttext="\mathcal{G}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒢</mi><annotation encoding="application/x-tex">\mathcal{G}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Scene graph of subject–predicate–object triplets.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.3/#Ch6.S3.SS2" class="xref" data-x="Ch6.S3.SS2"><span>6.3.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m54" alttext="\mathbf{v}(\mathbf{x})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐯</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{v}(\mathbf{x})</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Scene flow: 3D displacement of the surface point observed at pixel <math id="Chx2.T1.m55" alttext="\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.4/#Ch6.S4.SS1" class="xref" data-x="Ch6.S4.SS1"><span>6.4.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m56" alttext="\mathcal{T}_{k}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝒯</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\mathcal{T}_{k}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Time-indexed trajectory of tracked object <math id="Chx2.T1.m57" alttext="k" display="inline" data-pagefind-ignore="all"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/6.4/#Ch6.S4.SS2" class="xref" data-x="Ch6.S4.SS2"><span>6.4.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m58" alttext="\mathrm{SO}(3),\;\mathrm{SE}(3)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>SO</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.447em">,</mo><mrow><mi>SE</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SO}(3),\;\mathrm{SE}(3)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Groups of 3D rotations and rigid transformations, respectively.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS1" class="xref" data-x="Ch7.S1.SS1"><span>7.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m59" alttext="\mathbf{F}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐅</mi><annotation encoding="application/x-tex">\mathbf{F}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Fundamental matrix relating corresponding image points in two views.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS1" class="xref" data-x="Ch7.S1.SS1"><span>7.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m60" alttext="\mathbf{q},\;\mathbf{J}(\mathbf{q})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐪</mi><mo rspace="0.447em">,</mo><mrow><mi>𝐉</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐪</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{q},\;\mathbf{J}(\mathbf{q})</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Joint configuration and the Jacobian mapping joint velocities to task-space velocities.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS1" class="xref" data-x="Ch7.S1.SS1"><span>7.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m61" alttext="\mathcal{C}_{\mathrm{free}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝒞</mi><mi>free</mi></msub><annotation encoding="application/x-tex">\mathcal{C}_{\mathrm{free}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Feasible configuration space used in reachability and motion planning.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS1" class="xref" data-x="Ch7.S1.SS1"><span>7.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m62" alttext="\mathcal{W}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒲</mi><annotation encoding="application/x-tex">\mathcal{W}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Set of contact wrenches used to test grasp force closure.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS1" class="xref" data-x="Ch7.S1.SS1"><span>7.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m63" alttext="\mathbf{s}_{t},\;\mathbf{u}_{t}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐬</mi><mi>t</mi></msub><mo rspace="0.447em">,</mo><msub><mi>𝐮</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{s}_{t},\;\mathbf{u}_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Physical system state and applied action in the dynamics model.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS2" class="xref" data-x="Ch7.S1.SS2"><span>7.1.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m64" alttext="M(\mathbf{q})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>M</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐪</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">M(\mathbf{q})</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Configuration-dependent mass matrix.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS2" class="xref" data-x="Ch7.S1.SS2"><span>7.1.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m65" alttext="G=(V,E,w)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>G</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>V</mi><mo>,</mo><mi>E</mi><mo>,</mo><mi>w</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">G=(V,E,w)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Planning graph with vertices, edges, and edge weights.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS3" class="xref" data-x="Ch7.S1.SS3"><span>7.1.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m66" alttext="\operatorname{do}(X=x)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>do</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mi>X</mi><mo>=</mo><mi>x</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{do}(X=x)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Intervention that sets variable <math id="Chx2.T1.m67" alttext="X" display="inline" data-pagefind-ignore="all"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> to <math id="Chx2.T1.m68" alttext="x" display="inline" data-pagefind-ignore="all"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> in a causal model.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.1/#Ch7.S1.SS6" class="xref" data-x="Ch7.S1.SS6"><span>7.1.6</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m69" alttext="z^{\star}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>z</mi><mo>⋆</mo></msup><annotation encoding="application/x-tex">z^{\star}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Optimal solution returned by a differentiable optimization layer.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.2/#Ch7.S2.SS4" class="xref" data-x="Ch7.S2.SS4"><span>7.2.4</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m70" alttext="\pi_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>π</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">\pi_{\theta}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Learned policy for selecting actions.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.2/#Ch7.S2.SS5" class="xref" data-x="Ch7.S2.SS5"><span>7.2.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m71" alttext="r_{t},\;\gamma" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>r</mi><mi>t</mi></msub><mo rspace="0.447em">,</mo><mi>γ</mi></mrow><annotation encoding="application/x-tex">r_{t},\;\gamma</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Reward at time <math id="Chx2.T1.m72" alttext="t" display="inline" data-pagefind-ignore="all"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> and the discount factor.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.2/#Ch7.S2.SS5" class="xref" data-x="Ch7.S2.SS5"><span>7.2.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m73" alttext="Q^{*}(s,a)" display="inline" data-pagefind-ignore="all"><semantics><mrow><msup><mi>Q</mi><mo>∗</mo></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">Q^{*}(s,a)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Maximum expected discounted return from taking action <math id="Chx2.T1.m74" alttext="a" display="inline" data-pagefind-ignore="all"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> in state <math id="Chx2.T1.m75" alttext="s" display="inline" data-pagefind-ignore="all"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.2/#Ch7.S2.SS5" class="xref" data-x="Ch7.S2.SS5"><span>7.2.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m76" alttext="R_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>R</mi><mi>t</mi></msub><annotation encoding="application/x-tex">R_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Discounted return from time <math id="Chx2.T1.m77" alttext="t" display="inline" data-pagefind-ignore="all"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> onward.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.2/#Ch7.S2.SS5" class="xref" data-x="Ch7.S2.SS5"><span>7.2.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m78" alttext="V_{\phi},\;A_{\phi}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>V</mi><mi>ϕ</mi></msub><mo rspace="0.447em">,</mo><msub><mi>A</mi><mi>ϕ</mi></msub></mrow><annotation encoding="application/x-tex">V_{\phi},\;A_{\phi}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">State-value function and advantage function.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.2/#Ch7.S2.SS5" class="xref" data-x="Ch7.S2.SS5"><span>7.2.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m79" alttext="a_{t:t+H}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>a</mi><mrow><mi>t</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>t</mi><mo>+</mo><mi>H</mi></mrow></mrow></msub><annotation encoding="application/x-tex">a_{t:t+H}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Action sequence predicted over horizon <math id="Chx2.T1.m80" alttext="H" display="inline" data-pagefind-ignore="all"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math> by a vision-language-action policy.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.3/#Ch7.S3.SS2" class="xref" data-x="Ch7.S3.SS2"><span>7.3.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m81" alttext="\tau=(t_{1},\ldots,t_{L})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>τ</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msub><mi>t</mi><mi>L</mi></msub><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\tau=(t_{1},\ldots,t_{L})</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Sequence of intermediate reasoning steps in a chain of thought.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.3/#Ch7.S3.SS3" class="xref" data-x="Ch7.S3.SS3"><span>7.3.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m82" alttext="\mathcal{M}_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℳ</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathcal{M}_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">External spatial memory after the update at time <math id="Chx2.T1.m83" alttext="t" display="inline" data-pagefind-ignore="all"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/7.3/#Ch7.S3.SS6" class="xref" data-x="Ch7.S3.SS6"><span>7.3.6</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m84" alttext="\mathcal{X},\;\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒳</mi><mo rspace="0.447em">,</mo><mi>𝐱</mi></mrow><annotation encoding="application/x-tex">\mathcal{X},\;\mathbf{x}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Space of tokenized text prompts and an input prompt.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m85" alttext="\mathcal{Y},\;\mathbf{y}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒴</mi><mo rspace="0.447em">,</mo><mi>𝐲</mi></mrow><annotation encoding="application/x-tex">\mathcal{Y},\;\mathbf{y}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Pixel-space image domain and an image in that domain.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m86" alttext="\mathcal{Z},\;\mathbf{z}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝒵</mi><mo rspace="0.447em">,</mo><mi>𝐳</mi></mrow><annotation encoding="application/x-tex">\mathcal{Z},\;\mathbf{z}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Latent representation space and a latent code.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m87" alttext="E,\;D" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>E</mi><mo rspace="0.447em">,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">E,\;D</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Image encoder and decoder of the latent autoencoder.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m88" alttext="\phi,\;\mathcal{E}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ϕ</mi><mo rspace="0.447em">,</mo><mi>ℰ</mi></mrow><annotation encoding="application/x-tex">\phi,\;\mathcal{E}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Text encoder and its conditioning embedding space.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m89" alttext="G_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>G</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">G_{\theta}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Conditional generator or sampler.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m90" alttext="p_{\theta}(\cdot\mid\cdot)" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>p</mi><mi>θ</mi></msub><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo lspace="0em" rspace="0em">∣</mo><mo lspace="0em" rspace="0em">⋅</mo><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">p_{\theta}(\cdot\mid\cdot)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Learned conditional distribution over generated outputs or latent codes.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m91" alttext="\epsilon_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ϵ</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">\epsilon_{\theta}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Noise predictor used in diffusion generation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m92" alttext="\mathbf{z}_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝐳</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{z}_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Latent code at diffusion or flow time <math id="Chx2.T1.m93" alttext="t" display="inline" data-pagefind-ignore="all"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m94" alttext="v_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>v</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">v_{\theta}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Learned velocity field used in flow matching.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m95" alttext="\mathbf{c},\;\mathcal{C}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo rspace="0.447em">,</mo><mi>𝒞</mi></mrow><annotation encoding="application/x-tex">\mathbf{c},\;\mathcal{C}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Structural conditioning signal and its input space.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m96" alttext="\kappa,\;\mathcal{C}^{\prime}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo rspace="0.447em">,</mo><msup><mi>𝒞</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">\kappa,\;\mathcal{C}^{\prime}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Condition encoder and the space of encoded conditions.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS2" class="xref" data-x="Ch8.S1.SS2"><span>8.1.2</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m97" alttext="\mathcal{M}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℳ</mi><annotation encoding="application/x-tex">\mathcal{M}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Mask identifying the region to be edited.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.1/#Ch8.S1.SS3" class="xref" data-x="Ch8.S1.SS3"><span>8.1.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m98" alttext="\mathcal{R},\;\mathbf{r}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ℛ</mi><mo rspace="0.447em">,</mo><mi>𝐫</mi></mrow><annotation encoding="application/x-tex">\mathcal{R},\;\mathbf{r}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Space of 3D representations and a 3D asset in that space.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.2/#Ch8.S2.SS1" class="xref" data-x="Ch8.S2.SS1"><span>8.2.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m99" alttext="\pi,\;\pi_{v}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>π</mi><mo rspace="0.447em">,</mo><msub><mi>π</mi><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">\pi,\;\pi_{v}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Camera pose used for rendering, with <math id="Chx2.T1.m100" alttext="v" display="inline" data-pagefind-ignore="all"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> indexing a view.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.2/#Ch8.S2.SS1" class="xref" data-x="Ch8.S2.SS1"><span>8.2.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m101" alttext="\mathrm{Render}" display="inline" data-pagefind-ignore="all"><semantics><mi>Render</mi><annotation encoding="application/x-tex">\mathrm{Render}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Renderer mapping a 3D representation and a camera pose to an image.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.2/#Ch8.S2.SS1" class="xref" data-x="Ch8.S2.SS1"><span>8.2.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m102" alttext="\mathcal{L}_{\mathrm{SDS}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℒ</mi><mi>SDS</mi></msub><annotation encoding="application/x-tex">\mathcal{L}_{\mathrm{SDS}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Score-distillation objective for optimizing a representation with a frozen diffusion prior.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.2/#Ch8.S2.SS1" class="xref" data-x="Ch8.S2.SS1"><span>8.2.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m103" alttext="\mathcal{L}_{\mathrm{rec}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℒ</mi><mi>rec</mi></msub><annotation encoding="application/x-tex">\mathcal{L}_{\mathrm{rec}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Loss measuring agreement between a reconstruction and its observations.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.2/#Ch8.S2.SS3" class="xref" data-x="Ch8.S2.SS3"><span>8.2.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m104" alttext="\lambda,\;\Omega" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>λ</mi><mo rspace="0.447em">,</mo><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">\lambda,\;\Omega</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Weight and regularizer used in scene reconstruction.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.2/#Ch8.S2.SS3" class="xref" data-x="Ch8.S2.SS3"><span>8.2.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m105" alttext="\Lambda" display="inline" data-pagefind-ignore="all"><semantics><mi mathvariant="normal">Λ</mi><annotation encoding="application/x-tex">\Lambda</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Operator lifting a panorama or a set of panoramic views into a 3D representation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.2/#Ch8.S2.SS4" class="xref" data-x="Ch8.S2.SS4"><span>8.2.4</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m106" alttext="E_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>E</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">E_{\theta}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Editing operator mapping a 3D representation and a condition to an edited representation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.2/#Ch8.S2.SS5" class="xref" data-x="Ch8.S2.SS5"><span>8.2.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m107" alttext="\mathbf{m}^{1:T}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝐦</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><annotation encoding="application/x-tex">\mathbf{m}^{1:T}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Sequence of body poses describing a motion.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.4/#Ch8.S4.SS1" class="xref" data-x="Ch8.S4.SS1"><span>8.4.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m108" alttext="\mathbf{r}^{1:T}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝐫</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><annotation encoding="application/x-tex">\mathbf{r}^{1:T}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Time-indexed sequence of 3D representations for a dynamic scene.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.5/" class="xref" data-x="Ch8.S5"><span>8.5</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m109" alttext="W_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>W</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">W_{\theta}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Learned world model predicting the next state from state, action, and observation.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.6/" class="xref" data-x="Ch8.S6"><span>8.6</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m110" alttext="S(t),\;A(t),\;O(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi>S</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.447em">,</mo><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.447em">,</mo><mrow><mi>O</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">S(t),\;A(t),\;O(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">World state, action, and observation, respectively.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.6/" class="xref" data-x="Ch8.S6"><span>8.6</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m111" alttext="E_{\phi},\;P_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>E</mi><mi>ϕ</mi></msub><mo rspace="0.447em">,</mo><msub><mi>P</mi><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">E_{\phi},\;P_{\theta}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Observation encoder and latent-state predictor in a representation world model.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.6/#Ch8.S6.SS1" class="xref" data-x="Ch8.S6.SS1"><span>8.6.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m112" alttext="\operatorname{sg}(\cdot)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>sg</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{sg}(\cdot)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Stop-gradient operator used in representation learning.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.6/#Ch8.S6.SS1" class="xref" data-x="Ch8.S6.SS1"><span>8.6.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m113" alttext="M(t)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>M</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">M(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Latent mental state of another agent, including beliefs, desires, and intentions.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.6/#Ch8.S6.SS3" class="xref" data-x="Ch8.S6.SS3"><span>8.6.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m114" alttext="s_{t}^{\mathrm{phy}},\;s_{t}^{\mathrm{ment}}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msubsup><mi>s</mi><mi>t</mi><mi>phy</mi></msubsup><mo rspace="0.447em">,</mo><msubsup><mi>s</mi><mi>t</mi><mi>ment</mi></msubsup></mrow><annotation encoding="application/x-tex">s_{t}^{\mathrm{phy}},\;s_{t}^{\mathrm{ment}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Physical and mental components of a joint world state.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.6/#Ch8.S6.SS3" class="xref" data-x="Ch8.S6.SS3"><span>8.6.3</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m115" alttext="\rho,\;\mathcal{L}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>ρ</mi><mo rspace="0.447em">,</mo><mi>ℒ</mi></mrow><annotation encoding="application/x-tex">\rho,\;\mathcal{L}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Symbolic scene program and its language.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.7/#Ch8.S7.SS1" class="xref" data-x="Ch8.S7.SS1"><span>8.7.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m116" alttext="R(\rho)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>R</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ρ</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">R(\rho)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Execution or rendering of symbolic scene program <math id="Chx2.T1.m117" alttext="\rho" display="inline" data-pagefind-ignore="all"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/8.7/#Ch8.S7.SS1" class="xref" data-x="Ch8.S7.SS1"><span>8.7.1</span></a>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left"><math id="Chx2.T1.m118" alttext="M_{t}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>M</mi><mi>t</mi></msub><annotation encoding="application/x-tex">M_{t}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left">Semantic environment map maintained during warehouse localization and mapping.</td>
+<td class="ltx_td ltx_align_left">Sec. <a href="/read/9.5/#Ch9.S5.SS4" class="xref" data-x="Ch9.S5.SS4"><span>9.5.4</span></a>
+</td>
+</tr>
+</table>
+</figure>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/preface/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">Preface</span></a><a class="pager-next" href="/read/glossary/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Glossary</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="tools">
+        <button type="button" data-cite-section data-title="Notation" data-url="/read/notation/">Cite this page</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%20Notation&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/notation/%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

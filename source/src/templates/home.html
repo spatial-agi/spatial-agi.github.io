@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Spatial Intelligence Handbook{% endblock %}
+{% block bodyclass %}is-home{% endblock %}
+{% block main %}
+<section class="hero">
+  <div class="hero-in">
+    <div class="hero-text">
+      <div class="hero-label">Handbook</div>
+      <h1>Spatial Intelligence</h1>
+      <p class="hero-sub">Foundations, Architectures, Methodologies, Applications and Challenges</p>
+      <p class="hero-lede">How AI systems <em>construct, maintain, and manipulate</em> representations of the physical world, and use them to perceive, reason, predict, and act. One framework, five parts and {{ site.n_chapters }} chapters, from the cognitive map to world models.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="/read/preface/"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read online</a>
+        <a class="btn" href="{{ site.pdf_url or '/#cite' }}"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M6 9l4 4 4-4M4 16h12"/></svg>Download PDF</a>
+        <a class="btn btn-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★ Star</span></a>
+      </div>
+      <dl class="hero-stats">
+        <div><dt>Parts</dt><dd>5</dd></div>
+        <div><dt>Chapters</dt><dd>{{ site.n_chapters }}</dd></div>
+        <div><dt>Figures</dt><dd>{{ site.n_figures }}</dd></div>
+        <div><dt>References</dt><dd>{{ "{:,}".format(site.n_refs) }}</dd></div>
+      </dl>
+    </div>
+    <div class="hero-map">
+      <figure class="worldmap" data-worldmap>
+        <div class="wm-stage">
+          <img src="/assets/img/world.webp" srcset="/assets/img/world-sm.webp 760w, /assets/img/world.webp 1500w" sizes="(max-width: 980px) 92vw, 560px" width="1500" height="1889" alt="The handbook drawn as one concentric world: representation at the centre, the perception–reasoning–generation loop on the inner ring, applications along the coast, the five eras as stepping stones and the open questions on the horizon." fetchpriority="high">
+          <svg class="wm-svg" viewBox="0 0 1000 1259.3" aria-hidden="true"></svg>
+          <div class="wm-card" hidden></div>
+        </div>
+        <figcaption>
+          <div class="wm-legend" role="group" aria-label="Highlight a part">
+            {% for p in site.parts %}<button type="button" data-part="{{ p.roman }}" style="--pc: {{ p.color }}"><span class="roman">{{ p.roman }}</span>{{ p.short }}</button>{% endfor %}
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="band band-def" id="definition">
+  <div class="wrap def-grid">
+    <div class="def-text">
+      <h2>What is spatial intelligence?</h2>
+      <p class="def-quote">The ability of an AI system to <b>construct, maintain and manipulate</b> spatial representations of the physical world that support <b>perception, reasoning, prediction and embodied action</b>.</p>
+      <div class="def-panel" data-def-panel aria-live="polite"></div>
+      <a class="textlink" href="/read/2.2/">The full definition, Section 2.2 →</a>
+    </div>
+    <figure class="def-fig">{{ site.fig21 }}</figure>
+  </div>
+</section>
+
+<section class="band" id="eras">
+  <div class="wrap">
+    <div class="sec-head"><h2>Five eras of representing space</h2><p>Each era is defined by what it took space to be, and each left a problem for the next.</p></div>
+    <div class="eras" data-eras>
+      <div class="era-track" role="tablist">
+        {% for e in site.eras %}<button type="button" role="tab" class="era-tab" data-era="{{ loop.index0 }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><img src="/assets/img/era-{{ loop.index }}.webp" alt="" loading="lazy" width="260" height="360"><span class="era-roman">{{ e.roman }}</span><span class="era-name">{{ e.name }}</span><span class="era-years">{{ e.years }}</span></button>{% endfor %}
+      </div>
+      <div class="era-panel" data-era-panel></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-soft" id="parts">
+  <div class="wrap">
+    <div class="sec-head sec-head-wide"><h2>Five parts, one path from representation to action</h2></div>
+    <div class="partgrid">
+      {% for p in site.parts %}
+      <a class="partcard" href="/read/{{ p.slug }}/" style="--pc: {{ p.color }}">
+        <div class="pc-art"><img src="/assets/img/part-{{ p.n }}.webp" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="pc-body">
+          <div class="pc-kicker"><span class="roman">{{ p.roman }}</span>Part {{ p.roman }}{% if p.page %} · p. {{ p.page }}{% endif %}</div>
+          <h3>{{ p.title }}</h3>
+          <ol class="pc-chapters">{% for c in p.chapters %}<li><span>{{ c.num }}</span>{{ c.title }}</li>{% endfor %}</ol>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="band" id="explore">
+  <div class="wrap">
+    <div class="sec-head"><h2>Explore the field</h2><p>Everything the handbook cites, compares and builds on, organised for searching and browsing.</p></div>
+    <div class="tiles">
+      {% for t in site.tiles %}
+      <a class="tile" href="{{ t.url }}"><span class="tile-n">{{ t.n }}</span><span class="tile-t">{{ t.title }}</span><span class="tile-d">{{ t.desc }}</span></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="band band-soft" id="authors">
+  <div class="wrap">
+    <div class="sec-head"><h2>Developed by {{ site.n_authors }} researchers from {{ site.n_inst }} institutions</h2></div>
+    <ul class="inst-logos">{% for i in site.inst_logos %}<li tabindex="0" data-name="{{ i.name }}" aria-label="{{ i.name }}">{% if i.src %}<img src="{{ i.src }}" alt="{{ i.name }}" loading="lazy" width="{{ i.w }}" height="{{ i.h }}">{% else %}<span class="inst-txt">{{ i.name }}</span>{% endif %}</li>{% if i.br %}<li class="br" aria-hidden="true"></li>{% endif %}{% endfor %}</ul>
+    <a class="btn" href="/team/">Meet the team →</a>
+  </div>
+</section>
+
+<section class="band" id="cite">
+  <div class="wrap two">
+    <div><h2>Citing the handbook</h2><p class="muted">If the handbook is useful in your work, please cite it. Every section can also be cited on its own with <em>Cite this section</em> in the reader; numbers online follow the PDF, so “Section 7.2” or “Figure 6.6” mean the same in both.</p></div>
+    <div class="citebox">
+      <div class="cite-tabs" role="tablist" aria-label="Citation format">
+        <button type="button" role="tab" aria-selected="true" data-ct="bib-main">BibTeX</button><button type="button" role="tab" aria-selected="false" data-ct="bib-plain">Plain text</button>
+      </div>
+      <div class="bibbox"><button type="button" class="copybtn" data-copy-active>Copy</button><pre id="bib-main">{{ site.bibtex }}</pre><pre id="bib-plain" class="wrap-pre" hidden>{{ site.plain }}</pre></div>
+    </div>
+  </div>
+</section>
+<script type="application/json" id="home-data">{{ home_json }}</script>
+{% endblock %}
+{% block scripts %}<script type="module" src="/assets/js/home.js"></script>{% endblock %}

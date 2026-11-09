@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9.3 Wearable AI System · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="9.3 Wearable AI System · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="9.3">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link is-current" href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-9/">Chapter 9</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-9/">Chapter 9 · Spatial Intelligence for Embodied Systems</a></div>
+        <h1><span class="secnum">9.3</span>Wearable AI System</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=348" title="Open this page in the PDF">PDF p. 348</a><span class="dot">·</span>        <span>17 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:9.3 Wearable AI System">
+<section>
+<h2 class="h-subsection" id="Ch9.S3.SS1"><span class="secnum">9.3.1</span>Introduction<a class="anchor" href="#Ch9.S3.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">Wearable devices have become a central sensing modality for embodied and spatial intelligence, delivering continuous, fine-grained measurements of human motion, physiology, and physical interaction. Because they are worn on or integrated into the body, they access proprioceptive and kinesthetic cues, joint rotations, muscle activations, contact forces, and locomotion patterns, which exteroceptive sensors such as RGB-D cameras or LiDAR cannot capture directly. We use the term broadly, covering inertial measurement units (IMUs), surface electromyography (EMG) sensors, smart textiles, haptic interfaces, and wearable cameras: body-mounted technologies that together model human dynamics and embodied interaction in real-world settings. It is this egocentric, body-centric vantage point that makes wearables valuable for spatial intelligence, letting a system reason about how a person moves through, reads, and acts upon their surroundings, and it has driven rapid adoption across health monitoring, sports analytics, rehabilitation <cite class="cites">[<a class="cite" href="/read/references/#ref-2440" data-k="patel2012review">2440</a>]</cite>, industrial safety, and human–robot collaboration.</p>
+</div>
+<div id="Ch9.S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">The signals wearables provide are especially valuable because they are anticipatory. Joint kinematics and muscle activity reveal what a person is doing and, crucially, what they are about to do next, which is what underpins intent recognition, action forecasting, and safe coordination in shared spaces. Wearable IMU arrays, for example, recover whole-body skeletal motion in cluttered or occluded settings where optical capture breaks down <cite class="cites">[<a class="cite" href="/read/references/#ref-2441" data-k="huang2018dip">2441</a>, <a class="cite" href="/read/references/#ref-2442" data-k="vonmarcard2017sparse">2442</a>]</cite>, and EMG surfaces pre-activation patterns that precede any visible movement <cite class="cites">[<a class="cite" href="/read/references/#ref-2443" data-k="atzori2014ninapro">2443</a>]</cite>.</p>
+</div>
+<div id="Ch9.S3.SS1.p3" class="ltx_para">
+<p class="ltx_p">These devices are often bracketed with head-mounted XR hardware, yet their role in spatial intelligence differs in kind. XR headsets integrate sensing and display for immersive visualization and mixed-reality interaction, leaning on outward-facing cameras for SLAM and environment mapping. The wearables treated here look inward instead, supplying the biomechanical and physiological state, high-frequency, continuous, and on-body, that an XR headset does not observe.</p>
+</div>
+<div id="Ch9.S3.SS1.p4" class="ltx_para">
+<p class="ltx_p">The spatial-intelligence capabilities that wearables ultimately serve, pose estimation, action recognition, localization, and trajectory prediction, are formulated in Part III (spatial perception in Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>, spatial reasoning in Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>). This section does not re-derive them; it concentrates on the body-centric sensing layer, the devices that acquire embodied signals, the systems assembled around them, and the tasks, methods, and failure modes that surface once spatial intelligence must be grounded in continuous on-body measurement, spanning long-horizon activity and gait analysis, intention prediction for human–robot collaboration, and real-time safety in industrial and logistics settings.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S3.SS2"><span class="secnum">9.3.2</span>Wearable Devices<a class="anchor" href="#Ch9.S3.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">Body-centric sensing spans a diverse device ecosystem, summarized in Table <a href="/read/9.3/#Ch9.T3" class="xref" data-x="Ch9.T3"><span>9.3</span></a>.</p>
+</div>
+<section id="Ch9.S3.SS2.SSS0.Px1">
+<div id="Ch9.S3.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Motion and Body-State Sensing.</strong> Inertial measurement units (accelerometers, gyroscopes, and often magnetometers) are the most widely deployed body-worn sensors. Consumer watches and bands such as the Apple Watch<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup>, Samsung Galaxy Watch<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup>, Fitbit<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup>, and Xiaomi Band stream inertial data for activity and gait monitoring, while research and industrial systems place IMUs at specific anatomical sites and fuse them into full-body kinematics <cite class="cites">[<a class="cite" href="/read/references/#ref-2442" data-k="vonmarcard2017sparse">2442</a>, <a class="cite" href="/read/references/#ref-2444" data-k="yi2021transpose">2444</a>]</cite>; because they need no line of sight, they keep working under occlusion and poor lighting. Full-body motion-capture suits such as Xsens<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup>, Rokoko Smartsuit Pro<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup>, and Noitom<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup> combine many IMUs, sometimes with pressure or stretch sensors, into accurate skeletal pose outside the studio, which has made them standard in biomechanics, sports, robotics, and character animation <cite class="cites">[<a class="cite" href="/read/references/#ref-2445" data-k="trumble2017totalcapture">2445</a>]</cite>. Smart clothing embeds conductive fabrics, stretch sensors, or distributed pressure sensors in garments for unobtrusive, long-duration monitoring of posture, joint angles, and whole-body contact <cite class="cites">[<a class="cite" href="/read/references/#ref-2446" data-k="luo2021learning">2446</a>]</cite>, and physiological sensors (heart rate, galvanic skin response, respiration), foot-mounted inertial or pressure sensors, and ear-worn IMUs add workload, ground-contact timing, and head orientation <cite class="cites">[<a class="cite" href="/read/references/#ref-2440" data-k="patel2012review">2440</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch9.S3.SS2.SSS0.Px2">
+<div id="Ch9.S3.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Neuromuscular, Egocentric, and Interactive Wearables.</strong> Electromyography (EMG) armbands and high-density arrays sense the muscle activations that precede visible movement, giving early cues for gesture recognition and intent estimation <cite class="cites">[<a class="cite" href="/read/references/#ref-2443" data-k="atzori2014ninapro">2443</a>]</cite>, and combining EMG with inertial data makes them more robust to arm posture and fatigue <cite class="cites">[<a class="cite" href="/read/references/#ref-2447" data-k="atzori2016deep">2447</a>]</cite>. Wearable cameras add the exteroceptive, first-person view: egocentric RGB, depth, or fisheye streams supply scene geometry and activity context that can be fused with on-body signals <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>, <a class="cite" href="/read/references/#ref-2448" data-k="adt">2448</a>]</cite>. Two device families also act on the body. Haptic gloves such as HaptX<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup> and SenseGlove<sup class="fn" id="fnref8"><a href="#fn8" data-fn="fn8">8</a></sup> and haptic vests such as bHaptics<sup class="fn" id="fnref9"><a href="#fn9" data-fn="fn9">9</a></sup> return tactile, vibration, or force feedback during manipulation, teleoperation, and training <cite class="cites">[<a class="cite" href="/read/references/#ref-2449" data-k="pacchierotti2017wearable">2449</a>]</cite>, and exoskeletons combine IMUs, torque and force sensors, and joint encoders with actuation, estimating user intent in real time to assist or rehabilitate movement <cite class="cites">[<a class="cite" href="/read/references/#ref-2450" data-k="young2017state">2450</a>]</cite>, which makes them a direct test of embodied spatial intelligence.</p>
+</div>
+<figure id="Ch9.T3" class="ltx_table">
+<figcaption><span class="cap-tag">Table 9.3</span><span>Wearable body-centric sensing devices, by sensed signal and recovered spatial or biomechanical quantity. Haptic and exoskeletal wearables are partly <em class="ltx_font_italic">actuators</em> that return force and tactile signals to the wearer.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Device family</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Primary signal</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Spatial / biomechanical quantity recovered</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">IMU wearables</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">accel., gyro., (magnet.)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">orientation, acceleration, gait, sparse-to-full body kinematics</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Motion-capture suits</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">multi-IMU (+ pressure/stretch)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">full-body skeletal pose in unconstrained settings</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EMG / gesture bands</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">neuromuscular activation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">muscle intent, hand/arm gestures, pre-movement cues</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Smart clothing / textile</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">distributed pressure, strain</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">posture, joint angles, whole-body contact patterns</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Egocentric cameras</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">first-person RGB / depth</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">scene geometry, activity, environmental context</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Haptic / force-feedback</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">tactile, vibration, force (I/O)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">contact rendering, spatial alerts (feedback channel)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Exoskeletons</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">IMU, torque, force, joint enc.</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">joint torque, user effort and movement intent</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Physiological / other</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">HR, GSR, respiration; foot press.</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:182.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">workload, exertion, ground contact, head orientation</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S3.SS3"><span class="secnum">9.3.3</span>System Overview<a class="anchor" href="#Ch9.S3.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S3.SS3.p1" class="ltx_para">
+<p class="ltx_p">Taken together, the devices above form the front end of a single body-centric perception-to-action loop that defines the wearable AI system as a whole.
+Raw on-body signals are first <em class="ltx_font_italic">sensed</em> (inertial, neuromuscular, tactile, and egocentric-visual streams), then <em class="ltx_font_italic">modeled</em> into geometric and biomechanical state (joint kinematics, body pose, contact forces), <em class="ltx_font_italic">interpreted and predicted</em> into higher-level behavioral and intentional descriptions (activities, gestures, short-horizon motion forecasts), and finally fed back to the wearer or to a collaborating agent through <em class="ltx_font_italic">action</em> channels (haptic cues, exoskeleton assistance, safety alerts, or shared-control commands).
+The loop then closes: the consequences of feedback alter the wearer’s motion, which the sensors observe anew.</p>
+</div>
+<div id="Ch9.S3.SS3.p2" class="ltx_para">
+<p class="ltx_p">Figure <a href="/read/9.3/#Ch9.F11" class="xref" data-x="Ch9.F11"><span>9.11</span></a> schematizes this loop and situates the three pivotal tasks that organize the remainder of this section as complementary stages of it.
+<span class="ltx_font_bold">Pivotal Task-1 (Embodied Motion Sensing and Pose Reconstruction)</span> occupies the sense-to-model stage, turning body-centric signals into stable geometric descriptions of motion.
+<span class="ltx_font_bold">Pivotal Task-2 (Behavioral Understanding and Intention Modeling)</span> occupies the interpret-and-predict stage, mapping reconstructed motion and neuromuscular cues to recognized activities and anticipated actions.
+<span class="ltx_font_bold">Pivotal Task-3 (Safe Collaboration and Embodied Interaction)</span> closes the loop at the action stage, converting interpreted human state into coordinated, safe, and assistive responses in shared physical environments.
+Because all three stages must run under the power, compute, and reliability constraints of body-worn hardware, lightweight on-device inference is a cross-cutting concern that recurs throughout.</p>
+</div>
+<figure id="Ch9.F11" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/wearable_overview.webp" id="Ch9.F11.g1" class="fig-img" alt="" width="2000" height="1785" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.11</span><span>The wearable AI system as a body-centric loop: on-body signals are modeled into kinematic and biomechanical state (T1), interpreted into activity and intent (T2), and acted on through haptic, exoskeleton, and safety channels (T3), used separately or together. Device and prediction illustrations are schematic.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S3.SS4"><span class="secnum">9.3.4</span>Pivotal Task-1: Embodied Motion Sensing and Pose Reconstruction<a class="anchor" href="#Ch9.S3.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S3.SS4.p1" class="ltx_para">
+<p class="ltx_p">The first stage of the wearable loop turns raw body-centric signals into a geometric description of how the wearer moves.
+It is a bottom-up reconstruction problem: per-segment inertial and biomechanical measurements must yield joint angles, segment velocities, and ultimately a full-body pose that remains stable over long horizons and in settings where exteroceptive capture fails.
+This task subsumes full-body skeletal pose estimation, fine-grained limb tracking, real-world locomotion and gait analysis, and body-centric localization in GPS-denied spaces; the underlying pose-estimation formulations are developed in Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>, so the emphasis here is on reconstruction from on-body sensing.
+Figure <a href="/read/9.3/#Ch9.F12" class="xref" data-x="Ch9.F12"><span>9.12</span></a> illustrates this reconstruction stack from segment-level signals to full-body pose.</p>
+</div>
+<figure id="Ch9.F12" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/wearable_motion.webp" id="Ch9.F12.g1" class="fig-img" alt="" width="2000" height="1754" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.12</span><span>Motion sensing and pose reconstruction from body-worn IMUs: estimators supported by a parametric body model recover root-relative full-body pose, while visual–inertial fusion anchors a world-frame trajectory. Contact or zero-velocity updates apply only when their assumptions hold, and metric scale requires sufficient observability; signals and trajectories are illustrative.</span></figcaption>
+</figure>
+<div id="Ch9.S3.SS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">From signals to kinematics.</span> Reconstruction begins with kinematic and dynamic modeling, which provides the physical grounding for interpreting inertial and pressure-based signals.
+Forward and inverse kinematics infer joint angles and segment orientations from inertial measurements, compensating for drift and sensor noise through optimization-based filtering and biomechanical constraints. Classical recursive estimators such as extended and unscented Kalman filters incorporate kinematic priors and temporal smoothness to improve stability in real-world settings <cite class="cites">[<a class="cite" href="/read/references/#ref-164" data-k="welch1995kalman">164</a>, <a class="cite" href="/read/references/#ref-2451" data-k="madgwick2011estimation">2451</a>]</cite>, while articulated-body dynamics and parametric body models such as SMPL <cite class="cites">[<a class="cite" href="/read/references/#ref-338" data-k="loper2015smpl">338</a>]</cite> enforce anatomical plausibility for complex motions such as rapid locomotion or limb coordination.
+Multi-IMU fusion against musculoskeletal models extends these ideas to full-body pose estimation in challenging environments where optical motion-capture systems fail <cite class="cites">[<a class="cite" href="/read/references/#ref-2441" data-k="huang2018dip">2441</a>, <a class="cite" href="/read/references/#ref-2444" data-k="yi2021transpose">2444</a>, <a class="cite" href="/read/references/#ref-2452" data-k="yi2022pip">2452</a>]</cite>, and recent systems fold in physics-based dynamics and inter-sensor ultra-wideband ranging to tighten accuracy and suppress jitter <cite class="cites">[<a class="cite" href="/read/references/#ref-2453" data-k="armani2024ultra">2453</a>]</cite>.</p>
+</div>
+<div id="Ch9.S3.SS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Learning-based reconstruction and sensor fusion.</span> Where analytic models struggle with sparse or noisy sensing, data-driven approaches learn the mapping from raw inertial streams to pose directly <cite class="cites">[<a class="cite" href="/read/references/#ref-2441" data-k="huang2018dip">2441</a>, <a class="cite" href="/read/references/#ref-2444" data-k="yi2021transpose">2444</a>]</cite>, and sensor fusion integrates heterogeneous modalities for drift-compensated estimates. IMU-and-vision fusion resolves ambiguities in inertial tracking by leveraging environmental context from egocentric cameras <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>, <a class="cite" href="/read/references/#ref-2448" data-k="adt">2448</a>]</cite>, while drift-compensation techniques, including zero-velocity updates and constraint-based corrections, stabilize long-horizon wear.
+For body-centric localization, sparse-sensor systems couple inertial pose estimation with simultaneous localization and mapping, so that the wearer’s global trajectory is recovered together with body pose rather than left to drift freely <cite class="cites">[<a class="cite" href="/read/references/#ref-2454" data-k="yi2023egolocate">2454</a>]</cite>; visual-inertial odometry that fuses the same inertial signals with first-person imagery offers a complementary route through GPS-denied indoor spaces, assessed on dedicated benchmarks <cite class="cites">[<a class="cite" href="/read/references/#ref-935" data-k="Schubert2018TUMVI">935</a>]</cite>.</p>
+</div>
+<div id="Ch9.S3.SS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Benchmarks and evaluation.</span> The kinematic, learning-based, and fusion methods above are measured against the same yardsticks: large-scale motion-capture corpora such as AMASS <cite class="cites">[<a class="cite" href="/read/references/#ref-2209" data-k="mahmood2019amass">2209</a>]</cite>, which provides a canonical surface-and-skeleton reference for full-body pose, alongside dedicated inertial-pose datasets for sparse-IMU reconstruction <cite class="cites">[<a class="cite" href="/read/references/#ref-2445" data-k="trumble2017totalcapture">2445</a>, <a class="cite" href="/read/references/#ref-2441" data-k="huang2018dip">2441</a>]</cite>, while body-centric localization is assessed separately on visual-inertial odometry benchmarks <cite class="cites">[<a class="cite" href="/read/references/#ref-935" data-k="Schubert2018TUMVI">935</a>]</cite>. Reconstruction quality is reported as mean per-joint position error (MPJPE) and joint-angle error, and localization as absolute trajectory error and accumulated drift (Table <a href="/read/9.3/#Ch9.T4" class="xref" data-x="Ch9.T4"><span>9.4</span></a>).
+Read against the needs of real deployment, these numbers reveal a clear gap. On curated benchmarks, sparse-IMU systems now recover <em class="ltx_font_italic">root-relative</em> full-body pose to within roughly five centimeters of optical ground truth <cite class="cites">[<a class="cite" href="/read/references/#ref-2452" data-k="yi2022pip">2452</a>]</cite>, but global translation still drifts over long sequences unless it is anchored by SLAM or ranging <cite class="cites">[<a class="cite" href="/read/references/#ref-2454" data-k="yi2023egolocate">2454</a>]</cite>, and even the root-relative accuracy falls off in the wild, where fast or unseen motions and loose sensor placement push errors past the tolerance that downstream control or clinical gait analysis can absorb. The pose the next stage consumes is thus dependable on average yet brittle at exactly the fast, atypical movements that matter most.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S3.SS5"><span class="secnum">9.3.5</span>Pivotal Task-2: Behavioral Understanding and Intention Modeling<a class="anchor" href="#Ch9.S3.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S3.SS5.p1" class="ltx_para">
+<p class="ltx_p">Once motion has been reconstructed, the second stage of the loop interprets it: recognizing what the wearer is doing and anticipating what they will do next.
+Continuous neuromuscular and inertial cues feed activity recognition and segmentation and then short-horizon intention prediction, even in daily-life settings where visual systems face severe occlusion or field-of-view limits.
+Because the recognition and reasoning formulations themselves are treated in Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>, the focus here is on how high-frequency wearable streams are modeled to support behavioral inference.
+Figure <a href="/read/9.3/#Ch9.F13" class="xref" data-x="Ch9.F13"><span>9.13</span></a> sketches the path from multimodal time-series and body-graph representations to recognized activity and predicted intent.</p>
+</div>
+<figure id="Ch9.F13" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/wearable_behavior.webp" id="Ch9.F13.g1" class="fig-img" alt="" width="2000" height="1908" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.13</span><span>Behavioral understanding and intention modeling: IMU and EMG sequences and a kinematic body graph pass through temporal and graph encoders, fused by attention to recognize current activity and forecast short-horizon intent. The EMG pre-activation inset draws anticipatory cues from the observed stream, not from future measurements.</span></figcaption>
+</figure>
+<div id="Ch9.S3.SS5.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Sequence models for wearable time-series.</span> The availability of large-scale wearable recordings has driven deep models tailored to high-frequency temporal streams from IMU, EMG, and multimodal sensors. Recurrent networks, temporal convolutional networks, and Transformers are widely applied to gait classification, gesture recognition, and activity segmentation <cite class="cites">[<a class="cite" href="/read/references/#ref-2455" data-k="ordonez2016deep">2455</a>]</cite>: temporal convolutions capture multi-scale dependencies for long-horizon pattern detection <cite class="cites">[<a class="cite" href="/read/references/#ref-2456" data-k="bai2018tcn">2456</a>]</cite>, while attention-based architectures learn complex correlations across sensor channels <cite class="cites">[<a class="cite" href="/read/references/#ref-141" data-k="attention">141</a>]</cite>. Because labeled wearable data are scarce and expensive, self-supervised pretraining on unlabeled motion recordings has become the dominant route to transferable representations <cite class="cites">[<a class="cite" href="/read/references/#ref-2457" data-k="haresamudram2021contrastive">2457</a>]</cite>: masked-reconstruction encoders such as LIMU-BERT learn compact IMU features from raw streams <cite class="cites">[<a class="cite" href="/read/references/#ref-2458" data-k="xu2021limubert">2458</a>]</cite>, and multimodal contrastive objectives such as IMU2CLIP align inertial signals with video and language, pointing toward wearable foundation models that generalize across tasks and users <cite class="cites">[<a class="cite" href="/read/references/#ref-2459" data-k="moon2023imu2clip">2459</a>]</cite>.</p>
+</div>
+<div id="Ch9.S3.SS5.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Graph-based body representations.</span> Because human anatomy is structured as a kinematic tree, graph neural networks offer a natural representation for wearable-derived motion <cite class="cites">[<a class="cite" href="/read/references/#ref-599" data-k="kipf2017semisupervised">599</a>]</cite>, encoding relational dependencies between joints and limbs directly in graph space.
+Such formulations fuse IMU placements across body segments, propagate temporal features along skeletal edges, and remain robust to missing or corrupted sensor channels; combining graph convolution with temporal attention jointly models spatial structure and temporal evolution for activity recognition and biomechanical analysis <cite class="cites">[<a class="cite" href="/read/references/#ref-2460" data-k="yan2018stgcn">2460</a>]</cite>.</p>
+</div>
+<div id="Ch9.S3.SS5.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Neuromuscular cues and multimodal fusion for intent.</span> Beyond recognizing observed motion, EMG-based wearables detect subtle neuromuscular activations that precede visible movement <cite class="cites">[<a class="cite" href="/read/references/#ref-2443" data-k="atzori2014ninapro">2443</a>]</cite>, providing predictive cues for early intention estimation and responsive human-robot collaboration.
+Fusing EMG with inertial data sharpens fine-grained gesture and anticipatory-command decoding <cite class="cites">[<a class="cite" href="/read/references/#ref-2447" data-k="atzori2016deep">2447</a>]</cite>, while fusing IMU with egocentric video grounds activity recognition in environmental context <cite class="cites">[<a class="cite" href="/read/references/#ref-913" data-k="stein2013combining">913</a>, <a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite>.
+A recent milestone shows how far this can scale: a surface-EMG wristband trained across more than a thousand users decodes gestures, clicks, and handwriting from neuromuscular signals alone and, critically, generalizes to new wearers without per-user calibration <cite class="cites">[<a class="cite" href="/read/references/#ref-2461" data-k="kaifosh2025neuromotor">2461</a>]</cite>, addressing the inter-user variability that has long limited EMG interfaces.
+Physiological and pressure cues additionally support inference of fatigue, balance, and abnormal gait over extended periods.</p>
+</div>
+<div id="Ch9.S3.SS5.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Benchmarks and evaluation.</span> Taking the reconstructed motion of the previous stage as input, the sequence, graph, and fusion models above are evaluated on wearable human-activity-recognition corpora <cite class="cites">[<a class="cite" href="/read/references/#ref-2462" data-k="reiss2012pamap2">2462</a>, <a class="cite" href="/read/references/#ref-2463" data-k="chavarriaga2013opportunity">2463</a>]</cite>, EMG gesture datasets <cite class="cites">[<a class="cite" href="/read/references/#ref-2443" data-k="atzori2014ninapro">2443</a>]</cite>, and egocentric activity datasets such as Ego4D <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite> and EPIC-KITCHENS <cite class="cites">[<a class="cite" href="/read/references/#ref-2464" data-k="EPIC-KITCHENS">2464</a>]</cite>, with recognition reported as accuracy and macro-F1 and intention prediction as anticipation accuracy and prediction lead time (Table <a href="/read/9.3/#Ch9.T4" class="xref" data-x="Ch9.T4"><span>9.4</span></a>).
+Here the gap to maturity is one of generalization rather than peak score. Balanced locomotion corpora such as PAMAP2 are close to saturated, yet the same architectures score markedly lower on cluttered, null-dominated sets such as Opportunity and lose accuracy again under cross-user and cross-environment evaluation; reliable intention forecasting, meanwhile, still extends only to short, well-rehearsed horizons. This falls well short of the open-world, anticipatory understanding that the safe-collaboration stage below depends on, where the system must read unfamiliar users in unfamiliar settings.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S3.SS6"><span class="secnum">9.3.6</span>Pivotal Task-3: Safe Collaboration and Embodied Interaction<a class="anchor" href="#Ch9.S3.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S3.SS6.p1" class="ltx_para">
+<p class="ltx_p">The third stage closes the loop, converting interpreted human state into coordinated, safe, and assistive responses in shared physical environments.
+Contact- and force-level sensing of human–environment interaction supports real-time inference of effort and hazard, which in turn drives feedback for collaboration and shared autonomy.
+The collaboration and shared-control reasoning that this task builds on is developed in Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a> and, for the manipulation setting specifically, in Section <a href="/read/9.1/" class="xref" data-x="Ch9.S1"><span>9.1</span></a>; here the emphasis is on the wearable feedback and safety layer.
+Figure <a href="/read/9.3/#Ch9.F14" class="xref" data-x="Ch9.F14"><span>9.14</span></a> depicts this closing stage, from contact sensing to coordinated safety response.</p>
+</div>
+<figure id="Ch9.F14" class="ltx_figure"><img src="/assets/figures/figures/part4/section9/wearable_safety.webp" id="Ch9.F14.g1" class="fig-img" alt="" width="2000" height="2062" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 9.14</span><span>Safe human–robot collaboration with wearables: fused contact, force, and proximity signals, together with intent forecasts (T2) and robot motion context, drive motion prediction and risk evaluation, which select glove, exoskeleton, or cobot responses. Prediction envelopes and risk thresholds are schematic, not measured safety guarantees.</span></figcaption>
+</figure>
+<div id="Ch9.S3.SS6.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Sensing interaction and effort.</span> Haptic and tactile wearables capture contact forces, surface interactions, and manipulative behaviors, supplying the signals needed to model human–environment interaction and object handling <cite class="cites">[<a class="cite" href="/read/references/#ref-2465" data-k="HOI4D">2465</a>, <a class="cite" href="/read/references/#ref-2446" data-k="luo2021learning">2446</a>]</cite>. Exoskeletons equipped with torque and force sensors use these signals to infer user effort and detect hazardous conditions, adjusting assistive strategies accordingly <cite class="cites">[<a class="cite" href="/read/references/#ref-2450" data-k="young2017state">2450</a>]</cite>; probabilistic fusion that integrates biomechanical priors and uncertainty estimates is central to robustness in such safety-critical settings.</p>
+</div>
+<div id="Ch9.S3.SS6.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Coordination, safety, and feedback.</span> In industrial and shared-autonomy scenarios, on-body inertial and proximity sensors contribute to safety monitoring by detecting collision risks, unsafe postures, and sudden motion anomalies, while haptic channels return spatial alerts and force feedback that close the sensorimotor loop <cite class="cites">[<a class="cite" href="/read/references/#ref-2449" data-k="pacchierotti2017wearable">2449</a>]</cite>.
+Combined with the intention forecasts of Pivotal Task-2, these signals form the basis for predictive safety mechanisms and shared-control frameworks that anticipate human motion rather than merely reacting to it.</p>
+</div>
+<div id="Ch9.S3.SS6.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">On-device constraints.</span> Because feedback must be timely, the action stage is where the wearable system’s power, memory, and compute limits bite hardest. Model compression (pruning, quantization, and distillation) <cite class="cites">[<a class="cite" href="/read/references/#ref-2466" data-k="hinton2015distilling">2466</a>]</cite> and edge-optimized architectures <cite class="cites">[<a class="cite" href="/read/references/#ref-2467" data-k="howard2017mobilenets">2467</a>]</cite> enable real-time inference on wearable microcontrollers or smartphone-class processors, and on-device adaptation mitigates inter-user variability without relying on remote servers, keeping safety-critical computation local and low-latency.</p>
+</div>
+<div id="Ch9.S3.SS6.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Benchmarks and evaluation.</span> Closing the loop, the interaction-sensing, safety, and on-device methods above are assessed on human-object-interaction datasets such as HOI4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2465" data-k="HOI4D">2465</a>]</cite> and, for assistive control, on exoskeleton and teleoperation testbeds, with metrics spanning contact- and force-estimation error, collision-avoidance and safety-violation rates, and intention-anticipation lead time (Table <a href="/read/9.3/#Ch9.T4" class="xref" data-x="Ch9.T4"><span>9.4</span></a>).
+Evaluation here is the least mature of the three stages: it remains fragmented across hardware-specific testbeds with few shared protocols, so reported gains are hard to compare and seldom stress real safety guarantees.
+Current systems perform convincingly in instrumented demonstrations, but closed-loop, certified safety under the full variability of human partners, the bar that genuine shared autonomy must clear, is still an open target rather than a measured result. The robustness, generalization, and safety gaps that recur at each stage of the loop are what the challenges below take up directly.</p>
+</div>
+<figure id="Ch9.T4" class="ltx_table">
+<figcaption><span class="cap-tag">Table 9.4</span><span>Representative benchmarks for wearable spatial-intelligence tasks, grouped by pivotal task.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Pivotal Task</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark / Dataset</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method / use</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T1: Motion &amp; Pose</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">AMASS <cite class="cites">[<a class="cite" href="/read/references/#ref-2209" data-k="mahmood2019amass">2209</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Full-body pose reference (SMPL surface)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MPJPE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T1: Motion &amp; Pose</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TotalCapture <cite class="cites">[<a class="cite" href="/read/references/#ref-2445" data-k="trumble2017totalcapture">2445</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Video+inertial full-body pose</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MPJPE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T1: Motion &amp; Pose</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">DIP-IMU <cite class="cites">[<a class="cite" href="/read/references/#ref-2441" data-k="huang2018dip">2441</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Sparse-IMU pose reconstruction (DIP, TransPose, PIP)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Joint-angle / position error</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T1: Localization</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TUM-VI <cite class="cites">[<a class="cite" href="/read/references/#ref-935" data-k="Schubert2018TUMVI">935</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Visual-inertial odometry (body-centric)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ATE / drift</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T2: Activity</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">PAMAP2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2462" data-k="reiss2012pamap2">2462</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Wearable activity recognition (deep recurrent / TCN)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Accuracy / macro-F1</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T2: Activity</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Opportunity <cite class="cites">[<a class="cite" href="/read/references/#ref-2463" data-k="chavarriaga2013opportunity">2463</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">On-body activity recognition (DeepConvLSTM)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Weighted / macro-F1</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T2: Activity</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Ego4D <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Egocentric activity recognition</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Accuracy / F1</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T2: Gesture</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Ninapro <cite class="cites">[<a class="cite" href="/read/references/#ref-2443" data-k="atzori2014ninapro">2443</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EMG gesture / movement classification</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Accuracy</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T2: Gesture</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">emg2qwerty <cite class="cites">[<a class="cite" href="/read/references/#ref-2468" data-k="sivakumar2024emg2qwerty">2468</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Large-scale surface-EMG typing</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Character error rate</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">T3: Interaction</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">HOI4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2465" data-k="HOI4D">2465</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:147.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Human-object interaction sensing</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:91.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Contact / interaction acc.</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S3.SS7"><span class="secnum">9.3.7</span>Established Tools and Systems<a class="anchor" href="#Ch9.S3.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S3.SS7.p1" class="ltx_para">
+<p class="ltx_p">Commercial wearables have converged on the head and the wrist, and what separates current products is less their sensors than where perception runs and whether anything is shown back to the wearer. Full augmented-reality headsets are covered with the XR platforms in Section <a href="/read/10.1/" class="xref" data-x="Ch10.S1"><span>10.1</span></a>; here the focus is on everyday-wearable glasses, neural input bands, and the research platforms and chips behind them.</p>
+</div>
+<div id="Ch9.S3.SS7.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">AI glasses without a display.</span> By volume, the dominant wearable AI device is a pair of ordinary-looking glasses carrying a camera, microphones, open-ear speakers, and an IMU, with a multimodal assistant running on the paired phone or in the cloud. Meta’s line with EssilorLuxottica<sup class="fn" id="fnref10"><a href="#fn10" data-fn="fn10">10</a></sup> defines the category: the second-generation Ray-Ban Meta (2025) records 3K video from a 12-megapixel camera and runs up to eight hours per charge, and the Oakley Meta Vanguard adapts the design to sport with a 122-degree camera. Display-less models made up 96% of AI-glasses shipments in the first half of 2026, almost all of them Meta’s<sup class="fn" id="fnref11"><a href="#fn11" data-fn="fn11">11</a></sup>, while Xiaomi’s AI glasses (2025) and Alibaba’s Qwen-based Quark AI glasses<sup class="fn" id="fnref12"><a href="#fn12" data-fn="fn12">12</a></sup> (November 2025) lead a fast-growing Chinese segment. Google and Samsung previewed Gemini-based Android XR glasses<sup class="fn" id="fnref13"><a href="#fn13" data-fn="fn13">13</a></sup> with Gentle Monster and Warby Parker in May 2026, with the first display-less models due in the fall. Spatially, these devices answer questions about what the wearer is looking at one camera frame at a time; most keep no persistent map of the surroundings, so the continuous body and scene tracking of Pivotal Tasks 1 and 2 is still largely absent from shipping products.</p>
+</div>
+<div id="Ch9.S3.SS7.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Display glasses and neural input.</span> Adding a display makes the glasses an interface, and input then becomes the hard problem. Meta Ray-Ban Display<sup class="fn" id="fnref14"><a href="#fn14" data-fn="fn14">14</a></sup> (September 2025) puts a small monocular display, with a 20-degree field of view, in the right lens and ships with the Meta Neural Band, a surface-EMG wristband that decodes finger gestures and handwriting; it is the commercial form of the generic neuromotor interface described in Pivotal Task-2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2461" data-k="kaifosh2025neuromotor">2461</a>]</cite>. In waveguide display glasses, Rokid<sup class="fn" id="fnref15"><a href="#fn15" data-fn="fn15">15</a></sup> led shipments in the first half of 2026, ahead of Meta and Even Realities<sup class="fn" id="fnref16"><a href="#fn16" data-fn="fn16">16</a></sup>, whose glasses favor a minimal text display over cameras.</p>
+</div>
+<div id="Ch9.S3.SS7.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Research platforms and on-glass compute.</span> Much of the egocentric data behind the methods of this section was recorded on research glasses rather than consumer products. Meta’s Project Aria <cite class="cites">[<a class="cite" href="/read/references/#ref-2469" data-k="engel2023projectaria">2469</a>]</cite><sup class="fn" id="fnref17"><a href="#fn17" data-fn="fn17">17</a></sup> provides glasses with RGB, tracking, and eye-tracking cameras, IMUs, and spatial microphones, together with machine-perception services for trajectories, eye gaze, and hand tracking; its second generation (2025) adds a heart-rate sensor and a contact microphone in the nosepad, alongside on-device perception. The platform underlies Aria Digital Twin <cite class="cites">[<a class="cite" href="/read/references/#ref-2448" data-k="adt">2448</a>]</cite>; Ego-Exo4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2470" data-k="grauman2024egoexo4d">2470</a>]</cite>, which pairs egocentric Aria recordings of skilled activities with synchronized exocentric cameras over 1,422 hours; and Nymeria <cite class="cites">[<a class="cite" href="/read/references/#ref-2471" data-k="ma2024nymeria">2471</a>]</cite>, which adds full-body ground-truth motion from a motion-capture suit to 300 hours of everyday activity, the kind of supervision the pose reconstruction of Pivotal Task-1 needs. Ego4D <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite> gathered its 3,670 hours from several head-mounted cameras, and remains the main benchmark for egocentric activity understanding. On the compute side, Qualcomm’s Snapdragon AR1+ Gen 1<sup class="fn" id="fnref18"><a href="#fn18" data-fn="fn18">18</a></sup> (2025) runs a one-billion-parameter language model on the glasses without a phone, a first step toward the on-device inference that the latency and power constraints of Pivotal Task-3 call for.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch9.S3.SS8"><span class="secnum">9.3.8</span>Challenges<a class="anchor" href="#Ch9.S3.SS8" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch9.S3.SS8.p1" class="ltx_para">
+<p class="ltx_p">Wearable sensing is coupled to the dynamics and variability of the human body in a way that external sensing is not, and that coupling is the source of its hardest problems. The four below track the loop of the System Overview: signal quality at the sense stage, robustness under partial observation, fusion across heterogeneous modalities, and generalization across users.</p>
+</div>
+<section id="Ch9.S3.SS8.SSS0.Px1">
+<div id="Ch9.S3.SS8.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Signal Instability and Drift.</strong> On-body signals are inherently unstable. IMU drift, EMG noise, and calibration shifts arise continuously from motion artifacts, sensor displacement, and soft-tissue deformation, and they strike precisely the quantities that pose estimation, trajectory tracking, and dynamics reconstruction integrate over time, so small per-step errors compound into large ones across a long recording.</p>
+</div>
+</section>
+<section id="Ch9.S3.SS8.SSS0.Px2">
+<div id="Ch9.S3.SS8.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Incomplete and Intermittent Sensing.</strong> Sensing is rarely continuous in practice. Sweat, motion, and wireless dropouts cause brief losses of contact and stretches of degraded signal, leaving the system to reconstruct reliable motion from partial and sometimes corrupted segment-level data, a demand that clean-benchmark evaluation rarely exercises.</p>
+</div>
+</section>
+<section id="Ch9.S3.SS8.SSS0.Px3">
+<div id="Ch9.S3.SS8.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Heterogeneous Multimodal Fusion.</strong> The modalities that make wearables powerful are also mismatched. IMU, EMG, pressure, and egocentric-visual streams differ in sampling rate, latency, noise, and coordinate frame, and fusing them under real-world variability, without letting one noisy channel corrupt the whole estimate, remains an open integration problem rather than a solved preprocessing step.</p>
+</div>
+</section>
+<section id="Ch9.S3.SS8.SSS0.Px4">
+<div id="Ch9.S3.SS8.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Inter-User Variability.</strong> Finally, the body itself is the confound. Anatomy, muscle-activation patterns, and movement style vary enough between people that a model tuned on a small or homogeneous population transfers poorly, and the effect is sharpest exactly where wearables matter most, in motion reconstruction, intent prediction, and gait analysis, where individual biomechanics dominate the sensor signature. Personalization, domain adaptation, and larger, more diverse training corpora are the levers for closing this gap, and how far they succeed will decide whether wearable spatial intelligence moves from convincing demonstrations to dependable deployment.</p>
+</div>
+</section>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.apple.com/watch/" title="" class="ltx_font_typewriter">https://www.apple.com/watch/</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.samsung.com/global/galaxy/galaxy-watch/" title="" class="ltx_font_typewriter">https://www.samsung.com/global/galaxy/galaxy-watch/</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.fitbit.com/" title="" class="ltx_font_typewriter">https://www.fitbit.com/</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.movella.com/products/xsens" title="" class="ltx_font_typewriter">https://www.movella.com/products/xsens</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.rokoko.com/" title="" class="ltx_font_typewriter">https://www.rokoko.com/</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.noitom.com/" title="" class="ltx_font_typewriter">https://www.noitom.com/</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://haptx.com/" title="" class="ltx_font_typewriter">https://haptx.com/</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn8"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.senseglove.com/" title="" class="ltx_font_typewriter">https://www.senseglove.com/</a></span><a href="#fnref8" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn9"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.bhaptics.com/" title="" class="ltx_font_typewriter">https://www.bhaptics.com/</a></span><a href="#fnref9" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn10"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.meta.com/ai-glasses/" title="" class="ltx_font_typewriter">https://www.meta.com/ai-glasses/</a></span><a href="#fnref10" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn11"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://counterpointresearch.com/en/insights/global-ai-glasses-shipments-surge-263-percent-yoy-with-display-less-ai-glasses" title="" target="_blank" rel="noopener">Counterpoint Research, global AI glasses shipments, H1 2026</a>.</span><a href="#fnref11" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn12"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.quark.cn/" title="" class="ltx_font_typewriter">https://www.quark.cn/</a></span><a href="#fnref12" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn13"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.android.com/xr/" title="" class="ltx_font_typewriter">https://www.android.com/xr/</a></span><a href="#fnref13" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn14"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.meta.com/ai-glasses/meta-ray-ban-display/" title="" class="ltx_font_typewriter">https://www.meta.com/ai-glasses/meta-ray-ban-display/</a></span><a href="#fnref14" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn15"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://global.rokid.com/" title="" class="ltx_font_typewriter">https://global.rokid.com/</a></span><a href="#fnref15" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn16"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.evenrealities.com/" title="" class="ltx_font_typewriter">https://www.evenrealities.com/</a></span><a href="#fnref16" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn17"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.projectaria.com/" title="" class="ltx_font_typewriter">https://www.projectaria.com/</a></span><a href="#fnref17" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn18"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.qualcomm.com/products/mobile/snapdragon/xr-vr-ar" title="" class="ltx_font_typewriter">https://www.qualcomm.com/products/mobile/snapdragon/xr-vr-ar</a></span><a href="#fnref18" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/9.2/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">9.2 Autonomous Driving</span></a><a class="pager-next" href="/read/9.4/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">9.4 Aerial Agents</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch9.S3.SS1" data-spy="Ch9.S3.SS1"><span class="n">9.3.1</span>Introduction</a></li><li><a href="#Ch9.S3.SS2" data-spy="Ch9.S3.SS2"><span class="n">9.3.2</span>Wearable Devices</a></li><li><a href="#Ch9.S3.SS3" data-spy="Ch9.S3.SS3"><span class="n">9.3.3</span>System Overview</a></li><li><a href="#Ch9.S3.SS4" data-spy="Ch9.S3.SS4"><span class="n">9.3.4</span>Pivotal Task-1: Embodied Motion Sensing and Pose Reconstruction</a></li><li><a href="#Ch9.S3.SS5" data-spy="Ch9.S3.SS5"><span class="n">9.3.5</span>Pivotal Task-2: Behavioral Understanding and Intention Modeling</a></li><li><a href="#Ch9.S3.SS6" data-spy="Ch9.S3.SS6"><span class="n">9.3.6</span>Pivotal Task-3: Safe Collaboration and Embodied Interaction</a></li><li><a href="#Ch9.S3.SS7" data-spy="Ch9.S3.SS7"><span class="n">9.3.7</span>Established Tools and Systems</a></li><li><a href="#Ch9.S3.SS8" data-spy="Ch9.S3.SS8"><span class="n">9.3.8</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=9.3"><b>40</b> cited works</a><a href="/explore/datasets/?sec=9.3"><b>10</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=9.3" title="SMPL-X, Project Aria Tools"><b>2</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="9.3 Wearable AI System" data-url="/read/9.3/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%209.3%20Wearable%20AI%20System&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/9.3/%20%28PDF%20p.%20348%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

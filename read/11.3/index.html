@@ -1,0 +1,1352 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11.3 Aerospace Engineering · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="11.3 Aerospace Engineering · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="11.3">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link is-current" href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-11/">Chapter 11</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-11/">Chapter 11 · Spatial Intelligence for Geo-spatial Systems</a></div>
+        <h1><span class="secnum">11.3</span>Aerospace Engineering</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=410" title="Open this page in the PDF">PDF p. 410</a><span class="dot">·</span>        <span>13 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:11.3 Aerospace Engineering">
+<section>
+<h2 class="h-subsection" id="Ch11.S3.SS1"><span class="secnum">11.3.1</span>Introduction<a class="anchor" href="#Ch11.S3.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">Aerospace engineering designs and operates systems that work within and beyond the Earth’s atmosphere, and its missions are spatial problems at their core.
+Rendezvous and docking (RVD), on-orbit servicing (OOS), debris inspection, and planetary landing and roving all depend on estimating three-dimensional structure and relative motion, often of a non-cooperative target that carries no markers, while communication delays rule out continuous ground control.
+Both spacecraft autonomy (<span class="ltx_font_italic">e.g.,</span> , guidance, navigation, and control) and human-in-the-loop operations (<span class="ltx_font_italic">e.g.,</span> , situational awareness for ground controllers) therefore rest on spatial perception and reasoning over geometry, relative motion, semantics, and physical constraints.</p>
+</div>
+<div id="Ch11.S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">Aerospace engineering is thus a demanding deployment target for the perception and reasoning capabilities surveyed in Part <a href="/read/part-iii/" class="xref" data-x="Pt3"><span>III</span></a>: the detection, segmentation, pose-estimation, and 3D-reconstruction techniques of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> and the planning and decision-making methods of Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a> are here specialized to non-cooperative orbital targets, extreme illumination, and long-horizon autonomy under radiation-hardened compute and communication latency.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S3.SS2"><span class="secnum">11.3.2</span>System Overview<a class="anchor" href="#Ch11.S3.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">The value of spatial intelligence in aerospace lies less in any single perception module than in the closed autonomy loop it serves (Figure <a href="/read/11.3/#Ch11.F12" class="xref" data-x="Ch11.F12"><span>11.12</span></a>): onboard and ground-based sensing (monocular and multi-view cameras, LiDAR, telemetry) feeds a perception-reasoning-decision core, whose commands change the scene that is sensed next.
+The four pivotal tasks treated below are complementary stages of this loop.
+<span class="ltx_font_bold">Satellite pose estimation</span> supplies the geometric anchor, recovering where a target is and how it is oriented;
+<span class="ltx_font_bold">spacecraft detection, segmentation, and parts recognition</span> enrich that anchor with structural semantics, identifying what the target is and which functional components it exposes;
+<span class="ltx_font_bold">operator agents</span> lift this perceptual state into high-level reasoning, planning, and human-facing decision support; and
+<span class="ltx_font_bold">planetary robotics</span> closes the loop on the surface, coupling perception, localization, and planning into physical exploration and sampling.
+Table <a href="/read/11.3/#Ch11.T5" class="xref" data-x="Ch11.T5"><span>11.5</span></a>, after Task-4, consolidates representative benchmarks and metrics across all four.</p>
+</div>
+<figure id="Ch11.F12" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/aerospace-overview.webp" id="Ch11.F12.g1" class="fig-img" alt="" width="2000" height="941" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.12</span><span>Aerospace spatial intelligence as a closed loop from onboard and ground sensing, through a perception–reasoning–decision core, to complementary pose, structural-semantic, planning, and surface-action outputs. Decisions may request additional observations; mission execution produces subsequent measurements. Pose and semantic estimates are information products rather than physical actions. Satellite views, point clouds, and rover imagery are schematic.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S3.SS3"><span class="secnum">11.3.3</span>Pivotal Task-1: Satellite Pose Estimation<a class="anchor" href="#Ch11.S3.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S3.SS3.p1" class="ltx_para">
+<p class="ltx_p">Vision-based satellite pose estimation predicts the 6-DoF relative position and orientation of a target spacecraft from monocular or multi-view imagery; it is the geometric anchor of the autonomy loop and a prerequisite for rendezvous, docking, and on-orbit servicing.
+It specializes the 6-DoF estimation problem of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> to a hostile setting: harsh illumination, specular reflections, little texture, and a severe gap between the synthetic images models are trained on and the real images they meet in orbit.
+Figure <a href="/read/11.3/#Ch11.F13" class="xref" data-x="Ch11.F13"><span>11.13</span></a> traces the pipeline from method to evaluation.</p>
+</div>
+<figure id="Ch11.F13" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/aerospace-pose.webp" id="Ch11.F13.g1" class="fig-img" alt="" width="2000" height="748" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.13</span><span>Satellite pose estimation: a monocular image of a non-cooperative target passes through alternative feature-based, regression, or hybrid pipelines to a target pose relative to the camera. Translation and relative-rotation errors compare estimated and reference poses; 2D reprojection compares detected image keypoints with projected model points. The satellite render and keypoint residuals are schematic; no numerical benchmark scores are implied.</span></figcaption>
+</figure>
+<div id="Ch11.S3.SS3.p2" class="ltx_para">
+<p class="ltx_p">Traditional methods relied on hand-engineered features (<span class="ltx_font_italic">e.g.,</span> , Harris corners, SIFT, SURF, and ORB) or model-based tracking <cite class="cites">[<a class="cite" href="/read/references/#ref-2792" data-k="d2014poseestimationuncooperativespacecraft">2792</a>]</cite>, which are sensitive to noise and domain shift, and deep learning has since become dominant <cite class="cites">[<a class="cite" href="/read/references/#ref-2793" data-k="proencca2020deepURSO">2793</a>]</cite>.
+The first deep models regress the pose directly with CNNs <cite class="cites">[<a class="cite" href="/read/references/#ref-2794" data-k="garcia2021lspnet">2794</a>]</cite>, as in the Spacecraft Pose Network (SPN) <cite class="cites">[<a class="cite" href="/read/references/#ref-2795" data-k="sharma2020neuralposeestimation">2795</a>]</cite>, a GoogLeNet-based network <cite class="cites">[<a class="cite" href="/read/references/#ref-2796" data-k="phisannupawong2020vision">2796</a>]</cite>, and a VGG backbone <cite class="cites">[<a class="cite" href="/read/references/#ref-2797" data-k="sonawani2020assistive">2797</a>]</cite>, trained on synthetic data and on laboratory imagery that simulates an on-orbit assembly operation.
+SPNv2 <cite class="cites">[<a class="cite" href="/read/references/#ref-2798" data-k="park2024robustspacecraftposeestimation">2798</a>]</cite> made multi-task learning the prevailing design: its shared encoder jointly predicts keypoints, a direct pose regression, and foreground segmentation, and it narrows the synthetic-to-real gap by online domain refinement, adapting the network’s normalization layers on unlabeled target imagery at deployment.
+Hybrid pipelines estimate a coarse pose with a deep model and refine it with geometry-based optimization, keeping the final estimate physically consistent; early work classified discretized viewpoints with a CNN <cite class="cites">[<a class="cite" href="/read/references/#ref-2799" data-k="sharma2018pose">2799</a>]</cite>, and the same coarse-to-fine pattern now extends to 6-DoF tracking with stereo event cameras <cite class="cites">[<a class="cite" href="/read/references/#ref-2800" data-k="liu2025stereo">2800</a>]</cite>.</p>
+</div>
+<div id="Ch11.S3.SS3.p3" class="ltx_para">
+<p class="ltx_p">SPEED <cite class="cites">[<a class="cite" href="/read/references/#ref-770" data-k="Sharma2019SpacecraftPE">770</a>]</cite> and SPEED+ <cite class="cites">[<a class="cite" href="/read/references/#ref-2801" data-k="park2022speed+">2801</a>]</cite> are the standard testbeds (Table <a href="/read/11.3/#Ch11.T3" class="xref" data-x="Ch11.T3"><span>11.3</span></a>): both pair a large synthetic training set with laboratory hardware-in-the-loop test images, so that the synthetic-to-real gap is measured rather than assumed, and the Satellite Pose Estimation Challenge built on them fixed common training regimes, input formats, and metrics <cite class="cites">[<a class="cite" href="/read/references/#ref-2802" data-k="kisantal2020satellitechallenge">2802</a>]</cite>.
+CubeSat-CDT <cite class="cites">[<a class="cite" href="/read/references/#ref-2803" data-k="musallam2022cubesatcdt">2803</a>]</cite> adds trajectories of a symmetric target, so that temporal methods and pose ambiguity can be evaluated.
+Evaluation reports translation and rotation error as defined for SPEED <cite class="cites">[<a class="cite" href="/read/references/#ref-770" data-k="Sharma2019SpacecraftPE">770</a>]</cite>, often with 2D reprojection or keypoint error <cite class="cites">[<a class="cite" href="/read/references/#ref-2794" data-k="garcia2021lspnet">2794</a>]</cite>; results are given separately on synthetic and real test sets, and robustness to illumination, occlusion, and background clutter is probed explicitly <cite class="cites">[<a class="cite" href="/read/references/#ref-2798" data-k="park2024robustspacecraftposeestimation">2798</a>]</cite>.</p>
+</div>
+<figure id="Ch11.T3" class="ltx_table">
+<figcaption><span class="cap-tag">Table 11.3</span><span>Overview of existing pose estimation datasets. <span class="ltx_font_italic">sim</span> refers to simulated images and <span class="ltx_font_italic">lab</span> to laboratory data. SPARK’s 11 classes are 10 spacecraft and one debris class.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Dataset</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_center ltx_align_middle ltx_border_tt" style="padding-left:2.8pt;padding-right:2.8pt;" colspan="2"><span class="ltx_font_bold">Image</span></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Classes</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Resolution</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Rendering</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Trajectories</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Public</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Synthetic</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Non-synthetic</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;"></td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SPARK <cite class="cites">[<a class="cite" href="/read/references/#ref-2804" data-k="musallam2021spacecraft">2804</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">150k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">11</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m1" alttext="1024\times 1024" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1024</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1024</mn></mrow><annotation encoding="application/x-tex">1024\times 1024</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">sim</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m2" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">✓</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SPEED <cite class="cites">[<a class="cite" href="/read/references/#ref-770" data-k="Sharma2019SpacecraftPE">770</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">15k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">305</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m3" alttext="1920\times 1200" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1920</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1200</mn></mrow><annotation encoding="application/x-tex">1920\times 1200</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">sim + lab</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m4" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">✓</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SPEED+ <cite class="cites">[<a class="cite" href="/read/references/#ref-2801" data-k="park2022speed+">2801</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">60k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">10k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m5" alttext="1920\times 1200" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1920</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1200</mn></mrow><annotation encoding="application/x-tex">1920\times 1200</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">sim + lab</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m6" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">✓</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">URSO <cite class="cites">[<a class="cite" href="/read/references/#ref-2793" data-k="proencca2020deepURSO">2793</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">15k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m7" alttext="1080\times 960" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1080</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>960</mn></mrow><annotation encoding="application/x-tex">1080\times 960</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">sim</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m8" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">✓</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SwissCube <cite class="cites">[<a class="cite" href="/read/references/#ref-747" data-k="hu2021widedepthrange">747</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">50k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m9" alttext="1024\times 1024" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1024</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1024</mn></mrow><annotation encoding="application/x-tex">1024\times 1024</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">sim</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">✓</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">✓</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Cygnus <cite class="cites">[<a class="cite" href="/read/references/#ref-2805" data-k="black2021realCygnus">2805</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">20k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">540</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m10" alttext="1024\times 1024" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1024</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1024</mn></mrow><annotation encoding="application/x-tex">1024\times 1024</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">sim + real</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m11" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m12" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Prisma12K <cite class="cites">[<a class="cite" href="/read/references/#ref-2806" data-k="park2019towardsPrisma12K">2806</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">12k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m13" alttext="752\times 580" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>752</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>580</mn></mrow><annotation encoding="application/x-tex">752\times 580</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">sim</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m14" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m15" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Prisma25 <cite class="cites">[<a class="cite" href="/read/references/#ref-2806" data-k="park2019towardsPrisma12K">2806</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">25</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-NA-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">real</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m16" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m17" alttext="\times" display="inline" data-pagefind-ignore="all"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">CubeSat-CDT <cite class="cites">[<a class="cite" href="/read/references/#ref-2803" data-k="musallam2022cubesatcdt">2803</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">14k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">8k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch11.T3.m18" alttext="1440\times 1080" display="inline" data-pagefind-ignore="all"><semantics><mrow><mn>1440</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1080</mn></mrow><annotation encoding="application/x-tex">1440\times 1080</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:43.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">sim + lab</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:47.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">✓</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:34.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">✓</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S3.SS4"><span class="secnum">11.3.4</span>Pivotal Task-2: Spacecraft Detection, Segmentation, and Parts Recognition<a class="anchor" href="#Ch11.S3.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S3.SS4.p1" class="ltx_para">
+<p class="ltx_p">Detection, segmentation, and parts recognition enrich the geometric anchor of Task-1 with structural semantics, telling what the target is and which functional components it exposes; proximity operations, on-orbit servicing, debris inspection, and collision avoidance all depend on this.
+The detection and segmentation machinery of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> meets the obstacles of Task-1 here (strong illumination variation, specular metallic surfaces, little texture) and, in addition, a scarcity of annotated real imagery.
+The stack runs from coarse presence to fine structure: detection localizes the spacecraft, segmentation delineates its silhouette, and parts recognition resolves its components, as Figure <a href="/read/11.3/#Ch11.F14" class="xref" data-x="Ch11.F14"><span>11.14</span></a> illustrates.</p>
+</div>
+<figure id="Ch11.F14" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/aerospace-detection.webp" id="Ch11.F14.g1" class="fig-img" alt="" width="2000" height="644" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.14</span><span>The “detect–segment–recognize” perception stack for non-cooperative spacecraft: (1) object localization, (2) encoder–decoder silhouette segmentation, and (3) recognition of solar panels, the main body, antenna, and thruster. The same synthetic target is used throughout. The silhouette is an illustrative foreground mask, not a measured prediction; arrows indicate increasing semantic detail rather than requiring every implementation to run these stages serially.</span></figcaption>
+</figure>
+<div id="Ch11.S3.SS4.p2" class="ltx_para">
+<p class="ltx_p">Convolutional and transformer architectures now carry all three stages <cite class="cites">[<a class="cite" href="/read/references/#ref-2807" data-k="shao2023satellite">2807</a>]</cite>.
+Detection is formulated as bounding-box or keypoint localization, with lightweight saliency-driven detectors for onboard compute, while encoder–decoder networks, pyramid attention modules, and hybrid 2D/3D architectures delineate silhouettes and component boundaries <cite class="cites">[<a class="cite" href="/read/references/#ref-2808" data-k="zhao20223dnoncooperativespacecraft">2808</a>]</cite>.
+Parts recognition (solar panels, antennas, thrusters, reflectors) often adds semantic priors or 3D geometric reasoning to stay robust under occlusion.
+Two recent lines reduce the dependence on manual labels: prompt-guided Segment Anything (SAM) automates the annotation of space targets <cite class="cites">[<a class="cite" href="/read/references/#ref-2809" data-k="zhang2024automaticspacetarget">2809</a>]</cite>, and diffusion priors support few-shot segmentation and adaptation to unseen spacecraft <cite class="cites">[<a class="cite" href="/read/references/#ref-2810" data-k="li2025exploitingdiffusion">2810</a>]</cite>.</p>
+</div>
+<div id="Ch11.S3.SS4.p3" class="ltx_para">
+<p class="ltx_p">The datasets in Table <a href="/read/11.3/#Ch11.T4" class="xref" data-x="Ch11.T4"><span>11.4</span></a> differ along a few axes.
+Labels range from whole-object masks (SwissCube <cite class="cites">[<a class="cite" href="/read/references/#ref-747" data-k="hu2021widedepthrange">747</a>]</cite>, a pose dataset that also provides CubeSat masks, and SPARK <cite class="cites">[<a class="cite" href="/read/references/#ref-2804" data-k="musallam2021spacecraft">2804</a>]</cite>) and object-level boxes (STAR-24K <cite class="cites">[<a class="cite" href="/read/references/#ref-2811" data-k="zhang2022star24K">2811</a>]</cite>) to component labels, from a single component (the solar panels of the Tsinghua dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2812" data-k="li2020noncooperativeobjectdetection">2812</a>]</cite>) up to nine (Spacecraft-DS <cite class="cites">[<a class="cite" href="/read/references/#ref-2813" data-k="cao2024spacecraftds">2813</a>]</cite>).
+Most are rendered (Unity3D for SPARK, Unreal Engine 4 for UESD <cite class="cites">[<a class="cite" href="/read/references/#ref-2814" data-k="zhao2023intelligentUESD">2814</a>]</cite>), whereas Spacecraft-DS uses hardware-in-the-loop capture to narrow the synthetic-to-real gap.
+The Adelaide dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2815" data-k="dung2021spacecraftdataset">2815</a>]</cite> fixed the common three-component scheme (solar panel, main body, antenna), which Shao <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2807" data-k="shao2023satellite">2807</a>]</cite> extended to video sequences rendered under three illumination conditions and several relative-motion modes; Zhao <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2808" data-k="zhao20223dnoncooperativespacecraft">2808</a>]</cite> carried the same labels to 3D point clouds, and NCSTP <cite class="cites">[<a class="cite" href="/read/references/#ref-2816" data-k="liu2025largencstp">2816</a>]</cite> raised the scale to 200,000 images of satellites, debris, and rocks.
+Detection is scored by mean average precision and segmentation by IoU, as in Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>.</p>
+</div>
+<figure id="Ch11.T4" class="ltx_table">
+<figcaption><span class="cap-tag">Table 11.4</span><span>Summary of satellite recognition datasets. ‘-’ indicates that the exact quantity is unknown; the Zhao <span class="ltx_font_italic">et al.</span>dataset consists of point clouds rather than images.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Dataset</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">#Images</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">#Satellite Models</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Segmentation Level</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">#Components</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SwissCube <cite class="cites">[<a class="cite" href="/read/references/#ref-747" data-k="hu2021widedepthrange">747</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">50,000</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Global</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">0</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">UESD <cite class="cites">[<a class="cite" href="/read/references/#ref-2814" data-k="zhao2023intelligentUESD">2814</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">10,000</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">33</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Component</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">5</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SPARK <cite class="cites">[<a class="cite" href="/read/references/#ref-2804" data-k="musallam2021spacecraft">2804</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">150,000</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">10</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Global</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">0</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">STAR-24K <cite class="cites">[<a class="cite" href="/read/references/#ref-2811" data-k="zhang2022star24K">2811</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">24,451</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Global</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">NCSTP <cite class="cites">[<a class="cite" href="/read/references/#ref-2816" data-k="liu2025largencstp">2816</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">200,000</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">16</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Component</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">4</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Tsinghua Satellite Dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2812" data-k="li2020noncooperativeobjectdetection">2812</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">18,381</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Component</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Adelaide Satellite Dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2815" data-k="dung2021spacecraftdataset">2815</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3,117</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Component</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Satellite Component Video Dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2807" data-k="shao2023satellite">2807</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">32,402</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">13</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Component</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Spacecraft-DS <cite class="cites">[<a class="cite" href="/read/references/#ref-2813" data-k="cao2024spacecraftds">2813</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">1,602</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Component</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">9</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:138.8pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3D component point clouds (Zhao <span class="ltx_font_italic">et al.</span>) <cite class="cites">[<a class="cite" href="/read/references/#ref-2808" data-k="zhao20223dnoncooperativespacecraft">2808</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:52.0pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">33</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:69.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Component</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:56.4pt;padding-left:4.3pt;padding-right:4.3pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S3.SS5"><span class="secnum">11.3.5</span>Pivotal Task-3: Operator Agents<a class="anchor" href="#Ch11.S3.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S3.SS5.p1" class="ltx_para">
+<p class="ltx_p">Operator agents lift the perceptual state recovered by Tasks 1 and 2 into reasoning, planning, and decision support, monitoring, interpreting, and controlling spacecraft systems to reduce operator workload and allow more autonomous mission execution.
+They are the aerospace instance of the planning and decision-making capabilities of Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>.
+Rooted in rule-based and model-driven architectures, their role has expanded from health monitoring and scheduling to high-level control in dialogue with human experts, a history that runs from symbolic planning through multi-agent coordination to foundation-model reasoning (Figure <a href="/read/11.3/#Ch11.F15" class="xref" data-x="Ch11.F15"><span>11.15</span></a>).</p>
+</div>
+<figure id="Ch11.F15" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/aerospace-operator.webp" id="Ch11.F15.g1" class="fig-img" alt="" width="2000" height="817" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.15</span><span>Three paradigms in the development of spacecraft operator agents: (1) symbolic planning and expert systems, (2) multi-agent coordination across a constellation, and (3) LLM- and RAG-based agents that combine telemetry with retrieved domain knowledge to propose natural-language plans. Inter-panel arrows indicate historical development, not required dataflow. In the rule example, observations and action outcomes support the goal; blue peer links and dashed ground links denote communication. Satellite imagery and rules are illustrative.</span></figcaption>
+</figure>
+<div id="Ch11.S3.SS5.p2" class="ltx_para">
+<p class="ltx_p">Early operator-agent architectures were built on symbolic reasoning, constraint-based planning, and expert-system principles.
+The Remote Agent Experiment <cite class="cites">[<a class="cite" href="/read/references/#ref-2817" data-k="bernard1998designremoteagent">2817</a>]</cite> and early autonomous spacecraft-agent prototypes <cite class="cites">[<a class="cite" href="/read/references/#ref-2818" data-k="pell1997autonomousspacecraftagent">2818</a>]</cite> demonstrated onboard planning, diagnosis, and execution in deep-space missions.
+As autonomy requirements grew, multi-agent planning frameworks <cite class="cites">[<a class="cite" href="/read/references/#ref-2819" data-k="colby2016autonomousmultiagent">2819</a>, <a class="cite" href="/read/references/#ref-225" data-k="picard2021autonomousAgents">225</a>]</cite> were introduced to coordinate heterogeneous spacecraft, manage distributed sensing, and schedule jointly across satellite constellations.
+Large language models changed the design: recent work <cite class="cites">[<a class="cite" href="/read/references/#ref-2820" data-k="rodriguez2024languagemodelsspacecraft">2820</a>, <a class="cite" href="/read/references/#ref-2821" data-k="carrasco2025visualoperatoragents">2821</a>]</cite> uses LLMs as operator agents that interpret telemetry, generate action plans, respond to anomalies, and follow natural-language mission specifications, and fine-tuned LLMs <cite class="cites">[<a class="cite" href="/read/references/#ref-2822" data-k="zucchelli2025finetunellmSpace">2822</a>, <a class="cite" href="/read/references/#ref-2823" data-k="carrasco2024finetuneAutonomousSpacecraft">2823</a>, <a class="cite" href="/read/references/#ref-2824" data-k="foutter2024spacellava">2824</a>, <a class="cite" href="/read/references/#ref-2825" data-k="carrasco2025llmAutonomousSpacecraft">2825</a>]</cite> have been tested in simulators such as Kerbal Space Program (KSP) for guidance, navigation, and control. To meet the interpretability and safety requirements of mission-critical decisions, other studies integrate retrieval-augmented generation (RAG) <cite class="cites">[<a class="cite" href="/read/references/#ref-2826" data-k="belo2025languageragSpaceSpace">2826</a>]</cite>, domain knowledge graphs <cite class="cites">[<a class="cite" href="/read/references/#ref-2827" data-k="powell2025questionknowledgegraphssatellite">2827</a>]</cite>, and structured symbolic reasoning, while hybrid architectures such as MCP-based multi-component agents <cite class="cites">[<a class="cite" href="/read/references/#ref-2828" data-k="wu2025spacemind">2828</a>]</cite> combine small specialized models with foundation models to balance computational cost and reasoning depth, particularly for on-orbit servicing.</p>
+</div>
+<div id="Ch11.S3.SS5.p3" class="ltx_para">
+<p class="ltx_p">Evaluation environments followed the same path.
+The Remote Agent Experiment <cite class="cites">[<a class="cite" href="/read/references/#ref-2817" data-k="bernard1998designremoteagent">2817</a>]</cite> supplied real mission scenarios for onboard planning and diagnosis, and multi-agent planning studies <cite class="cites">[<a class="cite" href="/read/references/#ref-2819" data-k="colby2016autonomousmultiagent">2819</a>]</cite> supply constellation-level scheduling, resource-allocation, and communication constraints.
+LLM agents are tested in simulation, chiefly in KSP <cite class="cites">[<a class="cite" href="/read/references/#ref-2825" data-k="carrasco2025llmAutonomousSpacecraft">2825</a>]</cite> and in the KSPDG suite of SpaceGym <cite class="cites">[<a class="cite" href="/read/references/#ref-2829" data-k="allen2023spacegym">2829</a>]</cite>, a set of multi-agent pursuit–evasion differential games built in the KSP engine.
+Classical agents are scored on planning optimality, constraint satisfaction, fault-diagnosis accuracy, and task completion; LLM agents are additionally judged on adherence to safety constraints, robustness to shifts in telemetry or mission context, and the interpretability of their decisions, which is why uncertainty estimation and human-in-the-loop verification recur throughout this work.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S3.SS6"><span class="secnum">11.3.6</span>Pivotal Task-4: Planetary Robotics<a class="anchor" href="#Ch11.S3.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S3.SS6.p1" class="ltx_para">
+<p class="ltx_p">Planetary robotics closes the autonomy loop on the surface, coupling the perception, localization, and planning capabilities of Chapters <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> and <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a> into exploration, navigation, and sampling on the Moon, Mars, and small bodies.
+Unlike orbital operations, surface missions face uneven and unstructured terrain, delayed and limited communication, restricted sensing, and long stretches of autonomy without continuous human supervision.
+Figure <a href="/read/11.3/#Ch11.F16" class="xref" data-x="Ch11.F16"><span>11.16</span></a> layers the autonomy stack from perception and mapping through hierarchical decision-making to vision-guided manipulation.</p>
+</div>
+<figure id="Ch11.F16" class="ltx_figure"><img src="/assets/figures/figures/part4/section11/aerospace-planetary.webp" id="Ch11.F16.g1" class="fig-img" alt="" width="2000" height="354" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 11.16</span><span>The planetary-robotics autonomy stack: visual-odometry feature tracks and 3D terrain mapping support hierarchical decisions and vision-guided manipulation. Mission reasoning handles goals, task decomposition, resources, and replanning; path planning uses global/local maps and constraints; reactive locomotion handles obstacles, stability, and terrain adaptation. Solid downward links convey plans, and dashed upward links convey status. Manipulation yields samples, material observations, environment updates, and task progress. Scenes and map geometry are illustrative.</span></figcaption>
+</figure>
+<div id="Ch11.S3.SS6.p2" class="ltx_para">
+<p class="ltx_p">Surface robots are organized around a mobility stack that couples perception, localization, mapping, planning, and control, with manipulation and science operations integrated at the task level.
+Feature tracking, visual odometry, and stereo reconstruction estimate rover motion and build local 3D models of rugged terrain, a capability flown since the Mars Exploration Rovers <cite class="cites">[<a class="cite" href="/read/references/#ref-2830" data-k="maimone2007two">2830</a>]</cite>.
+The Enhanced AutoNav (ENav) system on NASA’s Perseverance rover <cite class="cites">[<a class="cite" href="/read/references/#ref-2831" data-k="toupet2025enav">2831</a>]</cite> builds onboard 3D terrain maps, evaluates hazards, and plans safe local traverses under severe computational and communication constraints, and it evaluated terrain over a large majority of the rover’s traversed distance.
+This autonomy remains embedded in a human-supervised workflow: ground operators specify science goals and route segments, and onboard autonomy resolves local navigation and hazard avoidance.</p>
+</div>
+<div id="Ch11.S3.SS6.p3" class="ltx_para">
+<p class="ltx_p">Research and analogue-testbed systems extend these capabilities to multiple robots, where cooperative visual navigation and shared mapping improve coverage and robustness <cite class="cites">[<a class="cite" href="/read/references/#ref-2832" data-k="bahraini2021autonomousplanetaryrobots">2832</a>]</cite>.
+Hierarchical frameworks <cite class="cites">[<a class="cite" href="/read/references/#ref-2833" data-k="Leiva2025HierarchicalAutonomous">2833</a>]</cite> decompose behavior across temporal and functional layers, balancing reactive locomotion and obstacle avoidance with deliberative path planning, task scheduling, and mission-level reasoning under safety, power, communication, and resource constraints.</p>
+</div>
+<div id="Ch11.S3.SS6.p4" class="ltx_para">
+<p class="ltx_p">Vision-guided manipulation supports sample collection and instrument deployment by coupling image-based pose estimation with position-controlled or compliant manipulation suited to contact with natural terrain <cite class="cites">[<a class="cite" href="/read/references/#ref-2834" data-k="nickels2010visionplanetaryrobotics">2834</a>]</cite>.
+Learning-based methods are increasingly explored for terrain classification, slip prediction, and traversability estimation, but model-based perception, localization, and planning remain central: safety requirements are stringent, mission-representative labeled data is scarce, onboard computation is constrained, and purely data-driven methods are hard to validate for mission-critical use.
+Evaluation therefore combines physics-based simulators, mission-derived datasets, and laboratory or analogue-field testbeds that model illumination, dust, wheel–soil interaction, and communication delay, and it reports localization accuracy, map quality, hazard-aware traversal, task completion, and energy use.</p>
+</div>
+<figure id="Ch11.T5" class="ltx_table">
+<figcaption><span class="cap-tag">Table 11.5</span><span>Representative benchmarks and headline metrics for the four pivotal aerospace tasks. The headline column names the standard evaluation axis, not a single best score.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Pivotal task</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method / system</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Pose estimation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SPEED / SPEED+ <cite class="cites">[<a class="cite" href="/read/references/#ref-770" data-k="Sharma2019SpacecraftPE">770</a>, <a class="cite" href="/read/references/#ref-2801" data-k="park2022speed+">2801</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Multi-task / domain-adaptive CNN <cite class="cites">[<a class="cite" href="/read/references/#ref-2798" data-k="park2024robustspacecraftposeestimation">2798</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Translation + rotation error</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Pose estimation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">CubeSat-CDT <cite class="cites">[<a class="cite" href="/read/references/#ref-2803" data-k="musallam2022cubesatcdt">2803</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Cross-domain regression <cite class="cites">[<a class="cite" href="/read/references/#ref-2794" data-k="garcia2021lspnet">2794</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">2D reprojection error</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Detection &amp; parts</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Adelaide / SPARK <cite class="cites">[<a class="cite" href="/read/references/#ref-2815" data-k="dung2021spacecraftdataset">2815</a>, <a class="cite" href="/read/references/#ref-2804" data-k="musallam2021spacecraft">2804</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Encoder-decoder segmentation <cite class="cites">[<a class="cite" href="/read/references/#ref-2808" data-k="zhao20223dnoncooperativespacecraft">2808</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">mAP</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Detection &amp; parts</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">NCSTP <cite class="cites">[<a class="cite" href="/read/references/#ref-2816" data-k="liu2025largencstp">2816</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SAM-based prompt segmentation <cite class="cites">[<a class="cite" href="/read/references/#ref-2809" data-k="zhang2024automaticspacetarget">2809</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">mAP / IoU</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Operator agents</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">KSPDG / SpaceGym <cite class="cites">[<a class="cite" href="/read/references/#ref-2829" data-k="allen2023spacegym">2829</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Fine-tuned LLM agent <cite class="cites">[<a class="cite" href="/read/references/#ref-2825" data-k="carrasco2025llmAutonomousSpacecraft">2825</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Maneuver success rate</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Operator agents</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Deep Space 1 flight experiment <cite class="cites">[<a class="cite" href="/read/references/#ref-2817" data-k="bernard1998designremoteagent">2817</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Symbolic planner / diagnosis <cite class="cites">[<a class="cite" href="/read/references/#ref-2818" data-k="pell1997autonomousspacecraftagent">2818</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Task completion</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Planetary robotics</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Mars rover traverses <cite class="cites">[<a class="cite" href="/read/references/#ref-2831" data-k="toupet2025enav">2831</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Visual odometry <cite class="cites">[<a class="cite" href="/read/references/#ref-2830" data-k="maimone2007two">2830</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Localization drift</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:78.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Planetary robotics</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Hierarchical-autonomy suites <cite class="cites">[<a class="cite" href="/read/references/#ref-2833" data-k="Leiva2025HierarchicalAutonomous">2833</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Layered decision-making <cite class="cites">[<a class="cite" href="/read/references/#ref-2833" data-k="Leiva2025HierarchicalAutonomous">2833</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Task-completion / safety</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S3.SS7"><span class="secnum">11.3.7</span>Established Tools and Systems<a class="anchor" href="#Ch11.S3.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S3.SS7.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Simulators and rendering engines.</span>
+Because real orbital imagery is scarce and flight opportunities are expensive, most perception research is trained and validated in simulation.
+General-purpose game and physics engines have been repurposed as space testbeds: Unity3D and Blender drive the synthetic rendering pipelines behind the SPARK <cite class="cites">[<a class="cite" href="/read/references/#ref-2804" data-k="musallam2021spacecraft">2804</a>]</cite> and satellite-component <cite class="cites">[<a class="cite" href="/read/references/#ref-2807" data-k="shao2023satellite">2807</a>]</cite> datasets, while the Kerbal Space Program<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup> engine underpins LLM-agent guidance-navigation-control studies <cite class="cites">[<a class="cite" href="/read/references/#ref-2825" data-k="carrasco2025llmAutonomousSpacecraft">2825</a>]</cite>.
+For decision-making, SpaceGym<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup> <cite class="cites">[<a class="cite" href="/read/references/#ref-2829" data-k="allen2023spacegym">2829</a>]</cite> packages its OrbitDefender2D gridworld games and the KSPDG suite as standardized non-cooperative game environments, and robotics simulators such as NVIDIA Isaac Sim<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup> and Gazebo<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup> provide the wheel-soil and sensor models used to prototype planetary-rover autonomy.</p>
+</div>
+<div id="Ch11.S3.SS7.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Public challenges.</span>
+The Satellite Pose Estimation Challenge <cite class="cites">[<a class="cite" href="/read/references/#ref-2802" data-k="kisantal2020satellitechallenge">2802</a>]</cite>, run by Stanford’s Space Rendezvous Laboratory and the European Space Agency on its Kelvins platform<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup>, set the protocols that pose estimation now follows, and its SPEED+ edition <cite class="cites">[<a class="cite" href="/read/references/#ref-2801" data-k="park2022speed+">2801</a>]</cite> made the synthetic-to-real gap the explicit test.</p>
+</div>
+<div id="Ch11.S3.SS7.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Flight-proven autonomy systems.</span>
+The NASA Remote Agent <cite class="cites">[<a class="cite" href="/read/references/#ref-2817" data-k="bernard1998designremoteagent">2817</a>]</cite>, flown on Deep Space 1, remains the canonical reference for onboard planning, diagnosis, and execution.
+On planetary surfaces, rover visual odometry <cite class="cites">[<a class="cite" href="/read/references/#ref-2830" data-k="maimone2007two">2830</a>]</cite> and the Enhanced AutoNav stack flown on Perseverance <cite class="cites">[<a class="cite" href="/read/references/#ref-2831" data-k="toupet2025enav">2831</a>]</cite> set the operational baseline against which hierarchical-autonomy and learning-augmented methods are measured, and current work pairs such flight-qualified stacks with foundation-model agents <cite class="cites">[<a class="cite" href="/read/references/#ref-2828" data-k="wu2025spacemind">2828</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch11.S3.SS8"><span class="secnum">11.3.8</span>Challenges<a class="anchor" href="#Ch11.S3.SS8" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch11.S3.SS8.p1" class="ltx_para">
+<p class="ltx_p">Orbital and planetary environments differ from terrestrial ones in ways that terrestrial data does not cover, and the open problems follow the pipeline: the data gap that limits perception, the compute budget that limits deployment, and the trustworthiness requirements that limit certification.</p>
+</div>
+<section id="Ch11.S3.SS8.SSS0.Px1">
+<div id="Ch11.S3.SS8.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">The Unresolved Sim-to-Real Domain Gap.</strong> Autonomous space systems, such as those performing on-orbit servicing or debris removal, are trained largely on simulated data, and simulators do not reproduce the high-dynamic-range lighting of orbit (<span class="ltx_font_italic">e.g.,</span> , solar glare and deep shadow), intricate material reflections, or sensor degradation such as radiation noise.
+Models consequently lose accuracy on real imagery, as the hardware-in-the-loop test sets of the pose-estimation challenges show <cite class="cites">[<a class="cite" href="/read/references/#ref-2802" data-k="kisantal2020satellitechallenge">2802</a>, <a class="cite" href="/read/references/#ref-2801" data-k="park2022speed+">2801</a>]</cite>, which keeps domain adaptation and domain randomization central to the field.</p>
+</div>
+</section>
+<section id="Ch11.S3.SS8.SSS0.Px2">
+<div id="Ch11.S3.SS8.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Computational Constraints and Real-time Operation.</strong> Spacecraft hardware is bound by size, weight, and power (SWaP) limits and must use radiation-hardened processors that are far less powerful than ground-based GPUs.
+Running 6-DoF pose estimation or SLAM at the update rates that proximity operations require on such computers calls for model compression, lightweight architectures, and hardware-aware optimization that preserve accuracy while cutting latency and power consumption.</p>
+</div>
+</section>
+<section id="Ch11.S3.SS8.SSS0.Px3">
+<div id="Ch11.S3.SS8.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Assuring Trustworthiness and Robustness in Extreme Conditions.</strong> Space missions are safety-critical, so perception must hold up under extreme visual ambiguity, such as estimating the pose of highly symmetric targets like CubeSats <cite class="cites">[<a class="cite" href="/read/references/#ref-2803" data-k="musallam2022cubesatcdt">2803</a>]</cite> or navigating where standard reference signals are unavailable.
+Deployed systems also explain little about their own failures, so operators cannot easily trace a perception anomaly (<span class="ltx_font_italic">e.g.,</span> , a pose error caused by sensor saturation) to its root cause in time to intervene.
+Formal verification and interpretable models that guarantee predictable behavior across operating extremes remain open problems.</p>
+</div>
+</section>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.kerbalspaceprogram.com/" title="" class="ltx_font_typewriter">https://www.kerbalspaceprogram.com/</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://github.com/mit-ll/spacegym-kspdg" title="" class="ltx_font_typewriter">https://github.com/mit-ll/spacegym-kspdg</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://developer.nvidia.com/isaac/sim" title="" class="ltx_font_typewriter">https://developer.nvidia.com/isaac/sim</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://gazebosim.org/" title="" class="ltx_font_typewriter">https://gazebosim.org/</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://kelvins.esa.int/" title="" class="ltx_font_typewriter">https://kelvins.esa.int/</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/11.2/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">11.2 GeoAI</span></a><a class="pager-next" href="/read/chapter-12/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Chapter 12: Spatial Intelligence for Biomedicine and Natural Sciences</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch11.S3.SS1" data-spy="Ch11.S3.SS1"><span class="n">11.3.1</span>Introduction</a></li><li><a href="#Ch11.S3.SS2" data-spy="Ch11.S3.SS2"><span class="n">11.3.2</span>System Overview</a></li><li><a href="#Ch11.S3.SS3" data-spy="Ch11.S3.SS3"><span class="n">11.3.3</span>Pivotal Task-1: Satellite Pose Estimation</a></li><li><a href="#Ch11.S3.SS4" data-spy="Ch11.S3.SS4"><span class="n">11.3.4</span>Pivotal Task-2: Spacecraft Detection, Segmentation, and Parts Recognition</a></li><li><a href="#Ch11.S3.SS5" data-spy="Ch11.S3.SS5"><span class="n">11.3.5</span>Pivotal Task-3: Operator Agents</a></li><li><a href="#Ch11.S3.SS6" data-spy="Ch11.S3.SS6"><span class="n">11.3.6</span>Pivotal Task-4: Planetary Robotics</a></li><li><a href="#Ch11.S3.SS7" data-spy="Ch11.S3.SS7"><span class="n">11.3.7</span>Established Tools and Systems</a></li><li><a href="#Ch11.S3.SS8" data-spy="Ch11.S3.SS8"><span class="n">11.3.8</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=11.3"><b>46</b> cited works</a><a href="/explore/datasets/?sec=11.3"><b>27</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=11.3" title="Segment Anything"><b>1</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="11.3 Aerospace Engineering" data-url="/read/11.3/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%2011.3%20Aerospace%20Engineering&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/11.3/%20%28PDF%20p.%20410%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

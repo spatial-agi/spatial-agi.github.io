@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10.1 AR/VR/XR · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="10.1 AR/VR/XR · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="10.1">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link is-current" href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-10/">Chapter 10</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-10/">Chapter 10 · Spatial Intelligence for Virtual Realities</a></div>
+        <h1><span class="secnum">10.1</span>AR/VR/XR</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=378" title="Open this page in the PDF">PDF p. 378</a><span class="dot">·</span>        <span>13 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:10.1 AR/VR/XR">
+<section>
+<h2 class="h-subsection" id="Ch10.S1.SS1"><span class="secnum">10.1.1</span>Introduction<a class="anchor" href="#Ch10.S1.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch10.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">Augmented, virtual, and mixed reality (collectively, extended reality or XR) form a continuum of media in which a head-worn display couples the user’s egocentric viewpoint to a computational world that is registered to, or substituted for, the physical surroundings.
+What distinguishes XR from screen-based media is that spatial intelligence is not an optional feature but a constitutive requirement: before any pixel can be drawn, the system must know where the headset is, what geometry surrounds it, and where the user is looking and reaching.
+XR is therefore the most demanding real-time deployment target for the spatial capabilities surveyed in Part <a href="/read/part-iii/" class="xref" data-x="Pt3"><span>III</span></a>.
+The perception machinery (detection, depth, pose, reconstruction) of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a>, the spatial reasoning and planning of Chapter <a href="/read/chapter-7/" class="xref" data-x="Ch7"><span>7</span></a>, and the neural reconstruction and rendering of Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a> all reappear here, but specialized to run egocentrically, on-device, and within a hard latency budget.</p>
+</div>
+<div id="Ch10.S1.SS1.p2" class="ltx_para">
+<p class="ltx_p">This section treats the XR <em class="ltx_font_italic">medium itself</em> as a spatial-computing platform: the runtime engine that localizes the device, maps and registers the world, senses the user’s body, and presents a composited result.
+The neighboring section on entertainment (§<a href="/read/10.2/" class="xref" data-x="Ch10.S2"><span>10.2</span></a>) builds <em class="ltx_font_italic">on top of</em> this engine, treating entertainment as an application domain: its real-time AR/VR experiences and virtual production, together with the offline, high-fidelity reconstruction and performance capture that supply them with authored content; here we focus on the platform that makes such experiences run at interactive rates.
+Concretely, a headset must continuously answer three coupled questions, <span class="ltx_font_italic">i.e.,</span> , where am I (6-DoF self-localization), what is around me (geometry and semantics), and how do I fuse virtual content into that reality so that it appears physically present, while simultaneously sensing the user and refreshing the display.
+Early systems answered the localization question with outside-in tracking, using external base stations or cameras (SteamVR Lighthouse, the original Oculus constellation), but the dominant modern paradigm is inside-out tracking, in which visual–inertial SLAM runs entirely on the device, as in Meta Quest, Apple Vision Pro, and Microsoft HoloLens.
+The three pivotal tasks below correspond to the stages of this loop.</p>
+</div>
+<figure id="Ch10.F1" class="ltx_figure"><img src="/assets/figures/figures/part4/section10/xr_overview.webp" id="Ch10.F1.g1" class="fig-img" alt="" width="2000" height="1822" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 10.1</span><span>Spatial intelligence for XR as a closed real-time loop: world-facing sensing, tracking and mapping, and registration (T1), user-facing input (T2), and rendering and display (T3). The latency values are illustrative end-to-end targets, not per-stage budgets.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch10.S1.SS2"><span class="secnum">10.1.2</span>System Overview<a class="anchor" href="#Ch10.S1.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch10.S1.SS2.p1" class="ltx_para">
+<p class="ltx_p">As sketched in Figure <a href="/read/10.1/#Ch10.F1" class="xref" data-x="Ch10.F1"><span>10.1</span></a>, an XR device closes a tight real-time loop. Egocentric sensors first <span class="ltx_font_bold">sense</span> the device and the user (outward cameras and an inertial measurement unit for head pose; inward-facing cameras for eyes and outward- or downward-facing cameras for hands and body).
+The system then <span class="ltx_font_bold">tracks and maps</span> the environment, recovering a 6-DoF pose and a persistent geometric model, and <span class="ltx_font_bold">registers</span> virtual content into that model with correct anchoring, occlusion, and lighting.
+Finally, it <span class="ltx_font_bold">renders and displays</span> the composite back through the headset optics, after which the user moves and the loop repeats.
+The pipeline shares an end-to-end motion-to-photon budget; roughly <math id="Ch10.S1.SS2.p1.m1" alttext="20" display="inline" data-pagefind-ignore="all"><semantics><mn>20</mn><annotation encoding="application/x-tex">20</annotation></semantics></math> ms at a display refresh of <math id="Ch10.S1.SS2.p1.m2" alttext="90" display="inline" data-pagefind-ignore="all"><semantics><mn>90</mn><annotation encoding="application/x-tex">90</annotation></semantics></math> Hz or higher are the commonly cited targets, though the right values depend on device and application, and exceeding them degrades presence and comfort.
+The three pivotal tasks map onto this loop directly: Task-1 is the world-facing engine (track, map, register), Task-2 is the user-facing input (egocentric sensing and interaction), and Task-3 is the user-facing output (display and rendering).</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch10.S1.SS3"><span class="secnum">10.1.3</span>Pivotal Task-1: Spatial Tracking, Mapping, and Registration<a class="anchor" href="#Ch10.S1.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch10.S1.SS3.p1" class="ltx_para">
+<p class="ltx_p">The first task is the medium’s spatial backbone: it answers where the device is, what surrounds it, and how virtual content is pinned to the world so convincingly that the illusion holds.
+It proceeds in three steps: localize the device, model the environment, and register synthetic content into that model.
+Figure <a href="/read/10.1/#Ch10.F2" class="xref" data-x="Ch10.F2"><span>10.2</span></a> sketches this progression from inside-out tracking to a persistent scene map and finally to anchored, occluded, and relit virtual content.</p>
+</div>
+<figure id="Ch10.F2" class="ltx_figure"><img src="/assets/figures/figures/part4/section10/xr_tracking.webp" id="Ch10.F2.g1" class="fig-img" alt="" width="2000" height="1068" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 10.2</span><span>The XR world-facing engine: (a) inside-out visual–inertial tracking of 6-DoF pose, (b) mapping of geometry, semantic labels, and persistent anchors, and (c) registration of virtual content with depth-tested occlusion and matched lighting. The room and shading are illustrative, not measured reconstructions.</span></figcaption>
+</figure>
+<div id="Ch10.S1.SS3.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Inside-out 6-DoF tracking.</span> The foundational layer estimates the headset’s six-degree-of-freedom pose at high rate by fusing visual features with inertial measurements.
+Feature-based visual SLAM with loop closure and relocalization remains the academic standard, exemplified by the ORB-SLAM lineage and its visual-inertial extension ORB-SLAM3 <cite class="cites">[<a class="cite" href="/read/references/#ref-736" data-k="Campos2021ORBSLAM3">736</a>]</cite>, while tightly-coupled visual–inertial odometry such as VINS-Mono <cite class="cites">[<a class="cite" href="/read/references/#ref-2644" data-k="qin2018vins">2644</a>]</cite> underpins many mobile and headset stacks; direct (photometric) methods such as DSO <cite class="cites">[<a class="cite" href="/read/references/#ref-719" data-k="engel2017direct">719</a>]</cite> and the earlier LSD-SLAM <cite class="cites">[<a class="cite" href="/read/references/#ref-718" data-k="engel2014lsd">718</a>]</cite> offer an alternative that does not depend on sparse keypoints.
+More recent learned dense systems, including DROID-SLAM <cite class="cites">[<a class="cite" href="/read/references/#ref-95" data-k="teed2021droid">95</a>]</cite> and transformer-based geometric matchers <cite class="cites">[<a class="cite" href="/read/references/#ref-728" data-k="mast3r">728</a>]</cite>, trade computation for robustness in low-texture and fast-motion regimes.
+These methods are evaluated chiefly on EuRoC <cite class="cites">[<a class="cite" href="/read/references/#ref-733" data-k="Burri2016EuRoC">733</a>]</cite> and TUM-VI <cite class="cites">[<a class="cite" href="/read/references/#ref-935" data-k="Schubert2018TUMVI">935</a>]</cite>, with absolute trajectory error (ATE) as the headline metric, but the binding constraints in XR are drift accumulation, recovery from tracking loss (the kidnapped-device problem), and the power and thermal envelope of on-device inference.</p>
+</div>
+<div id="Ch10.S1.SS3.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Spatial mapping and scene understanding.</span> The tracked stream is consolidated into a usable model of the environment: dense depth and mesh, planar surfaces (floor, wall, table), and semantic labels.
+Real-time volumetric fusion in the KinectFusion tradition <cite class="cites">[<a class="cite" href="/read/references/#ref-114" data-k="newcombe2011kinectfusion">114</a>]</cite> provides the geometric substrate, on top of which plane and mesh extraction expose the surfaces that gameplay and user interfaces attach to.
+(The offline, high-fidelity reconstruction of such scenes as navigable content is treated in §<a href="/read/10.2/" class="xref" data-x="Ch10.S2"><span>10.2</span></a> and Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a>; here the map is a means to localization and registration, not an end in itself.)
+Semantic and instance understanding is benchmarked on indoor datasets such as ScanNet <cite class="cites">[<a class="cite" href="/read/references/#ref-448" data-k="dai2017scannet">448</a>]</cite> and Matterport3D <cite class="cites">[<a class="cite" href="/read/references/#ref-340" data-k="chang2017matterport3d">340</a>]</cite>, with mean intersection-over-union (mIoU) for segmentation, and increasingly on mobile-captured data with laser ground truth such as ARKitScenes <cite class="cites">[<a class="cite" href="/read/references/#ref-669" data-k="baruch2021arkitscenes">669</a>]</cite> and high-quality reconstructions such as Replica <cite class="cites">[<a class="cite" href="/read/references/#ref-339" data-k="straub2019replica">339</a>]</cite> for depth and geometry evaluation.</p>
+</div>
+<div id="Ch10.S1.SS3.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Persistent and shared anchors.</span> For content to survive across sessions and to be experienced jointly by co-located users, the map must be persistent and shareable.
+Cloud-hosted and peer-to-peer world maps let a device relocalize against a previously built model, and at city scale a Visual Positioning System anchors content to real landmarks in well-mapped areas.
+The open problems are relocalization under appearance change (lighting, season, rearranged furniture), the memory footprint of on-device maps, and the privacy implications of uploading scans of private spaces, a thread we return to in the challenges.</p>
+</div>
+<div id="Ch10.S1.SS3.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Registration and realistic compositing.</span> Finally, virtual content must be registered both geometrically and photometrically so that it appears to occupy the scene.
+Geometric registration pins objects to anchors and planes in the SLAM frame; depth-based occlusion lets real geometry correctly hide virtual pixels, as in the per-pixel depth produced for mobile interaction by DepthLab and the ARCore Depth API <cite class="cites">[<a class="cite" href="/read/references/#ref-2645" data-k="du2020depthlab">2645</a>]</cite>; and lighting estimation predicts the dominant light direction and an ambient environment map from a single image so that virtual objects are shaded and shadowed consistently <cite class="cites">[<a class="cite" href="/read/references/#ref-2646" data-k="gardner2017learning">2646</a>]</cite>.
+Small errors here are perceptually unforgiving: a few centimeters of depth error at an object boundary, or a mismatched shadow, immediately reveals the composite as synthetic, which is why robust occlusion and real-time inverse lighting remain active research problems.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch10.S1.SS4"><span class="secnum">10.1.4</span>Pivotal Task-2: Egocentric Human Sensing and Spatial Interaction<a class="anchor" href="#Ch10.S1.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch10.S1.SS4.p1" class="ltx_para">
+<p class="ltx_p">The second task closes the loop from the user’s body back into the system: it senses the hands, eyes, and posture from inside-out cameras and turns those signals into spatial intent. Low-level egocentric estimates of hands, gaze, and body are fused into selection, manipulation, and locomotion. As Figure <a href="/read/10.1/#Ch10.F3" class="xref" data-x="Ch10.F3"><span>10.3</span></a> indicates, the same headset sensors that localize the device are repurposed to track the user, and the resulting estimates drive a gaze-and-gesture interaction model.</p>
+</div>
+<figure id="Ch10.F3" class="ltx_figure"><img src="/assets/figures/figures/part4/section10/xr_sensing.webp" id="Ch10.F3.g1" class="fig-img" alt="" width="2000" height="1539" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 10.3</span><span>Egocentric human sensing for XR interaction: (a) articulated hand tracking, (b) gaze from inward-facing eye cameras, (c) full-body pose inferred from three tracked points, and (d) gaze-plus-pinch selection, in which gaze supplies the target and a pinch confirms it.</span></figcaption>
+</figure>
+<div id="Ch10.S1.SS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Hand tracking.</span> Articulated 3D hand pose (commonly <math id="Ch10.S1.SS4.p2.m1" alttext="21" display="inline" data-pagefind-ignore="all"><semantics><mn>21</mn><annotation encoding="application/x-tex">21</annotation></semantics></math> joints, often a full mesh) is regressed from headset cameras under heavy self-occlusion and truncation.
+The standard hand model is MANO <cite class="cites">[<a class="cite" href="/read/references/#ref-2647" data-k="romero2017mano">2647</a>]</cite>, and on-device pipelines such as MediaPipe Hands <cite class="cites">[<a class="cite" href="/read/references/#ref-2648" data-k="zhang2020mediapipe">2648</a>]</cite> combine a palm detector with a landmark regressor to run in real time.
+Methods are benchmarked on FreiHAND <cite class="cites">[<a class="cite" href="/read/references/#ref-561" data-k="zimmermann2019freihand">561</a>]</cite> and the two-hand InterHand2.6M <cite class="cites">[<a class="cite" href="/read/references/#ref-562" data-k="moon2020interhand2">562</a>]</cite>, with 3D mean per-joint position error (MPJPE) in millimeters as the headline metric; robust two-hand interaction and egocentric truncation remain the hard cases.</p>
+</div>
+<div id="Ch10.S1.SS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Eye and gaze tracking.</span> Estimating 3D gaze from infrared eye images serves three roles: calibration, gaze as a pointing modality, and as the driver for foveated rendering (Task-3).
+Appearance-based estimation in the iTracker and GazeCapture tradition <cite class="cites">[<a class="cite" href="/read/references/#ref-2649" data-k="krafka2016gazecapture">2649</a>]</cite> established that gaze can be regressed from commodity cameras, and headset-specific datasets such as OpenEDS <cite class="cites">[<a class="cite" href="/read/references/#ref-2650" data-k="garbin2019openeds">2650</a>]</cite> provide near-eye infrared imagery with dense eye-region segmentation, with the later OpenEDS2020 track adding gaze prediction (angular error in degrees).
+The decisive interaction consequence is that gaze targets quickly but lacks a natural trigger, a long-standing difficulty known as the Midas-touch problem, which motivates the gaze-plus-pinch pattern discussed below.</p>
+</div>
+<div id="Ch10.S1.SS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Full-body pose from sparse signals.</span> Driving a full-body avatar from a headset and two controllers is an underconstrained inverse problem, since the lower body is unobserved and must be synthesized.
+Recent methods infer plausible full-body motion from these three tracked points, including the transformer-based AvatarPoser <cite class="cites">[<a class="cite" href="/read/references/#ref-2651" data-k="jiang2022avatarposer">2651</a>]</cite> and the diffusion-based AGRoL <cite class="cites">[<a class="cite" href="/read/references/#ref-2652" data-k="du2023agrol">2652</a>]</cite>, while a parallel line recovers pose from sparse body-worn inertial sensors, as in DIP <cite class="cites">[<a class="cite" href="/read/references/#ref-2441" data-k="huang2018dip">2441</a>]</cite>, TransPose <cite class="cites">[<a class="cite" href="/read/references/#ref-2444" data-k="yi2021transpose">2444</a>]</cite>, and the physics-aware PIP <cite class="cites">[<a class="cite" href="/read/references/#ref-2452" data-k="yi2022pip">2452</a>]</cite>.
+These models are trained on large motion corpora such as AMASS <cite class="cites">[<a class="cite" href="/read/references/#ref-2209" data-k="mahmood2019amass">2209</a>]</cite> and evaluated with MPJPE and temporal jitter.
+This sparse, live setting is distinct both from the wearable-IMU body sensing of §<a href="/read/9.3/" class="xref" data-x="Ch9.S3"><span>9.3</span></a> (which instruments the body more densely) and from the studio performance capture that drives authored avatars in §<a href="/read/10.2/" class="xref" data-x="Ch10.S2"><span>10.2</span></a>; the XR-specific challenge is plausibility from radically incomplete observation.</p>
+</div>
+<div id="Ch10.S1.SS4.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Multimodal interaction and locomotion.</span> The recovered signals are fused into spatial actions. The foundational idea of combining a deictic gesture with a complementary modality dates to Bolt’s “Put-That-There” <cite class="cites">[<a class="cite" href="/read/references/#ref-2653" data-k="bolt1980putthatthere">2653</a>]</cite>, and the modern instantiation decouples targeting from confirmation: the eyes select while a hand pinch or a voice command commits, sidestepping the Midas-touch problem.
+Locomotion through a virtual space larger than the physical room is handled by redirected walking, which applies imperceptible rotational and translational gains to steer the user within a confined area <cite class="cites">[<a class="cite" href="/read/references/#ref-2654" data-k="razzaque2001redirected">2654</a>]</cite>, with teleportation as the common non-natural fallback.
+Spatial user interfaces, in turn, must choose a reference frame (world-locked, body-locked, or head-locked) and increasingly anchor panels to scene semantics so that content lands on appropriate surfaces.
+Learning these interaction behaviors at scale is increasingly grounded in large egocentric corpora such as Ego4D <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite>, which supply the first-person video of hands, objects, and activities that egocentric-understanding models are trained and benchmarked on.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch10.S1.SS5"><span class="secnum">10.1.5</span>Pivotal Task-3: Spatial Display and Real-Time Rendering<a class="anchor" href="#Ch10.S1.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch10.S1.SS5.p1" class="ltx_para">
+<p class="ltx_p">The third task presents the composited world back to the user within the perceptual budget that the previous two stages must respect.
+Three questions decide it: where to spend rendering effort, how to hide system latency, and how to display the result comfortably.
+Figure <a href="/read/10.1/#Ch10.F4" class="xref" data-x="Ch10.F4"><span>10.4</span></a> previews this pipeline, from gaze-contingent shading through latency compensation to the optics that place the image before the eye.</p>
+</div>
+<figure id="Ch10.F4" class="ltx_figure"><img src="/assets/figures/figures/part4/section10/xr_display.webp" id="Ch10.F4.g1" class="fig-img" alt="" width="2000" height="1366" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 10.4</span><span>The XR display and rendering pipeline: (a) gaze-contingent foveated rendering, (b) late reprojection of a rendered frame to the latest pose, and (c) alternative video-passthrough and optical see-through display paths. The motion-to-photon target is illustrative and applies end to end.</span></figcaption>
+</figure>
+<div id="Ch10.S1.SS5.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Foveated rendering.</span> Because acuity falls off sharply outside the fovea, rendering effort can be concentrated at the gaze point. Foveated 3D graphics established multi-resolution shading driven by eye tracking <cite class="cites">[<a class="cite" href="/read/references/#ref-2655" data-k="guenter2012foveated">2655</a>]</cite>, and subsequent work added temporal stability and contrast preservation to make the quality reduction imperceptible <cite class="cites">[<a class="cite" href="/read/references/#ref-2656" data-k="patney2016foveated">2656</a>]</cite>. Eye-tracked foveated rendering now ships on consumer headsets, materially reducing shading cost on thermally constrained hardware.</p>
+</div>
+<div id="Ch10.S1.SS5.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Latency compensation.</span> Even an efficient renderer cannot meet the motion-to-photon budget on every frame, so the last stage warps the rendered image to the most recent head pose.
+Asynchronous time warp applies a rotational reprojection at display refresh, asynchronous space warp adds depth-aware frame extrapolation, and head-mounted optical-see-through systems use per-pixel late-stage reprojection <cite class="cites">[<a class="cite" href="/read/references/#ref-2657" data-k="vanwaveren2016timewarp">2657</a>]</cite>.
+These techniques keep the world stable under fast head motion and are essential to comfort.</p>
+</div>
+<div id="Ch10.S1.SS5.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Passthrough versus optical see-through.</span> Two display regimes trade off differently. Video passthrough mixed reality (as on Meta Quest 3 and Apple Vision Pro) renders the real world from cameras, granting full control over occlusion and relighting at the cost of camera-to-display latency, parallax, and limited dynamic range; optical see-through (as on HoloLens 2 and Magic Leap 2) presents the real world with zero latency at its true focal depth (though the virtual overlay still incurs render latency and a fixed focal plane) but cannot occlude real light or match real-world brightness.
+The choice propagates back into the registration problem of Task-1.</p>
+</div>
+<div id="Ch10.S1.SS5.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Depth-correct rendering and visual comfort.</span> Conventional stereo displays fix the focal plane while vergence varies with content, producing the vergence-accommodation conflict and the eye strain that limits session length.
+Varifocal, light-field, and holographic near-eye displays aim to restore correct focus cues <cite class="cites">[<a class="cite" href="/read/references/#ref-2658" data-k="maimone2017holographic">2658</a>]</cite>, but remain largely at the prototype stage.</p>
+</div>
+<div id="Ch10.S1.SS5.p6" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Neural rendering for telepresence.</span> Finally, photoreal social presence requires driving a faithful avatar of a remote user from headset-mounted cameras that see only oblique crops of the face.
+The codec-avatar line, beginning with deep appearance models <cite class="cites">[<a class="cite" href="/read/references/#ref-2659" data-k="lombardi2018deep">2659</a>]</cite>, learns a person-specific decoder that is driven on-device, a direct specialization of the neural rendering of Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a> to the constrained, real-time XR setting.</p>
+</div>
+<figure id="Ch10.T1" class="ltx_table">
+<figcaption><span class="cap-tag">Table 10.1</span><span>Representative benchmarks for spatial intelligence in XR, spanning the three pivotal tasks.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Pivotal task</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Tracking</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EuRoC <cite class="cites">[<a class="cite" href="/read/references/#ref-733" data-k="Burri2016EuRoC">733</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ORB-SLAM3 <cite class="cites">[<a class="cite" href="/read/references/#ref-736" data-k="Campos2021ORBSLAM3">736</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ATE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Tracking</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TUM-VI <cite class="cites">[<a class="cite" href="/read/references/#ref-935" data-k="Schubert2018TUMVI">935</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VINS-Mono <cite class="cites">[<a class="cite" href="/read/references/#ref-2644" data-k="qin2018vins">2644</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ATE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Mapping</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ScanNet <cite class="cites">[<a class="cite" href="/read/references/#ref-448" data-k="dai2017scannet">448</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">dense fusion / semantics</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">mIoU</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Mapping</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ARKitScenes <cite class="cites">[<a class="cite" href="/read/references/#ref-669" data-k="baruch2021arkitscenes">669</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">mobile RGB-D mapping</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">depth abs-rel</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Hand tracking</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">InterHand2.6M <cite class="cites">[<a class="cite" href="/read/references/#ref-562" data-k="moon2020interhand2">562</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">InterNet <cite class="cites">[<a class="cite" href="/read/references/#ref-562" data-k="moon2020interhand2">562</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3D MPJPE</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Body (sparse)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">AMASS <cite class="cites">[<a class="cite" href="/read/references/#ref-2209" data-k="mahmood2019amass">2209</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">AvatarPoser <cite class="cites">[<a class="cite" href="/read/references/#ref-2651" data-k="jiang2022avatarposer">2651</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MPJPE / jitter</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Gaze</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">OpenEDS <cite class="cites">[<a class="cite" href="/read/references/#ref-2650" data-k="garbin2019openeds">2650</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">appearance-based gaze regressor</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">angular error</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Interaction</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Ego4D <cite class="cites">[<a class="cite" href="/read/references/#ref-681" data-k="grauman2022ego4d">681</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:130.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">egocentric understanding</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">task-specific</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch10.S1.SS6"><span class="secnum">10.1.6</span>Established Tools and Systems<a class="anchor" href="#Ch10.S1.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch10.S1.SS6.p1" class="ltx_para">
+<p class="ltx_p">A mature ecosystem implements these tasks across mobile AR, standalone headsets, and the web, and it is organized into developer frameworks, cross-platform standards, hardware, and the companies that drive them.</p>
+</div>
+<div id="Ch10.S1.SS6.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">SDKs and standards.</span> At the device level, <span class="ltx_font_bold">Apple’s ARKit<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup></span> and <span class="ltx_font_bold">Google’s ARCore<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup></span> expose plane detection, anchors, depth, light estimation, and people occlusion, with ARCore’s Geospatial API localizing against world imagery for outdoor anchoring; <span class="ltx_font_bold">Vuforia<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup></span> specializes in robust image and object targets for industrial AR.
+Cross-engine abstraction layers such as <span class="ltx_font_bold">Unity AR Foundation<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup></span> and the <span class="ltx_font_bold">Meta Presence Platform and Spatial SDK<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup></span> present the common subset (planes, anchors, meshes, occlusion, hand and body tracking) over multiple devices, while <span class="ltx_font_bold">8th Wall and WebXR<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup></span> bring markerless AR into the browser. These abstractions matter because XR content is expensive to author and must migrate across devices and sessions; this is the role of cross-platform standards, principally <span class="ltx_font_bold">OpenXR<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup></span> as a unifying runtime API and glTF together with OpenUSD and <span class="ltx_font_bold">USDZ<sup class="fn" id="fnref8"><a href="#fn8" data-fn="fn8">8</a></sup></span> as asset and scene-description formats. Without a shared runtime and shared asset formats, the ecosystem fragments into incompatible walled gardens.</p>
+</div>
+<div id="Ch10.S1.SS6.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Hardware.</span> Current headsets divide along the passthrough versus optical-see-through axis.
+<span class="ltx_font_bold">Apple Vision Pro<sup class="fn" id="fnref9"><a href="#fn9" data-fn="fn9">9</a></sup></span> (2024) and <span class="ltx_font_bold">Meta Quest 3 and 3S<sup class="fn" id="fnref10"><a href="#fn10" data-fn="fn10">10</a></sup></span> use high-resolution video passthrough, with the Quest line the consumer volume leader; <span class="ltx_font_bold">Microsoft HoloLens 2<sup class="fn" id="fnref11"><a href="#fn11" data-fn="fn11">11</a></sup></span> (optical see-through, with production ended in 2024) and <span class="ltx_font_bold">Magic Leap 2<sup class="fn" id="fnref12"><a href="#fn12" data-fn="fn12">12</a></sup></span> target enterprise, and <span class="ltx_font_bold">Varjo<sup class="fn" id="fnref13"><a href="#fn13" data-fn="fn13">13</a></sup></span> and <span class="ltx_font_bold">Pico<sup class="fn" id="fnref14"><a href="#fn14" data-fn="fn14">14</a></sup></span> serve high-fidelity simulation and the Asian consumer market respectively.
+Lightweight true-AR glasses, such as <span class="ltx_font_bold">Snap Spectacles<sup class="fn" id="fnref15"><a href="#fn15" data-fn="fn15">15</a></sup></span> and <span class="ltx_font_bold">Meta’s Orion and Project Aria</span> research prototypes, signal the all-day-glasses horizon toward which the field is converging.</p>
+</div>
+<div id="Ch10.S1.SS6.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Companies and platforms.</span> Meta leads consumer volume and the most aggressive glasses research bet;
+<span class="ltx_font_bold">Apple</span> defines the premium spatial-computing tier and the USD content pipeline; <span class="ltx_font_bold">Google</span> supplies world-scale localization through ARCore and Android XR; <span class="ltx_font_bold">Microsoft</span> has pivoted from first-party HoloLens hardware toward OpenXR software and enterprise cloud services; <span class="ltx_font_bold">Niantic<sup class="fn" id="fnref16"><a href="#fn16" data-fn="fn16">16</a></sup></span> operates a city-scale Visual Positioning System for persistent, multi-user AR; and Snap, Varjo, and ByteDance’s Pico round out the social-AR, high-fidelity, and consumer-standalone niches.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch10.S1.SS7"><span class="secnum">10.1.7</span>Challenges<a class="anchor" href="#Ch10.S1.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch10.S1.SS7.p1" class="ltx_para">
+<p class="ltx_p">XR runs every spatial capability egocentrically and on-device under a perceptual real-time budget, and its open problems follow from that constraint: holding the motion-to-photon budget, fitting perception into the compute and thermal envelope of glasses, keeping tracking and registration robust in the wild, sharing persistent maps without compromising privacy, and making extended wear visually comfortable.</p>
+</div>
+<section id="Ch10.S1.SS7.SSS0.Px1">
+<div id="Ch10.S1.SS7.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Latency and the Motion-to-Photon Budget.</strong> Meeting the motion-to-photon targets of the System Overview is increasingly difficult as pipelines add wireless or split rendering, cloud offload, and learned perception in the loop, each of which contributes its own delay that the reprojection stage of Task-3 can only partially mask.</p>
+</div>
+</section>
+<section id="Ch10.S1.SS7.SSS0.Px2">
+<div id="Ch10.S1.SS7.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">On-Device Compute, Thermal, and Power.</strong> All-day glasses face a hard energy and heat envelope: a lightweight form factor leaves little room for the silicon that SLAM, hand and eye tracking, and scene understanding demand. The frontier is partitioning perception across on-device accelerators, companion devices such as wristbands or pucks, and edge offload, without violating the latency or thermal budget.</p>
+</div>
+</section>
+<section id="Ch10.S1.SS7.SSS0.Px3">
+<div id="Ch10.S1.SS7.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Robust Tracking and Registration in the Wild.</strong> Visual–inertial SLAM and relocalization degrade in dynamic scenes, textureless rooms, repetitive structures, low light, and outdoors, exactly the conditions that curated benchmarks such as EuRoC and ScanNet underrepresent <cite class="cites">[<a class="cite" href="/read/references/#ref-733" data-k="Burri2016EuRoC">733</a>, <a class="cite" href="/read/references/#ref-448" data-k="dai2017scannet">448</a>]</cite>.
+Persistent Visual Positioning Systems push toward city-scale anchoring, but globally drift-free, cross-device localization, together with convincing occlusion and lighting registration, remains unsolved.</p>
+</div>
+</section>
+<section id="Ch10.S1.SS7.SSS0.Px4">
+<div id="Ch10.S1.SS7.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Persistent, Shared Maps and Privacy.</strong> Co-located multi-user AR requires a shared, persistent spatial map, an “AR cloud”, which collides directly with privacy: always-on egocentric cameras continuously scan private spaces and bystanders.
+Designing maps that support shared anchoring while minimizing the retention of raw imagery, and that admit meaningful consent, is both a research and a policy frontier.</p>
+</div>
+</section>
+<section id="Ch10.S1.SS7.SSS0.Px5">
+<div id="Ch10.S1.SS7.SSS0.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Visual Comfort.</strong> Beyond latency, fixed-focus stereo optics decouple vergence from accommodation, causing eye strain that limits session length, and poorly designed locomotion induces cybersickness.
+Varifocal and holographic displays, gaze-contingent depth-of-field, and accurate interpupillary-distance matching are promising but immature, leaving comfort a gating factor for mainstream adoption.</p>
+</div>
+<div id="Ch10.S1.SS7.SSS0.Px5.p2" class="ltx_para">
+<p class="ltx_p">Because XR subjects the perception, reasoning, and generation capabilities of Part <a href="/read/part-iii/" class="xref" data-x="Pt3"><span>III</span></a> to egocentric, on-device, real-time constraints, it exposes failure modes that offline settings rarely reveal.</p>
+</div>
+</section>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://developer.apple.com/augmented-reality/" title="" class="ltx_font_typewriter">https://developer.apple.com/augmented-reality/</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://developers.google.com/ar" title="" class="ltx_font_typewriter">https://developers.google.com/ar</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://developer.vuforia.com" title="" class="ltx_font_typewriter">https://developer.vuforia.com</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@6.0/" title="" class="ltx_font_typewriter">https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@6.0/</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://developers.meta.com/horizon/develop/spatial-sdk" title="" class="ltx_font_typewriter">https://developers.meta.com/horizon/develop/spatial-sdk</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://immersiveweb.dev" title="" class="ltx_font_typewriter">https://immersiveweb.dev</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.khronos.org/openxr/" title="" class="ltx_font_typewriter">https://www.khronos.org/openxr/</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn8"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://openusd.org" title="" class="ltx_font_typewriter">https://openusd.org</a></span><a href="#fnref8" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn9"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.apple.com/apple-vision-pro/" title="" class="ltx_font_typewriter">https://www.apple.com/apple-vision-pro/</a></span><a href="#fnref9" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn10"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.meta.com/quest/" title="" class="ltx_font_typewriter">https://www.meta.com/quest/</a></span><a href="#fnref10" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn11"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.microsoft.com/en-us/hololens/" title="" class="ltx_font_typewriter">https://www.microsoft.com/en-us/hololens/</a></span><a href="#fnref11" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn12"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.magicleap.com" title="" class="ltx_font_typewriter">https://www.magicleap.com</a></span><a href="#fnref12" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn13"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://varjo.com" title="" class="ltx_font_typewriter">https://varjo.com</a></span><a href="#fnref13" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn14"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.picoxr.com" title="" class="ltx_font_typewriter">https://www.picoxr.com</a></span><a href="#fnref14" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn15"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.spectacles.com" title="" class="ltx_font_typewriter">https://www.spectacles.com</a></span><a href="#fnref15" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn16"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.nianticspatial.com" title="" class="ltx_font_typewriter">https://www.nianticspatial.com</a></span><a href="#fnref16" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/chapter-10/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">Chapter 10: Spatial Intelligence for Virtual Realities</span></a><a class="pager-next" href="/read/10.2/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">10.2 Entertainment</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch10.S1.SS1" data-spy="Ch10.S1.SS1"><span class="n">10.1.1</span>Introduction</a></li><li><a href="#Ch10.S1.SS2" data-spy="Ch10.S1.SS2"><span class="n">10.1.2</span>System Overview</a></li><li><a href="#Ch10.S1.SS3" data-spy="Ch10.S1.SS3"><span class="n">10.1.3</span>Pivotal Task-1: Spatial Tracking, Mapping, and Registration</a></li><li><a href="#Ch10.S1.SS4" data-spy="Ch10.S1.SS4"><span class="n">10.1.4</span>Pivotal Task-2: Egocentric Human Sensing and Spatial Interaction</a></li><li><a href="#Ch10.S1.SS5" data-spy="Ch10.S1.SS5"><span class="n">10.1.5</span>Pivotal Task-3: Spatial Display and Real-Time Rendering</a></li><li><a href="#Ch10.S1.SS6" data-spy="Ch10.S1.SS6"><span class="n">10.1.6</span>Established Tools and Systems</a></li><li><a href="#Ch10.S1.SS7" data-spy="Ch10.S1.SS7"><span class="n">10.1.7</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=10.1"><b>35</b> cited works</a><a href="/explore/datasets/?sec=10.1"><b>8</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=10.1" title="ORB-SLAM3, DROID-SLAM, VINS-Mono, Project Aria Tools, OpenXR SDK, ARCore SDK"><b>6</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="10.1 AR/VR/XR" data-url="/read/10.1/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%2010.1%20AR/VR/XR&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/10.1/%20%28PDF%20p.%20378%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

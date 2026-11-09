@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contribute · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="Contribute · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" ><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" aria-current="page">Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="xp-head"><div class="wrap">
+  <h1>Help shape the handbook</h1>
+  <p class="xp-lede">Corrections, missing work and new material from readers go into the LaTeX source, so every accepted change reaches both this site and the next edition of the PDF.</p>
+</div></div>
+<div class="wrap xp-body contrib">
+  <div class="ct-grid">
+    <article class="ct-card">
+      <div class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"/><path d="M12 10v4.5M12 17.2v.3"/></svg></div>
+      <h2>Report an error</h2>
+      <p>A typo, a wrong number or reference, a broken link, or a statement that is out of date or incorrect.</p>
+      <p class="ct-tip">In the reader, <em>Report an error</em> in the right-hand panel fills in the section for you.</p>
+      <div class="ct-act"><a class="btn btn-solid" href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%20&amp;body=%2A%2AWhere%2A%2A%20%28section%2C%20figure%2C%20table%20or%20PDF%20page%29%3A%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report on GitHub</a></div>
+    </article>
+    <article class="ct-card">
+      <div class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5z"/><path d="M12 10v6M9 13h6"/></svg></div>
+      <h2>Suggest a resource</h2>
+      <p>A paper, dataset, benchmark, tool or platform that the handbook or the <a href="/explore/">explorer</a> is missing.</p>
+      <div class="ct-act"><a class="btn btn-solid" href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Resource%3A%20&amp;body=%2A%2AName%3A%2A%2A%0A%0A%2A%2ALink%2A%2A%20%28paper%2C%20project%20page%20or%20repository%29%3A%0A%0A%2A%2AType%2A%2A%20%28paper%20/%20dataset%20/%20benchmark%20/%20tool%20/%20platform%29%3A%0A%0A%2A%2AWhere%20it%20belongs%2A%2A%20%28chapter%20or%20section%20of%20the%20handbook%29%3A%0A%0A%2A%2AWhy%20it%20matters%3A%2A%2A%0A" target="_blank" rel="noopener">Suggest on GitHub</a></div>
+    </article>
+    <article class="ct-card ct-card-join">
+      <div class="ct-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M18.5 8v6M15.5 11h6"/></svg></div>
+      <h2>Join as a contributor</h2>
+      <p>Write a new section, update one as the field moves, or review a part for the next edition.</p>
+      <div class="ct-act"><a class="btn btn-solid ct-mail" href="#" data-subject="Spatial Intelligence Handbook: contributing" data-body="Name and affiliation:
+Homepage:
+
+What I would like to contribute (new section, update of an existing one, review of a part):
+
+Chapter or section:
+">Write to the editors</a>
+      <a class="btn" href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Proposal%3A%20&amp;body=%2A%2AWhat%20you%20would%20like%20to%20contribute%2A%2A%20%28new%20section%2C%20update%20of%20an%20existing%20one%2C%20review%20of%20a%20part%29%3A%0A%0A%2A%2AChapter%20or%20section%3A%2A%2A%0A%0A%2A%2AAbout%20you%2A%2A%20%28name%2C%20affiliation%2C%20homepage%29%3A%0A" target="_blank" rel="noopener">Propose on GitHub</a></div>
+    </article>
+  </div>
+
+  <section class="ct-flow" aria-label="What happens to a contribution">
+    <h2>What happens next</h2>
+    <ol>
+      <li><b>Reviewed</b><span>The editors check every report and proposal against the source and the cited work.</span></li>
+      <li><b>Fixed in the source</b><span>Accepted changes are made in the LaTeX source of the handbook, never only on the website.</span></li>
+      <li><b>Rebuilt</b><span>The site and the PDF are regenerated together, so section, figure and reference numbers stay identical.</span></li>
+      <li><b>Logged</b><span>Each release is listed under <a href="#updates">Updates</a>.</span></li>
+    </ol>
+  </section>
+
+  <section class="ct-contact">
+    <h2>Editors</h2>
+    <ul><li><span>Hao Fei</span><a class="ct-addr" href="#" data-u="9147iefoah" data-d="moc.liamg">e-mail</a></li><li><span>Shengqiong Wu</span><a class="ct-addr" href="#" data-u="uwgnoiqgnehs" data-d="moc.liamg">e-mail</a></li></ul>
+  </section>
+
+  <section id="updates" class="ct-updates">
+    <h2>Updates</h2>
+    <ul class="updates"><li><span class="u-date">2026-11-08</span><span>New website: the full handbook online with PDF-identical numbering, an interactive map of the book, and explorers for the literature, datasets and benchmarks, tools, milestones, figures and glossary.</span></li></ul>
+  </section>
+</div>
+<script>
+(() => {
+  const r = s => s.split('').reverse().join('');
+  const addrs = [...document.querySelectorAll('.ct-addr')].map(a => {
+    const m = r(a.dataset.u) + '@' + r(a.dataset.d);
+    a.href = 'mailto:' + m; a.textContent = m; return m;
+  });
+  document.querySelectorAll('.ct-mail').forEach(a => {
+    a.href = 'mailto:' + addrs[0] + '?cc=' + encodeURIComponent(addrs.slice(1).join(',')) +
+      '&subject=' + encodeURIComponent(a.dataset.subject) + '&body=' + encodeURIComponent(a.dataset.body);
+  });
+})();
+</script>
+</div>
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-brand">
+      <a class="brand" href="/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg><span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span></a>
+      <p>Foundations, Architectures, Methodologies, Applications and Challenges. Developed by 31 researchers from 14 institutions.</p>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Read</h4><a href="/read/">Contents</a><a href="/read/preface/">Preface</a><a href="/read/part-i/">Part I</a><a href="/read/part-ii/">Part II</a><a href="/read/part-iii/">Part III</a><a href="/read/part-iv/">Part IV</a><a href="/read/part-v/">Part V</a></div>
+      <div><h4>Explore</h4><a href="/explore/literature/">Literature</a><a href="/explore/datasets/">Datasets &amp; benchmarks</a><a href="/explore/tools/">Tools &amp; platforms</a><a href="/explore/timeline/">Milestones</a><a href="/explore/figures/">Figures</a><a href="/explore/glossary/">Glossary</a></div>
+      <div><h4>About</h4><a href="/team/">Team</a><a href="/#cite">Cite</a><a href="/contribute/">Contribute</a><a href="/contribute/#updates">Updates</a></div>
+    </div>
+  </div>
+  <div class="footer-base"><span>© 2026 The authors of <em>Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges</em>.</span><span>Built from the LaTeX source of the handbook.</span></div>
+</footer>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>

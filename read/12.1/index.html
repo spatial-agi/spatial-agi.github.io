@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12.1 Medicine and Clinical Healthcare · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="12.1 Medicine and Clinical Healthcare · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="12.1">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link is-current" href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-12/">Chapter 12</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-12/">Chapter 12 · Spatial Intelligence for Biomedicine and Natural Sciences</a></div>
+        <h1><span class="secnum">12.1</span>Medicine and Clinical Healthcare</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=417" title="Open this page in the PDF">PDF p. 417</a><span class="dot">·</span>        <span>11 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:12.1 Medicine and Clinical Healthcare">
+<section>
+<h2 class="h-subsection" id="Ch12.S1.SS1"><span class="secnum">12.1.1</span>Introduction<a class="anchor" href="#Ch12.S1.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S1.SS1.p1" class="ltx_para">
+<p class="ltx_p">Anatomy is a three-dimensional arrangement of organs with shape, volume, and topology; disease is <em class="ltx_font_italic">localized</em>, so that a lesion is a position and an extent in the body frame rather than a label on an image; and intervention is fundamentally an act of navigation, guiding an instrument to a target through tissue that must not be harmed.</p>
+</div>
+<div id="Ch12.S1.SS1.p2" class="ltx_para">
+<p class="ltx_p">The perception machinery of Chapter <a href="/read/chapter-6/" class="xref" data-x="Ch6"><span>6</span></a> (detection, segmentation, depth, pose) and the reconstruction and generation of Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a> reappear here, specialized to volumetric data, to registration across modalities and time, and to a regulatory setting in which a wrong answer harms a patient.
+The unit of analysis is the individual patient and the individual procedure: the molecular and cellular scale belongs to the natural sciences (§<a href="/read/12.2/" class="xref" data-x="Ch12.S2"><span>12.2</span></a>), the generic digital twin, of which the patient-specific medical twin below is a specialization, to §<a href="/read/11.1/" class="xref" data-x="Ch11.S1"><span>11.1</span></a>, and the population scale of spatial epidemiology to the GeoAI of §<a href="/read/11.2/" class="xref" data-x="Ch11.S2"><span>11.2</span></a>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S1.SS2"><span class="secnum">12.1.2</span>System Overview<a class="anchor" href="#Ch12.S1.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S1.SS2.p1" class="ltx_para">
+<p class="ltx_p">Figure <a href="/read/12.1/#Ch12.F1" class="xref" data-x="Ch12.F1"><span>12.1</span></a> draws clinical spatial intelligence as a closed loop around the patient: multimodal imaging (computed tomography, magnetic resonance, ultrasound, endoscopy, pathology) is acquired and the anatomy perceived, a patient-specific 3D model is built and a plan formed, the plan is executed under image guidance, and the outcome is imaged anew.
+Registration connects the image, patient, and instrument frames throughout this pipeline; the recurring difficulty is keeping the virtual model aligned with the physical patient as tissue moves and deforms. The three pivotal tasks map onto the loop directly (Task-1 perceives, Task-2 models and plans, Task-3 acts), and Table <a href="/read/12.1/#Ch12.T1" class="xref" data-x="Ch12.T1"><span>12.1</span></a> collects their benchmarks.</p>
+</div>
+<figure id="Ch12.F1" class="ltx_figure"><img src="/assets/figures/figures/part4/section12/medical_overview.webp" id="Ch12.F1.g1" class="fig-img" alt="" width="2000" height="1209" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 12.1</span><span>Clinical spatial intelligence with two connected information paths: acquired observations support anatomical perception and patient-specific planning, while live imaging and tracking update the alignment used for guided intervention. Physical intervention changes the patient state, prompting subsequent observation. Anatomical scenes are schematic; pathology may require specimen correspondence.</span></figcaption>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S1.SS3"><span class="secnum">12.1.3</span>Pivotal Task-1: Volumetric Medical Image Perception<a class="anchor" href="#Ch12.S1.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S1.SS3.p1" class="ltx_para">
+<p class="ltx_p">The first task perceives the anatomy. Medical perception is intrinsically volumetric: it converts a voxel grid into delineated 3D anatomical objects with measurable shape and volume, localizes disease in the body frame, and aligns observations across modalities and time. Figure <a href="/read/12.1/#Ch12.F2" class="xref" data-x="Ch12.F2"><span>12.2</span></a> illustrates three complementary outputs: segmented organs, a localized candidate finding, and a cross-modal alignment; these tasks need not form a serial pipeline.</p>
+</div>
+<figure id="Ch12.F2" class="ltx_figure"><img src="/assets/figures/figures/part4/section12/medical_perception.webp" id="Ch12.F2.g1" class="fig-img" alt="" width="2000" height="1429" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 12.2</span><span>Three input-operation-output views of medical perception: (a) image volumes yield voxel labels, organ masks, and 3D anatomy; (b) detected candidate regions are mapped from voxel indices to physical patient coordinates using image geometry; and (c) moving and reference modalities jointly determine a spatial transform for anatomical alignment. Synthetic CT/MRI-style images and the hypothetical ROI illustrate task structure, not measured clinical findings or a validated registration result.</span></figcaption>
+</figure>
+<div id="Ch12.S1.SS3.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Volumetric segmentation.</span> Segmentation is the spatial core of medical imaging, and its history is a move from two-dimensional slices to full volumes.
+The encoder-decoder U-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-174" data-k="ronneberger2015unet">174</a>]</cite> founded the area, and its volumetric successors, the 3D U-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-268" data-k="cciccek20163d">268</a>]</cite> and the V-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-2835" data-k="milletari2016vnet">2835</a>]</cite> (which introduced the now-ubiquitous Dice loss to handle voxel class imbalance), moved it into three dimensions.
+The self-configuring nnU-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-2836" data-k="isensee2021nnunet">2836</a>]</cite> adapts preprocessing, architecture, and training to each dataset and remains the baseline that is hard to beat, while transformer encoders such as UNETR <cite class="cites">[<a class="cite" href="/read/references/#ref-2837" data-k="hatamizadeh2022unetr">2837</a>]</cite> and Swin-UNETR <cite class="cites">[<a class="cite" href="/read/references/#ref-2838" data-k="hatamizadeh2022swinunetr">2838</a>]</cite> add global context.
+At the whole-body scale, TotalSegmentator <cite class="cites">[<a class="cite" href="/read/references/#ref-2839" data-k="wasserthal2023totalsegmentator">2839</a>]</cite> delineates more than a hundred anatomical structures in a single CT, functioning as a spatial atlas in routine use.
+These methods are evaluated by the Dice similarity coefficient for volumetric overlap and by boundary-geometry metrics, the 95th-percentile Hausdorff distance and the average symmetric surface distance, that capture shape errors which overlap alone misses <cite class="cites">[<a class="cite" href="/read/references/#ref-2840" data-k="taha2015metrics">2840</a>]</cite>.</p>
+</div>
+<div id="Ch12.S1.SS3.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Medical foundation models.</span> The recent shift mirrors the rest of vision: from per-task specialists to promptable foundation models that segment arbitrary anatomy from spatial prompts.
+The Segment Anything Model <cite class="cites">[<a class="cite" href="/read/references/#ref-138" data-k="kirillov2023sam">138</a>]</cite> catalyzed the move, and MedSAM <cite class="cites">[<a class="cite" href="/read/references/#ref-2841" data-k="ma2024medsam">2841</a>]</cite> adapted it by fine-tuning on more than a million medical image–mask pairs.
+Because anatomy is volumetric, the decisive step is into 3D: SAM-Med3D <cite class="cites">[<a class="cite" href="/read/references/#ref-2842" data-k="wang2023sammed3d">2842</a>]</cite> replaces the slice-wise encoder with a fully three-dimensional one, and SegVol <cite class="cites">[<a class="cite" href="/read/references/#ref-2843" data-k="du2024segvol">2843</a>]</cite> supports both spatial and textual prompts over hundreds of anatomical categories.
+Much of this work is built on the open MONAI framework <cite class="cites">[<a class="cite" href="/read/references/#ref-2844" data-k="cardoso2022monai">2844</a>]</cite>, whose medical-aware 3D transforms and model zoo have become standard infrastructure.</p>
+</div>
+<div id="Ch12.S1.SS3.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Detection and landmark localization.</span> Detection localizes a finding in the body frame, and landmark localization fixes canonical anatomical coordinates; both are spatial tasks distinct from whole-image classification.
+Lung-nodule detection is anchored by the LIDC-IDRI reference database <cite class="cites">[<a class="cite" href="/read/references/#ref-2845" data-k="armato2011lidcidri">2845</a>]</cite> and the LUNA16 benchmark <cite class="cites">[<a class="cite" href="/read/references/#ref-2846" data-k="setio2017luna16">2846</a>]</cite>, which standardized evaluation on the free-response operating characteristic (sensitivity against false positives per scan).
+Anatomical landmarks can be found by treating localization as a sequential spatial search, as in the reinforcement-learning agent of Ghesu <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2847" data-k="ghesu2016landmark">2847</a>]</cite> that navigates the volume to a target.</p>
+</div>
+<div id="Ch12.S1.SS3.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Registration as spatial alignment.</span> Registration brings two images into a common coordinate frame and is foundational for multimodal fusion, atlas-based labeling, longitudinal tracking, and surgical planning.
+Learning-based methods reframe it as predicting a dense deformation field in a single forward pass: VoxelMorph <cite class="cites">[<a class="cite" href="/read/references/#ref-2848" data-k="balakrishnan2019voxelmorph">2848</a>]</cite> established the unsupervised CNN formulation, and TransMorph <cite class="cites">[<a class="cite" href="/read/references/#ref-2849" data-k="chen2022transmorph">2849</a>]</cite> added a transformer backbone.
+These build on classical diffeomorphic and intensity-based methods, principally the symmetric diffeomorphic SyN <cite class="cites">[<a class="cite" href="/read/references/#ref-2850" data-k="avants2008syn">2850</a>]</cite> and the intensity-based toolbox elastix <cite class="cites">[<a class="cite" href="/read/references/#ref-2851" data-k="klein2010elastix">2851</a>]</cite>, and are measured by the target registration error between corresponding landmarks.
+Segmentation and detection are benchmarked on generalist suites such as the Medical Segmentation Decathlon <cite class="cites">[<a class="cite" href="/read/references/#ref-2852" data-k="antonelli2022msd">2852</a>]</cite>, the brain-tumor benchmark BraTS <cite class="cites">[<a class="cite" href="/read/references/#ref-2853" data-k="menze2015brats">2853</a>]</cite>, the abdominal multi-organ datasets AMOS <cite class="cites">[<a class="cite" href="/read/references/#ref-2854" data-k="ji2022amos">2854</a>]</cite> and BTCV <cite class="cites">[<a class="cite" href="/read/references/#ref-2855" data-k="landman2015btcv">2855</a>]</cite>, the kidney-tumor KiTS19 <cite class="cites">[<a class="cite" href="/read/references/#ref-2856" data-k="heller2021kits19">2856</a>]</cite>, and the cardiac ACDC <cite class="cites">[<a class="cite" href="/read/references/#ref-2857" data-k="bernard2018acdc">2857</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S1.SS4"><span class="secnum">12.1.4</span>Pivotal Task-2: Anatomical Reconstruction, Modeling, and Surgical Planning<a class="anchor" href="#Ch12.S1.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S1.SS4.p1" class="ltx_para">
+<p class="ltx_p">The second task turns the perceived anatomy into a patient-specific 3D model that can be measured, simulated, and planned upon, bridging from pixels to clinical decisions. Figure <a href="/read/12.1/#Ch12.F3" class="xref" data-x="Ch12.F3"><span>12.3</span></a> previews this progression from a segmentation to an anatomical mesh, a patient-specific simulation, and a surgical plan.</p>
+</div>
+<figure id="Ch12.F3" class="ltx_figure"><img src="/assets/figures/figures/part4/section12/medical_reconstruction.webp" id="Ch12.F3.g1" class="fig-img" alt="" width="2000" height="1334" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 12.3</span><span>Anatomical reconstruction, modeling, and planning: a volumetric segmentation becomes a 3D anatomical mesh, is personalized into a medical digital twin (<span class="ltx_font_italic">e.g.,</span> , a cardiac electrophysiology or blood-flow model), and is used to simulate outcomes and design a surgical or radiotherapy plan. New patient observations update model personalization. Cardiac targeting and radiotherapy dose prediction are alternative planning examples; synthetic anatomy and vector overlays illustrate the workflow rather than clinical results.</span></figcaption>
+</figure>
+<div id="Ch12.S1.SS4.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">3D anatomical reconstruction.</span> A segmentation becomes a usable model once it is turned into geometry.
+The classical route extracts an isosurface mesh by Marching Cubes <cite class="cites">[<a class="cite" href="/read/references/#ref-105" data-k="lorensen1998marching">105</a>]</cite>, optionally constrained by a statistical shape model that encodes anatomical priors as a learned distribution over landmarks, an idea founded by Active Shape Models <cite class="cites">[<a class="cite" href="/read/references/#ref-518" data-k="cootes1995asm">518</a>]</cite> and surveyed for medical use by Heimann and Meinzer <cite class="cites">[<a class="cite" href="/read/references/#ref-2858" data-k="heimann2009ssm">2858</a>]</cite>.
+Deep methods deform a template mesh directly from the volume, as in Voxel2Mesh <cite class="cites">[<a class="cite" href="/read/references/#ref-2859" data-k="wickramasinghe2020voxel2mesh">2859</a>]</cite> and the whole-heart reconstruction of Kong <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2860" data-k="kong2021meshdeformnet">2860</a>]</cite>.
+Implicit neural representations supply a continuous alternative, with DeepSDF <cite class="cites">[<a class="cite" href="/read/references/#ref-117" data-k="park2019deepsdf">117</a>]</cite> and Occupancy Networks <cite class="cites">[<a class="cite" href="/read/references/#ref-118" data-k="mescheder2019occupancy">118</a>]</cite> as the substrate (Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a>) and medical adaptations such as the neural attenuation fields of NAF <cite class="cites">[<a class="cite" href="/read/references/#ref-2861" data-k="zha2022naf">2861</a>]</cite> reconstructing volumes from sparse-view cone-beam CT.</p>
+</div>
+<div id="Ch12.S1.SS4.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Patient-specific modeling and the medical digital twin.</span> A geometric model becomes a <em class="ltx_font_italic">twin</em> when it is endowed with patient-specific physiology and kept faithful to a particular patient, a medical specialization of the generic digital twin of §<a href="/read/11.1/" class="xref" data-x="Ch11.S1"><span>11.1</span></a>.
+What is clinically specific is that the model is built from the patient’s own imaging and physiological signals, governed by mechanistic physiology rather than CAD, and bound by regulatory credibility.
+Cardiac twins are the most mature instance: the vision was set out by Corral-Acero <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2694" data-k="corralacero2020digital">2694</a>]</cite>, the mechanistic backbone is the multiscale cardiac modeling reviewed by Niederer <span class="ltx_font_italic">et al.</span> <cite class="cites">[<a class="cite" href="/read/references/#ref-2862" data-k="niederer2019cardiacmodels">2862</a>]</cite>, and a personalized virtual heart built from scar imaging has been used to guide ablation of ventricular tachycardia <cite class="cites">[<a class="cite" href="/read/references/#ref-2863" data-k="prakosa2018personalized">2863</a>]</cite>.
+Hemodynamic twins compute fractional flow reserve from coronary CT by simulating blood flow <cite class="cites">[<a class="cite" href="/read/references/#ref-2864" data-k="taylor2013ffrct">2864</a>]</cite>, and the paradigm extends to the brain, where a virtual epileptic patient estimates the epileptogenic zone to guide surgery <cite class="cites">[<a class="cite" href="/read/references/#ref-2865" data-k="wang2023vep">2865</a>]</cite>.
+Such models also underwrite in-silico trials, in which virtual patient cohorts partially substitute for physical ones <cite class="cites">[<a class="cite" href="/read/references/#ref-2866" data-k="viceconti2016avicenna">2866</a>]</cite>, a route that regulators have begun to accept, as in the VICTRE imaging trial <cite class="cites">[<a class="cite" href="/read/references/#ref-2867" data-k="badano2018victre">2867</a>]</cite>.
+The broader landscape is surveyed in recent reviews of digital twins for health <cite class="cites">[<a class="cite" href="/read/references/#ref-2695" data-k="katsoulakis2024digital">2695</a>]</cite>.</p>
+</div>
+<div id="Ch12.S1.SS4.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Surgical and treatment planning.</span> The patient model is finally used to plan.
+Open platforms such as 3D Slicer <cite class="cites">[<a class="cite" href="/read/references/#ref-2868" data-k="fedorov2012slicer">2868</a>]</cite> assemble segmentation, registration, and 3D modeling into a planning workflow, and real-time finite-element engines such as SOFA <cite class="cites">[<a class="cite" href="/read/references/#ref-2869" data-k="faure2012sofa">2869</a>]</cite> support interactive surgical simulation and rehearsal on deformable tissue.
+In radiotherapy, planning is increasingly cast as a learning problem of predicting an achievable dose distribution from anatomy, standardized by the OpenKBP challenge <cite class="cites">[<a class="cite" href="/read/references/#ref-2870" data-k="babier2021openkbp">2870</a>]</cite>.
+Across these settings the plan is a spatial object, a trajectory, a dose map, or a resection boundary, defined on the patient’s own anatomy.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S1.SS5"><span class="secnum">12.1.5</span>Pivotal Task-3: Image-Guided Intervention and Surgical Navigation<a class="anchor" href="#Ch12.S1.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S1.SS5.p1" class="ltx_para">
+<p class="ltx_p">The third task brings the plan into the operating room and acts within the patient’s live coordinate frame.
+The central problem is patient-to-image registration under real-world deformation and latency: the preoperative model must be aligned to the physical patient, and instruments tracked within that frame, in real time.
+Figure <a href="/read/12.1/#Ch12.F4" class="xref" data-x="Ch12.F4"><span>12.4</span></a> previews registered preoperative anatomy and augmented-reality guidance alongside the complementary reconstruction of a deforming endoscopic scene.</p>
+</div>
+<figure id="Ch12.F4" class="ltx_figure"><img src="/assets/figures/figures/part4/section12/medical_navigation.webp" id="Ch12.F4.g1" class="fig-img" alt="" width="2000" height="1617" loading="lazy" decoding="async">
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 12.4</span><span>Patient-frame guidance combines registered anatomy and a calibrated tracked-tool pose. New intraoperative observations update anatomical registration; display calibration supports AR presentation. A separate endoscopic branch reconstructs dynamic geometry and registers it to the patient before optional fusion. The robot controller consumes the fused state rather than raw endoscopic imagery. Dashed connections denote optional downstream use. Anatomical scenes, overlays, and silicone-phantom reconstruction are schematic; transforms act on homogeneous coordinates.</span></figcaption>
+</figure>
+<div id="Ch12.S1.SS5.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Surgical navigation.</span> Navigation aligns the preoperative model to the patient and tracks instruments within that frame, typically by optical tracking, which is sub-millimeter but requires line of sight, or electromagnetic tracking, which tolerates occlusion but is perturbed by metal.
+The defining difficulty is deformation: in neuronavigation, the brain shifts by up to centimeters once the skull is opened, invalidating the rigid preoperative registration, which is why intraoperative imaging and learning-based compensation are active concerns.</p>
+</div>
+<div id="Ch12.S1.SS5.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Augmented-reality guidance.</span> Rather than divert the surgeon’s gaze to a screen, augmented reality overlays the segmented anatomy directly on the surgical field, a use of the XR runtime treated in §<a href="/read/10.1/" class="xref" data-x="Ch10.S1"><span>10.1</span></a>.
+The approach is most mature in spine surgery, where the Augmedics xvision system, the first FDA-cleared augmented-reality navigation platform, projects the patient’s CT-derived spine onto a transparent head-mounted display for pedicle-screw placement <cite class="cites">[<a class="cite" href="/read/references/#ref-2871" data-k="molina2021xvision">2871</a>]</cite>.</p>
+</div>
+<div id="Ch12.S1.SS5.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Endoscopic spatial perception.</span> Minimally invasive surgery presents a hard perception problem: a monocular, moving camera views a deforming, specular, poorly lit scene.
+Surgical workflow and instruments are recognized from video, as standardized by the Cholec80 dataset and the EndoNet architecture for joint tool and phase recognition <cite class="cites">[<a class="cite" href="/read/references/#ref-2872" data-k="twinanda2017endonet">2872</a>]</cite>.
+Geometry is recovered by self-supervised depth and visual odometry, benchmarked by the SCARED challenge <cite class="cites">[<a class="cite" href="/read/references/#ref-2873" data-k="allan2021scared">2873</a>]</cite> and the EndoSLAM dataset <cite class="cites">[<a class="cite" href="/read/references/#ref-2874" data-k="ozyoruk2021endoslam">2874</a>]</cite>, and the deforming surgical scene is reconstructed in 3D by dynamic neural rendering, as in EndoNeRF <cite class="cites">[<a class="cite" href="/read/references/#ref-2875" data-k="wang2022endonerf">2875</a>]</cite>, a clinical specialization of the neural reconstruction of Chapter <a href="/read/chapter-8/" class="xref" data-x="Ch8"><span>8</span></a>.</p>
+</div>
+<div id="Ch12.S1.SS5.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Surgical robotics.</span> Robotic systems execute the plan within the patient frame; their manipulation and control are the subject of §<a href="/read/9.1/" class="xref" data-x="Ch9.S1"><span>9.1</span></a>, and the concern here is the spatial perception and autonomy they enable.
+The da Vinci Research Kit <cite class="cites">[<a class="cite" href="/read/references/#ref-2876" data-k="kazanzides2014dvrk">2876</a>]</cite> is the standard open research platform, and autonomy is commonly graded on a six-level scale from teleoperation to full autonomy <cite class="cites">[<a class="cite" href="/read/references/#ref-2877" data-k="yang2017autonomy">2877</a>]</cite>.
+Most deployed systems remain teleoperated, but the frontier of autonomous spatial action is exemplified by the Smart Tissue Autonomous Robot, which performs supervised-autonomous soft-tissue suturing using 3D tissue tracking <cite class="cites">[<a class="cite" href="/read/references/#ref-2878" data-k="shademan2016star">2878</a>]</cite> and has been extended to in-vivo intestinal anastomosis <cite class="cites">[<a class="cite" href="/read/references/#ref-2879" data-k="saeidi2022star">2879</a>]</cite>.</p>
+</div>
+<figure id="Ch12.T1" class="ltx_table">
+<figcaption><span class="cap-tag">Table 12.1</span><span>Representative benchmarks for spatial intelligence in medicine, spanning the three pivotal tasks.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Pivotal task</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark / dataset</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Segmentation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MSD <cite class="cites">[<a class="cite" href="/read/references/#ref-2852" data-k="antonelli2022msd">2852</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">nnU-Net <cite class="cites">[<a class="cite" href="/read/references/#ref-2836" data-k="isensee2021nnunet">2836</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Dice / HD95</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Segmentation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">BraTS <cite class="cites">[<a class="cite" href="/read/references/#ref-2853" data-k="menze2015brats">2853</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Swin-UNETR <cite class="cites">[<a class="cite" href="/read/references/#ref-2838" data-k="hatamizadeh2022swinunetr">2838</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Dice</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Multi-organ</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">AMOS <cite class="cites">[<a class="cite" href="/read/references/#ref-2854" data-k="ji2022amos">2854</a>]</cite> / BTCV <cite class="cites">[<a class="cite" href="/read/references/#ref-2855" data-k="landman2015btcv">2855</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">UNETR <cite class="cites">[<a class="cite" href="/read/references/#ref-2837" data-k="hatamizadeh2022unetr">2837</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Dice</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Detection</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LUNA16 <cite class="cites">[<a class="cite" href="/read/references/#ref-2846" data-k="setio2017luna16">2846</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">3D CNN detectors (challenge entries) <cite class="cites">[<a class="cite" href="/read/references/#ref-2846" data-k="setio2017luna16">2846</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">FROC sensitivity</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Registration</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">multi-site brain MRI (OASIS, ADNI, ABIDE)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VoxelMorph <cite class="cites">[<a class="cite" href="/read/references/#ref-2848" data-k="balakrishnan2019voxelmorph">2848</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TRE / Dice</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Reconstruction</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">MM-WHS <cite class="cites">[<a class="cite" href="/read/references/#ref-2880" data-k="zhuang2019mmwhs">2880</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">whole-heart mesh <cite class="cites">[<a class="cite" href="/read/references/#ref-2860" data-k="kong2021meshdeformnet">2860</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">surface distance</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Modeling</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">patient-specific cardiac</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">virtual heart <cite class="cites">[<a class="cite" href="/read/references/#ref-2863" data-k="prakosa2018personalized">2863</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ablation-target agreement</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Endoscopy</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SCARED <cite class="cites">[<a class="cite" href="/read/references/#ref-2873" data-k="allan2021scared">2873</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EndoNeRF <cite class="cites">[<a class="cite" href="/read/references/#ref-2875" data-k="wang2022endonerf">2875</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">depth error</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:69.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Workflow</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Cholec80 <cite class="cites">[<a class="cite" href="/read/references/#ref-2872" data-k="twinanda2017endonet">2872</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:121.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EndoNet <cite class="cites">[<a class="cite" href="/read/references/#ref-2872" data-k="twinanda2017endonet">2872</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">phase accuracy</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S1.SS6"><span class="secnum">12.1.6</span>Established Tools and Systems<a class="anchor" href="#Ch12.S1.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S1.SS6.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Open-source frameworks.</span> The research stack runs from voxels to a planned model: <span class="ltx_font_bold">3D Slicer<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup></span> and <span class="ltx_font_bold">MITK<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup></span> provide segmentation, registration, and planning environments over the lower-level <span class="ltx_font_bold">ITK</span> and <span class="ltx_font_bold">SimpleITK<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup></span> engines; <span class="ltx_font_bold">MONAI<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup></span> supplies 3D-native deep-learning components and <span class="ltx_font_bold">nnU-Net<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup></span> the standard segmentation pipeline; and the web viewer <span class="ltx_font_bold">OHIF<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup></span> renders and annotates volumes in the browser.</p>
+</div>
+<div id="Ch12.S1.SS6.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Navigation and surgical-robotics vendors.</span> The clinical stack carries the model from preoperative registration to constrained in-OR action. Navigation systems from <span class="ltx_font_bold">Brainlab<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup></span>, <span class="ltx_font_bold">Medtronic</span> (StealthStation)<sup class="fn" id="fnref8"><a href="#fn8" data-fn="fn8">8</a></sup>, and <span class="ltx_font_bold">Stryker<sup class="fn" id="fnref9"><a href="#fn9" data-fn="fn9">9</a></sup></span> register and track instruments, and <span class="ltx_font_bold">Augmedics<sup class="fn" id="fnref10"><a href="#fn10" data-fn="fn10">10</a></sup></span> adds an augmented-reality head-mounted overlay. Surgical robots span teleoperated soft-tissue systems (<span class="ltx_font_bold">Intuitive</span> da Vinci and Ion<sup class="fn" id="fnref11"><a href="#fn11" data-fn="fn11">11</a></sup>, <span class="ltx_font_bold">Medtronic</span> Hugo, <span class="ltx_font_bold">CMR Surgical</span> Versius<sup class="fn" id="fnref12"><a href="#fn12" data-fn="fn12">12</a></sup>) and CT-planned, haptically constrained orthopedic systems (<span class="ltx_font_bold">Stryker</span> Mako, <span class="ltx_font_bold">Zimmer Biomet</span> ROSA<sup class="fn" id="fnref13"><a href="#fn13" data-fn="fn13">13</a></sup>).</p>
+</div>
+<div id="Ch12.S1.SS6.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Imaging-AI and clinical platforms.</span> A deployed layer turns spatial findings into care. <span class="ltx_font_bold">Aidoc<sup class="fn" id="fnref14"><a href="#fn14" data-fn="fn14">14</a></sup></span> triages critical findings on CT, <span class="ltx_font_bold">Viz.ai<sup class="fn" id="fnref15"><a href="#fn15" data-fn="fn15">15</a></sup></span> alerts stroke teams to large-vessel occlusions, <span class="ltx_font_bold">HeartFlow<sup class="fn" id="fnref16"><a href="#fn16" data-fn="fn16">16</a></sup></span> computes non-invasive fractional flow reserve from coronary CT, <span class="ltx_font_bold">PathAI<sup class="fn" id="fnref17"><a href="#fn17" data-fn="fn17">17</a></sup></span> quantifies biomarkers on whole-slide pathology, and <span class="ltx_font_bold">Tempus<sup class="fn" id="fnref18"><a href="#fn18" data-fn="fn18">18</a></sup></span> fuses imaging with genomic and clinical data.</p>
+</div>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch12.S1.SS7"><span class="secnum">12.1.7</span>Challenges<a class="anchor" href="#Ch12.S1.SS7" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch12.S1.SS7.p1" class="ltx_para">
+<p class="ltx_p">Every capability in the clinical loop must be accurate, robust to deformation, and trustworthy enough to act on a patient. The open problems follow from those demands: generalizing across scanners and sites, obtaining labels under privacy constraints, registering deforming tissue during surgery, earning regulatory and clinical trust, and meeting real-time budgets while fusing imaging with non-imaging evidence.</p>
+</div>
+<section id="Ch12.S1.SS7.SSS0.Px1">
+<div id="Ch12.S1.SS7.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Generalization across Scanners and Sites.</strong> Models trained at one institution degrade at another, because scanner vendor, reconstruction kernel, and acquisition protocol induce a covariate shift that curated benchmarks underrepresent.
+Domain generalization and adaptation are therefore prerequisites for deployment, and leaderboard results routinely overstate performance at a new site.</p>
+</div>
+</section>
+<section id="Ch12.S1.SS7.SSS0.Px2">
+<div id="Ch12.S1.SS7.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Data Scarcity, Annotation Cost, and Privacy.</strong> Volumetric expert annotation is slow and expensive, and patient data is locked in privacy-restricted silos.
+Self-supervised pretraining reduces the labeling burden <cite class="cites">[<a class="cite" href="/read/references/#ref-2881" data-k="huang2023ssl">2881</a>]</cite>, and federated learning trains shared models without moving data across institutions <cite class="cites">[<a class="cite" href="/read/references/#ref-2882" data-k="rieke2020federated">2882</a>]</cite>, but label efficiency and privacy-preserving collaboration remain limiting.</p>
+</div>
+</section>
+<section id="Ch12.S1.SS7.SSS0.Px3">
+<div id="Ch12.S1.SS7.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Non-Rigid Intraoperative Registration.</strong> The hardest open spatial problem is keeping the model aligned with the patient as tissue moves. Brain shift after craniotomy and soft-tissue deformation during surgery invalidate rigid preoperative registration, and while learning-based deformable registration <cite class="cites">[<a class="cite" href="/read/references/#ref-2848" data-k="balakrishnan2019voxelmorph">2848</a>]</cite> addresses the static case, real-time non-rigid intraoperative alignment under sparse, partial observation is not solved.</p>
+</div>
+</section>
+<section id="Ch12.S1.SS7.SSS0.Px4">
+<div id="Ch12.S1.SS7.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Validation, Regulation, and Trust.</strong> A model that changes a clinical decision needs prospective validation and regulatory clearance before use, and at the bedside it needs calibrated uncertainty and explanations that support appropriate rather than blind reliance. Retrospective benchmark accuracy establishes none of these.</p>
+</div>
+</section>
+<section id="Ch12.S1.SS7.SSS0.Px5">
+<div id="Ch12.S1.SS7.SSS0.Px5.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Real-Time Constraints and Multimodal Fusion.</strong> Intraoperative guidance must run within a tight latency budget while the scene deforms, a constraint that few surgical-video algorithms yet meet without specialized hardware.
+At the same time, the richest clinical picture comes from fusing imaging with electronic health records and genomics <cite class="cites">[<a class="cite" href="/read/references/#ref-2883" data-k="acosta2022multimodal">2883</a>]</cite>, so spatial perception must ultimately integrate with non-spatial evidence.</p>
+</div>
+</section>
+</section>
+<ol class="footnotes"><li id="fn1"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.slicer.org/" title="" class="ltx_font_typewriter">https://www.slicer.org/</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.mitk.org/" title="" class="ltx_font_typewriter">https://www.mitk.org/</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://itk.org/" title="" class="ltx_font_typewriter">https://itk.org/</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://monai.io/" title="" class="ltx_font_typewriter">https://monai.io/</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://github.com/MIC-DKFZ/nnUNet" title="" class="ltx_font_typewriter">https://github.com/MIC-DKFZ/nnUNet</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://ohif.org/" title="" class="ltx_font_typewriter">https://ohif.org/</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.brainlab.com/" title="" class="ltx_font_typewriter">https://www.brainlab.com/</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn8"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.medtronic.com/" title="" class="ltx_font_typewriter">https://www.medtronic.com/</a></span><a href="#fnref8" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn9"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.stryker.com/" title="" class="ltx_font_typewriter">https://www.stryker.com/</a></span><a href="#fnref9" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn10"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://augmedics.com/" title="" class="ltx_font_typewriter">https://augmedics.com/</a></span><a href="#fnref10" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn11"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.intuitive.com/" title="" class="ltx_font_typewriter">https://www.intuitive.com/</a></span><a href="#fnref11" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn12"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://cmrsurgical.com/" title="" class="ltx_font_typewriter">https://cmrsurgical.com/</a></span><a href="#fnref12" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn13"><span>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                <a href="https://www.zimmerbiomet.com/" title="" class="ltx_font_typewriter">https://www.zimmerbiomet.com/</a></span><a href="#fnref13" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn14"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.aidoc.com/" title="" class="ltx_font_typewriter">https://www.aidoc.com/</a></span><a href="#fnref14" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn15"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.viz.ai/" title="" class="ltx_font_typewriter">https://www.viz.ai/</a></span><a href="#fnref15" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn16"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.heartflow.com/" title="" class="ltx_font_typewriter">https://www.heartflow.com/</a></span><a href="#fnref16" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn17"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.pathai.com/" title="" class="ltx_font_typewriter">https://www.pathai.com/</a></span><a href="#fnref17" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn18"><span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  <a href="https://www.tempus.com/" title="" class="ltx_font_typewriter">https://www.tempus.com/</a></span><a href="#fnref18" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/chapter-12/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">Chapter 12: Spatial Intelligence for Biomedicine and Natural Sciences</span></a><a class="pager-next" href="/read/12.2/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">12.2 Natural Science</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch12.S1.SS1" data-spy="Ch12.S1.SS1"><span class="n">12.1.1</span>Introduction</a></li><li><a href="#Ch12.S1.SS2" data-spy="Ch12.S1.SS2"><span class="n">12.1.2</span>System Overview</a></li><li><a href="#Ch12.S1.SS3" data-spy="Ch12.S1.SS3"><span class="n">12.1.3</span>Pivotal Task-1: Volumetric Medical Image Perception</a></li><li><a href="#Ch12.S1.SS4" data-spy="Ch12.S1.SS4"><span class="n">12.1.4</span>Pivotal Task-2: Anatomical Reconstruction, Modeling, and Surgical Planning</a></li><li><a href="#Ch12.S1.SS5" data-spy="Ch12.S1.SS5"><span class="n">12.1.5</span>Pivotal Task-3: Image-Guided Intervention and Surgical Navigation</a></li><li><a href="#Ch12.S1.SS6" data-spy="Ch12.S1.SS6"><span class="n">12.1.6</span>Established Tools and Systems</a></li><li><a href="#Ch12.S1.SS7" data-spy="Ch12.S1.SS7"><span class="n">12.1.7</span>Challenges</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=12.1"><b>58</b> cited works</a><a href="/explore/datasets/?sec=12.1"><b>9</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=12.1" title="Segment Anything, MONAI, 3D Slicer, nnU-Net, TotalSegmentator, MedSAM"><b>6</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="12.1 Medicine and Clinical Healthcare" data-url="/read/12.1/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%2012.1%20Medicine%20and%20Clinical%20Healthcare&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/12.1/%20%28PDF%20p.%20417%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>

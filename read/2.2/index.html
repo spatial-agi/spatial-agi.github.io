@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.2 Defining A Spatial Intelligence Framework · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="2.2 Defining A Spatial Intelligence Framework · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #A8722A" data-page="2.2">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link is-current" href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatial-aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Assistant</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-i/">Part I</a><span class="sep">/</span><a href="/read/chapter-2/">Chapter 2</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-2/">Chapter 2 · A Definition in Motion: Revisiting Spatial Intelligence</a></div>
+        <h1><span class="secnum">2.2</span>Defining A Spatial Intelligence Framework</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=46" title="Open this page in the PDF">PDF p. 46</a><span class="dot">·</span>        <span>8 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:2.2 Defining A Spatial Intelligence Framework">
+<div id="Ch2.S2.p1" class="ltx_para">
+<p class="ltx_p">Given
+the inherently hybrid and interdisciplinary nature of spatial intelligence, it becomes necessary to revisit and refine what we mean by “spatial intelligence” in a precise and unified manner.
+Rather than treating spatial intelligence as a loosely defined collection of capabilities, we aim to articulate a coherent conceptual framework that can accommodate its diverse manifestations across systems, tasks, and environments.
+In this section, we therefore propose an explicit definition of spatial intelligence and analyze its core properties in a structured way.</p>
+</div>
+<div id="Ch2.S2.p2" class="ltx_para">
+<aside class="box">
+<p class="ltx_p"><span class="ltx_font_bold">Definition (Spatial Intelligence).</span>
+<em class="ltx_font_italic">Spatial intelligence is the ability of an AI system to construct, maintain, and manipulate spatial representations of the physical world or environment that support perception, reasoning, prediction, and embodied action, to accomplish tasks within a given environmental context.</em></p>
+</aside>
+</div>
+<div id="Ch2.S2.p3" class="ltx_para">
+<p class="ltx_p">This definition emphasizes several essential aspects.
+First, spatial intelligence is grounded in representations of the world rather than isolated sensory inputs.
+Second, it is functional rather than static, supporting perception, reasoning, prediction, and action.
+Third, it is inherently situated, meaning that spatial intelligence only manifests meaningfully within an environment where tasks are defined and executed.
+In the following, we unpack this definition by examining its key attributes.</p>
+</div>
+<section>
+<h2 class="h-subsection" id="Ch2.S2.SS1"><span class="secnum">2.2.1</span>Core Elements<a class="anchor" href="#Ch2.S2.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><section>
+<h3 class="h-subsubsection" id="Ch2.S2.SS1.SSS1"><span class="secnum">2.2.1.1</span>Parties<a class="anchor" href="#Ch2.S2.SS1.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch2.S2.SS1.SSS1.p1" class="ltx_para">
+<p class="ltx_p">At a minimum, spatial intelligence involves two fundamental parties: an AI system and the physical world or environment in which it operates.
+Neither can be meaningfully defined without the other.</p>
+</div>
+<section id="Ch2.S2.SS1.SSS1.Px1">
+<div id="Ch2.S2.SS1.SSS1.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">AI System.</strong> The AI system refers to any computational entity capable of perception, reasoning, and decision-making.
+This includes, but is not limited to, large language models, multimodal foundation models, world models, embodied agents, and robotic systems.
+Crucially, spatial intelligence is not tied to a specific architecture.
+Instead, it characterizes a class of capabilities that may be realized through different model families, training paradigms, and system designs <cite class="cites">[<a class="cite" href="/read/references/#ref-230" data-k="feng2025embodied">230</a>, <a class="cite" href="/read/references/#ref-231" data-k="zhang2026theory">231</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch2.S2.SS1.SSS1.Px2">
+<div id="Ch2.S2.SS1.SSS1.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Physical World or Environment.</strong> The environment denotes the external context in which the AI system is situated.
+This typically refers to the physical world governed by geometric, physical, and causal constraints.
+In some cases, the environment may also include social or human-centric settings, where spatial structure interacts with social norms, human intent, and collective behavior <cite class="cites">[<a class="cite" href="/read/references/#ref-232" data-k="hall1966hidden">232</a>]</cite>.
+Spatial intelligence arises precisely from the interaction between the AI system and such structured environments.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch2.S2.SS1.SSS2"><span class="secnum">2.2.1.2</span>Spatial Representation<a class="anchor" href="#Ch2.S2.SS1.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch2.S2.SS1.SSS2.p1" class="ltx_para">
+<p class="ltx_p">A core component of spatial intelligence lies in the ability to form, maintain, and manipulate world-centered spatial representations.
+These representations serve as structured world models that are compositional, generalizable, and reusable across tasks.</p>
+</div>
+<div id="Ch2.S2.SS1.SSS2.p2" class="ltx_para">
+<p class="ltx_p">Spatial representations may vary along several dimensions:</p>
+<ul id="Ch2.S2.I1" class="ltx_itemize">
+<li id="Ch2.S2.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S2.I1.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Granularity.</span>
+Representations can operate at different spatial scales, including object-centric representations, scene-centric representations, and relational representations capturing relative geometry or topology.</p>
+</div>
+</li>
+<li id="Ch2.S2.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S2.I1.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Modality.</span>
+Spatial information may be derived from heterogeneous sensory channels, including pixels, grid maps, point clouds, voxel grids, language descriptions, audio signals, spectral measurements, radar inputs, as well as tactile and force feedback.</p>
+</div>
+</li>
+<li id="Ch2.S2.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S2.I1.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Level of Abstraction.</span>
+Spatial representations may be geometric, such as metric coordinates and surfaces, topological, such as connectivity graphs, or semantic and symbolic, such as object categories and relational predicates.</p>
+</div>
+</li>
+<li id="Ch2.S2.I1.i4" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S2.I1.i4.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Concrete versus Abstract.</span>
+Representations may directly encode observable properties of the physical world or serve as abstract internal models that summarize, compress, or reinterpret spatial structure for reasoning and planning.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="Ch2.S2.SS1.SSS2.p3" class="ltx_para">
+<p class="ltx_p">Importantly, spatial intelligence does not require committing to a single representational form.
+Instead, it demands the ability to align and translate across multiple representational levels in a world-centered manner.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch2.S2.SS1.SSS3"><span class="secnum">2.2.1.3</span>Dynamic Interaction<a class="anchor" href="#Ch2.S2.SS1.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch2.S2.SS1.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Spatial intelligence is not a static property acquired through passive observation.
+Rather, it emerges through continuous and dynamic interaction with the environment.
+This interaction includes navigation, manipulation, exploration, and embodied perception.
+An intelligent system must ground its spatial understanding in embodied experience, for example by learning the structure of a room through movement, or improving depth perception through active viewpoint selection.
+Interaction also extends to socially situated behaviors.
+Maintaining appropriate interpersonal distance, coordinating actions with humans, or navigating shared spaces all require spatial understanding informed by social context.
+As a result, spatial representations must be executable and continuously updated through perception-action feedback loops.
+We further decompose dynamic interaction into several functional components.</p>
+</div>
+<section id="Ch2.S2.SS1.SSS3.Px1">
+<div id="Ch2.S2.SS1.SSS3.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Perception.</strong> Perception refers to the extraction of spatial structure from multimodal sensory inputs.
+This includes recognizing objects and scene elements, estimating distances, identifying spatial layouts, and localizing entities within an environment.</p>
+</div>
+</section>
+<section id="Ch2.S2.SS1.SSS3.Px2">
+<div id="Ch2.S2.SS1.SSS3.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Reasoning and Planning.</strong> Spatial reasoning involves inference over spatial relations and dynamics.
+This includes trajectory prediction, path planning, occlusion reasoning, spatial causality, temporal change modeling, relational inference, and logical or commonsense reasoning about space.
+Such reasoning spans both low-level problems, such as shortest-path computation, and high-level abstractions, such as understanding how rearranging objects alters the affordances of a space.</p>
+</div>
+</section>
+<section id="Ch2.S2.SS1.SSS3.Px3">
+<div id="Ch2.S2.SS1.SSS3.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Predicting.</strong> Prediction in spatial intelligence operates along two axes.
+One concerns forecasting future spatial states or events in a manner consistent with physical laws and causal structure.
+The other concerns generative capabilities, such as producing spatially aware images, videos, 3D or 4D scenes, and motion trajectories.</p>
+</div>
+</section>
+<section id="Ch2.S2.SS1.SSS3.Px4">
+<div id="Ch2.S2.SS1.SSS3.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Embodied Action.</strong> Embodied action denotes the capacity to interact with physical or simulated environments while continuously pursuing goals.
+This includes pose adjustment, navigation, grasping, and object manipulation.
+Typical scenarios include domestic robots and autonomous driving systems.
+Such action requires tight integration of perception, reasoning, planning, and prediction, while aligning internal spatial models with task objectives, human intent, and social context.</p>
+</div>
+<div id="Ch2.S2.SS1.SSS3.Px4.p2" class="ltx_para">
+<aside class="box">
+<p class="ltx_p">A well-designed spatially intelligent AI system should satisfy the following criteria:</p>
+<ul id="Ch2.S2.I2" class="ltx_itemize">
+<li id="Ch2.S2.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S2.I2.i1.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">High-quality world representation.</span>
+It must acquire a rich, consistent, and generalizable spatial representation of the world that captures geometry, relations, and structure across scales.</p>
+</div>
+</li>
+<li id="Ch2.S2.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S2.I2.i2.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Dynamic interaction capability.</span>
+It should support accurate perception, reasoning, prediction, and embodied action through continuous interaction with the environment.</p>
+</div>
+</li>
+<li id="Ch2.S2.I2.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Ch2.S2.I2.i3.p1" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Alignment between model, task, and environment.</span>
+The internal spatial model must remain aligned with external task objectives, environmental constraints, and feedback signals during execution.</p>
+</div>
+</li>
+</ul>
+</aside>
+</div>
+</section>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch2.S2.SS2"><span class="secnum">2.2.2</span>Formal Characterization<a class="anchor" href="#Ch2.S2.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch2.S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">To make the definition more precise, we provide a lightweight formalization that captures the core components of spatial intelligence without committing to a specific implementation or learning paradigm.</p>
+</div>
+<div id="Ch2.S2.SS2.p2" class="ltx_para">
+<p class="ltx_p">Let <math id="Ch2.S2.SS2.p2.m1" alttext="\mathcal{E}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℰ</mi><annotation encoding="application/x-tex">\mathcal{E}</annotation></semantics></math> denote the environment in which an AI system is situated, representing the physical or simulated world governed by spatial, physical, and causal constraints.
+Let <math id="Ch2.S2.SS2.p2.m2" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> denote the AI system or agent.
+We assume that tasks are defined with respect to the environment and are drawn from a task space <math id="Ch2.S2.SS2.p2.m3" alttext="\mathcal{T}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒯</mi><annotation encoding="application/x-tex">\mathcal{T}</annotation></semantics></math>.</p>
+</div>
+<section id="Ch2.S2.SS2.SSS0.Px1">
+<div id="Ch2.S2.SS2.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">World-Centered Spatial Representation.</strong> We define a world-centered spatial representation as a system-induced mapping from the environment to an internal state space:</p>
+<table id="Ch2.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch2.E1.m1" alttext="\Phi_{\mathcal{S}}:\mathcal{E}\rightarrow\mathcal{R}_{\mathcal{S}}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi mathvariant="normal">Φ</mi><mi>𝒮</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>ℰ</mi><mo stretchy="false">→</mo><msub><mi>ℛ</mi><mi>𝒮</mi></msub></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\Phi_{\mathcal{S}}:\mathcal{E}\rightarrow\mathcal{R}_{\mathcal{S}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.1)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch2.S2.SS2.SSS0.Px1.p1.m1" alttext="\mathcal{R}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℛ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\mathcal{R}_{\mathcal{S}}</annotation></semantics></math> denotes the internal spatial representation space maintained by the AI system <math id="Ch2.S2.SS2.SSS0.Px1.p1.m2" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math>.
+The representation <math id="Ch2.S2.SS2.SSS0.Px1.p1.m3" alttext="\Phi_{\mathcal{S}}(e)\in\mathcal{R}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi mathvariant="normal">Φ</mi><mi>𝒮</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>e</mi><mo stretchy="false">)</mo></mrow></mrow><mo>∈</mo><msub><mi>ℛ</mi><mi>𝒮</mi></msub></mrow><annotation encoding="application/x-tex">\Phi_{\mathcal{S}}(e)\in\mathcal{R}_{\mathcal{S}}</annotation></semantics></math> may take various forms, including geometric maps, scene graphs, implicit fields, symbolic layouts, or learned latent embeddings.
+Crucially, <math id="Ch2.S2.SS2.SSS0.Px1.p1.m4" alttext="\mathcal{R}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℛ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\mathcal{R}_{\mathcal{S}}</annotation></semantics></math> is not a raw sensory space, but a structured and system-dependent representation space that supports compositionality, generalization, and reuse across tasks.</p>
+</div>
+</section>
+<section id="Ch2.S2.SS2.SSS0.Px2">
+<div id="Ch2.S2.SS2.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Functional Use of Spatial Representations.</strong> Spatial intelligence is not defined by representation alone, but by how representations are functionally manipulated by the AI system.
+We characterize this through a family of system-conditioned operators acting on <math id="Ch2.S2.SS2.SSS0.Px2.p1.m1" alttext="\mathcal{R}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℛ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\mathcal{R}_{\mathcal{S}}</annotation></semantics></math>:</p>
+<table id="Ch2.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch2.E2.m1" alttext="\mathcal{F}_{\mathcal{S}}=\{f^{\mathcal{S}}_{\text{perc}},f^{\mathcal{S}}_{%
+\text{reason}},f^{\mathcal{S}}_{\text{pred}},f^{\mathcal{S}}_{\text{act}}\}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi>ℱ</mi><mi>𝒮</mi></msub><mo>=</mo><mrow><mo stretchy="false">{</mo><msubsup><mi>f</mi><mtext>perc</mtext><mi>𝒮</mi></msubsup><mo>,</mo><msubsup><mi>f</mi><mtext>reason</mtext><mi>𝒮</mi></msubsup><mo>,</mo><msubsup><mi>f</mi><mtext>pred</mtext><mi>𝒮</mi></msubsup><mo>,</mo><msubsup><mi>f</mi><mtext>act</mtext><mi>𝒮</mi></msubsup><mo stretchy="false">}</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathcal{F}_{\mathcal{S}}=\{f^{\mathcal{S}}_{\text{perc}},f^{\mathcal{S}}_{%
+\text{reason}},f^{\mathcal{S}}_{\text{pred}},f^{\mathcal{S}}_{\text{act}}\},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.2)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">corresponding to perception, reasoning, prediction, and embodied action.
+Each operator is defined relative to the system <math id="Ch2.S2.SS2.SSS0.Px2.p1.m2" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math>:</p>
+<table id="Ch17.Sx2.EGx1" class="ltx_equationgroup ltx_eqn_table">
+
+<tbody id="Ch2.E3"><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="Ch2.E3.m1" alttext="\displaystyle f^{\mathcal{S}}_{\text{perc}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mtext>perc</mtext><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">\displaystyle f^{\mathcal{S}}_{\text{perc}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch2.E3.m2" alttext="\displaystyle:\mathcal{O}\rightarrow\mathcal{R}_{\mathcal{S}}," display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi></mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒪</mi><mo stretchy="false">→</mo><msub><mi>ℛ</mi><mi>𝒮</mi></msub></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle:\mathcal{O}\rightarrow\mathcal{R}_{\mathcal{S}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.3)</span></td>
+</tr></tbody>
+<tbody id="Ch2.E4"><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="Ch2.E4.m1" alttext="\displaystyle f^{\mathcal{S}}_{\text{reason}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mtext>reason</mtext><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">\displaystyle f^{\mathcal{S}}_{\text{reason}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch2.E4.m2" alttext="\displaystyle:\mathcal{R}_{\mathcal{S}}\rightarrow\mathcal{R}_{\mathcal{S}}," display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi></mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><msub><mi>ℛ</mi><mi>𝒮</mi></msub><mo stretchy="false">→</mo><msub><mi>ℛ</mi><mi>𝒮</mi></msub></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle:\mathcal{R}_{\mathcal{S}}\rightarrow\mathcal{R}_{\mathcal{S}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.4)</span></td>
+</tr></tbody>
+<tbody id="Ch2.E5"><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="Ch2.E5.m1" alttext="\displaystyle f^{\mathcal{S}}_{\text{pred}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mtext>pred</mtext><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">\displaystyle f^{\mathcal{S}}_{\text{pred}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch2.E5.m2" alttext="\displaystyle:\mathcal{R}_{\mathcal{S}}\times\mathcal{A}\rightarrow\mathcal{R}%
+_{\mathcal{S}}," display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi></mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><msub><mi>ℛ</mi><mi>𝒮</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><mi>𝒜</mi></mrow><mo stretchy="false">→</mo><msub><mi>ℛ</mi><mi>𝒮</mi></msub></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle:\mathcal{R}_{\mathcal{S}}\times\mathcal{A}\rightarrow\mathcal{R}%
+_{\mathcal{S}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.5)</span></td>
+</tr></tbody>
+<tbody id="Ch2.E6"><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math id="Ch2.E6.m1" alttext="\displaystyle f^{\mathcal{S}}_{\text{act}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mtext>act</mtext><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">\displaystyle f^{\mathcal{S}}_{\text{act}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math id="Ch2.E6.m2" alttext="\displaystyle:\mathcal{R}_{\mathcal{S}}\rightarrow\mathcal{A}," display="inline" data-pagefind-ignore="all"><semantics><mrow><mrow><mi></mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><msub><mi>ℛ</mi><mi>𝒮</mi></msub><mo stretchy="false">→</mo><mi>𝒜</mi></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle:\mathcal{R}_{\mathcal{S}}\rightarrow\mathcal{A},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.6)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch2.S2.SS2.SSS0.Px2.p1.m3" alttext="\mathcal{O}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒪</mi><annotation encoding="application/x-tex">\mathcal{O}</annotation></semantics></math> denotes observations and <math id="Ch2.S2.SS2.SSS0.Px2.p1.m4" alttext="\mathcal{A}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒜</mi><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math> denotes the action space.
+The two representation-to-representation operators play distinct roles: <math id="Ch2.S2.SS2.SSS0.Px2.p1.m5" alttext="f^{\mathcal{S}}_{\text{reason}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mtext>reason</mtext><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">f^{\mathcal{S}}_{\text{reason}}</annotation></semantics></math> elaborates the <em class="ltx_font_italic">current</em> world state by inferring relations and constraints already implicit in it, whereas <math id="Ch2.S2.SS2.SSS0.Px2.p1.m6" alttext="f^{\mathcal{S}}_{\text{pred}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>f</mi><mtext>pred</mtext><mi>𝒮</mi></msubsup><annotation encoding="application/x-tex">f^{\mathcal{S}}_{\text{pred}}</annotation></semantics></math> advances the state <em class="ltx_font_italic">forward in time</em>, rolling out how the world would evolve under a hypothesized action (with a null action recovering passive forecasting).</p>
+</div>
+</section>
+<section id="Ch2.S2.SS2.SSS0.Px3">
+<div id="Ch2.S2.SS2.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Task-Oriented Intelligence.</strong> Given a task <math id="Ch2.S2.SS2.SSS0.Px3.p1.m1" alttext="t\in\mathcal{T}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>t</mi><mo>∈</mo><mi>𝒯</mi></mrow><annotation encoding="application/x-tex">t\in\mathcal{T}</annotation></semantics></math>, spatial intelligence manifests as the ability of the AI system <math id="Ch2.S2.SS2.SSS0.Px3.p1.m2" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> to select and execute actions based on its internal spatial representation:</p>
+<table id="Ch2.E7" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch2.E7.m1" alttext="\pi_{\mathcal{S}}:(\mathcal{R}_{\mathcal{S}},t)\rightarrow\mathcal{A}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msub><mi>π</mi><mi>𝒮</mi></msub><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><mo stretchy="false">(</mo><msub><mi>ℛ</mi><mi>𝒮</mi></msub><mo>,</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo stretchy="false">→</mo><mi>𝒜</mi></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\pi_{\mathcal{S}}:(\mathcal{R}_{\mathcal{S}},t)\rightarrow\mathcal{A},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.7)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">such that actions are grounded in the system’s current world representation and lead to task completion within the environment.
+This formulation highlights that spatial intelligence is inherently situated and agent-dependent: the same environment may induce different behaviors depending on the internal representation and decision mechanisms of <math id="Ch2.S2.SS2.SSS0.Px3.p1.m3" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math>.</p>
+</div>
+</section>
+<section id="Ch2.S2.SS2.SSS0.Px4">
+<div id="Ch2.S2.SS2.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Dynamic Interaction and World State Evolution.</strong> Finally, spatial intelligence requires representations to be dynamically updated through interaction.
+We model the evolution of the internal world representation of system <math id="Ch2.S2.SS2.SSS0.Px4.p1.m1" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> as:</p>
+<table id="Ch2.E8" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch2.E8.m1" alttext="\mathcal{R}^{\mathcal{S}}_{t+1}=\Psi_{\mathcal{S}}(\mathcal{R}^{\mathcal{S}}_{%
+t},a^{\mathcal{S}}_{t},o_{t+1})," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msubsup><mi>ℛ</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow><mi>𝒮</mi></msubsup><mo>=</mo><mrow><msub><mi mathvariant="normal">Ψ</mi><mi>𝒮</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>ℛ</mi><mi>t</mi><mi>𝒮</mi></msubsup><mo>,</mo><msubsup><mi>a</mi><mi>t</mi><mi>𝒮</mi></msubsup><mo>,</mo><msub><mi>o</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathcal{R}^{\mathcal{S}}_{t+1}=\Psi_{\mathcal{S}}(\mathcal{R}^{\mathcal{S}}_{%
+t},a^{\mathcal{S}}_{t},o_{t+1}),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.8)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch2.S2.SS2.SSS0.Px4.p1.m2" alttext="a^{\mathcal{S}}_{t}\in\mathcal{A}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msubsup><mi>a</mi><mi>t</mi><mi>𝒮</mi></msubsup><mo>∈</mo><mi>𝒜</mi></mrow><annotation encoding="application/x-tex">a^{\mathcal{S}}_{t}\in\mathcal{A}</annotation></semantics></math> is the action selected by system <math id="Ch2.S2.SS2.SSS0.Px4.p1.m3" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> and <math id="Ch2.S2.SS2.SSS0.Px4.p1.m4" alttext="o_{t+1}\in\mathcal{O}" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>o</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∈</mo><mi>𝒪</mi></mrow><annotation encoding="application/x-tex">o_{t+1}\in\mathcal{O}</annotation></semantics></math> is the subsequent observation.
+It emphasizes that spatial representations are executable, interactive, and continuously revised by the system, rather than static encodings of the environment.</p>
+</div>
+<div id="Ch2.S2.SS2.SSS0.Px4.p2" class="ltx_para">
+<p class="ltx_p">This formalization clarifies that spatial intelligence is not tied to a specific modality, algorithm, or architecture.
+Instead, it is defined by the existence of a system-induced, world-centered spatial representation space <math id="Ch2.S2.SS2.SSS0.Px4.p2.m1" alttext="\mathcal{R}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℛ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\mathcal{R}_{\mathcal{S}}</annotation></semantics></math> and the ability of the AI system <math id="Ch2.S2.SS2.SSS0.Px4.p2.m2" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> to manipulate, update, and exploit this representation to support perception, reasoning, prediction, and embodied action within an environment.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch2.S2.SS3"><span class="secnum">2.2.3</span>Compatibility with Existing Research and Paradigms<a class="anchor" href="#Ch2.S2.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch2.S2.SS3.p1" class="ltx_para">
+<p class="ltx_p">The proposed framework is intentionally designed to be inclusive rather than prescriptive.
+Rather than introducing a new task taxonomy or replacing existing formulations, it provides a unifying lens through which a wide range of spatial intelligence-related tasks, domains, and research traditions can be consistently described.
+From this perspective, most existing work can be understood as instantiating or emphasizing only a subset of the core elements defined in our framework, often driven by domain-specific constraints, data availability, or evaluation protocols.</p>
+</div>
+<div id="Ch2.S2.SS3.p2" class="ltx_para">
+<p class="ltx_p">A large body of research in computer vision, graphics, and extended reality focuses primarily on the <em class="ltx_font_italic">representation layer</em> of spatial intelligence.
+Tasks such as 3D reconstruction, neural rendering, scene synthesis, video generation, and emerging 4D spatiotemporal modeling concentrate on learning expressive spatial representations <math id="Ch2.S2.SS3.p2.m1" alttext="\mathcal{R}_{\mathcal{S}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ℛ</mi><mi>𝒮</mi></msub><annotation encoding="application/x-tex">\mathcal{R}_{\mathcal{S}}</annotation></semantics></math>, often with little or no emphasis on action, task execution, or long-term interaction.
+Within our framework, these approaches can be viewed as developing increasingly powerful instantiations of world-centered spatial representations, while largely abstracting away the agent <math id="Ch2.S2.SS3.p2.m2" alttext="\mathcal{S}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝒮</mi><annotation encoding="application/x-tex">\mathcal{S}</annotation></semantics></math> and the functional operators that connect representation to behavior.
+Their contributions lie in advancing the expressiveness, continuity, and generative capacity of spatial representations, even if they remain largely offline or perception-centric.</p>
+</div>
+<div id="Ch2.S2.SS3.p3" class="ltx_para">
+<p class="ltx_p">Robotics, embodied AI, and embedded systems emphasize a different subset of the framework, placing primary focus on action grounding and closed-loop interaction.
+Vision-Language-Action models, navigation agents, and manipulation systems operationalize the mapping from internal representations to actions, often under real-time and physical constraints.
+However, in many cases, the underlying spatial representations remain task-specific, shallow, or tightly coupled to particular embodiments.
+From the perspective of our framework, these systems instantiate the functional operators and dynamic interaction components, while relying on relatively limited or implicit world representations.
+This explains why many embodied systems exhibit strong short-horizon competence but struggle with long-term consistency, world editing, or cross-task transfer.</p>
+</div>
+<div id="Ch2.S2.SS3.p4" class="ltx_para">
+<p class="ltx_p">Classical and modern SLAM systems provide a complementary example.
+SLAM explicitly targets the construction and maintenance of a world-centered spatial representation under uncertainty, typically in the form of metric maps, pose graphs, or hybrid geometric-topological structures.
+Within our framework, SLAM can be understood as a specialized instantiation of the representation update process, with strong guarantees on geometric consistency and state estimation.
+At the same time, SLAM systems often remain agnostic to high-level reasoning, semantic abstraction, or task-conditioned decision making, highlighting again that they occupy a specific slice of the broader spatial intelligence spectrum rather than the full stack.</p>
+</div>
+<div id="Ch2.S2.SS3.p5" class="ltx_para">
+<p class="ltx_p">Viewed through this unified lens, existing spatial intelligence research does not fragment into incompatible paradigms, but instead forms a landscape of partial realizations.
+Different communities emphasize representation learning, perception, reasoning, prediction, or action to varying degrees.
+Our framework provides a common conceptual structure that makes these emphases explicit, clarifies their limitations, and reveals how advances in one area can be systematically integrated with others.
+In this sense, the framework is not a replacement for existing approaches, but a scaffold for understanding how they collectively contribute to, and fall short of, world-centered spatial intelligence.</p>
+</div>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/2.1/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">2.1 The Landscape of Spatial Intelligence</span></a><a class="pager-next" href="/read/chapter-3/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">Chapter 3: Scope and Structure of This Handbook</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch2.S2.SS1" data-spy="Ch2.S2.SS1"><span class="n">2.2.1</span>Core Elements</a></li><li><a href="#Ch2.S2.SS2" data-spy="Ch2.S2.SS2"><span class="n">2.2.2</span>Formal Characterization</a></li><li><a href="#Ch2.S2.SS3" data-spy="Ch2.S2.SS3"><span class="n">2.2.3</span>Compatibility with Existing Research and Paradigms</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=2.2"><b>3</b> cited works</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="2.2 Defining A Spatial Intelligence Framework" data-url="/read/2.2/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%202.2%20Defining%20A%20Spatial%20Intelligence%20Framework&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/2.2/%20%28PDF%20p.%2046%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js"></script></body>
+</html>
