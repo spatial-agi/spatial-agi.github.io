@@ -1,0 +1,165 @@
+{
+  "figure": "12.4",
+  "sources": [
+    "assets/figures/figures/part4/section12/medical_navigation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1617
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section12/medical_navigation.pdf",
+  "assets": [
+    {
+      "file": "anatomical-registration/preoperative-brain.png",
+      "title": "preoperative brain",
+      "panel": "anatomical-registration",
+      "size": [
+        614,
+        614
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        31.988,
+        69.314,
+        152.791,
+        190.117
+      ],
+      "pdf_source_box": [
+        14.108,
+        30.571,
+        67.388,
+        83.851
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "anatomical-registration/patient-reference.png",
+      "title": "patient reference",
+      "panel": "anatomical-registration",
+      "size": [
+        614,
+        614
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        180.543,
+        69.314,
+        301.345,
+        190.117
+      ],
+      "pdf_source_box": [
+        79.628,
+        30.571,
+        132.908,
+        83.851
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "anatomical-registration/registered-brain.png",
+      "title": "registered brain",
+      "panel": "anatomical-registration",
+      "size": [
+        614,
+        614
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        84.227,
+        371.32,
+        244.209,
+        531.302
+      ],
+      "pdf_source_box": [
+        37.148,
+        163.771,
+        107.708,
+        234.331
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "tracking-guidance/tracked-patient.png",
+      "title": "tracked patient",
+      "panel": "tracking-guidance",
+      "size": [
+        614,
+        614
+      ],
+      "source_index": 0,
+      "pdf_image_index": 3,
+      "pdf_box": [
+        405.823,
+        69.314,
+        601.719,
+        265.21
+      ],
+      "pdf_source_box": [
+        178.988,
+        30.571,
+        265.388,
+        116.971
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "tracking-guidance/ar-intervention.png",
+      "title": "ar intervention",
+      "panel": "tracking-guidance",
+      "size": [
+        614,
+        614
+      ],
+      "source_index": 0,
+      "pdf_image_index": 4,
+      "pdf_box": [
+        425.413,
+        552.524,
+        582.129,
+        709.241
+      ],
+      "pdf_source_box": [
+        187.628,
+        243.691,
+        256.748,
+        312.811
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "endoscopic-geometry/endoscopic-surface.png",
+      "title": "endoscopic surface",
+      "panel": "endoscopic-geometry",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 5,
+      "pdf_box": [
+        771.496,
+        69.314,
+        934.742,
+        232.561
+      ],
+      "pdf_source_box": [
+        340.268,
+        30.571,
+        412.268,
+        102.571
+      ],
+      "kind": "photo"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

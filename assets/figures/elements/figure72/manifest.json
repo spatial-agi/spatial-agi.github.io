@@ -1,0 +1,40 @@
+{
+  "source": "assets/figures/figures/part3/section6/physical_reasoning.webp",
+  "source_size": [
+    2000,
+    677
+  ],
+  "assets": [
+    {
+      "file": "a-grasp/left-finger.png",
+      "source_box": [
+        51,
+        182,
+        140,
+        266
+      ],
+      "title": "Left grasping finger"
+    },
+    {
+      "file": "a-grasp/right-finger.png",
+      "source_box": [
+        470,
+        183,
+        559,
+        267
+      ],
+      "title": "Right grasping finger"
+    },
+    {
+      "file": "b-pushing/pusher.png",
+      "source_box": [
+        701,
+        148,
+        802,
+        247
+      ],
+      "title": "Planar pushing end-effector and contact point"
+    }
+  ],
+  "frontend": "Grasped block, contact points, friction cones, force arrows, wrench-space polygon, pushed-object outline, motion cone, limit-surface mesh and axes, stacked blocks, ground hatch, support interval, gravity, dimensions, tick/check symbols, all text and formulas, panel borders."
+}

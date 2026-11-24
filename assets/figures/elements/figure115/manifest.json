@@ -1,0 +1,21 @@
+{
+  "figure": "11.5",
+  "sources": [
+    "assets/figures/figures/part4/section11/geoai-overview.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1256
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/geoai-overview.pdf",
+  "assets": [],
+  "frontend": [
+    "Sensor icons, model-family diagrams, output symbols and the globe are vector geometry; reconstruct them as independent frontend elements.",
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "figure": "4.2",
+  "sources": [
+    "assets/figures/figures/part2/3d_representation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      508
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part2/3d_representation.pdf",
+  "assets": [
+    {
+      "file": "rgb-d/teapot.png",
+      "panel": "rgb-d",
+      "title": "teapot",
+      "size": [
+        640,
+        640
+      ],
+      "pdf_box": [
+        2.164,
+        6.06,
+        204.169,
+        208.065
+      ],
+      "backdrop": "#000000"
+    },
+    {
+      "file": "voxel/teapot.png",
+      "panel": "voxel",
+      "title": "teapot",
+      "size": [
+        992,
+        858
+      ],
+      "pdf_box": [
+        208.209,
+        44.441,
+        395.064,
+        206.045
+      ]
+    },
+    {
+      "file": "point-cloud/teapot.png",
+      "panel": "point-cloud",
+      "title": "teapot",
+      "size": [
+        958,
+        836
+      ],
+      "pdf_box": [
+        400.114,
+        46.461,
+        580.667,
+        204.025
+      ]
+    },
+    {
+      "file": "mesh/teapot.png",
+      "panel": "mesh",
+      "title": "teapot",
+      "size": [
+        640,
+        640
+      ],
+      "pdf_box": [
+        571.819,
+        -0.0,
+        789.985,
+        218.166
+      ]
+    },
+    {
+      "file": "sdf/distance-field.png",
+      "panel": "sdf",
+      "title": "distance field",
+      "size": [
+        495,
+        496
+      ],
+      "pdf_box": [
+        814.233,
+        54.713,
+        942.974,
+        183.714
+      ]
+    },
+    {
+      "file": "sdf/color-scale.png",
+      "panel": "sdf",
+      "title": "color scale",
+      "size": [
+        30,
+        615
+      ],
+      "pdf_box": [
+        951.296,
+        39.368,
+        959.099,
+        199.319
+      ]
+    }
+  ],
+  "frontend": [
+    "The RGB-D teapot is displayed against the original black backdrop. The SDF contour, axes, ticks, and labels will be drawn in the frontend."
+  ]
+}

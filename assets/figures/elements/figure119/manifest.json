@@ -1,0 +1,83 @@
+{
+  "figure": "11.9",
+  "sources": [
+    "assets/figures/figures/part4/section11/geoai-water.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1539
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/geoai-water.pdf",
+  "assets": [
+    {
+      "file": "surface-hydrology/river-valley.png",
+      "title": "river valley",
+      "panel": "surface-hydrology",
+      "size": [
+        491,
+        491
+      ],
+      "source_index": 0,
+      "source_box": [
+        92.5,
+        170.0,
+        517.5,
+        595.0
+      ],
+      "box": [
+        46.25,
+        85.0,
+        258.75,
+        297.5
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        6.355,
+        70.133,
+        236.883,
+        300.661
+      ],
+      "placement_confidence": 0.9661
+    },
+    {
+      "file": "water-quality/lake-and-buoy.png",
+      "title": "lake and buoy",
+      "panel": "water-quality",
+      "size": [
+        491,
+        491
+      ],
+      "source_index": 0,
+      "source_box": [
+        100.0,
+        950.0,
+        452.5,
+        1302.5
+      ],
+      "box": [
+        50.0,
+        475.0,
+        226.25,
+        651.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        9.745,
+        490.507,
+        201.287,
+        682.049
+      ],
+      "placement_confidence": 0.9902
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "source": "assets/figures/figures/part3/section6/slam_method.webp",
+  "source_size": [
+    2000,
+    847
+  ],
+  "assets": [
+    {
+      "file": "odometry/frame-01.png",
+      "source_box": [
+        381,
+        280,
+        493,
+        391
+      ],
+      "size": [
+        112,
+        111
+      ],
+      "notes": "RGBA scene crop. Photographic backgrounds retained; external annotations excluded. Blue correspondence overlays locally restored by interpolation."
+    },
+    {
+      "file": "odometry/frame-02.png",
+      "source_box": [
+        596,
+        280,
+        708,
+        391
+      ],
+      "size": [
+        112,
+        111
+      ],
+      "notes": "RGBA scene crop. Photographic backgrounds retained; external annotations excluded. Blue correspondence overlays locally restored by interpolation."
+    },
+    {
+      "file": "loop-closing/current.png",
+      "source_box": [
+        381,
+        655,
+        468,
+        742
+      ],
+      "size": [
+        87,
+        87
+      ],
+      "notes": "RGBA scene crop. Photographic backgrounds retained; external annotations excluded."
+    },
+    {
+      "file": "loop-closing/history-01.png",
+      "source_box": [
+        550,
+        670,
+        622,
+        742
+      ],
+      "size": [
+        72,
+        72
+      ],
+      "notes": "RGBA scene crop. Photographic backgrounds retained; external annotations excluded."
+    },
+    {
+      "file": "loop-closing/history-02.png",
+      "source_box": [
+        638,
+        673,
+        706,
+        740
+      ],
+      "size": [
+        68,
+        67
+      ],
+      "notes": "RGBA scene crop. Photographic backgrounds retained; external annotations excluded."
+    }
+  ],
+  "notes": "Five individual photographic assets grouped by module. Sensor icons, pose-graph nodes and edges, mapping symbols, output trajectory, borders, text and arrows will be drawn independently in the frontend."
+}

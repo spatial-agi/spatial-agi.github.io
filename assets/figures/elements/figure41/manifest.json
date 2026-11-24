@@ -1,0 +1,153 @@
+{
+  "figure": "4.1",
+  "sources": [
+    "assets/figures/figures/part2/2D_representations.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      983
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part2/2D_representations.pdf",
+  "assets": [
+    {
+      "file": "image/street-scene.png",
+      "panel": "image",
+      "title": "street scene",
+      "size": [
+        339,
+        318
+      ],
+      "pdf_box": [
+        5.59,
+        6.207,
+        214.203,
+        201.965
+      ]
+    },
+    {
+      "file": "segmentation/class-map.png",
+      "panel": "segmentation",
+      "title": "class map",
+      "size": [
+        379,
+        321
+      ],
+      "pdf_box": [
+        509.584,
+        6.207,
+        742.812,
+        203.812
+      ]
+    },
+    {
+      "file": "depth/depth-map.png",
+      "panel": "depth",
+      "title": "depth map",
+      "size": [
+        377,
+        322
+      ],
+      "pdf_box": [
+        762.504,
+        6.207,
+        994.502,
+        204.428
+      ]
+    },
+    {
+      "file": "surface-normals/normal-map.png",
+      "panel": "surface-normals",
+      "title": "normal map",
+      "size": [
+        356,
+        313
+      ],
+      "pdf_box": [
+        5.59,
+        254.906,
+        224.664,
+        447.587
+      ]
+    },
+    {
+      "file": "edges/edge-map.png",
+      "panel": "edges",
+      "title": "edge map",
+      "size": [
+        363,
+        313
+      ],
+      "pdf_box": [
+        254.202,
+        254.906,
+        477.584,
+        447.587
+      ]
+    },
+    {
+      "file": "optical-flow/motion-color-field.png",
+      "panel": "optical-flow",
+      "title": "motion color field",
+      "size": [
+        371,
+        310
+      ],
+      "pdf_box": [
+        508.969,
+        256.753,
+        737.274,
+        447.587
+      ]
+    },
+    {
+      "file": "video/frame-01.png",
+      "panel": "video",
+      "title": "frame 01",
+      "size": [
+        130,
+        238
+      ],
+      "pdf_box": [
+        238.202,
+        25.906,
+        318.202,
+        172.417
+      ]
+    },
+    {
+      "file": "video/frame-02.png",
+      "panel": "video",
+      "title": "frame 02",
+      "size": [
+        131,
+        238
+      ],
+      "pdf_box": [
+        320.663,
+        25.906,
+        401.278,
+        172.417
+      ]
+    },
+    {
+      "file": "video/frame-03.png",
+      "panel": "video",
+      "title": "frame 03",
+      "size": [
+        130,
+        238
+      ],
+      "pdf_box": [
+        403.124,
+        25.906,
+        483.123,
+        172.417
+      ]
+    }
+  ],
+  "frontend": [
+    "The central video frame was restored with material from the adjacent frame where the play icon obscured it. Filmstrip, controls, optical-flow arrows, keypoint skeleton, and labels will be drawn in the frontend."
+  ]
+}

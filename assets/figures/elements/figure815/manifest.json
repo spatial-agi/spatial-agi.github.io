@@ -1,0 +1,238 @@
+{
+  "figure": "8.15",
+  "sources": [
+    "assets/figures/figures/part3/section8/temporal_control_channels_for_video_generation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1493
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        423,
+        12,
+        538,
+        127
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        846,
+        24,
+        1076,
+        254
+      ],
+      "size": [
+        230,
+        230
+      ]
+    },
+    {
+      "file": "task/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        567,
+        12,
+        682,
+        127
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1134,
+        24,
+        1364,
+        254
+      ],
+      "size": [
+        230,
+        230
+      ]
+    },
+    {
+      "file": "task/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        710,
+        12,
+        825,
+        127
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1420,
+        24,
+        1650,
+        254
+      ],
+      "size": [
+        230,
+        230
+      ]
+    },
+    {
+      "file": "task/frame-4.png",
+      "title": "frame 4",
+      "box": [
+        853,
+        12,
+        968,
+        127
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1706,
+        24,
+        1936,
+        254
+      ],
+      "size": [
+        230,
+        230
+      ]
+    },
+    {
+      "file": "d/reference-1.png",
+      "title": "reference 1",
+      "box": [
+        349,
+        506,
+        415,
+        572
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        698,
+        1012,
+        830,
+        1144
+      ],
+      "size": [
+        132,
+        132
+      ]
+    },
+    {
+      "file": "d/reference-2.png",
+      "title": "reference 2",
+      "box": [
+        437,
+        506,
+        503,
+        572
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        874,
+        1012,
+        1006,
+        1144
+      ],
+      "size": [
+        132,
+        132
+      ]
+    },
+    {
+      "file": "d/reference-3.png",
+      "title": "reference 3",
+      "box": [
+        525,
+        506,
+        591,
+        572
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1050,
+        1012,
+        1182,
+        1144
+      ],
+      "size": [
+        132,
+        132
+      ]
+    },
+    {
+      "file": "output/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        689,
+        633,
+        765,
+        710
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1378,
+        1266,
+        1530,
+        1420
+      ],
+      "size": [
+        152,
+        154
+      ]
+    },
+    {
+      "file": "output/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        783,
+        633,
+        859,
+        710
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1566,
+        1266,
+        1718,
+        1420
+      ],
+      "size": [
+        152,
+        154
+      ]
+    },
+    {
+      "file": "output/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        878,
+        633,
+        954,
+        710
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1756,
+        1266,
+        1908,
+        1420
+      ],
+      "size": [
+        152,
+        154
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

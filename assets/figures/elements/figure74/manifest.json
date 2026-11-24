@@ -1,0 +1,134 @@
+{
+  "source": "assets/figures/figures/part3/section7/714_constraint.webp",
+  "source_size": [
+    2000,
+    923
+  ],
+  "assets": [
+    {
+      "file": "i-inputs/joint-arm.png",
+      "source_box": [
+        20,
+        77,
+        127,
+        156
+      ],
+      "title": "Joint configuration arm"
+    },
+    {
+      "file": "i-inputs/pose-left-finger.png",
+      "source_box": [
+        32,
+        172,
+        65,
+        237
+      ],
+      "title": "Pose gripper \u00b7 left finger"
+    },
+    {
+      "file": "i-inputs/pose-right-finger.png",
+      "source_box": [
+        76,
+        172,
+        105,
+        237
+      ],
+      "title": "Pose gripper \u00b7 right finger"
+    },
+    {
+      "file": "i-constraints/collision-arm.png",
+      "source_box": [
+        17,
+        482,
+        118,
+        556
+      ],
+      "title": "Collision avoidance arm"
+    },
+    {
+      "file": "i-constraints/reach-arm.png",
+      "source_box": [
+        17,
+        553,
+        139,
+        642
+      ],
+      "title": "Reachability arm"
+    },
+    {
+      "file": "i-constraints/dynamics-arm.png",
+      "source_box": [
+        17,
+        652,
+        128,
+        728
+      ],
+      "title": "Dynamics / limits arm"
+    },
+    {
+      "file": "ii-core/ik-reachable-arm.png",
+      "source_box": [
+        561,
+        658,
+        674,
+        743
+      ],
+      "title": "IK solver \u00b7 reachable arm"
+    },
+    {
+      "file": "ii-core/ik-infeasible-arm.png",
+      "source_box": [
+        775,
+        662,
+        884,
+        743
+      ],
+      "title": "IK solver \u00b7 infeasible arm"
+    },
+    {
+      "file": "ii-core/pick-left-finger.png",
+      "source_box": [
+        1051,
+        739,
+        1079,
+        791
+      ],
+      "title": "Pick \u00b7 left finger"
+    },
+    {
+      "file": "ii-core/pick-right-finger.png",
+      "source_box": [
+        1081,
+        739,
+        1110,
+        791
+      ],
+      "title": "Pick \u00b7 right finger"
+    },
+    {
+      "file": "ii-core/place-left-finger.png",
+      "source_box": [
+        1333,
+        733,
+        1361,
+        786
+      ],
+      "title": "Place \u00b7 left finger"
+    },
+    {
+      "file": "ii-core/place-right-finger.png",
+      "source_box": [
+        1364,
+        733,
+        1393,
+        786
+      ],
+      "title": "Place \u00b7 right finger"
+    }
+  ],
+  "frontend": {
+    "i-inputs": "Panel frames and dividers, state-transition nodes and arrows, coordinate axes, numbered cubes, collision box, target circles, dynamics gauge, task-logic graph, all labels.",
+    "ii-core": "CSP search tree, SAT clauses and assignments, MILP regions, trajectory geometry, objective formulas, IK targets/checks/gauges, TAMP task boxes, arrows, held cubes and support line, central satisfy/optimize oval.",
+    "iii-outputs": "Trajectory waypoints and obstacles, schedule bars and time arrow, assembly cubes and sequence arrows, certificate sheets, status symbols, gap gauge, all frames and labels."
+  }
+}

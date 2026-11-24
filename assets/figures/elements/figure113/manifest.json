@@ -1,0 +1,83 @@
+{
+  "figure": "11.3",
+  "sources": [
+    "assets/figures/figures/part4/section11/digital_twins_simulation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1445
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/digital_twins_simulation.pdf",
+  "assets": [
+    {
+      "file": "constructed-model/robot-and-bin.png",
+      "title": "robot and bin",
+      "panel": "constructed-model",
+      "size": [
+        657,
+        755
+      ],
+      "source_index": 0,
+      "source_box": [
+        70.0,
+        45.0,
+        545.0,
+        590.0
+      ],
+      "box": [
+        35.0,
+        22.5,
+        272.5,
+        295.0
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        20.675,
+        -2.98,
+        263.514,
+        276.082
+      ],
+      "placement_confidence": 0.9142
+    },
+    {
+      "file": "observations/robot-and-bin.png",
+      "title": "robot and bin",
+      "panel": "observations",
+      "size": [
+        657,
+        755
+      ],
+      "source_index": 0,
+      "source_box": [
+        152.5,
+        845.0,
+        455.0,
+        1192.5
+      ],
+      "box": [
+        76.25,
+        422.5,
+        227.5,
+        596.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        64.096,
+        407.441,
+        218.484,
+        584.857
+      ],
+      "placement_confidence": 0.8396
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

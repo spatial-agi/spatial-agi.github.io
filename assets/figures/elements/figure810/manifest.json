@@ -1,0 +1,262 @@
+{
+  "figure": "8.10",
+  "sources": [
+    "assets/figures/figures/part3/section8/Four_method_families_for_3D_panorama_synthesis.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1539
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/panorama.png",
+      "title": "panorama",
+      "box": [
+        307,
+        6,
+        639,
+        117
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        614,
+        12,
+        1278,
+        234
+      ],
+      "size": [
+        664,
+        222
+      ]
+    },
+    {
+      "file": "task/room.png",
+      "title": "room",
+      "box": [
+        742,
+        4,
+        937,
+        118
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1484,
+        8,
+        1874,
+        236
+      ],
+      "size": [
+        390,
+        228
+      ]
+    },
+    {
+      "file": "c/observed-1.png",
+      "title": "observed 1",
+      "box": [
+        22,
+        533,
+        166,
+        580
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        44,
+        1066,
+        332,
+        1160
+      ],
+      "size": [
+        288,
+        94
+      ]
+    },
+    {
+      "file": "c/observed-2.png",
+      "title": "observed 2",
+      "box": [
+        22,
+        604,
+        166,
+        651
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        44,
+        1208,
+        332,
+        1302
+      ],
+      "size": [
+        288,
+        94
+      ]
+    },
+    {
+      "file": "d/panorama.png",
+      "title": "panorama",
+      "box": [
+        528,
+        519,
+        713,
+        581
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1056,
+        1038,
+        1426,
+        1162
+      ],
+      "size": [
+        370,
+        124
+      ]
+    },
+    {
+      "file": "a/panorama.png",
+      "title": "panorama",
+      "box": [
+        195,
+        310,
+        465,
+        400
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "reuse": [
+        10,
+        0
+      ],
+      "source_box": [
+        390,
+        620,
+        930,
+        800
+      ],
+      "size": [
+        540,
+        180
+      ]
+    },
+    {
+      "file": "b/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        528,
+        351,
+        657,
+        394
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "repair_circle": [
+        559,
+        371,
+        9
+      ],
+      "source_box": [
+        1056,
+        702,
+        1314,
+        788
+      ],
+      "size": [
+        258,
+        86
+      ]
+    },
+    {
+      "file": "b/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        682,
+        351,
+        811,
+        394
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "repair_circle": [
+        741,
+        371,
+        9
+      ],
+      "source_box": [
+        1364,
+        702,
+        1622,
+        788
+      ],
+      "size": [
+        258,
+        86
+      ]
+    },
+    {
+      "file": "b/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        836,
+        351,
+        965,
+        394
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "repair_circle": [
+        923,
+        371,
+        9
+      ],
+      "source_box": [
+        1672,
+        702,
+        1930,
+        788
+      ],
+      "size": [
+        258,
+        86
+      ]
+    },
+    {
+      "file": "d/room.png",
+      "title": "room",
+      "box": [
+        720,
+        604,
+        918,
+        717
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "reuse": [
+        10,
+        1
+      ],
+      "source_box": [
+        1440,
+        1208,
+        1836,
+        1434
+      ],
+      "size": [
+        396,
+        226
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content.",
+    "Clean corresponding source plates replace annotated plates; their original placement is recorded in the manifest."
+  ]
+}

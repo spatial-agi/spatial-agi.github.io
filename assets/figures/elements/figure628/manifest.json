@@ -1,0 +1,38 @@
+{
+  "source": "assets/figures/figures/part3/section6/visual_language_graounding_method.webp",
+  "source_size": [
+    2000,
+    417
+  ],
+  "assets": [
+    {
+      "file": "i-proposal/steak.png",
+      "source_box": [
+        46,
+        47,
+        145,
+        147
+      ],
+      "size": [
+        99,
+        100
+      ],
+      "notes": "Original proposal image with thin grid lines removed; original pale appearance retained. Grid and outer frame will be drawn in the frontend."
+    },
+    {
+      "file": "ii-compositional/attention-heatmap.png",
+      "source_box": [
+        506,
+        52,
+        575,
+        159
+      ],
+      "size": [
+        69,
+        107
+      ],
+      "notes": "Attention heatmap extracted without its enclosing module border or title."
+    }
+  ],
+  "frontend": "Proposal grid, ranking bar chart, compositional tree, heatmap border/title, feature stack, cylinder database, all model boxes, connecting arrows, labels, panel borders and headings."
+}

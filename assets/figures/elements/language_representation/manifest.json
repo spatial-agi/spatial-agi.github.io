@@ -1,0 +1,89 @@
+{
+  "source": "assets/figures/figures/part2/language_representation.webp",
+  "assets": [
+    {
+      "file": "left/chair.png",
+      "source_box": [
+        316,
+        255,
+        408,
+        370
+      ],
+      "size": [
+        92,
+        115
+      ],
+      "note": ""
+    },
+    {
+      "file": "left/lamp.png",
+      "source_box": [
+        474,
+        280,
+        545,
+        352
+      ],
+      "size": [
+        71,
+        72
+      ],
+      "note": ""
+    },
+    {
+      "file": "left/table.png",
+      "source_box": [
+        416,
+        212,
+        602,
+        419
+      ],
+      "size": [
+        186,
+        207
+      ],
+      "note": "Lamp and blue arrow removed from the tabletop; the short obscured bottom edge is locally restored."
+    },
+    {
+      "file": "right/board-state.png",
+      "source_box": [
+        1608,
+        201,
+        1986,
+        590
+      ],
+      "size": [
+        378,
+        389
+      ],
+      "note": "Reference board artwork with grid; coordinate labels excluded. Grid and discs will be independent frontend shapes in the redraw."
+    },
+    {
+      "file": "right/white-disc.png",
+      "source_box": [
+        1706,
+        255,
+        1749,
+        298
+      ],
+      "size": [
+        43,
+        43
+      ],
+      "note": "Circular crop of the original piece; edge pixels may retain a slight green board matte."
+    },
+    {
+      "file": "right/black-disc.png",
+      "source_box": [
+        1753,
+        303,
+        1796,
+        346
+      ],
+      "size": [
+        43,
+        43
+      ],
+      "note": "Circular crop of the original piece; edge pixels may retain a slight green board matte."
+    }
+  ]
+}

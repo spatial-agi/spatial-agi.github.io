@@ -1,0 +1,554 @@
+[
+  {
+    "chapter": 10,
+    "number": 1,
+    "id": "Ch10.F1",
+    "page": "read/10.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section10/xr_overview.webp",
+        "id": "Ch10.F1.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1822",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section10/xr_overview.webp"
+    ],
+    "caption": "Figure 10.1Spatial intelligence for XR as a closed real-time loop: world-facing sensing, tracking and mapping, and registration (T1), user-facing input (T2), and rendering and display (T3). The latency values are illustrative end-to-end targets, not per-stage budgets.",
+    "image_count": 2
+  },
+  {
+    "chapter": 10,
+    "number": 2,
+    "id": "Ch10.F2",
+    "page": "read/10.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section10/xr_tracking.webp",
+        "id": "Ch10.F2.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1068",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section10/xr_tracking.webp"
+    ],
+    "caption": "Figure 10.2The XR world-facing engine: (a) inside-out visual\u2013inertial tracking of 6-DoF pose, (b) mapping of geometry, semantic labels, and persistent anchors, and (c) registration of virtual content with depth-tested occlusion and matched lighting. The room and shading are illustrative, not measured reconstructions.",
+    "image_count": 3
+  },
+  {
+    "chapter": 10,
+    "number": 3,
+    "id": "Ch10.F3",
+    "page": "read/10.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section10/xr_sensing.webp",
+        "id": "Ch10.F3.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1539",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section10/xr_sensing.webp"
+    ],
+    "caption": "Figure 10.3Egocentric human sensing for XR interaction: (a) articulated hand tracking, (b) gaze from inward-facing eye cameras, (c) full-body pose inferred from three tracked points, and (d) gaze-plus-pinch selection, in which gaze supplies the target and a pinch confirms it.",
+    "image_count": 2
+  },
+  {
+    "chapter": 10,
+    "number": 4,
+    "id": "Ch10.F4",
+    "page": "read/10.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section10/xr_display.webp",
+        "id": "Ch10.F4.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1366",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section10/xr_display.webp"
+    ],
+    "caption": "Figure 10.4The XR display and rendering pipeline: (a) gaze-contingent foveated rendering, (b) late reprojection of a rendered frame to the latest pose, and (c) alternative video-passthrough and optical see-through display paths. The motion-to-photon target is illustrative and applies end to end.",
+    "image_count": 3
+  },
+  {
+    "chapter": 10,
+    "number": 5,
+    "id": "Ch10.F5",
+    "page": "read/10.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section10/entertainment_overview.webp",
+        "id": "Ch10.F5.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1366",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section10/entertainment_overview.webp"
+    ],
+    "caption": "Figure 10.5Spatial intelligence for entertainment as a real-time closed loop: sensor inputs feed world reconstruction, performance capture, and content authoring, whose composited render is presented back to the user.",
+    "image_count": 2
+  },
+  {
+    "chapter": 10,
+    "number": 6,
+    "id": "Ch10.F6",
+    "page": "read/10.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section10/entertainment_reconstruction.webp",
+        "id": "Ch10.F6.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1335",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section10/entertainment_reconstruction.webp"
+    ],
+    "caption": "Figure 10.6Complementary capabilities for entertainment reconstruction, not sequential stages: (a) TSDF fusion of posed RGB-D frames into a mesh, (b) radiance-field or 3D Gaussian appearance models for view synthesis, and (c) visual positioning for persistent place-based content. Samples, surfaces, and place markers are schematic.",
+    "image_count": 5
+  },
+  {
+    "chapter": 10,
+    "number": 7,
+    "id": "Ch10.F7",
+    "page": "read/10.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section10/entertainment_capture.webp",
+        "id": "Ch10.F7.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1382",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section10/entertainment_capture.webp"
+    ],
+    "caption": "Figure 10.7Three routes to performance capture, each able to drive avatar playback or control: (a) skeleton joints retargeted to a rig, (b) a parametric surface (SMPL) driving a body mesh, and (c) volumetric capture for reconstructed or animatable appearance. Performer illustrations and motion traces are qualitative, not measured scores.",
+    "image_count": 4
+  },
+  {
+    "chapter": 10,
+    "number": 8,
+    "id": "Ch10.F8",
+    "page": "read/10.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section10/entertainment_authoring.webp",
+        "id": "Ch10.F8.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1366",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section10/entertainment_authoring.webp"
+    ],
+    "caption": "Figure 10.8Three related spatial authoring capabilities: (a) engine primitives (detected planes and persistent anchors) for asset placement, (b) virtual production, where tracked camera pose updates the LED-wall perspective, and (c) camera planning from narrative and scene constraints to a shot plan. The scene, camera path, and shot settings are illustrative.",
+    "image_count": 3
+  },
+  {
+    "chapter": 11,
+    "number": 1,
+    "id": "Ch11.F1",
+    "page": "read/11.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/digital_twins_overview.webp",
+        "id": "Ch11.F1.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1445",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/digital_twins_overview.webp"
+    ],
+    "caption": "Figure 11.1The digital twin as a closed loop around its physical asset: construction (T1) and modeling (T2) establish the replica, synchronization (T3) corrects its state from live observations, and forecasts drive decisions through a control path separate from the observation path.",
+    "image_count": 2
+  },
+  {
+    "chapter": 11,
+    "number": 2,
+    "id": "Ch11.F2",
+    "page": "read/11.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/digital_twins_reconstruction.webp",
+        "id": "Ch11.F2.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1178",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/digital_twins_reconstruction.webp"
+    ],
+    "caption": "Figure 11.2Three components of high-fidelity twin construction: (a) metric geometry from multi-view, LiDAR, or RGB-D capture; (b) relightable material channels separated from illumination; and (c) physical articulation, here a prismatic drawer joint with mass and friction. Material swatches and mesh overlays are schematic.",
+    "image_count": 3
+  },
+  {
+    "chapter": 11,
+    "number": 3,
+    "id": "Ch11.F3",
+    "page": "read/11.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/digital_twins_simulation.webp",
+        "id": "Ch11.F3.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1445",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/digital_twins_simulation.webp"
+    ],
+    "caption": "Figure 11.3From a constructed replica to a behaving twin: (a) constructed model, (b) physics engine, and (c) simulated behavior, with system identification fitting the physical parameters \u03b8\\theta to real-asset observations and an optional fast surrogate f\u03d5f_{\\phi}. Response traces are illustrative, not measured results.",
+    "image_count": 2
+  },
+  {
+    "chapter": 11,
+    "number": 4,
+    "id": "Ch11.F4",
+    "page": "read/11.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/digital_twins_synchronization.webp",
+        "id": "Ch11.F4.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1335",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/digital_twins_synchronization.webp"
+    ],
+    "caption": "Figure 11.4Real-time synchronization and predictive operation: (a) live measurements from the physical asset are (b) assimilated with the model prior into a posterior state of (c) the synchronized twin, which feeds forecasts, what-if, anomaly, and useful-life outputs. The upper feedback path propagates the updated state into the next model prior; the lower path returns decisions or controls to the physical asset. Dashed forecast branches are possible futures, not observed trajectories; all analytical outputs are schematic.",
+    "image_count": 2
+  },
+  {
+    "chapter": 11,
+    "number": 5,
+    "id": "Ch11.F5",
+    "page": "read/11.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/geoai-overview.webp",
+        "id": "Ch11.F5.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1256",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/geoai-overview.webp"
+    ],
+    "caption": "Figure 11.5GeoAI as a data-to-decision loop: satellite, UAV, LiDAR, GNSS, and IoT observations feed alternative or combined CNN, transformer, and ensemble models, whose outputs serve six application domains and act back, through planning and policy, on the sensed world.",
+    "image_count": 0
+  },
+  {
+    "chapter": 11,
+    "number": 6,
+    "id": "Ch11.F6",
+    "page": "read/11.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/geoai-agriculture.webp",
+        "id": "Ch11.F6.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1586",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/geoai-agriculture.webp"
+    ],
+    "caption": "Figure 11.6Three GeoAI tasks for precision agriculture: (a) crop mapping, (b) yield and leaf-area-index (LAI) estimation, and (c) variable-rate precision irrigation. Maps and fitted points are schematic.",
+    "image_count": 1
+  },
+  {
+    "chapter": 11,
+    "number": 7,
+    "id": "Ch11.F7",
+    "page": "read/11.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/geoai-urban.webp",
+        "id": "Ch11.F7.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1633",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/geoai-urban.webp"
+    ],
+    "caption": "Figure 11.7GeoAI for the built environment: (a) building and land-use extraction from overhead and street-view imagery; (b) temporal urban change; (c) sensor-supported digital twins and operational services; (d) mobility, routing, and infrastructure analysis; and (e) canopy, parks, green roofs, and biosecurity monitoring. Tasks are complementary rather than a mandatory serial pipeline. Shared map geometry, temporal trends, and the city illustration are schematic; arrows denote time, data flow, or travel direction within the corresponding panels.",
+    "image_count": 1
+  },
+  {
+    "chapter": 11,
+    "number": 8,
+    "id": "Ch11.F8",
+    "page": "read/11.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/geoai-environment.webp",
+        "id": "Ch11.F8.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1272",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/geoai-environment.webp"
+    ],
+    "caption": "Figure 11.8Three parallel GeoAI tasks for environmental monitoring: (a) climate and vegetation (NDVI/LAI trends), (b) atmospheric chemistry (NO2, SO2, aerosols), and (c) environmental impact of land-cover change. Maps and trends are illustrative, not measured changes.",
+    "image_count": 0
+  },
+  {
+    "chapter": 11,
+    "number": 9,
+    "id": "Ch11.F9",
+    "page": "read/11.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/geoai-water.webp",
+        "id": "Ch11.F9.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1539",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/geoai-water.webp"
+    ],
+    "caption": "Figure 11.9Four GeoAI tasks for water resources: (a) surface hydrology, (b) groundwater from GRACE storage anomalies and auxiliary data, (c) water quality calibrated against in-situ samples, and (d) radar-based precipitation nowcasting. The panels are parallel tasks, not successive stages of the water cycle; all values are schematic.",
+    "image_count": 2
+  },
+  {
+    "chapter": 11,
+    "number": 10,
+    "id": "Ch11.F10",
+    "page": "read/11.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/geoai-disaster.webp",
+        "id": "Ch11.F10.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1432",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/geoai-disaster.webp"
+    ],
+    "caption": "Figure 11.10GeoAI for disaster management as a lifecycle-by-hazard grid: earthquakes, floods, and forest fires (columns) across hazard or susceptibility mapping, event observation, and post-event assessment (rows). All maps and severity scales are schematic.",
+    "image_count": 0
+  },
+  {
+    "chapter": 11,
+    "number": 11,
+    "id": "Ch11.F11",
+    "page": "read/11.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/geoai-health.webp",
+        "id": "Ch11.F11.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1272",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/geoai-health.webp"
+    ],
+    "caption": "Figure 11.11Three parallel GeoAI tasks for public health: (a) disease surveillance and incidence forecasting, (b) spatial spread modeled by graph message passing over regions, and (c) pollution exposure assessment. The panels are not causally linked; maps and intervals are illustrative, not surveillance results.",
+    "image_count": 0
+  },
+  {
+    "chapter": 11,
+    "number": 12,
+    "id": "Ch11.F12",
+    "page": "read/11.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/aerospace-overview.webp",
+        "id": "Ch11.F12.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "941",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/aerospace-overview.webp"
+    ],
+    "caption": "Figure 11.12Aerospace spatial intelligence as a closed loop from onboard and ground sensing, through a perception\u2013reasoning\u2013decision core, to complementary pose, structural-semantic, planning, and surface-action outputs. Decisions may request additional observations; mission execution produces subsequent measurements. Pose and semantic estimates are information products rather than physical actions. Satellite views, point clouds, and rover imagery are schematic.",
+    "image_count": 6
+  },
+  {
+    "chapter": 11,
+    "number": 13,
+    "id": "Ch11.F13",
+    "page": "read/11.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/aerospace-pose.webp",
+        "id": "Ch11.F13.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "748",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/aerospace-pose.webp"
+    ],
+    "caption": "Figure 11.13Satellite pose estimation: a monocular image of a non-cooperative target passes through alternative feature-based, regression, or hybrid pipelines to a target pose relative to the camera. Translation and relative-rotation errors compare estimated and reference poses; 2D reprojection compares detected image keypoints with projected model points. The satellite render and keypoint residuals are schematic; no numerical benchmark scores are implied.",
+    "image_count": 3
+  },
+  {
+    "chapter": 11,
+    "number": 14,
+    "id": "Ch11.F14",
+    "page": "read/11.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/aerospace-detection.webp",
+        "id": "Ch11.F14.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "644",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/aerospace-detection.webp"
+    ],
+    "caption": "Figure 11.14The \u201cdetect\u2013segment\u2013recognize\u201d perception stack for non-cooperative spacecraft: (1) object localization, (2) encoder\u2013decoder silhouette segmentation, and (3) recognition of solar panels, the main body, antenna, and thruster. The same synthetic target is used throughout. The silhouette is an illustrative foreground mask, not a measured prediction; arrows indicate increasing semantic detail rather than requiring every implementation to run these stages serially.",
+    "image_count": 2
+  },
+  {
+    "chapter": 11,
+    "number": 15,
+    "id": "Ch11.F15",
+    "page": "read/11.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/aerospace-operator.webp",
+        "id": "Ch11.F15.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "817",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/aerospace-operator.webp"
+    ],
+    "caption": "Figure 11.15Three paradigms in the development of spacecraft operator agents: (1) symbolic planning and expert systems, (2) multi-agent coordination across a constellation, and (3) LLM- and RAG-based agents that combine telemetry with retrieved domain knowledge to propose natural-language plans. Inter-panel arrows indicate historical development, not required dataflow. In the rule example, observations and action outcomes support the goal; blue peer links and dashed ground links denote communication. Satellite imagery and rules are illustrative.",
+    "image_count": 6
+  },
+  {
+    "chapter": 11,
+    "number": 16,
+    "id": "Ch11.F16",
+    "page": "read/11.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section11/aerospace-planetary.webp",
+        "id": "Ch11.F16.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "354",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section11/aerospace-planetary.webp"
+    ],
+    "caption": "Figure 11.16The planetary-robotics autonomy stack: visual-odometry feature tracks and 3D terrain mapping support hierarchical decisions and vision-guided manipulation. Mission reasoning handles goals, task decomposition, resources, and replanning; path planning uses global/local maps and constraints; reactive locomotion handles obstacles, stability, and terrain adaptation. Solid downward links convey plans, and dashed upward links convey status. Manipulation yields samples, material observations, environment updates, and task progress. Scenes and map geometry are illustrative.",
+    "image_count": 2
+  }
+]

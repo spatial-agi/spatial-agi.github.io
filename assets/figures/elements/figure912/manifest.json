@@ -1,0 +1,82 @@
+{
+  "figure": "9.12",
+  "sources": [
+    "assets/figures/figures/part4/section9/wearable_motion.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1754
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/wearable_motion.pdf",
+  "assets": [
+    {
+      "file": "sensing/imu-user.png",
+      "title": "imu user",
+      "panel": "sensing",
+      "size": [
+        614,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        150.0,
+        152.5,
+        377.5,
+        532.5
+      ],
+      "box": [
+        75.0,
+        76.25,
+        188.75,
+        266.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        75.385,
+        76.287,
+        189.231,
+        266.154
+      ],
+      "placement_confidence": 0.982
+    },
+    {
+      "file": "body-model/t-pose.png",
+      "title": "t pose",
+      "panel": "body-model",
+      "size": [
+        853,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        672.5,
+        797.5,
+        822.5,
+        977.5
+      ],
+      "box": [
+        336.25,
+        398.75,
+        411.25,
+        488.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        336.923,
+        399.042,
+        410.769,
+        487.692
+      ],
+      "placement_confidence": 0.9949
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

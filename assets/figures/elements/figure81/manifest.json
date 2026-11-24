@@ -1,0 +1,62 @@
+{
+  "figure": "8.1",
+  "sources": [
+    "assets/figures/figures/part3/section8/t2i_framework_and_paradigms.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1308
+    ]
+  ],
+  "assets": [
+    {
+      "file": "shared/input-corgi.png",
+      "title": "input corgi",
+      "box": [
+        28,
+        145,
+        120,
+        240
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        56,
+        290,
+        240,
+        480
+      ],
+      "size": [
+        184,
+        190
+      ]
+    },
+    {
+      "file": "shared/output-corgi.png",
+      "title": "output corgi",
+      "box": [
+        882,
+        141,
+        983,
+        241
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1764,
+        282,
+        1966,
+        482
+      ],
+      "size": [
+        202,
+        200
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

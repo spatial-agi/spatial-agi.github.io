@@ -1,0 +1,216 @@
+{
+  "figure": "8.9",
+  "sources": [
+    "assets/figures/figures/part3/section8/3D-scene-reconstruction.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1461
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/observed-1.png",
+      "title": "observed 1",
+      "box": [
+        19,
+        25,
+        126,
+        132
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        38,
+        50,
+        252,
+        264
+      ],
+      "size": [
+        214,
+        214
+      ]
+    },
+    {
+      "file": "task/observed-2.png",
+      "title": "observed 2",
+      "box": [
+        138,
+        25,
+        245,
+        132
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        276,
+        50,
+        490,
+        264
+      ],
+      "size": [
+        214,
+        214
+      ]
+    },
+    {
+      "file": "task/recovered.png",
+      "title": "recovered",
+      "box": [
+        723,
+        25,
+        830,
+        132
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1446,
+        50,
+        1660,
+        264
+      ],
+      "size": [
+        214,
+        214
+      ]
+    },
+    {
+      "file": "p1/input.png",
+      "title": "input",
+      "box": [
+        31,
+        354,
+        111,
+        435
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        62,
+        708,
+        222,
+        870
+      ],
+      "size": [
+        160,
+        162
+      ]
+    },
+    {
+      "file": "p1/rendered.png",
+      "title": "rendered",
+      "box": [
+        194,
+        354,
+        275,
+        435
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        388,
+        708,
+        550,
+        870
+      ],
+      "size": [
+        162,
+        162
+      ]
+    },
+    {
+      "file": "p2/new-1.png",
+      "title": "new 1",
+      "box": [
+        371,
+        237,
+        438,
+        305
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        742,
+        474,
+        876,
+        610
+      ],
+      "size": [
+        134,
+        136
+      ]
+    },
+    {
+      "file": "p2/new-2.png",
+      "title": "new 2",
+      "box": [
+        452,
+        237,
+        519,
+        305
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        904,
+        474,
+        1038,
+        610
+      ],
+      "size": [
+        134,
+        136
+      ]
+    },
+    {
+      "file": "p2/new-3.png",
+      "title": "new 3",
+      "box": [
+        533,
+        237,
+        600,
+        305
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1066,
+        474,
+        1200,
+        610
+      ],
+      "size": [
+        134,
+        136
+      ]
+    },
+    {
+      "file": "p3/visible-part.png",
+      "title": "visible part",
+      "box": [
+        697,
+        230,
+        743,
+        320
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1394,
+        460,
+        1486,
+        640
+      ],
+      "size": [
+        92,
+        180
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "figure": "7.27",
+  "source": "assets/figures/figures/part3/section7/agentic_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1416
+  ],
+  "assets": [
+    {
+      "file": "i-inputs/hallway.png",
+      "title": "Hallway and keys observation",
+      "source_box": [
+        116,
+        206,
+        430,
+        521
+      ],
+      "kind": "scene",
+      "size": [
+        314,
+        315
+      ]
+    },
+    {
+      "file": "i-inputs/keys.png",
+      "title": "Keys and blue fob",
+      "source_box": [
+        258,
+        382,
+        387,
+        448
+      ],
+      "kind": "keys-agent",
+      "size": [
+        129,
+        66
+      ]
+    }
+  ],
+  "frontend": [
+    "The hallway observation and its keys are the photographic assets.",
+    "Draw the perceive/reason/act/reflect loop, skill cards, state sequence and four supporting-mechanism panels independently.",
+    "The closed / unlocked / open sequence consists of diagram boxes, not photographic frames."
+  ]
+}

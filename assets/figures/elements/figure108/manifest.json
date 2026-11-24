@@ -1,0 +1,114 @@
+{
+  "figure": "10.8",
+  "sources": [
+    "assets/figures/figures/part4/section10/entertainment_authoring.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1366
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section10/entertainment_authoring.pdf",
+  "assets": [
+    {
+      "file": "engine-primitives/living-room.png",
+      "title": "living room",
+      "panel": "engine-primitives",
+      "size": [
+        887,
+        887
+      ],
+      "source_index": 0,
+      "source_box": [
+        55.0,
+        205.0,
+        587.5,
+        737.5
+      ],
+      "box": [
+        27.5,
+        102.5,
+        293.75,
+        368.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        14.624,
+        63.621,
+        292.49,
+        341.487
+      ],
+      "placement_confidence": 0.9684
+    },
+    {
+      "file": "virtual-production/camera-and-led-wall.png",
+      "title": "camera and led wall",
+      "panel": "virtual-production",
+      "size": [
+        491,
+        491
+      ],
+      "source_index": 0,
+      "source_box": [
+        745.0,
+        220.0,
+        1245.0,
+        720.0
+      ],
+      "box": [
+        372.5,
+        110.0,
+        622.5,
+        360.0
+      ],
+      "kind": "photo",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        372.112,
+        71.746,
+        632.103,
+        331.737
+      ],
+      "placement_confidence": 0.9752
+    },
+    {
+      "file": "camera-planning/castle-scene.png",
+      "title": "castle scene",
+      "panel": "camera-planning",
+      "size": [
+        491,
+        491
+      ],
+      "source_index": 0,
+      "source_box": [
+        1417.5,
+        217.5,
+        1917.5,
+        717.5
+      ],
+      "box": [
+        708.75,
+        108.75,
+        958.75,
+        358.75
+      ],
+      "kind": "photo",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        719.85,
+        70.121,
+        979.842,
+        330.112
+      ],
+      "placement_confidence": 0.978
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

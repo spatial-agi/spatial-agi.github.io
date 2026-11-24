@@ -1,0 +1,920 @@
+{
+  "figure": "8.11",
+  "sources": [
+    "assets/figures/figures/part3/section8/3d_editing_tasks.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      807
+    ]
+  ],
+  "assets": [
+    {
+      "file": "a/photo-before-1.png",
+      "title": "photo before 1",
+      "box": [
+        14,
+        36,
+        100,
+        101
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        28,
+        72,
+        200,
+        202
+      ],
+      "size": [
+        172,
+        130
+      ]
+    },
+    {
+      "file": "a/photo-after-1.png",
+      "title": "photo after 1",
+      "box": [
+        106,
+        36,
+        193,
+        101
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        212,
+        72,
+        386,
+        202
+      ],
+      "size": [
+        174,
+        130
+      ]
+    },
+    {
+      "file": "a/photo-before-2.png",
+      "title": "photo before 2",
+      "box": [
+        14,
+        114,
+        100,
+        180
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        28,
+        228,
+        200,
+        360
+      ],
+      "size": [
+        172,
+        132
+      ]
+    },
+    {
+      "file": "a/photo-after-2.png",
+      "title": "photo after 2",
+      "box": [
+        106,
+        114,
+        193,
+        180
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        212,
+        228,
+        386,
+        360
+      ],
+      "size": [
+        174,
+        132
+      ]
+    },
+    {
+      "file": "a/style-before-1.png",
+      "title": "style before 1",
+      "box": [
+        14,
+        214,
+        100,
+        279
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        28,
+        428,
+        200,
+        558
+      ],
+      "size": [
+        172,
+        130
+      ]
+    },
+    {
+      "file": "a/style-after-1.png",
+      "title": "style after 1",
+      "box": [
+        106,
+        214,
+        193,
+        279
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        212,
+        428,
+        386,
+        558
+      ],
+      "size": [
+        174,
+        130
+      ]
+    },
+    {
+      "file": "a/style-before-2.png",
+      "title": "style before 2",
+      "box": [
+        14,
+        286,
+        100,
+        352
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        28,
+        572,
+        200,
+        704
+      ],
+      "size": [
+        172,
+        132
+      ]
+    },
+    {
+      "file": "a/style-after-2.png",
+      "title": "style after 2",
+      "box": [
+        106,
+        286,
+        193,
+        352
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        212,
+        572,
+        386,
+        704
+      ],
+      "size": [
+        174,
+        132
+      ]
+    },
+    {
+      "file": "b/flower-source.png",
+      "title": "flower source",
+      "box": [
+        214,
+        66,
+        298,
+        128
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        428,
+        132,
+        596,
+        256
+      ],
+      "size": [
+        168,
+        124
+      ]
+    },
+    {
+      "file": "b/flower-extracted.png",
+      "title": "flower extracted",
+      "box": [
+        305,
+        20,
+        390,
+        82
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        610,
+        40,
+        780,
+        164
+      ],
+      "size": [
+        170,
+        124
+      ]
+    },
+    {
+      "file": "b/flower-removed.png",
+      "title": "flower removed",
+      "box": [
+        305,
+        104,
+        390,
+        166
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        610,
+        208,
+        780,
+        332
+      ],
+      "size": [
+        170,
+        124
+      ]
+    },
+    {
+      "file": "b/move-before.png",
+      "title": "move before",
+      "box": [
+        213,
+        192,
+        300,
+        256
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        426,
+        384,
+        600,
+        512
+      ],
+      "size": [
+        174,
+        128
+      ]
+    },
+    {
+      "file": "b/move-after.png",
+      "title": "move after",
+      "box": [
+        304,
+        192,
+        390,
+        256
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        608,
+        384,
+        780,
+        512
+      ],
+      "size": [
+        172,
+        128
+      ]
+    },
+    {
+      "file": "b/duplicate-before.png",
+      "title": "duplicate before",
+      "box": [
+        213,
+        279,
+        300,
+        342
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        426,
+        558,
+        600,
+        684
+      ],
+      "size": [
+        174,
+        126
+      ]
+    },
+    {
+      "file": "b/duplicate-after.png",
+      "title": "duplicate after",
+      "box": [
+        304,
+        279,
+        390,
+        342
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        608,
+        558,
+        780,
+        684
+      ],
+      "size": [
+        172,
+        126
+      ]
+    },
+    {
+      "file": "c/bulldozer-1.png",
+      "title": "bulldozer 1",
+      "box": [
+        411,
+        35,
+        470,
+        82
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        822,
+        70,
+        940,
+        164
+      ],
+      "size": [
+        118,
+        94
+      ]
+    },
+    {
+      "file": "c/bulldozer-2.png",
+      "title": "bulldozer 2",
+      "box": [
+        473,
+        35,
+        532,
+        82
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        946,
+        70,
+        1064,
+        164
+      ],
+      "size": [
+        118,
+        94
+      ]
+    },
+    {
+      "file": "c/bulldozer-3.png",
+      "title": "bulldozer 3",
+      "box": [
+        533,
+        35,
+        592,
+        82
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        1066,
+        70,
+        1184,
+        164
+      ],
+      "size": [
+        118,
+        94
+      ]
+    },
+    {
+      "file": "c/bear-1.png",
+      "title": "bear 1",
+      "box": [
+        407,
+        113,
+        466,
+        157
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        814,
+        226,
+        932,
+        314
+      ],
+      "size": [
+        118,
+        88
+      ]
+    },
+    {
+      "file": "c/bear-2.png",
+      "title": "bear 2",
+      "box": [
+        469,
+        113,
+        528,
+        157
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        938,
+        226,
+        1056,
+        314
+      ],
+      "size": [
+        118,
+        88
+      ]
+    },
+    {
+      "file": "c/bear-3.png",
+      "title": "bear 3",
+      "box": [
+        532,
+        113,
+        591,
+        157
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1064,
+        226,
+        1182,
+        314
+      ],
+      "size": [
+        118,
+        88
+      ]
+    },
+    {
+      "file": "c/deformed-surface-before.png",
+      "title": "deformed surface before",
+      "box": [
+        434,
+        193,
+        566,
+        261
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        868,
+        386,
+        1132,
+        522
+      ],
+      "size": [
+        264,
+        136
+      ]
+    },
+    {
+      "file": "c/deformed-surface-after.png",
+      "title": "deformed surface after",
+      "box": [
+        434,
+        265,
+        566,
+        341
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        868,
+        530,
+        1132,
+        682
+      ],
+      "size": [
+        264,
+        152
+      ]
+    },
+    {
+      "file": "d/original-statue.png",
+      "title": "original statue",
+      "box": [
+        614,
+        24,
+        695,
+        85
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1228,
+        48,
+        1390,
+        170
+      ],
+      "size": [
+        162,
+        122
+      ]
+    },
+    {
+      "file": "d/removed-statue.png",
+      "title": "removed statue",
+      "box": [
+        702,
+        61,
+        783,
+        122
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1404,
+        122,
+        1566,
+        244
+      ],
+      "size": [
+        162,
+        122
+      ]
+    },
+    {
+      "file": "d/removal-mask.png",
+      "title": "removal mask",
+      "box": [
+        614,
+        102,
+        695,
+        163
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1228,
+        204,
+        1390,
+        326
+      ],
+      "size": [
+        162,
+        122
+      ]
+    },
+    {
+      "file": "d/insertion-before.png",
+      "title": "insertion before",
+      "box": [
+        606,
+        181,
+        695,
+        235
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1212,
+        362,
+        1390,
+        470
+      ],
+      "size": [
+        178,
+        108
+      ]
+    },
+    {
+      "file": "d/insertion-after.png",
+      "title": "insertion after",
+      "box": [
+        699,
+        181,
+        787,
+        235
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1398,
+        362,
+        1574,
+        470
+      ],
+      "size": [
+        176,
+        108
+      ]
+    },
+    {
+      "file": "d/original-sculpture.png",
+      "title": "original sculpture",
+      "box": [
+        619,
+        263,
+        671,
+        320
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1238,
+        526,
+        1342,
+        640
+      ],
+      "size": [
+        104,
+        114
+      ]
+    },
+    {
+      "file": "d/masked-sculpture.png",
+      "title": "masked sculpture",
+      "box": [
+        676,
+        267,
+        735,
+        321
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1352,
+        534,
+        1470,
+        642
+      ],
+      "size": [
+        118,
+        108
+      ]
+    },
+    {
+      "file": "d/completed-sculpture.png",
+      "title": "completed sculpture",
+      "box": [
+        740,
+        268,
+        788,
+        321
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1480,
+        536,
+        1576,
+        642
+      ],
+      "size": [
+        96,
+        106
+      ]
+    },
+    {
+      "file": "e/bear-before.png",
+      "title": "bear before",
+      "box": [
+        810,
+        38,
+        896,
+        87
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1620,
+        76,
+        1792,
+        174
+      ],
+      "size": [
+        172,
+        98
+      ]
+    },
+    {
+      "file": "e/bear-after.png",
+      "title": "bear after",
+      "box": [
+        901,
+        38,
+        987,
+        87
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1802,
+        76,
+        1974,
+        174
+      ],
+      "size": [
+        172,
+        98
+      ]
+    },
+    {
+      "file": "e/giraffe-1.png",
+      "title": "giraffe 1",
+      "box": [
+        815,
+        134,
+        866,
+        180
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1630,
+        268,
+        1732,
+        360
+      ],
+      "size": [
+        102,
+        92
+      ]
+    },
+    {
+      "file": "e/giraffe-2.png",
+      "title": "giraffe 2",
+      "box": [
+        872,
+        134,
+        923,
+        180
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1744,
+        268,
+        1846,
+        360
+      ],
+      "size": [
+        102,
+        92
+      ]
+    },
+    {
+      "file": "e/giraffe-3.png",
+      "title": "giraffe 3",
+      "box": [
+        927,
+        134,
+        978,
+        180
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1854,
+        268,
+        1956,
+        360
+      ],
+      "size": [
+        102,
+        92
+      ]
+    },
+    {
+      "file": "e/stump.png",
+      "title": "stump",
+      "box": [
+        821,
+        214,
+        867,
+        258
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        1642,
+        428,
+        1734,
+        516
+      ],
+      "size": [
+        92,
+        88
+      ]
+    },
+    {
+      "file": "e/butterfly-1.png",
+      "title": "butterfly 1",
+      "box": [
+        870,
+        214,
+        916,
+        258
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        1740,
+        428,
+        1832,
+        516
+      ],
+      "size": [
+        92,
+        88
+      ]
+    },
+    {
+      "file": "e/butterfly-2.png",
+      "title": "butterfly 2",
+      "box": [
+        923,
+        214,
+        969,
+        258
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        1846,
+        428,
+        1938,
+        516
+      ],
+      "size": [
+        92,
+        88
+      ]
+    },
+    {
+      "file": "e/man-before.png",
+      "title": "man before",
+      "box": [
+        835,
+        298,
+        896,
+        348
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1670,
+        596,
+        1792,
+        696
+      ],
+      "size": [
+        122,
+        100
+      ]
+    },
+    {
+      "file": "e/man-after.png",
+      "title": "man after",
+      "box": [
+        901,
+        298,
+        962,
+        348
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1802,
+        596,
+        1924,
+        696
+      ],
+      "size": [
+        122,
+        100
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "source": "assets/figures/figures/part3/section6/scene_graph.webp",
+  "source_size": [
+    2000,
+    975
+  ],
+  "notes": "Eleven individual PNGs grouped by panel. Photos retain their image backgrounds; the point cloud uses transparency. Text, quotation card, formulas, graph nodes, graph arrows, detector boxes, coordinate axes, dividers and timeline elements remain independent frontend geometry.",
+  "assets": [
+    {
+      "file": "image/horse-scene.png",
+      "source_box": [
+        24,
+        69,
+        376,
+        305
+      ],
+      "size": [
+        352,
+        236
+      ],
+      "transparent": false,
+      "notes": "Horse and rider photograph, with both detection boxes removed."
+    },
+    {
+      "file": "video/frame-1.png",
+      "source_box": [
+        424,
+        162,
+        536,
+        237
+      ],
+      "size": [
+        112,
+        75
+      ],
+      "transparent": false,
+      "notes": "First video frame; time label and timeline excluded."
+    },
+    {
+      "file": "video/frame-2.png",
+      "source_box": [
+        544,
+        162,
+        656,
+        237
+      ],
+      "size": [
+        112,
+        75
+      ],
+      "transparent": false,
+      "notes": "Second video frame; time label and timeline excluded."
+    },
+    {
+      "file": "video/frame-3.png",
+      "source_box": [
+        664,
+        162,
+        776,
+        237
+      ],
+      "size": [
+        112,
+        75
+      ],
+      "transparent": false,
+      "notes": "Third video frame; time label and timeline excluded."
+    },
+    {
+      "file": "3d/room-without-axes.png",
+      "source_box": [
+        1224,
+        69,
+        1576,
+        305
+      ],
+      "size": [
+        352,
+        236
+      ],
+      "transparent": false,
+      "notes": "Chair, table and lamp scene; coordinate axes and x/y/z labels removed."
+    },
+    {
+      "file": "universal/image.png",
+      "source_box": [
+        1636,
+        109,
+        1748,
+        184
+      ],
+      "size": [
+        112,
+        75
+      ],
+      "transparent": false,
+      "notes": "Image-modality thumbnail; heading excluded."
+    },
+    {
+      "file": "universal/video-frame-1.png",
+      "source_box": [
+        1812,
+        149,
+        1865,
+        184
+      ],
+      "size": [
+        53,
+        35
+      ],
+      "transparent": false,
+      "notes": "First universal video thumbnail; heading excluded."
+    },
+    {
+      "file": "universal/video-frame-2.png",
+      "source_box": [
+        1867,
+        149,
+        1921,
+        184
+      ],
+      "size": [
+        54,
+        35
+      ],
+      "transparent": false,
+      "notes": "Second universal video thumbnail; heading excluded."
+    },
+    {
+      "file": "universal/point-cloud.png",
+      "source_box": [
+        1812,
+        237,
+        1908,
+        280
+      ],
+      "size": [
+        96,
+        43
+      ],
+      "transparent": true,
+      "notes": "Point-cloud illustration on a transparent background; 3D heading excluded."
+    },
+    {
+      "file": "hoi/cyclist-without-boxes.png",
+      "source_box": [
+        24,
+        670,
+        425,
+        938
+      ],
+      "size": [
+        401,
+        268
+      ],
+      "transparent": false,
+      "notes": "Cyclist photograph; person and bicycle detection boxes removed."
+    },
+    {
+      "file": "psg/panoptic-cyclist.png",
+      "source_box": [
+        1033,
+        670,
+        1434,
+        938
+      ],
+      "size": [
+        401,
+        268
+      ],
+      "transparent": false,
+      "notes": "Original panoptic visualization, preserving the source person, bicycle, road and sky mask colors."
+    }
+  ]
+}

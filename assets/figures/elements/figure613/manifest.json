@@ -1,0 +1,100 @@
+{
+  "source": "assets/figures/figures/part3/section6/spatial_relation_extraction.webp",
+  "source_size": [
+    2000,
+    1493
+  ],
+  "notes": "Six separate pictorial PNGs. Photographs and the depth map retain their rectangular image backgrounds; the point cloud is transparent. All text, formulas, target boxes, axes, diagram symbols, model cards, arrows and timeline lines will be drawn independently in the frontend.",
+  "assets": [
+    {
+      "file": "input/scene.png",
+      "source_box": [
+        30,
+        104,
+        671,
+        533
+      ],
+      "size": [
+        641,
+        429
+      ],
+      "transparent": false,
+      "notes": "Main scene, with blue target boxes and object labels removed."
+    },
+    {
+      "file": "input/video-frame-1.png",
+      "source_box": [
+        40,
+        641,
+        117,
+        693
+      ],
+      "size": [
+        77,
+        52
+      ],
+      "transparent": false,
+      "notes": "First video frame, without caption."
+    },
+    {
+      "file": "input/video-frame-2.png",
+      "source_box": [
+        123,
+        641,
+        201,
+        693
+      ],
+      "size": [
+        78,
+        52
+      ],
+      "transparent": false,
+      "notes": "Second video frame, without caption."
+    },
+    {
+      "file": "input/point-cloud.png",
+      "source_box": [
+        247,
+        620,
+        371,
+        683
+      ],
+      "size": [
+        124,
+        63
+      ],
+      "transparent": true,
+      "notes": "Colored object and scene point cloud; transparent background, no caption."
+    },
+    {
+      "file": "input/rgbd-color.png",
+      "source_box": [
+        442,
+        636,
+        527,
+        693
+      ],
+      "size": [
+        85,
+        57
+      ],
+      "transparent": false,
+      "notes": "RGB component, separated from the depth map."
+    },
+    {
+      "file": "input/rgbd-depth.png",
+      "source_box": [
+        538,
+        631,
+        622,
+        693
+      ],
+      "size": [
+        84,
+        62
+      ],
+      "transparent": false,
+      "notes": "Depth component, without caption."
+    }
+  ]
+}

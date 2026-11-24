@@ -1,0 +1,238 @@
+{
+  "figure": "8.7",
+  "sources": [
+    "assets/figures/figures/part3/section8/Four_paradigm_families_for_3D_scene_synthesis.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1585
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/room.png",
+      "title": "room",
+      "box": [
+        467,
+        31,
+        580,
+        144
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        934,
+        62,
+        1160,
+        288
+      ],
+      "size": [
+        226,
+        226
+      ]
+    },
+    {
+      "file": "b/view-1.png",
+      "title": "view 1",
+      "box": [
+        526,
+        221,
+        597,
+        292
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1052,
+        442,
+        1194,
+        584
+      ],
+      "size": [
+        142,
+        142
+      ]
+    },
+    {
+      "file": "b/view-2.png",
+      "title": "view 2",
+      "box": [
+        626,
+        221,
+        697,
+        292
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1252,
+        442,
+        1394,
+        584
+      ],
+      "size": [
+        142,
+        142
+      ]
+    },
+    {
+      "file": "b/view-3.png",
+      "title": "view 3",
+      "box": [
+        726,
+        221,
+        797,
+        292
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1452,
+        442,
+        1594,
+        584
+      ],
+      "size": [
+        142,
+        142
+      ]
+    },
+    {
+      "file": "c/observed-1.png",
+      "title": "observed 1",
+      "box": [
+        23,
+        523,
+        87,
+        588
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        46,
+        1046,
+        174,
+        1176
+      ],
+      "size": [
+        128,
+        130
+      ]
+    },
+    {
+      "file": "c/observed-2.png",
+      "title": "observed 2",
+      "box": [
+        112,
+        523,
+        176,
+        588
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        224,
+        1046,
+        352,
+        1176
+      ],
+      "size": [
+        128,
+        130
+      ]
+    },
+    {
+      "file": "c/novel-view.png",
+      "title": "novel view",
+      "box": [
+        289,
+        635,
+        366,
+        712
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        578,
+        1270,
+        732,
+        1424
+      ],
+      "size": [
+        154,
+        154
+      ]
+    },
+    {
+      "file": "d/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        580,
+        661,
+        654,
+        735
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1160,
+        1322,
+        1308,
+        1470
+      ],
+      "size": [
+        148,
+        148
+      ]
+    },
+    {
+      "file": "d/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        695,
+        661,
+        769,
+        735
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1390,
+        1322,
+        1538,
+        1470
+      ],
+      "size": [
+        148,
+        148
+      ]
+    },
+    {
+      "file": "d/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        811,
+        661,
+        885,
+        735
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1622,
+        1322,
+        1770,
+        1470
+      ],
+      "size": [
+        148,
+        148
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "figure": "9.9",
+  "sources": [
+    "assets/figures/figures/part4/section9/driving_localization_and_mapping.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1460
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/driving_localization_and_mapping.pdf",
+  "assets": [
+    {
+      "file": "camera/street-observation.png",
+      "title": "street observation",
+      "panel": "camera",
+      "size": [
+        1672,
+        941
+      ],
+      "source_index": 0,
+      "source_box": [
+        125.0,
+        130.0,
+        402.5,
+        285.0
+      ],
+      "box": [
+        62.5,
+        65.0,
+        201.25,
+        142.5
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        62.794,
+        65.108,
+        200.942,
+        142.857
+      ],
+      "placement_confidence": 0.9908
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

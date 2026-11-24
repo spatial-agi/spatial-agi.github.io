@@ -1,0 +1,113 @@
+{
+  "figure": "9.11",
+  "sources": [
+    "assets/figures/figures/part4/section9/wearable_overview.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1785
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/wearable_overview.pdf",
+  "assets": [
+    {
+      "file": "sensing/wearable-user.png",
+      "title": "wearable user",
+      "panel": "sensing",
+      "size": [
+        627,
+        561
+      ],
+      "source_index": 0,
+      "source_box": [
+        52.5,
+        232.5,
+        490.0,
+        625.0
+      ],
+      "box": [
+        26.25,
+        116.25,
+        245.0,
+        312.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        26.154,
+        116.842,
+        244.615,
+        312.308
+      ],
+      "placement_confidence": 0.9983
+    },
+    {
+      "file": "haptics/sensor-glove.png",
+      "title": "sensor glove",
+      "panel": "haptics",
+      "size": [
+        627,
+        561
+      ],
+      "source_index": 0,
+      "source_box": [
+        722.5,
+        1240.0,
+        930.0,
+        1425.0
+      ],
+      "box": [
+        361.25,
+        620.0,
+        465.0,
+        712.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        361.538,
+        621.458,
+        463.077,
+        712.308
+      ],
+      "placement_confidence": 0.9717
+    },
+    {
+      "file": "assistance/exoskeleton-user.png",
+      "title": "exoskeleton user",
+      "panel": "assistance",
+      "size": [
+        627,
+        688
+      ],
+      "source_index": 0,
+      "source_box": [
+        1195.0,
+        1220.0,
+        1380.0,
+        1422.5
+      ],
+      "box": [
+        597.5,
+        610.0,
+        690.0,
+        711.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        598.462,
+        611.169,
+        689.231,
+        710.769
+      ],
+      "placement_confidence": 0.9881
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

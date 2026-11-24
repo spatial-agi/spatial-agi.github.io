@@ -1,0 +1,43 @@
+{
+  "source": "assets/figures/figures/part3/section7/geometry-aware_neural_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1031
+  ],
+  "assets": [
+    {
+      "file": "ii-grasping/point-cloud-original.png",
+      "title": "Original point cloud",
+      "source_box": [
+        756,
+        165,
+        882,
+        266
+      ],
+      "size": [
+        126,
+        101
+      ]
+    },
+    {
+      "file": "ii-grasping/point-cloud-rotated.png",
+      "title": "Rotated point cloud",
+      "source_box": [
+        1065,
+        180,
+        1218,
+        292
+      ],
+      "size": [
+        153,
+        112
+      ]
+    }
+  ],
+  "frontend": {
+    "i-classification": "Digit glyphs, rotation labels, frames, prediction and invariant formula will be native text and SVG.",
+    "ii-grasping": "The two point clouds are separate transparent PNGs. Grippers, pose axes, transformation arrow, g label and formula will be independent SVG elements.",
+    "iii-molecule": "Atom circles, bonds, atom and index labels, transformation arrow and scalar-invariance formula will be native SVG.",
+    "a-e-mechanisms": "All boxes, filters, basis kernels, point-set nodes, messages, arrows, text, formulas and separators will be rebuilt in the frontend."
+  }
+}

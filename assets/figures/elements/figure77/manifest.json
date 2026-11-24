@@ -1,0 +1,139 @@
+{
+  "source": "assets/figures/figures/part3/section7/implicit_neural_spatial_reasoning_task.webp",
+  "source_size": [
+    2000,
+    608
+  ],
+  "assets": [
+    {
+      "file": "i-vqa/scene.png",
+      "title": "Tabletop scene with the question arrow removed",
+      "source_box": [
+        84,
+        243,
+        625,
+        422
+      ],
+      "size": [
+        541,
+        179
+      ]
+    },
+    {
+      "file": "i-vqa/red-cube-left.png",
+      "title": "Left red cube",
+      "source_box": [
+        115,
+        308,
+        202,
+        390
+      ],
+      "size": [
+        87,
+        82
+      ]
+    },
+    {
+      "file": "i-vqa/red-cube-right.png",
+      "title": "Right red cube",
+      "source_box": [
+        210,
+        318,
+        292,
+        400
+      ],
+      "size": [
+        82,
+        82
+      ]
+    },
+    {
+      "file": "i-vqa/green-sphere.png",
+      "title": "Green sphere",
+      "source_box": [
+        309,
+        317,
+        393,
+        403
+      ],
+      "size": [
+        84,
+        86
+      ]
+    },
+    {
+      "file": "i-vqa/gray-cylinder.png",
+      "title": "Gray cylinder",
+      "source_box": [
+        395,
+        250,
+        471,
+        366
+      ],
+      "size": [
+        76,
+        116
+      ]
+    },
+    {
+      "file": "i-vqa/gray-cube.png",
+      "title": "Gray cube",
+      "source_box": [
+        497,
+        303,
+        592,
+        396
+      ],
+      "size": [
+        95,
+        93
+      ]
+    },
+    {
+      "file": "ii-caption/attended-car.png",
+      "title": "Car with blue spatial attention",
+      "source_box": [
+        768,
+        235,
+        1204,
+        379
+      ],
+      "size": [
+        436,
+        144
+      ]
+    },
+    {
+      "file": "ii-caption/road-attention.png",
+      "title": "Blue attention on the road",
+      "source_box": [
+        745,
+        386,
+        1240,
+        463
+      ],
+      "size": [
+        495,
+        77
+      ]
+    },
+    {
+      "file": "ii-caption/street-background.png",
+      "title": "Street backdrop with space for the car",
+      "source_box": [
+        728,
+        156,
+        1269,
+        467
+      ],
+      "size": [
+        541,
+        311
+      ]
+    }
+  ],
+  "frontend": [
+    "Panel frames, headings, labels, arrows, and the captioning illustration border.",
+    "Circle, triangle, square, dashed relations, and the Left-of expression."
+  ]
+}

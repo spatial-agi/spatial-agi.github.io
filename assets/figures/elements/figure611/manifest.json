@@ -1,0 +1,104 @@
+{
+  "source": "assets/figures/figures/part3/section6/visual_odometry_and_camera_pose_estimation.webp",
+  "notes": "Photographs are rectangular RGBA PNG assets at original resolution. Camera icons, correspondence points and lines, maps, point clouds, image-stack symbols, network boxes, timelines, dates, arrows, equations and labels will be independent frontend elements.",
+  "assets": [
+    {
+      "file": "input/video-previous.png",
+      "source_box": [
+        30,
+        144,
+        193,
+        309
+      ],
+      "size": [
+        163,
+        165
+      ],
+      "notes": "Previous video frame; label excluded."
+    },
+    {
+      "file": "input/video-current.png",
+      "source_box": [
+        210,
+        144,
+        373,
+        309
+      ],
+      "size": [
+        163,
+        165
+      ],
+      "notes": "Current video frame; label excluded."
+    },
+    {
+      "file": "input/video-next.png",
+      "source_box": [
+        388,
+        144,
+        552,
+        309
+      ],
+      "size": [
+        164,
+        165
+      ],
+      "notes": "Next video frame; label excluded."
+    },
+    {
+      "file": "input/image-set-left.png",
+      "source_box": [
+        77,
+        381,
+        197,
+        502
+      ],
+      "size": [
+        120,
+        121
+      ],
+      "notes": "Left unordered view; no caption."
+    },
+    {
+      "file": "input/image-set-center.png",
+      "source_box": [
+        212,
+        381,
+        333,
+        502
+      ],
+      "size": [
+        121,
+        121
+      ],
+      "notes": "Center unordered view; no caption."
+    },
+    {
+      "file": "input/image-set-right.png",
+      "source_box": [
+        347,
+        381,
+        467,
+        502
+      ],
+      "size": [
+        120,
+        121
+      ],
+      "notes": "Right unordered view; no caption."
+    },
+    {
+      "file": "relocalization/query.png",
+      "source_box": [
+        1107,
+        200,
+        1225,
+        318
+      ],
+      "size": [
+        118,
+        118
+      ],
+      "notes": "Query photograph; output arrow and map excluded."
+    }
+  ]
+}

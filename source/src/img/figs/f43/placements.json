@@ -1,0 +1,212 @@
+{
+  "b/gaussian-teapot": {
+    "position": [
+      668,
+      50
+    ],
+    "size": [
+      385,
+      238
+    ]
+  },
+  "b/gaussian-detail": {
+    "position": [
+      671,
+      344
+    ],
+    "size": [
+      178,
+      243
+    ]
+  },
+  "b/gaussian-detail-top": {
+    "position": [
+      689,
+      345
+    ],
+    "size": [
+      147,
+      114
+    ]
+  },
+  "b/gaussian-detail-small": {
+    "position": [
+      673,
+      448
+    ],
+    "size": [
+      100,
+      80
+    ]
+  },
+  "b/gaussian-detail-large": {
+    "position": [
+      736,
+      429
+    ],
+    "size": [
+      113,
+      156
+    ]
+  },
+  "b/raster-gaussian-primitives": {
+    "position": [
+      1121,
+      138
+    ],
+    "size": [
+      90,
+      110
+    ]
+  },
+  "b/raster-projected-splats": {
+    "position": [
+      1257,
+      139
+    ],
+    "size": [
+      66,
+      96
+    ]
+  },
+  "b/raster-depth-splats": {
+    "position": [
+      1132,
+      323
+    ],
+    "size": [
+      63,
+      86
+    ]
+  },
+  "b/raster-depth-stack": {
+    "position": [
+      1238,
+      298
+    ],
+    "size": [
+      66,
+      119
+    ]
+  },
+  "b/raster-blend-stack": {
+    "position": [
+      1128,
+      479
+    ],
+    "size": [
+      77,
+      100
+    ]
+  },
+  "b/raster-render-teapot": {
+    "position": [
+      1247,
+      494
+    ],
+    "size": [
+      83,
+      66
+    ]
+  },
+  "c/tetrahedral-grid-teapot": {
+    "position": [
+      1415,
+      83
+    ],
+    "size": [
+      244,
+      201
+    ]
+  },
+  "c/triangle-mesh-teapot": {
+    "position": [
+      1429,
+      356
+    ],
+    "size": [
+      205,
+      143
+    ]
+  },
+  "c/render-teapot": {
+    "position": [
+      1473,
+      556
+    ],
+    "size": [
+      83,
+      63
+    ]
+  },
+  "c/triplane-xy": {
+    "position": [
+      1694,
+      98
+    ],
+    "size": [
+      87,
+      156
+    ]
+  },
+  "c/triplane-xz": {
+    "position": [
+      1883,
+      98
+    ],
+    "size": [
+      88,
+      157
+    ]
+  },
+  "c/feature-xy": {
+    "position": [
+      1719,
+      270
+    ],
+    "size": [
+      38,
+      83
+    ]
+  },
+  "c/feature-yz": {
+    "position": [
+      1813,
+      270
+    ],
+    "size": [
+      37,
+      83
+    ]
+  },
+  "c/feature-xz": {
+    "position": [
+      1909,
+      270
+    ],
+    "size": [
+      37,
+      83
+    ]
+  },
+  "a/camera": {
+    "position": [
+      19,
+      157
+    ],
+    "size": [
+      111,
+      78
+    ]
+  },
+  "a/teapot": {
+    "position": [
+      317,
+      123
+    ],
+    "size": [
+      234,
+      173
+    ]
+  }
+}

@@ -1,0 +1,376 @@
+[
+  {
+    "chapter": 12,
+    "number": 1,
+    "id": "Ch12.F1",
+    "page": "read/12.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section12/medical_overview.webp",
+        "id": "Ch12.F1.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1209",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section12/medical_overview.webp"
+    ],
+    "caption": "Figure 12.1 Clinical spatial intelligence with two connected information paths: acquired observations support anatomical perception and patient-specific planning, while live imaging and tracking update the alignment used for guided intervention. Physical intervention changes the patient state, prompting subsequent observation. Anatomical scenes are schematic; pathology may require specimen correspondence."
+  },
+  {
+    "chapter": 12,
+    "number": 2,
+    "id": "Ch12.F2",
+    "page": "read/12.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section12/medical_perception.webp",
+        "id": "Ch12.F2.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1429",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section12/medical_perception.webp"
+    ],
+    "caption": "Figure 12.2 Three input-operation-output views of medical perception: (a) image volumes yield voxel labels, organ masks, and 3D anatomy; (b) detected candidate regions are mapped from voxel indices to physical patient coordinates using image geometry; and (c) moving and reference modalities jointly determine a spatial transform for anatomical alignment. Synthetic CT/MRI-style images and the hypothetical ROI illustrate task structure, not measured clinical findings or a validated registration result."
+  },
+  {
+    "chapter": 12,
+    "number": 3,
+    "id": "Ch12.F3",
+    "page": "read/12.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section12/medical_reconstruction.webp",
+        "id": "Ch12.F3.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1334",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section12/medical_reconstruction.webp"
+    ],
+    "caption": "Figure 12.3 Anatomical reconstruction, modeling, and planning: a volumetric segmentation becomes a 3D anatomical mesh, is personalized into a medical digital twin ( e.g., , a cardiac electrophysiology or blood-flow model), and is used to simulate outcomes and design a surgical or radiotherapy plan. New patient observations update model personalization. Cardiac targeting and radiotherapy dose prediction are alternative planning examples; synthetic anatomy and vector overlays illustrate the workflow rather than clinical results."
+  },
+  {
+    "chapter": 12,
+    "number": 4,
+    "id": "Ch12.F4",
+    "page": "read/12.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section12/medical_navigation.webp",
+        "id": "Ch12.F4.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1617",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section12/medical_navigation.webp"
+    ],
+    "caption": "Figure 12.4 Patient-frame guidance combines registered anatomy and a calibrated tracked-tool pose. New intraoperative observations update anatomical registration; display calibration supports AR presentation. A separate endoscopic branch reconstructs dynamic geometry and registers it to the patient before optional fusion. The robot controller consumes the fused state rather than raw endoscopic imagery. Dashed connections denote optional downstream use. Anatomical scenes, overlays, and silicone-phantom reconstruction are schematic; transforms act on homogeneous coordinates."
+  },
+  {
+    "chapter": 12,
+    "number": 5,
+    "id": "Ch12.F5",
+    "page": "read/12.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section12/natural_science_overview_v2.webp",
+        "id": "Ch12.F5.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1126",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section12/natural_science_overview_v2.webp"
+    ],
+    "caption": "Figure 12.5 Spatial intelligence across physics, chemistry, and life science (columns), each repeating the same capability triad (rows). The lower electron-to-tissue strip indicates illustrative scales rather than exclusive domain boundaries. Fields, molecular and periodic structures, and biomolecular and tissue structures illustrate representation; the equations exemplify wave, quantum, and biological dynamics. Bottom-row design examples are schematic; molecule/material and biomolecular/tissue examples are alternatives rather than literal conversion pipelines. Biological imagery is synthetic."
+  },
+  {
+    "chapter": 12,
+    "number": 6,
+    "id": "Ch12.F6",
+    "page": "read/12.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section12/natural_science_physics_v2.webp",
+        "id": "Ch12.F6.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "868",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section12/natural_science_physics_v2.webp"
+    ],
+    "caption": "Figure 12.6 The physics triad: (1) reconstruct a field from sparse sensors, (2) fit dynamics and roll out the field, with a separate law-extraction step, and (3) optimize controls through a differentiable simulator. \ud835\udca9 \u2062 [ \ud835\udc2e ; \u03b8 ] \\mathcal{N}[\\mathbf{u};\\theta] is the learned operator and \ud835\udca9 \u2217 \\mathcal{N}^{*} a candidate extracted law. The state \ud835\udc2e \\mathbf{u} and control \ud835\udc1a \\mathbf{a} are distinct; the control objective \ud835\udca5 \\mathcal{J} supplies gradients to the optimizer, whereas \u2112 fit \\mathcal{L}_{\\rm fit} fits observed dynamics. Field contours and temporal shifts are illustrative, not experimental results."
+  },
+  {
+    "chapter": 12,
+    "number": 7,
+    "id": "Ch12.F7",
+    "page": "read/12.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section12/natural_science_chemistry_v2.webp",
+        "id": "Ch12.F7.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1078",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section12/natural_science_chemistry_v2.webp"
+    ],
+    "caption": "Figure 12.7 The chemistry triad: (1) symmetry-aware molecular and periodic representations, illustrated by E(3)-equivariant features; (2) a learned invariant interatomic energy U U whose coordinate gradients provide forces for molecular dynamics, with related representations supporting property prediction; and (3) complementary 3D generative design by reverse diffusion. Molecular graphs, force directions, and the one-dimensional energy profile are schematic, not a calculated trajectory or energy surface. The denoising example preserves the atom count; generative methods may model coordinates and atom types jointly."
+  },
+  {
+    "chapter": 12,
+    "number": 8,
+    "id": "Ch12.F8",
+    "page": "read/12.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section12/natural_science_lifescience_v2.webp",
+        "id": "Ch12.F8.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "893",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section12/natural_science_lifescience_v2.webp"
+    ],
+    "caption": "Figure 12.8 The life-science triad: (1) complementary sequence-to-structure prediction and cryo-EM projection-to-density reconstruction, (2) ligand binding-pose geometry with translation, rotation, and bond torsion, and (3) de novo backbone generation followed by sequence design. These are complementary capabilities, not an obligatory serial pipeline. Protein, pocket, and density renderings, noisy projection examples, and sequence fragments are schematic; they do not constitute experimentally validated structures or designs."
+  },
+  {
+    "chapter": 13,
+    "number": 1,
+    "id": "Ch13.F1",
+    "page": "read/13.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section13/assistant_overview.webp",
+        "id": "Ch13.F1.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1335",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section13/assistant_overview.webp"
+    ],
+    "caption": "Figure 13.1 The intelligent-assistant loop. User and scene observations populate persistent room\u2013object memory; instructions are grounded to specific objects and target states before planning. Alternative outputs illustrate household management, shared-space collaboration, and audio/haptic assistance. Memory links denote spatial associations; the dashed ellipse marks shared interaction space. User responses and observed changes close the feedback loop."
+  },
+  {
+    "chapter": 13,
+    "number": 2,
+    "id": "Ch13.F2",
+    "page": "read/13.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section13/assistant_managing.webp",
+        "id": "Ch13.F2.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1460",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section13/assistant_managing.webp"
+    ],
+    "caption": "Figure 13.2 Managing the physical environment through a shared home memory. Observations maintain room, object, and relation records; grounded instructions drive manipulation, while queries independently retrieve last-seen evidence. Physical outcomes are re-observed to update memory."
+  },
+  {
+    "chapter": 13,
+    "number": 3,
+    "id": "Ch13.F3",
+    "page": "read/13.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section13/assistant_collaborating.webp",
+        "id": "Ch13.F3.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1272",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section13/assistant_collaborating.webp"
+    ],
+    "caption": "Figure 13.3 Collaborating in shared space: (a) person- and context-dependent comfort zones and (b) aligned robot/human views inform an interaction-aware plan; (c) navigation and handover illustrate alternative behaviors. Dashed rings indicate comfort regions, and dashed sight lines associate views with shared objects."
+  },
+  {
+    "chapter": 13,
+    "number": 4,
+    "id": "Ch13.F4",
+    "page": "read/13.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section13/assistant_empowering.webp",
+        "id": "Ch13.F4.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1680",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section13/assistant_empowering.webp"
+    ],
+    "caption": "Figure 13.4 Personalized assistance combines observed spatial state with user goals and access needs. Consent, confidence, and clearance checks gate audio/haptic cues, stepwise guidance, and shared control; uncertainty or missing permission prompts clarification or a pause. Shared control also receives the user\u2019s command. Scenes are illustrative."
+  },
+  {
+    "chapter": 14,
+    "number": 1,
+    "id": "Ch14.F1",
+    "page": "read/14.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section14/other_aec.webp",
+        "id": "Ch14.F1.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1523",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section14/other_aec.webp"
+    ],
+    "caption": "Figure 14.1 AEC tasks around an as-designed BIM: (1) semantic parsing of site scans; (2) comparison with the scheduled design state, highlighting a planned element not observed in the scan; (3) model-guided robotic placement; and (4) crack localization linked to a model element. Physical work prompts re-capture of the site. Scenes and point clouds are illustrative."
+  },
+  {
+    "chapter": 14,
+    "number": 2,
+    "id": "Ch14.F2",
+    "page": "read/14.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section14/other_sports.webp",
+        "id": "Ch14.F2.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1460",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section14/other_sports.webp"
+    ],
+    "caption": "Figure 14.2 Sports analytics: (1) player/ball tracking and planar registration; (2) calibrated multi-view pose, kinematics, and model-estimated loads; and (3) tactical analysis from registered trajectories. The tactical view enlarges the dashed pitch region, preserving player IDs. Shading illustrates team control, dotted lines candidate passes, and dashed arrows predicted motion. Scenes and predictions are schematic."
+  },
+  {
+    "chapter": 14,
+    "number": 3,
+    "id": "Ch14.F3",
+    "page": "read/14.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section14/other_cultural_heritage.webp",
+        "id": "Ch14.F3.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1460",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section14/other_cultural_heritage.webp"
+    ],
+    "caption": "Figure 14.3 Three cultural-heritage tasks: (1) multi-view capture and surface reconstruction; (2) geometric and appearance-based matching of fragments for virtual reassembly; and (3) classification of airborne-LiDAR ground returns to reveal candidate structures in bare-earth relief. The tasks are independent; scenes, mesh, and terrain are illustrative."
+  },
+  {
+    "chapter": 14,
+    "number": 4,
+    "id": "Ch14.F4",
+    "page": "read/14.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section14/other_marine.webp",
+        "id": "Ch14.F4.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1586",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section14/other_marine.webp"
+    ],
+    "caption": "Figure 14.4 Underwater spatial intelligence under light attenuation/scattering and unavailable submerged GPS fixes. Enhanced visual observations combine with acoustic, inertial, and depth inputs for localization and mapping. Terrain and structure maps support coverage and standoff planning for hull/pipeline inspection; new views close the loop. Blue marks the survey track and selected defect. Scenes and enhancement are illustrative."
+  },
+  {
+    "chapter": 14,
+    "number": 5,
+    "id": "Ch14.F5",
+    "page": "read/14.4/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section14/other_retail.webp",
+        "id": "Ch14.F5.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1523",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section14/other_retail.webp"
+    ],
+    "caption": "Figure 14.5 Retail and smart-space intelligence across calibrated ceiling cameras: (1) shopper\u2013product association updates a virtual basket; (2) detected shelf contents are compared with a planogram; (3) ground-plane tracks yield shopper-flow and visit-density maps. Dotted lines link scene details; the geometry and density are illustrative."
+  }
+]

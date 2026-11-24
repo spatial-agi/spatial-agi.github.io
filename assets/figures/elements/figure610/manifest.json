@@ -1,0 +1,62 @@
+{
+  "source": "assets/figures/figures/part3/section6/height_estimation_2.webp",
+  "notes": "Panel a is entirely frontend geometry. Scene photographs remain rectangular RGBA assets; two tabletop objects have transparent cutout backgrounds. Rebuild all headings, text, equations, camera icons, triangulation, guide lines, arrows, borders and corner markers independently.",
+  "assets": [
+    {
+      "file": "b/street-people-clean.png",
+      "source_box": [
+        692,
+        189,
+        1308,
+        601
+      ],
+      "size": [
+        616,
+        412
+      ],
+      "notes": "Full street photograph; height arrows, labels and dashed horizon removed. Small covered photo regions are interpolated locally."
+    },
+    {
+      "file": "c/tabletop-clean.png",
+      "source_box": [
+        1353,
+        189,
+        1970,
+        601
+      ],
+      "size": [
+        617,
+        412
+      ],
+      "notes": "Full tabletop photograph; blue outlines, corner dots, dimension arrows and labels removed."
+    },
+    {
+      "file": "c/reference-card.png",
+      "source_box": [
+        1396,
+        396,
+        1576,
+        469
+      ],
+      "size": [
+        180,
+        73
+      ],
+      "notes": "Reference card with chip, isolated on transparency; measurement marks remain native frontend elements."
+    },
+    {
+      "file": "c/target-rectangle.png",
+      "source_box": [
+        1599,
+        351,
+        1935,
+        478
+      ],
+      "size": [
+        336,
+        127
+      ],
+      "notes": "Dark target rectangle isolated on transparency; blue border and corner markers removed."
+    }
+  ]
+}

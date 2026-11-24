@@ -1,0 +1,318 @@
+{
+  "source": "assets/figures/figures/part3/section6/action_detection.webp",
+  "source_size": [
+    2000,
+    1094
+  ],
+  "notes": "22 separately saved scene frames, grouped by panel. Film sprockets, panel borders, temporal bars, guide lines, arrows, all labels and formulas will be independently drawn in the frontend. Photographic/illustrated scene backgrounds are retained to preserve the source style.",
+  "assets": [
+    {
+      "file": "overview/frame-01.png",
+      "source_box": [
+        45,
+        203,
+        205,
+        344
+      ],
+      "size": [
+        160,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "overview/frame-02.png",
+      "source_box": [
+        215,
+        203,
+        378,
+        344
+      ],
+      "size": [
+        163,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "overview/frame-03.png",
+      "source_box": [
+        388,
+        203,
+        559,
+        344
+      ],
+      "size": [
+        171,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "overview/frame-04.png",
+      "source_box": [
+        569,
+        203,
+        734,
+        344
+      ],
+      "size": [
+        165,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "overview/frame-05.png",
+      "source_box": [
+        744,
+        203,
+        910,
+        344
+      ],
+      "size": [
+        166,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "overview/frame-06.png",
+      "source_box": [
+        920,
+        203,
+        1085,
+        344
+      ],
+      "size": [
+        165,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "overview/frame-07.png",
+      "source_box": [
+        1095,
+        203,
+        1253,
+        344
+      ],
+      "size": [
+        158,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "overview/frame-08.png",
+      "source_box": [
+        1263,
+        203,
+        1419,
+        344
+      ],
+      "size": [
+        156,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "overview/frame-09.png",
+      "source_box": [
+        1429,
+        203,
+        1572,
+        344
+      ],
+      "size": [
+        143,
+        141
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "classification/tennis-serve.png",
+      "source_box": [
+        112,
+        609,
+        409,
+        789
+      ],
+      "size": [
+        297,
+        180
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "localization/frame-01.png",
+      "source_box": [
+        545,
+        692,
+        644,
+        780
+      ],
+      "size": [
+        99,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "localization/frame-02.png",
+      "source_box": [
+        652,
+        692,
+        752,
+        780
+      ],
+      "size": [
+        100,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "localization/frame-03.png",
+      "source_box": [
+        760,
+        692,
+        859,
+        780
+      ],
+      "size": [
+        99,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "localization/frame-04.png",
+      "source_box": [
+        867,
+        692,
+        962,
+        780
+      ],
+      "size": [
+        95,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "localization/frame-05.png",
+      "source_box": [
+        970,
+        692,
+        1064,
+        780
+      ],
+      "size": [
+        94,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "localization/frame-06.png",
+      "source_box": [
+        1072,
+        692,
+        1161,
+        780
+      ],
+      "size": [
+        89,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "detection/frame-01.png",
+      "source_box": [
+        1248,
+        692,
+        1351,
+        780
+      ],
+      "size": [
+        103,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "detection/frame-02.png",
+      "source_box": [
+        1359,
+        692,
+        1462,
+        780
+      ],
+      "size": [
+        103,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "detection/frame-03.png",
+      "source_box": [
+        1470,
+        692,
+        1572,
+        780
+      ],
+      "size": [
+        102,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "detection/frame-04.png",
+      "source_box": [
+        1580,
+        692,
+        1681,
+        780
+      ],
+      "size": [
+        101,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "detection/frame-05.png",
+      "source_box": [
+        1689,
+        692,
+        1792,
+        780
+      ],
+      "size": [
+        103,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    },
+    {
+      "file": "detection/frame-06.png",
+      "source_box": [
+        1800,
+        692,
+        1900,
+        780
+      ],
+      "size": [
+        100,
+        88
+      ],
+      "notes": "RGBA scene crop, excluding film frame, timeline and annotations; original scene background retained."
+    }
+  ]
+}

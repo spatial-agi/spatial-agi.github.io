@@ -1,0 +1,60 @@
+{
+  "figure": "7.18",
+  "source": "assets/figures/figures/part3/section7/dpo-based-rl.webp",
+  "source_size": [
+    2000,
+    649
+  ],
+  "assets": [
+    {
+      "file": "prompt/document.png",
+      "title": "DPO · prompt document",
+      "source_box": [
+        84,
+        104,
+        151,
+        186
+      ],
+      "size": [
+        67,
+        82
+      ]
+    },
+    {
+      "file": "human-preference/thumb-up.png",
+      "title": "DPO · preferred response",
+      "source_box": [
+        1153,
+        316,
+        1230,
+        380
+      ],
+      "size": [
+        77,
+        64
+      ]
+    },
+    {
+      "file": "human-preference/thumb-down.png",
+      "title": "DPO · rejected response",
+      "source_box": [
+        1371,
+        323,
+        1447,
+        391
+      ],
+      "size": [
+        76,
+        68
+      ]
+    }
+  ],
+  "frontend": [
+    "Prompt and reference-policy boxes",
+    "Two response cards and their text lines",
+    "Human preference panel with extracted thumb icons",
+    "Reward log-ratio fractions and Bradley–Terry loss",
+    "Sampling and offline update arrows"
+  ],
+  "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+}

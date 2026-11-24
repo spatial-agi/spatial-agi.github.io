@@ -1,0 +1,2586 @@
+{
+  "figure": "8.6",
+  "sources": [
+    "assets/figures/figures/part3/section8/objaverse.webp"
+  ],
+  "source_sizes": [
+    [
+      1069,
+      604
+    ]
+  ],
+  "assets": [
+    {
+      "file": "objects/space-station.png",
+      "title": "space station",
+      "box": [
+        51,
+        36,
+        219,
+        168
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          53,
+          113
+        ],
+        [
+          129,
+          36
+        ],
+        [
+          171,
+          45
+        ],
+        [
+          217,
+          96
+        ],
+        [
+          185,
+          125
+        ],
+        [
+          166,
+          134
+        ],
+        [
+          149,
+          166
+        ],
+        [
+          106,
+          154
+        ]
+      ],
+      "source_box": [
+        55,
+        38,
+        234,
+        180
+      ],
+      "size": [
+        179,
+        142
+      ]
+    },
+    {
+      "file": "objects/pagoda.png",
+      "title": "pagoda",
+      "box": [
+        256,
+        43,
+        335,
+        196
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        274,
+        46,
+        358,
+        210
+      ],
+      "size": [
+        84,
+        164
+      ]
+    },
+    {
+      "file": "objects/balloon.png",
+      "title": "balloon",
+      "box": [
+        342,
+        44,
+        397,
+        134
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        366,
+        47,
+        424,
+        143
+      ],
+      "size": [
+        58,
+        96
+      ]
+    },
+    {
+      "file": "objects/castle.png",
+      "title": "castle",
+      "box": [
+        387,
+        19,
+        552,
+        198
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          469,
+          19
+        ],
+        [
+          495,
+          20
+        ],
+        [
+          522,
+          41
+        ],
+        [
+          530,
+          80
+        ],
+        [
+          548,
+          117
+        ],
+        [
+          535,
+          171
+        ],
+        [
+          542,
+          191
+        ],
+        [
+          406,
+          197
+        ],
+        [
+          388,
+          168
+        ],
+        [
+          409,
+          122
+        ],
+        [
+          421,
+          76
+        ]
+      ],
+      "source_box": [
+        414,
+        20,
+        590,
+        212
+      ],
+      "size": [
+        176,
+        192
+      ]
+    },
+    {
+      "file": "objects/biplane.png",
+      "title": "biplane",
+      "box": [
+        538,
+        48,
+        597,
+        136
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        575,
+        51,
+        638,
+        145
+      ],
+      "size": [
+        63,
+        94
+      ]
+    },
+    {
+      "file": "objects/lighthouse.png",
+      "title": "lighthouse",
+      "box": [
+        551,
+        55,
+        657,
+        194
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          617,
+          54
+        ],
+        [
+          635,
+          55
+        ],
+        [
+          647,
+          82
+        ],
+        [
+          652,
+          177
+        ],
+        [
+          632,
+          190
+        ],
+        [
+          555,
+          181
+        ],
+        [
+          550,
+          174
+        ],
+        [
+          601,
+          170
+        ],
+        [
+          600,
+          81
+        ]
+      ],
+      "source_box": [
+        589,
+        59,
+        702,
+        207
+      ],
+      "size": [
+        113,
+        148
+      ]
+    },
+    {
+      "file": "objects/dinosaur.png",
+      "title": "dinosaur",
+      "box": [
+        623,
+        91,
+        811,
+        265
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          643,
+          240
+        ],
+        [
+          643,
+          211
+        ],
+        [
+          669,
+          157
+        ],
+        [
+          710,
+          120
+        ],
+        [
+          751,
+          97
+        ],
+        [
+          785,
+          95
+        ],
+        [
+          808,
+          107
+        ],
+        [
+          805,
+          126
+        ],
+        [
+          773,
+          140
+        ],
+        [
+          770,
+          168
+        ],
+        [
+          784,
+          173
+        ],
+        [
+          777,
+          184
+        ],
+        [
+          753,
+          176
+        ],
+        [
+          745,
+          207
+        ],
+        [
+          766,
+          241
+        ],
+        [
+          766,
+          254
+        ],
+        [
+          741,
+          256
+        ],
+        [
+          721,
+          224
+        ],
+        [
+          713,
+          203
+        ],
+        [
+          697,
+          226
+        ],
+        [
+          687,
+          242
+        ],
+        [
+          699,
+          251
+        ],
+        [
+          687,
+          264
+        ],
+        [
+          652,
+          257
+        ],
+        [
+          629,
+          252
+        ]
+      ],
+      "source_box": [
+        666,
+        97,
+        867,
+        283
+      ],
+      "size": [
+        201,
+        186
+      ]
+    },
+    {
+      "file": "objects/space-shuttle.png",
+      "title": "space shuttle",
+      "box": [
+        806,
+        56,
+        956,
+        161
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        862,
+        60,
+        1022,
+        172
+      ],
+      "size": [
+        160,
+        112
+      ]
+    },
+    {
+      "file": "objects/dragon-statue.png",
+      "title": "dragon statue",
+      "box": [
+        172,
+        128,
+        269,
+        220
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          180,
+          129
+        ],
+        [
+          208,
+          131
+        ],
+        [
+          223,
+          152
+        ],
+        [
+          246,
+          150
+        ],
+        [
+          267,
+          143
+        ],
+        [
+          261,
+          181
+        ],
+        [
+          244,
+          210
+        ],
+        [
+          198,
+          222
+        ],
+        [
+          175,
+          214
+        ]
+      ],
+      "source_box": [
+        184,
+        137,
+        288,
+        235
+      ],
+      "size": [
+        104,
+        98
+      ]
+    },
+    {
+      "file": "objects/banana.png",
+      "title": "banana",
+      "box": [
+        98,
+        194,
+        181,
+        228
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          98,
+          208
+        ],
+        [
+          105,
+          197
+        ],
+        [
+          142,
+          194
+        ],
+        [
+          169,
+          203
+        ],
+        [
+          180,
+          204
+        ],
+        [
+          180,
+          211
+        ],
+        [
+          142,
+          215
+        ],
+        [
+          121,
+          229
+        ],
+        [
+          103,
+          223
+        ]
+      ],
+      "source_box": [
+        105,
+        207,
+        193,
+        244
+      ],
+      "size": [
+        88,
+        37
+      ]
+    },
+    {
+      "file": "objects/classical-bust.png",
+      "title": "classical bust",
+      "box": [
+        332,
+        155,
+        396,
+        242
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        355,
+        166,
+        423,
+        259
+      ],
+      "size": [
+        68,
+        93
+      ]
+    },
+    {
+      "file": "objects/fish-skeleton.png",
+      "title": "fish skeleton",
+      "box": [
+        380,
+        184,
+        579,
+        277
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          382,
+          184
+        ],
+        [
+          463,
+          186
+        ],
+        [
+          485,
+          173
+        ],
+        [
+          499,
+          186
+        ],
+        [
+          503,
+          209
+        ],
+        [
+          579,
+          229
+        ],
+        [
+          574,
+          240
+        ],
+        [
+          539,
+          241
+        ],
+        [
+          509,
+          256
+        ],
+        [
+          473,
+          272
+        ],
+        [
+          438,
+          259
+        ],
+        [
+          403,
+          247
+        ],
+        [
+          380,
+          245
+        ]
+      ],
+      "source_box": [
+        406,
+        197,
+        619,
+        296
+      ],
+      "size": [
+        213,
+        99
+      ]
+    },
+    {
+      "file": "objects/yellow-car.png",
+      "title": "yellow car",
+      "box": [
+        578,
+        198,
+        632,
+        219
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        618,
+        212,
+        676,
+        234
+      ],
+      "size": [
+        58,
+        22
+      ]
+    },
+    {
+      "file": "objects/armchair.png",
+      "title": "armchair",
+      "box": [
+        765,
+        172,
+        915,
+        306
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          783,
+          174
+        ],
+        [
+          828,
+          174
+        ],
+        [
+          909,
+          188
+        ],
+        [
+          912,
+          207
+        ],
+        [
+          887,
+          265
+        ],
+        [
+          877,
+          296
+        ],
+        [
+          844,
+          305
+        ],
+        [
+          774,
+          284
+        ],
+        [
+          764,
+          269
+        ],
+        [
+          772,
+          212
+        ]
+      ],
+      "source_box": [
+        818,
+        184,
+        978,
+        327
+      ],
+      "size": [
+        160,
+        143
+      ]
+    },
+    {
+      "file": "objects/mask.png",
+      "title": "mask",
+      "box": [
+        905,
+        220,
+        977,
+        302
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        967,
+        235,
+        1044,
+        323
+      ],
+      "size": [
+        77,
+        88
+      ]
+    },
+    {
+      "file": "objects/sneaker.png",
+      "title": "sneaker",
+      "box": [
+        45,
+        223,
+        113,
+        283
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        48,
+        238,
+        121,
+        303
+      ],
+      "size": [
+        73,
+        65
+      ]
+    },
+    {
+      "file": "objects/owl-clock.png",
+      "title": "owl clock",
+      "box": [
+        128,
+        214,
+        186,
+        315
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          139,
+          214
+        ],
+        [
+          155,
+          216
+        ],
+        [
+          164,
+          236
+        ],
+        [
+          182,
+          249
+        ],
+        [
+          178,
+          266
+        ],
+        [
+          170,
+          279
+        ],
+        [
+          176,
+          300
+        ],
+        [
+          166,
+          310
+        ],
+        [
+          133,
+          310
+        ],
+        [
+          130,
+          295
+        ],
+        [
+          140,
+          276
+        ],
+        [
+          134,
+          259
+        ],
+        [
+          127,
+          247
+        ]
+      ],
+      "source_box": [
+        137,
+        229,
+        199,
+        337
+      ],
+      "size": [
+        62,
+        108
+      ]
+    },
+    {
+      "file": "objects/vending-machine.png",
+      "title": "vending machine",
+      "box": [
+        193,
+        223,
+        249,
+        310
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        206,
+        238,
+        266,
+        331
+      ],
+      "size": [
+        60,
+        93
+      ]
+    },
+    {
+      "file": "objects/buddha.png",
+      "title": "buddha",
+      "box": [
+        258,
+        204,
+        318,
+        303
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          265,
+          217
+        ],
+        [
+          281,
+          204
+        ],
+        [
+          294,
+          212
+        ],
+        [
+          295,
+          231
+        ],
+        [
+          306,
+          249
+        ],
+        [
+          319,
+          290
+        ],
+        [
+          297,
+          300
+        ],
+        [
+          265,
+          296
+        ],
+        [
+          259,
+          268
+        ]
+      ],
+      "source_box": [
+        276,
+        218,
+        340,
+        324
+      ],
+      "size": [
+        64,
+        106
+      ]
+    },
+    {
+      "file": "objects/grand-piano.png",
+      "title": "grand piano",
+      "box": [
+        300,
+        252,
+        409,
+        354
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          341,
+          252
+        ],
+        [
+          365,
+          253
+        ],
+        [
+          407,
+          269
+        ],
+        [
+          396,
+          291
+        ],
+        [
+          397,
+          334
+        ],
+        [
+          378,
+          349
+        ],
+        [
+          324,
+          350
+        ],
+        [
+          302,
+          337
+        ],
+        [
+          302,
+          318
+        ],
+        [
+          323,
+          302
+        ],
+        [
+          328,
+          274
+        ]
+      ],
+      "source_box": [
+        321,
+        269,
+        437,
+        378
+      ],
+      "size": [
+        116,
+        109
+      ]
+    },
+    {
+      "file": "objects/radio.png",
+      "title": "radio",
+      "box": [
+        409,
+        274,
+        499,
+        329
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        437,
+        293,
+        533,
+        352
+      ],
+      "size": [
+        96,
+        59
+      ]
+    },
+    {
+      "file": "objects/lion-bust.png",
+      "title": "lion bust",
+      "box": [
+        505,
+        253,
+        568,
+        343
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        540,
+        270,
+        607,
+        367
+      ],
+      "size": [
+        67,
+        97
+      ]
+    },
+    {
+      "file": "objects/ornate-chair.png",
+      "title": "ornate chair",
+      "box": [
+        560,
+        229,
+        612,
+        306
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        599,
+        245,
+        654,
+        327
+      ],
+      "size": [
+        55,
+        82
+      ]
+    },
+    {
+      "file": "objects/blue-vase.png",
+      "title": "blue vase",
+      "box": [
+        619,
+        296,
+        646,
+        358
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        662,
+        316,
+        691,
+        383
+      ],
+      "size": [
+        29,
+        67
+      ]
+    },
+    {
+      "file": "objects/ring-sculpture.png",
+      "title": "ring sculpture",
+      "box": [
+        651,
+        245,
+        744,
+        343
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          683,
+          247
+        ],
+        [
+          704,
+          247
+        ],
+        [
+          724,
+          263
+        ],
+        [
+          738,
+          290
+        ],
+        [
+          740,
+          325
+        ],
+        [
+          722,
+          339
+        ],
+        [
+          686,
+          341
+        ],
+        [
+          653,
+          328
+        ],
+        [
+          652,
+          314
+        ],
+        [
+          672,
+          303
+        ],
+        [
+          666,
+          280
+        ]
+      ],
+      "source_box": [
+        696,
+        262,
+        795,
+        367
+      ],
+      "size": [
+        99,
+        105
+      ]
+    },
+    {
+      "file": "objects/orange.png",
+      "title": "orange",
+      "box": [
+        744,
+        283,
+        787,
+        318
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        795,
+        303,
+        841,
+        340
+      ],
+      "size": [
+        46,
+        37
+      ]
+    },
+    {
+      "file": "objects/skull.png",
+      "title": "skull",
+      "box": [
+        878,
+        295,
+        956,
+        355
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        939,
+        315,
+        1022,
+        379
+      ],
+      "size": [
+        83,
+        64
+      ]
+    },
+    {
+      "file": "objects/blue-jar.png",
+      "title": "blue jar",
+      "box": [
+        81,
+        279,
+        115,
+        335
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        87,
+        298,
+        123,
+        358
+      ],
+      "size": [
+        36,
+        60
+      ]
+    },
+    {
+      "file": "objects/small-bird.png",
+      "title": "small bird",
+      "box": [
+        107,
+        260,
+        130,
+        299
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        114,
+        278,
+        139,
+        320
+      ],
+      "size": [
+        25,
+        42
+      ]
+    },
+    {
+      "file": "objects/shell.png",
+      "title": "shell",
+      "box": [
+        117,
+        327,
+        146,
+        359
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        125,
+        350,
+        156,
+        384
+      ],
+      "size": [
+        31,
+        34
+      ]
+    },
+    {
+      "file": "objects/stone-sculpture.png",
+      "title": "stone sculpture",
+      "box": [
+        138,
+        316,
+        245,
+        403
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          150,
+          339
+        ],
+        [
+          163,
+          330
+        ],
+        [
+          180,
+          319
+        ],
+        [
+          201,
+          317
+        ],
+        [
+          229,
+          327
+        ],
+        [
+          239,
+          342
+        ],
+        [
+          229,
+          366
+        ],
+        [
+          245,
+          374
+        ],
+        [
+          239,
+          390
+        ],
+        [
+          205,
+          403
+        ],
+        [
+          141,
+          383
+        ],
+        [
+          140,
+          368
+        ]
+      ],
+      "source_box": [
+        148,
+        338,
+        262,
+        431
+      ],
+      "size": [
+        114,
+        93
+      ]
+    },
+    {
+      "file": "objects/saxophone.png",
+      "title": "saxophone",
+      "box": [
+        237,
+        307,
+        288,
+        353
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        253,
+        328,
+        308,
+        377
+      ],
+      "size": [
+        55,
+        49
+      ]
+    },
+    {
+      "file": "objects/radio-device.png",
+      "title": "radio device",
+      "box": [
+        248,
+        350,
+        310,
+        386
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        265,
+        374,
+        331,
+        413
+      ],
+      "size": [
+        66,
+        39
+      ]
+    },
+    {
+      "file": "objects/black-pebble.png",
+      "title": "black pebble",
+      "box": [
+        329,
+        344,
+        357,
+        378
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        352,
+        368,
+        382,
+        404
+      ],
+      "size": [
+        30,
+        36
+      ]
+    },
+    {
+      "file": "objects/clay-vase.png",
+      "title": "clay vase",
+      "box": [
+        390,
+        328,
+        452,
+        402
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        417,
+        351,
+        483,
+        430
+      ],
+      "size": [
+        66,
+        79
+      ]
+    },
+    {
+      "file": "objects/bulldozer.png",
+      "title": "bulldozer",
+      "box": [
+        428,
+        329,
+        531,
+        444
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          473,
+          330
+        ],
+        [
+          506,
+          330
+        ],
+        [
+          506,
+          355
+        ],
+        [
+          526,
+          368
+        ],
+        [
+          520,
+          406
+        ],
+        [
+          520,
+          439
+        ],
+        [
+          481,
+          440
+        ],
+        [
+          430,
+          426
+        ],
+        [
+          430,
+          409
+        ],
+        [
+          447,
+          405
+        ],
+        [
+          450,
+          374
+        ],
+        [
+          465,
+          362
+        ]
+      ],
+      "source_box": [
+        458,
+        352,
+        568,
+        475
+      ],
+      "size": [
+        110,
+        123
+      ]
+    },
+    {
+      "file": "objects/tortoise.png",
+      "title": "tortoise",
+      "box": [
+        549,
+        316,
+        652,
+        390
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          553,
+          351
+        ],
+        [
+          562,
+          336
+        ],
+        [
+          588,
+          323
+        ],
+        [
+          608,
+          322
+        ],
+        [
+          633,
+          335
+        ],
+        [
+          646,
+          354
+        ],
+        [
+          664,
+          359
+        ],
+        [
+          665,
+          370
+        ],
+        [
+          646,
+          376
+        ],
+        [
+          635,
+          389
+        ],
+        [
+          621,
+          385
+        ],
+        [
+          603,
+          387
+        ],
+        [
+          581,
+          379
+        ],
+        [
+          570,
+          384
+        ],
+        [
+          561,
+          374
+        ],
+        [
+          552,
+          370
+        ]
+      ],
+      "source_box": [
+        587,
+        338,
+        697,
+        417
+      ],
+      "size": [
+        110,
+        79
+      ]
+    },
+    {
+      "file": "objects/small-stone.png",
+      "title": "small stone",
+      "box": [
+        657,
+        341,
+        691,
+        369
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        702,
+        365,
+        739,
+        394
+      ],
+      "size": [
+        37,
+        29
+      ]
+    },
+    {
+      "file": "objects/white-speaker.png",
+      "title": "white speaker",
+      "box": [
+        728,
+        326,
+        763,
+        368
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        778,
+        348,
+        816,
+        393
+      ],
+      "size": [
+        38,
+        45
+      ]
+    },
+    {
+      "file": "objects/camera.png",
+      "title": "camera",
+      "box": [
+        761,
+        301,
+        826,
+        391
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        814,
+        322,
+        883,
+        418
+      ],
+      "size": [
+        69,
+        96
+      ]
+    },
+    {
+      "file": "objects/book.png",
+      "title": "book",
+      "box": [
+        826,
+        313,
+        868,
+        347
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        883,
+        335,
+        928,
+        371
+      ],
+      "size": [
+        45,
+        36
+      ]
+    },
+    {
+      "file": "objects/telephone.png",
+      "title": "telephone",
+      "box": [
+        645,
+        366,
+        738,
+        435
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        690,
+        391,
+        789,
+        465
+      ],
+      "size": [
+        99,
+        74
+      ]
+    },
+    {
+      "file": "objects/wooden-box.png",
+      "title": "wooden box",
+      "box": [
+        737,
+        378,
+        786,
+        417
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        788,
+        404,
+        840,
+        446
+      ],
+      "size": [
+        52,
+        42
+      ]
+    },
+    {
+      "file": "objects/church.png",
+      "title": "church",
+      "box": [
+        24,
+        315,
+        219,
+        536
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          53,
+          314
+        ],
+        [
+          64,
+          323
+        ],
+        [
+          72,
+          352
+        ],
+        [
+          93,
+          382
+        ],
+        [
+          100,
+          406
+        ],
+        [
+          140,
+          400
+        ],
+        [
+          160,
+          411
+        ],
+        [
+          181,
+          407
+        ],
+        [
+          191,
+          420
+        ],
+        [
+          186,
+          446
+        ],
+        [
+          207,
+          465
+        ],
+        [
+          217,
+          507
+        ],
+        [
+          197,
+          522
+        ],
+        [
+          167,
+          533
+        ],
+        [
+          130,
+          522
+        ],
+        [
+          108,
+          532
+        ],
+        [
+          76,
+          522
+        ],
+        [
+          60,
+          514
+        ],
+        [
+          35,
+          514
+        ],
+        [
+          24,
+          490
+        ],
+        [
+          49,
+          464
+        ],
+        [
+          48,
+          443
+        ],
+        [
+          39,
+          435
+        ],
+        [
+          67,
+          412
+        ],
+        [
+          71,
+          386
+        ]
+      ],
+      "source_box": [
+        26,
+        337,
+        234,
+        573
+      ],
+      "size": [
+        208,
+        236
+      ]
+    },
+    {
+      "file": "objects/church-spire.png",
+      "title": "church spire",
+      "box": [
+        207,
+        421,
+        270,
+        535
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        221,
+        450,
+        289,
+        572
+      ],
+      "size": [
+        68,
+        122
+      ]
+    },
+    {
+      "file": "objects/calculator.png",
+      "title": "calculator",
+      "box": [
+        213,
+        394,
+        273,
+        434
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        228,
+        421,
+        292,
+        464
+      ],
+      "size": [
+        64,
+        43
+      ]
+    },
+    {
+      "file": "objects/green-stool.png",
+      "title": "green stool",
+      "box": [
+        250,
+        432,
+        298,
+        490
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        267,
+        462,
+        319,
+        524
+      ],
+      "size": [
+        52,
+        62
+      ]
+    },
+    {
+      "file": "objects/well.png",
+      "title": "well",
+      "box": [
+        293,
+        380,
+        372,
+        466
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        313,
+        406,
+        398,
+        498
+      ],
+      "size": [
+        85,
+        92
+      ]
+    },
+    {
+      "file": "objects/disc.png",
+      "title": "disc",
+      "box": [
+        372,
+        408,
+        415,
+        451
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        398,
+        436,
+        444,
+        482
+      ],
+      "size": [
+        46,
+        46
+      ]
+    },
+    {
+      "file": "objects/penguin.png",
+      "title": "penguin",
+      "box": [
+        532,
+        370,
+        559,
+        417
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        569,
+        396,
+        598,
+        446
+      ],
+      "size": [
+        29,
+        50
+      ]
+    },
+    {
+      "file": "objects/conch.png",
+      "title": "conch",
+      "box": [
+        542,
+        390,
+        631,
+        456
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          547,
+          437
+        ],
+        [
+          565,
+          419
+        ],
+        [
+          575,
+          406
+        ],
+        [
+          592,
+          396
+        ],
+        [
+          607,
+          399
+        ],
+        [
+          623,
+          416
+        ],
+        [
+          629,
+          437
+        ],
+        [
+          616,
+          451
+        ],
+        [
+          580,
+          455
+        ],
+        [
+          546,
+          449
+        ]
+      ],
+      "source_box": [
+        579,
+        417,
+        675,
+        487
+      ],
+      "size": [
+        96,
+        70
+      ]
+    },
+    {
+      "file": "objects/house.png",
+      "title": "house",
+      "box": [
+        746,
+        350,
+        982,
+        550
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          815,
+          376
+        ],
+        [
+          853,
+          350
+        ],
+        [
+          888,
+          354
+        ],
+        [
+          910,
+          376
+        ],
+        [
+          931,
+          399
+        ],
+        [
+          969,
+          413
+        ],
+        [
+          981,
+          436
+        ],
+        [
+          949,
+          482
+        ],
+        [
+          949,
+          512
+        ],
+        [
+          891,
+          549
+        ],
+        [
+          850,
+          528
+        ],
+        [
+          820,
+          516
+        ],
+        [
+          785,
+          499
+        ],
+        [
+          747,
+          469
+        ],
+        [
+          759,
+          444
+        ],
+        [
+          769,
+          416
+        ],
+        [
+          799,
+          410
+        ]
+      ],
+      "source_box": [
+        797,
+        374,
+        1050,
+        588
+      ],
+      "size": [
+        253,
+        214
+      ]
+    },
+    {
+      "file": "objects/red-car.png",
+      "title": "red car",
+      "box": [
+        287,
+        465,
+        361,
+        546
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        307,
+        497,
+        386,
+        584
+      ],
+      "size": [
+        79,
+        87
+      ]
+    },
+    {
+      "file": "objects/toy-engine.png",
+      "title": "toy engine",
+      "box": [
+        363,
+        468,
+        432,
+        554
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        388,
+        500,
+        462,
+        592
+      ],
+      "size": [
+        74,
+        92
+      ]
+    },
+    {
+      "file": "objects/round-dial.png",
+      "title": "round dial",
+      "box": [
+        436,
+        447,
+        489,
+        486
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        466,
+        478,
+        523,
+        520
+      ],
+      "size": [
+        57,
+        42
+      ]
+    },
+    {
+      "file": "objects/motorbike.png",
+      "title": "motorbike",
+      "box": [
+        438,
+        485,
+        494,
+        554
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        468,
+        518,
+        528,
+        592
+      ],
+      "size": [
+        60,
+        74
+      ]
+    },
+    {
+      "file": "objects/woodwind.png",
+      "title": "woodwind",
+      "box": [
+        505,
+        447,
+        559,
+        555
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          507,
+          448
+        ],
+        [
+          518,
+          450
+        ],
+        [
+          531,
+          489
+        ],
+        [
+          556,
+          535
+        ],
+        [
+          547,
+          552
+        ],
+        [
+          526,
+          554
+        ],
+        [
+          519,
+          541
+        ],
+        [
+          519,
+          508
+        ]
+      ],
+      "source_box": [
+        540,
+        478,
+        598,
+        593
+      ],
+      "size": [
+        58,
+        115
+      ]
+    },
+    {
+      "file": "objects/blue-car.png",
+      "title": "blue car",
+      "box": [
+        532,
+        471,
+        584,
+        521
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          552,
+          472
+        ],
+        [
+          570,
+          475
+        ],
+        [
+          578,
+          485
+        ],
+        [
+          583,
+          506
+        ],
+        [
+          575,
+          517
+        ],
+        [
+          550,
+          519
+        ],
+        [
+          540,
+          510
+        ],
+        [
+          534,
+          491
+        ]
+      ],
+      "source_box": [
+        569,
+        503,
+        624,
+        557
+      ],
+      "size": [
+        55,
+        54
+      ]
+    },
+    {
+      "file": "objects/electric-guitar.png",
+      "title": "electric guitar",
+      "box": [
+        577,
+        465,
+        655,
+        554
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          578,
+          466
+        ],
+        [
+          586,
+          468
+        ],
+        [
+          604,
+          500
+        ],
+        [
+          620,
+          511
+        ],
+        [
+          628,
+          508
+        ],
+        [
+          644,
+          516
+        ],
+        [
+          654,
+          540
+        ],
+        [
+          639,
+          553
+        ],
+        [
+          614,
+          553
+        ],
+        [
+          600,
+          542
+        ],
+        [
+          595,
+          528
+        ],
+        [
+          598,
+          518
+        ]
+      ],
+      "source_box": [
+        617,
+        497,
+        700,
+        592
+      ],
+      "size": [
+        83,
+        95
+      ]
+    },
+    {
+      "file": "objects/black-cube.png",
+      "title": "black cube",
+      "box": [
+        599,
+        477,
+        653,
+        517
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          622,
+          478
+        ],
+        [
+          635,
+          478
+        ],
+        [
+          652,
+          493
+        ],
+        [
+          646,
+          515
+        ],
+        [
+          622,
+          517
+        ],
+        [
+          608,
+          507
+        ],
+        [
+          605,
+          493
+        ]
+      ],
+      "source_box": [
+        640,
+        510,
+        698,
+        553
+      ],
+      "size": [
+        58,
+        43
+      ]
+    },
+    {
+      "file": "objects/yellow-plane.png",
+      "title": "yellow plane",
+      "box": [
+        609,
+        447,
+        765,
+        544
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          649,
+          448
+        ],
+        [
+          658,
+          450
+        ],
+        [
+          663,
+          469
+        ],
+        [
+          688,
+          480
+        ],
+        [
+          706,
+          490
+        ],
+        [
+          719,
+          492
+        ],
+        [
+          731,
+          505
+        ],
+        [
+          758,
+          532
+        ],
+        [
+          741,
+          532
+        ],
+        [
+          715,
+          516
+        ],
+        [
+          687,
+          507
+        ],
+        [
+          671,
+          518
+        ],
+        [
+          652,
+          524
+        ],
+        [
+          643,
+          519
+        ],
+        [
+          630,
+          516
+        ],
+        [
+          620,
+          511
+        ],
+        [
+          642,
+          497
+        ],
+        [
+          650,
+          489
+        ]
+      ],
+      "source_box": [
+        651,
+        478,
+        818,
+        582
+      ],
+      "size": [
+        167,
+        104
+      ]
+    },
+    {
+      "file": "objects/blue-cube.png",
+      "title": "blue cube",
+      "box": [
+        678,
+        427,
+        745,
+        471
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          679,
+          430
+        ],
+        [
+          713,
+          428
+        ],
+        [
+          743,
+          441
+        ],
+        [
+          733,
+          463
+        ],
+        [
+          711,
+          472
+        ],
+        [
+          692,
+          464
+        ]
+      ],
+      "source_box": [
+        725,
+        456,
+        796,
+        503
+      ],
+      "size": [
+        71,
+        47
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

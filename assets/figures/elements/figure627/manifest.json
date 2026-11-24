@@ -1,0 +1,234 @@
+{
+  "source": "assets/figures/figures/part3/section6/visual_language_graounding_task.webp",
+  "source_size": [
+    2000,
+    475
+  ],
+  "assets": [
+    {
+      "file": "i-rec-res/steak.png",
+      "source_box": [
+        32,
+        136,
+        240,
+        275
+      ],
+      "size": [
+        208,
+        139
+      ],
+      "notes": "Unannotated source photograph. Output boxes and masks will be drawn separately in the frontend."
+    },
+    {
+      "file": "ii-grec-gres/vegetables.png",
+      "source_box": [
+        308,
+        136,
+        514,
+        275
+      ],
+      "size": [
+        206,
+        139
+      ],
+      "notes": "Unannotated source photograph. Output boxes and masks will be drawn separately in the frontend."
+    },
+    {
+      "file": "iii-reasoning/wrestling.png",
+      "source_box": [
+        583,
+        138,
+        793,
+        275
+      ],
+      "size": [
+        210,
+        137
+      ],
+      "notes": "Unannotated source photograph. Output boxes and masks will be drawn separately in the frontend."
+    },
+    {
+      "file": "iv-video/input.png",
+      "source_box": [
+        993,
+        140,
+        1187,
+        274
+      ],
+      "size": [
+        194,
+        134
+      ],
+      "notes": "Unannotated source photograph. Output boxes and masks will be drawn separately in the frontend."
+    },
+    {
+      "file": "iv-video/frame-01.png",
+      "source_box": [
+        847,
+        311,
+        1020,
+        431
+      ],
+      "size": [
+        173,
+        120
+      ],
+      "notes": "Video frame restored by reducing translucent annotation tint and filling thin colored outlines; obscured pixels are approximate. Segmentation and tracking overlays will be independent frontend elements."
+    },
+    {
+      "file": "iv-video/frame-02.png",
+      "source_box": [
+        1021,
+        311,
+        1194,
+        431
+      ],
+      "size": [
+        173,
+        120
+      ],
+      "notes": "Video frame restored by reducing translucent annotation tint and filling thin colored outlines; obscured pixels are approximate. Segmentation and tracking overlays will be independent frontend elements."
+    },
+    {
+      "file": "iv-video/frame-03.png",
+      "source_box": [
+        1195,
+        311,
+        1366,
+        431
+      ],
+      "size": [
+        171,
+        120
+      ],
+      "notes": "Video frame restored by reducing translucent annotation tint and filling thin colored outlines; obscured pixels are approximate. Segmentation and tracking overlays will be independent frontend elements."
+    },
+    {
+      "file": "v-3d/scene.png",
+      "source_box": [
+        1396,
+        64,
+        1532,
+        258
+      ],
+      "size": [
+        136,
+        194
+      ],
+      "notes": "Shared clean 3D room reconstruction; exterior white background made transparent. The same scene supports the four annotated outputs."
+    },
+    {
+      "file": "v-3d/rec-scene.png",
+      "source_box": [
+        1572,
+        99,
+        1672,
+        245
+      ],
+      "size": [
+        100,
+        146
+      ],
+      "notes": "3D output projection with colored target annotations restored from the clean shared room. Frontend boxes and masks remain independent."
+    },
+    {
+      "file": "v-3d/reference-rec.png",
+      "source_box": [
+        1572,
+        99,
+        1672,
+        245
+      ],
+      "size": [
+        100,
+        146
+      ],
+      "notes": "Annotated source projection retained as a reference for frontend overlay geometry and color; not a flattened frontend diagram."
+    },
+    {
+      "file": "v-3d/res-scene.png",
+      "source_box": [
+        1704,
+        100,
+        1804,
+        245
+      ],
+      "size": [
+        100,
+        145
+      ],
+      "notes": "3D output projection with colored target annotations restored from the clean shared room. Frontend boxes and masks remain independent."
+    },
+    {
+      "file": "v-3d/reference-res.png",
+      "source_box": [
+        1704,
+        100,
+        1804,
+        245
+      ],
+      "size": [
+        100,
+        145
+      ],
+      "notes": "Annotated source projection retained as a reference for frontend overlay geometry and color; not a flattened frontend diagram."
+    },
+    {
+      "file": "v-3d/gres-scene.png",
+      "source_box": [
+        1393,
+        281,
+        1492,
+        427
+      ],
+      "size": [
+        99,
+        146
+      ],
+      "notes": "3D output projection with colored target annotations restored from the clean shared room. Frontend boxes and masks remain independent."
+    },
+    {
+      "file": "v-3d/reference-gres.png",
+      "source_box": [
+        1393,
+        281,
+        1492,
+        427
+      ],
+      "size": [
+        99,
+        146
+      ],
+      "notes": "Annotated source projection retained as a reference for frontend overlay geometry and color; not a flattened frontend diagram."
+    },
+    {
+      "file": "v-3d/dres-scene.png",
+      "source_box": [
+        1684,
+        281,
+        1788,
+        427
+      ],
+      "size": [
+        104,
+        146
+      ],
+      "notes": "3D output projection with colored target annotations restored from the clean shared room. Frontend boxes and masks remain independent."
+    },
+    {
+      "file": "v-3d/reference-dres.png",
+      "source_box": [
+        1684,
+        281,
+        1788,
+        427
+      ],
+      "size": [
+        104,
+        146
+      ],
+      "notes": "Annotated source projection retained as a reference for frontend overlay geometry and color; not a flattened frontend diagram."
+    }
+  ],
+  "frontend": "Panel frames and titles; referring phrases; arrows; red bounding boxes and segmentation polygons; video tracking boxes, labels and segmentation overlays; 3D target boxes/masks and colored referring-expression text."
+}

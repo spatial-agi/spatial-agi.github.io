@@ -1,0 +1,47 @@
+{
+  "figure": "7.20",
+  "source": "assets/figures/figures/part3/section7/multi-agent_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1134
+  ],
+  "assets": [
+    {
+      "file": "b-motion-forecasting/vehicle-upper.png",
+      "title": "Upper vehicle",
+      "source_box": [
+        828,
+        171,
+        883,
+        205
+      ],
+      "size": [
+        55,
+        34
+      ]
+    },
+    {
+      "file": "b-motion-forecasting/vehicle-lower.png",
+      "title": "Lower vehicle",
+      "source_box": [
+        983,
+        258,
+        1039,
+        292
+      ],
+      "size": [
+        56,
+        34
+      ]
+    }
+  ],
+  "frontend": {
+    "a": "Local-sight shading and dashed contours; three circular agents, triangular opponents and tactical arrows.",
+    "b": "Road boundaries, lane divider, history lines, dashed future trajectories and labels; use the two isolated vehicles.",
+    "c": "Patrol nodes and numbers, topology, failed-agent mark and reconfiguration arrows.",
+    "d": "Policy boxes, action symbols, centralized critic, connecting arrows and text.",
+    "e": "Individual value boxes, state-aware mixer, VDN equation and QMIX inequality.",
+    "f": "Graph nodes, edges, directed messages and aggregation formula.",
+    "g": "Agent/time grid, selected output cell, attention arrows and annotations."
+  }
+}

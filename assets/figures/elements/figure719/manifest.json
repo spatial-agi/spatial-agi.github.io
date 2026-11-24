@@ -1,0 +1,32 @@
+{
+  "figure": "7.19",
+  "source": "assets/figures/figures/part3/section7/grpo-based-rl.webp",
+  "source_size": [
+    2000,
+    618
+  ],
+  "assets": [
+    {
+      "file": "prompt/document.png",
+      "title": "GRPO · prompt document",
+      "source_box": [
+        92,
+        155,
+        160,
+        240
+      ],
+      "size": [
+        68,
+        85
+      ]
+    }
+  ],
+  "frontend": [
+    "Prompt and old-policy group of outputs",
+    "Reward model with individual response/reward cards",
+    "Group-relative advantage fraction",
+    "Clipped surrogate and KL-penalized objective",
+    "New policy and every connecting arrow"
+  ],
+  "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+}

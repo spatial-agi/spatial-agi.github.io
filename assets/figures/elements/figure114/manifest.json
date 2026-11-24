@@ -1,0 +1,83 @@
+{
+  "figure": "11.4",
+  "sources": [
+    "assets/figures/figures/part4/section11/digital_twins_synchronization.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1335
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/digital_twins_synchronization.pdf",
+  "assets": [
+    {
+      "file": "physical-asset/machine-tool.png",
+      "title": "machine tool",
+      "panel": "physical-asset",
+      "size": [
+        656,
+        539
+      ],
+      "source_index": 0,
+      "source_box": [
+        100.0,
+        155.0,
+        532.5,
+        510.0
+      ],
+      "box": [
+        50.0,
+        77.5,
+        266.25,
+        255.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        50.235,
+        77.885,
+        266.876,
+        255.887
+      ],
+      "placement_confidence": 0.984
+    },
+    {
+      "file": "synchronized-twin/machine-mesh.png",
+      "title": "machine mesh",
+      "panel": "synchronized-twin",
+      "size": [
+        656,
+        539
+      ],
+      "source_index": 0,
+      "source_box": [
+        1450.0,
+        155.0,
+        1882.5,
+        510.0
+      ],
+      "box": [
+        725.0,
+        77.5,
+        941.25,
+        255.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        725.275,
+        77.885,
+        941.915,
+        255.887
+      ],
+      "placement_confidence": 0.9777
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "source": "assets/figures/figures/part3/section7/implicit_neural_spatial_reasoning_method.webp",
+  "source_size": [
+    2000,
+    933
+  ],
+  "assets": [
+    {
+      "file": "b-attention/features.png",
+      "source_box": [
+        544,
+        215,
+        656,
+        332
+      ],
+      "title": "Spatial attention \u00b7 feature grid",
+      "size": [
+        112,
+        117
+      ]
+    },
+    {
+      "file": "b-attention/weights.png",
+      "source_box": [
+        693,
+        215,
+        806,
+        332
+      ],
+      "title": "Spatial attention \u00b7 weights / weighted grid",
+      "size": [
+        113,
+        117
+      ],
+      "placement_boxes": [
+        [
+          693,
+          215,
+          806,
+          332
+        ],
+        [
+          846,
+          215,
+          959,
+          332
+        ]
+      ]
+    },
+    {
+      "file": "b-pyramid/coarse.png",
+      "source_box": [
+        544,
+        541,
+        613,
+        598
+      ],
+      "title": "Feature pyramid \u00b7 coarse feature map",
+      "size": [
+        69,
+        57
+      ]
+    },
+    {
+      "file": "b-pyramid/middle.png",
+      "source_box": [
+        525,
+        634,
+        631,
+        691
+      ],
+      "title": "Feature pyramid \u00b7 middle feature map",
+      "size": [
+        106,
+        57
+      ]
+    },
+    {
+      "file": "b-pyramid/fine.png",
+      "source_box": [
+        507,
+        733,
+        650,
+        790
+      ],
+      "title": "Feature pyramid \u00b7 fine feature map",
+      "size": [
+        143,
+        57
+      ]
+    },
+    {
+      "file": "c-modulation/features.png",
+      "source_box": [
+        1066,
+        522,
+        1203,
+        669
+      ],
+      "title": "FiLM \u00b7 input feature stack",
+      "size": [
+        137,
+        147
+      ]
+    },
+    {
+      "file": "c-modulation/modulated.png",
+      "source_box": [
+        1309,
+        522,
+        1445,
+        669
+      ],
+      "title": "FiLM \u00b7 modulated feature stack",
+      "size": [
+        136,
+        147
+      ]
+    },
+    {
+      "file": "d-geometry/part-capsule.png",
+      "source_box": [
+        1586,
+        346,
+        1647,
+        407
+      ],
+      "title": "Capsule routing \u00b7 part pose",
+      "size": [
+        61,
+        61
+      ],
+      "placement_boxes": [
+        [
+          1586,
+          346,
+          1647,
+          407
+        ],
+        [
+          1717,
+          346,
+          1778,
+          407
+        ],
+        [
+          1848,
+          346,
+          1909,
+          407
+        ]
+      ]
+    }
+  ],
+  "frontend": {
+    "a-relations": "Object boxes, query, relation function, aggregation text, latent graph nodes and all edges.",
+    "b-attention": "Operators, labels, pyramid blocks, lateral and top-down arrows.",
+    "c-modulation": "Context and prediction boxes, formula, labels and all arrows.",
+    "d-geometry": "Whole capsule box and pose arrow, part-to-whole arrows, equivariance diagram and formulas.",
+    "common": "All headings, separators, text, borders and connectors are frontend elements."
+  }
+}

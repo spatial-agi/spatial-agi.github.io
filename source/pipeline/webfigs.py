@@ -7,6 +7,7 @@ exported by figassets.py. Interactivity lives in src/js/nfig.js; each module car
 import html
 import json
 import math
+from figure46 import fig46
 from pathlib import Path
 
 BLUE, BLUE_FILL, BLUE_MID = "#3646F0", "#E9EBFB", "#AEB6F7"
@@ -500,6 +501,288 @@ def fig11():
             f'<script type="application/json" class="nf-info">{json.dumps(FIG11_INFO, ensure_ascii=False)}</script></div>')
 
 
+# ---------------------------------------------------------------- Fig. 4.4
+def fig45():
+    """Language representation diagram in the original 2000 × 788 coordinates."""
+    blue, ink = '#164F9B', '#111111'
+    notes={
+      'chair':dict(t='Language · Adjacency',b='“The chair is next to the table” describes a spatial relation between two named objects.'),
+      'window':dict(t='Language · Across from',b='The window and the door occupy opposite sides of the room. Language describes this relation symbolically.'),
+      'lamp':dict(t='Language · Above',b='The description places the lamp above the table. The drawing uses a top view to locate the objects.'),
+      'tokens':dict(t='Move sequence',b='The model receives a sequence of Othello moves as tokens. The diagram illustrates sequence-only training.'),
+      'model':dict(t='Transformer hidden activations',b='Hidden activations can carry information about the spatial state implied by the move history.'),
+      'probe':dict(t='Linear probe',b='A probe reads the hidden activations to predict board occupancy. The arrows illustrate information flow, not additional moves being played.'),
+      'board':dict(t='Recovered board state',b='The 8 × 8 board visualizes empty squares and black or white discs decoded from the model’s activations.')}
+    out=['<div class="nf nf-45" data-nf="45" data-pagefind-ignore="all"><div class="f45-viewport"><svg class="nf-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 788" role="group" aria-label="Figure 4.5: spatial information in language representations">',
+      '<defs><marker id="f45-blue" markerWidth="19" markerHeight="18" refX="16" refY="9" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L19 9L0 18L4 9Z" fill="#164F9B"/></marker><marker id="f45-black" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L16 8L0 16Z" fill="#111"/></marker><radialGradient id="f45-disc-white" cx="35%" cy="30%"><stop stop-color="#fff"/><stop offset="1" stop-color="#edf2ec"/></radialGradient><linearGradient id="f45-board" x2="1" y2="1"><stop stop-color="#ccd8b4"/><stop offset=".5" stop-color="#bfcea5"/><stop offset="1" stop-color="#c8d6af"/></linearGradient></defs>']
+    def text(x,y,s,size=30,color=ink,anchor='start',weight=400):
+        lines=s.split('\n'); spans=''.join(f'<tspan x="{x}" dy="{0 if i==0 else size*1.28}">{esc(v)}</tspan>' for i,v in enumerate(lines))
+        return f'<text class="f45-text" x="{x}" y="{y}" fill="{color}" font-size="{size}" text-anchor="{anchor}" font-weight="{weight}">{spans}</text>'
+    def route(d,color=blue,delay=0,duration=1300):
+        marker='f45-black' if color==ink else 'f45-blue'
+        return f'<path class="f45-route" d="{d}" stroke="{color}" stroke-width="3" fill="none" marker-end="url(#{marker})" data-delay="{delay}" data-duration="{duration}"/>'
+    def zone(k,x,y,w,h,content):
+        return f'<g class="f45-zone" data-k="{k}" role="button" tabindex="0" aria-label="{esc(notes[k]["t"])}" aria-pressed="false"><rect class="f45-hit" x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="transparent"/>{content}</g>'
+    def image(name,x,y,w,h): return f'<image href="/assets/img/figs/f45/left/{name}.png" x="{x}" y="{y}" width="{w}" height="{h}"/>'
+    out += [R(17,1,937,673,fill='white',stroke='#16343D',lw=2.5,r=26),R(975,1,1024,673,fill='white',stroke='#16343D',lw=2.5,r=26)]
+    # Floor plan: double wall, top window and open door, independently drawn.
+    out += ['<path d="M395 62H268V621H419M577 62H705V621H511" stroke="#222" stroke-width="15" fill="none" stroke-linejoin="miter"/>',
+            '<path d="M395 62H268V621H419M577 62H705V621H511" stroke="#b5b5b5" stroke-width="8" fill="none"/>',
+            R(395,51,183,22,fill='white',stroke='#222',lw=3),'<path d="M401 52V72M573 52V72M396 62H577" fill="none" stroke="#333" stroke-width="2"/>',
+            '<path d="M420 564V654H511M420 564A90 90 0 0 1 510 654M415 619V655H423M507 618V655H515" stroke="#222" stroke-width="3" fill="white"/>',
+            image('table',416,212,186,207)]
+    out += [zone('chair',24,218,384,155,text(140,251,'The chair is next\nto the table',30,blue,'middle')+image('chair',316,255,92,115)+route('M179 318Q225 330 305 316',delay=0)),
+            zone('window',588,80,357,170,text(833,168,'The window is\nacross from the\ndoor',30,blue,'middle')+route('M725 178L592 88',delay=500)),
+            zone('lamp',383,278,267,268,image('lamp',474,280,71,72)+text(516,499,'The lamp is above\nthe table',30,blue,'middle')+route('M509 460V365',delay=1000))]
+    out.append(text(1063,81,'Othello-GPT:',42,weight=700)+text(1338,81,'probing recovers board state',42))
+    out.append(zone('tokens',984,554,329,101,text(985,597,'E4 c5 d4 ...',30)+text(1142,648,'Token sequence',36,anchor='middle')+route('M1142 596H1221V554',ink,delay=0,duration=750)))
+    model=''
+    for y in [183,287,481]:
+        model+=R(1122,y,197,68,fill='white',stroke='#333',lw=3,r=12)+text(1220,y+44,'Transformer',30,anchor='middle')
+    model+=text(1220,421,'...',38,anchor='middle')
+    model+=route('M1220 480V448',ink,750,500)+route('M1220 389V359',ink,1250,500)+route('M1220 285V257',ink,1750,500)
+    model+=text(1413,260,'Hidden\nactivations',30,blue,'middle')+route('M1327 327H1466V376',delay=2300,duration=1100)
+    out.append(zone('model',1114,174,389,381,model))
+    out.append(zone('probe',1400,377,180,119,R(1410,384,111,104,fill='white',stroke=blue,lw=3,r=12)+text(1465,427,'linear\nprobe',30,blue,'middle')+route('M1523 436H1567',delay=3400,duration=650)))
+    # The board is redrawn as 64 independent cells and 13 discs; match source coordinates.
+    board=['<rect x="1611" y="205" width="372" height="380" fill="url(#f45-board)" stroke="#222" stroke-width="3"/>']
+    for i in range(1,8):
+        board.append(f'<path d="M{1611+i*46.5} 205V585M1611 {205+i*47.5}H1983" fill="none" stroke="#344031" stroke-width="2"/>')
+    for i,c in enumerate('abcdefgh'):
+        board.append(text(1634.25+i*46.5,193,c,26,anchor='middle'))
+        board.append(text(1598,237+i*47.5,str(8-i),26,anchor='end'))
+    pieces=[('c',7,'w'),('d',6,'b'),('e',6,'w'),('c',5,'b'),('d',5,'w'),('e',5,'b'),('d',4,'b'),('e',4,'w'),('f',4,'w'),('c',3,'w'),('f',3,'b'),('c',2,'b'),('g',1,'w')]
+    for col,row,c in pieces:
+        cx=1611+('abcdefgh'.index(col)+.5)*46.5; cy=205+(8-row+.5)*47.5
+        board.append(f'<circle class="f45-disc" cx="{cx}" cy="{cy}" r="17.5" fill="{"url(#f45-disc-white)" if c=="w" else "#060907"}" stroke="#30382d" stroke-width="2"/>')
+    board.append(text(1797,636,'Othello board state',37,anchor='middle'))
+    out.append(zone('board',1577,164,414,480,''.join(board)))
+    out += [text(486,746,'Surface: language describes space',42,anchor='middle'),text(1487,746,'Latent: probes recover world state',42,anchor='middle'),'<g class="f45-pulses" aria-hidden="true"></g></svg></div><div class="nf-card" hidden></div><script type="application/json" class="nf-info">'+json.dumps(notes,ensure_ascii=False)+'</script></div>']
+    return ''.join(out)
+
+
+def fig44():
+    """Native reconstruction in the original 2000 × 810 coordinate system."""
+    blue, ink = '#3D43ED', '#2C383F'
+    notes = {
+        'a':dict(t='RGBD video · Moving camera', b='Each time step pairs an RGB frame with aligned depth. Camera poses change together with the observed scene.'),
+        'b':dict(t='4D point cloud · Temporal correspondence', b='Independent per-frame samples do not guarantee point identities. The lower cloud maintains correspondences through persistent point trajectories.'),
+        'c':dict(t='Deformable mesh · Vertex displacement', b='A deformation field moves each vertex from its reference position. Colour encodes displacement. Re-extracting a surface at each time is an alternative.'),
+        'd':dict(t='Dynamic NeRF · Time and view', b='Columns represent time and rows represent viewpoints. The neural field maps position, viewing direction and time to colour and density, directly or through deformation and latent codes.'),
+        'e':dict(t='Deformable 3DGS · Gaussian motion', b='Gaussian centres translate by Δμᵢ(t), while rotations Rᵢ(t) and scales Sᵢ(t) determine the covariance. Opacity and colour remain constant in this illustrated parameterization.')
+    }
+    out = ['<div class="nf nf-44" data-nf="44" data-pagefind-ignore="all"><div class="f44-viewport"><svg class="nf-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 810" role="group" aria-label="Figure 4.4: five 4D representations">',
+           f'<defs><marker id="f44-arrow" markerWidth="13" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 1L10 6L2 11" fill="none" stroke="{blue}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></marker><linearGradient id="f44-displacement"><stop stop-color="#DCEAF3"/><stop offset="1" stop-color="#1F72AD"/></linearGradient></defs>']
+    def t(x,y,s,size=30,anchor='start',weight=400,color=ink,math=False,fit=None):
+        measure=f' textLength="{fit}" lengthAdjust="spacingAndGlyphs"' if fit else ''
+        return f'<text class="f44-{"math" if math else "text"}" x="{x}" y="{y}" font-size="{size}" text-anchor="{anchor}" font-weight="{weight}" fill="{color}"{measure}>{s}</text>'
+    def m(x,y,s,size=32,color=blue): return t(x,y,s,size,'middle',color=color,math=True)
+    def sub(s,i): return s+f'<tspan baseline-shift="sub" font-size="70%">{i}</tspan>'
+    def frame(x,y,w,h,color='#A8B0B8',width=3,r=0,cls='',dash=None): return R(x,y,w,h,fill='none',stroke=color,lw=width,r=r,cls=cls,dash=dash)
+    def path(d,color=blue,width=3,dash=None,arrow=False,delay=0):
+        da=f' stroke-dasharray="{dash}"' if dash else ''
+        marker=' marker-end="url(#f44-arrow)"' if arrow else ''
+        cls='f44-route' if arrow else 'f44-line'
+        return f'<path class="{cls}" data-delay="{delay}" d="{d}" stroke="{color}" stroke-width="{width}" fill="none" stroke-linecap="round" stroke-linejoin="round"{da}{marker}/>'
+    def img(key,x,y,w=None,h=None):
+        from PIL import Image
+        iw,ih=Image.open(Path(__file__).resolve().parents[1]/'src/img/figs/f44'/key).size
+        w=iw if w is None else w; h=ih if h is None else h
+        return f'<image class="f44-art" href="/assets/img/figs/f44/{key}" x="{x}" y="{y}" width="{w}" height="{h}"/>'
+    def begin(k,x,w,label):
+        out.append(f'<g class="f44-zone" data-k="{k}" role="button" tabindex="0" aria-pressed="false" aria-label="{esc(notes[k]["t"])}">')
+        out.append(R(x,6,w,735,fill='white',stroke='#A8B0B8',lw=3,r=6,cls='f44-frame'))
+        out.append(t(x+w/2,786,label,32,'middle',700))
+    def end(): out.append('</g>')
+    begin('a',4,394,'(a) RGBD video')
+    out += [t(23,58,'Moving camera · top view',30,fit=354),m(201,96,sub('P','t₀')+' ≠ '+sub('P','t₁')+' ≠ '+sub('P','t₂'),34)]
+    for i,(x,cx,camx,camy,cw,ch) in enumerate([(22,77,40,123,51,53),(147,202,189,124,32,57),(273,328,312,125,58,41)]):
+        out += [img(f'a/camera_t{i}.png',camx,camy,cw,ch),m([75,203,327][i],184,sub('t',str(i)),31,ink),
+                frame(x,224,110,121,width=2),frame(x,444,110,122,width=2),
+                path(f'M{cx} 358V422',width=4,arrow=True,delay=i*260)]
+    # Keep the extracted scenes at their original scale and locations.
+    for i,(rx,ry,dx,dy) in enumerate([(36,230,36,450),(156,230,156,450),(278,230,278,450)]):
+        out += [img(f'a/rgb_t{i}.png',rx,ry),img(f'a/depth_t{i}.png',dx,dy)]
+    out += [path('M59 154L71 141',width=5,arrow=True),path('M205 160L202 144',width=5,arrow=True,delay=260),path('M348 151L331 141',width=5,arrow=True,delay=520),
+            t(202,209,'RGB',31,'middle'),t(202,610,'Aligned depth',31,'middle'),path('M38 665H360',arrow=True),t(202,711,'Time',31,'middle')]
+    end()
+    begin('b',405,393,'(b) 4D point cloud')
+    out += [t(601,64,'Per-frame sequence',32,'middle'),t(601,387,'No identity guarantee',30,'middle'),path('M415 421H783','#A8B0B8',2.5,'6 5'),t(601,466,'Unified cloud + tracks',32,'middle')]
+    for i,(x,y,w,h,tx,ty,tw,th) in enumerate([(441,147,84,204,440,490,85,190),(574,149,52,200,574,490,56,191),(688,148,68,201,684,490,76,190)]):
+        out += [m([479,600,720][i],127,sub('t',str(i)),31,ink),img(f'b/point_cloud_t{i}.png',x,y,w,h),img(f'b/tracked_cloud_t{i}.png',tx,ty,tw,th)]
+    for j,(x1,y1,x2,y2,x3,y3) in enumerate([(490,508,605,508,725,508),(487,589,605,588,725,585),(480,625,588,624,698,622)]):
+        out += [path(f'M{x1} {y1}L{x2} {y2}',arrow=True,delay=j*240),path(f'M{x2+5} {y2}L{x3} {y3}',arrow=True,delay=800+j*240)]
+    out.append(t(601,717,'Persistent point identities',30,'middle',fit=361)); end()
+    begin('c',805,393,'(c) Deformable mesh')
+    for i,(x,y) in enumerate([(837,116),(969,116),(1080,116)]):
+        out += [m([881,998,1114][i],84,sub('t',str(i)),31,ink),img(f'c/mesh_t{i}.png',x,y)]
+    out += [path('M858 449H1145',width=4,arrow=True),t(1002,497,'Deformation field',32,'middle'),
+            m(1002,550,sub('v','i')+'(t) = '+sub('v','i')+'(0) + Δ'+sub('v','i')+'(t)',32),
+            t(883,591,'Low',28,'end'),'<rect x="898" y="577" width="176" height="13" fill="url(#f44-displacement)"/>',t(1097,591,'High',28),
+            t(1002,631,'Vertex displacement',29,'middle'),t(1002,683,'Or re-extract each time',30,'middle'),t(1002,727,'Marching Cubes / Poisson',29,'middle',fit=345)]
+    end()
+    begin('d',1205,393,'(d) Dynamic NeRF')
+    out += [m(1316,48,sub('t','0'),32,ink),m(1498,48,sub('t','1'),32,ink),t(1226,142,'1',28,'middle'),t(1226,299,'2',28,'middle')]
+    for row,y in enumerate([74,231]):
+        for i,x in enumerate([1268,1451]): out.append(img(f'd/view{row+1}_t{i}.png',x,y))
+    out += [path('M1250 402H1562',width=4,arrow=True),t(1410,442,'Time × view',31,'middle'),frame(1234,461,345,158,r=8),t(1407,504,'Neural field (MLP)',32,'middle',700,fit=283),
+            m(1407,559,'(x, d, t) ↦ ('+sub('c','t')+', '+sub('σ','t')+')',33),t(1407,683,'Direct t / deformation /',30,'middle'),t(1407,730,'latent code (alternatives)',30,'middle',fit=351)]
+    end()
+    begin('e',1606,393,'(e) Deformable 3DGS')
+    for i,(x,y) in enumerate([(1628,116),(1763,116),(1868,116)]):
+        out += [m([1675,1798,1921][i],84,sub('t',str(i)),31,ink),img(f'e/gaussians_t{i}.png',x,y)]
+    out += [frame(1780,205,42,58,blue,2.7,dash='8 6'),path('M1780 263L1636 411',width=2.5,dash='8 5'),path('M1822 263L1967 411',width=2.5,dash='8 5'),frame(1636,411,332,277,blue,3,r=7),
+            '<ellipse class="f44-gaussian" cx="1702" cy="499" rx="23" ry="49" transform="rotate(25 1702 499)" fill="#C5CFDD" stroke="#2C383F" stroke-width="3"/>',
+            '<ellipse class="f44-gaussian" cx="1878" cy="499" rx="23" ry="49" transform="rotate(-35 1878 499)" fill="#C5CFDD" stroke="#2C383F" stroke-width="3"/>',
+            path('M1743 499H1826',width=4,arrow=True),m(1797,453,'Δ'+sub('μ','i')+'(t)',34),m(1924,435,sub('R','i')+'(t)',32),path('M1910 449L1930 482',width=4,arrow=True,delay=450),
+            m(1917,598,sub('S','i')+'(t)',32),path('M1898 534L1928 562',width=4,arrow=True,delay=850),
+            m(1802,643,sub('Σ','i')+'(t) = RSS<tspan baseline-shift="super" font-size="70%">T</tspan>R<tspan baseline-shift="super" font-size="70%">T</tspan>',32),
+            m(1802,728,sub('α','i')+', '+sub('c','i')+' constant',34,ink)]
+    end()
+    out.append('<g class="f44-pulses" aria-hidden="true"></g></svg></div><div class="nf-card" hidden></div><script type="application/json" class="nf-info">'+json.dumps(notes,ensure_ascii=False)+'</script></div>')
+    return ''.join(out)
+
+# ---------------------------------------------------------------- Fig. 4.3
+def fig43():
+    """Reconstruct the print figure in its original 2000 × 708 pixel coordinate system."""
+    manifest = json.loads((Path(__file__).resolve().parents[1] / 'src/img/figs/f43/placements.json').read_text())
+    blue, ink = '#477CB8', '#151515'
+    out = ['<div class="nf nf-43" data-nf="43" data-pagefind-ignore="all">',
+           '<div class="f43-viewport"><svg class="nf-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 708" role="group" aria-label="Figure 4.3: NeRF, 3DGS, and Hybrid (DMTet + Tri-plane)">',
+           '<defs><marker id="f43-arrow" markerWidth="11" markerHeight="9" refX="9" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L11 4.5L0 9L3 4.5Z" fill="#477CB8"/></marker><marker id="f43-ink" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L12 5L0 10L3 5Z" fill="#202020"/></marker><radialGradient id="f43-ray"><stop stop-color="#53B1EA"/><stop offset="1" stop-color="#1760A0"/></radialGradient></defs>']
+    def text(x, y, value, size=24, color=ink, anchor='start', weight=400, math=False, cls='', fit=None):
+        measure = f' textLength="{fit}" lengthAdjust="spacingAndGlyphs"' if fit else ''
+        return f'<text{measure} class="f43-text {"f43-math" if math else ""} {cls}" x="{x}" y="{y}" font-size="{size}" fill="{color}" text-anchor="{anchor}" font-weight="{weight}">{value}</text>'
+    def path(d, color='#777', width=1.8, dash=None, cls='', fill='none', arrow=False):
+        da = f' stroke-dasharray="{dash}"' if dash else ''
+        marker = f' marker-end="url(#{"f43-arrow" if color == blue else "f43-ink"})"' if arrow else ''
+        return f'<path class="{cls}" d="{d}" stroke="{color}" stroke-width="{width}" fill="{fill}"{da}{marker}/>'
+    def rect(x, y, w, h, r=0, color='#666', width=1.7, fill='none', dash=None, cls=''):
+        return R(x,y,w,h,fill=fill,stroke=color,lw=width,r=r,dash=dash,cls=cls)
+    def route(d, k, color=blue, dash=None, width=2, duration=1100, delay=0):
+        return path(d,color,width,dash,cls=f'f43-route f43-route-{k}',arrow=True).replace('class="',f'data-duration="{duration}" data-delay="{delay}" class="',1)
+    def zone(k, bounds):
+        x,y,w,h=bounds
+        out.append(f'<g class="f43-zone" data-k="{k}" role="button" tabindex="0" aria-pressed="false" aria-label="{esc(notes[k]["t"])}">')
+        out.append(rect(x,y,w,h,fill='transparent',color='none',width=0,cls='f43-hit'))
+    def end(): out.append('</g>')
+    def image(key, cls=''):
+        p = manifest[key]; x,y=p['position']; w,h=p['size']
+        return f'<image class="f43-art {cls}" href="{IMG}f43/{key}.png" x="{x}" y="{y}" width="{w}" height="{h}"/>'
+    def plane(points, cols=5, rows=6, fill='white', stroke='#444', width=1.8):
+        a,b,c,d=points
+        poly=' '.join(f'{x},{y}' for x,y in points)
+        result=f'<polygon points="{poly}" fill="{fill}" stroke="{stroke}" stroke-width="{width}"/>'
+        for i in range(1,cols):
+            t=i/cols; p=(a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t); q=(d[0]+(c[0]-d[0])*t,d[1]+(c[1]-d[1])*t)
+            result+=path(f'M{p[0]} {p[1]}L{q[0]} {q[1]}','#A7A7A7',.8)
+        for i in range(1,rows):
+            t=i/rows; p=(a[0]+(d[0]-a[0])*t,a[1]+(d[1]-a[1])*t); q=(b[0]+(c[0]-b[0])*t,b[1]+(c[1]-b[1])*t)
+            result+=path(f'M{p[0]} {p[1]}L{q[0]} {q[1]}','#A7A7A7',.8)
+        return result
+    notes={
+      'nerf':dict(t='NeRF · Ray sampling',b='A camera ray passes through a pixel into the volume, sampling the radiance field at 3D positions along its path. Blue dots mark the sample positions.'),
+      'field':dict(t='NeRF · Neural field & volume rendering',b='Fθ maps a 3D position x and viewing direction d to colour c and volume density σ. Volume rendering integrates these samples along the ray to produce a pixel colour. Density σ depends only on x; colour c depends on both x and d.'),
+      'gs':dict(t='3DGS · Anisotropic Gaussian ellipsoids',b='The teapot is represented by anisotropic 3D Gaussian ellipsoids. The dashed box selects a local region and connects it to the parameter illustration below.'),
+      'detail':dict(t='Gaussian parameters · μ, Σ, α, SH',b='μ is the centre; Σ controls shape and orientation; α is opacity; and SH (spherical harmonic coefficients) describes view-dependent colour.'),
+      'project':dict(t='① Project / splat',b='Project the 3D Gaussians onto the image plane to obtain 2D Gaussian splats.'),
+      'sort':dict(t='② Depth sort',b='Sort the projected Gaussian splats by depth. The illustration orders them from far to near.'),
+      'blend':dict(t='③ Alpha-blend',b='Composite the splats using their colours and opacities to form the final image.'),
+      'dmtet':dict(t='DMTet · Differentiable marching tetrahedra',b='Extract a triangle mesh from an implicit field on a coarse tetrahedral grid. The loss between rendered and target images propagates back to the geometry through differentiable rendering and surface extraction.'),
+      'triplane':dict(t='Tri-plane · Feature lookup & decoding',b='Project a 3D point onto the XY, YZ and XZ feature planes, sample and aggregate their features, then decode colour, density or SDF using an MLP.'),
+    }
+    # Frames and labels follow the source bitmap's measured coordinates.
+    out += [rect(12,6,609,628,25,'#16343D',1.9,fill='white'),rect(642,6,717,628,25,'#16343D',1.9,fill='white'),rect(1374,2,622,632,24,'#16343D',1.9,fill='white')]
+    # (a) camera, image plane and bounding volume.
+    zone('nerf',(22,39,590,310))
+    out += [text(24,149,'camera'),text(122,94,'Image plane'),text(301,59,'volume (bounding box)'),
+            path('M264 106L321 83L591 91L529 123Z','#999',1.5,'5 4'),
+            path('M264 106V305L529 342L590 293V91M529 123V342M321 83V281L590 293M264 305L321 281','#999',1.5,'5 4'),
+            image('a/teapot'),image('a/camera'),
+            plane([(166,136),(217,110),(217,233),(166,259)],4,6),
+            path('M187 187L198 181V203L187 209',blue,0,fill='#669BD2'),
+            route('M110 195H193L610 235','nerf',duration=1900),
+            text(134,300,'Pixel <tspan class="f43-math">(μ, ν)</tspan>',24,blue),
+            route('M199 264L193 215','nerf',width=1.7,delay=1900,duration=650)]
+    for i,(x,y) in enumerate([(290,204),(334,209),(379,213),(435,219),(494,226),(559,231)]):
+        out.append(f'<circle class="f43-sample" data-i="{i}" cx="{x}" cy="{y}" r="7.3" fill="url(#f43-ray)" stroke="#C1E4F8" stroke-width="1.2"/>')
+    end()
+    zone('field',(56,263,551,366))
+    out += [route('M379 223V371','field',dash='5 4',width=1.6,duration=850),
+            rect(180,376,427,251,17,blue,1.8,fill='white',dash='4 4'),
+            route('M178 406C88 402 65 360 67 269','field',width=2.2,duration=1300,delay=3100),
+            text(108,359,'∫',38,blue,math=True),text(70,420,'volume',20,blue,cls='f43-condensed'),text(62,445,'rendering',20,blue,cls='f43-condensed'),
+            text(201,417,'inputs <tspan class="f43-math" fill="#477CB8">(x, d)</tspan>',22,cls='f43-condensed'),
+            text(473,417,'outputs <tspan class="f43-math" fill="#477CB8">(c, σ)</tspan>',22,cls='f43-condensed'),
+            rect(195,437,120,47,6,blue,1.5,'#F4F8FC'),rect(195,502,120,47,6,blue,1.5,'#F4F8FC'),
+            rect(365,429,63,125,9,'#444',1.8,'#F4F4F3'),rect(474,437,115,47,5,blue,1.5,'#F4F8FC'),rect(474,502,115,47,5,blue,1.5,'#F4F8FC'),
+            text(255,467,'3D position <tspan class="f43-math">x</tspan>',20,anchor='middle',cls='f43-condensed'),
+            text(255,532,'view direction <tspan class="f43-math">d</tspan>',20,anchor='middle',cls='f43-condensed'),
+            text(396,499,'F<tspan baseline-shift="sub" font-size="24">θ</tspan>',37,anchor='middle',math=True),
+            text(532,467,'colour <tspan class="f43-math">c</tspan>',21,anchor='middle',cls='f43-condensed'),text(532,532,'density <tspan class="f43-math">σ</tspan>',21,anchor='middle',cls='f43-condensed'),
+            route('M321 460H357','field',delay=950),route('M321 524H357','field',delay=950),route('M435 460H466','field',delay=2000),route('M435 524H466','field',delay=2000),
+            text(210,602,'<tspan class="f43-math" fill="#477CB8">σ</tspan> depends on <tspan class="f43-math" fill="#477CB8">x</tspan> only; <tspan class="f43-math" fill="#477CB8">c</tspan> depends on <tspan class="f43-math" fill="#477CB8">(x, d)</tspan>',23,cls='f43-condensed',fit=358)]
+    end()
+    out.append(text(316,678,'(a) NeRF',30,anchor='middle'))
+    # (b) Teapot and the detail callout. The dashed overlays are independent SVG paths.
+    out.append(text(658,38,'Anisotropic Gaussian Ellipsoids on the teapot surface',25))
+    zone('gs',(671,53,381,275))
+    out += [image('b/gaussian-teapot'),rect(888,156,56,51,0,'#333',2,dash='6 4',cls='f43-callout'),path('M888 207L667 332M944 207L990 332','#fff',6),path('M888 207L667 332M944 207L990 332','#333',1.8,'6 4')]
+    end()
+    zone('detail',(668,332,373,260))
+    out += [rect(667,331,374,262,11,'#333',1.8,'white','5 4'),image('b/gaussian-detail'),
+            text(872,393,'μ:',28,blue,math=True),text(901,393,'centre'),text(872,444,'Σ:',30,blue,math=True),text(909,440,'shape and'),text(872,467,'orientation'),
+            text(872,517,'α:',28,blue,math=True),text(903,517,'opacity'),text(872,562,'SH:',24,blue,math=True),text(927,562,'colour')]
+    end()
+    out += [rect(1118,64,225,528,12,blue,1.5,dash='4 4'),text(1128,103,'Rasterizers (3 steps)',25,fit=205)]
+    zone('project',(1126,112,209,149))
+    out += [text(1125,137,'①',28,blue),text(1154,134,'Project / splat',23),image('b/raster-gaussian-primitives'),
+            path('M1259 149L1323 127V223L1259 250Z','#444',2,fill='white'),image('b/raster-projected-splats'),route('M1209 192H1245','project','#333',dash='4 3',width=1.8)]
+    end()
+    zone('sort',(1126,267,211,159))
+    out += [text(1125,291,'②',28,blue),text(1154,289,'Depth sort',23),path('M1132 332L1195 315V402L1132 420Z','#444',2,fill='white'),image('b/raster-depth-splats'),
+            image('b/raster-depth-stack'),route('M1201 357H1235','sort','#333',dash='4 3',width=1.8),text(1304,319,'far',20,cls='f43-condensed'),text(1300,407,'near',20,cls='f43-condensed'),route('M1314 329V384','sort','#333',width=1.8,delay=1300)]
+    end()
+    zone('blend',(1126,440,211,138))
+    out += [text(1125,469,'③',28,blue),text(1154,466,'Alpha-blend',23),image('b/raster-blend-stack'),rect(1250,486,77,80,0,'#444',2,'white'),image('b/raster-render-teapot'),route('M1202 526H1240','blend','#333',dash='4 3',width=1.8)]
+    end()
+    out.append(text(1003,678,'(b) 3DGS',30,anchor='middle'))
+    # (c) DMTet; the grid cage is intrinsic artwork, while all process arrows are native.
+    out += [path('M1658 20V617','#666',1.5,'7 6'),text(1519,35,'DMTet',25,anchor='middle',weight=700),text(1403,77,'Coarse tetrahedral grid',23)]
+    zone('dmtet',(1395,89,257,536))
+    out += [image('c/tetrahedral-grid-teapot'),image('c/triangle-mesh-teapot'),route('M1499 284V355','dmtet','#111',width=2.7,duration=1400),
+            text(1511,299,'Differentiable',23),text(1526,326,'marching',23),text(1528,353,'tetrahedra',23),
+            rect(1474,527,79,96,10,'#666',1.7,'white'),text(1480,543,'2D render',18,fit=68),image('c/render-teapot'),
+            rect(1586,544,51,60,8,'#666',1.7,'white'),text(1591,565,'loss',23),text(1611,595,'ℒ',36,anchor='middle',math=True),
+            route('M1583 575H1560','dmtet','#222',width=2,delay=1600),
+            route('M1445 548C1407 527 1405 489 1408 414L1409 227','dmtet',blue,dash='5 4',width=1.6,duration=1800,delay=2800),
+            text(1420,363,'∇',36,blue,math=True),text(1400,578,'gradients',19,blue,cls='f43-condensed',fit=65),text(1398,602,'from 2D loss',19,blue,cls='f43-condensed',fit=69)]
+    end()
+    # Tri-plane is reconstructed as in print: two visible planes and the middle axis label.
+    out += [text(1822,35,'Tri-plane',25,anchor='middle',weight=700),text(1666,77,'Three orthogonal feature planes',23,fit=315)]
+    zone('triplane',(1667,88,318,537))
+    out += [text(1730,113,'XY',20,anchor='middle',cls='f43-condensed'),text(1826,113,'YZ',20,anchor='middle',cls='f43-condensed'),text(1938,113,'XZ',20,anchor='middle',cls='f43-condensed'),
+            plane([(1704,146),(1771,109),(1771,208),(1704,245)],5,6),plane([(1892,108),(1961,146),(1961,245),(1892,207)],5,6),
+            path('M1732 160L1746 152V174L1732 182',blue,0,fill='#6B9FD1'),path('M1920 154L1934 162V183L1920 175',blue,0,fill='#6B9FD1'),
+            path('M1740 168L1832 178L1927 168',blue,1.8,'5 4'),
+            '<circle class="f43-query" cx="1832" cy="178" r="4.6" fill="#1465AD"/>',text(1832,156,'(x, y, z)',23,blue,anchor='middle',math=True),
+            route('M1740 177V273','triplane',dash='5 4',width=1.8,duration=950),route('M1832 188V273','triplane',dash='5 4',width=1.8,duration=950),route('M1927 180V273','triplane',dash='5 4',width=1.8,duration=950),
+            image('c/feature-xy'),image('c/feature-yz'),image('c/feature-xz')]
+    for x,label_ in [(1740,'XY'),(1832,'YZ'),(1927,'XZ')]:
+        out.append(text(x,366,f'f<tspan baseline-shift="sub" font-size="18">{label_}</tspan>',27,anchor='middle',math=True))
+    out += [route('M1738 382V396L1814 418','triplane',width=1.8,duration=1000,delay=1100),route('M1832 381V400','triplane',width=1.8,duration=1000,delay=1100),route('M1927 382V396L1850 418','triplane',width=1.8,duration=1000,delay=1100),
+            '<circle cx="1832" cy="422" r="15" fill="white" stroke="#333" stroke-width="1.9"/>',path('M1821 422H1843M1832 411V433','#111',1.8),route('M1832 444V473','triplane',width=1.8,duration=700,delay=2200),
+            rect(1788,478,87,53,10,'#555',1.8,'#F3F3F2',cls='f43-decoder'),text(1832,513,'MLP',25,anchor='middle'),route('M1832 540V566','triplane',width=1.8,duration=700,delay=3000),text(1834,622,'Color / Density / SDF',25,anchor='middle')]
+    end()
+    out += [text(1684,678,'(c) Hybrid (DMTet + Tri-plane)',30,anchor='middle'),'<g class="f43-pulses" aria-hidden="true" pointer-events="none"></g></svg></div>',
+
+            '<div class="nf-card" hidden role="status"></div>',f'<script type="application/json" class="nf-info">{json.dumps(notes,ensure_ascii=False)}</script></div>']
+    return ''.join(out)
+
+
+from figure3 import fig3opener
+
+
 # ---------------------------------------------------------------- part openers
 OPENERS = {
     1: [("Why now", "From data-centric to world-centric AI"), ("How it evolved", "Five eras of representing space"),
@@ -530,3 +813,59 @@ def opener(k, targets, alt=""):
             f'<img class="op-art" src="{IMG}opener-{k}-1600.webp" srcset="{IMG}opener-{k}-1600.webp 1600w, {IMG}opener-{k}.webp {m["w"]}w" '
             f'sizes="(max-width: 980px) 100vw, 900px" width="{m["w"]}" height="{m["h"]}" alt="{esc(alt)}" decoding="async">'
             f'<span class="op-shades">{shades}</span><nav class="op-zones" aria-label="In this part">{"".join(zones)}</nav>{notes}</div>')
+
+
+# ---------------------------------------------------------------- Fig. 7.13
+FIG713_INFO = {
+    "agent": dict(t="Agent · choose an action", b="The agent uses its policy πθ(a | o) to choose an action from the current observation. Feedback from interaction provides the signal for policy improvement."),
+    "action": dict(t="Action · aₜ", b="The chosen action is applied to the environment. In a spatial task, this can be a movement, a navigation decision or a manipulation command."),
+    "env": dict(t="Environment · ℰ", b="The environment responds to the action. Its next state determines the observation and reward returned to the agent."),
+    "current": dict(t="Observation oₜ · Reward rₜ", b="The current observation is the input to the agent’s policy. The reward provides feedback on the preceding interaction. These are the original labels on the left side of the time boundary."),
+    "next": dict(t="Observation oₜ₊₁ · Reward rₜ₊₁", b="After action aₜ, the environment returns the next observation and reward. The dashed separator in the original diagram distinguishes the two time indices."),
+}
+
+
+def fig713():
+    """Native SVG styling with every printed node, label and connection retained."""
+    def target(k, body):
+        return g(k, body, f' role="button" tabindex="0" aria-pressed="false" aria-label="{esc(FIG713_INFO[k]["t"])}"')
+
+    agent = R(16, 38, 215, 202, fill=BLUE_FILL, stroke=BLUE, lw=1.2, r=15, cls="frame")
+    agent += T(123.5, 79, "Agent", 25, w=700, ha="center")
+    agent += R(30, 112, 187, 62, stroke=BLUE_MID, r=9)
+    agent += T(123.5, 144, "Policy πθ(a | o)", 22, ha="center")
+    env = R(785, 38, 199, 202, fill="#F6F7FA", stroke=LINE, lw=1.2, r=15, cls="frame")
+    env += T(884.5, 116, "Environment", 23, w=700, ha="center")
+    env += T(884.5, 171, "ℰ", 36, BLUE, ha="center")
+    action = A(231, 65, 785, 65, color=BLUE, lw=2, head=9)
+    action += T(508, 28, "Action aₜ", 23, ha="center")
+    action += R(232, 5, 552, 82, fill="transparent", stroke="none")
+    current = A(545, 200, 231, 200, color=BLUE, lw=2, head=9)
+    current += T(388, 172, "Observation oₜ", 20, ha="center")
+    current += T(388, 233, "Reward rₜ", 20, ha="center")
+    current += R(232, 150, 312, 102, fill="transparent", stroke="none")
+    next_ = A(785, 200, 545, 200, color=BLUE, lw=2, head=9)
+    next_ += T(665, 172, "Observation oₜ₊₁", 20, ha="center")
+    next_ += T(665, 233, "Reward rₜ₊₁", 20, ha="center")
+    next_ += R(550, 150, 234, 102, fill="transparent", stroke="none")
+    svg = ('<svg class="nf-svg" viewBox="0 0 1000 270" role="group" aria-label="Figure 7.13: reinforcement learning framework, retaining both time-indexed observation and reward pairs">'
+           + target("agent", agent) + target("env", env) + target("action", action)
+           + target("current", current) + target("next", next_)
+           + L([(545, 153), (545, 225)], color="#858B96", lw=1.6, dash="6 4")
+           + '<circle class="token" r="4.5" aria-hidden="true"/></svg>')
+    return ('<div class="nf nf-713" data-nf="713" data-pagefind-ignore="all">' + svg
+            + '<div class="nf-card" role="status" hidden></div>'
+            '<script type="application/json" class="nf-info">' + json.dumps(FIG713_INFO, ensure_ascii=False) + '</script></div>')
+
+
+# ---------------------------------------------------------------- Fig. 1.2
+
+def fig12():
+    """Approved five-era drawing, without any preview controls or comparison UI."""
+    assets = Path(__file__).resolve().parents[1] / "src/img/figs"
+    svg = (assets / "f12-evolution.svg").read_text()
+    info = (assets / "f12-info.json").read_text()
+    return ('<div class="nf nf-12" data-nf="12" data-pagefind-ignore="all">'
+            '<div class="nf12-scroll"><div class="evolution">' + svg
+            + '<aside class="reading-card" role="status" hidden></aside></div></div>'
+            '<script type="application/json" class="nf-info">' + info + '</script></div>')

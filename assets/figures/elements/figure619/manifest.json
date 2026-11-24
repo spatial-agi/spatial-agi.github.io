@@ -1,0 +1,38 @@
+{
+  "source": "assets/figures/figures/part3/section6/slam.webp",
+  "source_size": [
+    2000,
+    1125
+  ],
+  "notes": "The two raster assets preserve the source SLAM result imagery. Captions, layout borders, animation paths, labels and interaction regions will be drawn independently in the frontend.",
+  "assets": [
+    {
+      "file": "visual-slam.png",
+      "source_box": [
+        72,
+        56,
+        1179,
+        680
+      ],
+      "size": [
+        1107,
+        624
+      ],
+      "notes": "Visual SLAM: tracked camera view and sparse map/trajectory composite."
+    },
+    {
+      "file": "lidar-slam.png",
+      "source_box": [
+        1261,
+        56,
+        1881,
+        680
+      ],
+      "size": [
+        620,
+        624
+      ],
+      "notes": "LiDAR SLAM: dense point-cloud map with its embedded camera inset."
+    }
+  ]
+}

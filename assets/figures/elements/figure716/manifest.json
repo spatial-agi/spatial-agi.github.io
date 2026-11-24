@@ -1,0 +1,15 @@
+{
+  "figure": "7.16",
+  "source": "assets/figures/figures/part3/section7/AC-based-rl.webp",
+  "source_size": [
+    2000,
+    542
+  ],
+  "assets": [],
+  "frontend": [
+    "State, actor, critic and environment boxes",
+    "Advantage equation",
+    "Action, state, reward and actor-update arrows"
+  ],
+  "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+}

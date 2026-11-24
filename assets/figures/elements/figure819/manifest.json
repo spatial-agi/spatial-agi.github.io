@@ -1,0 +1,62 @@
+{
+  "figure": "8.19",
+  "sources": [
+    "assets/figures/figures/part3/section8/two_axis_human_motion_generation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1431
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/woman.png",
+      "title": "woman",
+      "box": [
+        20,
+        25,
+        126,
+        132
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        40,
+        50,
+        252,
+        264
+      ],
+      "size": [
+        212,
+        214
+      ]
+    },
+    {
+      "file": "scene/room.png",
+      "title": "room",
+      "box": [
+        134,
+        570,
+        253,
+        643
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        268,
+        1140,
+        506,
+        1286
+      ],
+      "size": [
+        238,
+        146
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

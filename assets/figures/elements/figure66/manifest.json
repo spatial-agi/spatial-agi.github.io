@@ -1,0 +1,96 @@
+{
+  "source": "assets/figures/figures/part3/section6/depth_estimation_v3.webp",
+  "assets": [
+    {
+      "file": "inputs/monocular-rgb.png",
+      "source_box": [
+        1412,
+        134,
+        1610,
+        233
+      ],
+      "size": [
+        198,
+        99
+      ]
+    },
+    {
+      "file": "inputs/monocular-depth.png",
+      "source_box": [
+        1784,
+        134,
+        1982,
+        233
+      ],
+      "size": [
+        198,
+        99
+      ]
+    },
+    {
+      "file": "methods/supervised-rgb.png",
+      "source_box": [
+        436,
+        663,
+        530,
+        710
+      ],
+      "size": [
+        94,
+        47
+      ]
+    },
+    {
+      "file": "methods/supervised-depth.png",
+      "source_box": [
+        680,
+        663,
+        774,
+        710
+      ],
+      "size": [
+        94,
+        47
+      ]
+    },
+    {
+      "file": "methods/self-supervised-frame-t.png",
+      "source_box": [
+        836,
+        640,
+        970,
+        707
+      ],
+      "size": [
+        134,
+        67
+      ]
+    },
+    {
+      "file": "methods/self-supervised-frame-next.png",
+      "source_box": [
+        1033,
+        640,
+        1167,
+        707
+      ],
+      "size": [
+        134,
+        67
+      ]
+    },
+    {
+      "file": "methods/foundation-depth.png",
+      "source_box": [
+        1870,
+        686,
+        1962,
+        732
+      ],
+      "size": [
+        92,
+        46
+      ]
+    }
+  ]
+}

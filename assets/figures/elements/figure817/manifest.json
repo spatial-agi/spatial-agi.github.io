@@ -1,0 +1,678 @@
+{
+  "figure": "8.17",
+  "sources": [
+    "assets/figures/figures/part3/section8/five_video_editing_paradigms.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      2093
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/source-1.png",
+      "title": "source 1",
+      "box": [
+        23,
+        51,
+        98,
+        126
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        46,
+        102,
+        196,
+        252
+      ],
+      "size": [
+        150,
+        150
+      ]
+    },
+    {
+      "file": "task/source-2.png",
+      "title": "source 2",
+      "box": [
+        106,
+        51,
+        181,
+        126
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        212,
+        102,
+        362,
+        252
+      ],
+      "size": [
+        150,
+        150
+      ]
+    },
+    {
+      "file": "task/source-3.png",
+      "title": "source 3",
+      "box": [
+        190,
+        51,
+        265,
+        126
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        380,
+        102,
+        530,
+        252
+      ],
+      "size": [
+        150,
+        150
+      ]
+    },
+    {
+      "file": "task/edited-1.png",
+      "title": "edited 1",
+      "box": [
+        737,
+        51,
+        812,
+        126
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1474,
+        102,
+        1624,
+        252
+      ],
+      "size": [
+        150,
+        150
+      ]
+    },
+    {
+      "file": "task/edited-2.png",
+      "title": "edited 2",
+      "box": [
+        820,
+        51,
+        895,
+        126
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1640,
+        102,
+        1790,
+        252
+      ],
+      "size": [
+        150,
+        150
+      ]
+    },
+    {
+      "file": "task/edited-3.png",
+      "title": "edited 3",
+      "box": [
+        904,
+        51,
+        979,
+        126
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1808,
+        102,
+        1958,
+        252
+      ],
+      "size": [
+        150,
+        150
+      ]
+    },
+    {
+      "file": "a/source-1.png",
+      "title": "source 1",
+      "box": [
+        27,
+        249,
+        62,
+        284
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        54,
+        498,
+        124,
+        568
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "a/source-2.png",
+      "title": "source 2",
+      "box": [
+        67,
+        249,
+        102,
+        284
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        134,
+        498,
+        204,
+        568
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "a/source-3.png",
+      "title": "source 3",
+      "box": [
+        107,
+        249,
+        142,
+        284
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        214,
+        498,
+        284,
+        568
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "a/edited-1.png",
+      "title": "edited 1",
+      "box": [
+        857,
+        249,
+        892,
+        284
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1714,
+        498,
+        1784,
+        568
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "a/edited-2.png",
+      "title": "edited 2",
+      "box": [
+        897,
+        249,
+        932,
+        284
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1794,
+        498,
+        1864,
+        568
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "a/edited-3.png",
+      "title": "edited 3",
+      "box": [
+        937,
+        249,
+        972,
+        284
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1874,
+        498,
+        1944,
+        568
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "b/source-1.png",
+      "title": "source 1",
+      "box": [
+        27,
+        422,
+        62,
+        457
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        54,
+        844,
+        124,
+        914
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "b/source-2.png",
+      "title": "source 2",
+      "box": [
+        67,
+        422,
+        102,
+        457
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        134,
+        844,
+        204,
+        914
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "b/source-3.png",
+      "title": "source 3",
+      "box": [
+        107,
+        422,
+        142,
+        457
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        214,
+        844,
+        284,
+        914
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "b/edited-1.png",
+      "title": "edited 1",
+      "box": [
+        857,
+        422,
+        892,
+        457
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1714,
+        844,
+        1784,
+        914
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "b/edited-2.png",
+      "title": "edited 2",
+      "box": [
+        897,
+        422,
+        932,
+        457
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1794,
+        844,
+        1864,
+        914
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "b/edited-3.png",
+      "title": "edited 3",
+      "box": [
+        937,
+        422,
+        972,
+        457
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1874,
+        844,
+        1944,
+        914
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "c/training-source.png",
+      "title": "training source",
+      "box": [
+        27,
+        591,
+        65,
+        629
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        54,
+        1182,
+        130,
+        1258
+      ],
+      "size": [
+        76,
+        76
+      ]
+    },
+    {
+      "file": "c/training-target.png",
+      "title": "training target",
+      "box": [
+        107,
+        591,
+        145,
+        629
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        214,
+        1182,
+        290,
+        1258
+      ],
+      "size": [
+        76,
+        76
+      ]
+    },
+    {
+      "file": "c/edited-1.png",
+      "title": "edited 1",
+      "box": [
+        857,
+        594,
+        892,
+        629
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1714,
+        1188,
+        1784,
+        1258
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "c/edited-2.png",
+      "title": "edited 2",
+      "box": [
+        897,
+        594,
+        932,
+        629
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1794,
+        1188,
+        1864,
+        1258
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "c/edited-3.png",
+      "title": "edited 3",
+      "box": [
+        937,
+        594,
+        972,
+        629
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1874,
+        1188,
+        1944,
+        1258
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "d/edited-1.png",
+      "title": "edited 1",
+      "box": [
+        857,
+        767,
+        892,
+        802
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1714,
+        1534,
+        1784,
+        1604
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "d/edited-2.png",
+      "title": "edited 2",
+      "box": [
+        897,
+        767,
+        932,
+        802
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1794,
+        1534,
+        1864,
+        1604
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "d/edited-3.png",
+      "title": "edited 3",
+      "box": [
+        937,
+        767,
+        972,
+        802
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1874,
+        1534,
+        1944,
+        1604
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "e/source.png",
+      "title": "source",
+      "box": [
+        30,
+        926,
+        83,
+        978
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        60,
+        1852,
+        166,
+        1956
+      ],
+      "size": [
+        106,
+        104
+      ]
+    },
+    {
+      "file": "e/edited-1.png",
+      "title": "edited 1",
+      "box": [
+        857,
+        938,
+        892,
+        973
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1714,
+        1876,
+        1784,
+        1946
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "e/edited-2.png",
+      "title": "edited 2",
+      "box": [
+        897,
+        938,
+        932,
+        973
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1794,
+        1876,
+        1864,
+        1946
+      ],
+      "size": [
+        70,
+        70
+      ]
+    },
+    {
+      "file": "e/edited-3.png",
+      "title": "edited 3",
+      "box": [
+        937,
+        938,
+        972,
+        973
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1874,
+        1876,
+        1944,
+        1946
+      ],
+      "size": [
+        70,
+        70
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

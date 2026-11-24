@@ -120,4 +120,4 @@ $$('.figtoggle').forEach(t => t.addEventListener('click', async e => {
 }));
 $$('.figtoggle[data-default="live"] [data-fv="live"]').forEach(b => b.click());
 // figures drawn natively for the web (Fig. 1.1, Fig. 2.1)
-if ($('.nf[data-nf]')) import('./nfig.js').then(m => m.mountNative());
+if ($('.nf[data-nf]')) import('./nfig.js?v=approved4142').then(m => m.mountNative());

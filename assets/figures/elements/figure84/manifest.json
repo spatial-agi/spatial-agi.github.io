@@ -1,0 +1,608 @@
+{
+  "figure": "8.4",
+  "sources": [
+    "assets/figures/figures/part3/section8/3D-objects-gen-1.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      837
+    ]
+  ],
+  "assets": [
+    {
+      "file": "objects/trellis.png",
+      "title": "trellis",
+      "box": [
+        44,
+        9,
+        234,
+        257
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          44,
+          10
+        ],
+        [
+          93,
+          10
+        ],
+        [
+          108,
+          31
+        ],
+        [
+          138,
+          37
+        ],
+        [
+          153,
+          55
+        ],
+        [
+          176,
+          55
+        ],
+        [
+          195,
+          86
+        ],
+        [
+          184,
+          121
+        ],
+        [
+          225,
+          147
+        ],
+        [
+          229,
+          243
+        ],
+        [
+          206,
+          256
+        ],
+        [
+          153,
+          216
+        ],
+        [
+          86,
+          198
+        ],
+        [
+          45,
+          174
+        ]
+      ],
+      "source_box": [
+        88,
+        18,
+        468,
+        514
+      ],
+      "size": [
+        380,
+        496
+      ]
+    },
+    {
+      "file": "objects/printing-press.png",
+      "title": "printing press",
+      "box": [
+        257,
+        11,
+        488,
+        257
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          307,
+          13
+        ],
+        [
+          368,
+          13
+        ],
+        [
+          405,
+          50
+        ],
+        [
+          437,
+          49
+        ],
+        [
+          450,
+          75
+        ],
+        [
+          441,
+          124
+        ],
+        [
+          475,
+          135
+        ],
+        [
+          488,
+          205
+        ],
+        [
+          432,
+          251
+        ],
+        [
+          359,
+          217
+        ],
+        [
+          307,
+          198
+        ],
+        [
+          258,
+          174
+        ],
+        [
+          279,
+          129
+        ],
+        [
+          275,
+          104
+        ],
+        [
+          296,
+          70
+        ]
+      ],
+      "source_box": [
+        514,
+        22,
+        976,
+        514
+      ],
+      "size": [
+        462,
+        492
+      ]
+    },
+    {
+      "file": "objects/camera.png",
+      "title": "camera",
+      "box": [
+        533,
+        10,
+        738,
+        255
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          551,
+          21
+        ],
+        [
+          589,
+          10
+        ],
+        [
+          695,
+          51
+        ],
+        [
+          700,
+          98
+        ],
+        [
+          726,
+          117
+        ],
+        [
+          738,
+          179
+        ],
+        [
+          717,
+          253
+        ],
+        [
+          654,
+          241
+        ],
+        [
+          610,
+          242
+        ],
+        [
+          552,
+          185
+        ],
+        [
+          536,
+          110
+        ],
+        [
+          533,
+          86
+        ],
+        [
+          550,
+          79
+        ]
+      ],
+      "source_box": [
+        1066,
+        20,
+        1476,
+        510
+      ],
+      "size": [
+        410,
+        490
+      ]
+    },
+    {
+      "file": "objects/house.png",
+      "title": "house",
+      "box": [
+        771,
+        12,
+        983,
+        255
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "polygon": [
+        [
+          815,
+          67
+        ],
+        [
+          836,
+          53
+        ],
+        [
+          905,
+          13
+        ],
+        [
+          918,
+          24
+        ],
+        [
+          940,
+          102
+        ],
+        [
+          979,
+          160
+        ],
+        [
+          982,
+          215
+        ],
+        [
+          935,
+          252
+        ],
+        [
+          894,
+          240
+        ],
+        [
+          776,
+          185
+        ],
+        [
+          772,
+          152
+        ],
+        [
+          804,
+          132
+        ]
+      ],
+      "source_box": [
+        1542,
+        24,
+        1966,
+        510
+      ],
+      "size": [
+        424,
+        486
+      ]
+    },
+    {
+      "file": "objects/ship.png",
+      "title": "ship",
+      "box": [
+        5,
+        286,
+        122,
+        405
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        10,
+        572,
+        244,
+        810
+      ],
+      "size": [
+        234,
+        238
+      ]
+    },
+    {
+      "file": "objects/food-truck.png",
+      "title": "food truck",
+      "box": [
+        135,
+        285,
+        245,
+        404
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        270,
+        570,
+        490,
+        808
+      ],
+      "size": [
+        220,
+        238
+      ]
+    },
+    {
+      "file": "objects/dragon.png",
+      "title": "dragon",
+      "box": [
+        251,
+        285,
+        370,
+        404
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        502,
+        570,
+        740,
+        808
+      ],
+      "size": [
+        238,
+        238
+      ]
+    },
+    {
+      "file": "objects/mech.png",
+      "title": "mech",
+      "box": [
+        383,
+        284,
+        487,
+        406
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        766,
+        568,
+        974,
+        812
+      ],
+      "size": [
+        208,
+        244
+      ]
+    },
+    {
+      "file": "objects/lamp.png",
+      "title": "lamp",
+      "box": [
+        522,
+        284,
+        618,
+        405
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        1044,
+        568,
+        1236,
+        810
+      ],
+      "size": [
+        192,
+        242
+      ]
+    },
+    {
+      "file": "objects/clock.png",
+      "title": "clock",
+      "box": [
+        623,
+        284,
+        749,
+        405
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        1246,
+        568,
+        1498,
+        810
+      ],
+      "size": [
+        252,
+        242
+      ]
+    },
+    {
+      "file": "objects/owl.png",
+      "title": "owl",
+      "box": [
+        761,
+        284,
+        858,
+        405
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        1522,
+        568,
+        1716,
+        810
+      ],
+      "size": [
+        194,
+        242
+      ]
+    },
+    {
+      "file": "objects/turntable.png",
+      "title": "turntable",
+      "box": [
+        870,
+        283,
+        987,
+        405
+      ],
+      "kind": "tinted-cutout",
+      "source_index": 0,
+      "source_box": [
+        1740,
+        566,
+        1974,
+        810
+      ],
+      "size": [
+        234,
+        244
+      ]
+    },
+    {
+      "file": "references/trellis.png",
+      "title": "trellis",
+      "box": [
+        89,
+        219,
+        151,
+        280
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "polygon": [
+        [
+          44,
+          10
+        ],
+        [
+          93,
+          10
+        ],
+        [
+          108,
+          31
+        ],
+        [
+          138,
+          37
+        ],
+        [
+          153,
+          55
+        ],
+        [
+          176,
+          55
+        ],
+        [
+          195,
+          86
+        ],
+        [
+          184,
+          121
+        ],
+        [
+          225,
+          147
+        ],
+        [
+          229,
+          243
+        ],
+        [
+          206,
+          256
+        ],
+        [
+          153,
+          216
+        ],
+        [
+          86,
+          198
+        ],
+        [
+          45,
+          174
+        ]
+      ],
+      "source_box": [
+        178,
+        438,
+        302,
+        560
+      ],
+      "size": [
+        124,
+        122
+      ]
+    },
+    {
+      "file": "references/press.png",
+      "title": "press",
+      "box": [
+        331,
+        218,
+        393,
+        281
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        662,
+        436,
+        786,
+        562
+      ],
+      "size": [
+        124,
+        126
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

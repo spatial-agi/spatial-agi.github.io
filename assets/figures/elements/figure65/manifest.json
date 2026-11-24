@@ -1,0 +1,124 @@
+{
+  "source": "assets/figures/figures/part3/section6/scene_classification.webp",
+  "assets": [
+    {
+      "file": "tasks/single-label-kitchen.png",
+      "source_box": [
+        12,
+        23,
+        415,
+        324
+      ],
+      "size": [
+        403,
+        301
+      ]
+    },
+    {
+      "file": "tasks/multi-label-kitchen.png",
+      "source_box": [
+        478,
+        23,
+        880,
+        324
+      ],
+      "size": [
+        402,
+        301
+      ]
+    },
+    {
+      "file": "tasks/farmland.png",
+      "source_box": [
+        946,
+        24,
+        1191,
+        192
+      ],
+      "size": [
+        245,
+        168
+      ]
+    },
+    {
+      "file": "tasks/highway.png",
+      "source_box": [
+        1238,
+        24,
+        1482,
+        192
+      ],
+      "size": [
+        244,
+        168
+      ]
+    },
+    {
+      "file": "tasks/forest.png",
+      "source_box": [
+        946,
+        231,
+        1191,
+        400
+      ],
+      "size": [
+        245,
+        169
+      ]
+    },
+    {
+      "file": "tasks/animal.png",
+      "source_box": [
+        1238,
+        231,
+        1482,
+        400
+      ],
+      "size": [
+        244,
+        169
+      ]
+    },
+    {
+      "file": "tasks/caption-kitchen.png",
+      "source_box": [
+        1549,
+        23,
+        1905,
+        289
+      ],
+      "size": [
+        356,
+        266
+      ]
+    },
+    {
+      "file": "methods/handcrafted-background.png",
+      "source_box": [
+        29,
+        590,
+        281,
+        778
+      ],
+      "size": [
+        252,
+        188
+      ],
+      "restoration": "Clean source kitchen resized with a 62% white overlay; diagram annotations removed."
+    },
+    {
+      "file": "methods/scene-graph-background.png",
+      "source_box": [
+        1251,
+        591,
+        1503,
+        779
+      ],
+      "size": [
+        252,
+        188
+      ],
+      "restoration": "Clean source kitchen resized with a 62% white overlay; diagram annotations removed."
+    }
+  ]
+}

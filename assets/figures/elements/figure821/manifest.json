@@ -1,0 +1,210 @@
+{
+  "figure": "8.21",
+  "sources": [
+    "assets/figures/figures/part3/section8/vehicle_motion_planning.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1293
+    ]
+  ],
+  "assets": [
+    {
+      "file": "observed/north-car.png",
+      "title": "north car",
+      "box": [
+        133,
+        108,
+        166,
+        176
+      ],
+      "kind": "road-cutout",
+      "source_index": 0,
+      "source_box": [
+        266,
+        216,
+        332,
+        352
+      ],
+      "size": [
+        66,
+        136
+      ]
+    },
+    {
+      "file": "observed/east-car.png",
+      "title": "east car",
+      "box": [
+        236,
+        190,
+        298,
+        221
+      ],
+      "kind": "road-cutout",
+      "source_index": 0,
+      "source_box": [
+        472,
+        380,
+        596,
+        442
+      ],
+      "size": [
+        124,
+        62
+      ]
+    },
+    {
+      "file": "observed/west-car.png",
+      "title": "west car",
+      "box": [
+        57,
+        242,
+        119,
+        272
+      ],
+      "kind": "road-cutout",
+      "source_index": 0,
+      "source_box": [
+        114,
+        484,
+        238,
+        544
+      ],
+      "size": [
+        124,
+        60
+      ]
+    },
+    {
+      "file": "observed/ego-car.png",
+      "title": "ego car",
+      "box": [
+        176,
+        279,
+        212,
+        350
+      ],
+      "kind": "road-cutout",
+      "source_index": 0,
+      "source_box": [
+        352,
+        558,
+        424,
+        700
+      ],
+      "size": [
+        72,
+        142
+      ]
+    },
+    {
+      "file": "candidate/north-car.png",
+      "title": "north car",
+      "box": [
+        787,
+        108,
+        820,
+        176
+      ],
+      "kind": "road-cutout",
+      "source_index": 0,
+      "reuse": [
+        21,
+        0
+      ],
+      "source_box": [
+        1574,
+        216,
+        1640,
+        352
+      ],
+      "size": [
+        66,
+        136
+      ]
+    },
+    {
+      "file": "candidate/east-car.png",
+      "title": "east car",
+      "box": [
+        890,
+        190,
+        952,
+        221
+      ],
+      "kind": "road-cutout",
+      "source_index": 0,
+      "reuse": [
+        21,
+        1
+      ],
+      "source_box": [
+        1780,
+        380,
+        1904,
+        442
+      ],
+      "size": [
+        124,
+        62
+      ]
+    },
+    {
+      "file": "candidate/west-car.png",
+      "title": "west car",
+      "box": [
+        711,
+        242,
+        773,
+        272
+      ],
+      "kind": "road-cutout",
+      "source_index": 0,
+      "reuse": [
+        21,
+        2
+      ],
+      "source_box": [
+        1422,
+        484,
+        1546,
+        544
+      ],
+      "size": [
+        124,
+        60
+      ]
+    },
+    {
+      "file": "candidate/ego-car.png",
+      "title": "ego car",
+      "box": [
+        830,
+        279,
+        866,
+        350
+      ],
+      "kind": "road-cutout",
+      "source_index": 0,
+      "reuse": [
+        21,
+        3
+      ],
+      "source_box": [
+        1660,
+        558,
+        1732,
+        700
+      ],
+      "size": [
+        72,
+        142
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

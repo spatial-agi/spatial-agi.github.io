@@ -1,0 +1,150 @@
+{
+  "source": "assets/figures/figures/part3/section8/four_motion_editing_mechanisms.webp",
+  "source_size": [
+    2000,
+    1724
+  ],
+  "assets": [
+    {
+      "file": "a-inbetween/start.png",
+      "source_box": [
+        198,
+        108,
+        314,
+        361
+      ],
+      "size": [
+        116,
+        253
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "a-inbetween/end.png",
+      "source_box": [
+        680,
+        108,
+        813,
+        361
+      ],
+      "size": [
+        133,
+        253
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "a-inbetween/result-01.png",
+      "source_box": [
+        257,
+        652,
+        354,
+        862
+      ],
+      "size": [
+        97,
+        210
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "a-inbetween/result-02.png",
+      "source_box": [
+        451,
+        652,
+        552,
+        862
+      ],
+      "size": [
+        101,
+        210
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "a-inbetween/result-03.png",
+      "source_box": [
+        644,
+        652,
+        757,
+        862
+      ],
+      "size": [
+        113,
+        210
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "c-optimization/result-01.png",
+      "source_box": [
+        190,
+        1367,
+        316,
+        1639
+      ],
+      "size": [
+        126,
+        272
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "c-optimization/result-02.png",
+      "source_box": [
+        423,
+        1367,
+        551,
+        1639
+      ],
+      "size": [
+        128,
+        272
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "c-optimization/result-03.png",
+      "source_box": [
+        659,
+        1367,
+        791,
+        1639
+      ],
+      "size": [
+        132,
+        272
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "d-instruction/source.png",
+      "source_box": [
+        1213,
+        1198,
+        1312,
+        1406
+      ],
+      "size": [
+        99,
+        208
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    },
+    {
+      "file": "d-instruction/edited.png",
+      "source_box": [
+        1705,
+        1156,
+        1815,
+        1384
+      ],
+      "size": [
+        110,
+        228
+      ],
+      "notes": "Original person and contact shadow; exterior white background removed. No labels, arrows or diagram borders."
+    }
+  ],
+  "frontend": "Panel b skeletons and paths; all text, formulas, borders, noise tiles, arrows and connector lines."
+}

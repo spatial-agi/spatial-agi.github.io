@@ -1,0 +1,234 @@
+{
+  "source": "assets/figures/figures/part3/section6/action_detection_method_1.webp",
+  "source_size": [
+    2000,
+    1277
+  ],
+  "notes": "16 photographic elements grouped by panel. Text, method boxes, timelines, flow vectors, feature blocks, arrows, interval bars, curves, histograms, anchors and decoder geometry will be independently reconstructed in the frontend.",
+  "assets": [
+    {
+      "file": "classification/serve-01.png",
+      "source_box": [
+        30,
+        244,
+        143,
+        336
+      ],
+      "size": [
+        113,
+        92
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "classification/serve-02.png",
+      "source_box": [
+        146,
+        244,
+        259,
+        336
+      ],
+      "size": [
+        113,
+        92
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "classification/serve-03.png",
+      "source_box": [
+        262,
+        244,
+        375,
+        336
+      ],
+      "size": [
+        113,
+        92
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "two-stream/rgb.png",
+      "source_box": [
+        446,
+        261,
+        508,
+        311
+      ],
+      "size": [
+        62,
+        50
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "localization/frame-01.png",
+      "source_box": [
+        30,
+        710,
+        85,
+        755
+      ],
+      "size": [
+        55,
+        45
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "localization/frame-02.png",
+      "source_box": [
+        88,
+        710,
+        143,
+        755
+      ],
+      "size": [
+        55,
+        45
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "localization/frame-03.png",
+      "source_box": [
+        146,
+        710,
+        201,
+        755
+      ],
+      "size": [
+        55,
+        45
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "localization/frame-04.png",
+      "source_box": [
+        204,
+        710,
+        259,
+        755
+      ],
+      "size": [
+        55,
+        45
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "localization/frame-05.png",
+      "source_box": [
+        262,
+        710,
+        317,
+        755
+      ],
+      "size": [
+        55,
+        45
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "localization/frame-06.png",
+      "source_box": [
+        320,
+        710,
+        375,
+        755
+      ],
+      "size": [
+        55,
+        45
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "detection/frame-01.png",
+      "source_box": [
+        30,
+        1128,
+        85,
+        1174
+      ],
+      "size": [
+        55,
+        46
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "detection/frame-02.png",
+      "source_box": [
+        88,
+        1128,
+        143,
+        1174
+      ],
+      "size": [
+        55,
+        46
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "detection/frame-03.png",
+      "source_box": [
+        146,
+        1128,
+        201,
+        1174
+      ],
+      "size": [
+        55,
+        46
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "detection/frame-04.png",
+      "source_box": [
+        204,
+        1128,
+        259,
+        1174
+      ],
+      "size": [
+        55,
+        46
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "detection/frame-05.png",
+      "source_box": [
+        262,
+        1128,
+        317,
+        1174
+      ],
+      "size": [
+        55,
+        46
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    },
+    {
+      "file": "detection/frame-06.png",
+      "source_box": [
+        320,
+        1128,
+        375,
+        1174
+      ],
+      "size": [
+        55,
+        46
+      ],
+      "notes": "RGBA photographic crop; source scene background retained. All external annotations excluded."
+    }
+  ]
+}

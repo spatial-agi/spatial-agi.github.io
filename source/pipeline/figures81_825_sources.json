@@ -1,0 +1,508 @@
+[
+  {
+    "id": "Ch8.F1",
+    "page": "read/8.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/t2i_framework_and_paradigms.webp",
+        "id": "Ch8.F1.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1308",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.1 The latent-generator view of text-to-image generation. Top: the shared pipeline of Eqs.\u00a0( 8.1 ) and\u00a0( 8.2 ); the encoder  E E  and the dashed paths are used only in training. Bottom: the sampler  G \u03b8 G_{\\theta",
+    "sources": [
+      "assets/figures/figures/part3/section8/t2i_framework_and_paradigms.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F2",
+    "page": "read/8.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/Five_injection_mechanisms_for_spatial-aware_T2I.webp",
+        "id": "Ch8.F2.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1447",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.2 Five mechanisms for injecting a spatial condition  \u03ba \u2062 ( \ud835\udc1c ) \\kappa(\\mathbf{c})  into a text-to-image denoiser: (a) side-branch control (ControlNet\u00a0 [ 1693 ] ), (b) lightweight adapters (T2I-Adapter\u00a0 [ 1694 ] ",
+    "sources": [
+      "assets/figures/figures/part3/section8/Five_injection_mechanisms_for_spatial-aware_T2I.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F3",
+    "page": "read/8.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/Five_editing_mechanisms_for_2D_spatial_inpainting_and_editing.webp",
+        "id": "Ch8.F3.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1708",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.3 Local 2D editing with context preservation (top) and five editing mechanisms: (a) masked denoising, where  M = 1 M=1  marks the editable region; (b) inversion and rewrite; (c) instruction-tuned editing; (d) ex",
+    "sources": [
+      "assets/figures/figures/part3/section8/Five_editing_mechanisms_for_2D_spatial_inpainting_and_editing.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F4",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/3D-objects-gen-1.webp",
+        "id": "Ch8.F4.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "837",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.4 Illustration of 3D object generation conditioned on text or a single image (adapted from\u00a0 [ 1721 ] ).",
+    "sources": [
+      "assets/figures/figures/part3/section8/3D-objects-gen-1.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F5",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/3D_object_synthesis.webp",
+        "id": "Ch8.F5.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1492",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.5 Four paradigm families for 3D object synthesis: (P1) 3D-native generation; (P2) distillation from a frozen 2D diffusion prior (SDS); (P3) multi-view generation with a fine-tuned prior, then lifting to 3D; and ",
+    "sources": [
+      "assets/figures/figures/part3/section8/3D_object_synthesis.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F6",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/objaverse.webp",
+        "id": "Ch8.F6.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "1069",
+        "height": "604",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.6 Demonstration of the Objaverse\u00a0 [ 1765 ]  dataset.",
+    "sources": [
+      "assets/figures/figures/part3/section8/objaverse.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F7",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/Four_paradigm_families_for_3D_scene_synthesis.webp",
+        "id": "Ch8.F7.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1585",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.7 Four paradigm families for 3D scene synthesis (Eq.\u00a0( 8.15 )): (a) layout- or scene-graph-conditioned placement of objects, (b) view-to-3D reconstruction into a radiance field or 3D Gaussians, (c) view-to-view ",
+    "sources": [
+      "assets/figures/figures/part3/section8/Four_paradigm_families_for_3D_scene_synthesis.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F8",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/3D-reconstruction.webp",
+        "id": "Ch8.F8.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "1024",
+        "height": "446",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.8 Illustrations of 3D reconstruction, adapted from\u00a0 [ 1821 ] .",
+    "sources": [
+      "assets/figures/figures/part3/section8/3D-reconstruction.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F9",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/3D-scene-reconstruction.webp",
+        "id": "Ch8.F9.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1461",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.9 Three paradigm families for 3D scene reconstruction (Eq.\u00a0( 8.20 )): (P1) iterative per-scene optimization, (P2) feed-forward reconstruction with weights shared across scenes, and (P3) generative completion of ",
+    "sources": [
+      "assets/figures/figures/part3/section8/3D-scene-reconstruction.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F10",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/Four_method_families_for_3D_panorama_synthesis.webp",
+        "id": "Ch8.F10.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1539",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.10 The four method families of 3D panorama synthesis (Eq.\u00a0( 8.25 )), linked by a panoramic intermediate (top): (a) panoramic image synthesis, (b) panoramic video generation, (c) panoramic 3D reconstruction, and ",
+    "sources": [
+      "assets/figures/figures/part3/section8/Four_method_families_for_3D_panorama_synthesis.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F11",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/3d_editing_tasks.webp",
+        "id": "Ch8.F11.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "807",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.11 Demonstrations of 3D editing tasks. (a) appearance editing, (b) object transformation, (c) shape deformation, (d) scene inpainting, and (e) creative editing. Figure adapted from\u00a0 [ 1952 ] .",
+    "sources": [
+      "assets/figures/figures/part3/section8/3d_editing_tasks.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F12",
+    "page": "read/8.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/Five_method_families_for_3D_scene_editing.webp",
+        "id": "Ch8.F12.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1725",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.12 Five method families for 3D scene editing: (a) 2D-lifted iterative editing, (b) multi-view-consistent guidance, (c) 3D-native primitive editing, (d) LLM-integrated editing, and (e) efficient and training-free",
+    "sources": [
+      "assets/figures/figures/part3/section8/Five_method_families_for_3D_scene_editing.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F13",
+    "page": "read/8.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/text-to-video_generation.webp",
+        "id": "Ch8.F13.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1487",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.13 Three mechanisms for text-to-video generation: (a) a GAN with spatial and temporal critics, a representative rather than universal design; (b) autoregressive prediction of discrete space\u2013time tokens, with pal",
+    "sources": [
+      "assets/figures/figures/part3/section8/text-to-video_generation.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F14",
+    "page": "read/8.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/spatial_control_channels_for_video_generation.webp",
+        "id": "Ch8.F14.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1616",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.14 Six spatial-control channels for video generation, (a)\u2013(f), which can be selected or combined, and an example injection route (right) in which a trainable adapter adds residual features to a frozen video back",
+    "sources": [
+      "assets/figures/figures/part3/section8/spatial_control_channels_for_video_generation.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F15",
+    "page": "read/8.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/temporal_control_channels_for_video_generation.webp",
+        "id": "Ch8.F15.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1493",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.15 Four temporal-control channels for video generation, (a)\u2013(d), and two alternative ways of applying them (right): warping noise or latents, and encoding the signal as conditioning features. Frames are illustra",
+    "sources": [
+      "assets/figures/figures/part3/section8/temporal_control_channels_for_video_generation.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F16",
+    "page": "read/8.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/other_control_modalities_for_video_generation.webp",
+        "id": "Ch8.F16.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1585",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.16 Further control modalities for video generation, (a)\u2013(e), each with its own encoder  E k E_{k}  implementing  \u03ba k \\kappa_{k} , and (f) alternative ways of fusing  K \u2265 1 K\\geq 1  encoded conditions. The waterc",
+    "sources": [
+      "assets/figures/figures/part3/section8/other_control_modalities_for_video_generation.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F17",
+    "page": "read/8.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/five_video_editing_paradigms.webp",
+        "id": "Ch8.F17.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "2093",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.17 Five overlapping video-editing paradigms, (a)\u2013(e), applied to one task (top): restyling a driving clip while preserving its layout and motion. The dashed link in (c) marks a paired training example; scene seq",
+    "sources": [
+      "assets/figures/figures/part3/section8/five_video_editing_paradigms.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F18",
+    "page": "read/8.4/index.html",
+    "images": [],
+    "native": [],
+    "caption": "Figure 8.18 Human motion representations. Top: keypoint-based, as (a) joint positions, (b) joints grouped by kinematic chain, and (c) dense surface markers; and rotation-based, as (d) per-joint rotations in  SO \u2062 ( 3 ) \\",
+    "sources": [
+      "assets/figures/figures/part3/section8/human_motion_repr.webp",
+      "assets/figures/figures/part3/section8/human_motion_repr_smpl.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F19",
+    "page": "read/8.4/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/two_axis_human_motion_generation.webp",
+        "id": "Ch8.F19.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1431",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.19 Two-axis organization of human motion generation: the conditioning modality (left), encoded by  \u03ba \\kappa , and the learning paradigm (right), either a regressor that returns one estimate (Eq.\u00a0( 8.55 )) or a g",
+    "sources": [
+      "assets/figures/figures/part3/section8/two_axis_human_motion_generation.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F20",
+    "page": "read/8.4/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/cross_species_animal_motion_generation.webp",
+        "id": "Ch8.F20.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1385",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.20 Abstract cross-species motion generation: human and animal corpora support a shared representation, species-dependent modulation (Eq.\u00a0( 8.58 )) adapts features, and an action-conditioned sampler produces moti",
+    "sources": [
+      "assets/figures/figures/part3/section8/cross_species_animal_motion_generation.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F21",
+    "page": "read/8.4/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/vehicle_motion_planning.webp",
+        "id": "Ch8.F21.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1293",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.21 Vehicle motion planning as conditional trajectory generation: a vectorized encoder represents map polylines and agent interactions, and a multimodal decoder generates candidate futures (Eq.\u00a0( 8.60 )). Gray in",
+    "sources": [
+      "assets/figures/figures/part3/section8/vehicle_motion_planning.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F22",
+    "page": "read/8.4/index.html",
+    "images": [],
+    "native": [
+      "822"
+    ],
+    "caption": "Figure 8.22 Four motion-editing mechanisms: (a) reinsert known states while infilling missing frames; (b) guide denoising with root-path or joint targets; (c) optimize initial noise through a fixed decoder using an edit ",
+    "sources": [
+      "assets/figures/figures/part3/section8/four_motion_editing_mechanisms.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F23",
+    "page": "read/8.5/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/taxonomy_4d_spatial_generation.webp",
+        "id": "Ch8.F23.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1877",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.23 4D spatial generation by conditioning input, (a)\u2013(e), with two representative strategies: (i) score distillation from a frozen diffusion prior (dashed: SDS feedback), and (ii) generating video or multiview ta",
+    "sources": [
+      "assets/figures/figures/part3/section8/taxonomy_4d_spatial_generation.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F24",
+    "page": "read/8.6/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/web/world_modeling_tikz.webp",
+        "id": "Ch8.F24.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1055",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.24 Three paradigms of world modeling, all instances of the transition  S ^ \u2062 ( t + 1 ) = W \u03b8 \u2062 ( S \u2062 ( t ) , A \u2062 ( t ) , O \u2062 ( t ) ) \\hat{S}(t{+}1)=W_{\\theta}(S(t),A(t),O(t))  of Eq.\u00a0( 8.71 ), differing in what ",
+    "sources": [
+      "assets/figures/figures/web/world_modeling_tikz.webp"
+    ]
+  },
+  {
+    "id": "Ch8.F25",
+    "page": "read/8.7/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part3/section8/programmatic_spatial_generation.webp",
+        "id": "Ch8.F25.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "734",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "native": [],
+    "caption": "Figure 8.25 Three paradigm families for programmatic spatial generation, all producing a program  \u03c1 \\rho  that a deterministic renderer  R R  executes (Eq.\u00a0( 8.84 )): (P1) rule- and grammar-based procedural generation, (",
+    "sources": [
+      "assets/figures/figures/part3/section8/programmatic_spatial_generation.webp"
+    ]
+  }
+]

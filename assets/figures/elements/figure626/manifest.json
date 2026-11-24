@@ -1,0 +1,52 @@
+{
+  "source": "assets/figures/figures/part3/section6/audio_video_spatial_localization.webp",
+  "source_size": [
+    2000,
+    1031
+  ],
+  "assets": [
+    {
+      "file": "i-vssl/radios.png",
+      "source_box": [
+        39,
+        122,
+        362,
+        294
+      ],
+      "size": [
+        323,
+        172
+      ],
+      "notes": "Radio scene; hard blue detection box removed. Soft acoustic activation retained as part of the source visualization."
+    },
+    {
+      "file": "ii-asd/conversation.png",
+      "source_box": [
+        438,
+        112,
+        762,
+        285
+      ],
+      "size": [
+        324,
+        173
+      ],
+      "notes": "Two-person conversation; speaking-face box removed."
+    },
+    {
+      "file": "iv-depth/person-room.png",
+      "source_box": [
+        1245,
+        119,
+        1417,
+        290
+      ],
+      "size": [
+        172,
+        171
+      ],
+      "notes": "Person in a room; tracking box, selected point and dashed depth connector removed."
+    }
+  ],
+  "frontend": "All titles, labels, boxes, waveforms, charts, axes, arrows, symbols, array/camera icons, trajectories and method diagrams are independent frontend elements."
+}

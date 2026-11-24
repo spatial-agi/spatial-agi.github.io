@@ -1,0 +1,261 @@
+{
+  "source": "assets/figures/figures/part3/section6/pose_estimation.webp",
+  "notes": "Seventeen original-style pictorial assets. Scene/depth images retain rectangular backgrounds; isolated line illustrations use transparent backgrounds. All text, equations, axes, arrows, dashed/card/film borders and method boxes are frontend elements.",
+  "assets": [
+    {
+      "file": "input/rgb-scene.png",
+      "source_box": [
+        98,
+        43,
+        466,
+        258
+      ],
+      "size": [
+        368,
+        215
+      ],
+      "transparent": false,
+      "notes": "Blue detection box removed; scene retained."
+    },
+    {
+      "file": "input/rgbd-color.png",
+      "source_box": [
+        63,
+        314,
+        274,
+        419
+      ],
+      "size": [
+        211,
+        105
+      ],
+      "transparent": false,
+      "notes": "Color component of RGB-D input."
+    },
+    {
+      "file": "input/rgbd-depth.png",
+      "source_box": [
+        284,
+        314,
+        496,
+        419
+      ],
+      "size": [
+        212,
+        105
+      ],
+      "transparent": false,
+      "notes": "Depth component of RGB-D input."
+    },
+    {
+      "file": "priors/cad-drill.png",
+      "source_box": [
+        679,
+        198,
+        792,
+        331
+      ],
+      "size": [
+        113,
+        133
+      ],
+      "transparent": true,
+      "notes": "CAD wireframe drill, without dashed box or label."
+    },
+    {
+      "file": "priors/reference-top.png",
+      "source_box": [
+        1008,
+        224,
+        1051,
+        267
+      ],
+      "size": [
+        43,
+        43
+      ],
+      "transparent": true,
+      "notes": "First drill view, film border excluded."
+    },
+    {
+      "file": "priors/reference-bottom.png",
+      "source_box": [
+        1008,
+        280,
+        1051,
+        324
+      ],
+      "size": [
+        43,
+        44
+      ],
+      "transparent": true,
+      "notes": "Second drill view, film border excluded."
+    },
+    {
+      "file": "priors/reference-right.png",
+      "source_box": [
+        1070,
+        253,
+        1114,
+        306
+      ],
+      "size": [
+        44,
+        53
+      ],
+      "transparent": true,
+      "notes": "Third drill view, film border excluded."
+    },
+    {
+      "file": "output/posed-scene.png",
+      "source_box": [
+        1247,
+        101,
+        1650,
+        411
+      ],
+      "size": [
+        403,
+        310
+      ],
+      "transparent": false,
+      "notes": "Scene containing blue reconstructed drill; pose equation and frame excluded."
+    },
+    {
+      "file": "output/drill-without-axes.png",
+      "source_box": [
+        1728,
+        170,
+        1861,
+        311
+      ],
+      "size": [
+        133,
+        141
+      ],
+      "transparent": true,
+      "notes": "Wireframe drill; colored axes removed by local interpolation. Axes will be redrawn."
+    },
+    {
+      "file": "instance/cad-drill.png",
+      "source_box": [
+        237,
+        589,
+        313,
+        678
+      ],
+      "size": [
+        76,
+        89
+      ],
+      "transparent": true,
+      "notes": "Instance-level CAD mesh; arrow excluded."
+    },
+    {
+      "file": "instance/posed-drill.png",
+      "source_box": [
+        367,
+        592,
+        446,
+        675
+      ],
+      "size": [
+        79,
+        83
+      ],
+      "transparent": true,
+      "notes": "Drill with blue geometric overlay; surrounding frame excluded."
+    },
+    {
+      "file": "category/cup-small.png",
+      "source_box": [
+        397,
+        725,
+        446,
+        776
+      ],
+      "size": [
+        49,
+        51
+      ],
+      "transparent": true,
+      "notes": "Small cup; dashed arrow excluded."
+    },
+    {
+      "file": "category/cup-tall.png",
+      "source_box": [
+        462,
+        725,
+        517,
+        792
+      ],
+      "size": [
+        55,
+        67
+      ],
+      "transparent": true,
+      "notes": "Tall cup; dashed arrow excluded."
+    },
+    {
+      "file": "category/cup-wide.png",
+      "source_box": [
+        547,
+        748,
+        612,
+        817
+      ],
+      "size": [
+        65,
+        69
+      ],
+      "transparent": true,
+      "notes": "Wide cup; dashed arrow excluded."
+    },
+    {
+      "file": "foundation/drill.png",
+      "source_box": [
+        249,
+        883,
+        287,
+        929
+      ],
+      "size": [
+        38,
+        46
+      ],
+      "transparent": true,
+      "notes": "Drill reference; film border excluded."
+    },
+    {
+      "file": "foundation/cup.png",
+      "source_box": [
+        306,
+        887,
+        343,
+        924
+      ],
+      "size": [
+        37,
+        37
+      ],
+      "transparent": true,
+      "notes": "Cup reference; film border excluded."
+    },
+    {
+      "file": "foundation/chair.png",
+      "source_box": [
+        361,
+        880,
+        398,
+        930
+      ],
+      "size": [
+        37,
+        50
+      ],
+      "transparent": true,
+      "notes": "Chair reference; film border excluded."
+    }
+  ]
+}

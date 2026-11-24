@@ -1,0 +1,52 @@
+{
+  "figure": "11.7",
+  "sources": [
+    "assets/figures/figures/part4/section11/geoai-urban.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1633
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/geoai-urban.pdf",
+  "assets": [
+    {
+      "file": "urban-context/city-model.png",
+      "title": "city model",
+      "panel": "urban-context",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "source_box": [
+        55.0,
+        107.5,
+        600.0,
+        652.5
+      ],
+      "box": [
+        27.5,
+        53.75,
+        300.0,
+        326.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        6.875,
+        39.484,
+        284.92,
+        317.528
+      ],
+      "placement_confidence": 0.9611
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

@@ -1,0 +1,140 @@
+[
+  {
+    "figure": "7.15",
+    "source": "assets/figures/figures/part3/section7/policy-based-rl.webp",
+    "source_size": [
+      2000,
+      579
+    ],
+    "assets": [],
+    "frontend": [
+      "State and policy boxes",
+      "Environment and trajectory buffer",
+      "Policy-gradient equation, update note and every feedback arrow"
+    ],
+    "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+  },
+  {
+    "figure": "7.16",
+    "source": "assets/figures/figures/part3/section7/AC-based-rl.webp",
+    "source_size": [
+      2000,
+      542
+    ],
+    "assets": [],
+    "frontend": [
+      "State, actor, critic and environment boxes",
+      "Advantage equation",
+      "Action, state, reward and actor-update arrows"
+    ],
+    "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+  },
+  {
+    "figure": "7.17",
+    "source": "assets/figures/figures/part3/section7/ppo-based-rl.webp",
+    "source_size": [
+      2000,
+      825
+    ],
+    "assets": [],
+    "frontend": [
+      "Old and new policies",
+      "Rollout buffer with individually drawn transition rows",
+      "Probability ratio and clipped surrogate objective",
+      "Sampling, policy update and old-policy synchronization arrows"
+    ],
+    "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+  },
+  {
+    "figure": "7.18",
+    "source": "assets/figures/figures/part3/section7/dpo-based-rl.webp",
+    "source_size": [
+      2000,
+      649
+    ],
+    "assets": [
+      {
+        "file": "prompt/document.png",
+        "title": "DPO · prompt document",
+        "source_box": [
+          84,
+          104,
+          151,
+          186
+        ],
+        "size": [
+          67,
+          82
+        ]
+      },
+      {
+        "file": "human-preference/thumb-up.png",
+        "title": "DPO · preferred response",
+        "source_box": [
+          1153,
+          316,
+          1230,
+          380
+        ],
+        "size": [
+          77,
+          64
+        ]
+      },
+      {
+        "file": "human-preference/thumb-down.png",
+        "title": "DPO · rejected response",
+        "source_box": [
+          1371,
+          323,
+          1447,
+          391
+        ],
+        "size": [
+          76,
+          68
+        ]
+      }
+    ],
+    "frontend": [
+      "Prompt and reference-policy boxes",
+      "Two response cards and their text lines",
+      "Human preference panel with extracted thumb icons",
+      "Reward log-ratio fractions and Bradley–Terry loss",
+      "Sampling and offline update arrows"
+    ],
+    "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+  },
+  {
+    "figure": "7.19",
+    "source": "assets/figures/figures/part3/section7/grpo-based-rl.webp",
+    "source_size": [
+      2000,
+      618
+    ],
+    "assets": [
+      {
+        "file": "prompt/document.png",
+        "title": "GRPO · prompt document",
+        "source_box": [
+          92,
+          155,
+          160,
+          240
+        ],
+        "size": [
+          68,
+          85
+        ]
+      }
+    ],
+    "frontend": [
+      "Prompt and old-policy group of outputs",
+      "Reward model with individual response/reward cards",
+      "Group-relative advantage fraction",
+      "Clipped surrogate and KL-penalized objective",
+      "New policy and every connecting arrow"
+    ],
+    "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+  }
+]

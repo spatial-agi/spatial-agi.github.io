@@ -1,0 +1,370 @@
+{
+  "figure": "8.13",
+  "sources": [
+    "assets/figures/figures/part3/section8/text-to-video_generation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1487
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/ball-1.png",
+      "title": "ball 1",
+      "box": [
+        415,
+        12,
+        532,
+        129
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        830,
+        24,
+        1064,
+        258
+      ],
+      "size": [
+        234,
+        234
+      ]
+    },
+    {
+      "file": "task/ball-2.png",
+      "title": "ball 2",
+      "box": [
+        559,
+        12,
+        676,
+        129
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1118,
+        24,
+        1352,
+        258
+      ],
+      "size": [
+        234,
+        234
+      ]
+    },
+    {
+      "file": "task/ball-3.png",
+      "title": "ball 3",
+      "box": [
+        703,
+        12,
+        820,
+        129
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1406,
+        24,
+        1640,
+        258
+      ],
+      "size": [
+        234,
+        234
+      ]
+    },
+    {
+      "file": "task/ball-4.png",
+      "title": "ball 4",
+      "box": [
+        847,
+        12,
+        964,
+        129
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1694,
+        24,
+        1928,
+        258
+      ],
+      "size": [
+        234,
+        234
+      ]
+    },
+    {
+      "file": "a/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        47,
+        396,
+        95,
+        445
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        94,
+        792,
+        190,
+        890
+      ],
+      "size": [
+        96,
+        98
+      ]
+    },
+    {
+      "file": "a/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        102,
+        396,
+        150,
+        445
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        204,
+        792,
+        300,
+        890
+      ],
+      "size": [
+        96,
+        98
+      ]
+    },
+    {
+      "file": "a/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        157,
+        396,
+        205,
+        445
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        314,
+        792,
+        410,
+        890
+      ],
+      "size": [
+        96,
+        98
+      ]
+    },
+    {
+      "file": "a/frame-4.png",
+      "title": "frame 4",
+      "box": [
+        212,
+        396,
+        260,
+        445
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        424,
+        792,
+        520,
+        890
+      ],
+      "size": [
+        96,
+        98
+      ]
+    },
+    {
+      "file": "b/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        404,
+        589,
+        447,
+        631
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        808,
+        1178,
+        894,
+        1262
+      ],
+      "size": [
+        86,
+        84
+      ]
+    },
+    {
+      "file": "b/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        453,
+        589,
+        496,
+        631
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        906,
+        1178,
+        992,
+        1262
+      ],
+      "size": [
+        86,
+        84
+      ]
+    },
+    {
+      "file": "b/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        501,
+        589,
+        544,
+        631
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1002,
+        1178,
+        1088,
+        1262
+      ],
+      "size": [
+        86,
+        84
+      ]
+    },
+    {
+      "file": "b/frame-4.png",
+      "title": "frame 4",
+      "box": [
+        550,
+        589,
+        593,
+        631
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1100,
+        1178,
+        1186,
+        1262
+      ],
+      "size": [
+        86,
+        84
+      ]
+    },
+    {
+      "file": "c/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        733,
+        584,
+        775,
+        627
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1466,
+        1168,
+        1550,
+        1254
+      ],
+      "size": [
+        84,
+        86
+      ]
+    },
+    {
+      "file": "c/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        782,
+        584,
+        824,
+        627
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1564,
+        1168,
+        1648,
+        1254
+      ],
+      "size": [
+        84,
+        86
+      ]
+    },
+    {
+      "file": "c/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        831,
+        584,
+        873,
+        627
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1662,
+        1168,
+        1746,
+        1254
+      ],
+      "size": [
+        84,
+        86
+      ]
+    },
+    {
+      "file": "c/frame-4.png",
+      "title": "frame 4",
+      "box": [
+        880,
+        584,
+        922,
+        627
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1760,
+        1168,
+        1844,
+        1254
+      ],
+      "size": [
+        84,
+        86
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

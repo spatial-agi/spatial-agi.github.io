@@ -1,0 +1,139 @@
+{
+  "source": "assets/figures/figures/part3/section6/object_tracking.webp",
+  "source_size": [
+    2000,
+    1219
+  ],
+  "assets": [
+    {
+      "file": "shared-street/frame-00.png",
+      "source_box": [
+        24,
+        113,
+        216,
+        403
+      ],
+      "size": [
+        192,
+        290
+      ],
+      "restoration": {
+        "pose_reference": [
+          690,
+          719,
+          882,
+          1009
+        ],
+        "segmentation_reference": [
+          1358,
+          113,
+          1550,
+          403
+        ],
+        "pose_shift": [
+          0,
+          0
+        ],
+        "segmentation_shift": [
+          -1,
+          0
+        ]
+      },
+      "panels": [
+        "a-sot",
+        "b-mot",
+        "c-mots",
+        "e-pose",
+        "f-panoptic"
+      ],
+      "notes": "RGBA scene photograph. External border, ID label and tracking rectangle removed using repeated source views. The photographic background is retained intentionally."
+    },
+    {
+      "file": "shared-street/frame-01.png",
+      "source_box": [
+        240,
+        113,
+        431,
+        403
+      ],
+      "size": [
+        191,
+        290
+      ],
+      "restoration": {
+        "pose_reference": [
+          906,
+          719,
+          1097,
+          1009
+        ],
+        "segmentation_reference": [
+          1573,
+          113,
+          1764,
+          403
+        ],
+        "pose_shift": [
+          1,
+          0
+        ],
+        "segmentation_shift": [
+          0,
+          0
+        ]
+      },
+      "panels": [
+        "a-sot",
+        "b-mot",
+        "c-mots",
+        "e-pose",
+        "f-panoptic"
+      ],
+      "notes": "RGBA scene photograph. External border, ID label and tracking rectangle removed using repeated source views. The photographic background is retained intentionally."
+    },
+    {
+      "file": "shared-street/frame-02.png",
+      "source_box": [
+        455,
+        113,
+        647,
+        403
+      ],
+      "size": [
+        192,
+        290
+      ],
+      "restoration": {
+        "pose_reference": [
+          1122,
+          719,
+          1314,
+          1009
+        ],
+        "segmentation_reference": [
+          1789,
+          113,
+          1981,
+          403
+        ],
+        "pose_shift": [
+          0,
+          0
+        ],
+        "segmentation_shift": [
+          0,
+          0
+        ]
+      },
+      "panels": [
+        "a-sot",
+        "b-mot",
+        "c-mots",
+        "e-pose",
+        "f-panoptic"
+      ],
+      "notes": "RGBA scene photograph. External border, ID label and tracking rectangle removed using repeated source views. The photographic background is retained intentionally."
+    }
+  ],
+  "frontend": "Tracking boxes and IDs; instance and semantic masks; pose joints and skeletons; camera and LiDAR icons; oriented 3D boxes and trajectories; axes; time arrows; borders; all text."
+}

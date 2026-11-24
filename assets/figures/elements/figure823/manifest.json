@@ -1,0 +1,260 @@
+{
+  "figure": "8.23",
+  "sources": [
+    "assets/figures/figures/part3/section8/taxonomy_4d_spatial_generation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1877
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/chair-1.png",
+      "title": "chair 1",
+      "box": [
+        416,
+        34,
+        493,
+        132
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        832,
+        68,
+        986,
+        264
+      ],
+      "size": [
+        154,
+        196
+      ]
+    },
+    {
+      "file": "task/chair-2.png",
+      "title": "chair 2",
+      "box": [
+        552,
+        34,
+        629,
+        132
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1104,
+        68,
+        1258,
+        264
+      ],
+      "size": [
+        154,
+        196
+      ]
+    },
+    {
+      "file": "task/chair-3.png",
+      "title": "chair 3",
+      "box": [
+        686,
+        34,
+        763,
+        132
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1372,
+        68,
+        1526,
+        264
+      ],
+      "size": [
+        154,
+        196
+      ]
+    },
+    {
+      "file": "b/input-chair.png",
+      "title": "input chair",
+      "box": [
+        265,
+        226,
+        325,
+        307
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        530,
+        452,
+        650,
+        614
+      ],
+      "size": [
+        120,
+        162
+      ]
+    },
+    {
+      "file": "c/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        416,
+        253,
+        454,
+        303
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        832,
+        506,
+        908,
+        606
+      ],
+      "size": [
+        76,
+        100
+      ]
+    },
+    {
+      "file": "c/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        469,
+        253,
+        507,
+        303
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        938,
+        506,
+        1014,
+        606
+      ],
+      "size": [
+        76,
+        100
+      ]
+    },
+    {
+      "file": "c/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        522,
+        253,
+        560,
+        303
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1044,
+        506,
+        1120,
+        606
+      ],
+      "size": [
+        76,
+        100
+      ]
+    },
+    {
+      "file": "d/static-chair.png",
+      "title": "static chair",
+      "box": [
+        657,
+        247,
+        699,
+        301
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1314,
+        494,
+        1398,
+        602
+      ],
+      "size": [
+        84,
+        108
+      ]
+    },
+    {
+      "file": "ii/target-1.png",
+      "title": "target 1",
+      "box": [
+        751,
+        558,
+        804,
+        623
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1502,
+        1116,
+        1608,
+        1246
+      ],
+      "size": [
+        106,
+        130
+      ]
+    },
+    {
+      "file": "ii/target-2.png",
+      "title": "target 2",
+      "box": [
+        819,
+        558,
+        872,
+        623
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1638,
+        1116,
+        1744,
+        1246
+      ],
+      "size": [
+        106,
+        130
+      ]
+    },
+    {
+      "file": "ii/target-3.png",
+      "title": "target 3",
+      "box": [
+        885,
+        558,
+        938,
+        623
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1770,
+        1116,
+        1876,
+        1246
+      ],
+      "size": [
+        106,
+        130
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

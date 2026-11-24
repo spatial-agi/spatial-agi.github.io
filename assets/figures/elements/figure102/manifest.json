@@ -1,0 +1,114 @@
+{
+  "figure": "10.2",
+  "sources": [
+    "assets/figures/figures/part4/section10/xr_tracking.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1068
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section10/xr_tracking.pdf",
+  "assets": [
+    {
+      "file": "tracking/headset-user.png",
+      "title": "headset user",
+      "panel": "tracking",
+      "size": [
+        944,
+        766
+      ],
+      "source_index": 0,
+      "source_box": [
+        50.0,
+        180.0,
+        435.0,
+        492.5
+      ],
+      "box": [
+        25.0,
+        90.0,
+        217.5,
+        246.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        -2.026,
+        83.805,
+        202.878,
+        250.073
+      ],
+      "placement_confidence": 0.9878
+    },
+    {
+      "file": "mapping/living-room.png",
+      "title": "living room",
+      "panel": "mapping",
+      "size": [
+        887,
+        887
+      ],
+      "source_index": 0,
+      "source_box": [
+        720.0,
+        137.5,
+        1265.0,
+        682.5
+      ],
+      "box": [
+        360.0,
+        68.75,
+        632.5,
+        341.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        352.808,
+        61.828,
+        642.672,
+        351.692
+      ],
+      "placement_confidence": 0.9737
+    },
+    {
+      "file": "registration/living-room.png",
+      "title": "living room",
+      "panel": "registration",
+      "size": [
+        887,
+        887
+      ],
+      "source_index": 0,
+      "source_box": [
+        1395.0,
+        137.5,
+        1940.0,
+        682.5
+      ],
+      "box": [
+        697.5,
+        68.75,
+        970.0,
+        341.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        710.973,
+        61.828,
+        1000.838,
+        351.692
+      ],
+      "placement_confidence": 0.949
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

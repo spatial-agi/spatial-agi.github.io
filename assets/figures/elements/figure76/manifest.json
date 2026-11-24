@@ -1,0 +1,246 @@
+{
+  "source": "assets/figures/figures/part3/section7/716_causal.webp",
+  "source_size": [
+    2000,
+    930
+  ],
+  "assets": [
+    {
+      "file": "i-inputs/event-blue-agent.png",
+      "source_box": [
+        131,
+        115,
+        159,
+        168
+      ],
+      "title": "Event stream \u00b7 blue agent",
+      "placement_boxes": [
+        [
+          131,
+          115,
+          159,
+          168
+        ],
+        [
+          238,
+          115,
+          266,
+          168
+        ],
+        [
+          131,
+          206,
+          159,
+          259
+        ]
+      ]
+    },
+    {
+      "file": "i-inputs/event-red-agent.png",
+      "source_box": [
+        340,
+        115,
+        369,
+        168
+      ],
+      "title": "Event stream \u00b7 red agent",
+      "placement_boxes": [
+        [
+          340,
+          115,
+          369,
+          168
+        ],
+        [
+          237,
+          206,
+          266,
+          259
+        ],
+        [
+          340,
+          206,
+          369,
+          259
+        ]
+      ]
+    },
+    {
+      "file": "i-inputs/intervention-arm.png",
+      "source_box": [
+        30,
+        769,
+        105,
+        850
+      ],
+      "title": "Interventional data \u00b7 robot arm"
+    },
+    {
+      "file": "i-inputs/intervention-blue-agent.png",
+      "source_box": [
+        305,
+        777,
+        335,
+        832
+      ],
+      "title": "Interventional data \u00b7 blue agent"
+    },
+    {
+      "file": "i-inputs/intervention-red-agent.png",
+      "source_box": [
+        345,
+        777,
+        377,
+        832
+      ],
+      "title": "Interventional data \u00b7 red agent"
+    },
+    {
+      "file": "i-inputs/intervention-blue-car.png",
+      "source_box": [
+        402,
+        791,
+        452,
+        822
+      ],
+      "title": "Interventional data \u00b7 blue vehicle"
+    },
+    {
+      "file": "ii-core/safety-shield.png",
+      "source_box": [
+        1047,
+        770,
+        1082,
+        820
+      ],
+      "title": "Verification \u00b7 safety shield"
+    },
+    {
+      "file": "ii-core/multi-agent-left.png",
+      "source_box": [
+        1189,
+        771,
+        1217,
+        825
+      ],
+      "title": "Verification \u00b7 left agent"
+    },
+    {
+      "file": "ii-core/multi-agent-right.png",
+      "source_box": [
+        1219,
+        771,
+        1249,
+        825
+      ],
+      "title": "Verification \u00b7 right agent"
+    },
+    {
+      "file": "ii-core/diagnosis-lens.png",
+      "source_box": [
+        1348,
+        778,
+        1384,
+        833
+      ],
+      "title": "Verification \u00b7 diagnosis lens"
+    },
+    {
+      "file": "iii-outputs/explanation-blue-car.png",
+      "source_box": [
+        1551,
+        389,
+        1602,
+        421
+      ],
+      "title": "Explanation \u00b7 blue vehicle",
+      "placement_boxes": [
+        [
+          1551,
+          389,
+          1602,
+          421
+        ],
+        [
+          1541,
+          595,
+          1593,
+          627
+        ],
+        [
+          1783,
+          595,
+          1835,
+          627
+        ],
+        [
+          1767,
+          784,
+          1819,
+          816
+        ]
+      ]
+    },
+    {
+      "file": "iii-outputs/explanation-red-car.png",
+      "source_box": [
+        1633,
+        389,
+        1684,
+        421
+      ],
+      "title": "Explanation \u00b7 red vehicle",
+      "placement_boxes": [
+        [
+          1633,
+          389,
+          1684,
+          421
+        ],
+        [
+          1669,
+          595,
+          1721,
+          627
+        ],
+        [
+          1911,
+          595,
+          1963,
+          627
+        ],
+        [
+          1911,
+          784,
+          1963,
+          816
+        ]
+      ]
+    },
+    {
+      "file": "iii-outputs/strategy-shield.png",
+      "source_box": [
+        1547,
+        766,
+        1581,
+        815
+      ],
+      "title": "Intervention strategy \u00b7 safety shield"
+    },
+    {
+      "file": "iii-outputs/strategy-arm.png",
+      "source_box": [
+        1585,
+        777,
+        1659,
+        861
+      ],
+      "title": "Intervention strategy \u00b7 robot arm"
+    }
+  ],
+  "frontend": {
+    "Inputs": "Section frames, timeline, labels, state cubes, grid, measurement boxes and prior-knowledge diagrams.",
+    "Reasoning core": "Causal graphs, formulas, model-score gauge, rule and solver panels, connectors and status labels.",
+    "Outputs": "Causal model, trajectories, dashed arrows, obstacle cubes and success/failure marks."
+  }
+}

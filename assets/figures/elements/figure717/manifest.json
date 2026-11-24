@@ -1,0 +1,16 @@
+{
+  "figure": "7.17",
+  "source": "assets/figures/figures/part3/section7/ppo-based-rl.webp",
+  "source_size": [
+    2000,
+    825
+  ],
+  "assets": [],
+  "frontend": [
+    "Old and new policies",
+    "Rollout buffer with individually drawn transition rows",
+    "Probability ratio and clipped surrogate objective",
+    "Sampling, policy update and old-policy synchronization arrows"
+  ],
+  "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+}

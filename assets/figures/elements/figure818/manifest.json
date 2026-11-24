@@ -1,0 +1,199 @@
+{
+  "figure": "8.18",
+  "sources": [
+    "assets/figures/figures/part3/section8/human_motion_repr.webp",
+    "assets/figures/figures/part3/section8/human_motion_repr_smpl.webp"
+  ],
+  "source_sizes": [
+    [
+      682,
+      223
+    ],
+    [
+      1364,
+      418
+    ]
+  ],
+  "assets": [
+    {
+      "file": "top/joint-positions.png",
+      "title": "joint positions",
+      "box": [
+        84,
+        29,
+        176,
+        246
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        57,
+        20,
+        120,
+        168
+      ],
+      "size": [
+        63,
+        148
+      ]
+    },
+    {
+      "file": "top/kinematic-chains.png",
+      "title": "kinematic chains",
+      "box": [
+        283,
+        29,
+        447,
+        247
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        193,
+        20,
+        305,
+        168
+      ],
+      "size": [
+        112,
+        148
+      ]
+    },
+    {
+      "file": "top/surface-markers.png",
+      "title": "surface markers",
+      "box": [
+        500,
+        29,
+        697,
+        267
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        341,
+        20,
+        475,
+        182
+      ],
+      "size": [
+        134,
+        162
+      ]
+    },
+    {
+      "file": "top/joint-rotations.png",
+      "title": "joint rotations",
+      "box": [
+        775,
+        29,
+        962,
+        267
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        529,
+        20,
+        656,
+        182
+      ],
+      "size": [
+        127,
+        162
+      ]
+    },
+    {
+      "file": "smpl/skinning.png",
+      "title": "skinning",
+      "box": [
+        20,
+        5,
+        267,
+        256
+      ],
+      "kind": "cutout",
+      "source_index": 1,
+      "source_box": [
+        27,
+        7,
+        364,
+        349
+      ],
+      "size": [
+        337,
+        342
+      ]
+    },
+    {
+      "file": "smpl/shape.png",
+      "title": "shape",
+      "box": [
+        267,
+        5,
+        500,
+        256
+      ],
+      "kind": "cutout",
+      "source_index": 1,
+      "source_box": [
+        364,
+        7,
+        682,
+        349
+      ],
+      "size": [
+        318,
+        342
+      ]
+    },
+    {
+      "file": "smpl/pose.png",
+      "title": "pose",
+      "box": [
+        499,
+        5,
+        751,
+        256
+      ],
+      "kind": "cutout",
+      "source_index": 1,
+      "source_box": [
+        681,
+        7,
+        1024,
+        349
+      ],
+      "size": [
+        343,
+        342
+      ]
+    },
+    {
+      "file": "smpl/articulated.png",
+      "title": "articulated",
+      "box": [
+        752,
+        0,
+        1000,
+        256
+      ],
+      "kind": "cutout",
+      "source_index": 1,
+      "source_box": [
+        1026,
+        0,
+        1364,
+        349
+      ],
+      "size": [
+        338,
+        349
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

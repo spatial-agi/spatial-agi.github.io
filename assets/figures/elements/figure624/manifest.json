@@ -1,0 +1,79 @@
+{
+  "source": "assets/figures/figures/part3/section6/temporal_localization.webp",
+  "source_size": [
+    2000,
+    1570
+  ],
+  "assets": [
+    {
+      "file": "shared-video/frame-00.png",
+      "source_box": [
+        553,
+        238,
+        671,
+        356
+      ],
+      "size": [
+        118,
+        118
+      ],
+      "panels": [
+        "tal-i",
+        "tal-ii",
+        "tal-iii",
+        "tal-iv",
+        "tsg-a",
+        "tsg-b",
+        "tsg-c"
+      ],
+      "notes": "Original unannotated scene from TAL panel (ii). External image border removed. Photographic scene retained, RGBA PNG."
+    },
+    {
+      "file": "shared-video/frame-01.png",
+      "source_box": [
+        685,
+        238,
+        803,
+        356
+      ],
+      "size": [
+        118,
+        118
+      ],
+      "panels": [
+        "tal-i",
+        "tal-ii",
+        "tal-iii",
+        "tal-iv",
+        "tsg-a",
+        "tsg-b",
+        "tsg-c"
+      ],
+      "notes": "Original unannotated scene from TAL panel (ii). External image border removed. Photographic scene retained, RGBA PNG."
+    },
+    {
+      "file": "shared-video/frame-02.png",
+      "source_box": [
+        818,
+        238,
+        936,
+        356
+      ],
+      "size": [
+        118,
+        118
+      ],
+      "panels": [
+        "tal-i",
+        "tal-ii",
+        "tal-iii",
+        "tal-iv",
+        "tsg-a",
+        "tsg-b",
+        "tsg-c"
+      ],
+      "notes": "Original unannotated scene from TAL panel (ii). External image border removed. Photographic scene retained, RGBA PNG."
+    }
+  ],
+  "frontend": "All text and formulas; window selection; image borders; arrows and time axes; classifiers, proposals, scores and temporal segments; feature pyramids and boundary offsets; transformer blocks and query circles; temporal map and hatching; graph nodes and edges; corpus icons and retrieval blocks."
+}

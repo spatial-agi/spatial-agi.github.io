@@ -1,0 +1,21 @@
+{
+  "figure": "11.10",
+  "sources": [
+    "assets/figures/figures/part4/section11/geoai-disaster.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1432
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/geoai-disaster.pdf",
+  "assets": [],
+  "frontend": [
+    "Hazard maps, deformations, flood and fire regions, building footprints and legends are vector artwork, reserved for independent frontend reconstruction.",
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

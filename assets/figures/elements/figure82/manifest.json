@@ -1,0 +1,40 @@
+{
+  "figure": "8.2",
+  "sources": [
+    "assets/figures/figures/part3/section8/Five_injection_mechanisms_for_spatial-aware_T2I.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1447
+    ]
+  ],
+  "assets": [
+    {
+      "file": "example/corgi-skateboard.png",
+      "title": "corgi skateboard",
+      "box": [
+        843,
+        467,
+        977,
+        598
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1686,
+        934,
+        1954,
+        1196
+      ],
+      "size": [
+        268,
+        262
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

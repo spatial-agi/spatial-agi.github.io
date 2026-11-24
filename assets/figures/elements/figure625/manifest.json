@@ -1,0 +1,191 @@
+{
+  "source": "assets/figures/figures/part3/section6/temporal_localization_task_settings.webp",
+  "source_size": [
+    2000,
+    1185
+  ],
+  "assets": [
+    {
+      "file": "shared-video/frame-00.png",
+      "source_box": [
+        55,
+        189,
+        232,
+        367
+      ],
+      "size": [
+        177,
+        178
+      ],
+      "panels": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "f"
+      ],
+      "notes": "Approaching the counter. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "shared-video/frame-01.png",
+      "source_box": [
+        241,
+        189,
+        417,
+        367
+      ],
+      "size": [
+        176,
+        178
+      ],
+      "panels": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "f"
+      ],
+      "notes": "Opening the microwave. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "shared-video/frame-02.png",
+      "source_box": [
+        425,
+        189,
+        602,
+        367
+      ],
+      "size": [
+        177,
+        178
+      ],
+      "panels": [
+        "a",
+        "c",
+        "d",
+        "f"
+      ],
+      "notes": "Reaching toward the microwave. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "e-corpus/cooking.png",
+      "source_box": [
+        721,
+        739,
+        810,
+        828
+      ],
+      "size": [
+        89,
+        89
+      ],
+      "panels": [
+        "e"
+      ],
+      "notes": "Cooking. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "e-corpus/cycling.png",
+      "source_box": [
+        819,
+        739,
+        907,
+        828
+      ],
+      "size": [
+        88,
+        89
+      ],
+      "panels": [
+        "e"
+      ],
+      "notes": "Cycling. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "e-corpus/microwave.png",
+      "source_box": [
+        919,
+        742,
+        1004,
+        825
+      ],
+      "size": [
+        85,
+        83
+      ],
+      "panels": [
+        "e"
+      ],
+      "notes": "Microwave video; blue selection border excluded. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "e-corpus/reading.png",
+      "source_box": [
+        721,
+        837,
+        810,
+        926
+      ],
+      "size": [
+        89,
+        89
+      ],
+      "panels": [
+        "e"
+      ],
+      "notes": "Reading. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "e-corpus/washing.png",
+      "source_box": [
+        819,
+        837,
+        907,
+        926
+      ],
+      "size": [
+        88,
+        89
+      ],
+      "panels": [
+        "e"
+      ],
+      "notes": "Washing dishes. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "e-corpus/laundry.png",
+      "source_box": [
+        918,
+        837,
+        1007,
+        926
+      ],
+      "size": [
+        89,
+        89
+      ],
+      "panels": [
+        "e"
+      ],
+      "notes": "Laundry. Original scene retained in RGBA PNG; no diagram annotations."
+    },
+    {
+      "file": "e-retrieved/video-03.png",
+      "source_box": [
+        1133,
+        788,
+        1261,
+        917
+      ],
+      "size": [
+        128,
+        129
+      ],
+      "panels": [
+        "e"
+      ],
+      "notes": "Retrieved microwave video. Original scene retained in RGBA PNG; no diagram annotations."
+    }
+  ],
+  "frontend": "Panel headings, labels and formulas; selection border; time axes; solid and dashed intervals; unseen future box; now/onset/detected markers; latency arrow; retrieval arrows and saliency curve."
+}

@@ -1,0 +1,6 @@
+
+.nf-f8 text{letter-spacing:0}.nf-f8 .rl-hit{stroke-width:0}.nf-f8 .rl-zone{isolation:isolate}
+.nf-f8 .rl-pulse{r:2;stroke-width:.45;filter:drop-shadow(0 0 2px white) drop-shadow(0 0 4px #48a5ff)}
+.nf-f8 .rl-glow{r:5;filter:blur(2.5px)}.nf-f8 .f8-scaffold{pointer-events:none;transition:opacity .22s}
+.nf-f8.is-focus .f8-scaffold{opacity:.1}
+@media(prefers-reduced-motion:reduce){.nf-f8 .f8-scaffold{transition:none}}

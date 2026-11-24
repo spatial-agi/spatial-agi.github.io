@@ -1,0 +1,52 @@
+{
+  "source": "assets/figures/figures/part3/section7/rl_overview.webp",
+  "source_size": [
+    2000,
+    478
+  ],
+  "assets": [],
+  "note": "Pure diagram: no pictorial raster assets. Rebuild every element in SVG after review.",
+  "frontend": [
+    {
+      "region": "agent",
+      "elements": [
+        "White rounded black frame",
+        "Agent label",
+        "White policy box",
+        "Policy πθ(a | o) formula"
+      ]
+    },
+    {
+      "region": "environment",
+      "elements": [
+        "White rounded black frame",
+        "Environment label",
+        "Calligraphic ℰ"
+      ]
+    },
+    {
+      "region": "action",
+      "elements": [
+        "Blue arrow directed from Agent to Environment",
+        "Action aₜ label"
+      ]
+    },
+    {
+      "region": "current",
+      "elements": [
+        "Blue arrow directed toward Agent",
+        "Observation oₜ label",
+        "Reward rₜ label"
+      ]
+    },
+    {
+      "region": "next",
+      "elements": [
+        "Blue arrow directed toward time separator",
+        "Observation oₜ₊₁ label",
+        "Reward rₜ₊₁ label",
+        "Gray dashed vertical time separator"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "figure": "13.3",
+  "sources": [
+    "assets/figures/figures/part4/section13/assistant_collaborating.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1272
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section13/assistant_collaborating.pdf",
+  "assets": [
+    {
+      "file": "proxemic-context/person-and-robot.png",
+      "title": "person and robot",
+      "panel": "proxemic-context",
+      "size": [
+        606,
+        569
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        6.337,
+        32.336,
+        260.782,
+        271.246
+      ],
+      "pdf_source_box": [
+        2.69,
+        13.725,
+        110.69,
+        115.131
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "legible-interaction/person-and-robot.png",
+      "title": "person and robot",
+      "panel": "legible-interaction",
+      "size": [
+        606,
+        569
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        742.532,
+        324.761,
+        980.014,
+        547.743
+      ],
+      "pdf_source_box": [
+        315.17,
+        137.845,
+        415.97,
+        232.491
+      ],
+      "kind": "photo"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

@@ -1,0 +1,506 @@
+[
+  {
+    "number": 1,
+    "id": "Ch9.F1",
+    "page": "read/9.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/manipulation_overview.webp",
+        "id": "Ch9.F1.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1816",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/manipulation_overview.webp"
+    ],
+    "caption": "Figure 9.1Spatial intelligence for robotic manipulation, illustrated by placing a mug in an open drawer: four complementary spatial capabilities link multimodal inputs to 6-DoF actions, and execution returns new observations for replanning. Evaluation bars and depth/point-cloud graphics are schematic, not measured results."
+  },
+  {
+    "number": 2,
+    "id": "Ch9.F2",
+    "page": "read/9.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/robotic_anchors.webp",
+        "id": "Ch9.F2.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1303",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/robotic_anchors.webp"
+    ],
+    "caption": "Figure 9.2Grounding action in spatial anchors: (1) anchors PtP_{t} produced or transferred from vision priors across views, (2) an anchor-conditioned policy, and (3) generalization measured as the seen–unseen success gap Δgen\\Delta_{\\mathrm{gen}}. Scenes, correspondences, and score bars are schematic, not measured results."
+  },
+  {
+    "number": 3,
+    "id": "Ch9.F3",
+    "page": "read/9.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/robotic_affordances.webp",
+        "id": "Ch9.F3.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1492",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/robotic_affordances.webp"
+    ],
+    "caption": "Figure 9.3Affordances as functional action possibilities: a task- and context-conditioned affordance representation (left) supports three parallel task examples (6-DoF grasp, stable placement, hook-and-pull tool use), each judged by its functional outcome. Green checks mark intended outcomes in these illustrations, not measured results."
+  },
+  {
+    "number": 4,
+    "id": "Ch9.F4",
+    "page": "read/9.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/robotic_vla.webp",
+        "id": "Ch9.F4.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1727",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/robotic_vla.webp"
+    ],
+    "caption": "Figure 9.4Spatial grounding mechanisms for generalist robot policies: (1) explicit 3D features fused with task tokens (3D-LLM, 3D-VLA), (2) view canonicalization (OG-VLA) and spatial action discretization (SpatialVLA), two separate methods rather than stages of one, and (3) grounded reasoning traces that condition action prediction. The bottom row shows evaluation of viewpoint robustness and cross-robot transfer; all maps and overlays are schematic."
+  },
+  {
+    "number": 5,
+    "id": "Ch9.F5",
+    "page": "read/9.1/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/robotic_constraints.webp",
+        "id": "Ch9.F5.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1539",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/robotic_constraints.webp"
+    ],
+    "caption": "Figure 9.5Geometric and logical constraints in manipulation: (1) symbolic–geometric planning with revision after infeasibility, (2) contact and trajectory optimization (inset: normal force fnf_{n} into the object, tangential force ftf_{t} along its surface), and (3) constraint-aware generative planning. The bottom row shows three roles constraints play for learned policies."
+  },
+  {
+    "number": 6,
+    "id": "Ch9.F6",
+    "page": "read/9.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/driving_levels.webp",
+        "id": "Ch9.F6.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1115",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/driving_levels.webp"
+    ],
+    "caption": "Figure 9.6Functional distinctions among SAE J3016 driving-automation levels. Levels 0–2 retain a human driver; Level 3 requires a human to resume driving when necessary, whereas Levels 4–5 do not rely on human fallback within their operating scope. The stair heights indicate ordered categories, not measured safety, model complexity, or technology readiness."
+  },
+  {
+    "number": 7,
+    "id": "Ch9.F7",
+    "page": "read/9.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/autonomous_driving_overview.webp",
+        "id": "Ch9.F7.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1963",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/autonomous_driving_overview.webp"
+    ],
+    "caption": "Figure 9.7Closed-loop spatial intelligence for autonomous driving: complementary sensor streams feed perception and localization and mapping, whose scene and ego/map state drive decision, planning, and trajectory tracking; vehicle–environment interaction returns new observations. The controller also receives ego state; the curved wire crossing is not a junction. Dashed execution logs feed evaluation separately from control. Scenes, maps, and evaluation plots are illustrative, not measured results."
+  },
+  {
+    "number": 8,
+    "id": "Ch9.F8",
+    "page": "read/9.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/driving_perception_tasks.webp",
+        "id": "Ch9.F8.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1727",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/driving_perception_tasks.webp"
+    ],
+    "caption": "Figure 9.8Four complementary driving perception tasks feeding a shared scene model: (1) object detection, (2) semantics and 3D occupancy, (3) lane geometry, and (4) pedestrian/VRU tracking and motion prediction. Annotations and the dashed pedestrian path are illustrative, not measured predictions."
+  },
+  {
+    "number": 9,
+    "id": "Ch9.F9",
+    "page": "read/9.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/driving_localization_and_mapping.webp",
+        "id": "Ch9.F9.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1460",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/driving_localization_and_mapping.webp"
+    ],
+    "caption": "Figure 9.9Localization and mapping through uncertainty-aware sensor fusion: camera, LiDAR, radar, and GNSS/IMU measurements update the state posterior, yielding a map-relative pose (evaluated by ATE/RPE), an incrementally updated 3D map, and loop closures that feed back only after verification. Pose and map are parallel products of joint estimation; only verified loop constraints return to the estimator. Recall@NN evaluates place retrieval, not pose accuracy."
+  },
+  {
+    "number": 10,
+    "id": "Ch9.F10",
+    "page": "read/9.2/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/driving_decision_and_control.webp",
+        "id": "Ch9.F10.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1492",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/driving_decision_and_control.webp"
+    ],
+    "caption": "Figure 9.10Three alternative architectures for driving decision and control: (1) modular pipelines with an explicit BEV scene, (2) end-to-end sensor-to-control learning, and (3) hybrids with inspectable scene or trajectory intermediates and explicit constraint checks."
+  },
+  {
+    "number": 11,
+    "id": "Ch9.F11",
+    "page": "read/9.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/wearable_overview.webp",
+        "id": "Ch9.F11.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1785",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/wearable_overview.webp"
+    ],
+    "caption": "Figure 9.11The wearable AI system as a body-centric loop: on-body signals are modeled into kinematic and biomechanical state (T1), interpreted into activity and intent (T2), and acted on through haptic, exoskeleton, and safety channels (T3), used separately or together. Device and prediction illustrations are schematic."
+  },
+  {
+    "number": 12,
+    "id": "Ch9.F12",
+    "page": "read/9.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/wearable_motion.webp",
+        "id": "Ch9.F12.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1754",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/wearable_motion.webp"
+    ],
+    "caption": "Figure 9.12Motion sensing and pose reconstruction from body-worn IMUs: estimators supported by a parametric body model recover root-relative full-body pose, while visual–inertial fusion anchors a world-frame trajectory. Contact or zero-velocity updates apply only when their assumptions hold, and metric scale requires sufficient observability; signals and trajectories are illustrative."
+  },
+  {
+    "number": 13,
+    "id": "Ch9.F13",
+    "page": "read/9.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/wearable_behavior.webp",
+        "id": "Ch9.F13.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1908",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/wearable_behavior.webp"
+    ],
+    "caption": "Figure 9.13Behavioral understanding and intention modeling: IMU and EMG sequences and a kinematic body graph pass through temporal and graph encoders, fused by attention to recognize current activity and forecast short-horizon intent. The EMG pre-activation inset draws anticipatory cues from the observed stream, not from future measurements."
+  },
+  {
+    "number": 14,
+    "id": "Ch9.F14",
+    "page": "read/9.3/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/wearable_safety.webp",
+        "id": "Ch9.F14.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "2062",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/wearable_safety.webp"
+    ],
+    "caption": "Figure 9.14Safe human–robot collaboration with wearables: fused contact, force, and proximity signals, together with intent forecasts (T2) and robot motion context, drive motion prediction and risk evaluation, which select glove, exoskeleton, or cobot responses. Prediction envelopes and risk thresholds are schematic, not measured safety guarantees."
+  },
+  {
+    "number": 15,
+    "id": "Ch9.F15",
+    "page": "read/9.4/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/aerial_overview.webp",
+        "id": "Ch9.F15.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1002",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/aerial_overview.webp"
+    ],
+    "caption": "Figure 9.15Spatial intelligence for aerial agents as a closed loop from multi-tier aerial sensing (satellite, HAPS, UAV, GNSS, onboard sensors), through three complementary core capabilities, to flight plans with 6-DoF pose targets and downstream flight control. The controller executes the plan; subsequent observations close the sensing loop. The core comprises cross-view geolocalization, detection and environmental understanding, and navigation and decision making. Land-use, water, and infrastructure layers are parallel examples. Platform and scene imagery is illustrative."
+  },
+  {
+    "number": 16,
+    "id": "Ch9.F16",
+    "page": "read/9.4/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/aerial_geoloc.webp",
+        "id": "Ch9.F16.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1044",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/aerial_geoloc.webp"
+    ],
+    "caption": "Figure 9.16Cross-view visual geolocalization as viewpoint-invariant metric learning: the illustrated shared encoder embeds ground, drone, and satellite views so that same-place (positive) pairs cluster and different-place negatives separate. Architecture variants may instead use view-specific branches. Arrows within the feature-space sketch indicate attraction and repulsion during representation learning, not geographic motion. Synthetic views illustrate a common site rather than a calibrated image triplet."
+  },
+  {
+    "number": 17,
+    "id": "Ch9.F17",
+    "page": "read/9.4/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/aerial_detection.webp",
+        "id": "Ch9.F17.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1265",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/aerial_detection.webp"
+    ],
+    "caption": "Figure 9.17Remote-sensing detection from the aerial viewpoint: arbitrary orientation, extreme scale variation, and dense small objects (top) motivate (1) oriented-object detection and (2) multi-scale feature learning, which provide complementary representations for human-centric understanding (bottom). Person re-identification matches identities across views; action examples are alternative classes, not a prescribed sequence; tracking maintains identities across frames. Synthetic scenes illustrate these tasks."
+  },
+  {
+    "number": 18,
+    "id": "Ch9.F18",
+    "page": "read/9.4/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/aerial_navigation.webp",
+        "id": "Ch9.F18.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "851",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/aerial_navigation.webp"
+    ],
+    "caption": "Figure 9.18Autonomous aerial navigation from a language instruction: a UAV observation is grounded into a semantic-topometric graph; the instruction and graph condition an LLM planner that produces pose waypoints with velocity. The displayed route is a top-down projection, with attitude and altitude encoded in the waypoint state. Multi-drone planning is an extension with coordinated altitude separation. SR: success rate; SPL: success weighted by path length; NE: navigation error. Metric glyphs indicate evaluation criteria, not measured scores; scenes and graph geometry are schematic."
+  },
+  {
+    "number": 19,
+    "id": "Ch9.F19",
+    "page": "read/9.5/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/warehouse_overview.webp",
+        "id": "Ch9.F19.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1774",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/warehouse_overview.webp"
+    ],
+    "caption": "Figure 9.19Spatial intelligence for warehouse and industrial logistics: RGB-D, LiDAR, and RFID observations support five complementary capabilities for picking and pallet transport, and execution outcomes update maps and plans. Scene images and diagrams are illustrative."
+  },
+  {
+    "number": 20,
+    "id": "Ch9.F20",
+    "page": "read/9.5/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/warehouse_perception.webp",
+        "id": "Ch9.F20.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1869",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/warehouse_perception.webp"
+    ],
+    "caption": "Figure 9.20The warehouse perception stack: 2D detection and segmentation, 6D object pose TiT_{i}, and a structured scene graph whose nodes carry identity, class, box or mask, pose, and uncertainty Σi\\Sigma_{i}. RFID can support identity association; masks and axes are schematic, not calibrated estimates."
+  },
+  {
+    "number": 21,
+    "id": "Ch9.F21",
+    "page": "read/9.5/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/warehouse_localization.webp",
+        "id": "Ch9.F21.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1523",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/warehouse_localization.webp"
+    ],
+    "caption": "Figure 9.21Localization and mapping in the warehouse as a factor-graph fusion problem: IMU, LiDAR, camera, wheel-encoder, and UWB measurements constrain pose states, optionally with a prior map or beacon anchors, producing poses over warehouse geometry, storage zones, and restricted areas. Repetitive shelving can cause false place matches, so only verified loop candidates add constraints."
+  },
+  {
+    "number": 22,
+    "id": "Ch9.F22",
+    "page": "read/9.5/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/warehouse_planning.webp",
+        "id": "Ch9.F22.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "2167",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/warehouse_planning.webp"
+    ],
+    "caption": "Figure 9.22Two families for warehouse reasoning and planning over shared task, fleet, and map inputs: combinatorial optimization (assignment and routing) and learning-based coordination (per-agent policies), optionally combined in hierarchical or hybrid designs. Allocations, paths, and schedules are illustrative."
+  },
+  {
+    "number": 23,
+    "id": "Ch9.F23",
+    "page": "read/9.5/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/warehouse_manipulation.webp",
+        "id": "Ch9.F23.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1649",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/warehouse_manipulation.webp"
+    ],
+    "caption": "Figure 9.23Warehouse manipulation through (a) a modular route, where grasp candidates scored by analytic metrics and learned quality (Dex-Net) feed sampling-based planning (RRT*) and trajectory tracking, and (b) learned visuomotor control from camera observations. Action spaces vary across systems, and the routes can be combined."
+  },
+  {
+    "number": 24,
+    "id": "Ch9.F24",
+    "page": "read/9.5/index.html",
+    "images": [
+      {
+        "src": "/assets/figures/figures/part4/section9/warehouse_human_robot_collaboration.webp",
+        "id": "Ch9.F24.g1",
+        "class": "fig-img",
+        "alt": "",
+        "width": "2000",
+        "height": "1727",
+        "loading": "lazy",
+        "decoding": "async"
+      }
+    ],
+    "sources": [
+      "assets/figures/figures/part4/section9/warehouse_human_robot_collaboration.webp"
+    ],
+    "caption": "Figure 9.24The human–robot collaboration loop: multimodal human sensing and intent recognition inform proximity-aware planning, which selects slowing, rerouting, or stopping. Clearance regions and routes are illustrative, not certified safety zones."
+  }
+]

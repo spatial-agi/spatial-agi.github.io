@@ -1,0 +1,83 @@
+{
+  "figure": "11.16",
+  "sources": [
+    "assets/figures/figures/part4/section11/aerospace-planetary.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      354
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/aerospace-planetary.pdf",
+  "assets": [
+    {
+      "file": "perception/planetary-rover.png",
+      "title": "planetary rover",
+      "panel": "perception",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        25.0,
+        237.5,
+        140.0,
+        315.0
+      ],
+      "box": [
+        12.5,
+        118.75,
+        70.0,
+        157.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        12.559,
+        118.87,
+        69.074,
+        156.547
+      ],
+      "placement_confidence": 0.9941
+    },
+    {
+      "file": "manipulation/planetary-rover.png",
+      "title": "planetary rover",
+      "panel": "manipulation",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1357.5,
+        72.5,
+        1712.5,
+        310.0
+      ],
+      "box": [
+        678.75,
+        36.25,
+        856.25,
+        155.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        678.179,
+        36.714,
+        855.573,
+        154.977
+      ],
+      "placement_confidence": 0.9758
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "figure": "9.24",
+  "sources": [
+    "assets/figures/figures/part4/section9/warehouse_human_robot_collaboration.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1727
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/warehouse_human_robot_collaboration.pdf",
+  "assets": [
+    {
+      "file": "sensing/worker.png",
+      "title": "worker",
+      "panel": "sensing",
+      "size": [
+        768,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        302.5,
+        682.5,
+        567.5,
+        1035.0
+      ],
+      "box": [
+        151.25,
+        341.25,
+        283.75,
+        517.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        141.68,
+        309.805,
+        276.821,
+        489.993
+      ],
+      "placement_confidence": 0.968
+    },
+    {
+      "file": "behavior/shared-workspace.png",
+      "title": "shared workspace",
+      "panel": "behavior",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1425.0,
+        215.0,
+        1940.0,
+        557.5
+      ],
+      "box": [
+        712.5,
+        107.5,
+        970.0,
+        278.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        712.451,
+        75.032,
+        970.013,
+        246.74
+      ],
+      "placement_confidence": 0.9871
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

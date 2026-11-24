@@ -1,0 +1,114 @@
+{
+  "figure": "11.13",
+  "sources": [
+    "assets/figures/figures/part4/section11/aerospace-pose.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      748
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/aerospace-pose.pdf",
+  "assets": [
+    {
+      "file": "monocular-input/satellite.png",
+      "title": "satellite",
+      "panel": "monocular-input",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1150.0,
+        205.0,
+        1477.5,
+        422.5
+      ],
+      "box": [
+        575.0,
+        102.5,
+        738.75,
+        211.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        15.699,
+        104.018,
+        243.328,
+        255.771
+      ],
+      "placement_confidence": 0.9373
+    },
+    {
+      "file": "pose-estimate/satellite.png",
+      "title": "satellite",
+      "panel": "pose-estimate",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1160.0,
+        210.0,
+        1470.0,
+        417.5
+      ],
+      "box": [
+        580.0,
+        105.0,
+        735.0,
+        208.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        579.278,
+        105.064,
+        734.694,
+        208.675
+      ],
+      "placement_confidence": 0.9771
+    },
+    {
+      "file": "reprojection/satellite.png",
+      "title": "satellite",
+      "panel": "reprojection",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1650.0,
+        470.0,
+        1875.0,
+        620.0
+      ],
+      "box": [
+        825.0,
+        235.0,
+        937.5,
+        310.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        825.746,
+        235.886,
+        935.636,
+        309.146
+      ],
+      "placement_confidence": 0.9612
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

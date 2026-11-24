@@ -1,0 +1,69 @@
+{
+  "figure": "14.2",
+  "sources": [
+    "assets/figures/figures/part4/section14/other_sports.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1460
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section14/other_sports.pdf",
+  "assets": [
+    {
+      "file": "tracking/soccer-match.png",
+      "title": "soccer match",
+      "panel": "tracking",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        1.653,
+        41.352,
+        312.407,
+        248.521
+      ],
+      "pdf_source_box": [
+        0.728,
+        18.204,
+        137.528,
+        109.404
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "biomechanics/soccer-player.png",
+      "title": "soccer player",
+      "panel": "biomechanics",
+      "size": [
+        1145,
+        1374
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        363.109,
+        193.24,
+        475.962,
+        328.663
+      ],
+      "pdf_source_box": [
+        159.848,
+        85.068,
+        209.528,
+        144.684
+      ],
+      "kind": "cutout"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "figure": "9.20",
+  "sources": [
+    "assets/figures/figures/part4/section9/warehouse_perception.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1869
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/warehouse_perception.pdf",
+  "assets": [
+    {
+      "file": "detection/shelf-scene.png",
+      "title": "shelf scene",
+      "panel": "detection",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        62.5,
+        502.5,
+        895.0,
+        1057.5
+      ],
+      "box": [
+        31.25,
+        251.25,
+        447.5,
+        528.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        21.276,
+        218.64,
+        445.656,
+        501.561
+      ],
+      "placement_confidence": 0.9492
+    },
+    {
+      "file": "pose/shelf-scene.png",
+      "title": "shelf scene",
+      "panel": "pose",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1102.5,
+        502.5,
+        1935.0,
+        1057.5
+      ],
+      "box": [
+        551.25,
+        251.25,
+        967.5,
+        528.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        551.351,
+        218.64,
+        975.732,
+        501.561
+      ],
+      "placement_confidence": 0.9839
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

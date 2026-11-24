@@ -225,7 +225,7 @@ def fix_figures(root, page):
                                    url=page_url(page) + "#" + fig.get("id"))
 
 
-WIDGETS = {"fig:p1_s1_2_si_evolution": "eras", "fig:p1_s1_2_milestones": "timeline"}
+WIDGETS = {"fig:p1_s1_2_milestones": "timeline"}
 
 # figures drawn natively for the web (pipeline/webfigs.py): the print image is replaced by live SVG / artwork + text.
 # lxml's HTML parser mangles inline SVG, so a slot goes into the tree and the markup is swapped in after serialisation.
@@ -243,12 +243,70 @@ OPENER_TARGETS = {
 def native_figs(root):
     import site_data as SD_
     import webfigs as WF
-    jobs = {"fig:p1_s1_1_si_covering_shifts": lambda cap: WF.fig11(), "fig:p1_s2_1_intro": lambda cap: WF.fig21(SD_.OPERATORS)}
+    from figure61 import fig61 as WF61
+    from figure62 import fig62 as WF62
+    from figure63 import fig63 as WF63
+    from figure64 import fig64 as WF64
+    from figure65 import fig65 as WF65
+    from figure66 import fig66 as WF66
+    from figure67 import fig67 as WF67
+    from figure68 import fig68 as WF68
+    from figure69 import fig69 as WF69
+    from figure610 import fig610 as WF610
+    from figure611 import fig611 as WF611
+    from figure612 import fig612 as WF612
+    from figure613 import fig613 as WF613
+    from figure614 import fig614 as WF614
+    from figure615 import fig615 as WF615
+    from figure616 import fig616 as WF616
+    from figure617 import fig617 as WF617
+    from figure618 import fig618 as WF618
+    from figure619 import fig619 as WF619
+    from figure620 import fig620 as WF620
+    from figure621 import fig621 as WF621
+    from figure622 import fig622 as WF622
+    from figure623 import fig623 as WF623
+    from figure624 import fig624 as WF624
+    from figure625 import fig625 as WF625
+    from figure626 import fig626 as WF626
+    from figure627 import fig627 as WF627
+    from figure628 import fig628 as WF628
+    from figure71 import fig71 as WF71
+    from figure72 import fig72 as WF72
+    from figure73 import fig73 as WF73
+    from figure74 import fig74 as WF74
+    from figure75 import fig75 as WF75
+    from figure76 import fig76 as WF76
+    from figure77 import fig77 as WF77
+    from figure78 import fig78 as WF78
+    from figure79 import fig79 as WF79
+    from figure710 import fig710 as WF710
+    from figure711 import fig711 as WF711
+    from figure712 import fig712 as WF712
+    from figure713 import fig713 as WF713
+    from figure714 import fig714 as WF714
+    from figure720 import fig720 as WF720
+    from figure721 import fig721 as WF721
+    from figure722 import fig722 as WF722
+    from figure723 import fig723 as WF723
+    from figures724_730 import FIGURES as BATCH724_730
+    from figure715_719 import GENERATORS as RL_WORKFLOWS, SOURCES as RL_SOURCES
+    from figures81_825_native import SOURCES as BATCH8_SOURCES, render as render_batch8
+    from figures91_924_native import SOURCES as BATCH9_SOURCES, render as render_batch9
+    from figures101_1116_native import SOURCES as BATCH1011_SOURCES, render as render_batch1011
+    from figures121_145_native import SOURCES as BATCH1214_SOURCES, render as render_batch1214
+    from figures41_42_native import install_slots as install_figures41_42
+    jobs = {"fig:p1_s1_1_si_covering_shifts": lambda cap: WF.fig11(), "fig:p1_s2_1_intro": lambda cap: WF.fig21(SD_.OPERATORS),
+            "web:rl_overview": lambda cap: WF713(),
+            "fig:p1_s1_2_si_evolution": lambda cap: WF.fig12()}
     for k, lab in OPENER_LABELS.items():
-        jobs[lab] = (lambda k_: lambda cap: WF.opener(k_, OPENER_TARGETS[k_], alt=cap))(k)
+        jobs[lab] = (lambda k_: lambda cap: WF.fig3opener() if k_ == 3 else WF.opener(k_, OPENER_TARGETS[k_], alt=cap))(k)
     for lab, make in jobs.items():
         xid = next((x for x, labs in labels_of.items() if lab in labs), None)
         figs = root.xpath(f'.//figure[@id="{xid}"]') if xid else []
+        # Match this example by asset path so book label changes do not break the redraw.
+        if lab == "web:rl_overview":
+            figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/rl_overview.webp")]]')
         img = figs[0].xpath('.//img[contains(@class,"fig-img")]') if figs else []
         if not img:
             continue
@@ -261,6 +319,530 @@ def native_figs(root):
             if paras:
                 paras[0].set("id", "part-intro")
                 paras[-1].set("id", "part-outro")
+
+    # Figure 6.6: preserve the printed caption and its 2000 x 1126 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/depth_estimation_v3.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig66"}))
+            NATIVE["web:fig66"] = WF66()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.7: preserve its caption and original 2000 x 877 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/surface_normal_estimation.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig67"}))
+            NATIVE["web:fig67"] = WF67()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.8: preserve its caption and original 1536 x 1024 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/camera-1.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig68"}))
+            NATIVE["web:fig68"] = WF68()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.9: preserve its caption and original 2000 x 1031 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/height_estimation_1.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig69"}))
+            NATIVE["web:fig69"] = WF69()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.17: preserve its caption and original 2000 x 1094 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/action_detection.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig617"}))
+            NATIVE["web:fig617"] = WF617()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.19: preserve its caption and original 2000 x 1125 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/slam.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig619"}))
+            NATIVE["web:fig619"] = WF619()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.20: preserve its caption and original 2000 x 847 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/slam_method.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig620"}))
+            NATIVE["web:fig620"] = WF620()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.21: preserve its caption and original 2000 x 1077 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/scene_flow_estimation.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig621"}))
+            NATIVE["web:fig621"] = WF621()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.22: preserve its caption and original 2000 x 1219 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/object_tracking.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig622"}))
+            NATIVE["web:fig622"] = WF622()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.23: preserve its caption and original 2000 x 454 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/object_tracking_method.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig623"}))
+            NATIVE["web:fig623"] = WF623()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.24: preserve its caption and original 2000 x 1570 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/temporal_localization.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig624"}))
+            NATIVE["web:fig624"] = WF624()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.25: preserve its caption and original 2000 x 1185 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/temporal_localization_task_settings.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig625"}))
+            NATIVE["web:fig625"] = WF625()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.26: preserve its caption and original 2000 x 1031 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/audio_video_spatial_localization.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig626"}))
+            NATIVE["web:fig626"] = WF626()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.27: preserve its caption and original 2000 x 475 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/visual_language_graounding_task.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig627"}))
+            NATIVE["web:fig627"] = WF627()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.28: preserve its caption and original 2000 x 417 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/visual_language_graounding_method.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig628"}))
+            NATIVE["web:fig628"] = WF628()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.1: preserve its caption and original 2000 x 892 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/711_geo.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig71"}))
+            NATIVE["web:fig71"] = WF71()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.2: preserve its caption and original 2000 x 677 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/physical_reasoning.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig72"}))
+            NATIVE["web:fig72"] = WF72()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.3: preserve its caption and original 2000 x 868 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/713_topo.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig73"}))
+            NATIVE["web:fig73"] = WF73()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.4: preserve its caption and original 2000 x 923 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/714_constraint.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig74"}))
+            NATIVE["web:fig74"] = WF74()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.5: preserve its caption and original 2000 x 894 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/715_program.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig75"}))
+            NATIVE["web:fig75"] = WF75()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.6: preserve its caption and original 2000 x 930 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/716_causal.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig76"}))
+            NATIVE["web:fig76"] = WF76()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.7: preserve its caption and original 2000 x 608 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/implicit_neural_spatial_reasoning_task.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig77"}))
+            NATIVE["web:fig77"] = WF77()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.8: preserve its caption and original 2000 x 933 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/implicit_neural_spatial_reasoning_method.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig78"}))
+            NATIVE["web:fig78"] = WF78()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.9: preserve its caption and original 2000 x 606 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/explicit_structured_neural_reasoning_task.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig79"}))
+            NATIVE["web:fig79"] = WF79()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.10: preserve its caption and original 2000 x 437 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/explicit_structured_neural_reasoning_method.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig710"}))
+            NATIVE["web:fig710"] = WF710()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.11: preserve its caption and original 2000 x 1031 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/geometry-aware_neural_spatial_reasoning.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig711"}))
+            NATIVE["web:fig711"] = WF711()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.12: preserve its caption and original 2000 x 742 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/differentiable_optimization_layers_for_spatial_reasoning.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig712"}))
+            NATIVE["web:fig712"] = WF712()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.14: preserve its caption and original 2000 x 571 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/value-based-rl.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig714"}))
+            NATIVE["web:fig714"] = WF714()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figures 7.15–7.19: keep captions and source aspect ratios.
+    for number, make in RL_WORKFLOWS.items():
+        filename = RL_SOURCES[number][0]
+        figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/' + filename + '")]]')
+        if figs:
+            images = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+            if images:
+                slot = f"web:fig{number}"
+                images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": slot}))
+                NATIVE[slot] = make()
+                figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.20: keep the source proportions and surrounding caption.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/multi-agent_spatial_reasoning.webp")]]')
+    if figs:
+        images = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if images:
+            images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig720"}))
+            NATIVE["web:fig720"] = WF720()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.21: keep its source proportions and surrounding caption.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/LLM_VLM-centric_spatial_reasoning.webp")]]')
+    if figs:
+        images = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if images:
+            images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig721"}))
+            NATIVE["web:fig721"] = WF721()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.22: keep its source proportions and surrounding caption.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/VLA_spatial_reasoning.webp")]]')
+    if figs:
+        images = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if images:
+            images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig722"}))
+            NATIVE["web:fig722"] = WF722()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 7.23: keep the source proportions and surrounding caption.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section7/chain-of-thought_spatial_reasoning.webp")]]')
+    if figs:
+        images = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if images:
+            images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig723"}))
+            NATIVE["web:fig723"] = WF723()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Approved Figures 7.24–7.30: preserve image proportions and captions.
+    for number, render in BATCH724_730.items():
+        manifest = json.loads((Path(__file__).resolve().parents[2] / f"assets/figures/elements/figure{number}/manifest.json").read_text())
+        source = "/" + manifest["source"]
+        figs = root.xpath('.//figure[.//img[@src=$source]]', source=source)
+        for figure in figs:
+            images = figure.xpath('.//img[contains(@class,"fig-img")]')
+            if images:
+                slot = f"web:fig{number}"
+                images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": slot}))
+                NATIVE[slot] = render()
+                figure.set("class", (figure.get("class") or "") + " native")
+
+    # Approved Figures 8.1–8.25: replace only image content, retaining captions.
+    for number, entry in enumerate(BATCH8_SOURCES, 1):
+        source = "/" + entry["sources"][0]
+        figs = root.xpath('.//figure[.//img[@src=$source]]', source=source)
+        for figure in figs:
+            images = figure.xpath('.//img[contains(@class,"fig-img")]')
+            if not images:
+                continue
+            slot = f"web:fig8{number}"
+            images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": slot}))
+            for image in images[1:]:
+                image.getparent().remove(image)
+            NATIVE[slot] = render_batch8(number)
+            figure.set("class", (figure.get("class") or "") + " native")
+
+    # Approved Figures 9.1–9.24: replace only image content, retaining captions.
+    for number, entry in enumerate(BATCH9_SOURCES, 1):
+        source = "/" + entry["sources"][0]
+        figs = root.xpath('.//figure[.//img[@src=$source]]', source=source)
+        for figure in figs:
+            images = figure.xpath('.//img[contains(@class,"fig-img")]')
+            if not images:
+                continue
+            slot = f"web:fig9{number}"
+            images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": slot}))
+            for image in images[1:]:
+                image.getparent().remove(image)
+            NATIVE[slot] = render_batch9(number)
+            figure.set("class", (figure.get("class") or "") + " native")
+
+    # Approved Figures 10.1–11.16: preserve the surrounding content and caption.
+    for entry in BATCH1011_SOURCES:
+        source = "/" + entry["sources"][0]
+        for figure in root.xpath('.//figure[.//img[@src=$source]]', source=source):
+            images = figure.xpath('.//img[contains(@class,"fig-img")]')
+            if not images:
+                continue
+            slot = f'web:fig{entry["chapter"]}{entry["number"]}'
+            images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": slot}))
+            for image in images[1:]:
+                image.getparent().remove(image)
+            NATIVE[slot] = render_batch1011(entry["chapter"], entry["number"])
+            figure.set("class", (figure.get("class") or "") + " native")
+
+    # Approved Figures 12.1–14.5: preserve the surrounding content and caption.
+    for entry in BATCH1214_SOURCES:
+        source = "/" + entry["sources"][0]
+        for figure in root.xpath('.//figure[.//img[@src=$source]]', source=source):
+            images = figure.xpath('.//img[contains(@class,"fig-img")]')
+            if not images:
+                continue
+            slot = f'web:fig{entry["chapter"]}{entry["number"]}'
+            images[0].getparent().replace(images[0], etree.Element("div", {"class": "nf-slot", "data-slot": slot}))
+            for image in images[1:]:
+                image.getparent().remove(image)
+            NATIVE[slot] = render_batch1214(entry["chapter"], entry["number"])
+            figure.set("class", (figure.get("class") or "") + " native")
+
+    install_figures41_42(root, NATIVE)
+
+    # Figure 6.18: preserve its caption and original 2000 x 1277 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/action_detection_method_1.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig618"}))
+            NATIVE["web:fig618"] = WF618()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.16: preserve its caption and original 2000 x 1031 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/layout_parsing_method.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig616"}))
+            NATIVE["web:fig616"] = WF616()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.15: preserve its caption and original 2000 x 1003 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/layout_parsing.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig615"}))
+            NATIVE["web:fig615"] = WF615()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.14: preserve its caption and original 2000 x 975 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/scene_graph.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig614"}))
+            NATIVE["web:fig614"] = WF614()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.13: preserve its caption and original 2000 x 1493 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/spatial_relation_extraction.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig613"}))
+            NATIVE["web:fig613"] = WF613()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.12: preserve its caption and original 2000 x 1100 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/pose_estimation.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig612"}))
+            NATIVE["web:fig612"] = WF612()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.11: preserve its caption and original 2000 x 1554 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/visual_odometry_and_camera_pose_estimation.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig611"}))
+            NATIVE["web:fig611"] = WF611()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.10: preserve its caption and original 2000 x 1124 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/height_estimation_2.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig610"}))
+            NATIVE["web:fig610"] = WF610()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.5: preserve the caption and original 2000 x 976 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/scene_classification.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig65"}))
+            NATIVE["web:fig65"] = WF65()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.4: preserve its caption and original 2000 x 1126 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/keypoint_detection_v2.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig64"}))
+            NATIVE["web:fig64"] = WF64()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.3: preserve its caption and original 2000 x 522 proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/segmentation-method.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig63"}))
+            NATIVE["web:fig63"] = WF63()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 6.2: retain its caption and replace the print panel image.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/segmentation.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig62"}))
+            NATIVE["web:fig62"] = WF62()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+
+    # Figure 6.1: preserve the caption and replace only the source detector image.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part3/section6/object_detection.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig61"}))
+            NATIVE["web:fig61"] = WF61()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+
+    # Figure 4.3 uses the source image path as a stable key; the printed label may vary by edition.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part2/3D_representations_2.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig43"}))
+            NATIVE["web:fig43"] = WF.fig43()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+    # Figure 4.4 uses the source image path as a stable key.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part2/4D_representations.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig44"}))
+            NATIVE["web:fig44"] = WF.fig44()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+    # Preserve Figure 4.5's caption and replace only its printed image.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part2/language_representation.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig45"}))
+            NATIVE["web:fig45"] = WF.fig45()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
+    # Figure 4.6: keep the printed caption and original artwork proportions.
+    figs = root.xpath('.//figure[.//img[contains(@src,"/part2/audio_representation.webp")]]')
+    if figs:
+        img = figs[0].xpath('.//img[contains(@class,"fig-img")]')
+        if img:
+            img[0].getparent().replace(img[0], etree.Element("div", {"class": "nf-slot", "data-slot": "web:fig46"}))
+            NATIVE["web:fig46"] = WF.fig46()
+            figs[0].set("class", (figs[0].get("class") or "") + " native")
 
 
 def add_widgets(root):
