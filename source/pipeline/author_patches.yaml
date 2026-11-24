@@ -12,3 +12,8 @@
   email: ewanzhou@tencent.com   # two lookups differed (also lists zhouyuchen99@163.com); current work address chosen
 "Jiafei Duan":
   email: duanjf@comp.nus.edu.sg   # NUS staff page (his CV gives duanj1@nus.edu.sg)
+"Ming-Hsuan Yang":   # joined 2026-11-09 (Reviewing & Advisory); all fields from his own pages
+  homepage: http://faculty.ucmerced.edu/mhyang/
+  scholar: http://scholar.google.com/citations?user=p9-ohHsAAAAJ&hl=en
+  expertise: [computer vision, pattern recognition, artificial intelligence, robotics, machine learning]   # bio.html: "His research interests include ..."
+  email: mhyang@ucmerced.edu   # homepage: "mhyang at ucmerced dot edu"
