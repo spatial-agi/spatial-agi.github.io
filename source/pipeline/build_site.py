@@ -225,7 +225,7 @@ def fix_figures(root, page):
                                    url=page_url(page) + "#" + fig.get("id"))
 
 
-WIDGETS = {"fig:p1_s1_2_milestones": "timeline"}
+WIDGETS = {}     # Fig. 1.3 is now drawn natively (fig13.py); the explore timeline keeps the dot-chart widget
 
 # figures drawn natively for the web (pipeline/webfigs.py): the print image is replaced by live SVG / artwork + text.
 # lxml's HTML parser mangles inline SVG, so a slot goes into the tree and the markup is swapped in after serialisation.
@@ -243,6 +243,7 @@ OPENER_TARGETS = {
 def native_figs(root):
     import site_data as SD_
     import webfigs as WF
+    import fig13 as F13
     from figure61 import fig61 as WF61
     from figure62 import fig62 as WF62
     from figure63 import fig63 as WF63
@@ -298,7 +299,9 @@ def native_figs(root):
     from figures41_42_native import install_slots as install_figures41_42
     jobs = {"fig:p1_s1_1_si_covering_shifts": lambda cap: WF.fig11(), "fig:p1_s2_1_intro": lambda cap: WF.fig21(SD_.OPERATORS),
             "web:rl_overview": lambda cap: WF713(),
-            "fig:p1_s1_2_si_evolution": lambda cap: WF.fig12()}
+            "fig:p1_s1_2_si_evolution": lambda cap: WF.fig12(),
+            "fig:p1_s1_2_milestones": lambda cap: F13.fig13(json.loads((DATA / "refs.json").read_text()), SD_.eras(),
+                                                            "#" + next((x for x, labs in labels_of.items() if "tab:p1_s1_2_eras" in labs), ""))}
     for k, lab in OPENER_LABELS.items():
         jobs[lab] = (lambda k_: lambda cap: WF.fig3opener() if k_ == 3 else WF.opener(k_, OPENER_TARGETS[k_], alt=cap))(k)
     for lab, make in jobs.items():
@@ -1255,7 +1258,8 @@ LOGO_OF = {"University of Oxford": "oxford", "National University of Singapore":
            "Stanford University": "stanford", "Imperial College London": "imperial", "Monash University": "monash",
            "University of Cambridge": "cambridge", "University of California, Los Angeles": "ucla", "Harvard University": "harvard",
            "Microsoft Research": "msr", "Columbia University": "columbia",
-           "University of California, Merced": "ucmerced"}
+           "University of California, Merced": "ucmerced", "University of Illinois Urbana-Champaign": "uiuc",
+           "University of Wisconsin–Madison": "uwmadison"}
 
 
 def logo(name):

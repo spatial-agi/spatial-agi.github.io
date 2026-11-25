@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13.5 Pivotal Task-3: Empowering Vulnerable Users · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="13.5 Pivotal Task-3: Empowering Vulnerable Users · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css?v=f13a">
+<link rel="stylesheet" href="/assets/css/figures81-825.css?v=approved9">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+<link rel="stylesheet" href="/assets/css/figures91-924.css?v=approved9">
+<link rel="stylesheet" href="/assets/css/figures101-1116.css?v=approved1011">
+<link rel="stylesheet" href="/assets/css/figures121-145.css?v=approved1214">
+<link rel="stylesheet" href="/assets/css/figures41-42.css?v=approved4142">
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #11899A" data-page="13.5">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatially Aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li><li><a class="toc-link " href="/read/6.6/"><span class="n">6.6</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li><li><a class="toc-link " href="/read/7.6/"><span class="n">7.6</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link " href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Introduction</span></a></li><li><a class="toc-link " href="/read/13.2/"><span class="n">13.2</span><span>System Overview</span></a></li><li><a class="toc-link " href="/read/13.3/"><span class="n">13.3</span><span>Pivotal Task-1: Managing the Physical Environment</span></a></li><li><a class="toc-link " href="/read/13.4/"><span class="n">13.4</span><span>Pivotal Task-2: Co-habiting and Collaborating</span></a></li><li><a class="toc-link is-current" href="/read/13.5/"><span class="n">13.5</span><span>Pivotal Task-3: Empowering Vulnerable Users</span></a></li><li><a class="toc-link " href="/read/13.6/"><span class="n">13.6</span><span>Established Tools and Systems</span></a></li><li><a class="toc-link " href="/read/13.7/"><span class="n">13.7</span><span>Challenges</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iv/">Part IV</a><span class="sep">/</span><a href="/read/chapter-13/">Chapter 13</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-13/">Chapter 13 · Spatial Intelligence for Intelligent Assistance</a></div>
+        <h1><span class="secnum">13.5</span>Pivotal Task-3: Empowering Vulnerable Users</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=442" title="Open this page in the PDF">PDF p. 442</a><span class="dot">·</span>        <span>3 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:13.5 Pivotal Task-3: Empowering Vulnerable Users">
+<div id="Ch13.S5.p1" class="ltx_para">
+<p class="ltx_p">The highest-impact regime uses spatial intelligence to compensate for a sensory, cognitive, or motor impairment, acting as a prosthesis for the user’s perception or agency. The assistant translates the environment into a queryable, navigable, and actionable representation and delivers it through a channel the user can still use (audio, haptics, or physical action). Because the loop closes around a vulnerable person in their own home, safety, privacy, and personalization are design constraints from the start.</p>
+</div>
+<figure id="Ch13.F4" class="ltx_figure native"><div class="nf nf-rl nf-f1214 nf-134" data-nf="f1214" data-pagefind-ignore="all"><svg class="nf-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 840" role="group" aria-label="Figure 13.4: interactive reconstruction"><rect width="1000" height="840" fill="white"/><defs><clipPath id="f134-image-clip-0" transform="scale(2.3219257017788015)"><path xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" transform="matrix(1,0,0,-1,-11.536,362.128)" d="M11.536 4.08484H442.213V362.128H11.536Z" clip-rule="evenodd"/>
+</clipPath><clipPath id="f134-image-clip-1" transform="scale(2.3219257017788015)"><path xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" transform="matrix(1,0,0,-1,-11.536,362.128)" d="M0 0H458.64V385.2H0Z"/>
+</clipPath><clipPath id="f134-image-clip-2" transform="scale(2.3219257017788015)"><path xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" transform="matrix(1,0,0,-1,-11.536,362.128)" d="M0 0H458.64V385.2H0Z"/>
+</clipPath></defs><g class="f1214-scaffold"><g transform="translate(26.186 50.248) scale(0.938)"><path d="M269.12 392.795 C282.495 392.795 295.205 392.795 307.253 392.795" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M269.12 392.795 C282.495 392.795 295.205 392.795 307.253 392.795" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M302.378 390.009 L307.254 392.795 L302.378 395.582 L302.378 390.009" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M655.303 130.325 C674.807 130.325 693.647 130.325 711.826 130.325" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M655.303 354.344 C674.807 354.344 693.647 354.344 711.826 354.344" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M655.303 692.045 C674.807 692.045 693.647 692.045 711.826 692.045" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M655.303 692.045 L655.303 130.325" style="fill:none;stroke:#3646f0;stroke-width:1.509;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g></g><g class="rl-zone" data-k="panel-0" tabindex="0" role="button" aria-pressed="false" aria-label="User goals and access needs"><g transform="translate(26.186 50.248) scale(0.938)"><g clip-path="url(#f134-image-clip-0)"><g clip-path="url(#f134-image-clip-1)"><image href="/assets/img/figs/f134/user-needs/vision-support.png" x="35.07" y="47.641" width="172.19400000000002" height="182.991" preserveAspectRatio="none"/></g></g></g><g transform="translate(26.186 50.248) scale(0.938)"><g clip-path="url(#f134-image-clip-0)"><g clip-path="url(#f134-image-clip-2)"><image href="/assets/img/figs/f134/user-needs/mobility-support.png" x="35.07" y="514.069" width="172.19400000000002" height="182.99200000000008" preserveAspectRatio="none"/></g></g></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M80.209 391.96 C83.534 391.96 86.724 390.638 89.074 388.286 C91.426 385.937 92.747 382.746 92.747 379.421 C92.747 376.096 91.426 372.906 89.074 370.556 C86.724 368.204 83.534 366.883 80.209 366.883 C76.884 366.883 73.693 368.204 71.343 370.556 C68.991 372.906 67.67 376.096 67.67 379.421 C67.67 382.746 68.991 385.937 71.343 388.286 C73.693 390.638 76.884 391.96 80.209 391.96" style="fill:#ffffff;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M157.111 411.185 C164.204 411.185 171.01 408.366 176.025 403.351 C181.041 398.336 183.859 391.53 183.859 384.437 C183.859 377.343 181.041 370.538 176.025 365.522 C171.01 360.507 164.204 357.688 157.111 357.688 C150.017 357.688 143.212 360.507 138.196 365.522 C133.181 370.538 130.362 377.343 130.362 384.437 C130.362 391.53 133.181 398.336 138.196 403.351 C143.212 408.366 150.017 411.185 157.111 411.185" style="fill:#ffffff;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M89.403 388.616 L101.942 401.154" style="fill:none;stroke:#293640;stroke-width:2.322;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M157.111 384.437 L157.111 366.047" style="fill:none;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M157.111 384.437 L170.485 391.124" style="fill:none;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M218.967 155.402 L269.12 155.402" style="fill:none;stroke:#3646f0;stroke-width:1.509;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M218.967 382.765 L269.12 382.765" style="fill:none;stroke:#3646f0;stroke-width:1.509;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M218.967 610.128 L269.12 610.128 L269.12 155.402" style="fill:none;stroke:#3646f0;stroke-width:1.509;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="2.199" y="23.08" textLength="252.954" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:20.897px;font-style:normal;font-weight:700;fill:#293640">User goals &amp; access needs</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="65.79" y="268.566" textLength="115.748" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Vision support</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="22.945" y="449.119" textLength="204.659" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">Memory / attention support</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="60.349" y="734.994" textLength="129.939" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Mobility support</text></g><rect class="rl-hit" x="35.566" y="58.04605921647479" width="253.25999999999996" height="701.825329482731"/></g><g class="rl-zone" data-k="panel-1" tabindex="0" role="button" aria-pressed="false" aria-label="Shared spatial engine"><g transform="translate(26.186 50.248) scale(0.938)"><path d="M326.797 260.724 L565.863 260.724 C568.649 260.724 570.042 259.331 570.042 256.545 L570.042 67.633 C570.042 64.847 568.649 63.454 565.863 63.454 L326.797 63.454 C324.011 63.454 322.618 64.847 322.618 67.633 L322.618 256.545 C322.618 259.331 324.011 260.724 326.797 260.724" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M341.442 144.368 L390.123 144.368 C392.91 144.368 394.303 142.975 394.303 140.189 L394.303 116.115 C394.303 113.329 392.91 111.935 390.123 111.935 L341.442 111.935 C338.656 111.935 337.263 113.329 337.263 116.115 L337.263 140.189 C337.263 142.975 338.656 144.368 341.442 144.368" style="fill:#e7e8e9;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M351.205 136.611 L380.362 136.611 C383.148 136.611 384.541 135.218 384.541 132.432 L384.541 119.993 C384.541 117.207 383.148 115.813 380.362 115.813 L351.205 115.813 C348.419 115.813 347.026 117.207 347.026 119.993 L347.026 132.432 C347.026 135.218 348.419 136.611 351.205 136.611" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M395.14 152.125 L419.413 152.125 C422.199 152.125 423.593 150.732 423.593 147.946 L423.593 133.568 C423.593 130.782 422.199 129.389 419.413 129.389 L395.14 129.389 C392.353 129.389 390.96 130.782 390.96 133.568 L390.96 147.946 C390.96 150.732 392.353 152.125 395.14 152.125" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M417.107 124.975 L431.619 124.975 C434.405 124.975 435.799 123.582 435.799 120.796 L435.799 96.722 C435.799 93.936 434.405 92.543 431.619 92.543 L417.107 92.543 C414.321 92.543 412.928 93.936 412.928 96.722 L412.928 120.796 C412.928 123.582 414.321 124.975 417.107 124.975" style="fill:#ffffff;stroke:#3646f0;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M468.364 146.307 L543.896 146.307 C546.683 146.307 548.076 144.914 548.076 142.128 L548.076 119.993 C548.076 117.207 546.683 115.813 543.896 115.813 L468.364 115.813 C465.578 115.813 464.185 117.207 464.185 119.993 L464.185 142.128 C464.185 144.914 465.578 146.307 468.364 146.307" style="fill:#f2eee7;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M508.107 133.198 L514.088 133.198 C516.875 133.198 518.268 131.805 518.268 129.018 L518.268 122.166 C518.268 119.38 516.875 117.987 514.088 117.987 L508.107 117.987 C505.321 117.987 503.928 119.38 503.928 122.166 L503.928 129.018 C503.928 131.805 505.321 133.198 508.107 133.198" style="fill:#ffffff;stroke:#3646f0;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M351.205 241.332 L414.533 241.332 C417.32 241.332 418.713 239.939 418.713 237.152 L418.713 222.775 C418.713 219.989 417.32 218.595 414.533 218.595 L351.205 218.595 C348.419 218.595 347.026 219.989 347.026 222.775 L347.026 237.152 C347.026 239.939 348.419 241.332 351.205 241.332" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M485.45 241.332 L536.574 241.332 C539.36 241.332 540.753 239.939 540.753 237.152 L540.753 207.26 C540.753 204.473 539.36 203.08 536.574 203.08 L485.45 203.08 C482.663 203.08 481.27 204.473 481.27 207.26 L481.27 237.152 C481.27 239.939 482.663 241.332 485.45 241.332" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M497.654 225.817 L521.927 225.817 C524.713 225.817 526.107 224.424 526.107 221.638 L526.107 209.199 C526.107 206.413 524.713 205.02 521.927 205.02 L497.654 205.02 C494.867 205.02 493.474 206.413 493.474 209.199 L493.474 221.638 C493.474 224.424 494.867 225.817 497.654 225.817" style="fill:#e9ecff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M517.817 129.606 C518.973 129.606 520.085 129.146 520.903 128.329 C521.72 127.509 522.18 126.4 522.18 125.243 C522.18 124.087 521.72 122.975 520.903 122.157 C520.085 121.34 518.973 120.88 517.817 120.88" style="fill:none;stroke:#3646f0;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M446.33 314.222 C446.33 326.481 446.33 338.077 446.33 349.011" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M446.33 314.222 C446.33 326.481 446.33 338.077 446.33 349.011" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M449.116 344.136 L446.33 349.012 L443.544 344.136 L449.116 344.136" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M583.416 528.21 L655.303 528.21 L655.303 130.325 C674.807 130.325 693.647 130.325 711.826 130.325" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="4200"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M385.31 213.867 C386.44 213.867 387.527 213.417 388.326 212.618 C389.127 211.817 389.575 210.733 389.575 209.602 C389.575 208.469 389.127 207.385 388.326 206.584 C387.527 205.785 386.44 205.334 385.31 205.334 C384.179 205.334 383.092 205.785 382.293 206.584 C381.492 207.385 381.044 208.469 381.044 209.602 C381.044 210.733 381.492 211.817 382.293 212.618 C383.092 213.417 384.179 213.867 385.31 213.867" style="fill:#ffffff;stroke:#3646f0;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M446.33 259.053 L446.33 65.125" style="fill:none;stroke:#a8b3bd;stroke-width:1.509;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M324.289 165.968 L568.37 165.968" style="fill:none;stroke:#a8b3bd;stroke-width:1.509;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M414.599 115.546 L434.127 115.546" style="fill:none;stroke:#3646f0;stroke-width:1.393;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M414.599 105.85 L434.127 105.85" style="fill:none;stroke:#3646f0;stroke-width:1.393;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M385.31 213.674 L385.31 224.145" style="fill:none;stroke:#3646f0;stroke-width:2.09;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M385.31 221.237 L388.8 221.237" style="fill:none;stroke:#3646f0;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="347.437" y="18.448" textLength="209.457" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:20.897px;font-style:normal;font-weight:700;fill:#293640">Shared spatial engine </text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="326.207" y="297.042" textLength="240.091" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">Objects · location · activity state</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="362.464" y="56.929" textLength="182.842" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Observed environment</text></g><rect class="rl-hit" x="335.72599999999994" y="58.04605921647479" width="300.16" height="327.5184870919411"/></g><g class="rl-zone" data-k="panel-2" tabindex="0" role="button" aria-pressed="false" aria-label="Personalize with consent"><g transform="translate(26.186 50.248) scale(0.938)"><path d="M321.782 427.903 L570.878 427.903 C573.664 427.903 575.057 426.51 575.057 423.724 L575.057 363.539 C575.057 360.753 573.664 359.36 570.878 359.36 L321.782 359.36 C318.995 359.36 317.602 360.753 317.602 363.539 L317.602 423.724 C317.602 426.51 318.995 427.903 321.782 427.903" style="fill:#e9ecff;stroke:#3646f0;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M321.782 576.692 L570.878 576.692 C573.664 576.692 575.057 575.299 575.057 572.513 L575.057 485.58 C575.057 482.793 573.664 481.4 570.878 481.4 L321.782 481.4 C318.995 481.4 317.602 482.793 317.602 485.58 L317.602 572.513 C317.602 575.299 318.995 576.692 321.782 576.692" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M331.812 703.748 L560.847 703.748 C563.634 703.748 565.027 702.355 565.027 699.568 L565.027 634.369 C565.027 631.582 563.634 630.189 560.847 630.189 L331.812 630.189 C329.026 630.189 327.633 631.582 327.633 634.369 L327.633 699.568 C327.633 702.355 329.026 703.748 331.812 703.748" style="fill:#fff7f3;stroke:#ad796e;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M446.33 436.262 C446.33 448.522 446.33 460.117 446.33 471.051" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M446.33 436.262 C446.33 448.522 446.33 460.117 446.33 471.051" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M449.116 466.176 L446.33 471.052 L443.544 466.176 L449.116 466.176" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M446.33 585.051 C446.33 597.311 446.33 608.906 446.33 619.84" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M446.33 585.051 C446.33 597.311 446.33 608.906 446.33 619.84" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M449.116 614.965 L446.33 619.841 L443.544 614.965 L449.116 614.965" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M583.416 528.21 L655.303 528.21 L655.303 354.344 C674.807 354.344 693.647 354.344 711.826 354.344" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="4200"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M583.416 528.21 L655.303 528.21 L655.303 692.045 C674.807 692.045 693.647 692.045 711.826 692.045" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="4200"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M583.416 528.21 L655.303 528.21" style="fill:none;stroke:#3646f0;stroke-width:1.509;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="366.423" y="387.94" textLength="159.772" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Personalize support</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="351.874" y="408.322" textLength="188.805" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">+ select output channel</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="362.903" y="523.336" textLength="166.73" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Consent / data limits</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="352.654" y="543.718" textLength="187.275" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Confidence / clearance</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="604.943" y="498.694" textLength="33.805" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:16.253px;font-style:normal;font-weight:400;fill:#348550">Pass</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="348.971" y="661.252" textLength="194.513" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">Uncertain / not permitted:</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="388.825" y="681.685" textLength="114.898" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">clarify or pause</text></g><rect class="rl-hit" x="335.72599999999994" y="401.16066474136545" width="300.16" height="350.9126647413655"/></g><g class="rl-zone" data-k="panel-3" tabindex="0" role="button" aria-pressed="false" aria-label="Direction and reminders"><g transform="translate(26.186 50.248) scale(0.938)"><path d="M726.354 233.976 L992.168 233.976 C994.954 233.976 996.348 232.583 996.348 229.796 L996.348 42.556 C996.348 39.77 994.954 38.377 992.168 38.377 L726.354 38.377 C723.568 38.377 722.175 39.77 722.175 42.556 L722.175 229.796 C722.175 232.583 723.568 233.976 726.354 233.976" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M726.354 449.636 L992.168 449.636 C994.954 449.636 996.348 448.243 996.348 445.457 L996.348 294.996 C996.348 292.21 994.954 290.817 992.168 290.817 L726.354 290.817 C723.568 290.817 722.175 292.21 722.175 294.996 L722.175 445.457 C722.175 448.243 723.568 449.636 726.354 449.636" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M744.744 337.627 L759.79 337.627 C762.576 337.627 763.969 336.233 763.969 333.447 L763.969 318.401 C763.969 315.615 762.576 314.222 759.79 314.222 L744.744 314.222 C741.957 314.222 740.564 315.615 740.564 318.401 L740.564 333.447 C740.564 336.233 741.957 337.627 744.744 337.627" style="fill:#ffffff;stroke:#348550;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M744.744 386.108 L759.79 386.108 C762.576 386.108 763.969 384.715 763.969 381.929 L763.969 366.883 C763.969 364.097 762.576 362.703 759.79 362.703 L744.744 362.703 C741.957 362.703 740.564 364.097 740.564 366.883 L740.564 381.929 C740.564 384.715 741.957 386.108 744.744 386.108" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M744.744 434.59 L759.79 434.59 C762.576 434.59 763.969 433.197 763.969 430.411 L763.969 415.365 C763.969 412.578 762.576 411.185 759.79 411.185 L744.744 411.185 C741.957 411.185 740.564 412.578 740.564 415.365 L740.564 430.411 C740.564 433.197 741.957 434.59 744.744 434.59" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M706.951 127.539 L711.827 130.325 L706.951 133.111 L706.951 127.539" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M808.853 153.29 C809.536 149.419 808.833 145.43 806.868 142.028 C804.904 138.624 801.799 136.021 798.108 134.677" style="fill:none;stroke:#3646f0;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M817.909 154.886 C818.965 148.889 817.876 142.705 814.83 137.43 C811.786 132.154 806.975 128.119 801.251 126.036" style="fill:none;stroke:#3646f0;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M826.964 156.483 C828.396 148.356 826.92 139.979 822.794 132.832 C818.668 125.687 812.152 120.219 804.397 117.396" style="fill:none;stroke:#3646f0;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M706.951 351.558 L711.827 354.344 L706.951 357.131 L706.951 351.558" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M782.359 152.393 C783.85 152.393 785.278 151.801 786.332 150.746 C787.384 149.695 787.976 148.264 787.976 146.776 C787.976 145.285 787.384 143.857 786.332 142.803 C785.278 141.751 783.85 141.159 782.359 141.159 C780.868 141.159 779.44 141.751 778.386 142.803 C777.334 143.857 776.742 145.285 776.742 146.776 C776.742 148.264 777.334 149.695 778.386 150.746 C779.44 151.801 780.868 152.393 782.359 152.393" style="fill:#ffffff;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M931.148 99.397 C933.142 99.397 935.056 98.605 936.467 97.193 C937.879 95.782 938.671 93.868 938.671 91.874 C938.671 89.879 937.879 87.966 936.467 86.554 C935.056 85.143 933.142 84.351 931.148 84.351 C929.153 84.351 927.24 85.143 925.828 86.554 C924.417 87.966 923.625 89.879 923.625 91.874 C923.625 93.868 924.417 95.782 925.828 97.193 C927.24 98.605 929.153 99.397 931.148 99.397" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M795.733 175.463 C798.838 175.463 801.814 174.23 804.009 172.036 C806.203 169.842 807.436 166.865 807.436 163.761 C807.436 160.656 806.203 157.68 804.009 155.485 C801.814 153.291 798.838 152.058 795.733 152.058 C792.629 152.058 789.652 153.291 787.458 155.485 C785.264 157.68 784.031 160.656 784.031 163.761 C784.031 166.865 785.264 169.842 787.458 172.036 C789.652 174.23 792.629 175.463 795.733 175.463" style="fill:#ffffff;stroke:#3646f0;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M782.359 153.329 L782.359 180.479" style="fill:none;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M772.997 163.627 L791.721 163.627" style="fill:none;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M782.359 180.479 L775.337 192.181" style="fill:none;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M782.359 180.479 L789.38 192.181" style="fill:none;stroke:#293640;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M790.718 150.386 L916.102 98.561" style="fill:none;stroke:#3646f0;stroke-width:1.509;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0;stroke-dasharray:5.584,2.415"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M745.58 325.924 L750.595 330.939 L758.954 319.237" style="fill:none;stroke:#348550;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="776.995" y="23.152" textLength="164.484" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:20.897px;font-style:normal;font-weight:700;fill:#293640">Assistive outputs</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="913.896" y="67.373" textLength="34.53" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:16.253px;font-style:normal;font-weight:400;fill:#293640">Door</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="848.095" y="195.009" textLength="115.908" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#3646ef">Audio + haptics</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="768.687" y="266.896" textLength="181.07" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Direction / object cues</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="802.202" y="330.405" textLength="147.468" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">Locate the doorway</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="791.335" y="378.887" textLength="169.167" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">Approach the doorway</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="795.162" y="427.441" textLength="161.467" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">Confirm the next step</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="732.243" y="480.81" textLength="253.997" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Reminders + stepwise guidance</text></g><rect class="rl-hit" x="682.786" y="58.04605921647479" width="272.02" height="444.4893753390629"/></g><g class="rl-zone" data-k="panel-4" tabindex="0" role="button" aria-pressed="false" aria-label="Shared-control assistance"><g transform="translate(26.186 50.248) scale(0.938)"><path d="M726.354 727.153 L992.168 727.153 C994.954 727.153 996.348 725.76 996.348 722.973 L996.348 667.804 C996.348 665.018 994.954 663.625 992.168 663.625 L726.354 663.625 C723.568 663.625 722.175 665.018 722.175 667.804 L722.175 722.973 C722.175 725.76 723.568 727.153 726.354 727.153" style="fill:#e9ecff;stroke:#3646f0;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M738.057 596.753 L978.794 596.753 C981.58 596.753 982.973 595.36 982.973 592.574 L982.973 549.108 C982.973 546.321 981.58 544.928 978.794 544.928 L738.057 544.928 C735.27 544.928 733.877 546.321 733.877 549.108 L733.877 592.574 C733.877 595.36 735.27 596.753 738.057 596.753" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M729.698 825.788 L865.112 825.788 C867.899 825.788 869.292 824.395 869.292 821.609 L869.292 769.783 C869.292 766.997 867.899 765.604 865.112 765.604 L729.698 765.604 C726.911 765.604 725.518 766.997 725.518 769.783 L725.518 821.609 C725.518 824.395 726.911 825.788 729.698 825.788" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M783.195 825.788 L808.272 825.788 C811.058 825.788 812.451 824.395 812.451 821.609 L812.451 803.219 C812.451 800.433 811.058 799.04 808.272 799.04 L783.195 799.04 C780.408 799.04 779.015 800.433 779.015 803.219 L779.015 821.609 C779.015 824.395 780.408 825.788 783.195 825.788" style="fill:#e8e9e9;stroke:#a8b3bd;stroke-width:1.625;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M706.951 689.259 L711.827 692.045 L706.951 694.832 L706.951 689.259" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M859.261 605.112 C859.261 621.83 859.261 637.884 859.261 653.276" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M859.261 605.112 C859.261 621.83 859.261 637.884 859.261 653.276" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M862.047 648.401 L859.261 653.277 L856.475 648.401 L862.047 648.401" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M792.39 735.512 C792.39 742.756 792.39 749.337 792.39 755.255" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M792.39 735.512 C792.39 742.756 792.39 749.337 792.39 755.255" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M795.176 750.38 L792.39 755.256 L789.603 750.38 L795.176 750.38" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M757.282 782.322 C787.374 782.322 816.802 782.322 845.569 782.322" style="fill:none;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M740.564 810.742 L757.282 782.322 C787.374 782.322 816.802 782.322 845.569 782.322" class="f1214-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M840.694 779.535 L845.57 782.322 L840.694 785.108 L840.694 779.535" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.974;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M850.902 786.501 C852.01 786.501 853.073 786.06 853.858 785.278 C854.64 784.493 855.082 783.429 855.082 782.322 C855.082 781.214 854.64 780.151 853.858 779.366 C853.073 778.583 852.01 778.142 850.902 778.142 C849.795 778.142 848.731 778.583 847.946 779.366 C847.164 780.151 846.723 781.214 846.723 782.322 C846.723 783.429 847.164 784.493 847.946 785.278 C848.731 786.06 849.795 786.501 850.902 786.501" style="fill:#348550;stroke:#348550;stroke-width:1.858;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1.0;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><path d="M740.564 810.742 L757.282 782.322" style="fill:none;stroke:#3646f0;stroke-width:2.09;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;fill-opacity:1;stroke-opacity:1.0"/></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="753.377" y="699.868" textLength="211.664" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">Shared-control assistance</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="783.088" y="575.266" textLength="150.577" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:18.575px;font-style:normal;font-weight:400;fill:#293640">User joystick / goal</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="905.507" y="788.312" textLength="64.591" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">Assisted</text></g><g transform="translate(26.186 50.248) scale(0.938)"><text x="911.075" y="808.694" textLength="53.467" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.414px;font-style:normal;font-weight:400;fill:#293640">motion</text></g><rect class="rl-hit" x="682.786" y="541.5257306379116" width="272.02" height="280.73013179309237"/></g></svg><div class="nf-card" hidden role="status"></div><script class="nf-info" type="application/json">{"panel-0": {"t": "User goals and access needs", "b": "Observed goals and access needs include vision, memory, attention and mobility support."}, "panel-1": {"t": "Shared spatial engine", "b": "The observed environment is represented through objects, locations and activity state."}, "panel-2": {"t": "Personalize with consent", "b": "Support is personalized to an output channel, subject to consent, data limits and confidence. Uncertainty can trigger clarification or a pause."}, "panel-3": {"t": "Direction and reminders", "b": "Audio and haptic direction cues and stepwise reminders provide alternative assistive outputs."}, "panel-4": {"t": "Shared-control assistance", "b": "A user goal or joystick input is combined with spatial constraints to support assisted motion."}}</script></div><figcaption class="ltx_centering"><span class="cap-tag">Figure 13.4</span><span>Personalized assistance combines observed spatial state with user goals and access needs. Consent, confidence, and clearance checks gate audio/haptic cues, stepwise guidance, and shared control; uncertainty or missing permission prompts clarification or a pause. Shared control also receives the user’s command. Scenes are illustrative.</span></figcaption>
+</figure>
+<div id="Ch13.S5.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Assistance for the blind and visually impaired.</span> For blind and low-vision users, spatial intelligence turns an unknown and hazardous environment into a queryable one. The oldest strand is sensory substitution, exemplified by the vOICe <cite class="cites">[<a class="cite" href="/read/references/#ref-2939" data-k="meijer1992voice">2939</a>]</cite>, which sonifies the spatial structure of an image into sound.
+The modern strand is conversational visual question answering: VizWiz <cite class="cites">[<a class="cite" href="/read/references/#ref-2940" data-k="bigham2010vizwiz">2940</a>]</cite> introduced a deployed system in which a blind user photographs their surroundings and asks a spoken question, and the VizWiz Grand Challenge <cite class="cites">[<a class="cite" href="/read/references/#ref-2941" data-k="gurari2018vizwiz">2941</a>]</cite> turned the resulting real-world distribution, including blurry and unanswerable images, into the reference benchmark for assistive VQA.
+Indoor wayfinding is addressed by smartphone navigation aids such as NavCog <cite class="cites">[<a class="cite" href="/read/references/#ref-2942" data-k="ahmetovic2016navcog">2942</a>]</cite>, which deliver turn-by-turn audio guidance from accurate beacon-based localization, and by three-dimensional spatial audio that places points of interest around the user.
+Commercial assistive applications include Microsoft’s Seeing AI for scene and text narration<sup class="fn" id="fnref1"><a href="#fn1" data-fn="fn1">1</a></sup>, Be My Eyes for volunteer- and model-mediated visual assistance<sup class="fn" id="fnref2"><a href="#fn2" data-fn="fn2">2</a></sup>, and wearable systems from OrCam<sup class="fn" id="fnref3"><a href="#fn3" data-fn="fn3">3</a></sup>, Envision<sup class="fn" id="fnref4"><a href="#fn4" data-fn="fn4">4</a></sup>, and biped.ai<sup class="fn" id="fnref5"><a href="#fn5" data-fn="fn5">5</a></sup> for scene description and obstacle warning.
+These tools move from passive obstacle warning to active interrogation, in which the user asks “is there a free seat?” or “read the sign on the door” and the assistant retrieves the answer.</p>
+</div>
+<div id="Ch13.S5.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Cognitive and mobility assistance.</span> For users with cognitive decline or limited mobility, spatial assistants provide external scaffolding for the activities of daily living.
+Ambient assisted living systems such as the CASAS smart home <cite class="cites">[<a class="cite" href="/read/references/#ref-2943" data-k="cook2013casas">2943</a>]</cite> instrument a dwelling to track the resident’s location and activity, learning the spatio-temporal patterns whose violation (a fall, a missed meal) signals a need to intervene; wearable accelerometry supplies the canonical fall-detection paradigm <cite class="cites">[<a class="cite" href="/read/references/#ref-2944" data-k="bourke2007evaluation">2944</a>]</cite>.</p>
+</div>
+<div id="Ch13.S5.p4" class="ltx_para">
+<p class="ltx_p">Where monitoring gives way to physical action, the assistant becomes a shared-control effector.
+Smart wheelchairs <cite class="cites">[<a class="cite" href="/read/references/#ref-2945" data-k="simpson2005smart">2945</a>]</cite> and wheelchair-mounted assistive arms use collaborative control to enforce spatial safety zones, for example forbidding a chair from driving down a staircase, so that the user retains mobility without constant supervision; the goal-arbitration that underlies such control is the same shared-autonomy machinery introduced above, here cast as a decision-theoretic problem <cite class="cites">[<a class="cite" href="/read/references/#ref-2946" data-k="ghorbel2018decision">2946</a>]</cite>.
+Assistive feeding <cite class="cites">[<a class="cite" href="/read/references/#ref-2947" data-k="bhattacharjee2019towards">2947</a>]</cite> shows how fine spatial reasoning (where to acquire a bite, how to transfer it to the user’s mouth) becomes a caregiving act.
+The platform lineage runs from Robots for Humanity <cite class="cites">[<a class="cite" href="/read/references/#ref-2948" data-k="chen2013robots">2948</a>]</cite>, which let a man with quadriplegia perform self-care through a teleoperated PR2, to the affordable Stretch mobile manipulator <cite class="cites">[<a class="cite" href="/read/references/#ref-2949" data-k="kemp2022design">2949</a>]</cite>, with physics-based simulation of caregiving tasks consolidated in Assistive Gym <cite class="cites">[<a class="cite" href="/read/references/#ref-2950" data-k="erickson2020assistive">2950</a>]</cite>.
+Commercial assistive hardware in this space includes the Kinova JACO arm<sup class="fn" id="fnref6"><a href="#fn6" data-fn="fn6">6</a></sup> and the Obi feeding device<sup class="fn" id="fnref7"><a href="#fn7" data-fn="fn7">7</a></sup>.
+This regime overlaps the clinical setting of Section <a href="/read/12.1/" class="xref" data-x="Ch12.S1"><span>12.1</span></a>, but the boundary is clear: there the focus is diagnosis and surgical intervention, whereas here it is daily living in the home. Figure <a href="/read/13.5/#Ch13.F4" class="xref" data-x="Ch13.F4"><span>13.4</span></a> summarizes the compensation principle.</p>
+</div>
+<figure id="Ch13.T1" class="ltx_table">
+<figcaption><span class="cap-tag">Table 13.1</span><span>Representative benchmarks across the three assistant regimes. Where a benchmark has no standard method, the method column names the benchmark paper’s own baselines.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Regime / Pivot</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Benchmark</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Representative method</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Headline metric</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Managing (rearrangement)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Visual Room Rearrangement <cite class="cites">[<a class="cite" href="/read/references/#ref-2924" data-k="weihs2021visual">2924</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">TIDEE <cite class="cites">[<a class="cite" href="/read/references/#ref-2926" data-k="sarch2022tidee">2926</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">objects restored / episode success</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Managing (preference tidy)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Housekeep <cite class="cites">[<a class="cite" href="/read/references/#ref-2925" data-k="kant2022housekeep">2925</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LLM-based planner (paper baseline) <cite class="cites">[<a class="cite" href="/read/references/#ref-2925" data-k="kant2022housekeep">2925</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">correct-placement rate</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Managing (mobile manip.)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">HomeRobot OVMM <cite class="cites">[<a class="cite" href="/read/references/#ref-2928" data-k="yenamandra2023homerobot">2928</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">modular and RL baselines <cite class="cites">[<a class="cite" href="/read/references/#ref-2928" data-k="yenamandra2023homerobot">2928</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">overall success rate</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Managing (search / recall)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">EQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1392" data-k="das2018embodied">1392</a>]</cite> / OpenEQA <cite class="cites">[<a class="cite" href="/read/references/#ref-1550" data-k="majumdar2024openeqa">1550</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VLM with episodic memory (paper baselines) <cite class="cites">[<a class="cite" href="/read/references/#ref-1550" data-k="majumdar2024openeqa">1550</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">LLM-Match score</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Collaborating (navigation)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SCAND <cite class="cites">[<a class="cite" href="/read/references/#ref-2934" data-k="karnan2022socially">2934</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">imitation from demonstrations <cite class="cites">[<a class="cite" href="/read/references/#ref-2934" data-k="karnan2022socially">2934</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">demonstration corpus (no leaderboard)</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Collaborating (instruction)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ALFRED <cite class="cites">[<a class="cite" href="/read/references/#ref-1296" data-k="shridhar2020alfred">1296</a>]</cite> / TEACh <cite class="cites">[<a class="cite" href="/read/references/#ref-1297" data-k="Padmakumar2022TEACh">1297</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">seq2seq baselines <cite class="cites">[<a class="cite" href="/read/references/#ref-1296" data-k="shridhar2020alfred">1296</a>, <a class="cite" href="/read/references/#ref-1297" data-k="Padmakumar2022TEACh">1297</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">task / goal-condition success</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Collaborating (grounding)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ScanRefer <cite class="cites">[<a class="cite" href="/read/references/#ref-365" data-k="chen2020scanrefer">365</a>]</cite> / ReferIt3D <cite class="cites">[<a class="cite" href="/read/references/#ref-366" data-k="achlioptas2020referit3d">366</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ScanRefer baseline <cite class="cites">[<a class="cite" href="/read/references/#ref-365" data-k="chen2020scanrefer">365</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Acc@0.25 / 0.5 IoU</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Empowering (BVI VQA)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VizWiz <cite class="cites">[<a class="cite" href="/read/references/#ref-2941" data-k="gurari2018vizwiz">2941</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VQA baselines <cite class="cites">[<a class="cite" href="/read/references/#ref-2941" data-k="gurari2018vizwiz">2941</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">VQA accuracy</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Empowering (assistive ADL)</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Assistive Gym <cite class="cites">[<a class="cite" href="/read/references/#ref-2950" data-k="erickson2020assistive">2950</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">RL policies (paper baselines) <cite class="cites">[<a class="cite" href="/read/references/#ref-2950" data-k="erickson2020assistive">2950</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">task success / reward</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+<ol class="footnotes"><li id="fn1"><span>
+                
+                
+                
+                
+                
+                
+                
+                
+              <a href="https://www.seeingai.com" title="" class="ltx_font_typewriter">https://www.seeingai.com</a></span><a href="#fnref1" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn2"><span>
+                
+                
+                
+                
+                
+                
+                
+                
+              <a href="https://www.bemyeyes.com" title="" class="ltx_font_typewriter">https://www.bemyeyes.com</a></span><a href="#fnref2" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn3"><span>
+                
+                
+                
+                
+                
+                
+                
+                
+              <a href="https://www.orcam.com" title="" class="ltx_font_typewriter">https://www.orcam.com</a></span><a href="#fnref3" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn4"><span>
+                
+                
+                
+                
+                
+                
+                
+                
+              <a href="https://www.letsenvision.com" title="" class="ltx_font_typewriter">https://www.letsenvision.com</a></span><a href="#fnref4" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn5"><span>
+                
+                
+                
+                
+                
+                
+                
+                
+              <a href="https://biped.ai" title="" class="ltx_font_typewriter">https://biped.ai</a></span><a href="#fnref5" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn6"><span>
+                
+                
+                
+                
+                
+                
+                
+                
+              <a href="https://www.kinovarobotics.com" title="" class="ltx_font_typewriter">https://www.kinovarobotics.com</a></span><a href="#fnref6" class="fn-back" aria-label="Back to text">↩</a></li><li id="fn7"><span>
+                
+                
+                
+                
+                
+                
+                
+                
+              <a href="https://meetobi.com" title="" class="ltx_font_typewriter">https://meetobi.com</a></span><a href="#fnref7" class="fn-back" aria-label="Back to text">↩</a></li></ol>
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/13.4/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">13.4 Pivotal Task-2: Co-habiting and Collaborating</span></a><a class="pager-next" href="/read/13.6/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">13.6 Established Tools and Systems</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=13.5"><b>23</b> cited works</a><a href="/explore/datasets/?sec=13.5"><b>9</b> datasets &amp; benchmarks</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="13.5 Pivotal Task-3: Empowering Vulnerable Users" data-url="/read/13.5/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%2013.5%20Pivotal%20Task-3%3A%20Empowering%20Vulnerable%20Users&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/13.5/%20%28PDF%20p.%20442%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js?v=f13a"></script></body>
+</html>

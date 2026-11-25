@@ -1,5 +1,6 @@
 """Explore datasets derived from the book itself: milestones (Fig. 1.3 source), dataset/benchmark atlas (the book's
 comparison tables), figure gallery, glossary and notation."""
+import math
 import re
 from pathlib import Path
 
@@ -21,11 +22,12 @@ def milestones(refs):
     ticks = sorted((float(y), int(yr)) for y, yr in re.findall(r"at \(0\.910,([\d.]+)\) \{(\d{4})\}", src))
 
     def year_of(y):
+        # works of one year are spread forward from the year's tick, so the year is the floor (0.02 absorbs the 1e-3 cm rounding)
         for (y0, a), (y1, b) in zip(ticks, ticks[1:]):
             if y0 <= y <= y1:
-                return round(a + (b - a) * (y - y0) / (y1 - y0))
+                return math.floor(a + (b - a) * (y - y0) / (y1 - y0) + 0.02)
         (y0, a), (y1, b) = (ticks[0], ticks[1]) if y < ticks[0][0] else (ticks[-2], ticks[-1])
-        return round(a + (b - a) * (y - y0) / (y1 - y0))
+        return math.floor(a + (b - a) * (y - y0) / (y1 - y0) + 0.02)
 
     out, lines = [], src.splitlines()
     for i, line in enumerate(lines):

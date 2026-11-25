@@ -1,6 +1,6 @@
 # Institution logos: sources
 
-Downloaded 2026-11-08 from upload.wikimedia.org (Wikimedia Commons, or English Wikipedia for non-free files).
+Downloaded 2026-11-08 (UIUC and UW–Madison 2026-11-25) from upload.wikimedia.org (Wikimedia Commons, or English Wikipedia for non-free files).
 Every logo is a trademark of its institution. "Fair use" files are hosted on en.wikipedia under a non-free logo rationale and are not freely licensed.
 All files have transparent backgrounds. None contain `<script>`, `on*` handlers, `foreignObject`, embedded images or external references (checked with grep).
 
@@ -21,6 +21,8 @@ All files have transparent backgrounds. None contain `<script>`, `on*` handlers,
 | msr.svg | Microsoft Research | https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg | Commons: Public domain (PD-textlogo), trademarked | Four-square logo + "Microsoft" wordmark. No MSR-specific logo is usable | 4.689 | Grey #737373 text plus four colours. Readable on light and dark |
 | columbia.svg | Columbia University | https://upload.wikimedia.org/wikipedia/commons/1/10/Columbia_University_1754.svg | Commons: Public domain (PD-textlogo), trademarked | Crown + wordmark "Columbia University in the City of New York" | 6.540 | Navy #000d74 only. Dark on transparent, so it needs inversion |
 | ucmerced.svg | University of California, Merced | https://upload.wikimedia.org/wikipedia/commons/b/bb/UC_Merced_2022_Logo.svg | Commons: Public domain (2022 wordmark) | Wordmark "UC MERCED" | 4.256 | Gold + navy on transparent; fine on light, needs the light chip in dark mode |
+| uiuc.svg | University of Illinois Urbana-Champaign | https://upload.wikimedia.org/wikipedia/commons/a/a6/University_of_Illinois_at_Urbana-Champaign_Wordmark.svg | Commons: Public domain (the wordmark used in the Wikipedia infobox) | Block I + wordmark "University of Illinois Urbana-Champaign", horizontal | 3.761 | Orange #ff5f05 + navy #13294b on transparent; needs the light chip in dark mode |
+| uwmadison.svg | University of Wisconsin–Madison | https://upload.wikimedia.org/wikipedia/en/e/e0/University_of_Wisconsin-Madison_logo.svg | en.wiki: Fair use (Non-free logo) | Crest + "WISCONSIN" + "University of Wisconsin–Madison", horizontal | 2.939 | Red #c5050c, near-black #282728 text, tan crest; needs the light chip in dark mode |
 
 ## Notes
 
