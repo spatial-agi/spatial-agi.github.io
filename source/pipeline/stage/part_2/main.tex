@@ -1,0 +1,40 @@
+% ================================
+% \section*{\centering \bf Part II: Spatial-aware Representation}
+% \addcontentsline{toc}{section}{Part II: Spatial-aware Representation}
+% ================================
+
+
+
+
+
+\begin{figure}
+    \centering
+    % \includegraphics[width=\linewidth, height=12cm]{example-image-golden}
+    % \includegraphics[width=0.99\linewidth]{figures/part2.png}
+    \includegraphics[width=\linewidth]{figures/part2_opener_v2.pdf}
+    
+    \caption{Part II in one view. (1) Encode first: a scene must be encoded before it can be perceived, reasoned about, or acted on. (2) One modality at a time: the same object as pixels, depth, points, meshes, voxels, and Gaussians, and then as language and sound, from explicit geometry to implicit structure (Chapter~\ref{chapter:single_modality}). (3) Into a shared space: the separate encodings are aligned in one space without losing the geometry that makes them spatially meaningful (Chapter~\ref{chapter:cross_modality}).}
+    \label{fig:p2_main}
+\end{figure}
+
+
+Everything a spatially intelligent system does, perceiving a scene, reasoning over it, generating or acting within it, passes through some representation of space.
+That representation is upstream of the capability: what a system can perceive is bounded by what its encoding can express, and what it can reason about is bounded by what that encoding makes accessible.
+Before the later parts turn to perception, reasoning, and generation, this part asks the prior question of how spatial structure is captured at all, how the geometry, topology, and semantics of an environment come to be held in a form a machine can compute with.
+
+The question is approached in two movements.
+The first takes each modality on its own terms, asking how images, video, 3D scenes, language, and sound each encode spatial structure and what each renders explicit or leaves implicit.
+The second asks how these separate encodings are brought into a shared space, so that signals as different as a pixel grid and a sentence can be aligned without losing the geometry that makes them spatially meaningful.
+The order is deliberate, since a modality must be understood by itself before its representation can be fused with others, and it is in that fusion that the partial, sensor-bound view offered by any one signal begins to reinforce the rest.
+Together they form the representational substrate on which the remainder of the handbook is built.
+
+% Building upon this, spatial representation
+% learning focuses on constructing effective and generalizable spatial abstractions that capture geometric,
+% topological, and semantic properties of the environment.
+
+\newpage
+
+
+\input{part_2/section_4/p_2_sec_4}
+\input{part_2/section_5/p_2_sec_5}
+

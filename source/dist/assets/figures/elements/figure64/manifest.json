@@ -1,0 +1,161 @@
+{
+  "source": "assets/figures/figures/part3/section6/keypoint_detection_v2.webp",
+  "assets": [
+    {
+      "file": "tasks/body-pose.png",
+      "source_box": [
+        165,
+        94,
+        325,
+        475
+      ],
+      "size": [
+        160,
+        381
+      ]
+    },
+    {
+      "file": "tasks/facial-landmarks.png",
+      "source_box": [
+        447,
+        102,
+        713,
+        461
+      ],
+      "size": [
+        266,
+        359
+      ]
+    },
+    {
+      "file": "tasks/hand-gesture.png",
+      "source_box": [
+        813,
+        108,
+        1092,
+        473
+      ],
+      "size": [
+        279,
+        365
+      ]
+    },
+    {
+      "file": "tasks/animal-pose.png",
+      "source_box": [
+        1174,
+        211,
+        1518,
+        466
+      ],
+      "size": [
+        344,
+        255
+      ]
+    },
+    {
+      "file": "tasks/object-chair.png",
+      "source_box": [
+        1400,
+        117,
+        1511,
+        272
+      ],
+      "size": [
+        111,
+        155
+      ]
+    },
+    {
+      "file": "tasks/medical-skull.png",
+      "source_box": [
+        1560,
+        126,
+        1841,
+        450
+      ],
+      "size": [
+        281,
+        324
+      ]
+    },
+    {
+      "file": "methods/handcrafted-image.png",
+      "source_box": [
+        174,
+        649,
+        328,
+        746
+      ],
+      "size": [
+        154,
+        97
+      ]
+    },
+    {
+      "file": "methods/heatmap.png",
+      "source_box": [
+        553,
+        652,
+        662,
+        769
+      ],
+      "size": [
+        109,
+        117
+      ]
+    },
+    {
+      "file": "methods/realtime-pose-left.png",
+      "source_box": [
+        1188,
+        614,
+        1282,
+        794
+      ],
+      "size": [
+        94,
+        180
+      ]
+    },
+    {
+      "file": "methods/realtime-pose-right.png",
+      "source_box": [
+        1373,
+        614,
+        1462,
+        794
+      ],
+      "size": [
+        89,
+        180
+      ]
+    },
+    {
+      "file": "methods/generative-noise.png",
+      "source_box": [
+        1569,
+        627,
+        1676,
+        766
+      ],
+      "size": [
+        107,
+        139
+      ]
+    },
+    {
+      "file": "methods/generative-pose.png",
+      "source_box": [
+        1746,
+        627,
+        1852,
+        769
+      ],
+      "size": [
+        106,
+        142
+      ]
+    }
+  ]
+}

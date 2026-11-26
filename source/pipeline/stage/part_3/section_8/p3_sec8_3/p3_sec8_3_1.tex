@@ -1,0 +1,112 @@
+\subsection{Text-to-Video Generation}
+\label{subsec:p3_s8_3_1}
+
+Text-to-video (T2V) generation~\cite{sora2024,polyak2024movie,hong2022cogvideo,wan2025wan} synthesizes photorealistic, temporally coherent video from a natural-language description.
+It extends text-to-image (T2I) synthesis along time, so the model must produce plausible motion and state transitions as well as high-fidelity frames, and it does so with no explicit spatial scaffold: object permanence, motion plausibility, and view coherence under camera motion cannot be supplied from outside but must \emph{emerge} from the generator itself.
+That is why the unconditional T2V model is the substrate on which the explicit control axes of §\ref{subsec:p3_s8_3_2}--§\ref{subsec:p3_s8_3_5} are built.
+Its architecture has followed the image case, from generative adversarial networks (GANs) through autoregressive models to the diffusion models that dominate today, with progress driven as much by data as by architecture~\cite{chen2024panda70mcaptioning70mvideos,NEURIPS2024_57f6683e}.
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_3_1_task}
+Text-to-video generation is the base case of Eq.~\eqref{eq:p3_s8_3_objective} with no auxiliary control ($\kappa=\varnothing$): the generator samples a latent from the prompt embedding alone,
+\begin{equation}
+\hat{\mathbf{z}}^{1:T}\sim p_\theta\!\big(\mathbf{z}^{1:T}\,\big|\,\phi(\mathbf{x})\big),
+\label{eq:p3_s8_3_1_objective}
+\end{equation}
+which is exactly the latent sampler $G_\theta$ of Eq.~\eqref{eq:t2i_generator} unrolled over $T$ frames in the spatio-temporal latent space $\mathcal{Z}^{\text{vid}}$.
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_3_1_methodology}
+The three paradigms factorize the clip distribution $p_\theta(\mathbf{z}^{1:T}\mid\phi(\mathbf{x}))$ adversarially, causally over discrete tokens, or by iterative spatio-temporal denoising, and each changes its image counterpart of §\ref{subsec:p3_s8_1_1} in one structural respect; Figure~\ref{fig:p3_s8_3_1_paradigms} contrasts how each handles the temporal dimension.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\linewidth]{figures/part3/section8/text-to-video_generation.pdf}
+\caption{Three mechanisms for text-to-video generation: (a) a GAN with spatial and temporal critics, a representative rather than universal design; (b) autoregressive prediction of discrete space--time tokens, with pale cells as generated context and the blue cell as the next token; and (c) diffusion with factorized spatial / temporal attention, where $s$ is the sampling step and $t$ is video time. The ball sequence is illustrative.}
+\label{fig:p3_s8_3_1_paradigms}
+\end{figure}
+
+\noindent \textbf{Generative Adversarial Networks (GANs)}. The first T2V systems extended the image GANs of §\ref{para:p3_s8_1_1_gan} to clips. The video-specific change is in the discriminator: rather than scoring a single image, it must judge both per-frame realism \emph{and} the plausibility of motion across the sequence, which is naturally realized as a two-critic objective
+\begin{equation}
+\min_\theta\ \max_{\psi_s,\psi_t}\ \mathbb{E}_{\mathbf{v}\sim p_\text{data}}\!\big[\log D_{\psi_s}(\mathbf{v})+\log D_{\psi_t}(\mathbf{v})\big] + \mathbb{E}_{\mathbf{n}}\!\big[\log\!\big(1-D_{\psi_s}(\hat{\mathbf{v}})\big)+\log\!\big(1-D_{\psi_t}(\hat{\mathbf{v}})\big)\big],
+\label{eq:p3_s8_3_1_gan}
+\end{equation}
+where $\hat{\mathbf{v}}=D\big(G_\theta(\mathbf{n},\phi(\mathbf{x}))\big)$ is the decoded clip, the spatial critic $D_{\psi_s}$ scores individual frames, and the temporal critic $D_{\psi_t}$ scores motion coherence over the clip, the term absent from the single-discriminator image objective of Eq.~\eqref{eq:t2i_gan_objective}. TGAN~\cite{saito2017temporal} and TGAN-v2~\cite{saito2020train} used a temporal generator to produce latent motion vectors from which an image generator rendered frames; MoCoGAN~\cite{tulyakov2018mocogan} and MoCoGAN-HD~\cite{tian2021good} disentangled content from motion, generating the motion code recurrently; DVD-GAN~\cite{clark2019adversarial} instantiated Eq.~\eqref{eq:p3_s8_3_1_gan} directly with separate spatial and temporal discriminators; and DIGAN~\cite{yu2022generating} used implicit neural representations for longer sequences. Even with architectures such as StyleGAN-V~\cite{skorokhodov2022stylegan}, GANs suffered from flicker, training instability, and mode collapse, which limited the diversity of their motion and pushed the field toward other paradigms.
+
+
+\noindent \textbf{Autoregressive Models}. Autoregressive (AR) models recast T2V as the sequential prediction of §\ref{para:p3_s8_1_1_ar}, tokenizing a clip with a 3D Vector Quantized Variational Autoencoder (3D~VQ-VAE) and predicting each token from its predecessors with a large transformer. The video-specific change is the \emph{order} of the factorization: where the image model of Eq.~\eqref{eq:t2i_ar_factorisation} runs over the spatial tokens of a single frame, the video model factorizes over space \emph{and} time,
+\begin{equation}
+p_\theta\!\big(\mathbf{z}^{1:T}\,\big|\,\phi(\mathbf{x})\big)\;=\;\prod_{t=1}^{T}\prod_{n=1}^{N} p_\theta\!\big(z_{t,n}\,\big|\,\mathbf{z}^{<t},\,z_{t,<n},\,\phi(\mathbf{x})\big),
+\label{eq:p3_s8_3_1_ar}
+\end{equation}
+so that each frame is conditioned on all previously generated frames $\mathbf{z}^{<t}$. This inter-frame causal dependency is the source of both the paradigm's strength (global temporal coherence) and its characteristic failure, the accumulation of per-step error over long roll-outs. VideoGPT~\cite{yan2021videogpt} demonstrated the approach for unconditional generation, N\"{U}WA~\cite{wu2022nuwa} and CogVideo~\cite{hong2022cogvideo} adapted it to text-to-video synthesis, and TATS~\cite{ge2022long} addressed quality degradation in long sequences. The paradigm has since resurged in large multimodal backbones: Emu3~\cite{wang2024emu3} generates video inside a language-model backbone by treating frames as discrete visual tokens, and CausVid~\cite{yin2025slow} and MAGI-1~\cite{ai2025magi1autoregressivevideogeneration} scale to long-form generation with autoregressive diffusion transformers. Sequential decoding nevertheless remains expensive and prone to the error accumulation that Eq.~\eqref{eq:p3_s8_3_1_ar} makes explicit.
+
+
+\noindent \textbf{Diffusion Models}. Diffusion models, which now dominate T2V, lift the latent-denoising objective of §\ref{para:p3_s8_1_1_diffusion} from a single image to the clip latent $\mathbf{z}^{1:T}$. The forward and reverse processes are those of Eq.~\eqref{eq:t2i_ldm_objective}; the video-specific change is that the denoiser $\epsilon_\theta$ operates on a spatio-temporal tensor and is trained to predict the noise added to the whole clip at sampling step $s$,
+\begin{equation}
+\min_\theta\ \mathbb{E}_{s,\,\mathbf{z}_0^{1:T},\,\epsilon}\!\left[\big\|\epsilon-\epsilon_\theta\!\big(\mathbf{z}_s^{1:T},\,s,\,\phi(\mathbf{x})\big)\big\|_2^2\right],
+\label{eq:p3_s8_3_1_diff}
+\end{equation}
+where $\epsilon_\theta$ models dependencies across both space and time, and $s$ is distinct from the frame index $t$. One widely used design \emph{factorizes} attention into spatial attention within each frame and temporal attention across frames, as illustrated in Figure~\ref{fig:p3_s8_3_1_paradigms}(c); other architectures use joint spacetime attention.
+VDM~\cite{ho2022video} applied the idea in pixel space with a 3D U-Net; the breakthrough was moving diffusion into the compressed latent space of a video-specific autoencoder, as in VideoLDM~\cite{blattmann2023align}, LVDM~\cite{he2022latent}, and the open-source Stable Video Diffusion (SVD)~\cite{blattmann2023stable}, which cut training and inference cost enough to make high-resolution generation practical.
+
+A second recipe adapts pretrained T2I models. Imagen Video~\cite{ho2022imagen} and Make-A-Video~\cite{singer2022make} freeze a T2I model and insert trainable temporal modules (\eg, temporal attention layers or 1D convolutions) between its spatial layers, which are then trained on video to learn motion while the image prior is inherited intact. VideoCrafter~\cite{chen2023videocrafter1,chen2024videocrafter2} and LaVie~\cite{wang2025lavie} built high-quality generators on this recipe, Tune-A-Video~\cite{wu2023tune} adapted it to one-shot tuning on a single clip, and AnimateDiff~\cite{guo2023animatediff} turned the temporal modules into plug-and-play motion modules that animate personalized T2I models without further fine-tuning.
+
+Diffusion Transformers (DiTs) have since replaced the U-Net backbone, operating on ``spacetime patches'' (unified tokens representing blocks of video) and scaling well. Sora~\cite{sora2024} demonstrated long-duration (up to one minute), high-resolution clips and presented the approach as a step toward world simulation, and a wave of DiT models followed, including Open-Sora~\cite{zheng2024open}, LATTE~\cite{ma2024latte}, CogVideoX~\cite{yang2024cogvideox}, StepVideo~\cite{ma2025stepvideot2vtechnicalreportpractice}, Movie Gen~\cite{polyak2024movie}, Wan~\cite{wan2025wan}, and Veo~\cite{DeepMindVeo}.
+Large open DiT foundation models have substantially narrowed the gap to proprietary systems. HunyuanVideo~\cite{kong2024hunyuanvideo}, at $13$B parameters the largest open T2V model at release, couples a ``dual-stream-to-single-stream'' full-attention DiT (text and video tokens processed in separate streams before fusion) with a multimodal-LLM text encoder and a 3D causal VAE, and reports human-evaluated quality competitive with leading closed systems. Mochi~1~\cite{genmo2024mochi} introduces an asymmetric DiT (AsymmDiT) that allocates most capacity to the visual stream, and LTX-Video~\cite{hacohen2024ltxvideo} uses a high-compression video VAE to run latent video diffusion in near real time. NVIDIA's Cosmos~\cite{nvidia2025cosmos} reframes the video generator as a world-foundation model for ``Physical AI'', trained so that embodied and robotics systems can use it as a learned simulator, which ties video generation to the world models of §\ref{sec:p3_s8_6}.
+Across these shifts the T2V trajectory has trailed the T2I trajectory of §\ref{subsec:p3_s8_1_1} by roughly a year, each image paradigm being inflated along the time axis once it matured.
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_3_1_benchmarks}
+Video adds a requirement at every level of evaluation: corpora must pair clips with captions at scale, suites must stratify by temporal phenomena (motion, object permanence, dynamic degree), and metrics must measure cross-frame coherence as well as per-frame quality.
+
+\paragraph{Training Corpora.}
+Caption--clip scale has been the principal driver of T2V quality, and high-quality paired video--text data is far scarcer than image--text data. Early work repurposed action-recognition corpora such as UCF-101~\cite{soomro2012ucf101} and Kinetics~\cite{carreira2017quo}, which supply short, class-labeled clips but no captions. WebVid-10M~\cite{bain2021frozen}, the first web-scale captioned corpus, underpinned most 2022--2023 systems despite noisy alt-text captions and watermarks; later corpora raised caption density and clip length, with Panda-70M~\cite{chen2024panda70mcaptioning70mvideos} captioned automatically by cross-modality teachers, MiraData~\cite{NEURIPS2024_57f6683e} targeting long clips with dense structured captions, and Koala-36M~\cite{wang2025koala36m} explicitly optimizing the consistency between caption and content, the property that most directly limits a generator's controllability. Table~\ref{tab:p3_s8_3_1_corpora} gives their scale.
+
+\begin{table}[!ht]
+\centering
+\caption{Representative training corpora for text-to-video generation. Action-recognition sets (top) supply class labels rather than captions; web-scale captioned corpora (bottom) supply the clip--text pairs on which modern generators are fit. MiraData scale is that of its largest release.}
+\label{tab:p3_s8_3_1_corpora}
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\begin{tabular}{L{0.22\textwidth} C{0.08\textwidth} L{0.24\textwidth} L{0.38\textwidth}}
+\toprule
+\textbf{Corpus} & \textbf{Year} & \textbf{Scale} & \textbf{Annotation / Notes} \\
+\midrule
+UCF-101~\cite{soomro2012ucf101} & 2012 & 13{,}320 clips & 101 action classes; labels, no captions \\
+Kinetics~\cite{carreira2017quo} & 2017 & $\sim$650K clips & Action classes; labels, no captions \\
+WebVid-10M~\cite{bain2021frozen} & 2021 & 10M clip--text pairs & Web alt-text captions; noisy, watermarked \\
+Panda-70M~\cite{chen2024panda70mcaptioning70mvideos} & 2024 & 70M clip--text pairs & Auto-captioned by cross-modality teachers \\
+MiraData~\cite{NEURIPS2024_57f6683e} & 2024 & 330K clips & Long-duration; dense structured captions \\
+Koala-36M~\cite{wang2025koala36m} & 2025 & 36M clip--text pairs & Fine-grained structured captions; condition--content consistency \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Evaluation Benchmark Suites.}
+Classical T2V evaluation reported zero-shot distributional scores on the held-out splits of UCF-101 and MSR-VTT~\cite{xu2016msrvtt}, which probe frame quality and coarse text relevance but say nothing about temporal or compositional faithfulness. Recent suites are purpose-built: VBench~\cite{huang2023vbench} decomposes quality into fine-grained dimensions (subject and background consistency, motion smoothness, dynamic degree, temporal flicker, per-frame aesthetic and imaging quality), each with an automatic protocol validated against human preference; EvalCrafter~\cite{liu2024evalcrafter} aggregates objective metrics over prompts derived from real-world usage; and T2V-CompBench~\cite{sun2024t2vcompbench} targets compositional faithfulness over time (attribute binding, spatial relations, motion binding, interactions), the temporal analogue of the T2I-CompBench probe of §\ref{subsec:p3_s8_1_1}. Table~\ref{tab:p3_s8_3_1_eval} lists them.
+
+\begin{table}[!ht]
+\centering
+\caption{Representative evaluation resources for text-to-video generation. Distributional resources (top) reuse captioned-clip splits for zero-shot FVD/IS/CLIPSIM; multi-dimensional suites (bottom) score temporal coherence, dynamics, and compositional faithfulness directly.}
+\label{tab:p3_s8_3_1_eval}
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\begin{tabular}{L{0.22\textwidth} C{0.10\textwidth} L{0.36\textwidth} L{0.24\textwidth}}
+\toprule
+\textbf{Suite} & \textbf{Year} & \textbf{Evaluation Axis} & \textbf{Scoring} \\
+\midrule
+UCF-101 / MSR-VTT~\cite{soomro2012ucf101,xu2016msrvtt} & 2012--16 & Frame quality $+$ coarse text relevance (MSR-VTT: 10K captioned clips) & Zero-shot FVD / IS / CLIPSIM \\
+VBench~\cite{huang2023vbench} & 2024 & 16 dimensions (consistency, motion, dynamics, flicker, quality) & Per-dimension automatic, human-validated \\
+EvalCrafter~\cite{liu2024evalcrafter} & 2024 & 17 objective metrics over 700 structured prompts & Aggregated automatic, fitted to human opinion \\
+T2V-CompBench~\cite{sun2024t2vcompbench} & 2024 & Compositional: attribute/motion binding, relations, interactions & MLLM- / detector-based \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Evaluation Metrics.}
+The metric that defines video evaluation is the Fr\'echet Video Distance (FVD)~\cite{unterthiner2018fvd}, the spatio-temporal analogue of FID: it compares distributions of features extracted from generated and real clips by a pretrained \emph{video} backbone (I3D), and is therefore sensitive to motion realism in a way that per-frame FID~\cite{heusel2017gans} and Inception Score are not. Text--clip alignment is measured by CLIPSIM, the per-frame CLIPScore~\cite{hessel2021clipscore} averaged over the clip, which captures topical relevance but is blind to whether the \emph{described} motion actually occurs. Because none of these scalars captures coherence or dynamics, papers report several VBench dimensions alongside them, which exposes a trade-off a single number hides: \emph{dynamic degree} (how much genuine motion a clip contains) against \emph{temporal consistency} (how stable it stays), since a near-static clip trivially maximizes consistency while failing the prompt. Headline claims are corroborated with human preference.
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_3_1_challenges}
+Three problems belong to the unconditional base case. \textbf{Long-horizon coherence from text alone} is the first: with no scaffold, object permanence and motion plausibility must emerge implicitly, and all three paradigms degrade as clips lengthen (GANs flicker, autoregressive roll-outs accumulate the error of Eq.~\eqref{eq:p3_s8_3_1_ar}, diffusion models lose consistency beyond their trained window), so coherence beyond a few seconds remains the binding constraint. \textbf{Motion realism without a control signal} is the second: prompts under-specify dynamics, so the generator must sample from a highly multi-modal motion posterior, and the easy optimum is near-static or physically implausible motion that still scores well on per-frame metrics. The \textbf{video--text data bottleneck} is the third: paired data is scarce relative to images, web captions are short and weakly aligned, and this caps both controllability and the reliability of the automatic captioning used to scale corpora, which is what the dense-caption efforts (Panda-70M, MiraData, Koala-36M) address. The explicit control interfaces of the following subsections relieve the first two by moving structure and dynamics from the prompt into the input.

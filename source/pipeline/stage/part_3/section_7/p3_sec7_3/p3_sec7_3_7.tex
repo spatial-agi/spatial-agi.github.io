@@ -1,0 +1,112 @@
+\subsection{Agentic Spatial Reasoning}
+\label{subsec:p3_s7_3_7}
+
+Agentic spatial reasoning asks how a model organizes \emph{interaction} with space. The core object is not a single chain-of-thought prompt, tool call, memory store, VLA policy, or world model, but an orchestration policy that repeatedly decides what to perceive, what to infer, what to do, and how to revise its state after feedback. In this closed-loop view, a wall is not only a geometric plane but also a constraint on motion; a cup is not only an object category but also a potential affordance; and a failed action is not only an error but also evidence that should reshape the next plan.
+
+``Agentic'' is therefore a composition principle: the rationales, programs, tools, memory, VLA policies, and world models of the preceding subsections become resources inside a perceive--reason--act--reflect loop, and the research question is how the loop is scheduled and corrected: when should the agent gather more evidence, retrieve memory, call a geometric tool, simulate a future, ask another agent, or execute an action?
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/agentic_spatial_reasoning.pdf}
+    \caption{Agentic spatial reasoning as closed-loop orchestration. Top: (i) instruction, observation, robot state, tools, and memory, (ii) the perceive--reason--act--reflect loop under planning core $\mathcal{P}$ and policy $\pi$, and (iii) complementary, not simultaneous, output forms; the door-state sequence is a prediction and the failed counter search is feedback from a different step. Bottom: (a)--(d) mechanisms that support the loop. The scene is a generated illustration, not an experimental observation.}
+    \label{fig:p3_s7_3_7_agentic_formulation}
+\end{figure}
+
+\subsubsection{Task Definition}
+Whereas §\ref{subsec:p3_s7_3_5} treats tools as black-box operators and §\ref{subsec:p3_s7_3_6} treats external memory as the central learning target, agentic spatial reasoning composes both into a closed-loop cycle in which the orchestration policy itself becomes the learning target. Formally, an agentic spatial reasoning system is the tuple $(\mathcal{P}, \mathcal{S}, \mathcal{A}, \mathcal{F}, \pi)$, where $\mathcal{P}$ is a planning core (an LLM or VLM), $\mathcal{S}$ is the spatial state space (perception, internal map, history), $\mathcal{A}$ is the action space (sensorimotor commands or sub-goals), $\mathcal{F}$ is a reflection / critic function that scores proposed actions or rationales, and $\pi$ is the orchestration policy. Given an instruction $x$, the system maintains a history $h_t$ (initially $h_0 = \varnothing$) and proceeds by the iterative perceive--reason--act--reflect cycle
+\begin{equation}
+\begin{aligned}
+o_t &= \mathrm{Perceive}(\text{env}), &
+s_t &= \mathcal{P}(o_t, h_{t-1}), \\
+a_t &\sim \pi(\cdot \mid s_t), &
+r_t &= \mathcal{F}(s_t, a_t, o_{t+1}), \\
+h_t &= h_{t-1} \cup \{(o_t, s_t, a_t, r_t)\},
+\end{aligned}
+\end{equation}
+where $\mathrm{Perceive}$ extracts the current spatial observation, $\pi$ samples a proposed action, $\mathcal{F}$ supplies a reflection signal (verbal critique, planner-critic verdict, or value estimate), and the history accumulates all four. This formulation makes explicit that ``agentic'' is not a new capability but rather a structural promotion: the orchestration policy $\pi$ becomes the central learning target rather than the planner $\mathcal{P}$ or any individual tool.
+
+\subsubsection{Methodology}
+Four orchestration problems organize the methods: grounding observations into executable state, closing the feedback loop, coordinating across agents, and using action and world-model modules without reducing agency to any one of them.
+
+\paragraph{Grounding Observations into Executable State.}
+The first responsibility of an agentic loop is to convert an instruction and observation into a state that can support action, preserving referential consistency between the agent's internal model and the physical environment.
+Probabilistic affordance alignment, as in SayCan~\cite{ahn2022icanisay}, PaLM-E~\cite{driess2023palm}, and RT-2~\cite{zitkovich2023rt2}, weights the likelihood of an instruction (``pick up the apple'') by the geometric feasibility of the action in the current scene; spatial reasoning stays implicit, and the orchestration layer must decide whether that is sufficient or whether to request an explicit representation.
+Explicit intermediate representations supply the precision implicit alignment lacks: SpatialCoT~\cite{liu2025spatialcot} compels the VLM to output metric coordinates inside its chain of thought, a ``think-coordinate-act'' cycle that creates a verifiable spatial bottleneck; Embodied-R1~\cite{yuan2025embodiedr1} uses reinforcement learning to refine a pointing representation so that the model outputs 3D reference points (spatial anchors) that decouple high-level planning from motor control; and procedural querying treats the environment as a queryable database, through dynamically synthesized APIs (VADAR, §\ref{subsec:p3_s7_3_4}) or a stateful code kernel that executes one cell at a time and revises the next from the observed outputs (SpatialClaw, §\ref{subsec:p3_s7_3_5}).
+Beyond the immediate percept, agents ground reasoning in persistent structured abstractions: object-centric 3D scene graphs such as ConceptGraphs (§\ref{subsec:p3_s7_3_6}) let the agent reason over topological relations (``behind'', ``supported by'') rather than raw geometry, and MapGPT~\cite{chen2024mapgpt} converts topological maps into textual prompts that give the LLM a global view of connectivity for long-horizon planning.
+
+\paragraph{Closing the Feedback Loop.}
+Agentic spatial reasoning is a temporal \emph{process} rather than a single inference, and the methodological shift is from producing one rationale to maintaining a loop that observes the consequences of its own choices.
+The chain-of-thought paradigm (§\ref{subsec:p3_s7_3_3}) improved reasoning depth but remained open-loop; ReAct~\cite{yao2022react} closed the loop by interleaving reasoning traces with executable actions so that spatial outcomes are observed before the next step is planned. Observation alone is often insufficient for correction, so Reflexion~\cite{shinn2023reflexion} introduced ``verbal reinforcement learning'', in which the agent writes explicit critiques of its failures into short-term context, and DEPS~\cite{wang2023describe} forces the agent to \emph{explain} failures in geometric terms before choosing new sub-goals, turning retrying into debugging.
+For coherence across long horizons, agents need memory beyond the context window: Voyager (§\ref{subsec:p3_s7_3_4}) stores successful spatial behaviors as executable code in a vector database and retrieves them when a similar context recurs, consolidating transient experience into procedural knowledge.
+Reflection can also precede execution. Reasoning via Planning (RAP)~\cite{hao2023reasoning} and Tree of Thoughts~\cite{yao2023tot} explore branching spatial possibilities in a latent space; STMA~\cite{lei2025stma} ties such simulation to dynamic knowledge graphs with planner--critic loops that validate whether a proposed path is topologically valid; and vision-language world models such as VLWM~\cite{chen2025vlwm} roll out semantically described future states so that the orchestration policy can compare hypothetical futures before committing.
+
+\paragraph{Coordinating Multiple Spatial Agents.}
+In shared environments spatial reasoning becomes distributed, and movement has to be negotiated across perspectives and intents.
+Multi-agent reinforcement learning induces spatial cooperation without explicit communication, as in the SMAC formations learned by decentralized actor--critic and value-decomposition methods~\cite{samvelyan2019smac} (§\ref{subsec:p3_s7_2_6}), but there each agent treats the others as dynamic obstacles and has no symbolic model of its partners.
+A \emph{spatial theory of mind} adds the ability to model another agent's geometric viewpoint, transforming egocentric perception into an allocentric frame (``my left'' is ``your right''): RoCo~\cite{mandi2024roco} uses foundation models for embodied dialog in which agents disambiguate spatial references by simulating the partner's visual field, and ProAgent~\cite{zhang2024proagent} shows agents communicating to update a shared map and synchronize movement, converging on a common ``language of space''.
+
+\paragraph{Orchestrating Action and World-Model Modules.}
+Generalist VLA policies and world models are components of agentic systems, but they do not by themselves define agency; they become agentic when an orchestration policy uses them inside the loop, with a VLA module executing a sub-goal, a world model predicting the consequence of a candidate action, and a reflection module deciding whether to retry, replan, or gather more evidence.
+What makes an action representation useful to a loop is that it exposes intermediate commitments the loop can inspect, revise, or hand to a controller: beyond the unified action interfaces of RT-2~\cite{zitkovich2023rt2}, Gato~\cite{reed2022generalist}, and Octo~\cite{team2024octo}, world-language-action models~\cite{yang2026wla} jointly predict textual subtasks, subgoal images, and robot actions, and ACoT-VLA~\cite{zhong2026acotvla} reasons through coarse action intents before fine-grained control.
+Cross-embodiment transfer (§\ref{subsec:p3_s7_3_2}; RoboCat's self-improvement cycles adapt to new bodies~\cite{bousmalis2023robocat}) becomes an orchestration problem too, since the same high-level plan may require different perception checks, affordance tests, and recovery routines on different bodies.
+World models (§\ref{subsec:p3_s7_3_8}), from DreamerV3~\cite{hafner2023mastering} and Genie~\cite{genie3} to WorldPilot-style prediction inside planning loops~\cite{lin2026worldpilot}, serve the loop as cognitive simulators: the agentic use is not video generation for its own sake but closed-loop decision support, in which the agent imagines, critiques, and then acts.
+
+
+
+
+
+\subsubsection{Benchmarks}
+Evaluating agentic spatial reasoning requires benchmarks that go beyond static visual question answering: a useful protocol tests whether the agent can gather missing observations, choose tools or actions, use memory across long horizons, and revise its plan after feedback, and static spatial probes should be read as component diagnostics rather than direct evidence of closed-loop agency.
+Two protocols exercise the loop directly: iVISPAR~\cite{mayer2025ivispar} evaluates VLMs as agents in an interactive sliding-tile setting with visual 2D, visual 3D, and text inputs, where the answer depends on multi-step state transitions rather than one-shot recognition, and TIR-Bench~\cite{li2025tirbench} requires agents to use tools (zoom, crop, rotate) to manipulate images while solving spatial puzzles.
+Memory-centered settings (OpenEQA~\cite{majumdar2024openeqa}, §\ref{subsec:p3_s7_3_6}) and open-3D probes such as Open3DVQA~\cite{zhang2025open3dvqa} test what the loop must retain, and the broad visual-spatial probes (SpatialEval~\cite{wang2024picture}, VSI-Bench~\cite{yang2025vsibench}, OmniSpatial~\cite{jia2025omnispatial}, Spatial-DISE~\cite{huang2025spatialdise}) identify weak spatial primitives along the axes of static vs.\ dynamic content, single vs.\ multi-view, ego vs.\ exo perspective, and seen vs.\ unseen queried information; Table~\ref{tab:spatial_reasoning_benchmark} maps the coverage.
+
+\begin{table*}[!ht]
+  \caption{Representative spatial-reasoning benchmarks discussed in §\ref{subsec:p3_s7_3_7}. Perspective marks whether ego and exo viewpoints are explicitly represented; Interactive marks protocols that exercise action or tool selection rather than only answer generation; Query Target is whether the queried information is visible (Seen), hidden (Unseen), or an interactive state (State). \textit{Undeclared} marks attributes the source paper does not state.}
+  \label{tab:spatial_reasoning_benchmark}
+  \centering
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{@{}lccccccccc}
+    \toprule
+      \multirow{2}{*}{\textbf{Benchmark}}
+      & \multirow{2}{*}{\textbf{QA / Tasks}}
+      & \multirow{2}{*}{\textbf{Modality}}
+      & \multirow{2}{*}{\textbf{Scene}}
+      & \multicolumn{2}{c}{\textbf{View Type}}
+      & \multicolumn{2}{c}{\textbf{Perspective}}
+      & \multirow{2}{*}{\textbf{Interactive}}
+      & \multirow{2}{*}{\textbf{Query Target}} \\
+      \cmidrule(lr){5-6}
+        \cmidrule(lr){7-8}
+        & & &
+        & \textbf{Single} & \textbf{Multi}
+        & \textbf{Ego} & \textbf{Exo}
+        & & \\
+    \midrule
+    3DSRBench~\cite{ma20253dsrbench} & 2{,}772 & Image & Static & \checkmark  & \crossmark & \crossmark  &  \checkmark & \crossmark & Seen\\
+    InternSpatial-Bench~\cite{deng2025internspatial} &  6{,}008 & Image & Static & \checkmark  & \crossmark & \crossmark  &  \checkmark & \crossmark & Seen \\
+    OmniSpatial~\cite{jia2025omnispatial} & $\sim$8{,}400 & Image & Static & \checkmark & \crossmark & \checkmark & \checkmark  & \crossmark & Seen\\
+    Spatial-DISE~\cite{huang2025spatialdise} & 559 & Image & Mixed & \checkmark & \checkmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Taxonomy}} & \crossmark & Seen\\
+    Open3DVQA~\cite{zhang2025open3dvqa} & 9{,}000 & 3D / Sim & Static & \checkmark & \crossmark & \checkmark & \checkmark & \crossmark & Seen\\
+    iVISPAR~\cite{mayer2025ivispar} & Puzzles & 2D/3D/Text & Dynamic & \checkmark & \crossmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{N/A}} & \checkmark & State\\
+    Spatial457~\cite{wang2025spatial457} & 23{,}752 & Image & Static & \checkmark & \crossmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}}  & \crossmark & Seen\\
+    All-Angles Bench~\cite{yeh2025seeing} & $\sim$2{,}100 & Image & Static  & \crossmark & \checkmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & \crossmark  & Seen \\
+    EmbSpatial-Bench~\cite{du2024embspatial} & 3{,}640 & Image & Static & \checkmark  & \crossmark & \checkmark & \crossmark & \crossmark &  Seen \\
+    MMSI-Bench~\cite{yang2025mmsi} & 1{,}000 & Image & Static & \crossmark & \checkmark  & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & \crossmark & Seen\\
+    MindCube~\cite{yin2025spatial} & 21{,}154 & Image & Static & \crossmark & \checkmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}}  & \crossmark & Unseen \\
+    VSI-Bench~\cite{yang2025vsibench} & 5{,}130 & Video & Static & \checkmark & \crossmark & \checkmark & \crossmark & \crossmark & Seen\\
+    VLM4D~\cite{zhou2025vlm4d} & $\sim$1{,}800 & Video & Dynamic & \checkmark & \crossmark &  \checkmark & \checkmark & \crossmark & Seen \\
+    STI-Bench~\cite{li2025sti} & 2{,}064 & Video & Dynamic & \checkmark & \crossmark & \checkmark & \checkmark & \crossmark &  Seen\\
+    DSI-Bench~\cite{zhang2025dsi} & $\sim$1{,}700 & Video & Dynamic & \checkmark & \crossmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & \crossmark &  Seen\\
+    \bottomrule
+  \end{tabular}
+  }
+\end{table*}
+
+Table~\ref{tab:spatial_reasoning_benchmark} should be read as a coverage map, not as a leaderboard for agentic systems. Most entries evaluate static answer generation or localized visual-spatial primitives; only interactive protocols such as iVISPAR and tool-use settings directly exercise action selection and feedback. Claims about agentic spatial reasoning should therefore report loop-level metrics (observation gathering, action choice, recovery after failure, memory update, and final task success) rather than single-turn accuracy alone.
+
+\subsubsection{Challenges and Trends}
+Boundaries are collapsing between language and action (VLAs), between robot bodies (cross-embodiment), and between perception and imagination (world models), and two difficulties gate progress toward generalist spatial agents.
+The \textbf{sim-to-real fidelity gap}: high-fidelity simulators (predictive world models, generative video) accelerate training but introduce systematic biases that physical execution exposes, and the cost--precision frontier for transfer remains open.
+\textbf{Long-horizon spatiotemporal coherence}: across multi-hour episodes the agent's internal map drifts, and episodic memory and reflection reduce but do not eliminate the drift, because the bottleneck is the finite context window of the planning core.
+
+\emph{Explicit orchestration over observation--state--action--reflection tuples} is one direction: VLA and WLA systems are beginning to expose intermediate subgoals, action intents, and predicted states that a loop can inspect rather than hiding all control inside a single forward pass. A second is \emph{mental simulation via generative world models}: DreamerV3-style, Genie-style, VLWM-style, and WorldPilot-style models let agents verify spatial logic in imagination before acting, shifting the paradigm from ``trial-and-error'' toward ``trial-in-imagination'' while keeping the agentic focus on when to simulate, when to act, and when to revise.

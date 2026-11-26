@@ -1,0 +1,191 @@
+
+
+
+\section{Introduction}
+\label{subsec:p4-sec13-1-introduction}\label{sec:p4_s13_1}
+
+An intelligent assistant is a generalist embodied agent that shares the user's own private, unstructured world and acts on the user's behalf. 
+Unlike the domain agents of the preceding chapters, which are optimized for a bounded operational envelope (a road network, a warehouse aisle, an operating theater), the assistant must function inside the open-ended geometry of a home, an office, or a sidewalk, in the continuous physical presence of the person it serves. 
+Its defining spatial challenge is therefore not a new perception, reasoning, generation, or memory primitive: those capabilities are surveyed in Chapter~\ref{chapter:3:sec:6} (perception), Chapter~\ref{sec:reasoning} (reasoning), Chapter~\ref{sec:generation} (generation), and Section~\ref{subsec:p3_s7_3_6} (retrieval- and memory-augmented spatial reasoning).
+The challenge here is rather to build and maintain a persistent, personalized, and queryable spatial-semantic model of the user's environment, to ground human intent onto that model, and to act on it legibly and safely while a person occupies the same space.
+
+Three properties separate the assistant from the embodied agents discussed elsewhere in this part. The environment is the user's own, so the assistant cannot assume an engineered layout and must instead generalize across the long tail of real homes. 
+It is also personalized: the same instruction (``tidy up,'' ``take me to the exit'') resolves to different geometric goals for different users, so the spatial model must absorb individual preference. 
+And because the human is always co-present, otherwise routine motion becomes a social act that must be predictable, comfortable, and safe. These three demands (an unengineered space, an individual user, and a person sharing that space) recur across every regime in which the assistant operates.
+
+\section{System Overview}
+\label{subsec:p4-sec13-1-system-overview}
+
+Across these settings, every assistant closes the same loop. It \textbf{perceives} the environment and the user, \textbf{represents} what it perceives in a persistent spatial-semantic memory, \textbf{grounds} a natural-language or gestural instruction onto that memory, \textbf{reasons} about a goal-directed plan, \textbf{acts} on the physical or informational world, and observes the human's \textbf{feedback}, which re-grounds the next interaction. 
+The persistent memory is the part that distinguishes an assistant from a single-shot perception or manipulation system: because the assistant lives in one place over long horizons, it can accumulate a map of where objects belong, where the user tends to be, and how the user prefers tasks to be performed. 
+Long-horizon mobile-manipulation benchmarks such as EMMOE instantiate one slice of this loop (language-conditioned planning and action in open environments) but still leave persistent personalization, memory update, and human feedback as broader assistant-level requirements~\cite{li2025emmoe}. Figure~\ref{fig:p4_s13_1_overview} schematizes the loop, with the spatial-semantic memory at its center and the human present at every stage.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section13/assistant_overview.pdf}
+    \caption{The intelligent-assistant loop. User and scene observations populate persistent room--object memory; instructions are grounded to specific objects and target states before planning. Alternative outputs illustrate household management, shared-space collaboration, and audio/haptic assistance. Memory links denote spatial associations; the dashed ellipse marks shared interaction space. User responses and observed changes close the feedback loop.}
+    \label{fig:p4_s13_1_overview}
+\end{figure}
+
+The assistant is deployed in three escalating regimes of human-proximity, which organize the remainder of this chapter. 
+In the first, the assistant acts \emph{on} the space while the human is a beneficiary at a distance: it tidies, fetches, and searches. 
+In the second, the assistant acts \emph{alongside} the human as a partner that must move and manipulate in shared space without intruding. 
+In the third, the assistant acts \emph{for} a vulnerable human, standing in for an impaired capability under hard safety, privacy, and accessibility constraints. 
+The three regimes share the loop above but place progressively more weight on modeling the person rather than the place; Table~\ref{tab:p4_s13_1_benchmarks} collects benchmarks for all three.
+
+\section{Pivotal Task-1: Managing the Physical Environment}
+\label{subsec:p4-sec13-1-pivotal-task-1-managing-the-physical-environment}
+
+The most autonomous regime asks the assistant to maintain the physical state of a human environment with little real-time supervision. A persistent model of the dwelling supports two complementary operations: grounding instructions for physical action, and retrieving remembered evidence to answer queries. New observations update the model, including after an action changes the environment. Figure~\ref{fig:p4_s13_1_managing} separates these action and recall branches around their shared home memory.
+
+\textbf{Representing the home.} Everything downstream depends on a queryable model of the space, which extends the scene-understanding methods of Chapter~\ref{chapter:3:sec:6} into a persistent, semantically indexed memory. The memory architectures themselves are treated in Section~\ref{subsec:p3_s7_3_6}; here they are the infrastructure that lets an assistant know not only \emph{where} surfaces are, but \emph{what} and \emph{whose}. 
+The 3D scene graph \cite{armeni20193dsg} introduced a hierarchical structure that unifies objects, rooms, and cameras with the underlying geometry, and Hydra \cite{hughes2022hydra} brought such graphs into real-time, loop-closure-optimized robot perception so that the memory stays current as the assistant moves. 
+To make the memory addressable by free-form language, ConceptFusion \cite{jatavallabhula2023conceptfusion} builds an open-set, multimodal 3D map that answers text, image, or click queries, and ConceptGraphs \cite{gu2024conceptgraphs} fuses foundation-model outputs across views into a captioned, language-queryable 3D scene graph suitable for planning. 
+This open-vocabulary memory is what lets an assistant act on objects it was never explicitly trained to recognize.
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section13/assistant_managing.pdf}
+    \caption{Managing the physical environment through a shared home memory. Observations maintain room, object, and relation records; grounded instructions drive manipulation, while queries independently retrieve last-seen evidence. Physical outcomes are re-observed to update memory.}
+    \label{fig:p4_s13_1_managing}
+\end{figure}
+
+\textbf{Acting on the space: tidy-up and rearrangement.} Restoring order is the canonical management task, framed by Batra \etal \cite{batra2020rearrangement} as bringing an environment from an arbitrary configuration into a target spatial state. 
+The benchmark substrate includes the Visual Room Rearrangement (RoomR) challenge \cite{weihs2021visual}, which asks an agent to observe a goal arrangement and then reset one to five displaced objects, and Housekeep \cite{kant2022housekeep}, which removes the explicit goal and instead judges placements against human preferences over nearly two thousand objects. 
+Method work has moved from fixed rules to learned commonsense priors. 
+TIDEE \cite{sarch2022tidee} tidies a never-before-seen room from pixels using a visuo-semantic out-of-place detector and an associative memory of where receptacles tend to be, and TidyBot \cite{wu2023tidybot} makes the placement \emph{preference-aware}, using few-shot summarization with a large language model to generalize a particular user's tidying rules from a handful of examples. 
+The shift these systems mark, from a universal notion of tidiness to one conditioned on the resident, is exactly the personalization property that defines the assistant.
+
+\textbf{Acting on the space: open-vocabulary mobile manipulation.} Tidying a real home requires picking and placing arbitrary objects at arbitrary locations, the task formalized as open-vocabulary mobile manipulation by HomeRobot \cite{yenamandra2023homerobot}, which pairs a simulation and real benchmark with a software stack for the Hello Robot Stretch. 
+Notable deployment evidence comes from OK-Robot \cite{liu2024okrobot}, which combines a phone-scanned dense vision-language map with off-the-shelf navigation and grasping to achieve zero-shot pick-and-drop across ten real homes, and from Mobile ALOHA \cite{fu2024mobilealoha}, which shows that low-cost whole-body teleoperation plus imitation learning can acquire dexterous bimanual household skills. 
+These systems lean directly on the manipulation primitives of Section~\ref{sec:p4_s9_1}, increasingly instantiated as generalist vision-language-action policies (\eg, OpenVLA \cite{kim2024openvla}, $\pi_0$ \cite{black2024pi0}) that fold perception, grounding, and control into one model; the assistant contribution is to drive them in unstructured homes from open-vocabulary goals rather than in an engineered cell. 
+Commercial and pre-commercial examples illustrate the same pressure from different directions: mapping vacuum robots such as iRobot's Roomba, which build semantic room maps for targeted cleaning,\footnote{\url{https://www.irobot.com}} represent the mature narrow end, while emerging home-humanoid platforms such as 1X's Neo\footnote{\url{https://www.1x.tech/neo}} and Figure\footnote{\url{https://www.figure.ai}} show how the field is attempting, so far without a general-purpose result, to generalize mobile manipulation into domestic settings.
+
+\textbf{Searching and recalling the model.} The dual of acting on the space is querying it: an assistant is, among other things, a search engine for the physical world that answers ``where did I leave my keys?'' Object-goal navigation supplies the active half, with goal-oriented semantic exploration (SemExp) \cite{chaplot2020object} building an episodic semantic map and a policy that exploits object co-occurrence to find a target efficiently rather than searching blindly. 
+Embodied question answering \cite{das2018embodied} couples navigation with answering, and its open-vocabulary successor OpenEQA \cite{majumdar2024openeqa} spans both an episodic-memory setting, in which the assistant must recall what it has already seen, and an active-exploration setting, over more than a hundred real environments. 
+For wearable assistants that record the user's day, the same recall problem becomes natural-language search of long egocentric video, the episodic-memory task defined by Ego4D \cite{grauman2022ego4d}. 
+This is the application-facing counterpart of the memory-augmented reasoning systems in Section~\ref{subsec:p3_s7_3_6}.
+
+
+
+\section{Pivotal Task-2: Co-habiting and Collaborating}
+\label{subsec:p4-sec13-1-pivotal-task-2-co-habiting-and-collaborating}
+
+As the distance between assistant and human shrinks, spatial intelligence must become social intelligence. The assistant must model the human as a co-located agent with intent, viewpoint, and comfort zones, not as a moving obstacle or a bare command source, and act predictably and collaboratively. Running through every part of this task is the reconciliation of reference frames: the assistant's own egocentric view, the human's egocentric view, and a shared allocentric map must be kept aligned.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section13/assistant_collaborating.pdf}
+    \caption{Collaborating in shared space: (a) person- and context-dependent comfort zones and (b) aligned robot/human views inform an interaction-aware plan; (c) navigation and handover illustrate alternative behaviors. Dashed rings indicate comfort regions, and dashed sight lines associate views with shared objects.}
+    \label{fig:p4_s13_1_collaborating}
+\end{figure}
+
+\textbf{Socially-aware navigation.} Moving through a populated space is not collision avoidance; it is adherence to the unwritten contracts of proxemics. The classical account is the social force model \cite{helbing1995social}, which casts pedestrian motion as attraction to a goal under repulsion from others, operationalizing Hall's anthropological zones of personal space. 
+Data-driven successors learn the interaction directly: Social LSTM \cite{alahi2016social} couples per-person recurrent predictors through a social-pooling layer to forecast jointly plausible trajectories, and deep reinforcement-learning planners such as the attention-based crowd-robot model \cite{chen2019crowdrobot} weigh neighbors to navigate dense crowds while avoiding the ``freezing robot'' failure that purely reactive planners suffer \cite{trautman2010unfreezing}. 
+Progress is measured on human-demonstration corpora such as SCAND \cite{karnan2022socially}, which records hours of socially compliant teleoperation for imitation and inverse reinforcement learning. 
+The trend is toward anticipatory planning, in which the assistant infers the human's intended path and yields proactively, and toward learnable cost functions that adapt passing distances to individual or cultural preference rather than enforcing one universal margin.
+
+\textbf{Grounded instruction following and spatial dialogue.} A collaborating assistant must resolve spatial language against what it sees, including the deictic references (``put it next to the \emph{other} bowl,'' ``the one over \emph{there}'') that pervade human speech. 
+Vision-and-language navigation, introduced with the Room-to-Room benchmark \cite{anderson2018vision}, established the problem of following natural-language route instructions in photorealistic buildings; ALFRED \cite{shridhar2020alfred} extended it to long-horizon household tasks with irreversible state changes, and TEACh \cite{Padmakumar2022TEACh} cast the task as a two-agent dialogue in which a commander and follower must build shared spatial reference over multiple turns. 
+Resolving a referring expression to a specific object in a cluttered 3D scene is studied directly by ScanRefer \cite{chen2020scanrefer} and ReferIt3D \cite{achlioptas2020referit3d}, whose same-class distractors force the model to rely on spatial relations rather than appearance. 
+These benchmarks build on the reasoning capabilities of Chapter~\ref{sec:reasoning}; the assistant requirement is to maintain a spatial working memory that links current observations to earlier instructions so that deixis can be resolved.
+
+\textbf{Shared autonomy and collaboration.} When full autonomy is brittle, the assistant acts as a third hand under shared control. 
+The defining formulation is shared autonomy via hindsight optimization \cite{javdani2018shared}, in which the robot infers a distribution over the user's spatial goal and assists toward it without committing to a single confident prediction, formalizing the earlier policy-blending account of arbitration between human and robot intent \cite{dragan2013policy}. 
+Equally important is making the assistant's own motion readable: legible motion \cite{dragan2013legibility} shapes a reaching trajectory so a human can quickly infer its intended target, which is what allows close-quarters collaboration to feel safe. Physical handovers, where giver and receiver must coordinate in space and time \cite{strabala2013handover}, are the elementary collaborative act on which assistive manipulation is built.
+
+\textbf{Perspective-taking and egocentric grounding.} Many assistants observe the world from a wearable, first-person viewpoint, so the frame-alignment problem becomes explicit. 
+Ego4D \cite{grauman2022ego4d} and its successors anchor egocentric perception at scale, and dedicated capture platforms such as Project Aria\footnote{\url{https://www.projectaria.com}} supply the calibrated multi-sensor first-person stream such assistants run on, while spatial-VQA backbones such as SpatialVLM \cite{chen2024spatialvlm} give a vision-language model the quantitative 3D reasoning (distances, sizes, directions) needed to answer spatial questions about the user's scene. 
+The hardware and pose-estimation side of wearable sensing is treated in Section~\ref{sec:p4_s9_3}, and the augmented-reality runtime that renders guidance into the user's view is treated in Section~\ref{sec:p4_s10_1}; here the contribution is the reasoning that converts a first-person observation into a collaborative action in the human's frame. 
+Embodied-AR applications make this alignment problem explicit when directions, warnings, or manipulation cues must be registered into the user's view \cite{yang2025embodiedar}. Figure~\ref{fig:p4_s13_1_collaborating} illustrates the elements of this regime.
+
+
+
+\section{Pivotal Task-3: Empowering Vulnerable Users}
+\label{subsec:p4-sec13-1-pivotal-task-3-empowering-vulnerable-users}
+
+The highest-impact regime uses spatial intelligence to compensate for a sensory, cognitive, or motor impairment, acting as a prosthesis for the user's perception or agency. The assistant translates the environment into a queryable, navigable, and actionable representation and delivers it through a channel the user can still use (audio, haptics, or physical action). Because the loop closes around a vulnerable person in their own home, safety, privacy, and personalization are design constraints from the start.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section13/assistant_empowering.pdf}
+    \caption{Personalized assistance combines observed spatial state with user goals and access needs. Consent, confidence, and clearance checks gate audio/haptic cues, stepwise guidance, and shared control; uncertainty or missing permission prompts clarification or a pause. Shared control also receives the user's command. Scenes are illustrative.}
+    \label{fig:p4_s13_1_empowering}
+\end{figure}
+
+\textbf{Assistance for the blind and visually impaired.} For blind and low-vision users, spatial intelligence turns an unknown and hazardous environment into a queryable one. The oldest strand is sensory substitution, exemplified by the vOICe \cite{meijer1992voice}, which sonifies the spatial structure of an image into sound. 
+The modern strand is conversational visual question answering: VizWiz \cite{bigham2010vizwiz} introduced a deployed system in which a blind user photographs their surroundings and asks a spoken question, and the VizWiz Grand Challenge \cite{gurari2018vizwiz} turned the resulting real-world distribution, including blurry and unanswerable images, into the reference benchmark for assistive VQA. 
+Indoor wayfinding is addressed by smartphone navigation aids such as NavCog \cite{ahmetovic2016navcog}, which deliver turn-by-turn audio guidance from accurate beacon-based localization, and by three-dimensional spatial audio that places points of interest around the user. 
+Commercial assistive applications include Microsoft's Seeing AI for scene and text narration\footnote{\url{https://www.seeingai.com}}, Be My Eyes for volunteer- and model-mediated visual assistance\footnote{\url{https://www.bemyeyes.com}}, and wearable systems from OrCam\footnote{\url{https://www.orcam.com}}, Envision\footnote{\url{https://www.letsenvision.com}}, and biped.ai\footnote{\url{https://biped.ai}} for scene description and obstacle warning. 
+These tools move from passive obstacle warning to active interrogation, in which the user asks ``is there a free seat?'' or ``read the sign on the door'' and the assistant retrieves the answer.
+
+\textbf{Cognitive and mobility assistance.} For users with cognitive decline or limited mobility, spatial assistants provide external scaffolding for the activities of daily living. 
+Ambient assisted living systems such as the CASAS smart home \cite{cook2013casas} instrument a dwelling to track the resident's location and activity, learning the spatio-temporal patterns whose violation (a fall, a missed meal) signals a need to intervene; wearable accelerometry supplies the canonical fall-detection paradigm \cite{bourke2007evaluation}.
+
+Where monitoring gives way to physical action, the assistant becomes a shared-control effector. 
+Smart wheelchairs \cite{simpson2005smart} and wheelchair-mounted assistive arms use collaborative control to enforce spatial safety zones, for example forbidding a chair from driving down a staircase, so that the user retains mobility without constant supervision; the goal-arbitration that underlies such control is the same shared-autonomy machinery introduced above, here cast as a decision-theoretic problem \cite{ghorbel2018decision}. 
+Assistive feeding \cite{bhattacharjee2019towards} shows how fine spatial reasoning (where to acquire a bite, how to transfer it to the user's mouth) becomes a caregiving act. 
+The platform lineage runs from Robots for Humanity \cite{chen2013robots}, which let a man with quadriplegia perform self-care through a teleoperated PR2, to the affordable Stretch mobile manipulator \cite{kemp2022design}, with physics-based simulation of caregiving tasks consolidated in Assistive Gym \cite{erickson2020assistive}. 
+Commercial assistive hardware in this space includes the Kinova JACO arm\footnote{\url{https://www.kinovarobotics.com}} and the Obi feeding device\footnote{\url{https://meetobi.com}}.
+This regime overlaps the clinical setting of Section~\ref{sec:p4_s12_1}, but the boundary is clear: there the focus is diagnosis and surgical intervention, whereas here it is daily living in the home. Figure~\ref{fig:p4_s13_1_empowering} summarizes the compensation principle.
+
+
+
+\begin{table}[t]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative benchmarks across the three assistant regimes. Where a benchmark has no standard method, the method column names the benchmark paper's own baselines.}
+\label{tab:p4_s13_1_benchmarks}
+\begin{tabular}{L{0.20\textwidth} L{0.24\textwidth} L{0.26\textwidth} L{0.22\textwidth}}
+\toprule
+\textbf{Regime / Pivot} & \textbf{Benchmark} & \textbf{Representative method} & \textbf{Headline metric} \\
+\midrule
+Managing (rearrangement) & Visual Room Rearrangement \cite{weihs2021visual} & TIDEE \cite{sarch2022tidee} & objects restored / episode success \\
+Managing (preference tidy) & Housekeep \cite{kant2022housekeep} & LLM-based planner (paper baseline) \cite{kant2022housekeep} & correct-placement rate \\
+Managing (mobile manip.) & HomeRobot OVMM \cite{yenamandra2023homerobot} & modular and RL baselines \cite{yenamandra2023homerobot} & overall success rate \\
+Managing (search / recall) & EQA \cite{das2018embodied} / OpenEQA \cite{majumdar2024openeqa} & VLM with episodic memory (paper baselines) \cite{majumdar2024openeqa} & LLM-Match score \\
+Collaborating (navigation) & SCAND \cite{karnan2022socially} & imitation from demonstrations \cite{karnan2022socially} & demonstration corpus (no leaderboard) \\
+Collaborating (instruction) & ALFRED \cite{shridhar2020alfred} / TEACh \cite{Padmakumar2022TEACh} & seq2seq baselines \cite{shridhar2020alfred,Padmakumar2022TEACh} & task / goal-condition success \\
+Collaborating (grounding) & ScanRefer \cite{chen2020scanrefer} / ReferIt3D \cite{achlioptas2020referit3d} & ScanRefer baseline \cite{chen2020scanrefer} & Acc@0.25 / 0.5 IoU \\
+Empowering (BVI VQA) & VizWiz \cite{gurari2018vizwiz} & VQA baselines \cite{gurari2018vizwiz} & VQA accuracy \\
+Empowering (assistive ADL) & Assistive Gym \cite{erickson2020assistive} & RL policies (paper baselines) \cite{erickson2020assistive} & task success / reward \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Established Tools and Systems}
+\label{subsec:p4-sec13-1-established-tools-and-systems}
+Deployed assistants have so far approached the persistent, personalized spatial model of this chapter from opposite ends: software agents know a great deal about the user but nothing about the user's space, while home robots occupy the space but act with limited autonomy.
+
+\textbf{Personal agents.} The most widely used assistants now act on a user's behalf in the digital world. OpenAI's ChatGPT agent\footnote{\url{https://openai.com/index/introducing-chatgpt-agent/}} (July 2025) runs on its own virtual computer, browsing and filling in forms across multi-step tasks and asking permission before consequential actions. Meta's Muse\footnote{\href{https://www.cnbc.com/2026/09/08/meta-personal-ai-agents-public-reckoning-privacy-safety.html}{CNBC, 8 September 2026}.} (September 2026), billed as a personal agent for everyday users, likewise runs in an isolated virtual machine and handles errands such as shopping and travel booking, and its request for access to email, calendars, and payments made privacy the main point of public debate around its launch. Voice assistants are being rebuilt on the same models: Amazon's Alexa+\footnote{\url{https://www.aboutamazon.com}}, generally available in the United States since February 2026, adds generative dialogue to the smart-home control that Alexa already provided, and Apple's Siri\footnote{\url{https://www.apple.com/siri/}} is being rebuilt on Google's Gemini models, adding personal context and on-screen awareness. For spatial intelligence, these agents matter mainly as the layer that holds personal context and preference; apart from smart-home control, none of them maintains a model of the physical home.
+
+\textbf{Camera-grounded assistants.} A second line brings the physical world into the conversation through a camera. Gemini Live's camera mode\footnote{\url{https://gemini.google/}}, the product form of Google's Project Astra, lets a user point a phone at the surroundings and ask about what it sees, and Meta AI on camera glasses does the same from the wearer's viewpoint (Section~\ref{sec:p4_s9_3}). These systems answer spatial questions about the current view, and the assistive applications of Pivotal Task-3 build on the same capability, but they keep at most a short history of what they have seen, so the long-horizon spatial memory this chapter calls for remains outside them.
+
+\textbf{Home robots.} Embodied assistants remain the least mature tier. Beyond mapping vacuums, the home humanoids introduced under Pivotal Task-1 are moving toward sale: 1X opened preorders for NEO in October 2025, at \$20{,}000 or a monthly subscription, with first deliveries promised for 2026 and with remote operators teleoperating tasks that its onboard autonomy cannot yet complete, and Figure's third-generation humanoid, Figure~03 (2025), is designed for homes and driven by its Helix vision-language-action model. The reliance on teleoperation shows how far these products are from the autonomous, open-vocabulary mobile manipulation of Pivotal Task-1, and it raises the in-home privacy question discussed below.
+
+\section{Challenges}
+\label{subsec:p4-sec13-1-challenges}
+
+The three regimes share a common obstacle: the assistant must be reliable in the one setting that resists engineering, namely a real person's private and unstructured life. 
+The challenges below are ordered from the perceptual frontier (generalization, memory) through the human frontier (personalization, social safety) to the deployment frontier (privacy, compute, trust), and each cuts across all three pivotal tasks above. 
+Governance benchmarks for embodied agents have begun to measure the deployment end directly, testing whether a system stays controllable, recoverable, and auditable under perturbation rather than only whether it completes tasks \cite{qin2026embodiedgovbench}.
+
+\textbf{Generalization to unstructured homes.} An assistant cannot be retrained per household, yet homes vary without bound in layout, lighting, and contents. 
+Zero-shot results such as OK-Robot \cite{liu2024okrobot} are encouraging but remain far from the reliability a daily aide requires, and closing the gap depends on the open-vocabulary representations and sim-to-real transfer surveyed in Part~III rather than on more in-domain data.
+
+\textbf{Long-horizon spatial memory.} Because the assistant persists in one place, it must remember spatial state over days and weeks: where objects were last seen, which routines the user follows, what was already done. 
+Real-time scene-graph memories \cite{hughes2022hydra} and episodic-memory benchmarks \cite{majumdar2024openeqa} begin to address this, but the general memory mechanisms are treated in Section~\ref{subsec:p3_s7_3_6}; the assistant-specific unsolved problem is maintaining a consistent, updatable, and forgetting-resistant model over long deployments in a private home.
+
+\textbf{Personalization and preference learning.} The assistant's geometric goals are user-specific, so it must learn an individual's placement rules, comfort distances, and routines from sparse interaction. 
+Few-shot preference summarization \cite{wu2023tidybot} and learnable social cost functions are early steps, but acquiring rich preferences without burdening the user remains an open problem.
+
+\textbf{Social compliance and safety.} Operating in continuous contact with people turns motion into a social and safety-critical act. 
+Anticipatory, legible navigation and motion \cite{trautman2010unfreezing,dragan2013legibility} and shared-control safety zones \cite{ghorbel2018decision} mitigate risk, yet guaranteeing comfort and physical safety across the diversity of real human behavior is far from settled.
+
+\textbf{Privacy of persistent in-home perception.} An assistant that continuously perceives a private home raises acute privacy concerns, the more so for assistive cameras worn by users who cannot themselves audit what is captured. 
+The concern becomes sharper when assistance depends on remote operation or cloud annotation, because the raw spatial stream itself may reveal the user's routines and vulnerabilities. Persistent spatial memory must be reconciled with selective perception, on-device processing, and user control over what is retained.
+
+\textbf{On-device compute and trust.} Wearable and home platforms are power- and thermally constrained, forcing the heavy perception and reasoning stacks of Part~III onto efficient, often on-device, inference. 
+Compounding this, assistance for vulnerable users is safety-critical, so calibrated reliability and appropriate user trust, neither over- nor under-reliance, are prerequisites for deployment rather than refinements of it.

@@ -1,0 +1,89 @@
+{
+  "source": "assets/figures/figures/part2/audio_representation.webp",
+  "assets": [
+    {
+      "file": "a/head-top.png",
+      "source_box": [
+        239,
+        185,
+        486,
+        481
+      ],
+      "size": [
+        247,
+        296
+      ],
+      "annotation_cleanup": true
+    },
+    {
+      "file": "a/sound-source.png",
+      "source_box": [
+        70,
+        80,
+        148,
+        156
+      ],
+      "size": [
+        78,
+        76
+      ],
+      "annotation_cleanup": false
+    },
+    {
+      "file": "b/head-profile.png",
+      "source_box": [
+        608,
+        160,
+        910,
+        516
+      ],
+      "size": [
+        302,
+        356
+      ],
+      "annotation_cleanup": true
+    },
+    {
+      "file": "b/sound-source.png",
+      "source_box": [
+        678,
+        42,
+        765,
+        116
+      ],
+      "size": [
+        87,
+        74
+      ],
+      "annotation_cleanup": false
+    },
+    {
+      "file": "c/speaker.png",
+      "source_box": [
+        1422,
+        131,
+        1466,
+        190
+      ],
+      "size": [
+        44,
+        59
+      ],
+      "annotation_cleanup": false
+    },
+    {
+      "file": "c/listener.png",
+      "source_box": [
+        1725,
+        151,
+        1779,
+        210
+      ],
+      "size": [
+        54,
+        59
+      ],
+      "annotation_cleanup": false
+    }
+  ]
+}

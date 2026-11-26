@@ -1,0 +1,166 @@
+
+\subsection{3D Scene Synthesis}
+\label{subsec:p3_s8_2_2}
+
+
+Scene-level synthesis extends 3D generation from a single asset $\mathbf{r}\!\in\!\mathcal{R}$ to an entire environment: a clutter of objects whose positions, orientations, and pairwise relations together compose a navigable room or open-world scene.
+Where §\ref{subsec:p3_s8_2_1} models the conditional distribution of one object given a prompt, scene synthesis must jointly model (i) a variable number of objects, (ii) their global $\mathrm{SE}(3)$ placements, (iii) their pairwise spatial and functional relations, and (iv) the envelope geometry (floor, walls, ceiling) that closes the scene; the output is a structured set rather than a vector in $\mathcal{R}$, and the conditioning broadens from text to layouts, scene graphs, sparse calibrated views, and full camera trajectories.
+The result must be navigable, not only renderable, which makes the problem harder than object synthesis along three axes at once: geometric coherence across the clutter, semantic consistency between related objects, and view generalization along an $\mathrm{SE}(3)$ trajectory rather than a fixed look-at orbit.
+Four families answer it: \emph{layout- and scene-graph-conditioned} generators that produce the structured set from a symbolic prior; \emph{view-to-3D} synthesizers that regress or sample a continuous radiance or Gaussian field from sparse calibrated views; \emph{view-to-view} synthesizers that skip the explicit 3D representation and learn a conditional map from observed to novel views; and \emph{video-model-based} synthesizers that treat a pretrained video diffusion model as an implicit 3D prior with the camera trajectory as an additional conditioning channel.
+
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_2_2_task}
+
+We cast 3D scene synthesis as a scene-level extension of the object-synthesis framework of §\ref{subsec:p3_s8_2_1}.
+Let $\mathcal{S}$ denote the scene-output space whose elements
+$\mathbf{s} = \big(\{\mathbf{r}_i\}_{i=1}^N,\, \{\mathbf{T}_i\}_{i=1}^N,\, \mathbf{G},\, \mathcal{E}_{\text{room}}\big)$
+package $N$ object representations $\mathbf{r}_i\!\in\!\mathcal{R}$ (with $\mathcal{R}$ the per-object space of §\ref{subsec:p3_s8_2_1}), their global poses $\mathbf{T}_i\!\in\!\mathrm{SE}(3)$, a relational graph $\mathbf{G}$ over the object set, and an envelope geometry $\mathcal{E}_{\text{room}}$ encoding the room shell (walls, floor, ceiling).
+The conditioning space broadens to
+$\mathcal{C}^{\text{scene}} \supseteq \{\,\text{text }\mathbf{x},\,\text{layout }\mathbf{L},\,\text{scene graph }\mathbf{G}_{\text{in}},\,\text{sparse views }\{(I_v,\pi_v)\}_v,\,\text{camera trajectory }\{\pi_v\}_v\,\}$,
+with a condition encoder $\kappa^{\text{scene}}:\mathcal{C}^{\text{scene}}\!\to\!\mathcal{C}^{\text{scene}\prime}$ mapping each input mode into a shared embedding.
+The core learning problem is to train a conditional scene generator
+\begin{equation}
+G_\theta^{\text{scene}}:\mathcal{C}^{\text{scene}\prime}\rightarrow \mathcal{S},
+\qquad
+\hat{\mathbf{s}}\sim p_\theta^{\text{scene}}\!\big(\mathbf{s}\,\big|\,\kappa^{\text{scene}}(\mathbf{c})\big),
+\label{eq:p3_s8_2_2_objective}
+\end{equation}
+so that the sampled scene $\hat{\mathbf{s}}\!\in\!\mathcal{S}$ admits coherent inter-object geometry, semantically plausible relations, and view-consistent renderings under arbitrary $\mathrm{SE}(3)$ trajectories.
+Two limiting cases fix the scope of Eq.~\eqref{eq:p3_s8_2_2_objective}.
+When $N\!=\!1$, $\mathbf{G}\!=\!\varnothing$, and $\mathcal{E}_{\text{room}}\!=\!\varnothing$, the scene degenerates to a single asset and the sampler recovers Eq.~\eqref{eq:p3_s8_2_1_objective}: scene synthesis is a strict generalization of object synthesis.
+At the opposite extreme, when $\mathcal{S}$ is instantiated as an ordered sequence of views $\{I_v\}_{v=1}^V$ \emph{without an explicit 3D substrate}, the sampler reduces to a camera-trajectory-conditioned video generator (the regime of §\ref{para:p3_s8_2_2_video} below), so that ``scene synthesis'' and ``consistent video generation'' are two boundary regimes of the same problem.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_2_2_methodology}
+
+Each of the four paradigms is a different factorization of $G_\theta^{\text{scene}}$ in Eq.~\eqref{eq:p3_s8_2_2_objective}, from sparse structural controls (layouts and scene graphs) through continuous 3D representations to video-based synthesis; Figure~\ref{fig:p3_s8_2_2_paradigms} previews them against a common scene.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section8/Four_paradigm_families_for_3D_scene_synthesis.pdf}
+    \caption{Four paradigm families for 3D scene synthesis (Eq.~\eqref{eq:p3_s8_2_2_objective}): (a) layout- or scene-graph-conditioned placement of objects, (b) view-to-3D reconstruction into a radiance field or 3D Gaussians, (c) view-to-view synthesis with no explicit 3D, and (d) video-model-based synthesis along a camera path. The families are not mutually exclusive, and view consistency does not guarantee a valid 3D asset; room images are illustrative.}
+    \label{fig:p3_s8_2_2_paradigms}
+\end{figure}
+
+\paragraph{Layout and Scene-graph Conditioned Methods.}
+\label{para:p3_s8_2_2_layout}
+A major line of research generates 3D environments from high-level structural priors such as layouts $\mathbf{L}$ or scene graphs $\mathbf{G}_{\text{in}}$, instantiating Eq.~\eqref{eq:p3_s8_2_2_objective} by materializing the structured tuple as an explicit object set,
+\begin{equation}
+\hat{\mathbf{s}} = \big\{(\hat{\mathbf{r}}_i,\,\hat{\mathbf{T}}_i)\big\}_{i=1}^N,
+\qquad
+\hat{\mathbf{s}}\sim p_\theta\!\Big(\{(\mathbf{r}_i,\mathbf{T}_i)\}_i \,\Big|\, \kappa(\mathbf{L} \text{ or } \mathbf{G}_{\text{in}}),\,\phi(\mathbf{x})\Big),
+\label{eq:p3_s8_2_2_layout_objective}
+\end{equation}
+where the joint over the $N$ slots and their poses is factorized autoregressively (a transformer over object slots) or as a denoising diffusion over the slot tensor.
+SceneFormer~\cite{wang2021sceneformer} explored autoregressive modeling of room layouts and furniture placement, and DiffuScene~\cite{tang2024diffuscene} introduced diffusion over object arrangements, improving realism and diversity.
+Recent work adds language and visual reasoning for compositional control: LayoutGPT~\cite{feng2023layoutgpt} plans the layout with an LLM before neural scene construction, and LayoutVLM~\cite{sun2025layoutvlm} optimizes layout consistency under multimodal alignment.
+Scene-graph approaches (GraphDreamer~\cite{gao2024graphdreamer}, CommonScenes~\cite{zhai2023commonscenes}, EchoScene~\cite{zhai2024echoscene}) use relational reasoning to keep placements plausible, and InstructScene~\cite{lin2024instructscene} adds natural-language conditions for controllable scene creation.
+Beyond indoor settings, CityCraft~\cite{deng2024citycraft} scales layout synthesis to the city level, and GALA3D~\cite{zhou2024gala3d} couples layout-guided diffusion with Gaussian-based rendering for photorealistic multi-object environments.
+
+\paragraph{View-to-3D Representation Synthesis.}
+\label{para:p3_s8_2_2_view3d}
+The second paradigm trades the explicit structured set for a \emph{continuous} 3D representation, recovering the scene as a radiance field or 3D Gaussian collection from sparse calibrated views; the scene tuple collapses into a single field,
+\begin{equation}
+\hat{\mathcal{R}}^{\text{scene}} = \mathcal{F}_\psi\!\Big(\big\{(I_v,\pi_v)\big\}_{v=1}^V\Big),
+\qquad \hat{\mathbf{s}}\equiv \hat{\mathcal{R}}^{\text{scene}},
+\label{eq:p3_s8_2_2_view3d_objective}
+\end{equation}
+where $\mathcal{F}_\psi$ is either a deterministic feed-forward regressor or a generative sampler over the field.
+This scales the multi-view-and-lift recipe of §\ref{para:p3_s8_2_1_mv} from one asset to a full scene by replacing the per-object reconstructor with a scene-scale one.
+Deterministic regressors such as PixelNeRF~\cite{yu2021pixelnerf}, PixelSplat~\cite{charatan2024pixelsplat}, DepthSplat~\cite{xu2024depthsplat}, and MVSplat~\cite{chen2024mvsplat} / MVSplat360~\cite{chen2024mvsplat360} stay strictly faithful to the input views and are reconstruction methods, treated in §\ref{para:p3_s8_2_3_feedforward}.
+The generative variant samples the field instead: DreamScene~\cite{li2024dreamscene} introduces a diffusion prior over Gaussian fields for text-conditioned scene creation, and Generative 3DGS~\cite{Schwarz2025ggs} generates 3D Gaussians for scenes with video priors.
+
+\paragraph{View-to-View Synthesis (Regression and Generative).}
+\label{para:p3_s8_2_2_viewview}
+The third paradigm skips the explicit 3D representation altogether and formulates novel view synthesis as a direct conditional 2D-to-2D map from observed to target views,
+\begin{equation}
+\hat{I}_{\pi^*}\sim p_\theta\!\Big(I_{\pi^*}\,\Big|\,\big\{(I_v,\pi_v)\big\}_{v=1}^V,\,\pi^*\Big),
+\label{eq:p3_s8_2_2_viewview_objective}
+\end{equation}
+where $\pi^*$ is the target camera pose and no intermediate 3D representation is materialized.
+Regression-based approaches learn a deterministic map: SRT~\cite{sajjadi2022scene} encodes the scene into latent tokens that support interpolation and extrapolation across viewpoints, and LVSM~\cite{jin2025lvsm} predicts novel views with a large feed-forward transformer and minimal 3D inductive bias.
+Generative approaches model the conditional distribution over unseen views, which permits stochastic synthesis under ambiguity and large viewpoint changes: Photoconsistent-NVS~\cite{yu2023long} and SEVA~\cite{zhou2025stable} use diffusion to improve diversity and robustness along extended camera trajectories, and CausNVS~\cite{kong2025causnvs} generates views autoregressively and causally, modeling inter-view dependencies explicitly to stay coherent across complex viewpoint transitions.
+
+\paragraph{Video-model Based Scene Synthesis.}
+\label{para:p3_s8_2_2_video}
+The fourth paradigm adds \emph{temporal} coherence to the viewpoint variety of the view-to-view family by exploiting large video generation models as spatiotemporal priors; the scene tuple is materialized as a frame sequence,
+\begin{equation}
+\{\hat{I}_v\}_{v=1}^V \sim p_\theta^{\text{video}}\!\Big(\{I_v\}_{v=1}^V \,\Big|\, \{\pi_v\}_{v=1}^V,\,\phi(\mathbf{x})\Big),
+\label{eq:p3_s8_2_2_video_objective}
+\end{equation}
+treating the scene as the implicit 3D structure of a coherent video and the camera trajectory $\{\pi_v\}$ as an explicit conditioning channel.
+Where the feed-forward reconstructors of §\ref{para:p3_s8_2_1_lrm} output a static asset in one pass, the video paradigm trades static 3D for temporally coherent multi-frame output that mirrors the navigability requirement of a scene more directly.
+CameraCtrl~\cite{he2024cameractrl} and MotionCtrl~\cite{wang2024motionctrl} condition video generation on camera trajectories directly; ViewCrafter~\cite{yu2024viewcrafter} and Gen3C~\cite{ren2025gen3c} add geometric guidance by unprojecting observed views into an intermediate 3D representation and reprojecting it to the target viewpoints, which improves pose fidelity; and CAT4D~\cite{wu2025cat4d} and 4DiM~\cite{watson2024controlling} train jointly on posed static multi-view data and on temporal video data, so that viewpoint variation and temporal dynamics are modeled together for 4D scene synthesis.
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_2_2_benchmarks}
+
+The four paradigms draw on different training corpora and report on different metric panels, each inherited from a precursor task.
+
+\paragraph{Training Corpora.}
+Table~\ref{tab:p3_s8_2_2_corpora} lists the corpora in use.
+Layout-conditioned methods rely overwhelmingly on 3D-FRONT~\cite{fu20213dfront}, usually combined with its companion 3D-FUTURE~\cite{fu20213dfuture} furniture library for instance-level geometry.
+View-based methods (P2 / P3) draw on real-world scans of residential interiors (ScanNet~\cite{dai2017scannet}, Matterport3D~\cite{chang2017matterport3d}), on photorealistic synthetic corpora with ground-truth depth and normals (Hypersim~\cite{roberts2021hypersim}), and on Replica~\cite{straub2019replica} for compact high-fidelity indoor benchmarks.
+Video-model-based methods (P4) inherit the web-scale supervision of their underlying video prior, far larger than any 3D corpus but without explicit 3D supervision, supplemented by camera-pose-annotated subsets distilled from ScanNet, RealEstate10K~\cite{zhou2018stereo}, or hand-labeled trajectories.
+
+\begin{table}[t]
+    \centering
+    \fontsize{8}{10}\selectfont
+    \setlength{\tabcolsep}{1.0mm}
+    \caption{Representative training corpora for 3D scene synthesis.}
+    \label{tab:p3_s8_2_2_corpora}
+    \begin{tabular}{L{0.20\textwidth} C{0.07\textwidth} C{0.14\textwidth} L{0.22\textwidth} L{0.29\textwidth}}
+        \toprule
+        \textbf{Dataset} & \textbf{Year} & \textbf{Scale} & \textbf{Acquisition} & \textbf{Primary use / paradigm} \\
+        \midrule
+        ScanNet~\cite{dai2017scannet} & 2017 & ${\sim}1.5\mathrm{K}$ scenes & Real-world RGB-D scans & Sparse-view supervision (P2 / P3) \\
+        Matterport3D~\cite{chang2017matterport3d} & 2017 & ${\sim}90$ buildings & Real-world RGB-D scans & Whole-house multi-view (P2 / P3) \\
+        Replica~\cite{straub2019replica} & 2019 & ${\sim}18$ scenes & Real-world high-fidelity scans & Photorealistic indoor benchmarks (P2 / P3) \\
+        Hypersim~\cite{roberts2021hypersim} & 2021 & ${\sim}460$ scenes & Photorealistic synthetic & Ground-truth depth / normals (P2 / P3) \\
+        3D-FRONT~\cite{fu20213dfront} & 2021 & ${\sim}19\mathrm{K}$ rooms & Synthetic indoor layouts & Layout / object-arrangement supervision (P1) \\
+        3D-FUTURE~\cite{fu20213dfuture} & 2021 & ${\sim}10\mathrm{K}$ assets & Synthetic furniture library & Companion to 3D-FRONT (P1) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{Evaluation Benchmark Suites.}
+Layout-conditioned methods report the metrics introduced with ATISS on 3D-FRONT (object-category frequency, pairwise-relation accuracy, and FID on rendered top-down or perspective views).
+View-to-3D and view-to-view methods adopt the NeRF-era panel of PSNR / SSIM / LPIPS on held-out views of ScanNet, RealEstate10K~\cite{zhou2018stereo}, or DL3DV-10K~\cite{ling2024dl3dv}.
+Video-model-based methods add FVD and a camera-trajectory-adherence metric, the mean translation and rotation error between requested and recovered camera poses.
+
+\paragraph{Constraint-specific Metrics.}
+Four axes mirror the scene tuple of Eq.~\eqref{eq:p3_s8_2_2_objective}: \textbf{layout adherence} (object-count agreement, pairwise-relation accuracy on $\mathbf{G}$, and bounding-box IoU between requested and synthesized placements); \textbf{geometric fidelity} where ground truth exists (Chamfer Distance, F-score, and depth and normal consistency against held-out views); \textbf{photometric quality} (PSNR / SSIM / LPIPS against ground-truth views, FID / KID against held-out scene distributions, and FVD for video outputs); and \textbf{camera-pose adherence}, most relevant for P4 (translation and rotation error of poses recovered by structure-from-motion or a learned pose regressor).
+A paper reports the subset of axes its paradigm can be scored on, which is why comparison across paradigms remains difficult.
+% (§\ref{subsec:p3_s8_2_summary}).
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_2_2_challenges}
+
+Scene synthesis meets the problems of object synthesis on a structured set: more conditioning variables, more output components, and longer trajectories enter the cost at once.
+
+\paragraph{Cross-Paradigm Inconsistency.}
+The four paradigms solve subtly different problems, and each leaves a gap when used alone: a layout-conditioned generator can satisfy the symbolic prior $\mathbf{G}_{\text{in}}$ yet produce a non-traversable static scene, and a view-to-3D generator can produce a navigable Gaussian field that ignores the requested object semantics.
+The gaps surface as \emph{layout-adherence drift}, where the generated NeRF or 3DGS no longer satisfies the input layout once the user roams outside the trained view envelope; \emph{object drop}, where small or thin objects from $\mathbf{L}$ are silently omitted during continuous-field synthesis; and \emph{geometry flattening}, where a multi-object composition collapses into a single textured slab when the 2D or video prior dominates.
+Hybrids such as GALA3D~\cite{zhou2024gala3d} and ViewCrafter~\cite{yu2024viewcrafter} chain a layout or geometry prior with a Gaussian or video renderer to keep both halves honest, and future systems will more likely compose the four paradigms than choose among them.
+
+\paragraph{Scaling Beyond Indoor Rooms.}
+Almost all paradigms remain anchored to furnished indoor rooms because that is where the training corpora live: 3D-FRONT~\cite{fu20213dfront} alone supplies the layout supervision for the dominant P1 methods, and ScanNet, Matterport3D, and Hypersim dominate P2 / P3.
+The result is an outdoor and urban scale gap that CityCraft~\cite{deng2024citycraft} is among the few systems to address, a category imbalance with many furniture classes but few terrain, vegetation, or industrial ones, and an open-world domain shift under which methods trained on residential interiors fail on industrial sites, excavations, or invented environments.
+Web-scraped open-vocabulary scene corpora and hybrid synthetic-real pipelines that blend procedurally generated environments with captured scans are the active responses, both for breadth and to control the long tail of the scene-class distribution.
+
+\paragraph{Camera-Trajectory Coherence under Long-Horizon Synthesis.}
+The video paradigm (§\ref{para:p3_s8_2_2_video}) excels at short camera moves but degrades on long, unbounded trajectories that require persistent world memory.
+Long trajectories expose \emph{temporal blur}, where textures shimmer or drift between frames; \emph{scene amnesia}, where objects reappear with different geometry when the camera revisits a location; and \emph{pose-conditioning collapse}, where the model learns to ignore the camera signal in favor of the marginal video distribution.
+ViewCrafter~\cite{yu2024viewcrafter}'s unprojection and reprojection scaffold, Gen3C~\cite{ren2025gen3c}'s 3D cache, and CAT4D~\cite{wu2025cat4d}'s joint multi-view and video training all inject an explicit 3D inductive bias back into the video prior, but the trade-off between the video prior's perceptual quality and the geometric prior's rigidity remains an open design tension.
+
+\paragraph{Evaluation.}
+A P1 layout-adherence score and a P3 PSNR cannot be ranked against each other, no single dataset evaluates layout faithfulness, geometric fidelity, photometric quality, and pose adherence jointly, and no human-aligned evaluator analogous to HyperScore~\cite{zhang2025mate3d} has been validated on scene outputs.
+% ; the cross-subfield picture is drawn in §\ref{subsec:p3_s8_2_summary}.
+
+\paragraph{Trends: Toward 4D and World Models.}
+Scene synthesis targets static geometry conditioned on camera poses, but the same formulation is being extended toward 4D synthesis and action-conditioned world modeling: Dreamer~\cite{hafner2019dreamer}, GameNGen~\cite{valevski2024diffusion}, Diamond~\cite{alonso2024diffusionworldmodelingvisual}, RTFM~\cite{worldlabs_rtfm}, and Genie3~\cite{genie3} move from static view or video synthesis toward open-ended environment generation in which spatial structure, temporal evolution, and interaction are modeled together.
+From the standpoint of this subsection, scalable, temporally coherent video generation with explicit viewpoint control is the foundation those systems build on; they are treated as world models in §\ref{sec:p3_s8_6}.

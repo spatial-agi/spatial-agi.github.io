@@ -1,0 +1,166 @@
+
+
+\subsection{Scene Graph Generation}
+\label{sec:scene_graph_generation}
+% - `Writing task`: 任务定义（TSG、VSG、PSG、HOI / HRI (egocentric)） → 表达与评测 → 方法类别 → 数据与协议 → 难点与趋势
+% - Content:
+%- Table:  SGG datasets
+% - Figure:  三种SG示意图
+% https://github.com/ChocoWu/Awesome-Scene-Graph-Generation
+
+
+Scene graph generation (SGG)~\cite{xu2017scene,chang2021comprehensive,li2024scene} parses visual content into a graph of triplets, each joining a subject and an object through a predicate, for example $(\text{person}, \text{rides}, \text{horse})$.
+The graph records not only which objects are present but how they interact, which is what retrieval~\cite{johnson2015image,miao2024scenegraphloc}, captioning~\cite{zhong2020comprehensive,lu2025benchmarking}, autonomous driving~\cite{zhou2022toward,liu2023learning,malawade2022roadscene2vec}, and robotics~\cite{nguyen2025generating,werby2024hierarchical,garg2024robohop} consume downstream.
+
+
+%  - Formal Task Definition
+\subsubsection{Task Definition}
+Given a visual scene, SGG produces a graph
+\begin{equation}
+\mathcal{G} = \{(s_i, p_i, o_i)\}_{i=1}^{M}, \qquad s_i, o_i \in \mathcal{O},\; p_i \in \mathcal{P},
+\end{equation}
+where each entity in $\mathcal{O}$ is an object instance with a localization (a bounding box, or a mask in the panoptic setting) and a class label, and $p_i$ is a predicate from a relation vocabulary $\mathcal{P}$ describing how $s_i$ and $o_i$ interact.
+
+% 任务分类：
+% 1. Textual Scene Graph Generation
+% 2. 2D Image Scene Graph Generation
+% 2.1  Panoptic Scene Graph Generation
+% 3. Spatio-Temporal (Video) Scene Graph Generation
+% 4. 3D/ Scene Graph Generation
+% 5. Universal Scene Graph Generation
+% 6. HOI
+% 7. Ego-SGG
+
+The task is instantiated by input modality. \textbf{Image SGG (ISG)}~\cite{krishna2017visual,zellers2018neural} on static 2D images is the original and most studied setting and anchors most benchmarks. \textbf{Video SGG (VSG)}~\cite{teng2021target, cong2021spatial} adds time, so relations become dynamic and temporally extended, and temporal context disambiguates interactions a single frame leaves open. \textbf{Textual SGG (TSG)}~\cite{li2023factual,choi2022scene} parses a sentence (``A person is riding a horse in a field'') into a graph, treating SGG as structured language parsing. \textbf{3D SGG (3DSG)}~\cite{wald2020learning,wu2021scenegraphfusion} operates on point clouds or meshes and models relations in metric 3D space, free of the perspective ambiguity of images. \textbf{Universal SGG (USG)}~\cite{wu2025universal} aims at one graph from several simultaneous modalities (image, video, 3D, text).
+Two further variants change the level of detail rather than the modality. \textbf{Human--Object Interaction detection (HOI)}~\cite{li2019transferable, wang2020learning} restricts the subject to humans and has become a field of its own because of pose variability and the subtlety of intent. \textbf{Panoptic SGG (PSG)}~\cite{yang2022panoptic,yang2023panoptic} grounds nodes on panoptic segmentation masks instead of boxes, so relations can involve ``stuff'' (sky, road) and are localized without the imprecision of boxes.
+
+\subsubsection{Methodology}
+% 1.按模态分（Image、video、textual、3D、Universal Scene Graph Generation）
+Figure~\ref{fig:p3_s6_3_2_sgg_overview} illustrates the five modality settings and the two specializations with a representative input and output each.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/scene_graph.pdf}
+    \caption{Scene graph generation by input modality (top) and sub-task setting (bottom). \textit{Top}: image, video, text, 3D, and universal (multimodal) SGG, each with a sample input and output graph. \textit{Bottom}: (i) human--object interaction (HOI), restricted to human subjects at box level, and (ii) panoptic SGG (PSG), grounding ``things'' and ``stuff'' on pixel masks.}
+    \label{fig:p3_s6_3_2_sgg_overview}
+\end{figure}
+
+% 2.two-stage —> one-stage
+\paragraph{Two-stage methods.}
+Two-stage methods~\cite{xu2017scene,zellers2018neural,li2021bipartite,lin2020gps,li2023compositional,zhou2024hierarchical} were the standard for years: a pre-trained detector such as Faster R-CNN~\cite{ren2015faster} produces boxes and per-object features, and a separate relation model predicts a predicate for each pair. Specializing each stage made the graphs accurate, but detector errors propagate uncorrected into relation prediction, the two models are trained and tuned separately, and object interactions are only modeled after detection has already committed.
+
+\paragraph{One-stage methods.}
+One-stage methods~\cite{im2024egtr,wang2024oed,newell2017pixels,liu2021fully} fold detection and relation prediction into one end-to-end network. Pixel-based~\cite{newell2017pixels} and fully convolutional~\cite{liu2021fully} formulations came first; after DETR~\cite{carion2020end}, most one-stage SGG adopted set prediction with learned queries, and the methods differ in what the queries represent. RelTR~\cite{cong2023reltr} uses paired subject--object queries so the Transformer predicts relations between pairs directly; SGTR~\cite{li2022sgtr} decouples subject, object, and predicate queries and composes them, which lets each component be predicted on its own; and PSGTR~\cite{yang2022panoptic} uses triplet queries that emit scene-graph triplets without a detector at all.
+
+% 3.引入先验知识，LLM
+\paragraph{Prior knowledge.}
+Because predicates are long-tailed and many relations are not visually decidable, SGG has long imported priors. Language priors~\cite{liang2017deep,lu2016visual,cui2018context} supply semantic embeddings that help rare predicates; statistical priors~\cite{yu2017visual,zhou2023learning,zhou2024hierarchical} model object-pair co-occurrence; knowledge graphs such as ConceptNet~\cite{speer2017conceptnet} add commonsense~\cite{zhang2024hiker,chen2023more}; and LLMs bring world knowledge~\cite{chen2024scene,kim2024llm4sgg}.
+
+\paragraph{Beyond images.}
+The non-image settings reuse these designs and add modality-specific machinery. Video SGG tracks object tubes and aggregates relations over time: TRACE~\cite{teng2021target} decomposes relation prediction by temporal segment and STTran~\cite{cong2021spatial} applies a spatio-temporal Transformer over frame-level graphs. Textual SGG is a parsing problem, for which the FACTUAL parser~\cite{li2023factual} fine-tunes a sequence-to-sequence model to emit faithful triples. 3D SGG predicts relations from point-cloud or mesh segments with graph networks~\cite{wald2020learning}, and SceneGraphFusion~\cite{wu2021scenegraphfusion} does so incrementally from an RGB-D stream so the graph grows with the reconstruction. Panoptic SGG is served by the triplet-query PSGTR~\cite{yang2022panoptic} and its video extension~\cite{yang2023panoptic}, and USG~\cite{wu2025universal} shares one graph decoder across image, video, 3D, and text inputs.
+
+% TODO add HOI，Traffic SG dataset.
+
+\subsubsection{Datasets and Metrics}
+
+
+\begin{table}[!t]
+  \centering
+\caption{Benchmark datasets for scene graph generation.}
+\label{tab:SGG_data}
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{2.5mm}
+  \begin{tabular}{lcccccc}
+    \toprule
+    \textbf{Dataset} & \textbf{Modality} &\textbf{ Obj. Class} & \textbf{BBox} & \textbf{Rela. Class} & \textbf{Triplets} & \textbf{Instances} \\
+    \midrule
+    Visual Phrase~\cite{Sadeghi2011VisualPhrases} & Image & 8 & 3,271 & 9 & 1,796 & 2,769 \\
+    Scene Graph~\cite{johnson2015image} & Image & 266 & 69,009 & 68 & 109,535 & 5,000 \\
+    VRD~\cite{lu2016visual} & Image & 100 & - & 70 & 37,993 & 5,000 \\
+    Open Images v7~\cite{kuznetsova2020open} & Image & 600 & 3,290,070 & 31 & 374,768 & 9,178,275 \\
+    Visual Genome~\cite{krishna2017visual} & Image & 5,996 & 3,843,636 & 1,014 & 2,347,187 & 108,077 \\
+    GQA~\cite{hudson2019gqa} & Image & 1,740 & - & 330 & - & 113,018 \\
+    VrR-VG~\cite{liang2019vrr} & Image & 1,600 & 282,460 & 117 & 203,375 & 58,983 \\
+    UnRel~\cite{peyre2017weakly} & Image & - & - & 18 & 76 & 1,071 \\
+    SpatialSense~\cite{yang2019spatialsense} & Image & 3,679 & - & 9 & 13,229 & 11,569 \\
+    SpatialVOC2K~\cite{belz2018spatialvoc2k} & Image & 20 & 5,775 & 34 & 9,804 & 2,026 \\
+    PSG~\cite{yang2022panoptic} & Image (panoptic) & 133 & - & 56 & - & 49K \\
+    AUG~\cite{li2024aug} & Image (overhead) & 76 & - & 61 & - & - \\
+    STAR~\cite{li2025star} & Image (satellite) & 48 & 219,120 & 58 & 400,795 & 31,096 \\
+    ReCon1M~\cite{yan2025recon1m} & Image (satellite) & 60 & 859,751 & 64 & 1,149,342 & 21,392 \\
+    SkySenseGPT~\cite{luo2024skysensegpt} & Image (satellite, instruction) & - & - & - & - & - \\
+    Traffic Scene Graph~\cite{zhou2022toward} & Image (traffic) & 2,266 & - & 4,272 & - & 451 \\
+    ImageNet-VidVRD~\cite{shang2017video} & Video & 35 & - & 132 & 3,219 & 1,000 \\
+    VidOR~\cite{shang2019annotating} & Video & 80 & - & 50 & - & 10,000 \\
+    Action Genome~\cite{ji2020action} & Video & 35 & 0.4M & 25 & 1.7M & 10,000 \\
+    AeroEye~\cite{nguyen2024cyclo} & Video (drone) & 56 & - & 384 & - & 2.2M \\
+    PVSG~\cite{yang2023panoptic} & Video (panoptic) & 126 & - & 57 & 4,587 & 400 \\
+    ASPIRe~\cite{nguyen2024hig} & Video (interlacements) & - & - & 4.5K & - & 1.5K \\
+    Ego-EASG~\cite{rodin2024action} & Video (egocentric) & 407 & - & 235 & - & - \\
+    IESG~\cite{liu2023learning} & Video (traffic) & 9 & - & 16 & - & - \\
+    3DSSG~\cite{wald2020learning} & 3D & 528 & - & 39 & - & 48K \\
+    PSG4D~\cite{yang20234d} & 4D & 46 & - & 15 & - & - \\
+    4D-OR~\cite{ozsoy20224d} & 4D (operating room) & 12 & - & 14 & - & - \\
+    MM-OR~\cite{ozsoy2025mm} & 4D (operating room) & - & - & - & - & - \\
+    EgoExOR~\cite{ozsoy2025egoexor} & 4D (operating room) & 36 & - & 22 & 568,235 & - \\
+    TSG Bench~\cite{yang2025llm} & Text & - & - & - & 11,820 & 4,289 \\
+    FACTUAL~\cite{li2023factual} & Text, Image & 4,042 & - & 1,607 & 40,149 & 40,369 \\
+    DiscoSG-DS~\cite{lin2025discosg} & Text, Image & 4,018 & - & 2,033 & 68,478 & 8,830 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:SGG_data}\footnote{The table is extended from the GitHub repository: \url{https://github.com/ChocoWu/Awesome-Scene-Graph-Generation}} lists the benchmarks by modality.
+The image benchmarks run from the small precursors Visual Phrase~\cite{Sadeghi2011VisualPhrases}, Scene Graph~\cite{johnson2015image}, and VRD~\cite{lu2016visual}, which first exposed the long-tailed predicate distribution, to Visual Genome~\cite{krishna2017visual}, Open Images~\cite{kuznetsova2020open}, and GQA~\cite{hudson2019gqa}, with VrR-VG~\cite{liang2019vrr} and UnRel~\cite{peyre2017weakly} carved out to test visually relevant and zero-shot relations respectively.
+Visual Genome is the primary benchmark but its raw release (33,877 object and 40,480 relationship synsets) is noisy and heavily long-tailed, so the community works with cleaned subsets: the broad cleaning in Table~\ref{tab:SGG_data} keeps roughly 6K object and 1K predicate classes, and the de-facto SGG benchmark VG150 restricts these to the 150 most frequent object and 50 most frequent predicate classes.
+Spatial-only relations are covered by SpatialSense and SpatialVOC2K (see the preceding subsection), panoptic grounding by PSG~\cite{yang2022panoptic}, and non-standard viewpoints by the overhead AUG~\cite{li2024aug}, the satellite STAR~\cite{li2025star}, ReCon1M~\cite{yan2025recon1m}, and instruction-based SkySenseGPT~\cite{luo2024skysensegpt}, and the traffic-scene graphs of~\cite{zhou2022toward}.
+Video benchmarks began with ImageNet-VidVRD~\cite{shang2017video} and the trajectory-annotated VidOR~\cite{shang2019annotating}, then specialized to human activity (Action Genome~\cite{ji2020action}), drone footage (AeroEye~\cite{nguyen2024cyclo}), panoptic video (PVSG~\cite{yang2023panoptic}), fine topological interlacements (ASPIRe~\cite{nguyen2024hig}), egocentric capture (Ego-EASG~\cite{rodin2024action}), and imminent traffic events (IESG~\cite{liu2023learning}).
+3DSSG~\cite{wald2020learning} is the standard 3D benchmark; PSG4D~\cite{yang20234d} adds time, and the operating-room sets 4D-OR~\cite{ozsoy20224d}, MM-OR~\cite{ozsoy2025mm}, and EgoExOR~\cite{ozsoy2025egoexor} bring multimodal (RGB-D, audio, robot logs) and egocentric surgical scenes.
+On the text side, TSG Bench~\cite{yang2025llm} evaluates LLMs on graph generation from narratives, while FACTUAL~\cite{li2023factual} and DiscoSG-DS~\cite{lin2025discosg} pair images with text for factually consistent, cross-modal graphs.
+
+Evaluation separates what is given from what is predicted. In \textbf{Predicate Classification (PredCls)} boxes and object labels are given and only predicates are predicted; in \textbf{Scene Graph Classification (SGCls)} boxes are given and both object labels and predicates are predicted; in \textbf{Scene Graph Generation (SGGen, also SGDet)} everything is predicted, and a triplet counts only if both boxes overlap their ground truth at IoU $\geq 0.5$, with \textbf{Phrase Detection} relaxing this to the union box and SGGen+ also crediting correctly detected singleton nodes. Panoptic SGG replaces box IoU with mask IoU.
+The standard metric is recall of ground-truth triplets among the top-$K$ predictions,
+\begin{equation}
+    R@K = \frac{|Top_{K} \cap GT|}{|GT|},
+\end{equation}
+under a graph constraint (one predicate per pair) or without it. Because $R@K$ is dominated by frequent predicates, \textbf{mean Recall@K} ($mR@K$) averages recall per predicate class and has become the long-tail metric of record; the gap between $R@K$ and $mR@K$ drove much of the debiasing literature~\cite{lin2020gps,li2021bipartite,zhou2024hierarchical}. Weighted triplet recall, micro- versus macro-averaging over images, the stricter $mAP_{rel}$ / $mAP_{phr}$ of the Open Images challenge, and retrieval-based R-Precision are reported in specific settings.
+
+Each modality has its own benchmark and protocol, so leaderboards are not comparable across types: video SGG uses trajectory-based evaluation on ImageNet-VidVRD and VidOR, while Action Genome commonly uses frame-level PredCls, SGCls, and SGDet; textual SGG uses set F1 over triples on FACTUAL and LLM-judged action coverage on TSG Bench; 3D SGG uses object-, predicate-, and triplet-level recall on 3DSSG; panoptic SGG uses mask-IoU $R@K$ on PSG and PVSG. Table~\ref{tab:sgg_performance} therefore reports only the image setting, where VG150 SGDet is shared.
+
+\begin{table}[!t]
+\centering
+\caption{Representative image SGG methods on Visual Genome (VG150), scene graph detection (SGDet) with graph constraint, as reported in the comparison of EGTR~\cite{im2024egtr}. Two-stage methods use a Faster R-CNN detector with a ResNeXt-101-FPN backbone; one-stage methods are DETR-based with the backbone shown. ``--'' = not reported.}
+\label{tab:sgg_performance}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{3.0mm}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Method} & \textbf{Family / backbone} & \textbf{Year} & \textbf{R@50} & \textbf{R@100} & \textbf{mR@50} & \textbf{mR@100} \\
+\midrule
+Neural Motifs~\cite{zellers2018neural} & Two-stage, X-101-FPN & 2018 & 32.1 & 36.9 & 5.5 & 6.8 \\
+BGNN~\cite{li2021bipartite}            & Two-stage, X-101-FPN & 2021 & 31.0 & 35.8 & 10.7 & 12.6 \\
+SGTR~\cite{li2022sgtr}                 & One-stage, DETR-R101 & 2022 & 24.6 & 28.4 & 12.0 & 15.2 \\
+RelTR~\cite{cong2023reltr}             & One-stage, DETR-R50  & 2023 & 27.5 & -- & 10.8 & -- \\
+EGTR~\cite{im2024egtr}                 & One-stage, Deformable DETR-R50 & 2024 & 30.2 & 34.3 & 7.9 & 10.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:sgg_performance} shows the trade-off that still shapes image SGG. The two-stage Motifs baseline keeps the highest overall recall, but its mean recall is the lowest, which is the frequent-predicate bias in numbers; BGNN's debiasing doubles mean recall at a small cost in $R@K$. The one-stage DETR-style models start several recall points lower, since they must detect and relate in one pass with a weaker backbone, yet SGTR and RelTR reach the best mean recall of the group, and EGTR closes most of the overall-recall gap to two-stage methods while running end to end.
+
+
+\subsubsection{Challenges}
+% 1.单模态SGG -> 统一SGG
+% 2.与MLLM结合 构建结构化mllm
+% 3.单粒度/层次化场景图 -> 无限粒度场景图
+% 4.下游具身应用
+
+\paragraph{From single-modality to universal SGG.}
+Methods are built per modality, yet real scenes are multimodal, with images carrying visual detail and text carrying abstract concepts and events. A universal scene graph~\cite{wu2025universal} would express all of them in one cross-modal representation; the hard part is identifying the same objects, events, and relations across modalities and suppressing cross-modal noise, and granularity has to follow the application rather than a fixed ontology, since robotic interaction or driving may need relations at a level of detail that image-level graphs do not provide.
+
+\paragraph{Integrating SGG with MLLMs.}
+MLLMs are strong at language and weaker at structured visual understanding. Scene graphs offer a way in: pretraining objectives that mask and predict graph nodes (objects, attributes, relations) across image, video, and text inputs would teach a language model to read structure rather than only the next token, and the scene-graph-guided MLLMs of the preceding subsection~\cite{xu2025llava} are an early instance.
+
+\paragraph{From images to embodied use.}
+Most SGG analyzes static images or videos, but the graph is most useful when it is kept live: robots update it as they act~\cite{nguyen2025generating,werby2024hierarchical,garg2024robohop}, and driving systems read relations among lanes, signs, and pedestrians from it~\cite{zhou2022toward,liu2023learning,malawade2022roadscene2vec}. As these uses grow, the scene graph shifts from a product of perception to the state on which decision and interaction operate.
+

@@ -1,0 +1,160 @@
+\section{2D}
+\label{sec:rep_2d}
+
+\FramedInitial{T}{he} 2D representations are the most direct and information-dense entry point into spatial intelligence: images and videos provide a regular, discretely sampled grid over the visual field, on top of which a family of structured maps can be defined to expose geometric and semantic properties of the underlying scene.
+We organize this section around seven such representations (Figure~\ref{fig:p2_s4_1_2d_representations}): the raw \emph{image/video tensor} itself, and six derived maps: \emph{segmentation}, \emph{depth}, \emph{surface normal}, \emph{edge}, \emph{optical flow}, and \emph{2D keypoint} representations.
+All seven share the image grid as their domain, which makes them straightforward to fuse with one another and to consume with convolutional or transformer backbones; what differs is what each representation \emph{exposes}: appearance, semantics, geometry, boundaries, motion, or sparse structure.
+
+
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.90\linewidth]{figures/part2/2D_representations.pdf}
+    \caption{The seven 2D representations of this section, all defined over the image grid $\Omega \subset \mathbb{R}^2$: image/video, segmentation, depth, surface normals, edges, optical flow, and keypoints.}
+    \label{fig:p2_s4_1_2d_representations}
+\end{figure}
+
+\subsection{Image and Video Representations} 
+\label{subsec:p-2-sec-4-2D-image-and-video-representations}
+
+An image can be modeled as a discrete sampling of a continuous visual signal over a 2D spatial domain. Formally, a digital image is represented as a function
+\begin{equation}
+I: \Omega \rightarrow \mathbb{R}^C, \quad \Omega \subset \mathbb{R}^2,
+\end{equation}
+where $\Omega$ denotes the image grid, $C$ is the number of channels (\eg, $C=1$ for grayscale, $C=3$ for RGB), and each pixel value encodes intensity or color information at a discrete spatial location \cite{gonzalez2011,szeliski2022}. 
+In practice, images are stored as finite tensors $I \in \mathbb{R}^{H \times W \times C}$, where $H$ and $W$ denote image height and width.
+
+
+A video extends this representation by introducing a temporal dimension.
+Given a sequence of frames sampled over time, a video can be written as
+\begin{equation}
+V: \Omega \times \mathcal{T} \rightarrow \mathbb{R}^C,
+\end{equation}
+or equivalently as a 4D tensor $V \in \mathbb{R}^{T \times H \times W \times C}$, where $T$ denotes the number of frames \cite{szeliski2022}. 
+This formulation preserves spatial structure within each frame while enabling the modeling of temporal dynamics across frames.
+From a computational perspective, images and videos are treated as structured arrays of numerical values that can be efficiently processed using linear algebra operations and convolutional kernels. 
+This regular grid structure enables weight sharing, local receptive fields, and efficient parallel computation, forming the basis of CNNs and their spatiotemporal extensions~\cite{lecun1998gradient,karpathy2014large}. 
+In modern deep learning systems, image and video tensors may undergo normalization, resizing, patch embedding, or tokenization before being fed into neural
+architectures, including CNNs and vision transformers~\cite{vit, liu2022convnet}.
+For video inputs, spatiotemporal extensions either inflate 2D kernels into 3D convolutions~\cite{tran2015learning, carreira2017quo} or extend self-attention across space and time, as in the family of video transformers~\cite{arnab2021vivit, liu2022videoswin}.
+
+
+
+
+
+
+\subsection{Segmentation Maps}
+\label{subsec:p-2-sec-4-2D-segmentation-maps}
+A segmentation map is a semantic representation that assigns a label or a mask to each pixel, thereby partitioning visual data into meaningful regions such as objects, object parts, or background categories~\cite{szeliski2022,li2023seg_survey}. For a single image defined on $\Omega \subset \mathbb{R}^2$, segmentation can be written as a mapping
+\begin{equation}
+S: \Omega \rightarrow \mathcal{L},
+\end{equation}
+where $\mathcal{L}$ is a set of labels. In \emph{semantic segmentation} (SS), $S(u,v)$ denotes the class label of pixel $(u,v)$. 
+In \emph{instance segmentation} (IS), the output is a set of masks
+$\{M_k\}_{k=1}^{K}$ with associated class labels $\{\ell_k\}$, where each $M_k:\Omega \rightarrow \{0,1\}$ corresponds to an object instance \cite{long2015fcn, he2017mask}.
+ \emph{Panoptic segmentation} (PS) unifies SS and IS by predicting a single, non-overlapping labeling of pixels that distinguishes both ``stuff'' and countable object instances \cite{kirillov2019panoptic}.
+
+These tasks extend naturally to videos. Given a sequence of
+frames $\{I_t\}_{t=1}^{T}$, \emph{video semantic segmentation} (VSS) predicts per-frame semantic labels $\{S_t\}$, while \emph{video instance segmentation} (VIS) predicts instance masks with temporal consistency across frames, often requiring instance association (tracking) over time \cite{li2023seg_survey}. 
+\emph{Video panoptic segmentation} (VPS) further combines VSS and VIS, producing temporally consistent panoptic outputs, and is commonly evaluated with metrics that account for both segmentation quality and tracking consistency~\cite{li2023seg_survey}. 
+Closely related
+settings include \emph{video object segmentation} (VOS)~\cite{perazzi2016benchmark}, which segments foreground objects across time under semi-supervised or unsupervised protocols, and \emph{referring} segmentation, which predicts masks grounded by natural language expressions in images (RIS)~\cite{wang2022cris} or videos (RVOS)~\cite{seo2020urvos}.
+Segmentation maps are typically formed by dense prediction models that produce either hard labels or per-pixel class probabilities $P(u,v,\ell)$ (and, for instance-level tasks, a set of object masks and scores). 
+A key advantage of segmentation is its explicit and interpretable structure: it converts low-level pixels into object- and region-level representations that support downstream reasoning and decision-making, and it can be fused naturally with geometry (\eg, depth, normals) and language in multimodal systems~\cite{li2023seg_survey}. 
+Consequently, segmentation maps are central to applications such as autonomous driving,
+medical image analysis, robotic manipulation, visual editing, and human-computer interaction.
+
+
+\subsection{Depth Maps}
+\label{subsec:p-2-sec-4-2D-depth-maps}
+A depth map is a geometric representation that augments a 2D image with per-pixel distance information, describing the spatial layout of a scene from a given viewpoint~\cite{szeliski2022}. 
+Formally, given an image domain $\Omega \subset \mathbb{R}^2$, a depth map is a scalar function
+\begin{equation}
+D: \Omega \rightarrow \mathbb{R},
+\end{equation}
+where $D(u,v)$ denotes the distance along the camera's optical axis to the first visible surface at pixel $(u,v)$; some sensors instead report radial range along the viewing ray.
+Related representations store inverse depth or disparity, which must be converted to the appropriate metric depth or range before geometric back-projection~\cite{hartley2003multiple}.
+Depth maps can be obtained through multiple mechanisms, including stereo vision via triangulation~\cite{hartley2003multiple}, active sensors such as structured-light or time-of-flight cameras~\cite{foix2011tof}, and learning-based monocular depth estimation~\cite{eigen2014depth}. 
+When combined with known camera intrinsics, a depth map enables the back-projection of image pixels into 3D space, thereby serving as a bridge between 2D image representations and 3D geometry.
+A key advantage of depth maps lies in their compact, image-aligned structure, which allows them to be processed using standard convolutional architectures and easily fused with the RGB appearance information. 
+Compared to volumetric representations, depth maps are memory-efficient while still encoding meaningful geometric cues. 
+As a result, they are widely used in applications such as 3D reconstruction, novel view synthesis~\cite{mildenhall2021nerf}, robotic navigation, and autonomous driving~\cite{KITTI-GeigerLU12}.
+
+
+\subsection{Surface Normal Maps}
+\label{subsec:p-2-sec-4-2D-surface-normal-maps}
+A surface normal map is a geometric representation that encodes local surface orientation at each pixel of an image. Given an image domain
+$\Omega \subset \mathbb{R}^2$, a surface normal map assigns to each pixel a unit vector
+\begin{equation}
+\mathbf{N}: \Omega \rightarrow \mathbb{S}^2,
+\end{equation}
+where $\mathbf{N}(u,v) = (n_x, n_y, n_z)$ represents the direction of the surface normal in camera or world coordinates, and $\mathbb{S}^2$ denotes the unit sphere. Surface normal maps can be derived from depth maps or 3D geometry via local differentiation, or directly estimated from RGB images using learning-based methods~\cite{barron2015shape}.
+Classical approaches to normal estimation rely on photometric stereo or geometric reconstruction~\cite{woodham1980photometric}, while modern methods employ CNNs to regress surface normals from monocular images~\cite{eigen2015predicting}. 
+Regardless of the estimation procedure, surface normal maps remain image-aligned and
+encode rich local geometric information that complements depth and segmentation cues.
+Surface normal maps can capture fine-grained shape and orientation details that may be ambiguous or noisy in raw depth estimates.
+Because surface normals are invariant to absolute depth scale, they provide robust geometric constraints for scene understanding. 
+Consequently, surface normal maps are widely used in applications such as 3D reconstruction, object pose estimation, scene layout analysis, realistic rendering, and as auxiliary supervision in multi-task learning~\cite{eigen2015predicting}.
+
+
+\subsection{Edge Maps}
+\label{subsec:p-2-sec-4-2D-edge-maps}
+An edge map is a structural representation that highlights salient intensity or color discontinuities in an image, which often correspond to object boundaries and significant geometric transitions~\cite{canny1986}.
+Given an image $I: \Omega \rightarrow \mathbb{R}^C$, an edge map is typically constructed by measuring local image gradients, for example,
+\begin{equation}
+E(u,v) = \|\nabla I(u,v)\|,
+\end{equation}
+where $\nabla I$ denotes the spatial gradient operator.
+Classical edge detection methods rely on hand-crafted operators such as Sobel, Laplacian of Gaussian, and the Canny detector~\cite{canny1986}, while modern learning-based approaches directly predict the edge probabilities using convolutional neural networks~\cite{xie2015hed}.
+Edge maps may be binary, indicating the presence or absence of an edge, or real-valued, encoding edge strength, orientation, or confidence.
+The primary advantage of edge maps is their ability to significantly reduce visual complexity while preserving essential geometric structure.
+This abstraction makes them relatively robust to changes in illumination and appearance. 
+Consequently, edge maps are widely used in image
+segmentation, contour detection, shape analysis, line drawing, and as intermediate cues for higher-level tasks such as object recognition and depth estimation~\cite{szeliski2022}.
+
+
+\subsection{Optical Flow Maps}
+\label{subsec:p-2-sec-4-2D-optical-flow-maps}
+An optical flow map is a motion representation that encodes the apparent 2D displacement of pixels between consecutive frames in a video sequence~\cite{horn1981optical}. 
+Given two image frames $I_t$ and $I_{t+1}$, the optical flow is defined as a vector field
+\begin{equation}
+\mathbf{F}(u,v) = (f_x(u,v), f_y(u,v)),
+\end{equation}
+where $(f_x, f_y)$ describes the horizontal and vertical displacement of pixel $(u,v)$ from time $t$ to $t+1$.
+Classical optical flow estimation relies on assumptions such as
+brightness constancy and spatial smoothness, leading to variational formulations~\cite{horn1981optical,brox2004high}. More recently, deep neural networks have been proposed to directly regress dense flow fields from image pairs or short video clips~\cite{dosovitskiy2015flownet,teed2020raft}.
+Regardless of the estimation method, the resulting optical flow map remains image-aligned, preserving spatial correspondence with the input frames.
+The main advantage of optical flow maps is their ability to capture rich dynamic information about scene motion, including object motion, camera motion, and motion parallax, while remaining computationally efficient.
+As a result, optical flow is a core representation in video analysis and
+robotic perception tasks such as motion segmentation, action
+recognition, video interpolation, and visual odometry.
+
+
+
+\subsection{2D Keypoints}
+\label{subsec:p-2-sec-4-2D-2d-keypoints}
+A 2D keypoint set is a sparse image representation that encodes the image-plane locations of a finite set of semantically or geometrically meaningful points, such as corners, joints, or landmarks~\cite{szeliski2022}.
+Unlike dense maps that assign a value to every pixel, keypoint representations summarize visual content with a small number of salient points, trading pixel-level coverage for compactness and geometric explicitness.
+Formally, given an image defined on a domain
+$\Omega \subset \mathbb{R}^2$, a keypoint representation is a set of $K$ points
+\begin{equation}
+\mathcal{K} = \{(x_k, y_k)\}_{k=1}^{K}, \quad (x_k, y_k) \in \Omega,
+\end{equation}
+where each keypoint corresponds to a specific semantic or geometric entity. 
+In learning-based formulations, keypoints are often represented implicitly as confidence or heat maps:
+\begin{equation}
+H_k : \Omega \rightarrow [0,1],
+\end{equation}
+with the keypoint location obtained by taking the argmax of $H_k$ or the expected image coordinates under its normalized weights \cite{newell2016stacked}. 
+2D keypoints can be obtained using classical feature detectors, such as Harris corners, SIFT, and SURF \cite{harris1988combined,lowe2004distinctive}, or through modern deep neural networks that directly regress keypoint locations or predict dense heat maps \cite{toshev2014deeppose,newell2016stacked}.
+Depending on the task, keypoints may represent generic interest points, object-specific landmarks, or articulated structures such as the human body joints.
+The detection \emph{task} that produces such a set, including its extension to landmark detection and human pose estimation, is discussed in detail in Section~\ref{sec:keypoint_landmark} of Chapter~\ref{sec:perception}.
+A key advantage of 2D keypoint representations is their sparsity and compactness: they significantly reduce the dimensionality of visual data while preserving critical structural information. 
+This makes keypoints computationally efficient, robust to background clutter, and well-suited for geometric reasoning and correspondence matching.
+Human pose estimation is a specialized and highly structured instance of 2D keypoint detection that focuses on localizing a predefined set of anatomical landmarks of the human body, such as joints and facial keypoints, in images or videos \cite{zheng2022pose}. 
+In the 2D setting, the task aims to estimate the image coordinates of body joints, typically represented as a set of keypoints
+$\mathcal{P} = \{(x_j, y_j)\}_{j=1}^{J}$, where $J$ denotes the number of joints in a human skeletal model. 
+These keypoints are not independent: they are constrained by the underlying human body structure, which is often modeled using kinematic trees, graphical models, or learned
+structural priors.
+
+

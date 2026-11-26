@@ -1,0 +1,63 @@
+\subsection{Chain-of-Thought for Spatial Reasoning}
+\label{subsec:p3_s7_3_3}
+\label{ssec:cot-reasoning}
+
+Spatial reasoning poses unique challenges for large language models (LLMs), as it requires the manipulation of geometric relations, perspective-taking, and dynamic transformations: skills that are not purely symbolic but grounded in embodied cognition.
+Chain-of-Thought (CoT) prompting~\cite{wei2022chain}, originally developed as a mechanism to elicit intermediate reasoning steps in arithmetic and commonsense tasks, has therefore been imported into spatial reasoning not as a generic recipe for longer answers, but as a way to externalize the intermediate spatial commitments that a model must keep consistent: which object is left of which, which frame of reference is active, which action changes the scene, and which hypothesized 3D configuration explains the observation.
+The evidence is mixed.
+In some settings, explicit rationales help decompose a spatial query into auditable subgoals; in others, they induce a fluent but ungrounded verbal trace that makes spatial performance worse~\cite{kancheti2026cotdegrades}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/chain-of-thought_spatial_reasoning.pdf}
+    \caption{Spatial reasoning tasks (top) and intermediate-trace structures (bottom). Top: (a) textual deduction in a north-up frame, (b) visual counting, where the boxed red cube is the only one left of the green sphere, and (c) embodied planning revised by new observations. Bottom: CoT, ToT, and GoT differ in trace topology; PoT and CoA ground the trace in program execution and environment interaction. $\tau=(t_1,\ldots,t_L)$ is the intermediate trace and $\hat y=g(c,q,\tau)$ the final answer. Scenes and trace diagrams are illustrative, not recorded model computation.}
+    \label{fig:p3_s7_3_3_cot_formulation}
+\end{figure}
+
+
+\subsubsection{Task Definition}
+The task is to answer a spatial query $q$ about a scene or environment, given context $c$ that may be purely textual, visual, 3D, temporal, or embodied.
+A CoT-style reasoner augments the answer with an intermediate trace
+\begin{equation}
+    \tau = (t_1,\ldots,t_L), \qquad \hat{y}=g(c,q,\tau),
+\end{equation}
+where each $t_\ell$ records a partial spatial commitment: a relation, coordinate estimate, subgoal, viewpoint change, object binding, or predicted action effect.
+The trace is useful only insofar as it improves the grounded answer $\hat{y}$ or makes the failure mode inspectable; many apparent ``reasoning steps'' are not grounded in metric or perceptual evidence and merely rationalize a final guess, so the central question is not whether a model can produce more text, but whether the trace helps preserve spatial invariants across transformations, viewpoints, time steps, and actions.
+
+\subsubsection{Methodology}
+CoT, Tree-of-Thought (ToT)~\cite{yao2023tot}, and Graph-of-Thought (GoT)~\cite{besta2024got} differ mainly in the topology of the intermediate trace: CoT is a single path through partial spatial commitments; ToT branches over alternative hypotheses or subplans and uses a value function to prune; GoT allows shared sub-derivations, such as reusing a computed room layout or object graph across several queried relations.
+All three search over partial reasoning states with a proposal mechanism, an evaluator $V$, and a halting rule $H$,
+\begin{equation}
+    \tau^\star=\arg\max_{\tau} V(\tau)\quad\text{s.t.}\quad t_{\ell+1}\in\mathrm{Propose}(t_{\le \ell}),\ \ H(\tau)=1,
+\end{equation}
+and differ in whether the search structure is a path, a tree of alternatives, or a graph of reusable sub-results, and in whether the trace stays verbal or becomes executable through programs (Program-of-Thought, PoT~\cite{chen2022pot}) or environment-changing actions (Chain-of-Action, CoA~\cite{pan2024coa}).
+The use cases below organize how these traces are deployed.
+
+\paragraph{Text-Only Spatial Deduction.}
+In linguistic spatial puzzles, route descriptions, and relative-position QA, the model must maintain a latent arrangement without visual feedback.
+CoT can expose intermediate bindings (\eg, ``A is north of B; C is west of A'') and reduce one-shot relational confusion~\cite{hu2023chain}, while ToT-style branching can preserve competing layouts until enough constraints have been applied.
+The persistent failure mode is coordinate drift: even with explicit steps, LLMs lose track of the origin, orientation, or accumulated displacement in textual mazes and grid-navigation tasks~\cite{zhang2025mitigating}, so text-only CoT is most reliable when the trace is tied to a compact symbolic artifact (a table, coordinate sketch, or adjacency list) rather than to unconstrained prose.
+
+\paragraph{Multimodal Scene Reasoning.}
+In image- or video-grounded QA, a CoT trace must bind language to perceptual evidence: which object instance is referred to, what relation is visible, which is occluded, and which viewpoint assumption is made.
+Free-form rationales can verbalize a relation that the image does not support, so recent work moves toward grounded intermediate artifacts (structured layouts, object bindings, diagrams, or executable module calls): SCoT-style planners use layout-coordinate traces to guide diffusion models on the generation side~\cite{chen2026spatialcotgeneration}, and program-mediated systems call perception modules rather than describe them~\cite{hsu2025makes}, the paradigm of §\ref{subsec:p3_s7_3_4}.
+Here ToT and GoT serve less as generic search algorithms than as hypothesis-management devices that let a model compare object correspondences, camera frames, or depth-order explanations before committing to an answer.
+
+\paragraph{Embodied Planning and VLA Reasoning.}
+In navigation, manipulation, and vision-language-action tasks, spatial reasoning unfolds over time, and the trace must connect perceptual state, subgoal choice, action feasibility, and feedback from the environment.
+CoT-style subgoals support long-horizon planning in navigation~\cite{lin2025navcot,liu2025navr1}, embodied instruction following~\cite{lu2023thinkbot,mu2023embodiedgpt}, and VLA models that expose intermediate visual or action commitments: CoT-VLA pairs reasoning with predicted visual states~\cite{zhao2025cotvla}, ACoT-VLA formulates the trace in action space through coarse action intents and reference trajectories~\cite{zhong2026acotvla}, and scene graphs stabilize the trace by giving the model a persistent substrate for object identities and relations~\cite{zhang2025embodiedvsr}.
+
+\subsubsection{Benchmarks}
+Evaluation mirrors the three use cases.
+Spatial puzzles, relative-position QA, and textual maze navigation are evaluated with prompt-based CoT on the suites of~\cite{hu2023chain,zhang2025mitigating}; visual question answering and scene-grounded compositional queries are evaluated under CoT with program execution (§\ref{subsec:p3_s7_3_4}), where the rationale's correctness is mediated by program output rather than by the rationale string; and long-horizon planning with sensory feedback is evaluated through CoT-augmented navigation (NavCoT~\cite{lin2025navcot}, NavR1~\cite{liu2025navr1}), CoT-augmented instruction following (ThinkBot~\cite{lu2023thinkbot}, EmbodiedGPT~\cite{mu2023embodiedgpt}), visual- and action-trace supervision for VLA models~\cite{zhao2025cotvla,zhong2026acotvla}, and scene-graph-augmented embodied reasoning~\cite{zhang2025embodiedvsr}.
+
+
+\subsubsection{Challenges and Trends}
+The transfer of CoT to spatial intelligence is uneven.
+\textbf{Coordinate hallucination} persists under simple textual CoT: even with ToT-style beam expansion, prompt-based planners mistrack absolute positions across multi-step chains in maze and grid-navigation problems~\cite{zhang2025mitigating}.
+\textbf{Ungrounded supervision} can make things worse: textual CoT applied without a structured or rationale-grounded training signal degrades spatial VLM performance, because the model is forced to verbalize a reasoning trace it does not possess~\cite{ji2025enhancing,kancheti2026cotdegrades}, especially when the prompt rewards plausible explanation length over geometric correctness.
+\textbf{Search cost} scales super-linearly in solution depth for ToT and GoT (and in the branching factor for ToT), which limits real-time or on-device deployment.
+\textbf{Trace--action mismatch} arises in embodied settings when a VLA model produces a coherent verbal rationale while its action head follows a different latent policy; action-aware CoT aligns rationales with action tokens and visual predictions~\cite{zhong2026acotvla}, but reliable attribution between the visible trace and the executed behavior remains unresolved.
+
+\emph{Grounded rationale supervision} pairs CoT with explicit spatial signals (scene graphs~\cite{zhang2025embodiedvsr}, depth maps, 3D coordinate frames, action traces, or layout-coordinate traces for spatial generation~\cite{chen2026spatialcotgeneration}) so the rationale is verifiable rather than free-form.
+A complementary line makes the trace \emph{execution-grounded}: PoT-style traces compile and run against a geometric engine or vision--language tool, with execution outputs serving as a truth signal, the natural bridge from CoT to code / DSL generation in §\ref{subsec:p3_s7_3_4}; for embodied agents the parallel bridge runs from CoT to CoA and the agentic orchestration loops of §\ref{subsec:p3_s7_3_7}.

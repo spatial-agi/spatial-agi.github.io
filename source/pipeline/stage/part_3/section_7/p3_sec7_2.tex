@@ -1,0 +1,53 @@
+
+\section{Learning-based Spatial Reasoning}
+\label{sec:p3_s7_2}
+
+\FramedInitial{L}{\textbf{earning-based spatial reasoning}} refers to the class of methods that acquire and perform spatial reasoning from data, rather than from the hand-authored geometric, mechanical, or symbolic models surveyed in §\ref{sec:p3_s7_1}.
+The six subsections that follow are ordered by the \emph{locus of the structural prior}: it begins inside the learned representation (latent feature interaction, explicit programs, hard-coded symmetries, optimization layers in the forward pass), moves to the agent's action-conditioned behavior (reinforcement learning with spatial inductive biases), and ends with joint decision-making across coordinated agents.
+
+
+\input{part_3/section_7/p3_sec7_2/p3_sec7_2_1.tex}
+
+\input{part_3/section_7/p3_sec7_2/p3_sec7_2_2.tex}
+
+\input{part_3/section_7/p3_sec7_2/p3_sec7_2_3.tex}
+
+\input{part_3/section_7/p3_sec7_2/p3_sec7_2_4.tex}
+
+\input{part_3/section_7/p3_sec7_2/p3_sec7_2_5.tex}
+
+\input{part_3/section_7/p3_sec7_2/p3_sec7_2_6.tex}
+
+
+
+
+% \subsection{Summary}
+% \label{subsec:p3_s7_2_summary}
+
+% Read from top to bottom, the six paradigms move the structural prior from the representation to behavior: implicit reasoning leaves it latent, explicit and geometry-aware reasoning lifts it into a program or a symmetry group, optimization layers place it in the forward pass, and the two reinforcement-learning subsections let it shape the policy of one agent and then of a team.
+% Table~\ref{tab:p3_s7_2_paradigm_comparison} summarizes the six along the axes used for the symbolic paradigms in §\ref{sec:p3_s7_1}.
+
+% \begin{table}[t]
+%     \centering
+%     \fontsize{8}{10}\selectfont
+%     \setlength{\tabcolsep}{2pt}
+%     \caption{Comparison of the six paradigms of learning-based spatial reasoning covered in §\ref{sec:p3_s7_2}, on the same axes as the comparison table of §\ref{sec:p3_s7_1}; the \emph{locus} column gives where each paradigm injects its structural prior.}
+%     \label{tab:p3_s7_2_paradigm_comparison}
+%     \begin{tabularx}{\textwidth}{@{}p{2.9cm} p{3.3cm} p{3.3cm} X X@{}}
+%         \toprule
+%         \textbf{Paradigm} & \textbf{Structural prior (\emph{locus})} & \textbf{Canonical inputs / outputs} & \textbf{Strengths} & \textbf{Limitations} \\
+%         \midrule
+%         §\ref{subsec:p3_s7_2_1} Implicit neural reasoning      & Latent prior: attention, relation networks, FiLM modulate the learned feature space                & Pixel / feature inputs $\to$ answer, caption, or relation label                                  & End-to-end fluency on perception-heavy benchmarks; minimal modeling burden                & Limited inspectability; compositional generalization gaps; shortcut learning under sparse supervision \\
+%         §\ref{subsec:p3_s7_2_2} Explicit structured reasoning  & Program- or graph-level prior: parsed layouts, scene graphs, neural-module / LLM-generated programs & Image $+$ compositional question $\to$ executable program $\to$ stepwise inspectable answer       & Compositional generalization; auditability; modular reuse of perception tools              & Parser / program-generator quality is a hard ceiling; brittle on long-tail vocabulary; supervision-hungry \\
+%         §\ref{subsec:p3_s7_2_3} Geometry-aware reasoning       & Symmetry-group prior: invariance / equivariance to a chosen group of input transformations         & Image / point cloud / molecule $\to$ classification, pose, or property prediction                & Sample efficiency; out-of-distribution rotation / translation robustness                    & Group choice is a silent error mode; classical equivariant filters scale with $\lvert G \rvert$; brittle when inputs violate the assumed symmetry \\
+%         §\ref{subsec:p3_s7_2_4} Differentiable optim.\ layers  & Optimization prior: a constrained convex / SAT problem is solved inside the forward pass            & Image / pose / observation $\to$ optimization-layer call $\to$ optimal solution $+$ KKT gradients & Certified feasibility / structure on the prediction; end-to-end training preserves geometry & Solver wall-clock dominates the forward pass; biased / high-variance gradients near constraint boundaries \\
+%         §\ref{subsec:p3_s7_2_5} RL with spatial priors          & Action-conditioned prior: differentiable planning, learned maps, relational policies               & Observation $+$ action history $\to$ action under MDP / POMDP; reward signal                      & Long-horizon credit assignment; generalization across spatial layouts; embodied tasks       & Sample inefficiency vs.\ supervised paradigms; reward-shaping fragility; sim-to-real gap \\
+%         §\ref{subsec:p3_s7_2_6} Multi-agent spatial reasoning   & Joint action-conditioned prior: Dec-POMDP, CTDE, graph-MARL, sequence-model coordination           & Per-agent egocentric obs.\ $+$ messages $+$ interaction graph $\to$ joint decentralized actions   & Team-level coordination; topology-aware robustness; resilience under attrition              & Credit assignment under partial observability $+$ non-stationarity; $\mathcal{O}(n^2)$ scaling; partner generalization immature \\
+%         \bottomrule
+%     \end{tabularx}
+% \end{table}
+
+% Every paradigm in the table trades the certificates of §\ref{sec:p3_s7_1} (feasibility proofs, force-closure verdicts, $do(\cdot)$-effect estimates) for end-to-end trainability, and each keeps a slice of the classical structure as its prior; which slice it keeps determines both its strengths and its blind spots.
+% As the locus of that prior migrates from representation to behavior, the evaluation regime migrates with it, from offline benchmark accuracy at the top of the table to closed-loop team return at the bottom.
+% What no single row supplies is \emph{cross-locus composition}: a geometry-aware backbone (§\ref{subsec:p3_s7_2_3}), an inspectable program-level reasoner (§\ref{subsec:p3_s7_2_2}), a differentiable feasibility layer (§\ref{subsec:p3_s7_2_4}), and an action-conditioned policy (§\ref{subsec:p3_s7_2_5}--§\ref{subsec:p3_s7_2_6}) stacked into one pipeline without losing the guarantee each contributes.
+% That composition problem is the bridge to §\ref{sec:p3_s7_3}, where the prior is repositioned inside a large pre-trained model, and to §\ref{sec:p3_s7_4}, where it is distributed across a hybrid of classical and learned components.

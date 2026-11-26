@@ -1,0 +1,162 @@
+\subsection{Surface Normal Estimation}
+\label{sec:surface_normal}
+
+Surface normal estimation predicts the local orientation of visible surfaces from images or videos.
+Where depth answers ``how far is this point from the camera?'', a normal answers ``which way does the surface face?''.
+That makes normals a compact, scale-invariant description of local 3D geometry: a normal field exposes planes, folds, object boundaries, and contact surfaces even when metric depth is ambiguous, which is why it serves reconstruction~\cite{wang2021neus}, relighting and intrinsic decomposition~\cite{munkberg2022extracting,barron2015shape}, physical interaction modeling~\cite{Bear2021Physion}, and egocentric perception~\cite{grauman2022ego4d}.
+
+The learning problem looks simple: from an RGB image, RGB-D frame, multi-view set, or video, output one unit vector per valid pixel.
+The inverse problem underneath is badly constrained, since the same intensity can be explained by different combinations of shape, reflectance, and illumination, and camera intrinsics change how image gradients map to 3D orientation.
+Progress has therefore come from three directions at once: more and better supervision, stronger geometric inductive biases, and visual priors inherited from large dense-prediction and diffusion models; since 2024 the last of these has turned normal estimation into one output head of broader geometric foundation models.
+
+
+
+\subsubsection{Task Definition}
+Let $I\in\mathbb{R}^{H\times W\times 3}$ be an image, $\mathcal{V}$ optional auxiliary observations (neighboring frames, stereo or multi-view images, depth, intrinsics, or poses), and $\Omega$ the set of valid pixels.
+The goal is to estimate
+\begin{equation}
+    f_\theta(I,\mathcal{V}) = \hat{\mathbf{N}}, \qquad
+    \hat{\mathbf{N}}(u) = \hat{\mathbf{n}}_u \in \mathbb{S}^2,\quad u\in\Omega,
+\end{equation}
+where each $\hat{\mathbf{n}}_u$ is a unit vector in the camera frame or in a gravity- or world-aligned frame.
+Supervision comes from depth sensors, fitted meshes, rendered assets, multi-view reconstruction, or indirectly from photometric and intrinsic-image losses, and camera metadata matters because a pixel's viewing ray depends on focal length and field of view.
+Monocular prediction from one RGB image is the canonical benchmark setting; RGB-D variants use measured or predicted depth as input or supervision through the differential relation between depth gradients and normals, multi-view and video variants enforce viewpoint or temporal consistency, object-centric variants target CAD-like objects, hands, faces, and bodies, and panoramic variants predict under equirectangular or fisheye geometry, where pinhole assumptions break.
+
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/surface_normal_estimation.pdf}
+    \caption{Surface normal estimation. \textit{Top}: an RGB, video, or multi-view input is mapped by a dense prediction network ((a) ViT-like or (b) diffusion variant) to a per-pixel unit normal field $\hat{\mathbf{n}}\in\mathbb{S}^2$, scored by angular error. \textit{Bottom}: method timelines along three threads: joint depth--normal prediction, intrinsic/shading decomposition, and backbone architecture.}
+    \label{fig:p3_s6_2_3_normal_overview}
+\end{figure}
+
+\subsubsection{Methodology}
+Surface normal estimation has moved from physics-based inverse rendering to supervised dense prediction and, most recently, to foundation-model and diffusion-based geometry estimation.
+Figure~\ref{fig:p3_s6_2_3_normal_overview} summarizes the method families; the last two below are grouped as one family in the figure.
+
+\paragraph{Photometric and intrinsic-decomposition methods.}
+The classical origin is shape from shading and photometric stereo.
+Photometric stereo recovers orientation from several images taken under different lighting; Woodham's formulation~\cite{woodham1980photometric} shows that normals follow once illumination and reflectance are sufficiently constrained.
+Single-image shape from shading is harder because a change in intensity may signal a change in orientation, albedo, illumination, or material; SIRFS~\cite{barron2015shape} is the canonical optimization-era method, jointly recovering shape, illumination, and reflectance under natural-image and geometric priors.
+These methods identify the physical ambiguities that every later learned model inherits, and physically based rendering datasets such as Hypersim~\cite{roberts2021hypersim}, where shading, materials, depth, and normals are jointly available, keep their logic in play.
+
+\paragraph{Supervised CNN and multi-task dense prediction.}
+Eigen and Fergus~\cite{eigen2015predicting} trained one multi-scale convolutional network to predict depth, normals, and semantic labels, establishing that normals can be regressed directly from RGB and that geometric tasks benefit from shared representations.
+Later CNN systems improved encoder capacity, decoder resolution, and boundary preservation, usually with normals as one branch of a multi-task perception model, and Taskonomy~\cite{zamir2018taskonomy} and Omnidata~\cite{eftekhar2021omnidata} systematized the paradigm by training dense predictors across many 3D scans and tasks.
+A CNN normal estimator runs in one forward pass and drops into real-time reconstruction, AR, or robotics pipelines; its local features, however, blur thin structures and lack the global context needed for consistent orientation across large planes.
+
+\paragraph{Transformer and camera-aware discriminative predictors.}
+Vision Transformers let every output pixel attend to the whole image.
+DPT~\cite{dpt} showed that Transformer features support strong dense prediction across depth and semantics, and the same global context helps normals: co-planar walls, floors, and object faces may be far apart in the image yet geometrically coupled.
+Pure attention discards one geometric fact, that pixels correspond to camera rays; DSINE~\cite{bae2024dsine} injects ray-direction information and shows that camera geometry remains valuable even for large learned backbones.
+
+\paragraph{Diffusion and foundation-model priors.}
+A more recent line casts normal estimation as conditional generation or as one head of a general geometric foundation model.
+VPD~\cite{zhao2023unleashing} showed that text-to-image diffusion models carry useful features for dense perception, and GeoWizard~\cite{fu2024geowizard} extended the Marigold recipe of \S\ref{sec:depth_estimation} to joint depth and normal prediction under a shared generative prior.
+Metric3Dv2~\cite{hu2024metric3dv2} took the discriminative route, training a camera-aware monocular model for metric depth and normals across heterogeneous datasets.
+StableNormal~\cite{ye2024stablenormal} addressed a practical weakness of diffusion-based normals: stochastic denoising yields high-quality but high-variance maps, so reducing variance matters as much as improving the mean.
+The generative formulation samples uncertain or textureless regions from a learned distribution instead of forcing a single local regression, at the cost of iterative-denoising latency, which motivates distillation and single-step variants.
+
+\paragraph{Temporal, multi-view, and reconstruction-coupled methods.}
+Normals matter most when predictions must persist across time or support 3D reconstruction.
+Video normal estimation enforces temporal consistency by warping predictions with optical flow or camera poses and penalizing flicker; NormalCrafter~\cite{wang2025normalcrafter} targets temporally consistent sequences for downstream video reconstruction and editing rather than per-frame accuracy alone.
+Multi-view settings derive normals from reconstructed meshes or regularize them through cross-view photometric consistency, and neural surface reconstruction such as NeuS~\cite{wang2021neus} consumes normal-like differential geometry implicitly through signed-distance gradients, so normal estimation and reconstruction now supervise each other.
+
+\paragraph{Material- and domain-specific normal estimation.}
+A smaller branch revisits what generic models still get wrong.
+Transparent, reflective, and laboratory objects violate Lambertian assumptions because their gradients come from refraction, reflection, or the background rather than the surface; TransNormal~\cite{li2026transnormal} targets transparent objects with a dedicated benchmark and model, making explicit that open-world normal prediction cannot be solved by indoor RGB-D supervision alone.
+
+
+
+\begin{table}[!t]
+\centering
+\caption{Representative datasets and benchmarks for surface normal estimation. The ``Normal supervision/use'' column indicates whether normals are directly rendered, derived from depth or meshes, or indirectly related through intrinsic-image supervision. Counts are indicative of commonly used versions and may vary by split or preprocessing protocol.}
+\label{tab:normal_dataset}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{L{0.15\textwidth}C{0.1\textwidth} C{0.15\textwidth}C{0.15\textwidth}L{0.35\textwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Year} & \textbf{Domain} & \textbf{Source} & \textbf{Normal supervision / use} \\
+\midrule
+NYU Depth v2~\cite{silberman2012nyudv2} & 2012 & Indoor & RGB-D & Normals derived from Kinect depth; canonical indoor monocular normal benchmark. \\
+SUN RGB-D~\cite{song2015sunrgbd} & 2015 & Indoor & RGB-D & Depth-derived normals across diverse indoor scenes and sensors. \\
+ScanNet~\cite{dai2017scannet} & 2017 & Indoor & RGB-D video + mesh & Mesh- or depth-derived normals with camera trajectories; useful for video and reconstruction-linked supervision. \\
+Matterport3D~\cite{chang2017matterport3d} & 2017 & Indoor panorama & RGB-D scans + mesh & High-resolution reconstructed geometry; supports room-scale and panoramic normal evaluation. \\
+Taskonomy~\cite{zamir2018taskonomy} & 2018 & Indoor & 3D scans & Large multi-task supervision including surface normals, depth, reshading, and semantics. \\
+Replica~\cite{straub2019replica} & 2019 & Indoor synthetic / scanned & Rendered geometry & Clean normals from high-quality reconstructed scenes; useful for controlled evaluation. \\
+DIODE~\cite{vasiljevic2019diode} & 2019 & Indoor / outdoor & LiDAR depth & Depth-derived normals; stresses cross-domain generalization beyond NYU-style indoor scenes. \\
+Hypersim~\cite{roberts2021hypersim} & 2021 & Indoor synthetic & PBR rendering & Ground-truth depth, normals, materials, and lighting for geometry + intrinsic learning. \\
+Omnidata~\cite{eftekhar2021omnidata} & 2021 & Indoor multi-source & 3D scans & Large-scale mid-level vision training data with normals and many related tasks. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsubsection{Datasets and Metrics}
+\label{sec:normal_performance}
+
+Table~\ref{tab:normal_dataset} shows that normal supervision is usually inherited from another representation rather than annotated directly.
+RGB-D datasets (NYU Depth v2~\cite{silberman2012nyudv2}, SUN RGB-D~\cite{song2015sunrgbd}, ScanNet~\cite{dai2017scannet}) supply measured depth from which local planes or mesh normals are computed, which fixes the indoor evaluation regime but also means the labels are only as good as the depth sensor and are dominated by man-made indoor structure.
+Scanned and synthetic collections address coverage and label quality from opposite sides: Matterport3D~\cite{chang2017matterport3d}, Taskonomy~\cite{zamir2018taskonomy}, and Omnidata~\cite{eftekhar2021omnidata} scale supervision across many environments and tasks, whereas Replica~\cite{straub2019replica} and Hypersim~\cite{roberts2021hypersim} give clean rendered normals with physically meaningful lighting at the price of a synthetic-to-real gap.
+DIODE~\cite{vasiljevic2019diode} pushes toward indoor--outdoor generalization, yet outdoor normals remain far less standardized than outdoor depth because sparse LiDAR is a poor match for dense orientation supervision; intrinsic-image sets such as IIW~\cite{bell2014intrinsic} and MPI Sintel Intrinsics~\cite{chen2013simple} constrain shading and reflectance for inverse-rendering formulations without being normal benchmarks themselves.
+The most visible gap is temporal: although ScanNet and other RGB-D videos contain sequences, there is no widely adopted video normal benchmark, so temporal stability is reported qualitatively or through method-specific warping losses, even though flicker often hurts reconstruction and AR consumers more than a small rise in mean angular error.
+
+
+
+
+Evaluation is angular because normals are unit vectors.
+With $\hat{\mathbf{n}}_i,\mathbf{n}_i\in\mathbb{S}^2$ the predicted and ground-truth normals at valid pixel $i$ and $N$ the number of valid pixels, the per-pixel error in degrees is
+\begin{equation}
+   e_i = \frac{180}{\pi}\arccos\!\left(\mathrm{clip}(\hat{\mathbf{n}}_i^\top \mathbf{n}_i,-1,1)\right),
+\end{equation}
+summarized by its mean (sensitive to boundary noise and invalid-depth artifacts), its median (robust to a few severe failures), occasionally its RMSE, and by threshold accuracies
+\begin{equation}
+    \mathrm{Acc}_{\tau} = \frac{1}{N}\sum_{i=1}^{N}\mathbf{1}(e_i < \tau),
+    \qquad \tau\in\{11.25^\circ,22.5^\circ,30^\circ\},
+\end{equation}
+which expose changes in the fraction of practically usable pixels that a small shift in mean error can hide.
+Training objectives usually minimize the cosine loss $1-\hat{\mathbf{n}}_i^\top\mathbf{n}_i$, monotonic in angle for unit vectors, but benchmarks report angles for interpretability.
+Beyond per-pixel angle, joint depth--normal models are checked for agreement between predicted normals and normals differentiated from depth, reconstruction-oriented work asks whether normal discontinuities align with object boundaries and whether large planes stay coherent, and video methods report temporal consistency by warping predictions between adjacent frames with flow or pose,
+\begin{equation}
+    \mathrm{TempCons} = \frac{1}{M}\sum_{(i,t)}
+    \left\|\hat{\mathbf{n}}_{i}^{\,t} -
+    \mathcal{W}_{t+1\rightarrow t}(\hat{\mathbf{n}}^{\,t+1})_i\right\|_2,
+\end{equation}
+after rotating camera-frame normals into a common frame.
+Protocol details move rankings: depth-derived normals are unstable at discontinuities, papers mask invalid pixels differently, and some evaluate in the camera frame while others rotate into a gravity-aligned frame, so the table below records which paper produced each number.
+
+\begin{table}[!t]
+    \centering
+    \caption{Representative surface-normal estimators on NYU Depth v2 (lower mean / median angular error and higher $\mathrm{Acc}_{11.25^\circ}$ are better). Rows marked $\dagger$ are taken from the re-evaluation in StableNormal~\cite{ye2024stablenormal}, under whose protocol DSINE scores $18.6^\circ$ / $9.9^\circ$ / $56.1\%$; the other rows are as reported by the cited paper (Omnidata as re-evaluated by DSINE~\cite{bae2024dsine}). Numbers across protocols are indicative, not strictly comparable.}
+    \label{tab:normal_performance}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{2.2mm}
+    \begin{tabular}{L{0.26\textwidth} L{0.28\textwidth} c c c c}
+    \toprule
+    \textbf{Method} & \textbf{Family} & \textbf{Year} & \textbf{Mean}$\downarrow$ & \textbf{Median}$\downarrow$ & $\mathbf{Acc}_{11.25^\circ}\uparrow$ \\
+    \midrule
+    Eigen \& Fergus~\cite{eigen2015predicting} & Multi-scale CNN, multi-task & 2015 & 20.9 & 13.2 & 44.4 \\
+    Omnidata~\cite{eftekhar2021omnidata} & Large-scale mid-level supervision & 2021 & 23.1 & 12.9 & 45.8 \\
+    DSINE~\cite{bae2024dsine} & Ray-aware discriminative & 2024 & 16.4 & 8.4 & 59.6 \\
+    Metric3Dv2 (ViT-g, zero-shot)~\cite{hu2024metric3dv2} & Geometric foundation model & 2024 & 13.3 & 7.0 & 66.4 \\
+    Marigold (normal variant)$^\dagger$~\cite{ke2024repurposing} & Diffusion prior & 2024 & 20.9 & 11.1 & 50.5 \\
+    GeoWizard$^\dagger$~\cite{fu2024geowizard} & Joint depth + normal diffusion & 2024 & 20.4 & 11.9 & 47.0 \\
+    StableNormal$^\dagger$~\cite{ye2024stablenormal} & Low-variance diffusion & 2024 & 19.7 & 10.5 & 53.0 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+Table~\ref{tab:normal_performance} makes two things visible. Across the reported settings, camera-aware models achieve low angular errors: DSINE roughly halves the median error of the 2015 baseline, and Metric3Dv2 reaches $13.3^\circ$ mean error zero-shot, so projective inductive bias and large camera-diverse pretraining still pay off even with strong backbones. Diffusion-based estimators trail these numbers on NYU Depth v2 under the StableNormal protocol, but they trade accuracy on clean indoor scenes for coherence in textureless or ambiguous regions and for a usable uncertainty, which the single-frame benchmark does not reward; the post-GeoWizard line has accordingly shifted the target from single-frame accuracy toward stable, usable geometry, StableNormal controlling diffusion variance and NormalCrafter~\cite{wang2025normalcrafter} enforcing temporal coherence.
+
+\subsubsection{Challenges}
+
+An RGB image alone does not determine shape, lighting, and reflectance: a dark pixel may be a tilted surface, a dark material, a cast shadow, or a reflection of a dark region, and learned models resolve the ambiguity with priors rather than removing it, which is why estimators look confident on common indoor layouts and fail systematically on rare materials, unusual lighting, and out-of-distribution scenes.
+The persistent failure modes follow from this.
+\textit{Reflective and transparent surfaces} produce gradients caused by the environment rather than the surface.
+\textit{Textureless and weakly lit regions} give little evidence, and networks hallucinate planar sheets.
+\textit{Thin structures and depth discontinuities} mix receptive fields and inherit depth-derived label noise, blurring normals around chair legs, plants, railings, and silhouettes.
+\textit{Wide-field and panoramic cameras} break models trained under narrow pinhole assumptions, which is what makes ray-aware designs such as DSINE~\cite{bae2024dsine} necessary.
+\textit{Dynamic and deformable objects} flicker because most supervision comes from static scans or rigid synthetic scenes.
+
+Dataset bias compounds the problem: canonical benchmarks are indoor and sensor-derived, so outdoor surfaces, hands, faces, deformable and transparent objects, and egocentric manipulation stay underrepresented, and no accepted benchmark jointly measures cross-domain generalization, temporal stability, and downstream reconstruction quality. TransNormal~\cite{li2026transnormal} is a corrective for one slice of the non-Lambertian regime (glass, liquid, mirror, metal, wet roads), which remains far from solved.
+The directions now taking shape answer these gaps directly: geometric foundation models that merge depth, normals, segmentation, material, and calibration into one dense-prediction backbone, following Omnidata~\cite{eftekhar2021omnidata} through Metric3Dv2~\cite{hu2024metric3dv2} and GeoWizard~\cite{fu2024geowizard}; diffusion distillation and variance control that keep the coherence and uncertainty of generative models while recovering real-time, deterministic inference~\cite{ye2024stablenormal}; temporally consistent, reconstruction-coupled normals~\cite{wang2025normalcrafter}; and physically grounded models for non-Lambertian materials, where data scale is no substitute for modeling refraction and reflection.

@@ -1,0 +1,696 @@
+
+
+ % \RespondAuthor{Hao \& SQ \& Charles}
+
+\chapter{A Definition in Motion: Revisiting Spatial Intelligence}
+\label{chapter:definition}
+
+% {
+% \color{red} TODO: add enough necessary formulations, equations.
+% }
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkblue}{W}}{hile}
+\FramedInitial{W}{hile}
+spatial intelligence is rapidly emerging as a foundational paradigm in artificial intelligence, its constituent ideas are by no means new. 
+Concepts related to space, geometry, structure, and physical interaction have long existed across multiple specialized research communities, each developing its own assumptions, abstractions, and technical formalisms. 
+What is new is the growing realization that these previously fragmented components must now be understood as parts of a unified and evolving whole, rather than the appearance of spatial reasoning per se.
+This chapter revisits the notion of spatial intelligence as a moving definition, one that cannot be fixed within a single discipline, representation, or task setting, but must instead be understood through its cross-cutting roles across modern AI systems.
+
+
+
+
+
+
+
+
+
+
+% \section{Spatial Intelligence as a Complex Interdisciplinary Ecosystem}
+\section{The Landscape of Spatial Intelligence}
+\label{sec:p1-sec2-the-landscape-of-spatial-intelligence}
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkblue}{A}}{t} 
+\FramedInitial{A}{t}
+its core, spatial intelligence is not a single technique, model, or task category.
+Rather, it constitutes a complex interdisciplinary ecosystem, spanning multiple technical paradigms, sensory modalities, scientific disciplines, and application domains.
+Different communities approach spatial intelligence with distinct motivations and meanings: for some, it concerns geometric consistency and localization; for others, it is about perception–action coupling, embodied reasoning, or spatial grounding of language.
+As a result, any attempt to define spatial intelligence in isolation risks oversimplification.
+Understanding spatial intelligence therefore requires acknowledging its breadth, heterogeneity, and layered structure as an evolving research ecosystem rather than a narrowly scoped subfield.
+
+
+
+
+
+
+
+% \subsection{Spatial Intelligence Encompasses Far More Than a Single Capability}
+\subsection{Beyond A Single Dimension}
+\label{subsec:p1-sec2-beyond-a-single-dimension}
+
+Spatial intelligence is fundamentally \emph{not simple}.
+Unlike many AI topics that can be reasonably framed around a dominant abstraction or learning paradigm, spatial intelligence spans a wide spectrum of representational, computational, and conceptual elements.
+It touches almost every stage of the perception–cognition–action loop and manifests differently depending on the task, environment, and embodiment of the agent.
+This intrinsic complexity is not accidental; it reflects the fact that space itself is a unifying substrate of the physical world, cutting across sensory input, internal representation, and external interaction.
+
+
+Historically, research on spatial problems in AI has progressed along parallel and often disconnected trajectories.
+Simultaneous localization and mapping (SLAM), 3D reconstruction, robotic manipulation, geographic information systems, spatial language understanding, and neural rendering all evolved largely within their own communities, with specialized benchmarks, metrics, and assumptions.
+While each of these areas addressed a slice of spatial reasoning, they rarely converged on a shared conceptual framework \cite{feng2025survey}.
+As intelligent agents are increasingly expected to operate in open, dynamic, and embodied environments, the limitations of this fragmentation have become increasingly evident.
+
+
+One major source of complexity arises from the fact that spatial intelligence cuts across \emph{multiple technical paradigms}.
+It cannot be reduced to either symbolic rules or neural representations alone.
+Instead, it involves the coexistence and interaction of diverse computational approaches:
+
+
+\paragraph{Cross-Technical Paradigms.}
+Spatial intelligence spans heterogeneous technical formalisms, including:
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{Rule-based and symbolic systems}, such as topological maps, qualitative spatial calculi (\eg, RCC-8 region connection, interval algebra), and logical planners, which offer interpretability and structured priors \cite{kuipers2000spatial,egenhofer1991reasoning,Randell1992RCC,allen1983maintaining}.
+    \item \textbf{Probabilistic and geometric methods}, including SLAM, state estimation, and pose graph optimization, which emphasize metric consistency and uncertainty modeling \cite{Thrun2005Probabilistic,dellaert2017factor}.
+    \item \textbf{Neural representations}, such as implicit fields, neural radiance fields (NeRF), and learned spatial embeddings, which enable continuous and data-driven modeling of complex environments \cite{mildenhall2021nerf,kerbl20233d}.
+    \item \textbf{Large language/foundation models}, which introduce spatial reasoning through language, symbolic abstraction, and multimodal alignment, but often lack direct physical grounding \cite{driess2023palm,wu2024gpt4vt23dgen}.
+\end{itemize}
+Equally important is the fact that spatial intelligence is inherently \emph{cross-modal}.
+Space is not perceived through a single sensory channel, but emerges from the integration of multiple modalities, each offering partial and complementary information:
+
+
+\paragraph{Cross-Modal Integration.}
+Spatial intelligence operates across a diverse set of sensory and representational modalities:
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{Language}, which encodes spatial relations, instructions, and abstract descriptions (\eg, ``behind'', ``inside'', ``near'')~\cite{landau1993whence}.
+    \item \textbf{2D visual perception}, including images and video, which provide appearance-level cues and spatial layout hints.
+    \item \textbf{3D representations}, such as point clouds, meshes, and volumetric fields, which capture geometric structure and physical extent.
+    \item \textbf{4D spatiotemporal signals}, incorporating motion, dynamics, and temporal evolution of scenes.
+    \item \textbf{Specialized sensing modalities}, including remote sensing, thermal imagery, radar, and spectral signals, which extend spatial perception beyond human-visible cues~\cite{cong2022satmae,sun2022ringmo}.
+\end{itemize}
+A further, frequently overlooked axis is \emph{spatial scale}.
+Cognitive research has long established that space at different scales engages different psychological processes: Montello's classic analysis distinguishes figural (table-top), vista (single view), environmental (learned through locomotion), and geographical (map-mediated) spaces \cite{montello1993scale}.
+The same stratification recurs in AI systems, where an agent manipulating objects on a desk, a robot navigating a building, and a model reasoning over a city or the Earth's surface demand different representations, memory structures, and update mechanisms \cite{feng2025survey}.
+Competence at one scale does not transfer automatically to another, which is one reason benchmark results on room-scale tasks say little about urban-scale spatial reasoning.
+
+\paragraph{Cross-Scale Operation.}
+Spatial intelligence must therefore operate across nested spatial scales:
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{Object and figural scale}, covering manipulation workspaces, shape understanding, and mental transformation of objects.
+    \item \textbf{Scene and vista scale}, covering room-level layout, occlusion, and viewpoint reasoning.
+    \item \textbf{Environmental scale}, covering buildings, streets, and spaces learned through movement and exploration.
+    \item \textbf{Geographic and planetary scale}, covering cities, terrain, and Earth systems mediated by maps and remote sensing \cite{goodchild1992geographical,feng2025survey}.
+\end{itemize}
+Beyond modality, technique, and scale, spatial intelligence is deeply \emph{cross-disciplinary}.
+Its theoretical foundations and practical realizations draw simultaneously from several scientific traditions:
+
+
+
+\paragraph{Cross-Disciplinary Foundations.}
+Spatial intelligence intersects with:
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{Computer Vision}, through scene understanding, reconstruction, and spatial perception.
+    \item \textbf{Robotics and Embodied AI}, where spatial reasoning underlies navigation, manipulation, and interaction.
+    \item \textbf{Geographic Information Science (GIScience)}, which studies large-scale spatial representation, mapping, and spatial analytics~\cite{goodchild1992geographical,li2025giscience}.
+    \item \textbf{Natural Language Processing and Linguistics}, particularly in grounding linguistic expressions in physical space and in the cross-linguistic study of spatial reference \cite{landau1993whence,levinson2003space}.
+    \item \textbf{Psychology and Psychometrics}, which pioneered the measurement of human spatial abilities such as mental rotation and spatial visualization \cite{shepard1971mental,uttal2013malleability}.
+    \item \textbf{Cognitive Science and Neuroscience}, which investigate human spatial cognition, cognitive maps, and embodied perception~\cite{tolman1948cognitive,stachenfeld2017hippocampus}.
+\end{itemize}
+Finally, spatial intelligence manifests across a wide spectrum of \emph{application domains}, further complicating any attempt at a narrow definition:
+
+
+
+\paragraph{Cross-Application Presence.}
+Spatial intelligence is central to applications such as:
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{Embodied agents and robotics}, including navigation, manipulation, and human–robot interaction~\cite{Xia2018Gibson,feng2025survey,zitkovich2023rt2}.
+    \item \textbf{Autonomous driving and aerial systems}, where spatial prediction and planning are safety-critical~\cite{ettinger2021womd,muhammad2022vision}.
+    \item \textbf{AR/VR and virtual humans}, which demand consistent spatial grounding across perception and interaction~\cite{chen2021hightracking,orts2016holoportation,HuLYHCYLY23}.
+    \item \textbf{Urban computing, digital twins, and Earth systems}, operating at city and planetary scales~\cite{LuvizonNM17,mu2024robotwin,picard2021autonomousAgents}.
+\end{itemize}
+
+
+
+
+
+Together, these dimensions highlight that spatial intelligence is not a standalone capability but a unifying layer across perception, reasoning, and action. 
+This complexity precludes a minimal definition and instead calls for viewing spatial intelligence as a structured, evolving system that emerges across methods, modalities, and domains.
+
+
+
+
+
+
+% requires: \usepackage{booktabs}
+% optional: \usepackage{array}
+
+\begin{table*}[t]
+\centering
+\caption{How different disciplines characterize spatial intelligence: primary focus, representations, canonical tasks, and evaluation emphasis.}
+\vspace{2mm}
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+
+\begin{tabular}{p{2.5cm} p{3cm} p{3cm} p{3cm} p{3.cm}}
+\toprule
+\textbf{Discipline} &
+\textbf{Primary focus} &
+\textbf{Representations} &
+\textbf{Canonical tasks} &
+\textbf{Evaluation emphasis} \\
+\midrule
+
+Computer Vision \& Graphics &
+Geometry recovery and view-consistent scene appearance &
+Depth maps, multi-view geometry, meshes, neural fields (NeRF), 3D Gaussian representations &
+Depth/pose estimation, 3D reconstruction, neural rendering, scene synthesis &
+Geometric consistency, rendering fidelity, view synthesis quality \\
+\addlinespace[2pt]
+\hline
+\addlinespace[2pt]
+
+Robotics \& Embodied AI &
+Perception--action coupling under physical constraints &
+Occupancy grids, semantic maps, pose graphs, affordance maps, world models for planning &
+SLAM, navigation, manipulation, motion planning, closed-loop control &
+Task success, robustness, real-time performance, generalization in dynamic environments \\
+\addlinespace[2pt]
+\hline
+\addlinespace[2pt]
+
+GIS \& Large-scale Spatial Modeling &
+Global-scale spatial abstraction, querying, and planning &
+Geodetic coordinate systems, map layers, spatial graphs, spatial databases &
+Route optimization, spatial analytics, trajectory analysis, urban-scale simulation &
+Global consistency, query accuracy, scalability, long-horizon planning utility \\
+\addlinespace[2pt]
+\hline
+\addlinespace[2pt]
+
+Psychology \& Psychometrics &
+Measurement of individual spatial abilities and their training &
+Factor models of spatial ability (rotation, visualization, orientation), standardized test batteries &
+Mental rotation tests, paper folding, perspective taking, spatial visualization assessment &
+Test reliability and validity, individual differences, malleability and transfer \\
+\addlinespace[2pt]
+\hline
+\addlinespace[2pt]
+
+Cognitive Science \& Neuroscience &
+Mechanisms of human spatial cognition and internal representations &
+Cognitive maps, mental imagery, spatial memory representations, neural coding hypotheses &
+Mental rotation, navigation studies, spatial memory and attention experiments &
+Behavioral validity, explanatory power, neural plausibility \\
+\addlinespace[2pt]
+\hline
+\addlinespace[2pt]
+
+Linguistics \& Spatial Language &
+How language encodes, schematizes, and constrains spatial relations &
+Spatial prepositions and closed-class relations, frames of reference (intrinsic, relative, absolute) &
+Spatial reference resolution, cross-linguistic comparison, grounded instruction understanding &
+Descriptive adequacy, cross-linguistic coverage, grounding fidelity \\
+\addlinespace[2pt]
+\hline
+\addlinespace[2pt]
+
+Social \& Human-centered Perspectives &
+Spatial behavior in social contexts and shared environments &
+Proxemics, social space schemas, spatial cues for interaction, situational context models &
+Human--robot interaction, social navigation, spatial language pragmatics, collaborative tasks &
+Interaction naturalness, safety, alignment with human norms and intentions \\
+\bottomrule
+\end{tabular}
+\label{tab:p1_s2_1_si-disciplinary-landscape}
+\end{table*}
+
+
+
+
+
+\subsection{Disciplinary Perspectives}
+\label{subsec:p1-sec2-disciplinary-perspectives}
+
+Although spatial intelligence is increasingly discussed as one concept, its meaning varies substantially across academic disciplines.
+Each field approaches spatial intelligence through its own problem formulations, representational assumptions, and evaluation criteria.
+As a result, what counts as spatial intelligence in one domain may only capture a partial aspect of what another domain considers essential.
+This section reviews how spatial intelligence is understood from several major disciplinary perspectives, highlighting both their unique emphases and their limitations.
+
+
+
+
+\paragraph{Computer Vision and Graphics.}
+From the perspective of computer vision, spatial intelligence is primarily associated with the ability to infer geometric structure from visual input.
+Research in this area focuses on problems such as depth estimation, multi-view geometry, camera pose estimation, and 3D scene reconstruction.
+The core objective is to recover spatially consistent representations from 2D images or videos, often under strong geometric constraints.
+These representations provide powerful spatial priors, enabling reasoning about layout, scale, and relative positioning of objects.
+
+
+Closely related, computer graphics emphasizes the synthesis and rendering of spatial scenes.
+Modern neural rendering approaches, including NeRF and 3D Gaussian Splatting, prioritize appearance fidelity, view consistency, and continuous scene representation.
+While these methods excel at producing visually coherent 3D environments, they typically do not model agent-centric interaction, decision-making, or task-driven behavior.
+As a result, spatial intelligence in vision and graphics is often appearance-centered and offline, rather than action-oriented.
+
+
+
+\paragraph{Robotics and Embodied AI.}
+In robotics and embodied AI, spatial intelligence is traditionally defined in terms of an agent’s ability to localize itself, navigate environments, and manipulate objects.
+This includes spatial perception, motion planning in three-dimensional space, and interaction with representations such as occupancy grids, semantic maps, and volumetric models.
+Here, spatial intelligence is inseparable from embodiment and control, as spatial reasoning directly informs action execution.
+The central concern in this discipline is not only representing space, but using spatial representations to support real-time decision-making under physical constraints.
+Consequently, spatial intelligence is evaluated through task success, robustness, and adaptability in dynamic environments.
+This action-centric perspective highlights aspects of spatial intelligence that are often absent in purely perceptual or representational frameworks.
+
+
+
+\paragraph{Geographic Information Systems and Large-Scale Spatial Modeling.}
+At a larger spatial scale, geographic information systems view spatial intelligence through the lens of structured spatial data, coordinate systems, and topological relations.
+GIS focuses on modeling, querying, and reasoning over large-scale geographic environments using maps, graphs, and spatial databases.
+These systems excel at spatial querying, route optimization, and long-term planning across city or regional scales.
+However, traditional GIS frameworks are rarely coupled with embodied agents or interactive learning.
+Spatial intelligence in this context is largely static, symbolic, and detached from perception or action.
+This contrast highlights a scale-dependent interpretation of spatial intelligence, where global consistency and abstraction take precedence over local interaction.
+
+
+
+\paragraph{Psychology and Psychometrics.}
+Long before AI adopted the term, differential psychology treated spatial ability as a measurable dimension of human intelligence.
+Shepard and Metzler's mental rotation experiments showed that the time needed to compare rotated 3D shapes grows linearly with their angular disparity, providing the first chronometric evidence of analog spatial representation \cite{shepard1971mental}, and the factor-analytic tradition from Thurstone's space factor to Carroll's broad visuospatial factor established spatial ability as a distinct, testable construct \cite{carroll1993human}.
+The term \emph{spatial intelligence} itself was popularized by Gardner's \emph{Frames of Mind} (1983), which listed it among seven human intelligences and defined it as the capacity to perceive the visual world accurately, to perform transformations upon one's initial perceptions, and to re-create aspects of visual experience even in the absence of the relevant stimuli; the construct, however, predates that label by half a century.
+Two findings from this literature matter directly for AI.
+First, spatial skills are malleable: a meta-analysis across hundreds of training studies shows they improve with practice and transfer across tasks \cite{uttal2013malleability}, suggesting spatial competence is acquired rather than fixed.
+Second, the psychometric task inventory, covering mental rotation, perspective taking, and spatial visualization, has become a direct template for probing spatial understanding in multimodal foundation models, so this measurement tradition now feeds AI benchmarking rather than sitting apart from it \cite{yang2025vsibench}.
+
+\paragraph{Cognitive Science and Neuroscience.}
+In cognitive science and neuroscience, spatial intelligence is studied as an emergent property of interacting neural systems rather than as an engineered representation.
+Research has identified key brain regions associated with spatial cognition, including the hippocampus for spatial memory and navigation (place cells, and grid cells in entorhinal cortex), the parietal cortex for spatial attention and transformation, and occipito-parietal networks for visuospatial processing \cite{o1978hippocampus,stachenfeld2017hippocampus}.
+From this perspective, spatial intelligence arises from neural mechanisms supporting cognitive maps, mental imagery, and spatial reasoning; it is primarily internal and cognitive, centered on perception and imagination rather than external interaction.
+
+\paragraph{Linguistics and Spatial Language.}
+A further disciplinary lens comes from linguistics, which asks how language encodes and constrains spatial thought.
+Talmy's analysis of how language schematizes space \cite{talmy1983how} and Landau and Jackendoff's account of the asymmetry between rich object naming and the small closed class of spatial prepositions \cite{landau1993whence} established that linguistic descriptions compress spatial structure into coarse, topology-like relations.
+Levinson's cross-linguistic work further showed that languages differ systematically in their spatial frames of reference, distinguishing intrinsic, relative, and absolute systems \cite{levinson2003space}.
+This vocabulary has migrated directly into AI evaluation, where egocentric versus allocentric reference handling is now a standard axis of spatial benchmarks for multimodal models, making the linguistics of space an operative rather than merely historical influence.
+
+
+
+
+\paragraph{Social and Human-Centered Perspectives.}
+Beyond physical geometry, spatial intelligence also carries meaning at the social and mental levels.
+Human beliefs, emotions, and behaviors are situated within social environments that are themselves spatially structured.
+From this viewpoint, spatial intelligence encompasses the ability to reason about others in shared spaces, interpret spatial cues in social contexts, and align internal mental states with external environments.
+This perspective extends spatial intelligence beyond physical navigation toward a unified model of the physical and mental world.
+It points to broader scientific and societal opportunities, including AI systems that operate in unstructured real-world settings and interact naturally with humans.
+In this sense, spatial intelligence supports a joint modeling of physical space and human cognition, serving as a bridge between external environments and internal mental states.
+
+
+
+
+% Taken together, these disciplinary perspectives illustrate why spatial intelligence cannot be reduced to a single definition.
+% Each field captures an essential but partial view.
+% Recognizing these differences is a prerequisite for any attempt to unify spatial intelligence under a coherent conceptual framework.
+
+
+
+
+
+\subsection{Toward A Unified View}
+\label{subsec:p1-sec2-toward-a-unified-view}
+
+For decades, research on spatial reasoning and spatial representation has progressed from markedly different perspectives across multiple subfields.
+These efforts often evolved in isolation, lacking a shared vocabulary, common research objectives, or directly comparable evaluation benchmarks.
+As a result, techniques developed in areas such as SLAM, 3D vision, scene modeling, world modeling, and embodied planning frequently addressed overlapping problems without converging toward a unified conceptual framework.
+Spatial intelligence emerges against this backdrop as a response to fragmentation, offering a higher-level abstraction that can organize and align these historically disjoint research trajectories.
+
+
+
+Under the emerging spatial intelligence paradigm, a set of shared demands and core concepts has begun to surface.
+A central driving force behind this convergence is the growing need for agents that exhibit spatial consistency and physical groundedness, and that can operate continuously within dynamic environments.
+Such agents must integrate perception, representation, and action in a coherent manner.
+This requirement has catalyzed the fusion of visual perception with geometry-aware modeling, as seen in navigation-oriented neural rendering approaches and interactive NeRF-based systems.
+Research at the intersection of neural scene representation and active planning has given rise to a new generation of 3D world models that are not only reconstructive, but also executable and actionable.
+Similarly, vision-language models are increasingly extended to operate in three-dimensional environments, enabling multimodal agents to localize, describe, and interact with objects within voxelized or volumetric scenes.
+
+
+
+At the conceptual level, a set of shared primitives is gradually taking shape.
+Spatial representations, whether instantiated as voxel grids, signed distance fields, neural feature volumes, or topological graph structures, are becoming central components across domains ranging from autonomous driving and AR/VR to assistive robotics.
+Fundamental spatial relations, such as containment, adjacency, support, and traversability, are being formalized and embedded into reasoning modules, scene graph systems, and relational neural networks.
+These abstractions provide a common representational substrate that enables knowledge transfer and system interoperability across tasks and modalities.
+
+
+
+We note that the research community has yet to settle on a single taxonomy for this emerging field.
+Recent surveys and position papers organize spatial intelligence along markedly different axes: by task family and benchmark \cite{chen2024spatialvlm}, by the cognitive functions that video-based spatial tasks exercise \cite{yang2025vsibench}, by spatial scale from embodied agents through cities to Earth systems \cite{feng2025survey}, or, in Li's position essay, by the capabilities a world model must possess, namely being generative, multimodal, and interactive \cite{Feifei2025spatial}.
+These framings overlap without coinciding, and none has achieved consensus status.
+This handbook's representation-centric organization, which follows how spatial representations are built, used, and acted upon, is our deliberate choice among these alternatives: it is the axis along which the historical evolution of Section~\ref{sec:historical-evolution} unfolds most naturally, and the one that lets fragmented communities be compared on common ground.
+
+Taken together, these developments indicate that spatial intelligence is no longer confined to any single domain.
+It is evolving into a unifying functional substrate that spans perception, reasoning, and interaction; bridges vision, language, and action; and connects symbolic representations with neural models.
+The unification runs deeper than shared technique.
+Spatial intelligence aligns and integrates multiple disciplines, including computer vision, robotics, psychology, cognitive science, linguistics, geospatial systems, human-computer interaction, and neuro-inspired AI, and through this alignment it functions as the connective tissue that enables the next generation of generalist AI systems to perceive the world, reason about it, and act within it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure*}
+    \centering
+    % \resizebox{0.98\linewidth}{!}{\input{figures/part1/si_framework_tikz}}
+    % \includegraphics[width=0.99\linewidth]{figures/part1/si_framework.png}
+    \includegraphics[width=\linewidth]{figures/part1/si_framework_v2.pdf}
+    \vspace{1mm}
+    \caption{Spatial intelligence as a closed loop between an AI system $\mathcal{S}$ and its environment $\mathcal{E}$. Perception writes observations into a world-centered spatial representation $\mathcal{R}_{\mathcal{S}}$ maintained inside the system; reasoning elaborates the current state, prediction advances it under a candidate action, and embodied action reads it to act on the environment, whose response is observed in turn. Each module is labeled with its operator from Section~\ref{subsec:spatial-intelligence-formalization}.}
+    \label{fig:p1_s2_1_intro}
+\end{figure*}
+
+
+
+
+
+\section{Defining A Spatial Intelligence Framework}
+\label{sec:p1-sec2-defining-a-spatial-intelligence-framework}
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkblue}{G}}{iven} 
+\FramedInitial{G}{iven}
+the inherently hybrid and interdisciplinary nature of spatial intelligence, it becomes necessary to revisit and refine what we mean by ``spatial intelligence'' in a precise and unified manner.
+Rather than treating spatial intelligence as a loosely defined collection of capabilities, we aim to articulate a coherent conceptual framework that can accommodate its diverse manifestations across systems, tasks, and environments.
+In this section, we therefore propose an explicit definition of spatial intelligence and analyze its core properties in a structured way.
+
+\begin{center}
+\begin{tcolorbox}[colback=gray!5,colframe=gray!60]
+\textbf{Definition (Spatial Intelligence).}
+\emph{Spatial intelligence is the ability of an AI system to construct, maintain, and manipulate spatial representations of the physical world or environment that support perception, reasoning, prediction, and embodied action, to accomplish tasks within a given environmental context.}
+\end{tcolorbox}
+\end{center}
+
+This definition emphasizes several essential aspects.
+First, spatial intelligence is grounded in representations of the world rather than isolated sensory inputs.
+Second, it is functional rather than static, supporting perception, reasoning, prediction, and action.
+Third, it is inherently situated, meaning that spatial intelligence only manifests meaningfully within an environment where tasks are defined and executed.
+In the following, we unpack this definition by examining its key attributes.
+
+
+
+
+
+
+\subsection{Core Elements}
+\label{subsec:p1-sec2-core-elements}
+
+\subsubsection{Parties}
+
+At a minimum, spatial intelligence involves two fundamental parties: an AI system and the physical world or environment in which it operates.
+Neither can be meaningfully defined without the other.
+
+\paragraph{AI System.}
+The AI system refers to any computational entity capable of perception, reasoning, and decision-making.
+This includes, but is not limited to, large language models, multimodal foundation models, world models, embodied agents, and robotic systems.
+Crucially, spatial intelligence is not tied to a specific architecture.
+Instead, it characterizes a class of capabilities that may be realized through different model families, training paradigms, and system designs \cite{feng2025embodied,zhang2026theory}.
+
+\paragraph{Physical World or Environment.}
+The environment denotes the external context in which the AI system is situated.
+This typically refers to the physical world governed by geometric, physical, and causal constraints.
+In some cases, the environment may also include social or human-centric settings, where spatial structure interacts with social norms, human intent, and collective behavior \cite{hall1966hidden}.
+Spatial intelligence arises precisely from the interaction between the AI system and such structured environments.
+
+
+
+\subsubsection{Spatial Representation}
+
+A core component of spatial intelligence lies in the ability to form, maintain, and manipulate world-centered spatial representations.
+These representations serve as structured world models that are compositional, generalizable, and reusable across tasks.
+
+Spatial representations may vary along several dimensions:
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{Granularity.}
+    Representations can operate at different spatial scales, including object-centric representations, scene-centric representations, and relational representations capturing relative geometry or topology.
+    
+    \item \textbf{Modality.}
+    Spatial information may be derived from heterogeneous sensory channels, including pixels, grid maps, point clouds, voxel grids, language descriptions, audio signals, spectral measurements, radar inputs, as well as tactile and force feedback.
+    
+    \item \textbf{Level of Abstraction.}
+    Spatial representations may be geometric, such as metric coordinates and surfaces, topological, such as connectivity graphs, or semantic and symbolic, such as object categories and relational predicates.
+    
+    \item \textbf{Concrete versus Abstract.}
+    Representations may directly encode observable properties of the physical world or serve as abstract internal models that summarize, compress, or reinterpret spatial structure for reasoning and planning.
+\end{itemize}
+
+Importantly, spatial intelligence does not require committing to a single representational form.
+Instead, it demands the ability to align and translate across multiple representational levels in a world-centered manner.
+
+
+
+\subsubsection{Dynamic Interaction}
+
+Spatial intelligence is not a static property acquired through passive observation.
+Rather, it emerges through continuous and dynamic interaction with the environment.
+This interaction includes navigation, manipulation, exploration, and embodied perception.
+An intelligent system must ground its spatial understanding in embodied experience, for example by learning the structure of a room through movement, or improving depth perception through active viewpoint selection.
+Interaction also extends to socially situated behaviors.
+Maintaining appropriate interpersonal distance, coordinating actions with humans, or navigating shared spaces all require spatial understanding informed by social context.
+As a result, spatial representations must be executable and continuously updated through perception-action feedback loops.
+We further decompose dynamic interaction into several functional components.
+
+
+
+\paragraph{Perception.}
+Perception refers to the extraction of spatial structure from multimodal sensory inputs.
+This includes recognizing objects and scene elements, estimating distances, identifying spatial layouts, and localizing entities within an environment.
+
+\paragraph{Reasoning and Planning.}
+Spatial reasoning involves inference over spatial relations and dynamics.
+This includes trajectory prediction, path planning, occlusion reasoning, spatial causality, temporal change modeling, relational inference, and logical or commonsense reasoning about space.
+Such reasoning spans both low-level problems, such as shortest-path computation, and high-level abstractions, such as understanding how rearranging objects alters the affordances of a space.
+
+\paragraph{Predicting.}
+Prediction in spatial intelligence operates along two axes.
+One concerns forecasting future spatial states or events in a manner consistent with physical laws and causal structure.
+The other concerns generative capabilities, such as producing spatially aware images, videos, 3D or 4D scenes, and motion trajectories.
+
+\paragraph{Embodied Action.}
+Embodied action denotes the capacity to interact with physical or simulated environments while continuously pursuing goals.
+This includes pose adjustment, navigation, grasping, and object manipulation.
+Typical scenarios include domestic robots and autonomous driving systems.
+Such action requires tight integration of perception, reasoning, planning, and prediction, while aligning internal spatial models with task objectives, human intent, and social context.
+
+
+
+
+
+% \paragraph{Remark.}
+% In summary, a well-functioning spatially intelligent AI system must:
+% \begin{itemize}[leftmargin=2em,itemsep=0.35em]
+%     \item Learn a high-quality and comprehensive spatial representation of the world.
+%     \item Support dynamic interaction through accurate perception, reasoning, prediction, and embodied action.
+%     \item Maintain consistency between internal world models, external task demands, and environmental feedback.
+% \end{itemize}
+% These properties collectively distinguish spatial intelligence from purely perceptual or symbolic forms of intelligence.
+
+
+
+\vspace{4mm}
+\begin{tcolorbox}[
+    colback=gray!5,
+    colframe=black,
+    title=\textbf{What Constitutes a Strong Spatially Intelligent System}
+]
+A well-designed spatially intelligent AI system should satisfy the following criteria:
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{High-quality world representation.}  
+    It must acquire a rich, consistent, and generalizable spatial representation of the world that captures geometry, relations, and structure across scales.
+    
+    \item \textbf{Dynamic interaction capability.}  
+    It should support accurate perception, reasoning, prediction, and embodied action through continuous interaction with the environment.
+    
+    \item \textbf{Alignment between model, task, and environment.}  
+    The internal spatial model must remain aligned with external task objectives, environmental constraints, and feedback signals during execution.
+\end{itemize}
+\end{tcolorbox}
+
+
+
+
+
+
+
+\subsection{Formal Characterization}
+\label{subsec:spatial-intelligence-formalization}
+
+To make the definition more precise, we provide a lightweight formalization that captures the core components of spatial intelligence without committing to a specific implementation or learning paradigm.
+
+Let $\mathcal{E}$ denote the environment in which an AI system is situated, representing the physical or simulated world governed by spatial, physical, and causal constraints.
+Let $\mathcal{S}$ denote the AI system or agent.
+We assume that tasks are defined with respect to the environment and are drawn from a task space $\mathcal{T}$.
+
+
+
+
+\paragraph{World-Centered Spatial Representation.}
+We define a world-centered spatial representation as a system-induced mapping from the environment to an internal state space:
+\begin{equation}
+\Phi_{\mathcal{S}} : \mathcal{E} \rightarrow \mathcal{R}_{\mathcal{S}},
+\end{equation}
+where $\mathcal{R}_{\mathcal{S}}$ denotes the internal spatial representation space maintained by the AI system $\mathcal{S}$.
+The representation $\Phi_{\mathcal{S}}(e) \in \mathcal{R}_{\mathcal{S}}$ may take various forms, including geometric maps, scene graphs, implicit fields, symbolic layouts, or learned latent embeddings.
+Crucially, $\mathcal{R}_{\mathcal{S}}$ is not a raw sensory space, but a structured and system-dependent representation space that supports compositionality, generalization, and reuse across tasks.
+
+
+
+% \paragraph{World-Centered Spatial Representation.}
+% We define a world-centered spatial representation as a mapping from the environment to an internal state space:
+% \begin{equation}
+% \Phi : \mathcal{E} \rightarrow \mathcal{R},
+% \end{equation}
+% where $\mathcal{R}$ denotes the space of internal spatial representations.
+% The representation $\Phi(e) \in \mathcal{R}$ may take various forms, including geometric maps, scene graphs, implicit fields, symbolic layouts, or learned latent embeddings.
+% Crucially, $\mathcal{R}$ is not a raw sensory space, but a structured representation space that supports compositionality, generalization, and reuse across tasks.
+
+
+
+% \paragraph{Functional Use of Spatial Representations.}
+% Spatial intelligence is not defined by representation alone, but by how representations are functionally manipulated.
+% We characterize this through a family of operators acting on $\mathcal{R}$:
+% \begin{equation}
+% \mathcal{F} = \{ f_{\text{perc}}, f_{\text{reason}}, f_{\text{pred}}, f_{\text{act}} \},
+% \end{equation}
+% corresponding to perception, reasoning, prediction, and embodied action.
+% Each operator maps between representations, actions, or outcomes, for example:
+% \begin{align}
+% f_{\text{perc}} &: \mathcal{O} \rightarrow \mathcal{R}, \\
+% f_{\text{reason}} &: \mathcal{R} \rightarrow \mathcal{R}, \\
+% f_{\text{pred}} &: \mathcal{R} \rightarrow \mathcal{R}, \\
+% f_{\text{act}} &: \mathcal{R} \rightarrow \mathcal{A},
+% \end{align}
+% where $\mathcal{O}$ denotes observations and $\mathcal{A}$ denotes action space.
+
+\paragraph{Functional Use of Spatial Representations.}
+Spatial intelligence is not defined by representation alone, but by how representations are functionally manipulated by the AI system.
+We characterize this through a family of system-conditioned operators acting on $\mathcal{R}_{\mathcal{S}}$:
+\begin{equation}
+\mathcal{F}_{\mathcal{S}} = \{ f^{\mathcal{S}}_{\text{perc}}, f^{\mathcal{S}}_{\text{reason}}, f^{\mathcal{S}}_{\text{pred}}, f^{\mathcal{S}}_{\text{act}} \},
+\end{equation}
+corresponding to perception, reasoning, prediction, and embodied action.
+Each operator is defined relative to the system $\mathcal{S}$:
+\begin{align}
+f^{\mathcal{S}}_{\text{perc}} &: \mathcal{O} \rightarrow \mathcal{R}_{\mathcal{S}}, \\
+f^{\mathcal{S}}_{\text{reason}} &: \mathcal{R}_{\mathcal{S}} \rightarrow \mathcal{R}_{\mathcal{S}}, \\
+f^{\mathcal{S}}_{\text{pred}} &: \mathcal{R}_{\mathcal{S}} \times \mathcal{A} \rightarrow \mathcal{R}_{\mathcal{S}}, \\
+f^{\mathcal{S}}_{\text{act}} &: \mathcal{R}_{\mathcal{S}} \rightarrow \mathcal{A},
+\end{align}
+where $\mathcal{O}$ denotes observations and $\mathcal{A}$ denotes the action space.
+The two representation-to-representation operators play distinct roles: $f^{\mathcal{S}}_{\text{reason}}$ elaborates the \emph{current} world state by inferring relations and constraints already implicit in it, whereas $f^{\mathcal{S}}_{\text{pred}}$ advances the state \emph{forward in time}, rolling out how the world would evolve under a hypothesized action (with a null action recovering passive forecasting).
+
+
+
+
+% \paragraph{Task-Oriented Intelligence.}
+% Given a task $t \in \mathcal{T}$, spatial intelligence manifests as the ability of the system to select and execute actions based on its internal spatial representation:
+% \begin{equation}
+% \pi : (\mathcal{R}, t) \rightarrow \mathcal{A},
+% \end{equation}
+% such that actions are grounded in the current world state and lead to task completion within the environment.
+% This highlights that spatial intelligence is inherently situated: the same internal model may support different behaviors depending on task constraints and environmental context.
+
+
+\paragraph{Task-Oriented Intelligence.}
+Given a task $t \in \mathcal{T}$, spatial intelligence manifests as the ability of the AI system $\mathcal{S}$ to select and execute actions based on its internal spatial representation:
+\begin{equation}
+\pi_{\mathcal{S}} : \mathcal{R}_{\mathcal{S}} \times \mathcal{T} \rightarrow \mathcal{A},
+\end{equation}
+such that actions are grounded in the system’s current world representation and lead to task completion within the environment.
+This formulation highlights that spatial intelligence is inherently situated and agent-dependent: the same environment may induce different behaviors depending on the internal representation and decision mechanisms of $\mathcal{S}$.
+
+
+
+
+% \paragraph{Dynamic Interaction and World State Evolution.}
+% Finally, spatial intelligence requires representations to be dynamically updated through interaction.
+% We model the evolution of the internal world state as:
+% \begin{equation}
+% \mathcal{R}_{t+1} = \Psi(\mathcal{R}_t, a_t, o_{t+1}),
+% \end{equation}
+% where $a_t \in \mathcal{A}$ is the executed action and $o_{t+1} \in \mathcal{O}$ is the subsequent observation.
+% This formulation emphasizes that spatial representations are executable, interactive, and continuously revised, rather than static encodings.
+
+
+\paragraph{Dynamic Interaction and World State Evolution.}
+Finally, spatial intelligence requires representations to be dynamically updated through interaction.
+We model the evolution of the internal world representation of system $\mathcal{S}$ as:
+\begin{equation}
+\mathcal{R}^{\mathcal{S}}_{t+1} = \Psi_{\mathcal{S}}(\mathcal{R}^{\mathcal{S}}_t, a^{\mathcal{S}}_t, o_{t+1}),
+\end{equation}
+where $a^{\mathcal{S}}_t \in \mathcal{A}$ is the action selected by system $\mathcal{S}$ and $o_{t+1} \in \mathcal{O}$ is the subsequent observation.
+It emphasizes that spatial representations are executable, interactive, and continuously revised by the system, rather than static encodings of the environment.
+
+
+
+
+
+This formalization clarifies that spatial intelligence is not tied to a specific modality, algorithm, or architecture.
+Instead, it is defined by the existence of a system-induced, world-centered spatial representation space $\mathcal{R}_{\mathcal{S}}$ and the ability of the AI system $\mathcal{S}$ to manipulate, update, and exploit this representation to support perception, reasoning, prediction, and embodied action within an environment.
+
+
+
+
+
+
+
+
+
+
+\subsection{Compatibility with Existing Research and Paradigms}
+\label{subsec:p1-sec2-compatibility-with-existing-research-and-paradigms}
+
+The proposed framework is intentionally designed to be inclusive rather than prescriptive.
+Rather than introducing a new task taxonomy or replacing existing formulations, it provides a unifying lens through which a wide range of spatial intelligence-related tasks, domains, and research traditions can be consistently described.
+From this perspective, most existing work can be understood as instantiating or emphasizing only a subset of the core elements defined in our framework, often driven by domain-specific constraints, data availability, or evaluation protocols.
+
+
+A large body of research in computer vision, graphics, and extended reality focuses primarily on the \emph{representation layer} of spatial intelligence.
+Tasks such as 3D reconstruction, neural rendering, scene synthesis, video generation, and emerging 4D spatiotemporal modeling concentrate on learning expressive spatial representations $\mathcal{R}_{\mathcal{S}}$, often with little or no emphasis on action, task execution, or long-term interaction.
+Within our framework, these approaches can be viewed as developing increasingly powerful instantiations of world-centered spatial representations, while largely abstracting away the agent $\mathcal{S}$ and the functional operators that connect representation to behavior.
+Their contributions lie in advancing the expressiveness, continuity, and generative capacity of spatial representations, even if they remain largely offline or perception-centric.
+
+
+
+Robotics, embodied AI, and embedded systems emphasize a different subset of the framework, placing primary focus on action grounding and closed-loop interaction.
+Vision-Language-Action models, navigation agents, and manipulation systems operationalize the mapping from internal representations to actions, often under real-time and physical constraints.
+However, in many cases, the underlying spatial representations remain task-specific, shallow, or tightly coupled to particular embodiments.
+From the perspective of our framework, these systems instantiate the functional operators and dynamic interaction components, while relying on relatively limited or implicit world representations.
+This explains why many embodied systems exhibit strong short-horizon competence but struggle with long-term consistency, world editing, or cross-task transfer.
+
+
+
+Classical and modern SLAM systems provide a complementary example.
+SLAM explicitly targets the construction and maintenance of a world-centered spatial representation under uncertainty, typically in the form of metric maps, pose graphs, or hybrid geometric-topological structures.
+Within our framework, SLAM can be understood as a specialized instantiation of the representation update process, with strong guarantees on geometric consistency and state estimation.
+At the same time, SLAM systems often remain agnostic to high-level reasoning, semantic abstraction, or task-conditioned decision making, highlighting again that they occupy a specific slice of the broader spatial intelligence spectrum rather than the full stack.
+
+
+
+
+Viewed through this unified lens, existing spatial intelligence research does not fragment into incompatible paradigms, but instead forms a landscape of partial realizations.
+Different communities emphasize representation learning, perception, reasoning, prediction, or action to varying degrees.
+Our framework provides a common conceptual structure that makes these emphases explicit, clarifies their limitations, and reveals how advances in one area can be systematically integrated with others.
+In this sense, the framework is not a replacement for existing approaches, but a scaffold for understanding how they collectively contribute to, and fall short of, world-centered spatial intelligence.
+
+

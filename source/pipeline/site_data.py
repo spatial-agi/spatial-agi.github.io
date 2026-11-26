@@ -3,7 +3,7 @@ definition, operators, BibTeX."""
 import re
 from pathlib import Path
 
-BOOK = Path(__file__).resolve().parents[2] / "Spt-Intell-share-paper"
+from book_source import BOOK
 
 
 def authors():

@@ -1,0 +1,36 @@
+
+\chapter{Spatial Perception}
+\label{chapter:3:sec:6}
+\label{sec:perception}
+% \label{sec:6}
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkgreen}{S}}{patial perception} 
+\FramedInitial{S}{patial} perception is the foundational layer of spatial intelligence: it turns raw sensory input into the structured spatial evidence that everything downstream depends on, answering what is present, where it lies, and how it moves. It is what stands between an agent and a scene, and the reliability of every later inference is bounded by the reliability of what perception delivers.
+
+The chapter follows a single progression, from the elemental to the structured. It begins with recognizing the discrete entities that populate a scene, grounds them in metric geometry, then binds them into relational and scene-level structure, extends that structure across time, and finally broadens it beyond vision by fusing complementary modalities. Each step presupposes the ones before it, so that perception builds from isolated percepts toward a dynamic, multimodal model of space that reasoning and generation can act on.
+
+
+\input{part_3/section_6/p3_sec6_1}
+% \newpage
+\input{part_3/section_6/p3_sec6_2}
+% \newpage
+\input{part_3/section_6/p3_sec6_3}
+% \newpage
+\input{part_3/section_6/p3_sec6_4}
+% \newpage
+\input{part_3/section_6/p3_sec6_5}
+
+
+\section{Summary and Outlook}
+\label{sec:p3_s6_6}
+
+This chapter followed spatial perception from the elemental to the structured: recognizing the entities in a scene, fixing them in metric geometry, binding them into relations, layouts, and maps, carrying that structure through time, and supplementing vision with sound and language. Three observations recur across these tasks.
+
+\textbf{Priors fill gaps that observation leaves open.} Monocular depth, surface normals, and camera motion are underdetermined by a single image: scale, reflectance, and the geometry behind an occluder are not fixed by the pixels (§\ref{sec:depth_estimation}, §\ref{sec:visual_odometry}). Learned models increasingly resolve this ambiguity with strong priors, which makes them confident on familiar scenes and fragile on transparent or reflective materials, moving objects, adverse conditions, and domains their training data under-represent. Distinguishing what a percept observes from what a prior supplies is a requirement the later chapters inherit, and Chapter~\ref{chapter:p5_discussions} returns to it as a question of observability.
+
+\textbf{Foundation models move the bottleneck rather than remove it.} Open-vocabulary detectors and segmenters, zero-shot scene classifiers, and 3D geometry foundation models have widened what perception covers without task-specific training, yet the hardest cases persist at the long tail: small and rare objects, unseen instances in clutter, and metric judgments of distance, size, and angle, on which multimodal models remain weak even when their semantic predictions are strong (§\ref{sec:spatial_relation_extraction}). The accuracy--efficiency tension noted for detection recurs in every task of the chapter.
+
+\textbf{Evaluation rewards the easier part of each problem.} Many benchmarks are synthetic, saturated, or confined to a few curated scenes; tracking metrics do not measure robustness to occlusion length (§\ref{sec:object_tracking}), temporal-localization metrics treat fuzzy boundaries as exact, and grounding benchmarks pose a single query against a single image rather than an interaction (§\ref{sec:vl_grounding}).
+
+What the chapter delivers is structured spatial evidence: entities with positions, relations, trajectories, and maps. Chapter~\ref{sec:reasoning} takes that evidence as input and asks what can be inferred and planned from it, and Chapter~\ref{sec:generation} runs the mapping in the opposite direction.

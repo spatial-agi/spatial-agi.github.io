@@ -1,0 +1,102 @@
+
+\subsection{Temporal Localization}
+\label{sec:temporal_localization}
+
+Temporal localization answers \emph{when} something happens in a long, untrimmed video. The condition can be a category from a closed set, which gives temporal action localization (TAL) as treated in Section~\ref{sec:action_detection}, or a free-form sentence, which gives temporal sentence grounding (TSG): return the segment that best matches ``the person opens the microwave''. This subsection sets the two side by side, with the weight on the text-conditioned problem, which turns localization from exhaustive detection into retrieval and is what video search and interactive navigation~\cite{hendricks2017mcn,gao2017tall,krishna2017densecap} rely on.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/temporal_localization.pdf}
+    \caption{Temporal localization methods. Top row (TAL, category-conditioned): (i) window-based, (ii) two-stage proposal-based, (iii) one-stage anchor-free, and (iv) Transformer set prediction. Bottom row (TSG, text-conditioned): (a) cross-modal matching, (b) 2D temporal-map reasoning with a proposal-graph alternative, and (c) Transformer set prediction. Hatched map cells are invalid start--end pairs; graph nodes represent candidate moments. Coarse-to-fine corpus retrieval is shown separately as a scope extension, not a mandatory stage of set prediction. Scene frames and scores are illustrative.}
+    \label{fig:p3_s6_4_2_method_overview}
+\end{figure}
+
+\subsubsection{Task Definition}
+\textbf{Temporal Action Localization (TAL)} takes an untrimmed video $V=\{x_t\}_{t=1}^{T}$, where $x_t$ may be a visual, audio, or multimodal feature, and detects \emph{all} instances of $K$ predefined action classes, returning $\mathcal{A}=\{a_i\}_{i=1}^{N}$ with $a_i=(t_i^{\mathrm{start}},\, t_i^{\mathrm{end}},\, c_i,\, s_i)$: start and end times, a class label $c_i\in\{1,\ldots,K\}$, and a confidence $s_i$ (the $(t_s, t_e, c)$ tuples of Section~\ref{sec:action_detection}).
+
+\textbf{Temporal Sentence Grounding (TSG)}, also called natural language video localization or video moment retrieval, pairs $V$ with a sentence $q$ and returns a ranked list of moments $\mathcal{M}(q,V)=\{m_j\}_{j=1}^{M}$, $m_j=(\tau_j^{\mathrm{start}},\,\tau_j^{\mathrm{end}},\, r_j)$, with boundaries and a relevance score $r_j$; usually one segment is the answer. TAL is thus an exhaustive detection task over a closed label set, TSG a targeted retrieval task guided by open-ended language.
+
+Both are studied under several settings, which Figure~\ref{fig:p3_s6_4_2_task_settings} lays side by side. Offline methods see the whole video; online methods infer causally over the streamed prefix and are judged on low-latency detection of action starts~\cite{shou2018odas,gao2019startnet}. Supervision ranges from frame-accurate boundaries to video-level labels only (weakly supervised TAL via multiple-instance learning, Section~\ref{sec:action_detection}; weakly supervised TSG by aligning the two modalities during training~\cite{ma2020vlanet}), with self-supervised video pretraining~\cite{tong2022videomae,wang2023videomaev2} and open-vocabulary or zero-shot variants~\cite{liberatori2024t3al} reducing the labeled data needed. TSG additionally varies in scope, from a single video~\cite{gao2017tall,hendricks2017mcn} to corpus-level retrieval that first finds the video and then the moment (VCMR)~\cite{lei2020tvr}, and in output, with QVHighlights~\cite{lei2021qvhighlights} asking for a saliency ranking of highlight clips alongside the grounded moment.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/temporal_localization_task_settings.pdf}
+    \caption{Six settings of temporal localization. Top row (TAL): (a) offline detection of $K$ classes; (b) online detection of action starts~\cite{shou2018odas,gao2019startnet}; (c) weakly supervised training from video-level labels. Bottom row (TSG): (d) single-video sentence grounding~\cite{gao2017tall,hendricks2017mcn}; (e) corpus-level moment retrieval~\cite{lei2020tvr}; (f) joint grounding and highlight detection~\cite{lei2021qvhighlights}. The online panel separates event onset, detection time, and the current observation boundary; future frames are unavailable. Dashed intervals in the weak-supervision panel denote inferred hypotheses, not boundary annotations. Scene examples, confidence values, and saliency ranks are illustrative.}
+    \label{fig:p3_s6_4_2_task_settings}
+\end{figure}
+
+\subsubsection{Methodology}
+Figure~\ref{fig:p3_s6_4_2_method_overview} traces both tasks along the same path from hand-designed pipelines to end-to-end Transformers.
+
+The TAL row is the detection lineage of Section~\ref{sec:action_detection}: sliding windows over hand-crafted features such as improved dense trajectories~\cite{wang2013idt}, then two-stage proposal-plus-classification systems (R-C3D~\cite{xu2017rcc3d}, SSN~\cite{zhao2017temporal}, TAL-Net~\cite{chao2018talnet}) with dedicated boundary-sensitive proposal generators (BSN~\cite{lin2018bsn}, BMN~\cite{lin2019bmn}, G-TAD~\cite{xu2020gtad}), then anchor-free dense detectors and query-based set prediction. Three developments go beyond that treatment. Dense single-stage detectors were scaled by ActionFormer~\cite{zhang2022actionformer}, a multi-scale Transformer encoder over the feature pyramid, and TriDet~\cite{shi2023tridet}, which replaces self-attention with a convolutional scalable-granularity-perception module and a trident boundary head; both still regress boundaries at every position and rely on non-maximum suppression. DETR-style set prediction removes anchors and suppression: RTD-Net~\cite{tan2021rtdnet} applies a relaxed Transformer decoder to proposal generation and TadTR~\cite{liu2022tadtr} decodes the full action set end to end~\cite{liu2022e2etad,kim2024tetad}. And masked video pretraining~\cite{tong2022videomae,wang2023videomaev2} now supplies the backbones that these heads are fine-tuned on.
+
+TSG began with cross-modal matching. CTRL~\cite{gao2017tall} embeds the sentence and candidate clips in a shared space and ranks clips, with boundary regression on top; MCN~\cite{hendricks2017mcn} does the same for DiDeMo with global video context. Later models reason over the candidates jointly: MAN~\cite{zhang2019man} refines moments iteratively through a graph over proposals, 2D-TAN~\cite{zhang2020twodtan} scores every (start, end) pair on a two-dimensional temporal-adjacency map so that neighboring candidates inform each other, and VSLNet~\cite{zhang2020vslnet} drops proposals altogether and predicts the start and end positions as span extraction, in analogy to reading comprehension. Moment-DETR~\cite{lei2021qvhighlights} brought set prediction to grounding, decoding moments and saliency scores directly from an encoder--decoder, while TVR~\cite{lei2020tvr} extended grounding to corpus scale with a coarse-to-fine search over subtitles and frames.
+
+\subsubsection{Datasets and Metrics}
+
+Table~\ref{tab:temporal_localization_datasets} lists the benchmarks; the TAL rows are those of Section~\ref{sec:action_detection}, retained for comparison. The TSG benchmarks move from a closed domain (TACoS~\cite{tacos2013}, cooking) to open-domain sentences over indoor activity (Charades-STA~\cite{gao2017tall}), Flickr videos with multiple references per query (DiDeMo~\cite{hendricks2017mcn}), and dense paragraph-level captions (ActivityNet Captions~\cite{krishna2017densecap}); YouCook2~\cite{zhou2017youcook2} adds procedural structure, TVR~\cite{lei2020tvr} multimodal (subtitle) context and corpus-level retrieval, and QVHighlights~\cite{lei2021qvhighlights} saliency labels for joint highlight detection.
+
+\begin{table}[t]
+\centering
+\caption{Representative datasets for temporal localization; ``Task'' distinguishes category-conditioned TAL from text-conditioned TSG. Counts are indicative of commonly used versions and splits.}
+\label{tab:temporal_localization_datasets}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabularx}{\linewidth}{@{}l c c c X@{}}
+\toprule
+\textbf{Task} & \textbf{Dataset} & \textbf{Year} & \textbf{Scale / Classes} & \textbf{Temporal annotations} \\
+\midrule
+TAL & THUMOS14~\cite{jiang2014thumos} & 2014 & 200 train + 213 test videos / 20 cls & Frame-accurate, untrimmed \\
+TAL & ActivityNet v1.3~\cite{caba2015activitynet} & 2016 & $\sim$20k videos / 200 cls & Untrimmed, diverse \\
+TAL & HACS Segments~\cite{zhao2019hacs} & 2019 & 50k videos / 200 cls; 139k segments & Clip+segment, dense \\
+TAL & EPIC-KITCHENS-100~\cite{damen2020epic100} & 2020 & 700 egocentric videos / verb-noun labels & Egocentric, narration-aligned \\
+TAL & MultiTHUMOS~\cite{yeung2018every} & 2015 & $\sim$400 videos / 65 cls; $\sim$38.7k ann. & Dense, multi-label \\
+TAL & FineAction~\cite{liu2022fineaction} & 2022 & 17k videos / 106 cls; 103k instances & Fine-grained, precise \\
+\midrule
+TSG & TACoS~\cite{tacos2013} & 2013 & 127 cooking videos; $\sim$18.8k query-segment pairs & Cooking, aligned \\
+TSG & Charades-STA~\cite{gao2017tall} & 2017 & $\sim$6.6k videos; 16,128 pairs & Charades-based pairs \\
+TSG & DiDeMo~\cite{hendricks2017mcn} & 2017 & $\sim$10k Flickr videos; $\sim$40k queries & Multi-reference, ranking \\
+TSG & ActivityNet Captions~\cite{krishna2017densecap} & 2017 & 20k videos; $\sim$100k sentences & Dense captions \\
+TSG & YouCook2~\cite{zhou2017youcook2} & 2018 & 2k untrimmed cooking videos / 89 recipes & Cooking procedures \\
+TSG & TVR~\cite{lei2020tvr} & 2020 & 21.8k clips (60--90 s) from 6 TV shows; 109k queries & Subtitles, multimodal \\
+TSG & QVHighlights~\cite{lei2021qvhighlights} & 2021 & $\sim$10k YouTube videos; query+saliency & Query-saliency, highlights \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Temporal IoU between a predicted and a ground-truth segment is the primitive for both tasks, and TAL is scored by mAP at fixed tIoU thresholds (per-threshold on THUMOS14, averaged over $[0.5{:}0.95]$ on ActivityNet) and by AR@AN for proposal quality~\cite{anet2019proposals}, as defined in Section~\ref{sec:action_detection}. TSG uses retrieval metrics instead. For queries $\mathcal{Q}$, ranked predictions $\hat{m}_j$, and reference segments $G(q)$,
+\begin{equation}
+\mathrm{R}@n,\mathrm{IoU}{=}\theta \,=\, \frac{1}{|\mathcal{Q}|}\sum_{q\in\mathcal{Q}} \mathbf{1}\!\left(\max_{1\le j\le n}\;\max_{g\in G(q)} \mathrm{tIoU}(\hat{m}_j,g)\ge \theta\right)
+\end{equation}
+is the fraction of queries for which some top-$n$ prediction overlaps a reference by at least $\theta$ (commonly $n\in\{1,5\}$, $\theta\in\{0.3,0.5,0.7\}$), and $\mathrm{mIoU} = \frac{1}{|\mathcal{Q}|}\sum_{q} \max_{g\in G(q)} \mathrm{tIoU}(\hat{m}_1,g)$ scores the top prediction alone; QVHighlights adds mAP over tIoU thresholds~\cite{lei2021qvhighlights}. Recall at a threshold binarizes overlap and ignores the quality of the ranking, which motivated ranking-sensitive alternatives such as AxIoU~\cite{togashi2022axiou}, and annotator disagreement about where a described moment begins and ends puts a ceiling on how precisely any of these can be measured.
+
+Table~\ref{tab:temporal_localization_performance} gives R@1 results for the TSG methods above; TAL numbers are in the table of Section~\ref{sec:action_detection}. Relational reasoning over candidates (2D-TAN) and span prediction (VSLNet) improved the listed Charades-STA R@1 from CTRL's 23.6/8.9 to 39.7/23.3 and 54.2/35.2, respectively, and Moment-DETR adds a further step on Charades-STA without proposals or suppression; its QVHighlights numbers are the reference point for joint grounding and highlight detection.
+
+\begin{table}[!t]
+    \centering
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.2mm}
+    \caption{Temporal sentence grounding, R@1 at tIoU 0.5 / 0.7 (\%). Charades-STA and ActivityNet Captions values as reported in the 2D-TAN~\cite{zhang2020twodtan}, VSLNet~\cite{zhang2020vslnet}, and Moment-DETR~\cite{lei2021qvhighlights} papers (visual features differ across methods as in the originals; MAN uses I3D features); QVHighlights test values from Moment-DETR without pretraining, with mAP averaged over tIoU thresholds.}
+    \label{tab:temporal_localization_performance}
+    \begin{tabular}{L{0.26\textwidth} L{0.26\textwidth} C{0.13\textwidth} C{0.15\textwidth} C{0.11\textwidth}}
+    \toprule
+    \textbf{Method} & \textbf{Design} & \textbf{Charades-STA} & \textbf{ActivityNet Captions} & \textbf{QVHighlights} \\
+     & & R@1 0.5 / 0.7 & R@1 0.5 / 0.7 & R@1 0.5 / 0.7 (mAP) \\
+    \midrule
+    CTRL~\cite{gao2017tall}             & Clip--sentence matching      & 23.6 / 8.9  & 29.0 / 10.3 & -- \\
+    MAN~\cite{zhang2019man}             & Iterative graph adjustment   & 46.5 / 22.7 & --          & -- \\
+    2D-TAN~\cite{zhang2020twodtan}      & 2D temporal-adjacency map    & 39.7 / 23.3 & 44.5 / 26.5 & -- \\
+    VSLNet~\cite{zhang2020vslnet}       & Span prediction              & 54.2 / 35.2 & 43.2 / 26.2 & -- \\
+    Moment-DETR~\cite{lei2021qvhighlights} & Set prediction              & 53.6 / 31.4 & --          & 52.9 / 33.0 (30.7) \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Challenges}
+
+Boundaries are soft. Actions span sub-second gestures to multi-minute activities, which no single temporal resolution serves, and annotators disagree about where an instance starts and ends; a sentence adds its own ambiguity about which part of an activity it describes. The tIoU-thresholded metrics treat these fuzzy boundaries as exact, so part of the measured error is irreducible~\cite{togashi2022axiou}, and probabilistic boundary modeling with calibrated confidences is the natural response.
+
+The two tasks are converging. A closed label set limits TAL, while TSG is bounded by the vocabulary of its query sets; text prompts in place of class labels~\cite{liberatori2024t3al} and set prediction for moments~\cite{lei2021qvhighlights} point to a single architecture that grounds both categories and sentences. Doing this over minutes of video, across camera viewpoints (egocentric footage in particular), with audio, narration, or noisy subtitles as further evidence~\cite{lei2020tvr,lei2021qvhighlights}, and causally for streaming use~\cite{shou2018odas} is where the current systems fall short: memory-efficient long-context encoders and corpus-scale coarse-to-fine retrieval are the two ingredients most actively developed.
+
+
+

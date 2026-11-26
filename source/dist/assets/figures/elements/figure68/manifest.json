@@ -1,0 +1,58 @@
+{
+  "source": "assets/figures/figures/part3/section6/camera-1.webp",
+  "notes": "Icons only; colored cards, labels, formulas and arrows are frontend primitives.",
+  "assets": [
+    {
+      "file": "icons/world-axes.png",
+      "source_box": [
+        104,
+        130,
+        240,
+        238
+      ],
+      "size": [
+        136,
+        108
+      ]
+    },
+    {
+      "file": "icons/camera-axes.png",
+      "source_box": [
+        510,
+        130,
+        650,
+        238
+      ],
+      "size": [
+        140,
+        108
+      ]
+    },
+    {
+      "file": "icons/image-plane-axes.png",
+      "source_box": [
+        890,
+        135,
+        1065,
+        238
+      ],
+      "size": [
+        175,
+        103
+      ]
+    },
+    {
+      "file": "icons/pixel-axes.png",
+      "source_box": [
+        1300,
+        135,
+        1470,
+        238
+      ],
+      "size": [
+        170,
+        103
+      ]
+    }
+  ]
+}

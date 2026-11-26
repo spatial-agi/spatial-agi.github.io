@@ -1,0 +1,128 @@
+{
+  "figure": "8.25",
+  "sources": [
+    "assets/figures/figures/part3/section8/programmatic_spatial_generation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      734
+    ]
+  ],
+  "assets": [
+    {
+      "file": "p2/program-icon.png",
+      "title": "program icon",
+      "box": [
+        339,
+        135,
+        393,
+        189
+      ],
+      "kind": "icon",
+      "source_index": 0,
+      "source_box": [
+        678,
+        270,
+        786,
+        378
+      ],
+      "size": [
+        108,
+        108
+      ]
+    },
+    {
+      "file": "p3/prompt-icon.png",
+      "title": "prompt icon",
+      "box": [
+        306,
+        258,
+        363,
+        310
+      ],
+      "kind": "icon",
+      "source_index": 0,
+      "source_box": [
+        612,
+        516,
+        726,
+        620
+      ],
+      "size": [
+        114,
+        104
+      ]
+    },
+    {
+      "file": "output/raster-art.png",
+      "title": "raster art",
+      "box": [
+        906,
+        77,
+        983,
+        115
+      ],
+      "kind": "icon",
+      "source_index": 0,
+      "source_box": [
+        1812,
+        154,
+        1966,
+        230
+      ],
+      "size": [
+        154,
+        76
+      ]
+    },
+    {
+      "file": "output/vector-ui.png",
+      "title": "vector ui",
+      "box": [
+        906,
+        158,
+        983,
+        198
+      ],
+      "kind": "icon",
+      "source_index": 0,
+      "source_box": [
+        1812,
+        316,
+        1966,
+        396
+      ],
+      "size": [
+        154,
+        80
+      ]
+    },
+    {
+      "file": "output/3d-scene.png",
+      "title": "3d scene",
+      "box": [
+        907,
+        252,
+        983,
+        299
+      ],
+      "kind": "icon",
+      "source_index": 0,
+      "source_box": [
+        1814,
+        504,
+        1966,
+        598
+      ],
+      "size": [
+        152,
+        94
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

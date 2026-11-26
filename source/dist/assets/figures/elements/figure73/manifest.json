@@ -1,0 +1,36 @@
+{
+  "source": "assets/figures/figures/part3/section7/713_topo.webp",
+  "source_size": [
+    2000,
+    868
+  ],
+  "assets": [
+    {
+      "file": "i-inputs/sensing-device.png",
+      "source_box": [
+        31,
+        243,
+        94,
+        296
+      ],
+      "title": "Sensing device",
+      "note": "Restored the neutral outline behind the blue sensor marker and sensing rays. Those annotations will be drawn independently."
+    },
+    {
+      "file": "i-inputs/robot-body.png",
+      "source_box": [
+        24,
+        499,
+        85,
+        601
+      ],
+      "title": "Robot / task body",
+      "note": "Preserved the original pale fill and dark contour; the curved task constraint stays native."
+    }
+  ],
+  "frontend": {
+    "i-inputs": "Free-space frame and obstacle, sensor marker and sensing rays, odometry trace, start/goal path, constraint arc, floor plan, labels.",
+    "ii-reasoning": "Visibility graph, Voronoi/skeleton, cell decomposition, roadmap/tree, graph-search weights and selected route, hierarchy graphs, frames, formula and captions.",
+    "iii-outputs": "Collision-free path, topological map, multi-agent time/vertex diagram, coverage/sweep path, frames and labels."
+  }
+}

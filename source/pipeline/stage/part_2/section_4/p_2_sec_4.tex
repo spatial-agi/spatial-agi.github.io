@@ -1,0 +1,201 @@
+\chapter{Single-Modal Spatial Representation}
+\label{chapter:single_modality}
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkgreen}{S}}{ingle-modal} 
+\FramedInitial{S}{ingle-modal} spatial representations ask how much of a scene's spatial structure can be recovered from one modality alone, without recourse to cross-modal correspondence.
+The question matters because every multimodal system is ultimately built from unimodal encoders, and the spatial content a fused representation can carry is bounded by what each modality already captures on its own.
+
+What separates the modalities is not whether they carry spatial information but how overtly they carry it.
+Vision presents geometry almost directly, arranging appearance and shape over a spatial grid or the volume a scene occupies.
+Language and sound hold the same structure only obliquely, the one as symbolic relations among named entities, the other as the physical trace that propagation leaves on a signal.
+Others still are tied to a particular sensor or task, trading generality for fidelity to the data they were built around.
+This chapter proceeds along that gradient, from the most explicit geometric encodings of space toward the most implicit, examining each modality on its own terms before the question of how they combine is taken up.
+
+
+
+
+
+\input{part_2/section_4/p_2_sec_4_2D}
+
+
+
+\input{part_2/section_4/p_2_sec_4_3D}
+
+
+
+\input{part_2/section_4/p_2_sec_4_4D}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Language}
+\label{sec:rep_language}
+
+\FramedInitial{U}{nlike} the visual and geometric representations of the previous sections, which encode space explicitly through pixels, points, or surfaces, language represents space \emph{symbolically}, naming entities and stating the relations among them (\eg, ``the chair is next to the table'' or ``the store is across the street from the park'') and thereby capturing relational, topological, and functional structure that metric representations leave implicit. 
+The question this section pursues is not how language \emph{describes} space, which is self-evident, but whether models trained only on language come to \emph{encode} it. 
+Answering that requires first understanding how language representations are learned at all, so the section moves from the evolution of language representation learning, from masked-language pretraining to large autoregressive models, to the more surprising finding that such sequence-only training induces latent, spatially structured world models rather than mere text statistics. 
+The scope here is language in isolation; how language is \emph{aligned} with visual, 3D, and audio modalities is deferred to Chapter~\ref{chapter:cross_modality}.
+
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part2/language_representation.pdf}
+    \caption{Spatial information implicit in language-only representations. \textit{Left}: natural-language descriptions of spatial relations. \textit{Right}: a probe on Othello-GPT hidden activations recovers the board state from move sequences alone.}
+    \label{fig:p2_s4_1_language-representation}
+\end{figure}
+
+
+\subsection{The Evolution of Language Representation Learning}
+\label{subsec:p-2-sec-4-the-evolution-of-language-representation-learning}
+
+Language representation learning has evolved rapidly over the past decade, through masked-language pretraining (BERT~\cite{devlin2019bert} and RoBERTa~\cite{liu2019roberta}), permutation-based autoregressive pretraining (XLNet~\cite{yang2019xlnet}), denoising sequence-to-sequence pretraining (T5~\cite{raffel2020exploring}), and autoregressive large language models trained purely on next-token prediction, exemplified by GPT-2 and GPT-3~\cite{radford2019language,brown2020language}.
+Across this progression, a recurring observation is that representation quality scales with model size, data size, and the sophistication of the pretraining objective~\cite{srivastava2022beyond}, and that pretrained representations encode richer structure than the surface text statistics they were trained on~\cite{tenney2019bert,hewitt2019structural}.
+This last property, that language-only training produces representations carrying structure beyond text, is what makes language representations load-bearing for spatial intelligence, as the next subsection makes explicit.
+
+\subsection{Language Representation Learning Induces Spatial Intelligence}
+\label{subsec:p-2-sec-4-language-representation-learning-induces-spatial-intelligence}
+
+Although LLMs are optimized for sequence prediction, recent work suggests that they can develop structured internal representations that resemble world models~\cite{li2021implicit,patel2022mapping,abdou2021can}. 
+One particularly pertinent demonstration of this on spatial intelligence is Othello-GPT, a transformer trained solely on sequences of legal moves from the board game Othello~\cite{li2023emergent}.
+
+Despite receiving no prior knowledge of the board layout or game rules, Othello-GPT achieves near-perfect accuracy in predicting legal moves (actions in a physical space). 
+Probing experiments reveal that nonlinear~\cite{alain2016understanding,tenney2019bert,belinkov2016probing} classifiers can reliably reconstruct the entire board state from hidden activations~\cite{li2023emergent}. 
+Crucially, interventional studies show that manipulating internal representations of specific tiles alters the model’s predictions in a way consistent with counterfactual board states, providing causal evidence of spatial encoding \cite{li2023emergent}.
+
+These findings align with broader research indicating that LMs acquire implicit representations of abstract or grounded concepts. 
+For example, models have been shown to encode syntactic structure~\cite{hewitt2019structural}, color spaces \cite{abdou2021can}, and even logical state-tracking~\cite{li2021implicit}. 
+Work on chess transcripts similarly shows that LMs can track board positions without explicit supervision~\cite{toshniwal2021learning}. 
+Compared to systems like AlphaZero, which are built with strong inductive biases and explicit access to board states~\cite{silver2018general,mcgrath2021acquisition}, Othello-GPT highlights the surprising extent to which sequence-only training can lead to emergent spatial reasoning.
+
+In sum, it has been demonstrated that spatially structured representations can emerge in LMs trained only on symbolic sequences. 
+This suggests that autoregressive sequence prediction is sufficient, in certain domains, to induce latent world models that encode spatial relations and can causally drive action predictions.
+
+
+
+
+
+
+
+
+\section{Audio}
+\label{sec:rep_audio}
+
+
+
+\FramedInitial{A}{udio} is fundamentally tied to spatial information. 
+Unlike vision, which directly captures the geometric layout of a scene, acoustic signals encode spatial structure only \emph{implicitly}, through the physical transformations imposed on sound during propagation.
+Recovering space from sound is therefore a matter of reading these transformations backward: from the perceptual cues that human hearing exploits, to the computational representations that formalize them, to the learned models and cross-modal couplings that ground sound in the surrounding geometry. 
+This section follows that arc.
+Human auditory perception interprets the resulting acoustic cues, shaped by these transformations, to infer the spatial layout of the environment.
+The primary cues are binaural: the \emph{Interaural Time Difference (ITD)} and the \emph{Interaural Level Difference (ILD)}, both arising from the geometry of the head and the spatial separation of the ears~\cite{macpherson2002listener,middlebrooks2015sound}.
+ITD reflects the difference in arrival time between the two ears and is highly reliable for localizing low-frequency sounds whose long wavelengths exceed head size.
+Conversely, ILD captures sound pressure level differences caused by head-shadowing effects and serves as a dominant cue for high-frequency localization where such attenuation is more pronounced.
+However, binaural cues alone cannot fully resolve depth, elevation, or front-back ambiguities.
+
+To address these limitations, the auditory system further exploits \emph{monaural spectral cues} and \emph{environmental reverberation}.
+Direction-dependent spectral filtering produced by the torso, head, and pinnae introduces characteristic notches and peaks, enabling inference of elevation and disambiguation of positions on the cone of confusion~\cite{gardner19983}.
+In addition, the room impulse response (RIR) shaped by early reflections, late reverberation, and surface materials encodes information about source distance, enclosure geometry, and environmental structure~\cite{kuttruff2016room,blauert1997spatial}.
+These monaural and environmental cues complement binaural information, jointly supporting robust spatial inference under naturalistic conditions.
+
+Computational models formalize these perceptual cues through structured acoustic representations.
+Head-related transfer functions (HRTFs)~\cite{wightman1989headphone} capture listener-specific spectral filtering and are foundational to perceptual research and spatial audio rendering.
+In parallel, spherical-harmonics–based ambisonics representations~\cite{zotter2019ambisonics} provide a scene-centric encoding of the sound field around a point in space, with controllable angular resolution.
+Together, these representations describe how sound interacts with the body and the environment, enabling principled approaches to spatial reasoning, source localization, and scene reconstruction.
+Taken together, the ability of the auditory system to integrate binaural, monaural, and environmental cues demonstrates that sound carries rich implicit structure about the spatial configuration of sources and the surrounding environment.
+
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part2/audio_representation.pdf}
+    \caption{Three families of acoustic spatial cues: binaural cues (ITD, ILD), monaural spectral cues (direction-dependent filtering by torso, head, and pinnae, summarized by the HRTF), and environmental reverberation (room impulse response).}
+    \label{fig:p2_s4_4_audio-representation}
+\end{figure}
+
+Recent learning-based approaches aim to capture spatial structure directly from raw audio, going beyond analytic models.
+Neural encoders trained on spatially annotated or simulated data learn to infer direction, distance, and environmental geometry from multi-channel waveforms or spectrograms~\cite{chen2022soundspaces,yuksel2025general}.
+Learning frameworks further exploit the relation between sound and space: SoundSpaces~\cite{chen2020soundspaces} provides audio-visual simulation for embodied navigation, while VisualEchoes~\cite{gao2020visualechoes} uses image--echo correspondences for self-supervised spatial representation learning.
+These learned representations encode not only spatial acoustics but also grounding in surrounding geometry, forming a key component of spatially aware representation.
+
+
+In real-world environments, spatial audio interacts closely with other sensory modalities.
+Audio–visual models align acoustic cues with visual observations to localize sounding objects and understand where events occur~\cite{morgado2018self,afouras2020self,morgado2020learning}.
+Embodied agents further leverage auditory signals to perceive layout and navigate toward acoustic targets, as demonstrated in audio–visual navigation~\cite{chen2020soundspaces} and egocentric audio reasoning~\cite{zheng2024bat,biswas2025owl}.
+Through such cross-modal grounding, audio provides complementary spatial cues that enhance robustness under visual occlusion and enable reasoning about events beyond the agent's field of view.
+This makes audio a powerful complementary modality for spatial representation, especially in scenarios where visual information is partial, noisy, or unavailable.
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Domain-Specific Representations}
+\label{sec:rep_other}
+
+\FramedInitial{T}{he} representations surveyed so far are organized by modality, each general enough to span many applications. 
+A large body of practice, however, develops representations tailored to a specific sensor or downstream task rather than to a modality as such, and these are collected here. 
+What unites them is not a shared signal but a shared design logic: each encodes the inductive biases of its data and trades spatial fidelity against semantic compressibility in the way its sensors and target tasks demand. 
+This section walks through five such domains: embodied robotics, virtual reality, geospatial and remote sensing, clinical and scientific imaging, and indoor intelligent assistants, examining in each the representations that have become canonical and the constraints that shaped them. 
+Beginning with robot perception and planning, systems commonly take as input RGB-D sequences and point clouds (often fused over time into geometric maps that ground observations into a common 3D frame~\cite{newcombe2011kinectfusion, dai2017bundlefusion}), and enable tracking, map building, and manipulation. 
+Many such systems also encode visual input into compressed spatial representations, such as keypoints, dense correspondences~\cite{florencemanuelli2018dense}, and point tracks, used to parameterize 6-DoF grasps~\cite{mousavian20196} and object-centric actions.
+When available, free space is typically represented with occupancy grids~\cite{Moravec1985SonarMaps, hornung2013octomap} and signed-distance representations~\cite{curless1996volumetric}, and is often additionally augmented with semantic labels such as traversability and cost for planning. 
+To further enable action from perception, planners frequently operate on affordance representations~\cite{mo2021where2act} over parts and candidate contact points, encoding feasible interactions such as graspability or predicted contact quality, thereby enabling policies to execute tasks successfully.
+
+Real-time virtual reality systems often represent scenes with triangle meshes and physically based rendering (PBR) materials, where geometry, normals, and texture define appearance, while 6-DoF camera poses keep virtual content registered to the environment. 
+To enable flexible interaction, such systems include captured geometry (\eg, spatial meshes, planes, or TSDF and SDF volumes~\cite{curless1996volumetric, newcombe2011kinectfusion}) and depth-based occlusion layers, which are often paired with collision proxies and semantic labels. 
+Toward photoreal view synthesis, methods increasingly use neural scene representations (\eg, NeRF-style radiance fields and 3D Gaussian splats~\cite{mildenhall2021nerf, kerbl20233d}), to support novel-view rendering and relighting. 
+Additionally, for the purposes of enabling characters in virtual reality systems, such characters are commonly represented with skeletal pose and expression parameters (\eg, SMPL-style body models~\cite{loper2015smpl} or Blendshapes), and their navigation relies on navmeshes combined with acceleration structures (\eg, octrees), to handle moving agents in simulation at high frame rates.
+
+In remote sensing applications, geographic information systems typically represent the world (the Earth) as georeferenced raster fields, for example, optical multispectral and hyperspectral imagery as well as SAR backscatter. 
+These fields are aligned to explicit coordinate reference systems and sensor geometry metadata. 
+Such systems encode terrain through multiple elevation products (\eg, DEM, DTM, DSM), and compress human infrastructure into vector networks (\eg, roads, power grids, pipelines), often across scales. 
+And increasingly, they use LiDAR to not only output raw point clouds, but also to output rasterized height maps that support flexible 3D reasoning. 
+These frameworks also commonly operate on multi-temporal stacks and spatiotemporal data with validity masks, which can generate change maps for land-use dynamics and disaster response, as well as feed digital-twin pipelines that generate orthomosaics and photogrammetric point clouds~\cite{schonberger2016structure}, for simulation and virtual modeling.
+
+Clinical and scientific imaging operate on volumetric scans (\eg, CT and MRI), in which 3D voxel grids capture geometry and intensities~\cite{cciccek20163d}, and explicit spatial transforms (\eg, rigid, affine, and nonlinear deformation fields) align subjects and modalities into a shared atlas space. 
+In addition, functional measurements (\eg, fMRI BOLD and calcium imaging) are often stored as 4D spatiotemporal tensors, but are frequently compressed into time series and activation maps after parcellation. 
+When available, such systems represent structural delineations (\eg, tissue, organ, lesion) as segmentation masks and labeled maps~\cite{ronneberger2015unet}, which are often paired with surface meshes (\eg, cortical surfaces) that enable surface-based topological comparison across subjects. 
+For diffusion imaging applications, tensor and orientation fields encode local diffusion directions and magnitudes, while tractography streamlines use these fields to reconstruct fiber pathways and uncover possible structural connectivity. 
+These diverse representations across granularities and temporal scales are often mapped onto one another through atlas spaces and parcellations, enabling multimodal fusion and cross-subject analysis.
+
+Intelligent assistants that operate in indoor environments typically ground language in 3D space using multi-scale maps, for example, 3D reconstructions and floorplans anchored by an estimated 6-DoF agent pose~\cite{savva2019habitat, straub2019replica, chang2017matterport3d}, which are often combined with semantic maps that encode navigable routes. 
+Context for interactions is captured in structured world models (\eg, scene graphs with typed entities and relations~\cite{armeni20193dsg, wald2020learning, wu2021scenegraphfusion}), which can be augmented with additional semantics like anchors, keypoints, and regions of interest. 
+For the purposes of intelligent and persistent assistance, representations that encode some form of memory are necessary, for example, episodic records and long-horizon object trajectories, which are often represented as probabilistic beliefs over object locations in a room. 
+In addition, assistant systems can optionally contain geofences and occupancy masks, to help define actionable regions for planning. 
+
+In summary, many domains have developed representations specifically designed for specialized sensors and encoding the inductive biases of the underlying data structure. 
+We see that these representations model a tradeoff between (spatial) fidelity and (semantic) compressibility, reflecting how the aforementioned sensors sample space, what priors are built in, and what downstream tasks are to be supported. 
+
+

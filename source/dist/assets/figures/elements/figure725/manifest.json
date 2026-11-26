@@ -1,0 +1,294 @@
+{
+  "figure": "7.25",
+  "source": "assets/figures/figures/part3/section7/tool_augmented_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1016
+  ],
+  "assets": [
+    {
+      "file": "i-scene/workspace.png",
+      "title": "Tool-use workspace",
+      "source_box": [
+        29,
+        305,
+        553,
+        771
+      ],
+      "kind": "exterior",
+      "size": [
+        524,
+        466
+      ]
+    },
+    {
+      "file": "i-scene/cabinet.png",
+      "title": "Cabinet, visible portion",
+      "source_box": [
+        32,
+        369,
+        384,
+        554
+      ],
+      "kind": "polygon",
+      "polygon": [
+        [
+          33,
+          391
+        ],
+        [
+          331,
+          370
+        ],
+        [
+          377,
+          383
+        ],
+        [
+          366,
+          409
+        ],
+        [
+          360,
+          448
+        ],
+        [
+          350,
+          463
+        ],
+        [
+          351,
+          501
+        ],
+        [
+          371,
+          510
+        ],
+        [
+          372,
+          518
+        ],
+        [
+          83,
+          551
+        ],
+        [
+          53,
+          551
+        ],
+        [
+          35,
+          538
+        ]
+      ],
+      "size": [
+        352,
+        185
+      ]
+    },
+    {
+      "file": "i-scene/robot-arm.png",
+      "title": "Robot arm, visible portion",
+      "source_box": [
+        350,
+        307,
+        553,
+        568
+      ],
+      "kind": "arm",
+      "polygon": [
+        [
+          350,
+          454
+        ],
+        [
+          365,
+          427
+        ],
+        [
+          365,
+          410
+        ],
+        [
+          378,
+          394
+        ],
+        [
+          400,
+          368
+        ],
+        [
+          421,
+          345
+        ],
+        [
+          425,
+          327
+        ],
+        [
+          438,
+          312
+        ],
+        [
+          459,
+          308
+        ],
+        [
+          482,
+          312
+        ],
+        [
+          504,
+          333
+        ],
+        [
+          522,
+          360
+        ],
+        [
+          535,
+          397
+        ],
+        [
+          550,
+          425
+        ],
+        [
+          552,
+          465
+        ],
+        [
+          543,
+          490
+        ],
+        [
+          543,
+          518
+        ],
+        [
+          551,
+          531
+        ],
+        [
+          551,
+          568
+        ],
+        [
+          469,
+          548
+        ],
+        [
+          469,
+          526
+        ],
+        [
+          478,
+          512
+        ],
+        [
+          477,
+          482
+        ],
+        [
+          471,
+          458
+        ],
+        [
+          460,
+          437
+        ],
+        [
+          450,
+          419
+        ],
+        [
+          434,
+          408
+        ],
+        [
+          413,
+          425
+        ],
+        [
+          411,
+          448
+        ],
+        [
+          420,
+          464
+        ],
+        [
+          414,
+          503
+        ],
+        [
+          401,
+          509
+        ],
+        [
+          394,
+          500
+        ],
+        [
+          394,
+          480
+        ],
+        [
+          377,
+          476
+        ],
+        [
+          371,
+          500
+        ],
+        [
+          358,
+          504
+        ],
+        [
+          353,
+          493
+        ]
+      ],
+      "size": [
+        203,
+        261
+      ]
+    },
+    {
+      "file": "i-scene/large-blue-cube.png",
+      "title": "Larger blue cube",
+      "source_box": [
+        288,
+        529,
+        382,
+        630
+      ],
+      "kind": "blue",
+      "size": [
+        94,
+        101
+      ]
+    },
+    {
+      "file": "i-scene/small-blue-cube.png",
+      "title": "Smaller blue cube",
+      "source_box": [
+        424,
+        561,
+        476,
+        616
+      ],
+      "kind": "blue",
+      "size": [
+        52,
+        55
+      ]
+    }
+  ],
+  "frontend": [
+    "Remove the solid cube box and dashed compartment box from the scene; draw both as independent frontend rectangles.",
+    "The cabinet and robot retain their original visible occlusions. No hidden geometry has been invented.",
+    "Rebuild all four tool-role diagrams, labels, formulas, boxes and return/STOP arrows in the frontend."
+  ]
+}

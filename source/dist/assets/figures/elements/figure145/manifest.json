@@ -1,0 +1,93 @@
+{
+  "figure": "14.5",
+  "sources": [
+    "assets/figures/figures/part4/section14/other_retail.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1523
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section14/other_retail.pdf",
+  "assets": [
+    {
+      "file": "observations/store-interior.png",
+      "title": "store interior",
+      "panel": "observations",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        228.84,
+        17.263,
+        774.574,
+        381.085
+      ],
+      "pdf_source_box": [
+        103.254,
+        7.789,
+        349.494,
+        171.949
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "checkout/shopper-picks-product.png",
+      "title": "shopper picks product",
+      "panel": "checkout",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        5.44,
+        124.175,
+        216.074,
+        264.598
+      ],
+      "pdf_source_box": [
+        2.454,
+        56.029,
+        97.494,
+        119.389
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "shelf-monitoring/product-shelf.png",
+      "title": "product shelf",
+      "panel": "shelf-monitoring",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        782.553,
+        124.175,
+        993.187,
+        264.598
+      ],
+      "pdf_source_box": [
+        353.094,
+        56.029,
+        448.134,
+        119.389
+      ],
+      "kind": "cutout"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

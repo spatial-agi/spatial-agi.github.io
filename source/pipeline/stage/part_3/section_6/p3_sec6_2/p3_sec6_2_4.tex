@@ -1,0 +1,145 @@
+\subsection{Visual Odometry and Camera Pose Estimation}
+\label{sec:visual_odometry}
+
+Visual odometry (VO) and camera pose estimation recover the position and orientation of a camera from visual observations.
+They provide the coordinate scaffold that lets a system stitch individual images into a persistent spatial representation: depth, surface normals, scene flow, maps, and 3D reconstructions all become more useful once they can be expressed in a shared camera or world frame.
+VO usually means estimating \emph{incremental} motion between consecutive frames, often as a trajectory $\{\mathbf{T}_t\}_{t=1}^{T}$ in $SE(3)$; camera pose estimation is broader and may recover a query image's absolute 6-DoF pose in a known scene, the relative pose between two views, or camera motion and scene geometry jointly from an unordered image collection.
+The field was built on geometric optimization and SLAM, and its center of gravity is now shifting toward learned correspondence, differentiable optimization, dense geometric priors, and feed-forward geometric foundation models that predict cameras and geometry together.
+
+\subsubsection{Task Definition}
+
+Let $\mathbf{T}_t\in SE(3)$ denote the $4\times4$ homogeneous camera-to-world transformation for frame $t$, with rotation $\mathbf{R}_t$ and translation $\mathbf{t}_t$.
+Given images $\{I_t\}$ (monocular, stereo, RGB-D, multi-view, or video), optional intrinsics $\{\mathbf{K}_t\}$, optional inertial readings, and sometimes a prior map or database, the goal is to estimate relative camera motions $\Delta\mathbf{T}_{i\rightarrow j}=\mathbf{T}_i^{-1}\mathbf{T}_j$ expressed in frame $i$, an absolute pose $\mathbf{T}_q$ for a query image, or a full trajectory together with sparse or dense scene geometry, and occasionally the intrinsics themselves when calibration is unknown.
+The variants differ in what is assumed known.
+\textbf{Monocular VO} is scale ambiguous without external priors; \textbf{stereo and RGB-D VO} recover metric scale from a known baseline or measured depth; \textbf{visual-inertial odometry} uses IMU measurements to stabilize scale and fast rotation; \textbf{SLAM} adds mapping and loop closure to online odometry; \textbf{SfM} recovers poses and structure from unordered collections; \textbf{map-based relocalization} assumes an existing scene representation and places a query in it; and \textbf{map-free relocalization and feed-forward reconstruction} skip explicit map construction by predicting relative pose or globally aligned point maps directly from images.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/visual_odometry_and_camera_pose_estimation.pdf}
+    \caption{Visual odometry and camera pose estimation. \textit{Top}: a video or unordered image set is mapped to relative motion $\Delta\mathbf{T}_{i\rightarrow j}$, an absolute pose $\mathbf{T}_q$ in a known scene, or camera poses $\{\mathbf{T}_t\}$ jointly with scene structure. \textit{Bottom}: method lanes (a) geometry-first, (b) learned and self-supervised VO, (c) hybrid learned--geometric, (d) relocalization, and (e) feed-forward foundation models. Mechanism arrows indicate operations; dated timelines summarize representative methods in publication order, with non-proportional spacing and no implied computational dependency. The dashed warp-feedback path denotes self-supervised training.}
+    \label{fig:p3_s6_2_4_vo_overview}
+\end{figure}
+
+\subsubsection{Methodology}
+
+Figure~\ref{fig:p3_s6_2_4_vo_overview} summarizes five method families, ordered from explicit geometry to learned geometric priors to feed-forward scene-level geometry.
+
+\paragraph{Geometry-first SfM, VO, and SLAM.}
+Classical pipelines detect repeatable features, match them across views, fit epipolar geometry with robust estimators, and refine poses and 3D points by bundle adjustment~\cite{triggs2000bundle,agarwal2010bundle}.
+COLMAP~\cite{schonberger2016structure} made this recipe robust enough for internet photo collections, and GLOMAP~\cite{pan2024glomap} revisits the pose-graph and averaging components of global SfM for large-scale reconstruction.
+For sequential input, geometric VO and SLAM track camera motion, with SLAM systems additionally maintaining maps and often closing loops: MonoSLAM~\cite{davison2007monoslam}, PTAM~\cite{KleinMurray2007PTAM}, and ORB-SLAM~\cite{mur2015orb} define the feature-based branch, LSD-SLAM~\cite{engel2014lsd} and DSO~\cite{engel2017direct} the direct branch.
+Explicit geometric consistency is the family's strength; weak texture, dynamic objects, rolling shutter, illumination shifts, and small-baseline or planar degeneracies are its failure modes.
+
+\paragraph{Learned VO and self-supervised view synthesis.}
+End-to-end VO regresses camera motion from image pairs or short windows, DeepVO~\cite{Wang2017DeepVO} being the standard early example with convolutional features and recurrent temporal modeling.
+Self-supervised VO instead learns depth and ego-motion together by minimizing photometric reconstruction error between adjacent frames, with SfM-Learner~\cite{zhou2017unsupervised} as the canonical starting point.
+This made monocular video supervision scalable, but the geometry remains bound to photometric assumptions (static Lambertian scenes, stable intrinsics, sufficient parallax) and to monocular scale ambiguity unless stereo, IMU, or learned metric priors are added.
+
+\paragraph{Hybrid learned geometry and differentiable optimization.}
+The most successful learned systems keep geometric optimization and learn the parts that are hard to hand-design.
+Learned features and matchers (SuperPoint~\cite{detone2018superpoint}, SuperGlue~\cite{sarlin2020superglue}, LoFTR~\cite{Sun2021LoFTR}) improve the correspondence front end, and VGG-SfM~\cite{Vggsfm} and ACE0~\cite{acezero} push learned features and scene-coordinate learning into SfM and relocalization.
+DROID-SLAM~\cite{teed2021droid} is the representative differentiable-optimization system, coupling dense correspondence, depth, and camera motion through recurrent updates and a dense bundle-adjustment layer, and LEAP-VO~\cite{chen2024leap} stabilizes motion over longer windows through long-term point tracking.
+
+\paragraph{Relocalization and map-based pose estimation.}
+Given a query image and a known scene or database, relocalization estimates the query's 6-DoF pose.
+PoseNet~\cite{kendall2015posenet} popularized absolute pose regression, which is fast but less accurate than geometry.
+Scene-coordinate regression, from Shotton \etal~\cite{Scene_Coordinate} to DSAC~\cite{brachmann2017dsac} and ACE-style relocalizers~\cite{acezero}, predicts a 3D scene coordinate per pixel and solves pose with PnP and RANSAC; hierarchical localization~\cite{sarlin2019coarse} retrieves candidate database images, matches, and verifies geometrically, and remains the high-accuracy reference.
+Relative-pose regressors trained on much larger collections, such as Reloc3r~\cite{reloc3r}, revisit the speed and generalization trade-off and show that regression recovers a role when paired with scale and data.
+
+\paragraph{Feed-forward geometric foundation models.}
+The main post-2024 shift is toward models that predict scene geometry and camera relations directly, often without SfM initialization.
+DUSt3R~\cite{wang2024dust3r} regresses dense 3D point maps from image pairs, providing learned geometry from which correspondences and camera parameters are recovered using geometric post-processing; MASt3R~\cite{mast3r} grounds image matching in this 3D representation, and MASt3R-SfM~\cite{MASt3R_SfM} builds an unconstrained SfM pipeline on it.
+MegaSaM~\cite{li2025megasam} and MonST3R~\cite{monst3r} extend the idea to casual dynamic video, where static-scene assumptions fail; CUT3R~\cite{wang2025Cut3R} adds persistent state for continuous 3D perception, Fast3R~\cite{yang2025fast3r} scales feed-forward reconstruction to very large image sets, and VGGT~\cite{wang2025vggt} predicts camera poses, depth, and point maps jointly with a visual-geometry-grounded Transformer.
+Geometry does not disappear in this family; it moves from a hand-coded optimization loop into a learned prior that supplies initialization, dense correspondence, or complete camera-and-scene predictions.
+
+\begin{table}[!t]
+\centering
+\caption{Representative datasets and benchmarks for visual odometry, camera pose estimation, relocalization, and feed-forward scene geometry. Counts and splits vary across protocols.}
+\label{tab:vo_pose_datasets}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{L{0.15\textwidth}C{0.1\textwidth} C{0.15\textwidth}C{0.15\textwidth}L{0.35\textwidth}}
+\toprule
+\textbf{Dataset / benchmark} & \textbf{Year} & \textbf{Domain} & \textbf{Input} & \textbf{Primary use} \\
+\midrule
+KITTI Odometry~\cite{KITTI-GeigerLU12} & 2012 & Outdoor driving & Stereo + GPS/IMU & Classical and learned VO; segment drift evaluation. \\
+TUM RGB-D~\cite{Sturm2012TUMRGBD} & 2012 & Indoor & RGB-D + mocap & Indoor RGB-D SLAM and trajectory accuracy. \\
+7-Scenes~\cite{Scene_Coordinate} & 2013 & Indoor & RGB-D video & Camera relocalization and scene-coordinate regression. \\
+Cambridge Landmarks~\cite{kendall2015posenet} & 2015 & Outdoor landmarks & RGB & Outdoor absolute pose regression and relocalization. \\
+EuRoC MAV~\cite{Burri2016EuRoC} & 2016 & Aerial / industrial indoor & Stereo + IMU & Visual-inertial odometry under fast motion. \\
+ScanNet~\cite{dai2017scannet} & 2017 & Indoor & RGB-D video + mesh & Learned pose, reconstruction, and dense geometry. \\
+MegaDepth~\cite{li2018megadepth} & 2018 & Internet landmarks & SfM supervision & Relative pose, matching, depth, and geometric pretraining. \\
+RealEstate10K~\cite{zhou2018stereo} & 2018 & Indoor / real-estate video & Video + recovered poses & Self-supervised video geometry and view synthesis. \\
+Virtual KITTI 2~\cite{Cabon2020VirtualKITTI2} & 2020 & Synthetic driving & Rendered stereo / depth / pose & Controlled sim-to-real VO and depth evaluation. \\
+DL3DV-10K~\cite{ling2024dl3dv} & 2024 & Large-scale scenes & Multi-view video / images & Generalizable 3D reconstruction and pose-aware training. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Datasets and Metrics}
+\label{sec:vo_datasets}
+
+Table~\ref{tab:vo_pose_datasets} shows three kinds of benchmark serving three different questions.
+Trajectory benchmarks (KITTI Odometry~\cite{KITTI-GeigerLU12}, TUM RGB-D~\cite{Sturm2012TUMRGBD}, EuRoC MAV~\cite{Burri2016EuRoC}) measure drift under a fixed sensor setup and cover a narrow slice of deployment: urban driving, small rooms, micro-aerial-vehicle flights.
+Relocalization benchmarks (7-Scenes~\cite{Scene_Coordinate}, Cambridge Landmarks~\cite{kendall2015posenet}) ask whether a query can be placed in a known scene and favor methods with scene-specific maps, retrieval, or scene-coordinate regression, so they are not comparable to online VO.
+Large internet and video corpora (MegaDepth~\cite{li2018megadepth}, RealEstate10K~\cite{zhou2018stereo}, ScanNet~\cite{dai2017scannet}, DL3DV-10K~\cite{ling2024dl3dv}) serve mostly as training data for generalizable geometry models, which need diverse baselines, unknown intrinsics, unordered images, dynamic content, and dense reconstruction targets.
+
+Evaluation is correspondingly layered.
+With $\mathbf{T}_i$ and $\hat{\mathbf{T}}_i$ the ground-truth and estimated poses, the absolute trajectory error measures global discrepancy after a rigid or similarity alignment $\mathbf{S}$,
+\begin{equation}
+    \mathrm{ATE} =
+    \sqrt{\frac{1}{N}\sum_{i=1}^{N}
+    \left\|\mathrm{trans}\!\left(\mathbf{T}_i^{-1}\mathbf{S}\hat{\mathbf{T}}_i\right)\right\|^2},
+\end{equation}
+and the relative pose error measures local motion over an interval $\Delta$,
+\begin{equation}
+    \mathrm{RPE}(\Delta)=
+    \frac{1}{N-\Delta}\sum_{i=1}^{N-\Delta}
+    \left\|\mathrm{Log}\!\left[
+    (\mathbf{T}_i^{-1}\mathbf{T}_{i+\Delta})^{-1}
+    (\hat{\mathbf{T}}_i^{-1}\hat{\mathbf{T}}_{i+\Delta})
+    \right]\right\|;
+\end{equation}
+KITTI reports the same idea as translational and rotational drift averaged over fixed-length path segments.
+Whether scale is aligned before computing ATE, or scale drift is scored separately, decides whether monocular, stereo, RGB-D, and visual-inertial methods can be compared at all.
+Pairwise matching and feed-forward pose methods report rotation error and translation-direction error in degrees, often aggregated as the area under the accuracy curve (AUC) below angular thresholds; relocalization reports the fraction of queries within thresholds such as $(5\,\mathrm{cm},5^\circ)$ indoors or meter-level outdoors, or median translation and rotation error; and feed-forward geometry models add depth error, point-map error, Chamfer distance, registration rate, or view-synthesis quality, since their cameras are judged by whether they support a usable 3D representation.
+
+\begin{table*}[!t]
+    \centering
+    \caption{Representative methods under two shared protocols. \textit{Top}: monocular SLAM / VO, absolute trajectory error [m] averaged over the 11 EuRoC MAV sequences and the 9 TUM-RGBD freiburg1 sequences, as reported in DROID-SLAM~\cite{teed2021droid} (``fails $k$'' = lost tracking on $k$ sequences, so no average is defined). \textit{Bottom}: multi-view camera pose, AUC@30 on RealEstate10K (unseen) and CO3Dv2, as reported in VGGT~\cite{wang2025vggt}; the learned methods were trained on CO3Dv2 but not RealEstate10K. Numbers are from the cited evaluating paper and are comparable only within a block.}
+    \label{tab:vo_pose_performance}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.5mm}
+    \begin{tabular}{L{0.27\textwidth} L{0.23\textwidth} c C{0.14\textwidth} C{0.14\textwidth}}
+    \toprule
+    \textbf{Method} & \textbf{Family} & \textbf{Year} & \textbf{EuRoC ATE}$\downarrow$ & \textbf{TUM fr1 ATE}$\downarrow$ \\
+    \midrule
+    ORB-SLAM~\cite{mur2015orb} & Feature-based SLAM & 2015 & fails 2 / 11 & fails 6 / 9 \\
+    DSO~\cite{engel2017direct} & Direct sparse odometry & 2017 & 0.601 & -- \\
+    ORB-SLAM3~\cite{Campos2021ORBSLAM3} & Feature-based multi-map SLAM & 2021 & fails 1 / 11 & fails 5 / 9 \\
+    DROID-SLAM~\cite{teed2021droid} & Differentiable dense BA & 2021 & \textbf{0.022} & \textbf{0.038} \\
+    \midrule
+    \hiderowcolors \textbf{Method} & \textbf{Family} & \textbf{Year} & \textbf{Re10K AUC@30}$\uparrow$ & \textbf{CO3Dv2 AUC@30}$\uparrow$ \\
+    \midrule
+    COLMAP + SuperPoint/SuperGlue~\cite{schonberger2016structure,detone2018superpoint,sarlin2020superglue} & Incremental SfM, learned matching & 2016 / 2020 & 45.2 & 25.3 \\
+    DUSt3R~\cite{wang2024dust3r} & Pairwise point-map regression & 2024 & 67.7 & 76.7 \\
+    MASt3R~\cite{mast3r} & 3D-grounded matching & 2024 & 76.4 & 81.8 \\
+    VGGSfM v2~\cite{Vggsfm} & Learned differentiable SfM & 2024 & 78.9 & 83.4 \\
+    CUT3R~\cite{wang2025Cut3R} & Continuous 3D perception with state & 2025 & 75.3 & 82.8 \\
+    Fast3R~\cite{yang2025fast3r} & Large image-set feed-forward & 2025 & 72.7 & 82.5 \\
+    VGGT~\cite{wang2025vggt} & Visual geometry grounded Transformer & 2025 & \textbf{85.3} (93.5 w/ BA) & \textbf{88.2} (91.8 w/ BA) \\
+    \bottomrule
+    \end{tabular}
+\end{table*}
+
+Table~\ref{tab:vo_pose_performance} puts the two regimes side by side. On trajectory benchmarks the lesson is robustness as much as accuracy: the classical systems that are highly accurate when they track lose tracking on a fraction of EuRoC flights and on most TUM freiburg1 sequences, whose rolling shutter, motion blur, and fast rotation defeat feature matching, whereas DROID-SLAM's learned dense correspondence inside a bundle-adjustment loop tracks every sequence at centimeter-level error. On multi-view pose the feed-forward models have overtaken the COLMAP pipeline by a wide margin and keep improving on unseen data (RealEstate10K), with VGGT ahead of DUSt3R-style pairwise regression at a fraction of the runtime, and a short bundle-adjustment refinement still adding several points, which is the hybrid pattern the challenges below return to. The two blocks are not comparable to each other, and that is the point: a method optimized for low drift under a calibrated rig and one optimized for zero-shot sparse-view geometry are judged by different questions.
+
+\subsubsection{Challenges}
+
+Geometric ambiguity sets the floor.
+Monocular cameras cannot recover metric scale without priors; pure rotation, planar scenes, and very small baselines make epipolar geometry ill-conditioned; rolling shutter and unknown intrinsics violate the assumptions built into many solvers.
+Learned models can hide these failures behind priors but cannot restore missing information, which is why visual-inertial fusion, calibration, and depth priors remain necessary even with large geometry models.
+Deployment adds its own: dynamic agents corrupt the static-world assumption behind classical SLAM and bundle adjustment; textureless rooms, repetitive corridors, glass, water, and specular surfaces yield unreliable correspondences; appearance shift across time of day, weather, season, and camera hardware breaks place recognition; and long-horizon operation still needs loop closure, map maintenance, and uncertainty handling, none of which a feed-forward prediction supplies on its own.
+
+The strongest trend is the convergence of SLAM, reconstruction, and foundation geometry. DROID-SLAM~\cite{teed2021droid} showed that optimization can be learned without abandoning geometric structure, and the feed-forward models above predict dense geometry, cameras, and correspondences together; the near-term frontier is hybrid, with feed-forward geometry supplying initialization, dense priors, and generalization and optimization enforcing metric consistency, loop closure, and uncertainty-aware correction.
+Two further shifts matter for spatial intelligence. Pose estimation must become \textbf{dynamic-scene aware}, estimating camera and object motion jointly as MegaSaM~\cite{li2025megasam} and MonST3R~\cite{monst3r} begin to do, rather than discarding moving content as outliers; and camera pose should be judged by \textbf{downstream usefulness}, whether it supports stable depth and normal prediction, reconstruction, embodied navigation, AR anchoring, or world-model memory. As pose becomes one output of larger geometric perception systems, the boundary between VO, SLAM, scene reconstruction, and spatial memory will keep blurring.

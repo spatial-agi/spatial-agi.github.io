@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.5 4D Spatial Generation · Spatial Intelligence Handbook</title>
+<meta name="description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:title" content="8.5 4D Spatial Generation · Spatial Intelligence Handbook">
+<meta property="og:description" content="Spatial Intelligence: Foundations, Architectures, Methodologies, Applications and Challenges. An open handbook on how AI systems perceive, represent, reason about, generate and act in space.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://spatial-agi.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/pagella-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css?v=approved9">
+<link rel="stylesheet" href="/assets/css/figures81-825.css?v=approved9">
+<script>try{var q=new URLSearchParams(location.search).get('theme');if(q)localStorage.setItem('theme',q);var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+<link rel="stylesheet" href="/assets/css/figures91-924.css?v=approved9">
+<link rel="stylesheet" href="/assets/css/figures101-1116.css?v=approved1011">
+<link rel="stylesheet" href="/assets/css/figures121-145.css?v=approved1214">
+<link rel="stylesheet" href="/assets/css/figures41-42.css?v=approved4142">
+</head>
+<body class="is-reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="/" aria-label="Spatial Intelligence handbook home">
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="17" rx="14.2" ry="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".38"/><ellipse cx="16" cy="17" rx="9.2" ry="6.4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".7"/><path d="M16 9.6l4.4 2.5v5l-4.4 2.5-4.4-2.5v-5z" fill="currentColor"/><path d="M16 14.6l4.4-2.5M16 14.6v5M16 14.6l-4.4-2.5" stroke="#fff" stroke-width=".9" opacity=".75" fill="none"/></svg>      <span class="brand-text"><span class="brand-name">Spatial Intelligence</span></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="nav-read" href="/read/" aria-current="page"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4.5c2.5-1 5-1 7 .8 2-1.8 4.5-1.8 7-.8v11c-2.5-1-5-1-7 .8-2-1.8-4.5-1.8-7-.8z"/><path d="M10 5.3v11"/></svg>Read</a>
+      <a href="/explore/" >Explore</a>
+      <a href="/team/" >Team</a>
+      <a href="/contribute/" >Contribute</a>
+      <a class="nav-gh" href="https://github.com/spatial-agi/awesome-spatial-intelligence" target="_blank" rel="noopener" title="Awesome Spatial Intelligence: the paper list on GitHub"><svg class="gh-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Awesome list<span class="gh-star" data-stars>★</span></a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="histnav hide-xs" role="group" aria-label="History">
+        <button class="iconbtn" type="button" data-hist="back" aria-label="Back" title="Back"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button class="iconbtn" type="button" data-hist="forward" aria-label="Forward" title="Forward"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+      <button class="searchbtn" type="button" data-open-search aria-label="Search the handbook">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <span>Search</span><kbd>⌘K</kbd>
+      </button>
+      <button class="iconbtn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+        <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 0 1 7.4 4.5a6.5 6.5 0 1 0 8.1 8.1z"/></svg>
+      </button>
+      <a class="btn btn-sm hide-sm" href="/assets/spatial-intelligence-handbook.pdf">PDF</a>
+      <button class="iconbtn show-sm" type="button" data-menu aria-label="Open menu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+</header>
+<div id="main">
+<div class="reader" style="--pc: #7446D6" data-page="8.5">
+  <aside class="reader-toc" aria-label="Contents">
+    <div class="reader-toc-in"><nav class="toc" aria-label="Handbook contents">
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/preface/">Preface</a>
+    <a class="toc-link toc-front " href="/read/notation/">Notation</a>
+    <a class="toc-link toc-front " href="/read/glossary/">Glossary</a>
+  </div>
+  <div class="toc-part" style="--pc: #A8722A">
+    <a class="toc-partlink " href="/read/part-i/"><span class="roman">I</span><span>Introduction and Background</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-1/"><span class="n">1</span><span>Spatial Intelligence: A Rising AI Paradigm</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/1.1/"><span class="n">1.1</span><span>Why Spatial Intelligence? Why Now?</span></a></li><li><a class="toc-link " href="/read/1.2/"><span class="n">1.2</span><span>Historical Evolution and Milestones</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-2/"><span class="n">2</span><span>A Definition in Motion: Revisiting Spatial Intelligence</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/2.1/"><span class="n">2.1</span><span>The Landscape of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/2.2/"><span class="n">2.2</span><span>Defining A Spatial Intelligence Framework</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-3/"><span class="n">3</span><span>Scope and Structure of This Handbook</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/3.1/"><span class="n">3.1</span><span>The Research Pillars of Spatial Intelligence</span></a></li><li><a class="toc-link " href="/read/3.2/"><span class="n">3.2</span><span>Goal of the Handbook: Charting a Research Ecosystem</span></a></li><li><a class="toc-link " href="/read/3.3/"><span class="n">3.3</span><span>How to Read This Handbook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #3646F0">
+    <a class="toc-partlink " href="/read/part-ii/"><span class="roman">II</span><span>Spatially Aware Representation: Building Blocks of Space</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-4/"><span class="n">4</span><span>Single-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/4.1/"><span class="n">4.1</span><span>2D</span></a></li><li><a class="toc-link " href="/read/4.2/"><span class="n">4.2</span><span>3D</span></a></li><li><a class="toc-link " href="/read/4.3/"><span class="n">4.3</span><span>4D</span></a></li><li><a class="toc-link " href="/read/4.4/"><span class="n">4.4</span><span>Language</span></a></li><li><a class="toc-link " href="/read/4.5/"><span class="n">4.5</span><span>Audio</span></a></li><li><a class="toc-link " href="/read/4.6/"><span class="n">4.6</span><span>Domain-Specific Representations</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-5/"><span class="n">5</span><span>Cross-Modal Spatial Representation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/5.1/"><span class="n">5.1</span><span>Overview</span></a></li><li><a class="toc-link " href="/read/5.2/"><span class="n">5.2</span><span>2D-text</span></a></li><li><a class="toc-link " href="/read/5.3/"><span class="n">5.3</span><span>3D-text</span></a></li><li><a class="toc-link " href="/read/5.4/"><span class="n">5.4</span><span>Audio-text</span></a></li><li><a class="toc-link " href="/read/5.5/"><span class="n">5.5</span><span>Vision-vision</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #7446D6">
+    <a class="toc-partlink " href="/read/part-iii/"><span class="roman">III</span><span>Spatial Intelligence: From Perception to Generation</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-6/"><span class="n">6</span><span>Spatial Perception</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/6.1/"><span class="n">6.1</span><span>Spatial Entity Recognition</span></a></li><li><a class="toc-link " href="/read/6.2/"><span class="n">6.2</span><span>Spatial Localization and Position Estimation</span></a></li><li><a class="toc-link " href="/read/6.3/"><span class="n">6.3</span><span>Spatial Structure Construction</span></a></li><li><a class="toc-link " href="/read/6.4/"><span class="n">6.4</span><span>Spatio-Temporal Perception</span></a></li><li><a class="toc-link " href="/read/6.5/"><span class="n">6.5</span><span>Multimodal Spatial Perception</span></a></li><li><a class="toc-link " href="/read/6.6/"><span class="n">6.6</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-7/"><span class="n">7</span><span>Spatial Reasoning</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/7.1/"><span class="n">7.1</span><span>Rule-based Symbolic Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.2/"><span class="n">7.2</span><span>Learning-based Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.3/"><span class="n">7.3</span><span>Foundation Model-driven Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.4/"><span class="n">7.4</span><span>Hybrid Spatial Reasoning</span></a></li><li><a class="toc-link " href="/read/7.5/"><span class="n">7.5</span><span>Spatial Reasoning Benchmarks</span></a></li><li><a class="toc-link " href="/read/7.6/"><span class="n">7.6</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" open>
+      <summary><a class="toc-chlink " href="/read/chapter-8/"><span class="n">8</span><span>Spatial Reconstruction and Generation</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/8.1/"><span class="n">8.1</span><span>2D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.2/"><span class="n">8.2</span><span>3D Spatial Reconstruction and Generation</span></a></li><li><a class="toc-link " href="/read/8.3/"><span class="n">8.3</span><span>Video Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.4/"><span class="n">8.4</span><span>Motion Generation</span></a></li><li><a class="toc-link is-current" href="/read/8.5/"><span class="n">8.5</span><span>4D Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.6/"><span class="n">8.6</span><span>World Modeling</span></a></li><li><a class="toc-link " href="/read/8.7/"><span class="n">8.7</span><span>Programmatic and Symbolic Spatial Generation</span></a></li><li><a class="toc-link " href="/read/8.8/"><span class="n">8.8</span><span>Summary and Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #11899A">
+    <a class="toc-partlink " href="/read/part-iv/"><span class="roman">IV</span><span>Applications</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-9/"><span class="n">9</span><span>Spatial Intelligence for Embodied Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/9.1/"><span class="n">9.1</span><span>Robotic Manipulation</span></a></li><li><a class="toc-link " href="/read/9.2/"><span class="n">9.2</span><span>Autonomous Driving</span></a></li><li><a class="toc-link " href="/read/9.3/"><span class="n">9.3</span><span>Wearable AI System</span></a></li><li><a class="toc-link " href="/read/9.4/"><span class="n">9.4</span><span>Aerial Agents</span></a></li><li><a class="toc-link " href="/read/9.5/"><span class="n">9.5</span><span>Warehouse and Industrial Logistics</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-10/"><span class="n">10</span><span>Spatial Intelligence for Virtual Realities</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/10.1/"><span class="n">10.1</span><span>AR/VR/XR</span></a></li><li><a class="toc-link " href="/read/10.2/"><span class="n">10.2</span><span>Entertainment</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-11/"><span class="n">11</span><span>Spatial Intelligence for Geo-spatial Systems</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/11.1/"><span class="n">11.1</span><span>Digital Twins</span></a></li><li><a class="toc-link " href="/read/11.2/"><span class="n">11.2</span><span>GeoAI</span></a></li><li><a class="toc-link " href="/read/11.3/"><span class="n">11.3</span><span>Aerospace Engineering</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-12/"><span class="n">12</span><span>Spatial Intelligence for Biomedicine and Natural Sciences</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/12.1/"><span class="n">12.1</span><span>Medicine and Clinical Healthcare</span></a></li><li><a class="toc-link " href="/read/12.2/"><span class="n">12.2</span><span>Natural Science</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-13/"><span class="n">13</span><span>Spatial Intelligence for Intelligent Assistance</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/13.1/"><span class="n">13.1</span><span>Introduction</span></a></li><li><a class="toc-link " href="/read/13.2/"><span class="n">13.2</span><span>System Overview</span></a></li><li><a class="toc-link " href="/read/13.3/"><span class="n">13.3</span><span>Pivotal Task-1: Managing the Physical Environment</span></a></li><li><a class="toc-link " href="/read/13.4/"><span class="n">13.4</span><span>Pivotal Task-2: Co-habiting and Collaborating</span></a></li><li><a class="toc-link " href="/read/13.5/"><span class="n">13.5</span><span>Pivotal Task-3: Empowering Vulnerable Users</span></a></li><li><a class="toc-link " href="/read/13.6/"><span class="n">13.6</span><span>Established Tools and Systems</span></a></li><li><a class="toc-link " href="/read/13.7/"><span class="n">13.7</span><span>Challenges</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-14/"><span class="n">14</span><span>Spatial Intelligence for Others</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/14.1/"><span class="n">14.1</span><span>Architecture, Engineering, and Construction</span></a></li><li><a class="toc-link " href="/read/14.2/"><span class="n">14.2</span><span>Sports Analytics and Performance</span></a></li><li><a class="toc-link " href="/read/14.3/"><span class="n">14.3</span><span>Cultural Heritage and Archaeology</span></a></li><li><a class="toc-link " href="/read/14.4/"><span class="n">14.4</span><span>Marine and Underwater Systems</span></a></li><li><a class="toc-link " href="/read/14.5/"><span class="n">14.5</span><span>Retail and Smart Spaces</span></a></li><li><a class="toc-link " href="/read/14.6/"><span class="n">14.6</span><span>Outlook</span></a></li>      </ul>
+    </details>
+  </div>
+  <div class="toc-part" style="--pc: #C0436E">
+    <a class="toc-partlink " href="/read/part-v/"><span class="roman">V</span><span>Discussions and Futures</span></a>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-15/"><span class="n">15</span><span>Foundations: What Spatial Intelligence Requires</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/15.1/"><span class="n">15.1</span><span>Spatial Observability and Identifiability</span></a></li><li><a class="toc-link " href="/read/15.2/"><span class="n">15.2</span><span>Representation and State Sufficiency</span></a></li><li><a class="toc-link " href="/read/15.3/"><span class="n">15.3</span><span>Persistent World States and Belief Updating</span></a></li><li><a class="toc-link " href="/read/15.4/"><span class="n">15.4</span><span>Predictive Validity and Physical Grounding</span></a></li><li><a class="toc-link " href="/read/15.5/"><span class="n">15.5</span><span>Situated and Interactive Spatial Intelligence</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-16/"><span class="n">16</span><span>Research Gaps and Future Directions</span></a></summary>
+      <ul>
+<li><a class="toc-link " href="/read/16.1/"><span class="n">16.1</span><span>Research Gaps along the Loop</span></a></li><li><a class="toc-link " href="/read/16.2/"><span class="n">16.2</span><span>Benchmarking Gaps</span></a></li><li><a class="toc-link " href="/read/16.3/"><span class="n">16.3</span><span>Deployment Bottlenecks</span></a></li><li><a class="toc-link " href="/read/16.4/"><span class="n">16.4</span><span>Future Directions</span></a></li>      </ul>
+    </details>
+    <details class="toc-ch" >
+      <summary><a class="toc-chlink " href="/read/chapter-17/"><span class="n">17</span><span>Conclusion</span></a></summary>
+      <ul>
+      </ul>
+    </details>
+  </div>
+  <div class="toc-group">
+    <a class="toc-link toc-front " href="/read/acknowledgements/">Acknowledgements</a>
+    <a class="toc-link toc-front " href="/read/references/">References</a>
+    <a class="toc-link toc-front " href="/read/contributions/">Author Contributions</a>
+  </div>
+</nav></div>
+  </aside>
+  <main class="reader-main">
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/read/">Contents</a><span class="sep">/</span><a href="/read/part-iii/">Part III</a><span class="sep">/</span><a href="/read/chapter-8/">Chapter 8</a></nav>
+    <header class="page-head kind-section">
+        <div class="kicker"><a href="/read/chapter-8/">Chapter 8 · Spatial Reconstruction and Generation</a></div>
+        <h1><span class="secnum">8.5</span>4D Spatial Generation</h1>
+      <div class="meta">
+<a class="meta-pdf" href="/assets/spatial-intelligence-handbook.pdf#page=305" title="Open this page in the PDF">PDF p. 305</a><span class="dot">·</span>        <span>17 min read</span>
+      </div>
+    </header>
+    <article class="prose" data-pagefind-body data-pagefind-meta="title:8.5 4D Spatial Generation">
+<div id="Ch8.S5.p1" class="ltx_para">
+<p class="ltx_p">Generative modeling has moved outward from static images <cite class="cites">[<a class="cite" href="/read/references/#ref-182" data-k="rombach2022ldm">182</a>, <a class="cite" href="/read/references/#ref-1656" data-k="saharia2022photorealistic">1656</a>]</cite> to video <cite class="cites">[<a class="cite" href="/read/references/#ref-1996" data-k="chen2024videocrafter2">1996</a>, <a class="cite" href="/read/references/#ref-1995" data-k="chen2023videocrafter1">1995</a>, <a class="cite" href="/read/references/#ref-1990" data-k="ho2022video">1990</a>, <a class="cite" href="/read/references/#ref-2248" data-k="harvey2022flexible">2248</a>]</cite>, multi-view imagery <cite class="cites">[<a class="cite" href="/read/references/#ref-1735" data-k="shi2023mvdream">1735</a>, <a class="cite" href="/read/references/#ref-1734" data-k="liu2023zero">1734</a>, <a class="cite" href="/read/references/#ref-1744" data-k="shi2023zero123++">1744</a>, <a class="cite" href="/read/references/#ref-2249" data-k="zhao2024sg">2249</a>, <a class="cite" href="/read/references/#ref-2250" data-k="zhao2024chase">2250</a>]</cite>, and static 3D assets <cite class="cites">[<a class="cite" href="/read/references/#ref-1728" data-k="wang2023score">1728</a>, <a class="cite" href="/read/references/#ref-1732" data-k="raj2023dreambooth3d">1732</a>]</cite>, yet each stops short of a scene that is at once three-dimensional and alive.
+A 3D asset holds geometry but not motion; a video holds motion, but no view-consistent geometry one can navigate or simulate.
+4D generation is where the two meet: the synthesis of dynamic 3D content whose geometry stays view-consistent as it moves and deforms over time <cite class="cites">[<a class="cite" href="/read/references/#ref-2251" data-k="singer2023text">2251</a>, <a class="cite" href="/read/references/#ref-2252" data-k="zheng2024unified">2252</a>, <a class="cite" href="/read/references/#ref-2253" data-k="jiang2023consistent4d">2253</a>, <a class="cite" href="/read/references/#ref-2254" data-k="ling2024align">2254</a>, <a class="cite" href="/read/references/#ref-1754" data-k="wang2025moving">1754</a>]</cite>.
+This is the representation an embodied system needs to rehearse how a scene will unfold, and it underwrites photorealistic digital humans <cite class="cites">[<a class="cite" href="/read/references/#ref-2255" data-k="guo2023vid2avatar">2255</a>, <a class="cite" href="/read/references/#ref-2249" data-k="zhao2024sg">2249</a>, <a class="cite" href="/read/references/#ref-2250" data-k="zhao2024chase">2250</a>]</cite>, interactive AR/VR <cite class="cites">[<a class="cite" href="/read/references/#ref-2256" data-k="zhao2024hfgs">2256</a>, <a class="cite" href="/read/references/#ref-2257" data-k="miao2024pla4d">2257</a>]</cite>, and high-fidelity simulation for autonomous driving and embodied AI <cite class="cites">[<a class="cite" href="/read/references/#ref-2258" data-k="gao2024magicdrive3d">2258</a>, <a class="cite" href="/read/references/#ref-2259" data-k="zhao2024efficient">2259</a>]</cite>.</p>
+</div>
+<div id="Ch8.S5.p2" class="ltx_para">
+<p class="ltx_p">Two advances make this tractable.
+Temporal 3D representations, deformation-aware fields over NeRFs <cite class="cites">[<a class="cite" href="/read/references/#ref-118" data-k="mildenhall2021nerf">118</a>]</cite>, point clouds, and Gaussian splatting <cite class="cites">[<a class="cite" href="/read/references/#ref-120" data-k="kerbl20233d">120</a>, <a class="cite" href="/read/references/#ref-2259" data-k="zhao2024efficient">2259</a>]</cite>, supply a geometry that can bend and move without losing view consistency, while the extension of generative diffusion into this domain supplies the realism and controllability to drive it.
+Together they open dynamic scene synthesis, 4D editing, and interactive agent simulation, at the cost of the difficulty this section returns to throughout: holding long-range temporal coherence while still granting flexible, user-driven control.</p>
+</div>
+<div id="Ch8.S5.p3" class="ltx_para">
+<p class="ltx_p">Formally, we cast 4D generation as the latent-generator framework of §<a href="/read/8.1/#Ch8.S1.SS1" class="xref" data-x="Ch8.S1.SS1"><span>8.1.1</span></a> unrolled along time over a shared 3D representation. Let <math id="Ch8.S5.p3.m1" alttext="\mathcal{R}" display="inline" data-pagefind-ignore="all"><semantics><mi>ℛ</mi><annotation encoding="application/x-tex">\mathcal{R}</annotation></semantics></math> be the 3D-representation space of Eq. (<a href="/read/8.2/#Ch8.E9" class="xref" data-x="Ch8.E9"><span>8.9</span></a>) (mesh, NeRF, 3DGS, point cloud, and so on), and let <math id="Ch8.S5.p3.m2" alttext="\kappa:\mathcal{C}\!\to\!\mathcal{C}^{\prime}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>𝒞</mi><mo lspace="0.108em" rspace="0.108em" stretchy="false">→</mo><msup><mi>𝒞</mi><mo>′</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\kappa:\mathcal{C}\!\to\!\mathcal{C}^{\prime}</annotation></semantics></math> encode a conditioning signal <math id="Ch8.S5.p3.m3" alttext="\mathbf{c}\in\mathcal{C}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>∈</mo><mi>𝒞</mi></mrow><annotation encoding="application/x-tex">\mathbf{c}\in\mathcal{C}</annotation></semantics></math> (text, an image, a video, a static 3D asset, or a combination thereof). 4D generation learns a conditional sampler</p>
+<table id="Ch8.E63" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E63.m1" alttext="G_{\theta}^{\text{4D}}:\mathcal{C}^{\prime}\!\to\!\mathcal{R}^{[0,T]},\qquad%
+\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\kappa(%
+\mathbf{c})\right)," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msubsup><mi>G</mi><mi>θ</mi><mtext>4D</mtext></msubsup><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mrow><msup><mi>𝒞</mi><mo>′</mo></msup><mo rspace="0.108em" stretchy="false">→</mo><msup><mi>ℛ</mi><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mi>T</mi><mo stretchy="false">]</mo></mrow></msup></mrow><mo rspace="2.167em">,</mo><mrow><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><msup><mi>𝐫</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∣</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">G_{\theta}^{\text{4D}}:\mathcal{C}^{\prime}\!\to\!\mathcal{R}^{[0,T]},\qquad%
+\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\kappa(%
+\mathbf{c})\right),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.63)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">that emits a time-indexed sequence of 3D representations <math id="Ch8.S5.p3.m4" alttext="\hat{\mathbf{r}}^{1:T}" display="inline" data-pagefind-ignore="all"><semantics><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><annotation encoding="application/x-tex">\hat{\mathbf{r}}^{1:T}</annotation></semantics></math> with view-consistent geometry and coherent motion. Two limiting cases anchor the framework: with a single time step (<math id="Ch8.S5.p3.m5" alttext="T=1" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>T</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T=1</annotation></semantics></math>) Eq. (<a href="/read/8.5/#Ch8.E63" class="xref" data-x="Ch8.E63"><span>8.63</span></a>) recovers the static 3D generator of Eq. (<a href="/read/8.2/#Ch8.E9" class="xref" data-x="Ch8.E9"><span>8.9</span></a>), and rendering each frame <math id="Ch8.S5.p3.m6" alttext="\mathbf{r}^{t}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝐫</mi><mi>t</mi></msup><annotation encoding="application/x-tex">\mathbf{r}^{t}</annotation></semantics></math> to a 2D view recovers the video generator of Eq. (<a href="/read/8.3/#Ch8.E41" class="xref" data-x="Ch8.E41"><span>8.41</span></a>), so 4D generation is precisely the 3D generator of §<a href="/read/8.2/" class="xref" data-x="Ch8.S2"><span>8.2</span></a> unrolled in time, or equivalently the video generator of §<a href="/read/8.3/" class="xref" data-x="Ch8.S3"><span>8.3</span></a> lifted from per-frame pixels to a shared, renderable geometry.
+The subsections are organized by the conditioning input (text, image, video, a static 3D asset, or several at once). Figure <a href="/read/8.5/#Ch8.F23" class="xref" data-x="Ch8.F23"><span>8.23</span></a> previews this organization together with two methodological strategies that recur across all five, per-scene score distillation and explicit “generate-then-reconstruct” supervision; feed-forward generators and rig-based animation of meshes appear alongside them in the subsections where they apply.</p>
+</div>
+<figure id="Ch8.F23" class="ltx_figure native"><div class="nf nf-rl nf-f8 nf-823" data-nf="f8" data-pagefind-ignore="all"><svg class="nf-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 938.462" role="group" aria-label="Figure 8.23: interactive reconstruction"><defs><marker id="f823-head" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L7 3.5L0 7Z" fill="#3646f0"/></marker></defs><rect width="1000" height="938.462" fill="white"/><g class="f8-scaffold"></g><g class="rl-zone" data-k="panel-0" tabindex="0" role="button" aria-pressed="false" aria-label="Dynamic 3D task"><path d="M10.769 170.769 L989.231 170.769" style="fill:none;stroke:#a8b3bd;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M329.231 80 C346.667 80 363.492 80 379.708 80" style="fill:none;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M329.231 80 C346.667 80 363.492 80 379.708 80" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/><path d="M375.221 77.436 L379.708 80 L375.221 82.564 L375.221 77.436" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><image href="/assets/img/figs/f823/task/chair-1.png" x="416" y="34" width="77" height="98" preserveAspectRatio="none"/><image href="/assets/img/figs/f823/task/chair-2.png" x="552" y="34" width="77" height="98" preserveAspectRatio="none"/><image href="/assets/img/figs/f823/task/chair-3.png" x="686" y="34" width="77" height="98" preserveAspectRatio="none"/><text x="64.83" y="43.186" textLength="208.751" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:700;fill:#29363f">Condition → dynamic 3D</text><text x="71.708" y="82.601" textLength="195.019" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#3646f0">“A spinning wooden chair”</text><text x="68.97" y="121.113" textLength="200.302" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:16.026px;font-style:normal;font-weight:400;fill:#29363f">Geometry + motion over time</text><text x="441.946" y="148.221" textLength="26.881" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">t = 0</text><text x="575.793" y="148.221" textLength="26.881" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">t = 1</text><text x="710.056" y="148.221" textLength="26.048" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">t = T</text><text x="867.066" y="57.999" textLength="6.38" lengthAdjust="spacingAndGlyphs" style="font-family:'Cambria Math';font-size:19.159px;font-style:normal;font-weight:400;fill:#3646f0">ˆ</text><text x="866.003" y="58.344" textLength="8.507" lengthAdjust="spacingAndGlyphs" style="font-family:'Cambria Math';font-size:19.159px;font-style:normal;font-weight:700;fill:#3646f0">r</text><text x="874.51" y="51.389" textLength="10.931" lengthAdjust="spacingAndGlyphs" style="font-family:'Cambria Math';font-size:14.05px;font-style:normal;font-weight:400;fill:#3646f0">1:</text><text x="885.3" y="51.389" textLength="8.697" lengthAdjust="spacingAndGlyphs" style="font-family:'Cambria Math';font-size:14.05px;font-style:italic;font-weight:400;fill:#3646f0">T</text><text x="837.398" y="88.591" textLength="85.211" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">Renderable</text><text x="831.389" y="107.348" textLength="97.194" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">3D sequence</text><rect class="rl-hit" x="0" y="0" width="1000" height="172"/></g><g class="rl-zone" data-k="panel-1" tabindex="0" role="button" aria-pressed="false" aria-label="Text condition"><path d="M98.462 330.769 L98.462 352.308" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M98.462 330.769L98.462 352.308L489.231 352.308V381.247" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0"/><path d="M30 304.615 L166.923 304.615 C169.487 304.615 170.769 303.333 170.769 300.769 L170.769 237.692 C170.769 235.128 169.487 233.846 166.923 233.846 L30 233.846 C27.436 233.846 26.154 235.128 26.154 237.692 L26.154 300.769 C26.154 303.333 27.436 304.615 30 304.615" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><text x="67.178" y="206.179" textLength="62.547" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:700;fill:#29363f">(a) Text</text><text x="60.401" y="263.926" textLength="76.143" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">A spinning</text><text x="79.832" y="282.816" textLength="37.273" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">chair</text><rect class="rl-hit" x="0" y="172" width="200" height="232"/></g><g class="rl-zone" data-k="panel-2" tabindex="0" role="button" aria-pressed="false" aria-label="Image condition"><path d="M293.846 330.769 L293.846 352.308" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M293.846 330.769L293.846 352.308L489.231 352.308V381.247" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0"/><image href="/assets/img/figs/f823/b/input-chair.png" x="265" y="226" width="60" height="81" preserveAspectRatio="none"/><text x="253.665" y="206.129" textLength="80.33" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:700;fill:#29363f">(b) Image</text><rect class="rl-hit" x="200" y="172" width="200" height="232"/></g><g class="rl-zone" data-k="panel-3" tabindex="0" role="button" aria-pressed="false" aria-label="Video condition"><path d="M889.231 330.769 L889.231 352.308 L98.462 352.308" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M489.231 330.769 L489.231 352.308 C489.231 362.564 489.231 372.21 489.231 381.247" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M489.231 330.769 L489.231 352.308 C489.231 362.564 489.231 372.21 489.231 381.247" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/><path d="M491.795 376.759 L489.231 381.247 L486.667 376.759 L491.795 376.759" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><image href="/assets/img/figs/f823/c/frame-1.png" x="416" y="253" width="38" height="50" preserveAspectRatio="none"/><image href="/assets/img/figs/f823/c/frame-2.png" x="469" y="253" width="38" height="50" preserveAspectRatio="none"/><image href="/assets/img/figs/f823/c/frame-3.png" x="522" y="253" width="38" height="50" preserveAspectRatio="none"/><text x="451.37" y="206.196" textLength="75.735" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:700;fill:#29363f">(c) Video</text><rect class="rl-hit" x="400" y="172" width="200" height="232"/></g><g class="rl-zone" data-k="panel-4" tabindex="0" role="button" aria-pressed="false" aria-label="Static 3D condition"><path d="M640 309.231 L712.308 309.231" style="fill:none;stroke:#3646f0;stroke-width:1.282;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M660 293.846 L732.308 293.846" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M640 309.231 L660 293.846" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M712.308 309.231 L712.308 241.538" style="fill:none;stroke:#3646f0;stroke-width:1.282;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M732.308 293.846 L732.308 226.154" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M712.308 309.231 L732.308 293.846" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M712.308 241.538 L640 241.538" style="fill:none;stroke:#3646f0;stroke-width:1.282;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M732.308 226.154 L660 226.154" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M712.308 241.538 L732.308 226.154" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M640 241.538 L640 309.231" style="fill:none;stroke:#3646f0;stroke-width:1.282;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M660 226.154 L660 293.846" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M640 241.538 L660 226.154" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M684.615 330.769 L684.615 352.308" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M684.615 330.769L684.615 352.308L489.231 352.308V381.247" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0"/><image href="/assets/img/figs/f823/d/static-chair.png" x="657" y="247" width="42" height="54" preserveAspectRatio="none"/><text x="631.731" y="206.196" textLength="105.693" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:700;fill:#29363f">(d) Static 3D</text><rect class="rl-hit" x="600" y="172" width="200" height="232"/></g><g class="rl-zone" data-k="panel-5" tabindex="0" role="button" aria-pressed="false" aria-label="Multiple conditions"><path d="M900 298.462 L900 312.308" style="fill:none;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M887.692 304.615 L912.308 304.615" style="fill:none;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M900 312.308 L890.769 323.077" style="fill:none;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M900 312.308 L909.231 323.077" style="fill:none;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M815.385 315.385 L835.385 300 L858.462 310.769 L880 293.846" style="fill:none;stroke:#3646f0;stroke-width:1.709;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M929.231 321.538 L933.067 321.07 L936.4 320.602 L938.793 320.134 L939.93 319.666 L939.664 319.197 L938.029 318.729 L935.239 318.261 L931.661 317.793 L927.764 317.324 L924.06 316.856 L921.034 316.388 L919.083 315.92 L918.464 315.452 L919.258 314.983 L921.36 314.515 L924.495 314.047 L928.251 313.579 L932.136 313.11 L935.64 312.642 L938.302 312.174 L939.775 311.706 L939.864 311.237 L938.557 310.769 L936.027 310.301 L932.605 309.833 L928.741 309.365 L924.94 308.896 L921.703 308.428 L919.453 307.96 L918.487 307.492 L918.93 307.023 L920.724 306.555 L923.635 306.087 L927.28 305.619 L931.181 305.151 L934.826 304.682 L937.737 304.214 L939.532 303.746 L939.975 303.278 L939.008 302.809 L936.759 302.341 L933.521 301.873 L929.721 301.405 L925.856 300.937 L922.434 300.468 L919.904 300 L918.598 299.532 L918.687 299.064 L920.159 298.595 L922.822 298.127 L926.325 297.659 L930.21 297.191 L933.966 296.722 L937.101 296.254 L939.204 295.786 L939.997 295.318 L939.378 294.849 L937.428 294.381 L934.402 293.913 L930.697 293.445 L926.8 292.977 L923.222 292.508 L920.433 292.04 L918.797 291.572 L918.531 291.104 L919.669 290.635 L922.061 290.167 L925.394 289.699 L929.231 289.231" style="fill:none;stroke:#293640;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M889.231 330.769L889.231 352.308L489.231 352.308V381.247" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0"/><path d="M900 297.692 C901.02 297.692 901.998 297.287 902.72 296.566 C903.441 295.845 903.846 294.866 903.846 293.846 C903.846 292.826 903.441 291.848 902.72 291.127 C901.998 290.405 901.02 290 900 290 C898.98 290 898.002 290.405 897.28 291.127 C896.559 291.848 896.154 292.826 896.154 293.846 C896.154 294.866 896.559 295.845 897.28 296.566 C898.002 297.287 898.98 297.692 900 297.692" style="fill:#ffffff;stroke:#3646f0;stroke-width:1.709;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><text x="809.036" y="206.196" textLength="160.329" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:700;fill:#29363f">(e) Multi-condition</text><text x="847.848" y="248.739" textLength="82.681" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">Text + pose</text><text x="825.379" y="279.024" textLength="127.673" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">Trajectory + physics</text><rect class="rl-hit" x="800" y="172" width="200" height="232"/></g><g class="rl-zone" data-k="panel-6" tabindex="0" role="button" aria-pressed="false" aria-label="Condition fusion"><path d="M489.231 444.615 L489.231 495.385" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M337.692 441.538 L640.769 441.538 C643.333 441.538 644.615 440.256 644.615 437.692 L644.615 390 C644.615 387.436 643.333 386.154 640.769 386.154 L337.692 386.154 C335.128 386.154 333.846 387.436 333.846 390 L333.846 437.692 C333.846 440.256 335.128 441.538 337.692 441.538" style="fill:#e9ecff;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M489.231 498.154 C489.965 498.154 490.67 497.862 491.189 497.343 C491.708 496.823 492 496.119 492 495.385 C492 494.65 491.708 493.946 491.189 493.426 C490.67 492.907 489.965 492.615 489.231 492.615 C488.496 492.615 487.792 492.907 487.273 493.426 C486.753 493.946 486.462 494.65 486.462 495.385 C486.462 496.119 486.753 496.823 487.273 497.343 C487.792 497.862 488.496 498.154 489.231 498.154" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.709;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M416.923 495.385 L615.385 495.385 C615.385 513.333 615.385 530.672 615.385 547.4" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M416.923 495.385 L615.385 495.385 C615.385 513.333 615.385 530.672 615.385 547.4" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="4200"/><text x="374.831" y="418.487" textLength="228.582" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:400;fill:#29363f">Condition encoding / fusion</text><text x="80.618" y="417.519" textLength="152.607" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">Select / combine inputs</text><text x="803.935" y="418.396" textLength="8.315" lengthAdjust="spacingAndGlyphs" style="font-family:'Cambria Math';font-size:19.159px;font-style:italic;font-weight:400;fill:#3646f0">κ</text><text x="814.032" y="418.396" textLength="6.38" lengthAdjust="spacingAndGlyphs" style="font-family:'Cambria Math';font-size:19.159px;font-style:normal;font-weight:400;fill:#3646f0">(</text><text x="821.178" y="418.396" textLength="8.507" lengthAdjust="spacingAndGlyphs" style="font-family:'Cambria Math';font-size:19.159px;font-style:normal;font-weight:700;fill:#3646f0">c</text><text x="829.685" y="418.396" textLength="6.38" lengthAdjust="spacingAndGlyphs" style="font-family:'Cambria Math';font-size:19.159px;font-style:normal;font-weight:400;fill:#3646f0">)</text><text x="161.335" y="473.888" textLength="169.56" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:700;fill:#29363f">(i) Score distillation</text><text x="631.161" y="473.905" textLength="257.567" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:700;fill:#29363f">(ii) Generate then reconstruct</text><rect class="rl-hit" x="0" y="404" width="1000" height="96"/></g><g class="rl-zone" data-k="panel-7" tabindex="0" role="button" aria-pressed="false" aria-label="Score distillation"><path d="M507.692 749.231 L507.692 506.154" style="fill:none;stroke:#a8b3bd;stroke-width:1.068;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M23.846 627.692 L154.615 627.692 C157.179 627.692 158.462 626.41 158.462 623.846 L158.462 562.308 C158.462 559.744 157.179 558.462 154.615 558.462 L23.846 558.462 C21.282 558.462 20 559.744 20 562.308 L20 623.846 C20 626.41 21.282 627.692 23.846 627.692" style="fill:#e9ecff;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M205.385 627.692 L308.462 627.692 C311.026 627.692 312.308 626.41 312.308 623.846 L312.308 562.308 C312.308 559.744 311.026 558.462 308.462 558.462 L205.385 558.462 C202.821 558.462 201.538 559.744 201.538 562.308 L201.538 623.846 C201.538 626.41 202.821 627.692 205.385 627.692" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M359.231 641.538 L474.615 641.538 C477.18 641.538 478.462 640.256 478.462 637.692 L478.462 548.462 C478.462 545.897 477.18 544.615 474.615 544.615 L359.231 544.615 C356.667 544.615 355.385 545.897 355.385 548.462 L355.385 637.692 C355.385 640.256 356.667 641.538 359.231 641.538" style="fill:#ffffff;stroke:#a8b3bd;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M162.308 713.846 L296.154 713.846 C298.718 713.846 300 712.564 300 710 L300 662.308 C300 659.744 298.718 658.462 296.154 658.462 L162.308 658.462 C159.744 658.462 158.462 659.744 158.462 662.308 L158.462 710 C158.462 712.564 159.744 713.846 162.308 713.846" style="fill:#ffffff;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M416.923 495.385 C416.923 510.769 416.923 525.544 416.923 539.708" style="fill:none;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M416.923 495.385 C416.923 510.769 416.923 525.544 416.923 539.708" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/><path d="M419.487 535.221 L416.923 539.708 L414.359 535.221 L419.487 535.221" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M161.538 592.308 C173.846 592.308 185.544 592.308 196.631 592.308" style="fill:none;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M161.538 592.308 C173.846 592.308 185.544 592.308 196.631 592.308" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/><path d="M192.144 589.744 L196.631 592.308 L192.144 594.872 L192.144 589.744" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M315.385 592.308 C327.692 592.308 339.39 592.308 350.477 592.308" style="fill:none;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M315.385 592.308 C327.692 592.308 339.39 592.308 350.477 592.308" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/><path d="M345.99 589.744 L350.477 592.308 L345.99 594.872 L345.99 589.744" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M416.923 644.615 L416.923 686.154 C378.974 686.154 341.636 686.154 304.907 686.154" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;stroke-dasharray:5.139,2.222"/><path d="M416.923 644.615 L416.923 686.154 C378.974 686.154 341.636 686.154 304.907 686.154" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/><path d="M309.394 688.718 L304.907 686.154 L309.394 683.59 L309.394 688.718" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;stroke-dasharray:6.72,2.906"/><path d="M155.385 686.154 L89.231 686.154 C89.231 667.692 89.231 649.841 89.231 632.6" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;stroke-dasharray:5.139,2.222"/><path d="M155.385 686.154 L89.231 686.154 C89.231 667.692 89.231 649.841 89.231 632.6" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1858"/><path d="M86.667 637.087 L89.231 632.6 L91.795 637.087 L86.667 637.087" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero;stroke-dasharray:6.72,2.906"/><path d="M16.923 592.308 L3.846 592.308 L3.846 783.077 L184.615 783.077 C184.615 796.41 184.615 809.133 184.615 821.247" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M16.923 592.308 L3.846 592.308 L3.846 783.077 L184.615 783.077 C184.615 796.41 184.615 809.133 184.615 821.247" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="4200"/><text x="52.906" y="597.718" textLength="72.62" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:400;fill:#29363f">4D asset</text><text x="230.381" y="597.2" textLength="53.102" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">Render</text><text x="391.9" y="578.42" textLength="50.022" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">Frozen</text><text x="384.555" y="597.177" textLength="64.774" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">diffusion</text><text x="399.662" y="615.98" textLength="34.538" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">prior</text><text x="214.692" y="654.375" textLength="87.543" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">Views + noise</text><text x="185.778" y="690.344" textLength="86.886" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:17.094px;font-style:normal;font-weight:400;fill:#29363f">SDS update</text><text x="110.181" y="742.134" textLength="265.765" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">Dashed: SDS feedback; prior stays frozen</text><text x="195.968" y="767.267" textLength="112.648" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:16.026px;font-style:normal;font-weight:400;fill:#29363f">Optimized asset</text><rect class="rl-hit" x="0" y="500" width="530" height="302"/></g><g class="rl-zone" data-k="panel-8" tabindex="0" role="button" aria-pressed="false" aria-label="Generate then reconstruct"><path d="M539.231 620 L691.538 620 C694.103 620 695.385 618.718 695.385 616.154 L695.385 556.154 C695.385 553.59 694.103 552.308 691.538 552.308 L539.231 552.308 C536.667 552.308 535.385 553.59 535.385 556.154 L535.385 616.154 C535.385 618.718 536.667 620 539.231 620" style="fill:#e9ecff;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M539.231 713.846 L720.769 713.846 C723.333 713.846 724.615 712.564 724.615 710 L724.615 654.615 C724.615 652.051 723.333 650.769 720.769 650.769 L539.231 650.769 C536.667 650.769 535.385 652.051 535.385 654.615 L535.385 710 C535.385 712.564 536.667 713.846 539.231 713.846" style="fill:#e9ecff;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M617.949 542.913 L615.385 547.4 L612.82 542.913 L617.949 542.913" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M698.462 586.154 C710.769 586.154 722.467 586.154 733.554 586.154" style="fill:none;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M698.462 586.154 C710.769 586.154 722.467 586.154 733.554 586.154" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/><path d="M729.067 583.59 L733.554 586.154 L729.067 588.718 L729.067 583.59" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M846.154 629.231 L846.154 681.539 C806.667 681.539 767.79 681.539 729.523 681.539" style="fill:none;stroke:#3646f0;stroke-width:1.389;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M846.154 629.231 L846.154 681.539 C806.667 681.539 767.79 681.539 729.523 681.539" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="1500"/><path d="M734.01 684.103 L729.523 681.539 L734.01 678.974 L734.01 684.103" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M630.769 716.923 C630.769 752.308 630.769 787.082 630.769 821.247" style="fill:none;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M630.769 716.923 C630.769 752.308 630.769 787.082 630.769 821.247" class="f8-flow rl-route" fill="none" stroke="#3646f0" opacity="0" style="stroke-width:1px" data-duration="2929"/><image href="/assets/img/figs/f823/ii/target-1.png" x="751" y="558" width="53" height="65" preserveAspectRatio="none"/><image href="/assets/img/figs/f823/ii/target-2.png" x="819" y="558" width="53" height="65" preserveAspectRatio="none"/><image href="/assets/img/figs/f823/ii/target-3.png" x="885" y="558" width="53" height="65" preserveAspectRatio="none"/><text x="573.15" y="590.795" textLength="84.374" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:400;fill:#29363f">Generator</text><text x="560.18" y="638.99" textLength="110.41" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">Video / multiview</text><text x="565.23" y="686.948" textLength="129.501" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:400;fill:#29363f">Reconstruct 4D</text><text x="796.49" y="731.265" textLength="136.184" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">Explicit frame targets</text><text x="728.235" y="781.046" textLength="143.514" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:16.026px;font-style:normal;font-weight:400;fill:#29363f">Reconstructed asset</text><rect class="rl-hit" x="530" y="500" width="470" height="302"/></g><g class="rl-zone" data-k="panel-9" tabindex="0" role="button" aria-pressed="false" aria-label="Dynamic 3D output"><path d="M110 893.846 L951.538 893.846 C954.103 893.846 955.385 892.564 955.385 890 L955.385 830 C955.385 827.436 954.103 826.154 951.538 826.154 L110 826.154 C107.436 826.154 106.154 827.436 106.154 830 L106.154 890 C106.154 892.564 107.436 893.846 110 893.846" style="fill:#e9ecff;stroke:#3646f0;stroke-width:1.496;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M187.179 816.759 L184.615 821.247 L182.051 816.759 L187.179 816.759" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><path d="M633.333 816.759 L630.769 821.247 L628.205 816.759 L633.333 816.759" style="fill:#3646f0;stroke:#3646f0;stroke-width:1.816;stroke-linecap:round;stroke-linejoin:round;fill-rule:nonzero"/><text x="394.835" y="864.674" textLength="271.692" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:19.231px;font-style:normal;font-weight:400;fill:#29363f">Dynamic 3D output (either route)</text><text x="325.354" y="914.959" textLength="349.063" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:16.026px;font-style:normal;font-weight:400;fill:#3646f0">Dynamic mesh · NeRF · 3D Gaussians · point cloud</text><text x="324.503" y="932.903" textLength="350.909" lengthAdjust="spacingAndGlyphs" style="font-family:Figure711Sans;font-size:14.957px;font-style:normal;font-weight:400;fill:#29363f">One time step → static 3D    |    Render over time → video</text><rect class="rl-hit" x="0" y="802" width="1000" height="137"/></g></svg><div class="nf-card" hidden role="status"></div><script class="nf-info" type="application/json">{"panel-0": {"t": "Dynamic 3D task", "b": "Dynamic 3D task in Figure 8.23. Follow the independent connectors to inspect how the illustrated inputs, intermediate representations, and outputs relate."}, "panel-1": {"t": "Text condition", "b": "Text condition in Figure 8.23. Follow the independent connectors to inspect how the illustrated inputs, intermediate representations, and outputs relate."}, "panel-2": {"t": "Image condition", "b": "Image condition in Figure 8.23. Follow the independent connectors to inspect how the illustrated inputs, intermediate representations, and outputs relate."}, "panel-3": {"t": "Video condition", "b": "Video condition in Figure 8.23. Follow the independent connectors to inspect how the illustrated inputs, intermediate representations, and outputs relate."}, "panel-4": {"t": "Static 3D condition", "b": "Static 3D condition in Figure 8.23. Follow the independent connectors to inspect how the illustrated inputs, intermediate representations, and outputs relate."}, "panel-5": {"t": "Multiple conditions", "b": "Multiple conditions in Figure 8.23. Follow the independent connectors to inspect how the illustrated inputs, intermediate representations, and outputs relate."}, "panel-6": {"t": "Condition fusion", "b": "Encoded conditions can be added, concatenated along channels, or represented as unified condition tokens before generation."}, "panel-7": {"t": "Score distillation", "b": "Render the current 4D asset, evaluate it with a frozen diffusion prior, and send score-distillation gradients back to the asset parameters."}, "panel-8": {"t": "Generate then reconstruct", "b": "Generate video or multi-view targets and reconstruct a consistent dynamic 3D representation from them."}, "panel-9": {"t": "Dynamic 3D output", "b": "Dynamic 3D output in Figure 8.23. Follow the independent connectors to inspect how the illustrated inputs, intermediate representations, and outputs relate."}}</script></div>
+<figcaption class="ltx_centering"><span class="cap-tag">Figure 8.23</span><span>4D spatial generation by conditioning input, (a)–(e), with two representative strategies: (i) score distillation from a frozen diffusion prior (dashed: SDS feedback), and (ii) generating video or multiview targets, then reconstructing a dynamic 3D asset. The strategies are alternatives that may be combined; the chair sequence is illustrative.</span></figcaption>
+</figure>
+<section>
+<h2 class="h-subsection" id="Ch8.S5.SS1"><span class="secnum">8.5.1</span>Text-to-4D Generation<a class="anchor" href="#Ch8.S5.SS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S5.SS1.p1" class="ltx_para">
+<p class="ltx_p">Text-to-4D generation synthesizes dynamic content directly from natural language, supporting text-driven asset creation and character animation <cite class="cites">[<a class="cite" href="/read/references/#ref-2155" data-k="HongZPCYL22">2155</a>, <a class="cite" href="/read/references/#ref-2260" data-k="chen2024ct4d">2260</a>]</cite>. Its progress has been propelled by large language models for semantic understanding and by video foundation models that supply motion priors.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS1.SSS1"><span class="secnum">8.5.1.1</span>Task Definition<a class="anchor" href="#Ch8.S5.SS1.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS1.SSS1.p1" class="ltx_para">
+<p class="ltx_p">Text-to-4D generation specializes the 4D sampler of Eq. (<a href="/read/8.5/#Ch8.E63" class="xref" data-x="Ch8.E63"><span>8.63</span></a>) to a textual condition <math id="Ch8.S5.SS1.SSS1.p1.m1" alttext="\mathbf{c}=\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>=</mo><mi>𝐱</mi></mrow><annotation encoding="application/x-tex">\mathbf{c}=\mathbf{x}</annotation></semantics></math> encoded by the text encoder <math id="Ch8.S5.SS1.SSS1.p1.m2" alttext="\phi" display="inline" data-pagefind-ignore="all"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math> of Eq. (<a href="/read/8.1/#Ch8.E2" class="xref" data-x="Ch8.E2"><span>8.2</span></a>),</p>
+<table id="Ch8.E64" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E64.m1" alttext="\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\phi(\mathbf{%
+x})\right)." display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><msup><mi>𝐫</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∣</mo><mrow><mi>ϕ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\phi(\mathbf{%
+x})\right).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.64)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Because language fixes only semantics and leaves geometry and motion grossly under-determined, the sampler must hallucinate both a plausible 3D shape and its temporal evolution from the prompt alone, the source of the semantic-to-motion ambiguity examined in §<a href="/read/8.5/#Ch8.S5.SS1.SSS4" class="xref" data-x="Ch8.S5.SS1.SSS4"><span>8.5.1.4</span></a>.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS1.SSS2"><span class="secnum">8.5.1.2</span>Methodology<a class="anchor" href="#Ch8.S5.SS1.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS1.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Two strategies recur throughout this section, implicit distillation and explicit supervision, implemented across various 4D representations (Figure <a href="/read/8.5/#Ch8.F23" class="xref" data-x="Ch8.F23"><span>8.23</span></a>).
+The more common implicit strategy leverages Score Distillation Sampling (SDS) to indirectly optimize the geometry and motion of a 4D representation, using pre-trained diffusion models as frozen priors <cite class="cites">[<a class="cite" href="/read/references/#ref-2251" data-k="singer2023text">2251</a>, <a class="cite" href="/read/references/#ref-2252" data-k="zheng2024unified">2252</a>]</cite>. Formally, it applies a score-distillation update to per-scene parameters <math id="Ch8.S5.SS1.SSS2.p1.m1" alttext="\theta" display="inline" data-pagefind-ignore="all"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math> <cite class="cites">[<a class="cite" href="/read/references/#ref-1726" data-k="poole2022dreamfusion">1726</a>]</cite>,</p>
+<table id="Ch8.E65" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E65.m1" alttext="\nabla_{\theta}\mathcal{L}_{\mathrm{SDS}}=\mathbb{E}_{s,\epsilon,\pi}\!\left[w%
+(s)\left(\epsilon_{\phi}(\mathbf{z}_{s};s,\kappa(\mathbf{c}))-\epsilon\right)%
+\frac{\partial\mathbf{x}_{\theta}}{\partial\theta}\right],\quad\mathbf{z}_{s}=%
+\alpha_{s}\mathbf{x}_{\theta}+\sigma_{s}\epsilon," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mrow><msub><mo>∇</mo><mi>θ</mi></msub><msub><mi>ℒ</mi><mi>SDS</mi></msub></mrow><mo>=</mo><mrow><msub><mi>𝔼</mi><mrow><mi>s</mi><mo>,</mo><mi>ϵ</mi><mo>,</mo><mi>π</mi></mrow></msub><mo>⁢</mo><mrow><mo>[</mo><mrow><mi>w</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><msub><mi>ϵ</mi><mi>ϕ</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐳</mi><mi>s</mi></msub><mo>;</mo><mi>s</mi><mo>,</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mi>ϵ</mi></mrow><mo>)</mo></mrow><mo>⁢</mo><mfrac><mrow><mo rspace="0em">∂</mo><msub><mi>𝐱</mi><mi>θ</mi></msub></mrow><mrow><mo rspace="0em">∂</mo><mi>θ</mi></mrow></mfrac></mrow><mo>]</mo></mrow></mrow></mrow><mo rspace="1.167em">,</mo><mrow><msub><mi>𝐳</mi><mi>s</mi></msub><mo>=</mo><mrow><mrow><msub><mi>α</mi><mi>s</mi></msub><mo>⁢</mo><msub><mi>𝐱</mi><mi>θ</mi></msub></mrow><mo>+</mo><mrow><msub><mi>σ</mi><mi>s</mi></msub><mo>⁢</mo><mi>ϵ</mi></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\nabla_{\theta}\mathcal{L}_{\mathrm{SDS}}=\mathbb{E}_{s,\epsilon,\pi}\!\left[w%
+(s)\left(\epsilon_{\phi}(\mathbf{z}_{s};s,\kappa(\mathbf{c}))-\epsilon\right)%
+\frac{\partial\mathbf{x}_{\theta}}{\partial\theta}\right],\quad\mathbf{z}_{s}=%
+\alpha_{s}\mathbf{x}_{\theta}+\sigma_{s}\epsilon,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.65)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where <math id="Ch8.S5.SS1.SSS2.p1.m2" alttext="\mathbf{x}_{\theta}=\mathrm{Render}(\hat{\mathbf{r}}^{1:T}_{\theta},\pi)" display="inline" data-pagefind-ignore="all"><semantics><mrow><msub><mi>𝐱</mi><mi>θ</mi></msub><mo>=</mo><mrow><mi>Render</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msubsup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mi>θ</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msubsup><mo>,</mo><mi>π</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{x}_{\theta}=\mathrm{Render}(\hat{\mathbf{r}}^{1:T}_{\theta},\pi)</annotation></semantics></math> is a differentiable rendering at camera <math id="Ch8.S5.SS1.SSS2.p1.m3" alttext="\pi" display="inline" data-pagefind-ignore="all"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>, <math id="Ch8.S5.SS1.SSS2.p1.m4" alttext="s" display="inline" data-pagefind-ignore="all"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> indexes diffusion noise levels, and <math id="Ch8.S5.SS1.SSS2.p1.m5" alttext="\epsilon_{\phi}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>ϵ</mi><mi>ϕ</mi></msub><annotation encoding="application/x-tex">\epsilon_{\phi}</annotation></semantics></math> is a frozen 2D/video diffusion prior. The update differentiates through the renderer while treating the prior noise residual as the supplied gradient signal; this lifts the static score-distillation objective of §<a href="/read/8.2/#Ch8.S2.SS1.SSS2.Px2" class="xref" data-x="Ch8.S2.SS1.SSS2.Px2"><span>8.2.1.2</span></a> to a temporal sequence.
+In contrast, explicitly supervised methods initialize the 4D generation from text-to-3D or text-to-video outputs and use these generated assets as direct supervisory signals <cite class="cites">[<a class="cite" href="/read/references/#ref-2259" data-k="zhao2024efficient">2259</a>, <a class="cite" href="/read/references/#ref-186" data-k="wu20244d">186</a>, <a class="cite" href="/read/references/#ref-2261" data-k="yang2024deformable">2261</a>, <a class="cite" href="/read/references/#ref-2254" data-k="ling2024align">2254</a>, <a class="cite" href="/read/references/#ref-1991" data-k="blattmann2023align">1991</a>, <a class="cite" href="/read/references/#ref-2262" data-k="xu2024comp4d">2262</a>]</cite>. This “generate-then-reconstruct” strategy first synthesizes target frames <math id="Ch8.S5.SS1.SSS2.p1.m6" alttext="\hat{\mathbf{y}}" display="inline" data-pagefind-ignore="all"><semantics><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{y}}</annotation></semantics></math> with a fast generator <math id="Ch8.S5.SS1.SSS2.p1.m7" alttext="\mathcal{G}_{\text{2D}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝒢</mi><mtext>2D</mtext></msub><annotation encoding="application/x-tex">\mathcal{G}_{\text{2D}}</annotation></semantics></math> and then fits the 4D asset to them,</p>
+<table id="Ch8.E66" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E66.m1" alttext="\hat{\mathbf{y}}=\mathcal{G}_{\text{2D}}(\mathbf{c}),\qquad\hat{\mathbf{r}}^{1%
+:T}=\arg\min_{\mathbf{r}^{1:T}}\sum_{\pi,t}\big{\|}\mathrm{Render}(\mathbf{r}^%
+{t},\pi)-\hat{\mathbf{y}}^{t}_{\pi}\big{\|}^{2}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><mo>=</mo><mrow><msub><mi>𝒢</mi><mtext>2D</mtext></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>𝐜</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>=</mo><mrow><mrow><mi>arg</mi><mo lspace="0.167em">⁡</mo><munder><mi>min</mi><msup><mi>𝐫</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup></munder></mrow><mo>⁢</mo><mrow><munder><mo movablelimits="false" rspace="0em">∑</mo><mrow><mi>π</mi><mo>,</mo><mi>t</mi></mrow></munder><msup><mrow><mo maxsize="120%" minsize="120%">‖</mo><mrow><mrow><mi>Render</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>𝐫</mi><mi>t</mi></msup><mo>,</mo><mi>π</mi><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><msubsup><mover accent="true"><mi>𝐲</mi><mo>^</mo></mover><mi>π</mi><mi>t</mi></msubsup></mrow><mo maxsize="120%" minsize="120%">‖</mo></mrow><mn>2</mn></msup></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\mathbf{y}}=\mathcal{G}_{\text{2D}}(\mathbf{c}),\qquad\hat{\mathbf{r}}^{1%
+:T}=\arg\min_{\mathbf{r}^{1:T}}\sum_{\pi,t}\big{\|}\mathrm{Render}(\mathbf{r}^%
+{t},\pi)-\hat{\mathbf{y}}^{t}_{\pi}\big{\|}^{2},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.66)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">replacing score-distillation guidance with explicit pixel targets; reconstruction may itself require per-scene optimization, so a speed advantage depends on the implementation. The two strategies are realized across mesh, NeRF, and 3DGS representations.</p>
+</div>
+<div id="Ch8.S5.SS1.SSS2.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Mesh-based Methods.</span> Meshes offer explicit geometric control, which suits precise text-driven shape manipulation and animation.
+CT4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2260" data-k="chen2024ct4d">2260</a>]</cite> implements a three-stage “Generate-Refine-Animate” pipeline in which a mesh is generated from text, its texture refined, and its vertices animated; TextMesh4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2263" data-k="dai2025textmesh4d">2263</a>]</cite> deforms a generated mesh through a per-face Jacobian deformation field under video-diffusion priors; and AvatarCLIP <cite class="cites">[<a class="cite" href="/read/references/#ref-2155" data-k="HongZPCYL22">2155</a>]</cite> generates a static avatar zero-shot and animates it by registering motion to an SMPL skeleton.</p>
+</div>
+<div id="Ch8.S5.SS1.SSS2.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">NeRF-based Methods.</span> NeRFs represent continuous geometry and complex temporal variation well.
+MAV3D <cite class="cites">[<a class="cite" href="/read/references/#ref-2251" data-k="singer2023text">2251</a>]</cite> introduced multi-stage SDS optimization that refines texture, geometry, and motion with priors from both T2I and T2V diffusion models; 4D-fy <cite class="cites">[<a class="cite" href="/read/references/#ref-2264" data-k="bahmani20244d">2264</a>]</cite> blends 3D-aware, image, and video score signals in a hybrid SDS; and Dream-in-4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2252" data-k="zheng2024unified">2252</a>]</cite> first generates a static asset with a multiview diffusion model and then adds dynamics with a video diffusion model.</p>
+</div>
+<div id="Ch8.S5.SS1.SSS2.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Gaussian Splatting-based Methods.</span> 4D Gaussian Splatting (4DGS) <cite class="cites">[<a class="cite" href="/read/references/#ref-2256" data-k="zhao2024hfgs">2256</a>, <a class="cite" href="/read/references/#ref-186" data-k="wu20244d">186</a>]</cite> renders efficiently and differentiably, which speeds up text-driven dynamic scene synthesis. Early methods followed the two-stage implicit pipeline of Eq. (<a href="/read/8.5/#Ch8.E65" class="xref" data-x="Ch8.E65"><span>8.65</span></a>): AYG <cite class="cites">[<a class="cite" href="/read/references/#ref-2254" data-k="ling2024align">2254</a>]</cite> generates a static 3D Gaussian model from text via SDS and adds dynamics under a T2V prior, and Comp4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2262" data-k="xu2024comp4d">2262</a>]</cite> uses an LLM to parse a complex prompt into several dynamic objects and their trajectories for a compositional scene.
+Later works moved to explicit supervision (Eq. (<a href="/read/8.5/#Ch8.E66" class="xref" data-x="Ch8.E66"><span>8.66</span></a>)): PLA4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2257" data-k="miao2024pla4d">2257</a>]</cite> aligns the 4D Gaussians pixel by pixel with generated video targets, and 4Real <cite class="cites">[<a class="cite" href="/read/references/#ref-2265" data-k="yu20244real">2265</a>]</cite> uses generated multiview video frames as the reference for photorealistic scene-level generation.
+For digital humans, AvatarGO <cite class="cites">[<a class="cite" href="/read/references/#ref-2266" data-k="cao2024avatargo">2266</a>]</cite> generates 4D human–object interactions zero-shot by animating a text-to-3D human with the SMPL-X skinning function.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS1.SSS3"><span class="secnum">8.5.1.3</span>Benchmarks<a class="anchor" href="#Ch8.S5.SS1.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS1.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Text-to-4D, like the other subfields of this section, has no standardized benchmark, because large-scale dynamic 3D data with text descriptions is hard to capture and annotate. Training and evaluation instead adapt static 3D repositories (Table <a href="/read/8.5/#Ch8.T12" class="xref" data-x="Ch8.T12"><span>8.12</span></a>): Diffusion4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2267" data-k="liang2024diffusion4d">2267</a>]</cite> filtered Objaverse and Objaverse-XL <cite class="cites">[<a class="cite" href="/read/references/#ref-1749" data-k="deitke2023objaverse">1749</a>, <a class="cite" href="/read/references/#ref-1750" data-k="deitke2023objaversexl">1750</a>]</cite> down to 54K high-quality animated assets, and SV4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2268" data-k="xie2024sv4d">2268</a>]</cite> built ObjaverseDy by adaptive sampling and viewpoint adjustment. These are synthetic renderings and lack the multimodal annotations, text in particular, needed to train and evaluate text-conditioned models robustly.</p>
+</div>
+<figure id="Ch8.T12" class="ltx_table">
+<figcaption><span class="cap-tag">Table 8.12</span><span>Datasets used for 4D generation across the subfields of §<a href="/read/8.5/" class="xref" data-x="Ch8.S5"><span>8.5</span></a>.</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Dataset</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Content</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Scale</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Used for</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Objaverse-XL <cite class="cites">[<a class="cite" href="/read/references/#ref-1750" data-k="deitke2023objaversexl">1750</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Static and animated 3D objects</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">10M+ objects</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Source pool for dynamic subsets</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Diffusion4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2267" data-k="liang2024diffusion4d">2267</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Animated assets curated from Objaverse / Objaverse-XL</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">54K assets</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Training image- / video-to-4D</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">ObjaverseDy <cite class="cites">[<a class="cite" href="/read/references/#ref-2268" data-k="xie2024sv4d">2268</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Animated Objaverse objects, re-rendered</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Training and evaluating video-to-4D</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Consistent4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2253" data-k="jiang2023consistent4d">2253</a>]</cite></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:104.1pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Synthetic and real monocular videos</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:86.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">-</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:112.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Evaluating video-to-4D</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+<section id="Ch8.S5.SS1.SSS3.Px1">
+<div id="Ch8.S5.SS1.SSS3.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Evaluation Metrics.</strong> Evaluation across 4D generation combines user studies with metrics borrowed from image and video generation, and the subsections that follow use this same set. Semantic alignment with a prompt is measured by CLIP Score <cite class="cites">[<a class="cite" href="/read/references/#ref-142" data-k="radford2021learning">142</a>]</cite> between rendered views and the text; fidelity by PSNR <cite class="cites">[<a class="cite" href="/read/references/#ref-2269" data-k="hore2010image">2269</a>]</cite>, SSIM <cite class="cites">[<a class="cite" href="/read/references/#ref-1869" data-k="wang2004image">1869</a>]</cite>, and LPIPS <cite class="cites">[<a class="cite" href="/read/references/#ref-1870" data-k="zhang2018unreasonable">1870</a>]</cite> where a reference view exists; temporal quality and motion by the Fréchet Video Distance (FVD) <cite class="cites">[<a class="cite" href="/read/references/#ref-1935" data-k="unterthiner2018fvd">1935</a>]</cite>; and overall plausibility and aesthetics by user studies. None of these scores the two properties that make content 4D, cross-view consistency and long-range spatio-temporal coherence.</p>
+</div>
+</section>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS1.SSS4"><span class="secnum">8.5.1.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S5.SS1.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS1.SSS4.p1" class="ltx_para">
+<p class="ltx_p">The challenge specific to text-to-4D is semantic-to-motion ambiguity: a prompt such as “a dancing dog” admits endlessly many movements, styles, and trajectories, and methods that lean on generic T2V priors struggle to produce diverse, fine-grained motion that matches a nuanced description.
+One response uses LLMs for motion planning, as Comp4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2262" data-k="xu2024comp4d">2262</a>]</cite> does when it decomposes a prompt into a structured spatio-temporal plan for several interacting objects; another targets human–object interaction <cite class="cites">[<a class="cite" href="/read/references/#ref-2266" data-k="cao2024avatargo">2266</a>]</cite>, moving toward story-driven dynamic scenes.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S5.SS2"><span class="secnum">8.5.2</span>Image-to-4D Generation<a class="anchor" href="#Ch8.S5.SS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S5.SS2.p1" class="ltx_para">
+<p class="ltx_p">Image-to-4D generation synthesizes dynamic content from a single static image, combining the spatial information in the image with temporal priors learned by video models <cite class="cites">[<a class="cite" href="/read/references/#ref-2270" data-k="yang2024diffusion">2270</a>, <a class="cite" href="/read/references/#ref-2271" data-k="sun2024eg4d">2271</a>]</cite>. No large image–4D paired dataset exists, which has ruled out direct end-to-end training and pushed the field toward optimization and toward generated supervision.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS2.SSS1"><span class="secnum">8.5.2.1</span>Task Definition<a class="anchor" href="#Ch8.S5.SS2.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS2.SSS1.p1" class="ltx_para">
+<p class="ltx_p">Image-to-4D generation specializes the 4D sampler of Eq. (<a href="/read/8.5/#Ch8.E63" class="xref" data-x="Ch8.E63"><span>8.63</span></a>) to a single-image condition <math id="Ch8.S5.SS2.SSS1.p1.m1" alttext="\mathbf{c}=I" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>=</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">\mathbf{c}=I</annotation></semantics></math>,</p>
+<table id="Ch8.E67" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E67.m1" alttext="\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\kappa(I)%
+\right)," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><msup><mi>𝐫</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∣</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\kappa(I)%
+\right),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.67)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">where the source view at <math id="Ch8.S5.SS2.SSS1.p1.m2" alttext="t=0" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math> is fixed by <math id="Ch8.S5.SS2.SSS1.p1.m3" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> while every unseen viewpoint and time step must be inferred.
+Both the unseen 3D geometry and the entirely absent temporal dynamics have to be inferred from one 2D view, which requires combining the spatial cues of the input with temporal priors from large video models <cite class="cites">[<a class="cite" href="/read/references/#ref-2272" data-k="ren2023dreamgaussian4d">2272</a>, <a class="cite" href="/read/references/#ref-2273" data-k="zhao2023animate124">2273</a>, <a class="cite" href="/read/references/#ref-2271" data-k="sun2024eg4d">2271</a>]</cite>.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS2.SSS2"><span class="secnum">8.5.2.2</span>Methodology<a class="anchor" href="#Ch8.S5.SS2.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS2.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Both strategies of §<a href="/read/8.5/#Ch8.S5.SS1.SSS2" class="xref" data-x="Ch8.S5.SS1.SSS2"><span>8.5.1.2</span></a> apply, and most methods use 4D Gaussian Splatting as the representation <cite class="cites">[<a class="cite" href="/read/references/#ref-2272" data-k="ren2023dreamgaussian4d">2272</a>, <a class="cite" href="/read/references/#ref-2270" data-k="yang2024diffusion">2270</a>]</cite>.</p>
+</div>
+<div id="Ch8.S5.SS2.SSS2.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Implicit Optimization with Diffusion Priors.</span> These methods instantiate Eq. (<a href="/read/8.5/#Ch8.E65" class="xref" data-x="Ch8.E65"><span>8.65</span></a>), typically combining a multiview diffusion model for geometric consistency with a video diffusion model for temporal coherence. Animate124 <cite class="cites">[<a class="cite" href="/read/references/#ref-2273" data-k="zhao2023animate124">2273</a>]</cite> first generates a static NeRF from the image and then refines its dynamics with a video-diffusion SDS loss, and Diffusion<sup>2</sup> <cite class="cites">[<a class="cite" href="/read/references/#ref-2270" data-k="yang2024diffusion">2270</a>]</cite> reconciles the scores of heterogeneous priors (multiview and video) through Variance-Reducing Sampling, improving both multiview and temporal consistency of the resulting 4D Gaussians.</p>
+</div>
+<div id="Ch8.S5.SS2.SSS2.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Explicit Supervision with Generated Data.</span> The slow, iterative nature of SDS motivates the two-stage pipeline of Eq. (<a href="/read/8.5/#Ch8.E66" class="xref" data-x="Ch8.E66"><span>8.66</span></a>), in which an image-to-video model first generates an intermediate video that then supervises the 4D reconstruction directly. DreamGaussian4D (DG4D) <cite class="cites">[<a class="cite" href="/read/references/#ref-2272" data-k="ren2023dreamgaussian4d">2272</a>]</cite> generates a static 3D Gaussian model and learns a deformation field to animate it, using the generated video for texture refinement and dynamic supervision, and EG4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2271" data-k="sun2024eg4d">2271</a>]</cite> avoids SDS entirely by chaining image-to-video and image-to-multiview models into coherent image sequences that guide a fast reconstruction.</p>
+</div>
+<div id="Ch8.S5.SS2.SSS2.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Unified and Tuning-free Generation.</span> GenXD <cite class="cites">[<a class="cite" href="/read/references/#ref-2274" data-k="zhao2024genxd">2274</a>]</cite> trains one model on both 3D and 4D data, using multiview-temporal modules that separate camera motion from object motion, and Free4D <cite class="cites">[<a class="cite" href="/read/references/#ref-188" data-k="liu2025free4d">188</a>]</cite> builds a 4D scene from a single image without fine-tuning any model, distilling pretrained image-to-video and multiview priors into a consistent 4D representation.</p>
+</div>
+<div id="Ch8.S5.SS2.SSS2.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Specialized Methods for Human Generation.</span> Dynamic human avatars form a sub-domain in which strong body priors raise fidelity. Human4DiT <cite class="cites">[<a class="cite" href="/read/references/#ref-2275" data-k="shao2024360">2275</a>]</cite> uses a hierarchical 4D transformer that integrates human-specific features, camera parameters, and temporal signals to generate 360-degree human animations from a single image, and Disco4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2276" data-k="pang2025disco4d">2276</a>]</cite> models the body with SMPL-X while representing clothing separately with Gaussian splats, allowing detailed animation of clothed humans.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS2.SSS3"><span class="secnum">8.5.2.3</span>Benchmarks<a class="anchor" href="#Ch8.S5.SS2.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS2.SSS3.p1" class="ltx_para">
+<p class="ltx_p">With no image–4D pairs, methods are evaluated on images from Objaverse <cite class="cites">[<a class="cite" href="/read/references/#ref-1749" data-k="deitke2023objaverse">1749</a>]</cite> or on in-the-wild photographs chosen by the authors, which makes comparison across papers unreliable. The metric set is that of §<a href="/read/8.5/#Ch8.S5.SS1.SSS3" class="xref" data-x="Ch8.S5.SS1.SSS3"><span>8.5.1.3</span></a>, applied to the source view and to pseudo-ground-truth novel views where available.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS2.SSS4"><span class="secnum">8.5.2.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S5.SS2.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS2.SSS4.p1" class="ltx_para">
+<p class="ltx_p">Inferring a complete shape and a plausible motion from one viewpoint is extremely ill-posed, which shows up as geometric inconsistency in unseen views (<span class="ltx_font_italic">e.g.,</span> , the “Janus problem”) and as unnatural or repetitive motion, since every dynamic detail must be hallucinated.
+Domain-specific priors are the main remedy: Human4DiT <cite class="cites">[<a class="cite" href="/read/references/#ref-2275" data-k="shao2024360">2275</a>]</cite> and Disco4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2276" data-k="pang2025disco4d">2276</a>]</cite> regularize geometry and motion with parametric body models and reach much higher fidelity, at the cost of generality.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S5.SS3"><span class="secnum">8.5.3</span>Video-to-4D Generation<a class="anchor" href="#Ch8.S5.SS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S5.SS3.p1" class="ltx_para">
+<p class="ltx_p">Video-to-4D generation lifts a single-view video into a dynamic 4D representation that can be viewed from new angles with consistent geometry and motion, turning ordinary video into interactive 4D content. Annotated video-to-4D datasets are hard to curate, so current methods build on pretrained video diffusion priors, either as multi-view supervision or through score distillation.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS3.SSS1"><span class="secnum">8.5.3.1</span>Task Definition<a class="anchor" href="#Ch8.S5.SS3.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS3.SSS1.p1" class="ltx_para">
+<p class="ltx_p">Video-to-4D generation specializes the 4D sampler of Eq. (<a href="/read/8.5/#Ch8.E63" class="xref" data-x="Ch8.E63"><span>8.63</span></a>) to a monocular video condition <math id="Ch8.S5.SS3.SSS1.p1.m1" alttext="\mathbf{c}=\mathbf{v}^{1:T}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>=</mo><msup><mi>𝐯</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{c}=\mathbf{v}^{1:T}</annotation></semantics></math>,</p>
+<table id="Ch8.E68" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E68.m1" alttext="\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\kappa(%
+\mathbf{v}^{1:T})\right)," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><msup><mi>𝐫</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∣</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>𝐯</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\kappa(%
+\mathbf{v}^{1:T})\right),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.68)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">so that re-rendering <math id="Ch8.S5.SS3.SSS1.p1.m2" alttext="\hat{\mathbf{r}}^{1:T}" display="inline" data-pagefind-ignore="all"><semantics><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><annotation encoding="application/x-tex">\hat{\mathbf{r}}^{1:T}</annotation></semantics></math> from the input viewpoint reproduces <math id="Ch8.S5.SS3.SSS1.p1.m3" alttext="\mathbf{v}^{1:T}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝐯</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><annotation encoding="application/x-tex">\mathbf{v}^{1:T}</annotation></semantics></math> while novel views remain geometrically consistent.
+Unlike image-to-4D (Eq. (<a href="/read/8.5/#Ch8.E67" class="xref" data-x="Ch8.E67"><span>8.67</span></a>)), the temporal dynamics are now <em class="ltx_font_italic">observed</em> and the residual ambiguity is purely geometric: the unseen off-axis structure.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS3.SSS2"><span class="secnum">8.5.3.2</span>Methodology<a class="anchor" href="#Ch8.S5.SS3.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS3.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Most methods densify the monocular input into multi-view supervision and reconstruct against it (Eq. (<a href="/read/8.5/#Ch8.E66" class="xref" data-x="Ch8.E66"><span>8.66</span></a>)), some add score distillation (Eq. (<a href="/read/8.5/#Ch8.E65" class="xref" data-x="Ch8.E65"><span>8.65</span></a>)), and the newest predict the 4D asset feed-forward.</p>
+</div>
+<div id="Ch8.S5.SS3.SSS2.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Mesh-based Methods.</span> Meshes are interpretable and efficient to animate. DreamMesh4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2277" data-k="li2024dreammesh4d">2277</a>]</cite> obtains a coarse mesh and drives it with a sparse deformation graph and linear blend skinning (LBS), reaching strong spatio-temporal consistency more cheaply than implicit volumetric methods, and V2M4 <cite class="cites">[<a class="cite" href="/read/references/#ref-2278" data-k="chen2025v2m4">2278</a>]</cite> reconstructs an animated, textured mesh asset directly from a monocular video.</p>
+</div>
+<div id="Ch8.S5.SS3.SSS2.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">NeRF-based Methods.</span> NeRF-based methods model the continuous volumetric content of a video well, and they overcome the single view by generating data. Consistent4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2253" data-k="jiang2023consistent4d">2253</a>]</cite> densifies the monocular input through temporal and multiview interpolation before optimizing a NeRF with SDS, 4Diffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-2279" data-k="zhang20244diffusion">2279</a>]</cite> fine-tunes a video diffusion model with a learnable motion module on synthetic multiview data so that it produces consistent multiview video to guide generation, and SV4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2268" data-k="xie2024sv4d">2268</a>]</cite> completes missing views and frames with a diffusion model and uses the resulting multiview video to supervise the reconstruction.</p>
+</div>
+<div id="Ch8.S5.SS3.SSS2.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Gaussian Splatting-based Methods.</span> 4DGen <cite class="cites">[<a class="cite" href="/read/references/#ref-2280" data-k="yin20234dgen">2280</a>]</cite> grounds 4D Gaussian generation in the input video with spatial-temporal pseudo labels; Efficient4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2281" data-k="pan2024efficient4d">2281</a>]</cite> converts the video into a multiview image matrix with a multiview-consistent generator (SyncDreamer) for rapid reconstruction; SC4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2282" data-k="wu2024sc4d">2282</a>]</cite> first fits sparse control Gaussians for coarse shape and motion and then drives dense Gaussians through LBS; and L4GM <cite class="cites">[<a class="cite" href="/read/references/#ref-2283" data-k="ren2024l4gm">2283</a>]</cite> predicts the 4D Gaussians of a whole clip in a single feed-forward pass, trained on rendered animated objects.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS3.SSS3"><span class="secnum">8.5.3.3</span>Benchmarks<a class="anchor" href="#Ch8.S5.SS3.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS3.SSS3.p1" class="ltx_para">
+<p class="ltx_p">Video-to-4D has the one dedicated evaluation set in this section, released with Consistent4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2253" data-k="jiang2023consistent4d">2253</a>]</cite>: synthetic and real monocular videos with training and test splits. The metrics are those of §<a href="/read/8.5/#Ch8.S5.SS1.SSS3" class="xref" data-x="Ch8.S5.SS1.SSS3"><span>8.5.1.3</span></a>, with reconstruction fidelity measured at the input view and novel-view quality measured where synthetic ground-truth multiview video exists.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS3.SSS4"><span class="secnum">8.5.3.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S5.SS3.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS3.SSS4.p1" class="ltx_para">
+<p class="ltx_p">The video constrains motion but not the unseen 3D structure, which leads to geometric distortion, depth ambiguity, and a “painted-on” look in novel views.
+Explicit geometric structure is the main remedy: DreamMesh4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2277" data-k="li2024dreammesh4d">2277</a>]</cite> and SC4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2282" data-k="wu2024sc4d">2282</a>]</cite> constrain the reconstruction with meshes or sparse control points under LBS, which improves both coherence and efficiency, and combining such structure with the appearance modeling of neural representations is the obvious next step.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S5.SS4"><span class="secnum">8.5.4</span>3D-to-4D Generation<a class="anchor" href="#Ch8.S5.SS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S5.SS4.p1" class="ltx_para">
+<p class="ltx_p">3D-to-4D generation animates a static 3D model, so that the geometry is given and only motion and deformation must be synthesized, which makes the large stock of existing 3D assets usable for simulation, virtual reality, and character animation.
+Unconditional generators of dynamic neural fields, such as HyperDiffusion <cite class="cites">[<a class="cite" href="/read/references/#ref-2284" data-k="erkocc2023hyperdiffusion">2284</a>]</cite>, which runs diffusion directly on the weights of neural fields, sample 4D content without a given asset; 3D-to-4D instead starts from one, either through explicit mesh deformation and rigging or through neural and physics-based deformation models.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS4.SSS1"><span class="secnum">8.5.4.1</span>Task Definition<a class="anchor" href="#Ch8.S5.SS4.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS4.SSS1.p1" class="ltx_para">
+<p class="ltx_p">Here the condition is itself a 3D representation <math id="Ch8.S5.SS4.SSS1.p1.m1" alttext="\mathbf{c}=\mathbf{r}_{0}\in\mathcal{R}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>𝐜</mi><mo>=</mo><msub><mi>𝐫</mi><mn>0</mn></msub><mo>∈</mo><mi>ℛ</mi></mrow><annotation encoding="application/x-tex">\mathbf{c}=\mathbf{r}_{0}\in\mathcal{R}</annotation></semantics></math>, so only its temporal evolution must be generated. We therefore specialize Eq. (<a href="/read/8.5/#Ch8.E63" class="xref" data-x="Ch8.E63"><span>8.63</span></a>) to a <em class="ltx_font_italic">deformation operator</em> that takes the static asset and an optional auxiliary driving signal <math id="Ch8.S5.SS4.SSS1.p1.m2" alttext="\mathbf{c}_{\text{aux}}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝐜</mi><mtext>aux</mtext></msub><annotation encoding="application/x-tex">\mathbf{c}_{\text{aux}}</annotation></semantics></math> (text, audio, or a motion sketch) to a sequence,</p>
+<table id="Ch8.E69" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E69.m1" alttext="\hat{\mathbf{r}}^{1:T}=\mathcal{D}_{\theta}\!\left(\mathbf{r}_{0},\,\kappa(%
+\mathbf{c}_{\text{aux}})\right),\qquad\hat{\mathbf{r}}^{0}=\mathbf{r}_{0}," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><mrow><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>=</mo><mrow><msub><mi>𝒟</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo>(</mo><msub><mi>𝐫</mi><mn>0</mn></msub><mo rspace="0.337em">,</mo><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐜</mi><mtext>aux</mtext></msub><mo stretchy="false">)</mo></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mn>0</mn></msup><mo>=</mo><msub><mi>𝐫</mi><mn>0</mn></msub></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\mathbf{r}}^{1:T}=\mathcal{D}_{\theta}\!\left(\mathbf{r}_{0},\,\kappa(%
+\mathbf{c}_{\text{aux}})\right),\qquad\hat{\mathbf{r}}^{0}=\mathbf{r}_{0},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.69)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">with the first frame pinned to the input asset. This places 3D-to-4D in the same family as the editing operators of §<a href="/read/8.2/#Ch8.S2.SS5" class="xref" data-x="Ch8.S2.SS5"><span>8.2.5</span></a> and §<a href="/read/8.4/#Ch8.S4.SS4" class="xref" data-x="Ch8.S4.SS4"><span>8.4.4</span></a>: it transforms an existing representation rather than synthesizing one from scratch.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS4.SSS2"><span class="secnum">8.5.4.2</span>Methodology<a class="anchor" href="#Ch8.S5.SS4.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS4.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Methods realize the deformation operator <math id="Ch8.S5.SS4.SSS2.p1.m1" alttext="\mathcal{D}_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝒟</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">\mathcal{D}_{\theta}</annotation></semantics></math> of Eq. (<a href="/read/8.5/#Ch8.E69" class="xref" data-x="Ch8.E69"><span>8.69</span></a>) either with explicit mesh structure, increasingly through learned rigging, or with neural and physics-informed deformation fields.</p>
+</div>
+<div id="Ch8.S5.SS4.SSS2.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Mesh-based Methods.</span> Meshes give explicit structure and precise control over deformation. Motion3DGAN <cite class="cites">[<a class="cite" href="/read/references/#ref-2285" data-k="otberdout2022sparse">2285</a>]</cite> generates 3D facial animation from a static face mesh by first predicting the displacement of facial landmarks for a target expression and then deforming the full mesh, with a GAN keeping the sequence temporally coherent. A recent line makes arbitrary meshes animatable by predicting the rig itself: MagicArticulate <cite class="cites">[<a class="cite" href="/read/references/#ref-2286" data-k="song2025magicarticulate">2286</a>]</cite> and RigAnything <cite class="cites">[<a class="cite" href="/read/references/#ref-2287" data-k="liu2025riganything">2287</a>]</cite> predict skeletons and skinning weights feed-forward, Puppeteer <cite class="cites">[<a class="cite" href="/read/references/#ref-2288" data-k="song2025puppeteer">2288</a>]</cite> rigs a mesh and then animates it by fitting the rig to videos generated from renderings of the mesh, and AnimateAnyMesh <cite class="cites">[<a class="cite" href="/read/references/#ref-2289" data-k="wu2025animateanymesh">2289</a>]</cite> generates text-driven mesh animation in a single forward pass with a rectified-flow model over a dynamic-mesh latent.</p>
+</div>
+<div id="Ch8.S5.SS4.SSS2.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">NeRF-based Methods.</span> ElastoGen <cite class="cites">[<a class="cite" href="/read/references/#ref-2290" data-k="feng2024elastogen">2290</a>]</cite> generates physically grounded elastodynamic behavior: it rasterizes a static 3D model and then predicts and refines deformation fields iteratively with recurrent and 3D convolutional modules, so that the motion obeys physical principles.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS4.SSS3"><span class="secnum">8.5.4.3</span>Benchmarks<a class="anchor" href="#Ch8.S5.SS4.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS4.SSS3.p1" class="ltx_para">
+<p class="ltx_p">No benchmark with ground-truth dynamic sequences exists; methods are evaluated on a few individual assets, often faces or generic objects, mostly by user study and with the metrics of §<a href="/read/8.5/#Ch8.S5.SS1.SSS3" class="xref" data-x="Ch8.S5.SS1.SSS3"><span>8.5.1.3</span></a> where a reference animation is available. Physical plausibility, specific to this subfield, can be measured for physics-informed methods such as ElastoGen <cite class="cites">[<a class="cite" href="/read/references/#ref-2290" data-k="feng2024elastogen">2290</a>]</cite> as deviation from a high-fidelity simulator or as violation of conserved quantities such as energy and momentum.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS4.SSS4"><span class="secnum">8.5.4.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S5.SS4.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS4.SSS4.p1" class="ltx_para">
+<p class="ltx_p">Even with the geometry given, the space of plausible animations of a static model is unbounded, so without guidance the task is unconstrained, and current methods specialize to narrow categories such as faces.
+Physical priors constrain it (ElastoGen <cite class="cites">[<a class="cite" href="/read/references/#ref-2290" data-k="feng2024elastogen">2290</a>]</cite> grounds motion in elastodynamics), learned rigging makes arbitrary assets animatable, and pairing the asset with text, audio, or motion sketches turns open-ended generation into controllable animation.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S5.SS5"><span class="secnum">8.5.5</span>Multi-conditional 4D Generation<a class="anchor" href="#Ch8.S5.SS5" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S5.SS5.p1" class="ltx_para">
+<p class="ltx_p">Multi-conditional 4D generation steers dynamic scene synthesis with several signals at once: semantic conditions (text), appearance conditions (images, video), structural conditions (skeletal poses, explicit trajectories), and rule-based priors (differentiable physics). The central design problem is to fuse them so that each is respected without one overpowering the others.</p>
+</div>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS5.SSS1"><span class="secnum">8.5.5.1</span>Task Definition<a class="anchor" href="#Ch8.S5.SS5.SSS1" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS5.SSS1.p1" class="ltx_para">
+<p class="ltx_p">We generalize the single-condition cases of Eqs. (<a href="/read/8.5/#Ch8.E64" class="xref" data-x="Ch8.E64"><span>8.64</span></a>)–(<a href="/read/8.5/#Ch8.E69" class="xref" data-x="Ch8.E69"><span>8.69</span></a>) to a set of <math id="Ch8.S5.SS5.SSS1.p1.m1" alttext="K" display="inline" data-pagefind-ignore="all"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> conditions, each mapped by its own encoder <math id="Ch8.S5.SS5.SSS1.p1.m2" alttext="\kappa_{k}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>κ</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\kappa_{k}</annotation></semantics></math> and fused into the shared embedding:</p>
+<table id="Ch8.E70" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="Ch8.E70.m1" alttext="\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\kappa_{1}(%
+\mathbf{c}_{1}),\dots,\kappa_{K}(\mathbf{c}_{K})\right)," display="block" data-pagefind-ignore="all"><semantics><mrow><mrow><msup><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∼</mo><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><msup><mi>𝐫</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo>∣</mo><mrow><mrow><msub><mi>κ</mi><mn>1</mn></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐜</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></mrow><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mrow><msub><mi>κ</mi><mi>K</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msub><mi>𝐜</mi><mi>K</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\mathbf{r}}^{1:T}\sim p_{\theta}\!\left(\mathbf{r}^{1:T}\mid\kappa_{1}(%
+\mathbf{c}_{1}),\dots,\kappa_{K}(\mathbf{c}_{K})\right),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8.70)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">which recovers a single-modality sampler when <math id="Ch8.S5.SS5.SSS1.p1.m3" alttext="K=1" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>K</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K=1</annotation></semantics></math>.
+Users can then specify not only what is generated (semantics) but how it behaves (motion path, physical behavior, artistic style), which complex applications such as character animation and driving simulation require.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS5.SSS2"><span class="secnum">8.5.5.2</span>Methodology<a class="anchor" href="#Ch8.S5.SS5.SSS2" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS5.SSS2.p1" class="ltx_para">
+<p class="ltx_p">Methods fuse the encoders <math id="Ch8.S5.SS5.SSS2.p1.m1" alttext="\kappa_{k}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>κ</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\kappa_{k}</annotation></semantics></math> of Eq. (<a href="/read/8.5/#Ch8.E70" class="xref" data-x="Ch8.E70"><span>8.70</span></a>), usually combining score distillation (Eq. (<a href="/read/8.5/#Ch8.E65" class="xref" data-x="Ch8.E65"><span>8.65</span></a>)) with explicit supervision (Eq. (<a href="/read/8.5/#Ch8.E66" class="xref" data-x="Ch8.E66"><span>8.66</span></a>)) tailored to each condition.</p>
+</div>
+<div id="Ch8.S5.SS5.SSS2.p2" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Motion and Trajectory Control.</span> TC4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2291" data-k="bahmani2024tc4d">2291</a>]</cite> lets users define a spline trajectory that guides both the global rigid transformation and the local deformation of an object, with text supplying the semantics. For human animation, skeletons are the natural condition: Beyond Skeletons <cite class="cites">[<a class="cite" href="/read/references/#ref-2292" data-k="yang2024beyond">2292</a>]</cite> integrates text and image conditions with the skeleton to refine motion, and STAR <cite class="cites">[<a class="cite" href="/read/references/#ref-2293" data-k="chai2024star">2293</a>]</cite> uses skeleton-aware SDS and motion retargeting so that avatar movement is both visually coherent and anatomically accurate.</p>
+</div>
+<div id="Ch8.S5.SS5.SSS2.p3" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Physics-Informed Control.</span> Sync4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2294" data-k="fu2024sync4d">2294</a>]</cite> and Phy124 <cite class="cites">[<a class="cite" href="/read/references/#ref-2295" data-k="lin2024phy124">2295</a>]</cite> integrate differentiable Material Point Method (MPM) simulation, so that the generated content follows realistic dynamics such as elasticity and collisions under video or text guidance.</p>
+</div>
+<div id="Ch8.S5.SS5.SSS2.p4" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">User-Centric and Artistic Control.</span> Generative Rendering <cite class="cites">[<a class="cite" href="/read/references/#ref-2296" data-k="cai2024generative">2296</a>]</cite> uses a pre-existing dynamic mesh to guide a pretrained text-to-image model, giving precise control over the style and detail of the rendered output, and sketch-based interfaces <cite class="cites">[<a class="cite" href="/read/references/#ref-2297" data-k="yang2024sketch">2297</a>]</cite> let users draw the dynamics they want.</p>
+</div>
+<div id="Ch8.S5.SS5.SSS2.p5" class="ltx_para">
+<p class="ltx_p"><span class="ltx_font_bold">Complex, Application-Specific Control.</span> MagicDrive3D <cite class="cites">[<a class="cite" href="/read/references/#ref-2258" data-k="gao2024magicdrive3d">2258</a>]</cite> generates dynamic driving scenes from 2D bounding boxes, Bird’s-Eye-View (BEV) maps, agent trajectories, and text together, producing tightly controlled traffic scenarios.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS5.SSS3"><span class="secnum">8.5.5.3</span>Benchmarks<a class="anchor" href="#Ch8.S5.SS5.SSS3" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS5.SSS3.p1" class="ltx_para">
+<p class="ltx_p">No benchmark exists; building one would require 4D assets annotated with several aligned conditions (<span class="ltx_font_italic">e.g.,</span> , a clip with a description, a skeletal motion sequence, and a trajectory map). Text adherence is scored with the CLIP Score of §<a href="/read/8.5/#Ch8.S5.SS1.SSS3" class="xref" data-x="Ch8.S5.SS1.SSS3"><span>8.5.1.3</span></a>, while adherence to sketches or trajectories relies on task-specific errors (<span class="ltx_font_italic">e.g.,</span> , distance from the specified trajectory) or on user studies, which remain the only holistic judge of how well a combination of inputs was followed.</p>
+</div>
+</section>
+<section>
+<h3 class="h-subsubsection" id="Ch8.S5.SS5.SSS4"><span class="secnum">8.5.5.4</span>Challenges and Trends<a class="anchor" href="#Ch8.S5.SS5.SSS4" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h3><div id="Ch8.S5.SS5.SSS4.p1" class="ltx_para">
+<p class="ltx_p">Semantic guidance from text, geometric constraints from skeletons, and rule-based priors from physics can contradict one another, and keeping each respected without one overpowering the rest while preserving fidelity is the open problem.
+Domain-specific stacks such as MagicDrive3D <cite class="cites">[<a class="cite" href="/read/references/#ref-2258" data-k="gao2024magicdrive3d">2258</a>]</cite> sidestep it by fixing the set of inputs for one application, and interactive interfaces such as sketches <cite class="cites">[<a class="cite" href="/read/references/#ref-2297" data-k="yang2024sketch">2297</a>]</cite> point toward iterative creation in which several control channels are adjusted in turn.</p>
+</div>
+</section>
+</section>
+<section>
+<h2 class="h-subsection" id="Ch8.S5.SS6"><span class="secnum">8.5.6</span>Summary, Overarching Challenges and Future Directions<a class="anchor" href="#Ch8.S5.SS6" aria-label="Link to this section" data-pagefind-ignore="all">#</a></h2><div id="Ch8.S5.SS6.p1" class="ltx_para">
+<p class="ltx_p">Table <a href="/read/8.5/#Ch8.T13" class="xref" data-x="Ch8.T13"><span>8.13</span></a> compares the five subfields as specializations of the 4D sampler of Eq. (<a href="/read/8.5/#Ch8.E63" class="xref" data-x="Ch8.E63"><span>8.63</span></a>): image- and video-to-4D progressively replace hallucinated structure with observed pixels, 3D-to-4D is given the geometry and generates only motion, and multi-conditional generation fuses several signals at once.</p>
+</div>
+<figure id="Ch8.T13" class="ltx_table">
+<figcaption><span class="cap-tag">Table 8.13</span><span>The five subfields of 4D spatial generation; each sampler or operator specializes Eq. (<a href="/read/8.5/#Ch8.E63" class="xref" data-x="Ch8.E63"><span>8.63</span></a>).</span></figcaption>
+<table class="ltx_tabular ltx_align_middle">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Subfield</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Conditioning input</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Sampler / operator</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Dominant method families</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_tt" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><span class="ltx_font_bold">Datasets / metrics</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">§<a href="/read/8.5/#Ch8.S5.SS1" class="xref" data-x="Ch8.S5.SS1"><span>8.5.1</span></a> Text-to-4D</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Text prompt <math id="Ch8.T13.m1" alttext="\mathbf{x}" display="inline" data-pagefind-ignore="all"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch8.T13.m2" alttext="G_{\theta}^{\text{4D}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>G</mi><mi>θ</mi><mtext>4D</mtext></msubsup><annotation encoding="application/x-tex">G_{\theta}^{\text{4D}}</annotation></semantics></math>, <math id="Ch8.T13.m3" alttext="\kappa=\phi" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo>=</mo><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">\kappa=\phi</annotation></semantics></math> (Eq. (<a href="/read/8.5/#Ch8.E64" class="xref" data-x="Ch8.E64"><span>8.64</span></a>))</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">SDS distillation or generate-then-reconstruct; mesh / NeRF / 3DGS; LLM motion planning</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_t" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Objaverse-derived; CLIP, FVD, PSNR/SSIM/LPIPS, user study</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">§<a href="/read/8.5/#Ch8.S5.SS2" class="xref" data-x="Ch8.S5.SS2"><span>8.5.2</span></a> Image-to-4D</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Single image <math id="Ch8.T13.m4" alttext="I" display="inline" data-pagefind-ignore="all"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch8.T13.m5" alttext="G_{\theta}^{\text{4D}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>G</mi><mi>θ</mi><mtext>4D</mtext></msubsup><annotation encoding="application/x-tex">G_{\theta}^{\text{4D}}</annotation></semantics></math>, <math id="Ch8.T13.m6" alttext="\kappa(I)" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\kappa(I)</annotation></semantics></math> (Eq. (<a href="/read/8.5/#Ch8.E67" class="xref" data-x="Ch8.E67"><span>8.67</span></a>))</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Diffusion-prior SDS; explicit video supervision; unified / tuning-free; human-specific priors</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Objaverse / in-the-wild; PSNR/SSIM/LPIPS, FVD, user study</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">§<a href="/read/8.5/#Ch8.S5.SS3" class="xref" data-x="Ch8.S5.SS3"><span>8.5.3</span></a> Video-to-4D</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Monocular video <math id="Ch8.T13.m7" alttext="\mathbf{v}^{1:T}" display="inline" data-pagefind-ignore="all"><semantics><msup><mi>𝐯</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><annotation encoding="application/x-tex">\mathbf{v}^{1:T}</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch8.T13.m8" alttext="G_{\theta}^{\text{4D}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>G</mi><mi>θ</mi><mtext>4D</mtext></msubsup><annotation encoding="application/x-tex">G_{\theta}^{\text{4D}}</annotation></semantics></math>, <math id="Ch8.T13.m9" alttext="\kappa(\mathbf{v}^{1:T})" display="inline" data-pagefind-ignore="all"><semantics><mrow><mi>κ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><msup><mi>𝐯</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mi>T</mi></mrow></msup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\kappa(\mathbf{v}^{1:T})</annotation></semantics></math> (Eq. (<a href="/read/8.5/#Ch8.E68" class="xref" data-x="Ch8.E68"><span>8.68</span></a>))</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Video-diffusion densification; explicit geometric constraints (mesh / LBS); feed-forward</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Consistent4D; PSNR/SSIM/LPIPS, FVD, user study</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">§<a href="/read/8.5/#Ch8.S5.SS4" class="xref" data-x="Ch8.S5.SS4"><span>8.5.4</span></a> 3D-to-4D</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Static asset <math id="Ch8.T13.m10" alttext="\mathbf{r}_{0}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝐫</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\mathbf{r}_{0}</annotation></semantics></math></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch8.T13.m11" alttext="\mathcal{D}_{\theta}" display="inline" data-pagefind-ignore="all"><semantics><msub><mi>𝒟</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">\mathcal{D}_{\theta}</annotation></semantics></math> deformation (Eq. (<a href="/read/8.5/#Ch8.E69" class="xref" data-x="Ch8.E69"><span>8.69</span></a>))</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Mesh deformation and learned rigging; physics-informed deformation</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Per-asset (faces / objects); FVD, physical plausibility, user study</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:56.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">§<a href="/read/8.5/#Ch8.S5.SS5" class="xref" data-x="Ch8.S5.SS5"><span>8.5.5</span></a> Multi-conditional</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:65.0pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch8.T13.m12" alttext="K" display="inline" data-pagefind-ignore="all"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> fused signals</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:73.7pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p"><math id="Ch8.T13.m13" alttext="G_{\theta}^{\text{4D}}" display="inline" data-pagefind-ignore="all"><semantics><msubsup><mi>G</mi><mi>θ</mi><mtext>4D</mtext></msubsup><annotation encoding="application/x-tex">G_{\theta}^{\text{4D}}</annotation></semantics></math>, <math id="Ch8.T13.m14" alttext="\{\kappa_{k}\}" display="inline" data-pagefind-ignore="all"><semantics><mrow><mo stretchy="false">{</mo><msub><mi>κ</mi><mi>k</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{\kappa_{k}\}</annotation></semantics></math> (Eq. (<a href="/read/8.5/#Ch8.E70" class="xref" data-x="Ch8.E70"><span>8.70</span></a>))</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:108.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">Trajectory / skeleton / physics / sketch control; application-specific stacks</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_middle ltx_border_bb" style="width:95.4pt;padding-left:2.8pt;padding-right:2.8pt;">
+<span class="ltx_inline-block ltx_align_top">
+<span class="ltx_p">No standard suite; CLIP, PSNR/SSIM/LPIPS, FVD, user study</span>
+</span>
+</td>
+</tr>
+</table>
+</figure>
+<section id="Ch8.S5.SS6.SSS0.Px1">
+<div id="Ch8.S5.SS6.SSS0.Px1.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Data Scarcity and Generative Priors.</strong> Large, annotated 4D datasets are the field’s main missing ingredient: real dynamic 3D data with multi-view consistency and multimodal annotation (text, motion capture) is expensive and technically hard to collect, which has largely ruled out end-to-end training. The field has therefore converged on distilling pretrained text-to-image, text-to-video, and text-to-3D models, the de facto way to guide 4D synthesis.</p>
+</div>
+</section>
+<section id="Ch8.S5.SS6.SSS0.Px2">
+<div id="Ch8.S5.SS6.SSS0.Px2.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">From Score Distillation to Explicit Supervision.</strong> Score distillation <cite class="cites">[<a class="cite" href="/read/references/#ref-1726" data-k="poole2022dreamfusion">1726</a>]</cite> converges slowly, is costly and unstable, and produces multi-faced geometry and flickering textures. The generate-then-reconstruct pipeline of DreamGaussian4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2272" data-k="ren2023dreamgaussian4d">2272</a>]</cite> and EG4D <cite class="cites">[<a class="cite" href="/read/references/#ref-2271" data-k="sun2024eg4d">2271</a>]</cite>, which first generates target videos and then reconstructs against them, is replacing per-prompt SDS, and feed-forward predictors such as L4GM <cite class="cites">[<a class="cite" href="/read/references/#ref-2283" data-k="ren2024l4gm">2283</a>]</cite> and AnimateAnyMesh <cite class="cites">[<a class="cite" href="/read/references/#ref-2289" data-k="wu2025animateanymesh">2289</a>]</cite> take the next step by removing per-scene optimization altogether.</p>
+</div>
+</section>
+<section id="Ch8.S5.SS6.SSS0.Px3">
+<div id="Ch8.S5.SS6.SSS0.Px3.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">4D Gaussian Splatting as the Default Representation.</strong> NeRF-based works rendered well but trained and rendered slowly. 3D Gaussian Splatting <cite class="cites">[<a class="cite" href="/read/references/#ref-120" data-k="kerbl20233d">120</a>]</cite> and its temporal extension offer real-time, high-fidelity rendering with efficient gradient-based optimization, and their explicit, point-based form is easier to edit and to couple with physical simulation, so 4DGS has become the representation of choice for current methods <cite class="cites">[<a class="cite" href="/read/references/#ref-186" data-k="wu20244d">186</a>, <a class="cite" href="/read/references/#ref-2272" data-k="ren2023dreamgaussian4d">2272</a>, <a class="cite" href="/read/references/#ref-2254" data-k="ling2024align">2254</a>]</cite>.</p>
+</div>
+</section>
+<section id="Ch8.S5.SS6.SSS0.Px4">
+<div id="Ch8.S5.SS6.SSS0.Px4.p1" class="ltx_para">
+<p class="ltx_p"><strong class="runin">Consistency, Control, and Physical Plausibility.</strong> Keeping geometry, appearance, and motion coherent across all viewpoints and over long horizons remains the central difficulty, and control is moving beyond single prompts toward fine-grained manipulation of motion, appearance, and interaction. Physical plausibility is the newest goal: integrating differentiable simulators, as PhysSplat <cite class="cites">[<a class="cite" href="/read/references/#ref-2259" data-k="zhao2024efficient">2259</a>]</cite> and Phy124 <cite class="cites">[<a class="cite" href="/read/references/#ref-2295" data-k="lin2024phy124">2295</a>]</cite> do, makes generated dynamics more realistic and predictable. Progress on all three is hard to measure while evaluation relies on small, author-curated test sets and on image and video metrics that ignore cross-view and long-range consistency; 4D-aware benchmarks and metrics are a prerequisite for the rest.</p>
+</div>
+</section>
+</section>
+
+    </article>
+    <nav class="pager" aria-label="Previous and next">
+<a class="pager-prev" href="/read/8.4/" rel="prev"><span class="pager-dir">Previous</span><span class="pager-title">8.4 Motion Generation</span></a><a class="pager-next" href="/read/8.6/" rel="next"><span class="pager-dir">Next</span><span class="pager-title">8.6 World Modeling</span></a>    </nav>
+  </main>
+  <aside class="reader-aside" aria-label="On this page">
+    <div class="reader-aside-in">
+      <div class="otp"><div class="otp-h">On this page</div>
+        <ol><li><a href="#Ch8.S5.SS1" data-spy="Ch8.S5.SS1"><span class="n">8.5.1</span>Text-to-4D Generation</a></li><li><a href="#Ch8.S5.SS2" data-spy="Ch8.S5.SS2"><span class="n">8.5.2</span>Image-to-4D Generation</a></li><li><a href="#Ch8.S5.SS3" data-spy="Ch8.S5.SS3"><span class="n">8.5.3</span>Video-to-4D Generation</a></li><li><a href="#Ch8.S5.SS4" data-spy="Ch8.S5.SS4"><span class="n">8.5.4</span>3D-to-4D Generation</a></li><li><a href="#Ch8.S5.SS5" data-spy="Ch8.S5.SS5"><span class="n">8.5.5</span>Multi-conditional 4D Generation</a></li><li><a href="#Ch8.S5.SS6" data-spy="Ch8.S5.SS6"><span class="n">8.5.6</span>Summary, Overarching Challenges and Future Directions</a></li></ol>
+      </div>
+      <div class="res">
+        <div class="otp-h">Resources in this section</div>
+<a href="/explore/literature/?sec=8.5"><b>74</b> cited works</a><a href="/explore/datasets/?sec=8.5"><b>4</b> datasets &amp; benchmarks</a><a href="/explore/tools/?sec=8.5" title="3D Gaussian Splatting, CLIP, SMPL-X"><b>3</b> tools &amp; platforms</a>      </div>
+      <div class="tools">
+        <button type="button" data-cite-section data-title="8.5 4D Spatial Generation" data-url="/read/8.5/">Cite this section</button>
+        <button type="button" data-copy-link>Copy link</button>
+        <div class="fontsize" role="group" aria-label="Text size"><button type="button" data-fs="-1" aria-label="Smaller text">A−</button><button type="button" data-fs="1" aria-label="Larger text">A+</button></div>
+        <a href="https://github.com/spatial-agi/spatial-agi.github.io/issues/new?title=Erratum%3A%208.5%204D%20Spatial%20Generation&amp;body=%2A%2APage%3A%2A%2A%20https%3A//spatial-agi.github.io/read/8.5/%20%28PDF%20p.%20305%29%0A%0A%2A%2AWhat%20is%20wrong%3A%2A%2A%0A%0A%2A%2ASuggested%20fix%3A%2A%2A%0A" target="_blank" rel="noopener">Report an error</a>
+      </div>
+    </div>
+  </aside>
+</div>
+</div>
+<div class="search-overlay" hidden data-search>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-head"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg><input type="search" placeholder="Search sections, figures, papers, terms…" autocomplete="off" data-search-input><kbd>Esc</kbd></div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<script type="module" src="/assets/js/site.js"></script>
+<script type="module" src="/assets/js/reader.js?v=approved4142"></script></body>
+</html>

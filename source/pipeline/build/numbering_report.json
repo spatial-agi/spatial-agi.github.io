@@ -1,0 +1,36 @@
+{
+ "diff": [
+  [
+   "fig:part1-illustration",
+   "I",
+   "1",
+   "figure"
+  ],
+  [
+   "fig:p2_main",
+   "II",
+   "3.1",
+   "figure"
+  ],
+  [
+   "fig:p3_main",
+   "III",
+   "5.1",
+   "figure"
+  ],
+  [
+   "fig:p4_main",
+   "IV",
+   "8.26",
+   "figure"
+  ],
+  [
+   "fig:p5_main",
+   "V",
+   "14.6",
+   "figure"
+  ]
+ ],
+ "only_aux": [],
+ "only_xml": []
+}

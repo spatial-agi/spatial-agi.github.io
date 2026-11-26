@@ -1,0 +1,117 @@
+{
+  "figure": "12.5",
+  "sources": [
+    "assets/figures/figures/part4/section12/natural_science_overview_v2.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1126
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section12/natural_science_overview_v2.pdf",
+  "assets": [
+    {
+      "file": "life-science/protein-structure.png",
+      "title": "protein structure",
+      "panel": "life-science",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        734.688,
+        44.503,
+        828.968,
+        138.782
+      ],
+      "pdf_source_box": [
+        325.422,
+        19.712,
+        367.182,
+        61.472
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "life-science/tissue-structure.png",
+      "title": "tissue structure",
+      "panel": "life-science",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        866.354,
+        41.252,
+        963.885,
+        138.782
+      ],
+      "pdf_source_box": [
+        383.742,
+        18.272,
+        426.943,
+        61.472
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "life-science/cell.png",
+      "title": "cell",
+      "panel": "life-science",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        866.354,
+        182.671,
+        929.749,
+        246.065
+      ],
+      "pdf_source_box": [
+        383.742,
+        80.912,
+        411.822,
+        108.992
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "life-science/tissue-culture.png",
+      "title": "tissue culture",
+      "panel": "life-science",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 3,
+      "pdf_box": [
+        872.856,
+        319.213,
+        968.761,
+        415.118
+      ],
+      "pdf_source_box": [
+        386.622,
+        141.392,
+        429.103,
+        183.872
+      ],
+      "kind": "cutout"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

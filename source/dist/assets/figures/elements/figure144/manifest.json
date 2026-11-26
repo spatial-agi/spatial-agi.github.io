@@ -1,0 +1,117 @@
+{
+  "figure": "14.4",
+  "sources": [
+    "assets/figures/figures/part4/section14/other_marine.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1586
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section14/other_marine.pdf",
+  "assets": [
+    {
+      "file": "perceive/degraded-coral.png",
+      "title": "degraded coral",
+      "panel": "perceive",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        21.712,
+        64.813,
+        167.456,
+        161.975
+      ],
+      "pdf_source_box": [
+        9.761,
+        29.137,
+        75.281,
+        72.817
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "perceive/enhanced-coral.png",
+      "title": "enhanced coral",
+      "panel": "perceive",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        212.3,
+        64.813,
+        358.044,
+        161.975
+      ],
+      "pdf_source_box": [
+        95.441,
+        29.137,
+        160.961,
+        72.817
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "localize/underwater-robot.png",
+      "title": "underwater robot",
+      "panel": "localize",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        412.498,
+        231.377,
+        625.508,
+        373.384
+      ],
+      "pdf_source_box": [
+        185.441,
+        104.017,
+        281.201,
+        167.857
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "inspect/underwater-inspection.png",
+      "title": "underwater inspection",
+      "panel": "inspect",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 3,
+      "pdf_box": [
+        21.712,
+        382.994,
+        358.044,
+        607.215
+      ],
+      "pdf_source_box": [
+        9.761,
+        172.177,
+        160.961,
+        272.977
+      ],
+      "kind": "photo"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

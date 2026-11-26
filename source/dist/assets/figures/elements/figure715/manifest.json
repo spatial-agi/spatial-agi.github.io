@@ -1,0 +1,15 @@
+{
+  "figure": "7.15",
+  "source": "assets/figures/figures/part3/section7/policy-based-rl.webp",
+  "source_size": [
+    2000,
+    579
+  ],
+  "assets": [],
+  "frontend": [
+    "State and policy boxes",
+    "Environment and trajectory buffer",
+    "Policy-gradient equation, update note and every feedback arrow"
+  ],
+  "animation": "White light cores with soft blue luminous halos; hover/focus/pin uses the established white-mask effect."
+}

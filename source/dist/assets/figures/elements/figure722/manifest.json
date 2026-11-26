@@ -1,0 +1,136 @@
+{
+  "figure": "7.22",
+  "source": "assets/figures/figures/part3/section7/VLA_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1047
+  ],
+  "assets": [
+    {
+      "file": "i-inputs/initial-scene.png",
+      "title": "Initial scene",
+      "source_box": [
+        42,
+        265,
+        488,
+        689
+      ],
+      "size": [
+        446,
+        424
+      ],
+      "kind": "scene"
+    },
+    {
+      "file": "iii-execution/result-scene.png",
+      "title": "Resulting scene",
+      "source_box": [
+        1562,
+        452,
+        1900,
+        777
+      ],
+      "size": [
+        338,
+        325
+      ],
+      "kind": "scene"
+    },
+    {
+      "file": "i-inputs/robot-arm.png",
+      "title": "Initial robot arm",
+      "source_box": [
+        64,
+        265,
+        378,
+        554
+      ],
+      "size": [
+        314,
+        289
+      ],
+      "kind": "arm-initial"
+    },
+    {
+      "file": "i-inputs/red-block.png",
+      "title": "Initial red block",
+      "source_box": [
+        280,
+        515,
+        357,
+        588
+      ],
+      "size": [
+        77,
+        73
+      ],
+      "kind": "red"
+    },
+    {
+      "file": "i-inputs/blue-block.png",
+      "title": "Initial blue block",
+      "source_box": [
+        380,
+        514,
+        458,
+        588
+      ],
+      "size": [
+        78,
+        74
+      ],
+      "kind": "blue"
+    },
+    {
+      "file": "iii-execution/robot-arm.png",
+      "title": "Resulting robot arm",
+      "source_box": [
+        1562,
+        452,
+        1819,
+        675
+      ],
+      "size": [
+        257,
+        223
+      ],
+      "kind": "arm-result"
+    },
+    {
+      "file": "iii-execution/red-block.png",
+      "title": "Stacked red block",
+      "source_box": [
+        1774,
+        614,
+        1836,
+        666
+      ],
+      "size": [
+        62,
+        52
+      ],
+      "kind": "red"
+    },
+    {
+      "file": "iii-execution/blue-block.png",
+      "title": "Stacked blue block",
+      "source_box": [
+        1774,
+        654,
+        1836,
+        706
+      ],
+      "size": [
+        62,
+        52
+      ],
+      "kind": "blue"
+    }
+  ],
+  "frontend": [
+    "Embodied inputs: draw the instruction, robot-state box, state formula, optional depth / 3D / keypoint text, and input arrows independently.",
+    "VLA policy: draw fusion, autoregressive action boxes, diffusion circles and formulas, hybrid decoder, RL refinement, and every arrow independently.",
+    "Action and execution: draw the action representation and formula, controller, planner, and environment-feedback loop independently.",
+    "Complete scene plates preserve the original tabletop, object contact, and photographic shadows. Individual robot and block cutouts are also provided for finer interaction."
+  ]
+}

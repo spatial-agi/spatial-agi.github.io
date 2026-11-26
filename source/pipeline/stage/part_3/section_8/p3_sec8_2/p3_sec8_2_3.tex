@@ -1,0 +1,202 @@
+
+\subsection{3D Scene Reconstruction}
+\label{subsec:p3_s8_2_3}
+
+3D reconstruction recovers a digital 3D representation of a scene or object from sensor observations such as RGB images, video, depth maps, or point clouds, and has long been a foundational problem in computer vision, graphics, and immersive systems such as augmented reality (AR), virtual reality (VR), and digital twins.
+Its difference from the synthesis tasks of §\ref{subsec:p3_s8_2_1} and §\ref{subsec:p3_s8_2_2} is one of \emph{intent}: synthesis is open-ended generation in which plausibility and diversity dominate, whereas reconstruction must explain the input views faithfully before any inference about unobserved regions is attempted.
+Reconstruction is where perception becomes geometry: it turns raw sensor streams into an explicit, metric 3D substrate that simulators, AR / VR systems, digital twins, and embodied agents can reason over, manipulate, and render, and it supplies the ground-truth geometry against which the generative tasks of §\ref{sec:p3_s8_2} are ultimately measured.
+Three families follow: \emph{iterative reconstruction}, which solves a per-scene optimization against the input views; \emph{feed-forward reconstruction}, which amortizes that cost into a learned map from observations to a 3D representation; and \emph{complete reconstruction}, which generatively fills the occluded regions and so makes the boundary with synthesis explicit.
+Figure~\ref{fig:3D_reconstruction} previews representative reconstruction tasks.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section8/3D-reconstruction.png}
+    \caption{Illustrations of 3D reconstruction, adapted from~\cite{zhang2025advances}.}
+    \label{fig:3D_reconstruction}
+\end{figure}
+
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_2_3_task}
+
+We cast 3D scene reconstruction as the observation-conditioned counterpart of the generative frameworks of §\ref{subsec:p3_s8_2_1} and §\ref{subsec:p3_s8_2_2}.
+Let $\mathcal{O}$ denote the space of multi-sensor observations.
+Each observation $\mathbf{O}\in\mathcal{O}$ is represented as a finite collection of sensor measurements.
+Depending on the sensing setup, $\mathbf{O}$ may consist of multi-view RGB images $\{I_v\}_{v=1}^{V}$, posed images $\{(I_v,\pi_v)\}_{v=1}^{V}$, RGB-D or RGB-normal observations $\{(I_v,d_v)\}_{v=1}^{V}$, point clouds, LiDAR scans, or their combinations.
+Here, $I_v$ denotes the RGB image from view $v$, $\pi_v$ denotes the corresponding calibrated camera pose, and $d_v$ denotes an associated depth or normal map.
+Let $\mathcal{R}^{\text{rec}}$ denote the output 3D-representation space, taken from the same $\mathcal{R}$ as in §\ref{subsec:p3_s8_2_1}, including mesh, SDF, voxel, triplane, NeRF, 3DGS, point map, structured latent.
+The core learning problem is to obtain a reconstruction operator
+\begin{equation}
+G_\theta^{\text{rec}}:\mathcal{O}\rightarrow \mathcal{R}^{\text{rec}},
+\qquad
+\hat{\mathbf{r}}^{\text{rec}} = G_\theta^{\text{rec}}(\mathbf{O}) \quad \text{(deterministic)}
+\quad \text{or} \quad
+\hat{\mathbf{r}}^{\text{rec}}\sim p_\theta^{\text{rec}}\!\big(\mathbf{r}^{\text{rec}}\,\big|\,\mathbf{O}\big) \quad \text{(generative)},
+\label{eq:p3_s8_2_3_objective}
+\end{equation}
+that minimizes a reconstruction loss against the input views,
+\begin{equation}
+\mathcal{L}_{\text{rec}}\big(\hat{\mathbf{r}}^{\text{rec}},\mathbf{O}\big)
+\;=\;
+\sum_{(I_v,\pi_v)\in\mathbf{O}} \big\|\mathrm{Render}(\hat{\mathbf{r}}^{\text{rec}},\pi_v) - I_v\big\|^2
+\;+\; \lambda\,\Omega(\hat{\mathbf{r}}^{\text{rec}}),
+\label{eq:p3_s8_2_3_loss}
+\end{equation}
+where $\Omega$ is an optional geometric or smoothness regularizer and $\mathrm{Render}$ is a differentiable renderer of $\mathcal{R}^{\text{rec}}$.
+The structural contrast with §\ref{subsec:p3_s8_2_1} is sharp: there, the conditioning $\kappa(\mathbf{c})$ is a high-level prior (text, single image, multi-view) and the objective is a \emph{generative} likelihood; here, the conditioning $\mathbf{O}$ is sensor data and the objective is an \emph{observation-fidelity} loss.
+% Two limiting cases anchor Eq.~\eqref{eq:p3_s8_2_3_objective} to the broader literature.
+% First, when $\mathbf{O}$ is a dense calibrated multi-view set, the deterministic form of Eq.~\eqref{eq:p3_s8_2_3_objective} reduces to the classical SfM\,+\,MVS pipeline or to per-scene NeRF / 3DGS optimization: the regime of \S\ref{para:p3_s8_2_3_iterative} below.
+% Second, when $\mathbf{O}$ is sparse or even a single image and large portions of the scene must be inferred, the generative form of Eq.~\eqref{eq:p3_s8_2_3_objective} merges into the synthesis regime of Eq.~\eqref{eq:p3_s8_2_1_objective}: this is precisely the regime of \S\ref{para:p3_s8_2_3_complete}, where reconstruction and synthesis become two formulations of the same underlying problem.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_2_3_methodology}
+
+The three paradigms are three parameterizations of the reconstruction operator $G_\theta^{\text{rec}}$ of Eq.~\eqref{eq:p3_s8_2_3_objective}, taken in the order in which each became dominant.
+Figure~\ref{fig:p3_s8_2_3_paradigms} contrasts them, making explicit whether the 3D representation is optimized per scene, regressed in a single forward pass, or sampled from a generative posterior over the unobserved regions.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section8/3D-scene-reconstruction.pdf}
+    \caption{Three paradigm families for 3D scene reconstruction (Eq.~\eqref{eq:p3_s8_2_3_objective}): (P1) iterative per-scene optimization, (P2) feed-forward reconstruction with weights shared across scenes, and (P3) generative completion of unseen (hatched) regions from a learned prior.}
+    \label{fig:p3_s8_2_3_paradigms}
+\end{figure}
+
+\paragraph{Iterative 3D Reconstruction.}
+\label{para:p3_s8_2_3_iterative}
+The classical paradigm casts reconstruction as a \emph{per-scene} optimization: there is no learned $\theta$ shared across scenes; the 3D representation $\mathbf{r}$ itself is the optimization variable, and Eq.~\eqref{eq:p3_s8_2_3_loss} is minimized from scratch for each new input,
+\begin{equation}
+\hat{\mathbf{r}}
+\;=\;
+\arg\min_{\mathbf{r}\in\mathcal{R}^{\text{rec}}}
+\;\sum_{(I_v,\pi_v)\in\mathbf{O}} \big\|\mathrm{Render}(\mathbf{r},\pi_v) - I_v\big\|^2
+\;+\; \lambda\,\Omega(\mathbf{r}).
+\label{eq:p3_s8_2_3_iterative_objective}
+\end{equation}
+Classical image-based reconstruction is rooted in Structure-from-Motion (SfM)~\cite{bolles1987epipolar, tomasi1992shape, fitzgibbon1998automatic, schonberger2016structure}, which estimates camera poses from unposed images, followed by Multi-View Stereo (MVS)~\cite{ullman1979interpretation, hartley2003multiple, Agarwal2010BAL, snavely2006photo, furukawa2015multi, schonberger2016pixelwise}, which recovers dense geometry.
+Decades of refinement have made SfM\,+\,MVS a mature and widely used pipeline (see~\cite{hartley2003multiple} for a comprehensive treatment), yet it still struggles with textureless surfaces, reflective objects, and large illumination changes.
+
+A more recent line represents the scene as a continuous function parameterized by a neural network: signed distance functions~\cite{park2019deepsdf, chibane2020neural, wang2021neus, yu2022monosdf}, occupancy fields~\cite{mescheder2019occupancy, peng2020convolutional}, and neural radiance fields~\cite{mildenhall2021nerf, barron2021mip, wang2021nerf, barron2022mip}.
+The original formulations were expensive to train and render and limited in quality; PlenOctrees~\cite{yu2021plenoctrees}, Plenoxels~\cite{fridovich2022plenoxels}, Instant-NGP~\cite{muller2022instant}, RefNeRF~\cite{verbin2022ref}, TensoRF~\cite{chen2022tensorf}, and ZipNeRF~\cite{barron2023zip} are among the many follow-ups that improved efficiency and fidelity, but all of them still require a large number of input images per scene.
+Sparse-view variants add auxiliary information such as regularization~\cite{niemeyer2022regnerf}, depth priors~\cite{roessle2022dense, deng2022depth}, point clouds~\cite{xu2022point}, and surface priors~\cite{oechsle2021unisurf}, or distill a 2D diffusion prior into the per-scene representation, the SDS recipe of §\ref{para:p3_s8_2_1_sds} applied to reconstruction from one or a few images~\cite{melas2023realfusion, metzer2023latent, tang2023make}.
+3D Gaussian Splatting~\cite{kerbl20233d} then made per-scene optimization fast, training within minutes and rendering in real time, with subsequent work adding depth regularization, anti-aliasing, mesh extraction, and surface alignment~\cite{chung2024depth, yu2024mip, huang20242d, guedon2024sugar}.
+All of these systems, however, work well only over nearby views or a small scene and must be re-optimized from scratch for every new input, which motivates the amortized paradigm.
+
+\paragraph{Feed-forward 3D Reconstruction.}
+\label{para:p3_s8_2_3_feedforward}
+The feed-forward paradigm amortizes the per-scene optimization of Eq.~\eqref{eq:p3_s8_2_3_iterative_objective} across a learned prior: a network $G_\theta^{\text{rec}}$ is trained once on a large multi-view corpus, then deployed in a \emph{single forward pass} on unseen inputs, minimizing
+\begin{equation}
+\mathcal{L}_{\text{FF}}(\theta)
+\;=\;
+\mathbb{E}_{(\mathbf{O},\,\mathbf{r}_{\text{gt}})\sim p_{\text{data}}}\Big[\mathcal{D}\big(G_\theta^{\text{rec}}(\mathbf{O}),\,\mathbf{r}_{\text{gt}}\big)\Big],
+\label{eq:p3_s8_2_3_feedforward_objective}
+\end{equation}
+where $\mathcal{D}$ is a representation-specific distance (Chamfer Distance for point maps, a rendering loss for radiance fields) and $(\mathbf{O},\mathbf{r}_{\text{gt}})$ are observation--asset pairs drawn from a 3D corpus.
+This is the reconstruction-side analogue of the view-to-3D paradigm of §\ref{para:p3_s8_2_2_view3d}: sparse calibrated views are mapped feed-forward to a continuous scene representation, but the supervision is a reconstruction loss against ground-truth 3D rather than a rendering loss against held-out views alone.
+
+Early feed-forward work applied 2D networks to individual 3D representations, for depth estimation~\cite{eigen2014depth, liu2015learning}, voxel reconstruction~\cite{choy20163d, wu20153d}, point-cloud reconstruction~\cite{fan2017point, qi2017pointnet}, and mesh deformation~\cite{wang2018pixel2mesh, gkioxari2019mesh}, but remained limited to single objects or small datasets.
+Learned components then replaced individual stages of the SfM\,+\,MVS pipeline, keypoint detection and description~\cite{detone2018superpoint, dusmanu2019d2, tyszkiewicz2020disk}, image matching~\cite{sarlin2020superglue, lindenberger2023lightglue}, pose estimation~\cite{kendall2015posenet, yin2018geonet, kendall2017geometric}, and depth prediction~\cite{zhou2017unsupervised, yin2018geonet}, proving more robust and accurate than their hand-designed counterparts and being integrated into the classical pipeline~\cite{vzbontar2016stereo, yao2018mvsnet, yao2019recurrent}.
+DUSt3R~\cite{wang2024dust3r} and MASt3R~\cite{mast3r} then reconstructed large scenes from unposed images end to end: similar in spirit to MVS but without explicit keypoint detection, matching, and pose estimation, the model predicts point maps in the reference view directly and recovers camera poses in post-processing, and follow-ups~\cite{tang2025mv, wang2025Cut3R, yang2025fast3r, zhang2025FLARE, wang2025vggt} have improved quality and efficiency at scale.
+
+Beyond geometry alone, a parallel line recovers geometry and appearance together through differentiable rendering.
+Scene Representation Networks~\cite{sitzmann2019scene} and Light Field Networks~\cite{sitzmann2021light} introduced ray-based querying for novel-view synthesis and were followed by epipolar attention~\cite{suhail2022light, suhail2022generalizable}, large transformers~\cite{jin2025lvsm, jiang2025rayzer}, and integration with pretrained generative models~\cite{zheng2024free3d, gao2024cat3d}; PixelNeRF~\cite{yu2021pixelnerf} pioneered pixel-aligned features for NeRF-based reconstruction and inspired 3D volume representations~\cite{chen2021mvsnerf, xu2024murf}, feature-matching fusion~\cite{chen2025explicit}, and large transformers~\cite{du2023learning, hong2023lrm}.
+3D Gaussian Splatting~\cite{kerbl20233d} has since become the representation of choice for feed-forward reconstruction, in PixelSplat~\cite{charatan2024pixelsplat}, Splatter Image~\cite{szymanowicz2024splatter}, MVSplat~\cite{chen2024mvsplat}, Flash3D~\cite{szymanowicz2024flash3d}, LatentSplat~\cite{wewer2024latentsplat}, Splatt3R~\cite{smart2024splatt3r}, GS-LRM~\cite{zhang2024gs}, NoPoSplat~\cite{ye2024no}, and DepthSplat~\cite{xu2024depthsplat}.
+These methods synthesize novel views with high appearance fidelity, but the views remain confined to small camera changes within the observed envelope, which motivates the generative paradigm below.
+
+\paragraph{Complete 3D Reconstruction.}
+\label{para:p3_s8_2_3_complete}
+A harder regime is to reconstruct a \emph{complete} scene from an observation $\mathbf{O}$ that covers only part of it, which requires inferring both \emph{visible} and \emph{occluded} regions; the operator shifts from a deterministic map to a generative posterior over the unobserved regions,
+\begin{equation}
+\hat{\mathbf{r}}^{\text{rec}}\sim p_\theta^{\text{rec}}\!\big(\mathbf{r}^{\text{rec}}\,\big|\,\mathbf{O}\big),
+\qquad
+\mathbf{r}^{\text{rec}}\big|_{\text{visible}}\approx \text{observation-consistent},
+\quad
+\mathbf{r}^{\text{rec}}\big|_{\text{occluded}}\sim p_\theta(\,\cdot\,\big|\,\mathbf{O}),
+\label{eq:p3_s8_2_3_complete_objective}
+\end{equation}
+which shares the formal structure of the synthesis sampler of Eq.~\eqref{eq:p3_s8_2_1_objective} with the conditioning replaced by a strong observation constraint $\mathbf{O}$.
+
+Complete reconstruction has been studied extensively for single objects~\cite{vahdat2022lion, zhang20233dshape2vecset, zhao2023michelangelo, zhang2024clay, ren2024xcube, xiang2025trellis, tochilkin2024triposr, yang2024hunyuan3d, hunyuan3d22025tencent, li2025triposg} but remains under-explored for large scenes.
+Classical scene-scale methods fuse depth maps from multiple views into a volumetric representation~\cite{curless1996volumetric, newcombe2011kinectfusion, whelan2015elasticfusion, dai2017bundlefusion, niessner2013real}, but they are sensitive to depth errors and produce noisy, incomplete reconstructions.
+A newer line fine-tunes large pretrained diffusion models~\cite{rombach2022ldm, blattmann2023stable} for the task, conditioning on controlled camera trajectories~\cite{wang2024motionctrl, sargent2024zeronvs, wu2024reconfusion, gao2024cat3d, wallingford2024image, zhou2025stable} or on auxiliary signals~\cite{liu2024reconx, yu2024viewcrafter, chen2024mvsplat360, yu2025wonderworld}; these methods synthesize observation-consistent views but leave the underlying geometry implicit.
+A small but growing body of work addresses geometry directly: WVD~\cite{zhang2024world} and Bolt3D~\cite{szymanowicz2025bolt3d} generate a hybrid RGB\,+\,point-map output that recovers geometry and appearance rather than novel views alone, and LaRI~\cite{li2025lari} reconstructs a complete scene from a single image, still limited to small indoor scenes.
+
+Two design choices cut across the three paradigms.
+The density of the observation decides which paradigm applies: a dense calibrated multi-view set calls for per-scene optimization, a sparse uncalibrated capture for a feed-forward map, and a single image for a generative posterior, since progressively more of the scene must be inferred rather than observed.
+The output representation $\mathcal{R}^{\text{rec}}$, by contrast, is largely independent of the paradigm and driven by the downstream consumer: a point map (DUSt3R), a mesh (classical MVS post-processing), a NeRF (per-scene optimization, PixelNeRF), a 3DGS field (3DGS, PixelSplat), or a hybrid RGB\,+\,point map (Bolt3D, WVD).
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_2_3_benchmarks}
+
+Datasets span object-centric collections, indoor scenes, and outdoor environments, and partition further by acquisition (synthetic or real-world) and dynamics (static or dynamic); Table~\ref{tab:p3_s8_2_3_corpora} summarizes those most commonly used.
+
+\paragraph{Training Corpora.}
+Synthetic corpora such as Objaverse~\cite{deitke2023objaverse} supply large and diverse 3D assets, and MegaSynth~\cite{jiang2025megasynth} and Zeroverse~\cite{xie2024lrmzero} explore procedurally generated data for scalable supervision.
+Real-world static corpora include ARKitScenes~\cite{baruch2021arkitscenes} and ScanNet++~\cite{yeshwanth2023scannet++} for indoor capture, dynamic corpora such as KITTI-360~\cite{liao2022kitti360} capture outdoor scenes with temporal variation, and TartanAir~\cite{TartanAir} contains both static and dynamic scenes, which permits evaluation across both settings.
+
+\begin{table}[t]
+    \centering
+    \fontsize{8}{10}\selectfont
+    \setlength{\tabcolsep}{1.0mm}
+    \caption{Representative training corpora for 3D scene reconstruction. ``Type'' indicates synthetic / real-world acquisition; ``Dynamics'' indicates whether the corpus contains temporal variation.}
+    \label{tab:p3_s8_2_3_corpora}
+    \begin{tabular}{L{0.17\textwidth} C{0.06\textwidth} C{0.14\textwidth} L{0.13\textwidth} C{0.09\textwidth} L{0.33\textwidth}}
+        \toprule
+        \textbf{Dataset} & \textbf{Year} & \textbf{Scale} & \textbf{Type} & \textbf{Dynamics} & \textbf{Primary use} \\
+        \midrule
+        Objaverse~\cite{deitke2023objaverse} & 2023 & ${\sim}800\mathrm{K}$ objects & Synthetic (CAD) & Static & Object-centric multi-view supervision \\
+        Zeroverse~\cite{xie2024lrmzero} & 2024 & Procedural & Synthetic & Static & LRM-zero scalable supervision \\
+        MegaSynth~\cite{jiang2025megasynth} & 2025 & Procedural & Synthetic & Static & Scalable multi-view scene supervision \\
+        ARKitScenes~\cite{baruch2021arkitscenes} & 2021 & ${\sim}5\mathrm{K}$ scans & Real-world & Static & Indoor RGB-D / mesh supervision \\
+        ScanNet++~\cite{yeshwanth2023scannet++} & 2023 & ${\sim}460$ scenes & Real-world & Static & High-fidelity indoor multi-modal scans \\
+        KITTI-360~\cite{liao2022kitti360} & 2022 & ${\sim}300\mathrm{K}$ frames & Real-world & Dynamic & Outdoor driving scenes \\
+        TartanAir~\cite{TartanAir} & 2020 & ${\sim}1\mathrm{M}$ frames & Synthetic & Mixed & Static + dynamic mixed-domain evaluation \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{Evaluation Benchmark Suites.}
+Iterative methods (P1) are evaluated on DTU~\cite{Aanaes2016DTU} and Tanks-and-Temples~\cite{knapitsch2017tanks} for geometric fidelity and on the NeRF-era benchmarks LLFF~\cite{mildenhall2019llff}, MipNeRF360~\cite{barron2022mip}, and RealEstate10K~\cite{zhou2018stereo} for novel-view quality.
+Feed-forward methods (P2) adopt the same panel together with ScanNet~\cite{dai2017scannet} subsets that supply ground-truth point maps for direct geometry supervision.
+Complete-reconstruction methods (P3) have no standardized suite and typically report on the precursor benchmark of their underlying 2D or video prior.
+
+\paragraph{Constraint-specific Metrics.}
+Four axes mirror the rendering-versus-geometry decomposition of Eq.~\eqref{eq:p3_s8_2_3_loss}.
+\textbf{Photometric quality} is measured by PSNR, SSIM~\cite{wang2004image}, and LPIPS~\cite{zhang2018unreasonable}, covering pixel-level fidelity, structural similarity, and perceptual consistency of novel views.
+\textbf{Camera-pose adherence} uses Relative Translation Accuracy (RTA), Relative Rotation Accuracy (RRA), and the Area Under the Curve (AUC) that summarizes pose accuracy across angular thresholds.
+\textbf{Geometric fidelity} of point maps and point clouds is measured by Accuracy (precision), Completeness (recall), and Chamfer Distance, where Accuracy reflects geometric precision, Completeness measures surface coverage, and Chamfer Distance aggregates both.
+\textbf{Depth quality} for monocular estimation uses the absolute relative error $|y - \hat{y}| / y$ and the inlier ratio $\delta\!<\!T$ (the fraction of predictions within a multiplicative threshold of the ground truth), with median scaling or least-squares fitting applied beforehand because monocular depth is scale-ambiguous; multi-view depth reports Accuracy, Completeness, and Overall, the mean of the first two and equivalent to Chamfer Distance.
+
+The paradigm succession of §\ref{subsubsec:p3_s8_2_3_methodology} is visible in two quantities.
+Per-scene optimization has moved from NeRF~\cite{mildenhall2021nerf}, which trains for hours and renders at a few frames per second, to 3D Gaussian Splatting~\cite{kerbl20233d}, which trains a scene in minutes and renders in real time (${\geq}30$~fps at 1080p); the feed-forward paradigm removes per-scene optimization altogether, with DUSt3R / MASt3R~\cite{wang2024dust3r, mast3r} and VGGT~\cite{wang2025vggt} recovering point maps, depth, and camera poses in a single sub-second forward pass and Fast3R~\cite{yang2025fast3r} processing over a thousand images at once.
+On pose, learned reconstructors now rival classical pipelines: VGGT~\cite{wang2025vggt} reports a camera-pose AUC@30 of 85.3 on RealEstate10K in pure feed-forward mode and 93.5 with bundle-adjustment refinement.
+Two caveats apply. There is no cross-paradigm leaderboard, since P1 is scored on novel-view PSNR / SSIM / LPIPS, P2 adds geometric Accuracy / Completeness / Chamfer Distance and pose AUC, and P3 inherits whichever protocol its 2D or video prior used; and on raw depth-map accuracy feed-forward models still trail tuned MVS pipelines, with quality degrading under free-viewpoint extrapolation (§\ref{subsubsec:p3_s8_2_3_challenges}), so the strongest numbers hold inside the observed view envelope.
+Phone-based NeRF and Gaussian-Splatting capture apps and the open-source Nerfstudio stack have brought per-scene reconstruction to commodity devices, while classical photogrammetry suites remain the production baseline for metric accuracy.
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_2_3_challenges}
+
+Four problems span the pipeline end to end: the data the model trains on, the accuracy it can deliver, the quality of the views it renders, and the compute envelope that constrains all three at long input lengths; reconstruction shares the first and third with its synthesis counterparts but sharpens the other two because it commits to recovering ground truth from raw sensor data.
+
+\paragraph{Limited Modality in Datasets.}
+Most reconstruction and view-synthesis datasets cover a narrow band of modalities.
+Widely used benchmarks such as RealEstate10K~\cite{zhou2018stereo} and MipNeRF360~\cite{barron2022mip} are RGB-only, without depth, LiDAR, or semantic annotation, and even Objaverse-XL~\cite{deitke2023objaversexl}, with 10.2M objects, is primarily synthetic mesh data without real-world sensor modalities.
+Merging datasets of different modalities is the usual workaround, at the cost of domain shift and annotation inconsistency, and the gap is widest for dynamic scenes: datasets with synchronized RGB, depth, optical flow, and 3D motion remain far fewer than static ones, and most dynamic datasets record either camera motion or object motion rather than both with a full sensor suite.
+The open problem is a scalable, modality-rich corpus that combines the diversity of Objaverse~\cite{deitke2023objaverse} with the multi-sensor completeness of ScanNet++~\cite{yeshwanth2023scannet++}, collected under one protocol so that aligned RGB, depth, and semantic signals supervise the same model.
+
+\paragraph{Reconstruction Accuracy.}
+Feed-forward models still trail traditional MVS pipelines~\cite{zhang2023geomvsnet, zhang2025advances} on raw depth-map accuracy, because MVS exploits known camera parameters and a hypothesized depth set to build cost volumes from which depth is predicted.
+Whether feed-forward reconstructors~\cite{yang2025fast3r, wang2025vggt} learn an approximation of such cost volumes implicitly in their attention layers is an open question; injecting explicit camera parameters or other priors into the backbone, for instance through Diffusion Transformers~\cite{peebles2023dit}, is one route to closing the gap.
+
+\paragraph{Free-viewpoint Rendering.}
+The accuracy gap is most visible at \emph{free-viewpoint} rendering, where the model must produce novel views far from the input camera distribution.
+Disocclusions, geometric uncertainty, and limited generalization conspire: regions never observed come out blurred, ghosted, or geometrically wrong, because current methods rely on local consistency and cannot infer plausible content for occluded areas, and view-dependent effects and complex light transport demand reasoning beyond interpolation.
+Hallucinating missing detail while keeping novel views consistent is exactly the generative regime of §\ref{para:p3_s8_2_3_complete}.
+
+\paragraph{Long Context Input.}
+Reconstruction from many views meets a hard computational ceiling: methods for geometry reasoning and novel-view synthesis rely on full attention, whose compute grows quadratically with the number of tokens; exact-attention kernels such as FlashAttention-2~\cite{dao2023flashattention2} remove the quadratic memory of the attention matrix but not the quadratic compute.
+VGGT~\cite{wang2025vggt}, for example, needs about 21\,GB of GPU memory for 100 input frames and about 41\,GB for 200, so inference over long sequences and training on many views quickly exceed a single GPU.
+Recurrent alternatives such as CUT3R~\cite{wang2025Cut3R} integrate new views incrementally while maintaining a memory state, which keeps inference memory near constant, but they forget earlier views and degrade as the number of inputs grows.
+Reasoning efficiently over hundreds or thousands of views while keeping memory and compute manageable remains open, with recurrent and sparse-attention architectures the main candidates.

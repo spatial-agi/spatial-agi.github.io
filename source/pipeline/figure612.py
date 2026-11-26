@@ -9,7 +9,7 @@ INFO={
  'output':dict(t='Six-degree-of-freedom pose',b='The output transformation T_o consists of rotation R and translation t. It maps the object frame into the camera frame. The scene overlay illustrates the recovered alignment.'),
  'instance':dict(t='Instance-level, CAD-aware estimation',b='A known object mesh supports correspondence-based solving and render-and-compare refinement. Boxes summarize representative methods in the order shown in the source figure.'),
  'category':dict(t='Category-level canonical-frame estimation',b='Different objects in a category are mapped into a shared canonical frame. These methods estimate pose and often object size despite variation in shape.'),
- 'foundation':dict(t='Model-free and foundation-era estimation',b='A few reference views or a CAD reference provide information about a new object. A pretrained model uses that information to estimate pose without training a separate model for each object.')
+ 'foundation':dict(t='Novel-object and foundation-era estimation',b='A few reference views or a CAD reference provide information about a new object. A pretrained model uses that information to estimate pose without training a separate model for each object.')
 }
 
 def fig612():
@@ -123,7 +123,7 @@ def fig612():
  zone('category',10,710,1950,120,category)
  def foundation():
   rect(16,868,193,85,'f612-family',5)
-  text(112,904,'(iii) Model-free /',22);text(112,933,'foundation-era',22)
+  text(112,904,'(iii) Novel-object /',22);text(112,933,'foundation-era',22)
   film(242,869,206,72,[298,354,410])
   img('foundation/drill',249,883,38,46);img('foundation/cup',306,887,37,37);img('foundation/chair',361,880,37,50)
   text(427,909,'⋯',22)

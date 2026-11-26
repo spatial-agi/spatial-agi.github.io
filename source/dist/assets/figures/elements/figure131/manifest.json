@@ -1,0 +1,117 @@
+{
+  "figure": "13.1",
+  "sources": [
+    "assets/figures/figures/part4/section13/assistant_overview.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1335
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section13/assistant_overview.pdf",
+  "assets": [
+    {
+      "file": "inputs/robot-in-living-room.png",
+      "title": "robot in living room",
+      "panel": "inputs",
+      "size": [
+        606,
+        569
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        32.245,
+        123.787,
+        226.596,
+        306.272
+      ],
+      "pdf_source_box": [
+        14.574,
+        55.947,
+        102.414,
+        138.424
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "outputs/manage-bookshelf.png",
+      "title": "manage bookshelf",
+      "panel": "outputs",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        742.743,
+        42.357,
+        978.514,
+        199.538
+      ],
+      "pdf_source_box": [
+        335.694,
+        19.144,
+        442.254,
+        90.184
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "outputs/collaborate-with-person.png",
+      "title": "collaborate with person",
+      "panel": "outputs",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        742.743,
+        223.964,
+        978.514,
+        381.145
+      ],
+      "pdf_source_box": [
+        335.694,
+        101.224,
+        442.254,
+        172.264
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "outputs/empower-person.png",
+      "title": "empower person",
+      "panel": "outputs",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 3,
+      "pdf_box": [
+        742.743,
+        405.572,
+        978.514,
+        562.752
+      ],
+      "pdf_source_box": [
+        335.694,
+        183.304,
+        442.254,
+        254.344
+      ],
+      "kind": "cutout"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

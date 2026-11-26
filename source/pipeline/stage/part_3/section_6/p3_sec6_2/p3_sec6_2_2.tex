@@ -1,0 +1,102 @@
+
+\subsection{Height and Distance Estimation}
+\label{sec:height_distance}
+Height and distance estimation recovers absolute, real-world lengths: the dimensions of an object (the height of a person), the separation between scene entities (the gap between two vehicles), or the distance traveled by a moving object over a known time interval, from which average speed follows.
+Whereas depth estimation (\S\ref{sec:depth_estimation}) recovers a dense per-pixel distance from the sensor to every visible surface, height and distance estimation targets a few metric quantities defined between scene entities rather than relative to the sensor, and is therefore tied to specific object instances and to a downstream measurement requirement.
+Radar, ultrasonic, and radio ranging measure such distances directly and are mature; this subsection covers the vision-based problem.
+
+\subsubsection{Task Definition}
+The input is one or more images or a video together with a specification of what to measure: the height of an object, the distance between two objects, or the distance an object travels. The output is a length in physical units, or a traveled distance over a known time interval, whose ratio gives average speed (\textbf{speed estimation}).
+
+Every vision-based route to a metric length passes through the camera model, shown in Figure~\ref{fig:p3_s6_2_2_camera_model}. Under the pinhole model a world point $P$ with homogeneous coordinates $\mathbf{P}_w$ projects to the pixel
+\begin{equation}
+    \mathbf{p} \sim K\,[\,R \mid \mathbf{t}\,]\,\mathbf{P}_w,
+\end{equation}
+where the extrinsics $(R,\mathbf{t})$ move the point into the camera frame and the intrinsic matrix $K$ (focal length, principal point, pixel aspect) maps normalized image-plane coordinates to pixels. Real lenses deviate from this model. A common forward form of Brown's radial distortion model~\cite{brown1971close} is
+\begin{equation}
+    \begin{pmatrix} x_{\text{dist}} \\ y_{\text{dist}} \end{pmatrix} =
+    \begin{pmatrix} x(1 + k_1 r^2 + k_2 r^4 + k_3 r^6) \\ y(1 + k_1 r^2 + k_2 r^4 + k_3 r^6) \end{pmatrix},
+\end{equation}
+where $(x,y)$ are undistorted normalized coordinates and $r^2=x^2+y^2$. Tangential terms model sensor--lens misalignment, and camera calibration~\cite{zhang2000flexible} recovers $K$ together with the distortion coefficients. Without calibration, every pixel-to-length conversion inherits an unknown scale.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/part3/section6/camera-1.png}
+    \caption{Pinhole camera model: world coordinates map to camera, image-plane, and pixel coordinates through the extrinsic, projection, and affine matrices; the last two compose into the intrinsic matrix $M_{\mathrm{intrinsic}}$ and all three into the full projection $M$.}
+    \label{fig:p3_s6_2_2_camera_model}
+\end{figure}
+
+Beyond calibration, geometric pipelines rely on a small set of recurring intermediate quantities, illustrated in Figure~\ref{fig:p3_s6_2_2_subtasks}: vanishing points, where parallel world lines converge and from which camera orientation follows; the horizon line, which fixes the camera's tilt relative to the ground; and a ground-plane homography, which lets lengths on a dominant plane such as a road or floor be measured once a single reference length is known. Stereo pipelines add rectification, which aligns the two image planes so that correspondences lie on the same scanline, and disparity matching. Learning-based pipelines keep object detection (Section~\ref{sec:6-1-2}) as the front end and replace the explicit geometry with regression of depth, 3D center, and dimensions from region features, optionally conditioned on a dense depth map and refined over time when video is available.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/height_estimation_1.pdf}
+    \caption{Geometric subtasks supporting height and distance estimation: (a) parallel street edges determine a vanishing point; (b) multiple views of a known planar pattern estimate camera intrinsics and lens distortion; (c) the ground-plane horizon passes through horizontal-direction vanishing points. Street geometry and the separate camera-pitch inset are illustrative.}
+    \label{fig:p3_s6_2_2_subtasks}
+\end{figure}
+
+\subsubsection{Methodology}
+Vision-based height and distance estimation is organized along two axes: the sensor configuration (stereo versus monocular), which decides whether metric depth is available by triangulation, and the inference paradigm (geometry-based versus learning-based), which decides whether scene geometry is solved from projective constraints or inferred from data. Figure~\ref{fig:p3_s6_2_2_method_overview} lays out the resulting families; it draws the uncalibrated case as a third branch for readability, but it is best read as the weakly constrained regime of monocular or stereo inference in which some geometric information is missing and must be supplied by priors.
+
+\paragraph{Stereo Vision.}
+A calibrated stereo rig recovers metric depth directly from disparity, $Z = fB/d$ with focal length $f$, baseline $B$, and disparity $d$.
+Classical pipelines run calibration, rectification, matching, disparity estimation, and triangulation~\cite{zhang2000flexible,Scharstein2002Stereo,hartley2003multiple}; their accuracy rests on calibration quality and on matching reliability in textureless, reflective, or occluded regions, and object distance is read off by aggregating depth over the detected region. Multi-view stereo adds views for consistency without changing the triangulation principle~\cite{Seitz2006Middlebury,yao2018mvsnet}.
+Learned stereo replaces hand-crafted matching costs with learned features and cost volumes~\cite{kendall2017end,chang2018pyramid,lipson2021raftstereo} and, in recent systems, folds distance estimation into stereo 3D object detection, predicting category, 2D extent, depth, and 3D box jointly~\cite{li2019stereorcnn,chen2020dsgn,guo2021ligastereo}. Learning improves robustness, but the metric scale still comes from the calibrated baseline and intrinsics.
+
+\paragraph{Monocular Vision.}
+A single image does not fix absolute scale, so monocular methods recover it from explicit geometric constraints, learned priors, or external reference information~\cite{hartley2003multiple,criminisi2000single}.
+Classical monocular metrology uses projective geometry: vanishing points of parallel world lines give camera orientation~\cite{caprile1990using,hartley2003multiple}, and a homography between a dominant ground plane and the image enables metric measurement on that plane once one reference length is known~\cite{criminisi2000single,liebowitz1999metric}. The approach is interpretable and accurate in controlled scenes but needs clean geometric cues, reliable calibration, and visible parallel lines or planar supports.
+Learning-based monocular methods detect objects in 2D and regress their depth, 3D center, and physical dimensions directly from image features~\cite{chen2016monocular,mousavian2017deep,manei2019monodis,brzozowski2019m3drpn,liu2020smoke,wang2021fcos3d,liu2022monocon,ma2021delving}, implicitly learning the inverse relation between image extent and distance together with perspective, context, and occlusion cues, without an explicit vanishing-point or homography step.
+
+\paragraph{Foundation-Model-Assisted Metric Estimation.}
+A newer route uses pretrained metric or metric-aligned depth models as an intermediate representation. DPT, ZoeDepth, Metric3D, and Depth Anything predict dense depth from a single image with strong cross-domain generalization~\cite{dpt,zoedepth,yin2024metric3d,DepthAnything}; pooling the predicted depth inside a detected region or instance mask then gives object distance, and combining masks, depth, and simple geometric constraints gives object height. This removes the need for explicit vanishing-point detection and manual scene calibration and offers a practical path to metric estimation on in-the-wild images.
+In the fully uncalibrated case, exact metric recovery from one image remains ill-posed~\cite{hartley2003multiple}; practical systems inject scale through a known reference object, a known camera height, a ground-plane assumption, category-level size priors, or one of the pretrained metric-depth models above~\cite{criminisi2000single,mousavian2017deep,zoedepth,yin2024metric3d}.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/height_estimation_2.pdf}
+    \caption{Sources of metric scale in vision-based measurement: (a) calibrated stereo uses focal length, disparity, and a known baseline; (b) monocular metrology transfers a reference height using ground-plane and vertical-direction geometry; (c) a reference-assisted example of weakly calibrated monocular inference uses a known planar rectangle to rectify a shared plane and set scale. Scenes are illustrative; the panels do not imply a universal accuracy ranking.}
+    \label{fig:p3_s6_2_2_method_overview}
+\end{figure}
+
+\subsubsection{Datasets and Metrics}
+Table~\ref{tab:height_distance_estimate_benchmark} summarizes the benchmarks, which fall into three groups by sub-task. Object-size estimation is evaluated on the indoor RGB-D sets CAMERA25 and REAL275~\cite{Wang0HVSG19}, where category-level dimensions are scored jointly with pose on controlled tabletop scenes. Sensor-to-object distance is rarely benchmarked on its own; it is evaluated through the 3D-detection annotations (box centers, sizes, velocities) of the driving datasets KITTI~\cite{Geiger2013KITTI}, nuScenes~\cite{caesar2020nuscenes}, Waymo Open~\cite{WaymoOpen-SunKDCPTGZCCVHN20}, and Argoverse~2~\cite{wilson2023argoverse}, which test metric localization at scale across multi-camera rigs and scenes, with BDD100K~\cite{yu2020bdd100k} as a monocular video source. Speed and displacement estimation is dominated by fixed-camera traffic video: AI City Challenge 2018~\cite{Naphade_2018_CVPR_Workshops}, BrnoCompSpeed~\cite{SochorJSMSHZ17}, UTFPR~\cite{LuvizonNM17}, and QMUL~\cite{moazzam2019image}, plus the UAV-mounted Beihang videos~\cite{KeKLW15}; these are the only benchmarks that score a physically meaningful motion quantity rather than static geometry.
+
+\begin{table*}[!ht]
+    \centering
+    \caption{Height and distance estimation benchmarks, grouped by the sub-task they score (object size, sensor-to-object distance via 3D boxes, or vehicle speed). BDD100K is included as an auxiliary video source.}
+    \label{tab:height_distance_estimate_benchmark}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.0mm}
+    \begin{tabular}{L{0.19\textwidth} C{0.07\textwidth} C{0.15\textwidth} C{0.09\textwidth} C{0.09\textwidth} C{0.12\textwidth} C{0.21\textwidth}}
+    \toprule
+    \textbf{Dataset} & \textbf{Task} & \textbf{Modality} & \textbf{View} & \textbf{Domain} & \textbf{Scale} & \textbf{Resolution} \\
+    \midrule
+    CAMERA25 \cite{Wang0HVSG19} & Size  & RGB-D image & Monocular & Mixed-reality indoor & 25K eval. images & - \\
+    REAL275 \cite{Wang0HVSG19} & Size  & RGB-D image & Monocular & Indoor & 2,750 test images & - \\
+    KITTI 3D~\cite{Geiger2013KITTI} & Distance & RGB + LiDAR     & Monocular     & Vehicle     & 15K frames     & - \\
+    nuScenes~\cite{caesar2020nuscenes}     & Size / distance     & RGB + LiDAR + radar     & Multi-view     & Vehicle     & 1,000 scenes & - \\
+    Waymo Open Dataset~\cite{WaymoOpen-SunKDCPTGZCCVHN20}     & Size / distance   & RGB + LiDAR     & Multi-view     & Vehicle     & 1,150 segments & - \\
+    Argoverse 2 Sensor~\cite{wilson2023argoverse}     & Size / distance  & RGB + LiDAR     & Multi-view     & Vehicle     & 1,000 scenes & - \\
+    AI City 2018 Track 1 \cite{Naphade_2018_CVPR_Workshops} & Speed  & Video & Monocular & Vehicle & 27 one-min videos & 1920$\times$1080 @30\,Hz \\
+    BrnoCompSpeed \cite{SochorJSMSHZ17} & Speed  & Video & Monocular & Vehicle & 18 videos $\times$ 1 hour & 1920$\times$1080 @50\,Hz\\
+    UTFPR \cite{LuvizonNM17} & Speed  & Video & Monocular & Vehicle & 5 hours & 1920$\times$1080 @30\,Hz\\
+    QMUL \cite{moazzam2019image} & Speed & Video & Monocular & Vehicle & 1 hour & 360$\times$288 @25\,Hz \\
+    Beihang UAV Videos \cite{KeKLW15} & Speed & Image & Monocular & Vehicle & 70 images & 960$\times$540\\
+    BDD100K~\cite{yu2020bdd100k}     & Auxiliary     & Video     & Monocular     & Vehicle     & 100K videos & 720p @30\,Hz\\
+    \bottomrule
+    \end{tabular}
+\end{table*}
+
+Each sub-task is scored with the same triplet: an absolute error in physical units, a relative error for cross-range comparison, and a threshold accuracy for downstream binary decisions. For object size, the metric is the mean absolute error in physical units (centimeters for human height, millimeters for category-level pose),
+\begin{equation}
+    \mathrm{MAE} = \frac{1}{N}\sum_{i=1}^{N} |\hat{s}_i - s_i|,
+\end{equation}
+with the mean absolute percentage error $\mathrm{MAPE} = \tfrac{1}{N}\sum_i |\hat{s}_i - s_i|/s_i \times 100\%$ alongside for cross-class comparison; when size is scored jointly with pose, the 3D IoU of predicted and ground-truth boxes is thresholded, the NOCS protocol~\cite{Wang0HVSG19} reporting mAP at 3D IoU thresholds of $25\%$ and $50\%$, and pose mAP under joint rotation/translation thresholds such as $(5^\circ,5\,\mathrm{cm})$, $(10^\circ,5\,\mathrm{cm})$, and $(10^\circ,10\,\mathrm{cm})$. Inter-object distance reuses MAE, RMSE, and MAPE on distances $\hat{d}_i$ and the depth-style ratio accuracy $\delta_\tau$ of \S\ref{sec:depth_estimation} with $\tau \in \{1.10,\,1.25\}$; because stereo error grows as $\Delta Z \propto Z^2/(fB)$, KITTI-style protocols~\cite{Geiger2013KITTI} stratify by range (near $<10$\,m, mid $10$--$50$\,m, far $>50$\,m) so that far-field degradation is not averaged away. Speed estimation reports MAE and RMSE in physical speed units, and MAPE as a percentage. AI City Challenge 2018~\cite{Naphade_2018_CVPR_Workshops} reports speed in mph and defines $S_1=\mathrm{DR}(1-\mathrm{NRMSE})$ from vehicle detection rate and speed RMSE min--max normalized across submissions, while BrnoCompSpeed~\cite{SochorJSMSHZ17} also reports median absolute error to reduce sensitivity to outliers. Two protocol details change rankings: per-vehicle averaging (BrnoCompSpeed) weighs trajectories differently from per-frame averaging over localized ground-truth vehicles (AI City), and monocular and uncalibrated methods are sensitive to the assumed focal length, principal point, and reference length, so their reported accuracy is only meaningful together with the calibration assumptions.
+
+Performance is sub-task specific. Category-level size recovery on REAL275~\cite{Wang0HVSG19} remains far from millimeter accuracy in cluttered scenes. On BrnoCompSpeed~\cite{SochorJSMSHZ17}, calibration-aware pipelines reach low single-digit km/h errors on the original sessions but degrade when transferred to unseen camera placements, exposing the brittleness of fixed-camera homography assumptions, and on the AI City 2018 speed track~\cite{Naphade_2018_CVPR_Workshops} the leading entries pair strong detection-and-tracking front ends with multi-frame speed regression, so the S1 score reflects detection recall as much as raw speed accuracy. Across all three sub-tasks the bottleneck is calibration, of the camera and of the scene-plane reference, rather than the regression backbone.
+
+\subsubsection{Challenges}
+% 说明这个问题其实在当前的空间理解中，是非常重要的一个任务评估形式，它主要在与空间理解相关的下游任务中，作为一个重要的评估指标，来衡量模型对于空间理解的能力。比如在自动驾驶领域，车辆的速度估计是一个非常重要的任务，它直接关系到车辆的安全性和行驶效率；在室内场景中，物体尺寸的估计也是一个重要的任务，它可以帮助机器人更好地与环境进行交互。因此，准确的高度和距离估计对于提升空间理解模型的实用性和可靠性具有重要意义。
+Calibration sensitivity is the dominant open problem: small errors in intrinsics or in the scene-plane reference propagate non-linearly into every recovered length, and methods that treat focal length and reference size as latent variables, or refine calibration online from multi-view consistency, generalize across camera setups where fixed-calibration pipelines fail. The second gap is coverage: benchmarks are confined to indoor tabletop size estimation and vehicle-traffic speed, leaving pedestrian speed in crowds, package dimensions in logistics, and indoor inter-object distance essentially unmeasured. Fusing visual estimates with LiDAR, radar, or inertial sensing would lift robustness in low light and under occlusion, but the vision-only setting treated here still lacks a benchmark that scores metric accuracy jointly with calibration uncertainty.
+

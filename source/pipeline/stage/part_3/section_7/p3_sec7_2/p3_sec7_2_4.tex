@@ -1,0 +1,97 @@
+\subsection{Differentiable Optimization Layers for Spatial Reasoning}
+\label{subsec:p3_s7_2_4}
+
+Where the three preceding subsections put structure into the learned representation, differentiable optimization layers put it into the computation: selected feed-forward operations are replaced by the solution of a constrained optimization problem, so that hard logical, geometric, or physical constraints are enforced inside the forward pass while the whole system stays end-to-end differentiable~\cite{gould2022exploiting}.
+In spatial reasoning this is how a network enforces distances, collision avoidance, or alignment, or solves a sub-problem such as pose estimation, within a learnable pipeline.
+Figure~\ref{fig:p3_s7_2_4_differentiable_optimization_formulation} previews the representative tasks (top row) and the method families (bottom row).
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/differentiable_optimization_layers_for_spatial_reasoning.pdf}
+    \caption{Differentiable optimization layers for spatial reasoning. Top, tasks: (1) QP relaxation of binary assignment for Sudoku~\cite{amos2017optnet,wang2019satnet}, (2) differentiable convex MPC~\cite{amos2018differentiable,agrawal2019differentiable}, and (3) bundle adjustment as differentiable nonlinear least squares for end-to-end SLAM~\cite{teed2021droid}. Bottom, methods: (1) OptNet~\cite{amos2017optnet}, (2) CVXPY Layers~\cite{agrawal2019differentiable,diamond2016cvxpy}, (3) Deep Declarative Networks and differentiable geometry solvers~\cite{gould2021deep,campbell2020solving}, and (4) SATNet-style differentiable SAT layers~\cite{wang2019satnet,shindo2024learning}.}
+    \label{fig:p3_s7_2_4_differentiable_optimization_formulation}
+\end{figure}
+
+
+\subsubsection{Task Definition}
+Given an input parameter vector $\theta$ produced by the preceding layers, a differentiable optimization layer computes
+\begin{equation}
+    z^\star = \operatorname*{arg\,min}_{z \in \mathcal{Z}} f(z; \theta) \;\; \text{s.t.}\;\; g(z;\theta) \leq 0, \; h(z;\theta) = 0,
+\end{equation}
+where $f$ is an objective function, $g,h$ denote inequality and equality constraints, and $\mathcal{Z}$ is a feasible domain.
+The forward pass computes the optimal solution $z^\star(\theta)$, while the backward pass relies on implicit differentiation of the optimality conditions to obtain $\tfrac{\partial z^\star}{\partial \theta}$; the layer is declarative, in that the model specifies what to solve rather than how to compute it.
+Under this view, QP solvers~\cite{amos2017optnet}, convex optimization layers~\cite{agrawal2019differentiable}, differentiable geometry solvers~\cite{teed2021droid}, and differentiable logic program solvers~\cite{wang2019satnet,shindo2024learning} are all instantiations of the same layer, tailored to different domains of spatial or symbolic reasoning.
+
+
+\subsubsection{Methodology}
+
+\paragraph{QP and Convex Optimization Layers.}
+\citet{amos2017optnet} introduced OptNet, which treats the solution of a quadratic program as a layer: the forward pass solves
+\begin{equation*}
+    z^\star = \operatorname*{arg\,min}_z \tfrac{1}{2} z^{\top} Q z + q^{\top} z
+\end{equation*}
+subject to affine constraints whose matrices can depend on previous network outputs, and the backward pass differentiates the KKT optimality conditions exactly, with a custom GPU interior-point solver that handles many small QPs in parallel and reuses its factorization for the backward pass.
+OptNet learned to solve Sudoku from data where conventional architectures could not, which showed that implicit layers can handle discrete or constrained reasoning problems.
+\citet{agrawal2019differentiable} generalized the idea to any disciplined convex program: CVXPY Layers~\cite{diamond2016cvxpy} canonicalize the problem into conic form, solve it, and differentiate through the cone program's optimality conditions, so a constrained least-squares, a constrained logistic regression, or a robot-motion-limit constraint can be inserted as a layer without deriving gradients by hand.
+
+\paragraph{Implicit Differentiation.}
+All of these layers share one mechanism.
+Rather than unrolling an iterative solver, one differentiates the closed-form optimality (KKT) conditions, which for a convex program comprise primal feasibility, dual feasibility, complementarity, and stationarity~\cite{DeepImplicitLayers}; differentiating this system and solving one linear system yields $\frac{\partial z^\star}{\partial \theta}$ exactly, without back-propagating through solver iterations.
+Where OptNet hand-codes this backward pass, Deep Declarative Networks~\cite{gould2021deep} apply automatic differentiation to the KKT system itself.
+The same principle extends to root-finding, fixed-point, and equilibrium layers via the implicit function theorem; deep equilibrium models~\cite{bai2019deep} treat an entire weight-tied network as a single fixed-point layer differentiated this way, and differentiable physics engines and planners propagate gradients through the equilibrium or optimum conditions of a physical system.
+
+\paragraph{Differentiable Geometry Solvers.}
+A subclass is tailored to geometric problems that are themselves argmin problems, typically minimizing a reprojection error: camera pose from 2D--3D correspondences, bundle adjustment, inverse kinematics.
+\citet{campbell2020solving} introduced a differentiable blind PnP solver that estimates 3D pose as a layer; \citet{teed2021droid} built a differentiable bundle-adjustment module into a SLAM system, solving for camera poses and 3D points by iterative optimization while letting gradients flow; EPro-PnP~\cite{chen2022epro} recasts PnP as a probabilistic layer with a learnable distribution over poses; and Theseus~\cite{pineda2022theseus} provides a reusable library for differentiable nonlinear least squares (Gauss--Newton, Levenberg--Marquardt) that underlies bundle adjustment, pose-graph optimization, and inverse kinematics.
+These layers keep the domain-specific optimizer but make it differentiable, so the whole vision or robotics system trains end-to-end while the geometry stays correct and constrained, for instance so that estimated object poses agree across views; \citet{gould2021deep} refer to such constructs as declarative nodes and demonstrate them on visual Sudoku and robust geometry estimation.
+
+\paragraph{Differentiable Logic Layers.}
+Beyond continuous optimization, the same construction extends to symbolic reasoning.
+SATNet~\cite{wang2019satnet} integrates a differentiable satisfiability solver as a layer: the forward pass solves a relaxed SAT problem (a quadratic unconstrained binary optimization) to produce assignments consistent with logical constraints, and the backward pass differentiates implicitly through the solver's fixed-point conditions; \citet{shindo2024learning} extend differentiable logic programs to abstract visual reasoning benchmarks such as Raven's Progressive Matrices.
+These layers belong to the same class of constraint-based implicit modules as the QP and convex layers, specialized to combinatorial and relational dependencies.
+
+
+\subsubsection{Benchmarks}
+Differentiable optimization layers have been validated across symbolic, geometric, and control settings.
+Sudoku~\cite{amos2017optnet,wang2019satnet} and its visual variant~\cite{gould2022exploiting} test whether a layer models constraint satisfaction and propagates gradients through discrete reasoning; Raven's Progressive Matrices (RPM / I-RAVEN)~\cite{shindo2024learning} test whether differentiable logic captures relational structure in visual analogy puzzles; cart-pole, inverted-pendulum, and reaching tasks in MuJoCo and OpenAI Gym~\cite{agrawal2019differentiable} test whether differentiable MPC~\cite{amos2018differentiable} or convex layers improve control while enforcing physical feasibility; and maze navigation and obstacle avoidance test QP-based collision-avoidance layers by whether the agent reaches its target without violating safety constraints.
+Evaluation combines task metrics with criteria specific to the embedded solver: geometric accuracy (translation / rotation error in pose estimation, trajectory or map error for a bundle-adjustment layer), task success rate (puzzles solved, feasible plans produced) together with the count or magnitude of violated constraints and, for physics-informed layers, residual energy or momentum drift, and solver cost and gradient stability (forward / backward runtime, iterations to converge, and sensitivity of training to approximate versus exact implicit gradients).
+Table~\ref{tab:p3_s7_2_4_perf} lists the representative layers by solver type.
+
+\begin{table}[t]
+    \centering
+    \small
+    \caption{Representative differentiable-optimization layers, organized by solver / layer type (\cf\ Figure~\ref{fig:p3_s7_2_4_differentiable_optimization_formulation}).}
+    \label{tab:p3_s7_2_4_perf}
+     \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.0mm}
+    \begin{tabular}{L{0.26\textwidth} L{0.10\textwidth} L{0.28\textwidth} L{0.28\textwidth}}
+        \toprule
+        \textbf{Method} & \textbf{Year} & \textbf{Solver / layer type} & \textbf{Task / benchmark} \\
+        \midrule
+        OptNet~\cite{amos2017optnet}                 & 2017 & QP layer, KKT implicit diff.            & Sudoku from data            \\
+        Differentiable MPC~\cite{amos2018differentiable} & 2018 & convex MPC layer                    & planning / control          \\
+        CVXPY Layers~\cite{agrawal2019differentiable} & 2019 & disciplined convex / cone layer        & control, geometry           \\
+        SATNet~\cite{wang2019satnet}                 & 2019 & differentiable MAXSAT relaxation       & visual Sudoku               \\
+        Deep Declarative Nets~\cite{gould2021deep}   & 2021 & implicit-function-theorem nodes        & robust geometry, Sudoku     \\
+        DROID-SLAM~\cite{teed2021droid}              & 2021 & differentiable bundle adjustment       & monocular / stereo SLAM     \\
+        Theseus~\cite{pineda2022theseus}             & 2022 & differentiable nonlinear least squares & pose-graph / BA / IK        \\
+        EPro-PnP~\cite{chen2022epro}                 & 2022 & probabilistic PnP layer                & monocular 6-DoF pose        \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+
+\subsubsection{Challenges and Trends}
+Solving an optimization problem inside a layer is more expensive than a convolution or a matrix product, and the forward pass becomes the bottleneck as problem size grows, which is exactly the regime of SLAM, bundle adjustment, and motion planning.
+OptNet's batched GPU solver shows how problem structure buys tractability for many small problems, but global route planning or large-scale 3D reconstruction still overwhelms existing solvers, forcing approximate solves, warm starts, or hierarchical decomposition to keep each optimization manageable.
+
+Gradient stability is the second difficulty.
+If the solution is non-unique or depends discontinuously on the input, as at boundary optima, at active-set changes in a linear program, or in the presence of discrete variables, the implicit gradient is unstable or undefined; strict convexity guarantees a well-defined Jacobian, and real problems frequently violate it.
+Entropy smoothing, small regularizers, and perturbation methods restore usable gradients in many cases, and in others the backward pass has to be designed by hand.
+
+The third is physical consistency.
+An optimization layer enforces only the constraints it is given: if the formulation omits a friction constraint in a contact model, the network exploits the gap and converges to implausible solutions, and because the layer sits inside a trainable system, the surrounding network can learn to feed it inputs that satisfy the constraints superficially while violating their intended meaning.
+The benefits of interpretability and correctness therefore depend on the optimization model reflecting the real dynamics, which in practice means careful constraint modeling, additional penalties, or iterative refinement of the solver design; current work refines solvers, numerical stability, and integration with deep-learning frameworks toward layers that are both theoretically grounded and deployable in spatial systems.
+

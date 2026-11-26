@@ -1,0 +1,89 @@
+\subsection{LLM/VLM-centric Spatial Reasoning}
+\label{subsec:p3_s7_3_1}
+    % - Focus: the llm/vlm model for spatial reasoning
+% [202511] Deconstructing Spatial Intelligence in Vision-Language Models
+% [ICML2025] Why Is Spatial Reasoning Hard for VLMs? An Attention Mechanism Perspective on Focus Areas
+
+Large language and vision-language models have become a default substrate for spatial reasoning, not because they compute geometry explicitly, but because large-scale pretraining leaves them with a usable, if imperfect, prior over how objects are arranged, oriented, and related. This subsection examines that prior directly: what spatial competence text-only LLMs acquire from language alone, how visual grounding sharpens it in VLMs, and where both still fall short of the metric, viewpoint-consistent reasoning that physical tasks demand. The methods are organized by the intervention used to elicit or strengthen this competence, from prompting to architectural change.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/LLM_VLM-centric_spatial_reasoning.pdf}
+    \caption{LLM/VLM-centric spatial reasoning, illustrated by the query ``Which object is left of the lamp?'': (i) text-only or visual inputs with optional spatial evidence, (ii) a pretrained LLM/VLM with four complementary, not sequential, intervention strategies (prompt, training, data, model), and (iii) the answer, other task outputs, and evaluation categories. Shading marks the queried region, not a measured attention map.}
+    \label{fig:p3_s7_3_1_llm_vlm_formulation}
+\end{figure}
+
+\subsubsection{Task Definition}
+Spatial reasoning, which embodied AI~\cite{driess2023palm, zhu2024spa}, autonomous driving~\cite{bogdoll2025muvo,zhou2024hktsg}, and spatial content generation~\cite{yu2025wonderworld, liu2025agentic} all depend on, is cast here as inference over learned representations rather than explicit geometric computation: a pre-trained model $\mathcal{M}_\theta$ answers a spatial query $q$ from context $c$,
+\begin{equation}
+  y=\mathcal{M}_\theta(q, c),\qquad c\in\{\varnothing,\ I,\ I+\text{aux}\},
+\end{equation}
+where the context may be absent (a text-only LLM), an image or image set $I$ (a VLM), or an image together with auxiliary evidence such as a scene graph, region features, or depth, and the output $y$ is a relation, a metric estimate, an orientation, or a navigation plan.
+For text-only LLMs the spatial prior is built from statistical patterns in massive corpora~\cite{yamada2023evaluating,li2024advancing,wang2024picture}: such models infer that ``sky'' is above ``ground'', but the reasoning is \emph{ungrounded}, with no mapping to physical reality or visual signal, and therefore prone to physically impossible inferences.
+VLMs ground the same prior by aligning the LLM with a visual encoder, and spatial competence then extends beyond recognizing objects and their intrinsic attributes to reasoning about relations among objects and to \emph{spatial extrapolation}, inferring unseen states or running mental simulations from what is perceived~\cite{liu2025deconstructing,chen2024spatialvlm}.
+
+
+
+
+\subsubsection{Methodology}
+% Training-free Prompting
+% Model-Centric Architecture
+% Explicit Spatial Injection
+% Data-Centric Approaches
+
+Interventions against the spatial deficiencies of foundation models fall into four levels, in increasing order of invasiveness: prompt engineering leaves the model untouched, training strategies update its weights, data-centric augmentation changes what it learns from, and model-centric enhancement alters the architecture.
+
+\paragraph{Prompt Engineering.}
+Prompting elicits latent spatial ability at inference time without weight updates.
+Textual prompting applies chain-of-thought reasoning~\cite{liao2024reasoning} so that the model decomposes a spatial task into intermediate steps (identifying reference objects before deducing relative positions), and inserting scene graphs or coordinates extracted by expert models into the prompt raises accuracy further~\cite{mitra2024compositional}.
+Visual prompting guides attention through markers superimposed on the image itself (masks, coordinate axes, keypoints), and in zero-shot settings such explicit visual cues can outperform fine-tuned models~\cite{yang2023set,liu20253daxisprompt}.
+
+\paragraph{Training Strategies.}
+Contrastive pretraining objectives induce a ``bag-of-concepts'' behavior that under-supervises spatial structure, so stronger supervisory signals are introduced to enforce spatial alignment.
+Auxiliary losses such as image reconstruction or coordinate prediction compel the model to attend to pixel-level spatial detail rather than global semantics alone~\cite{wang2024reconstructive}.
+Reinforcement learning with spatial reward functions (PPO or GRPO~\cite{wu2025reinforcing,shen2025fine}; view-consistency rewards~\cite{wang2025svqa}) trains models to perform mental visual simulation or to produce more precise spatial descriptions, moving spatial training from imitation toward preference-based optimization.
+
+\paragraph{Data-Centric Augmentation.}
+Because high-quality spatially annotated data is scarce, augmentation drives much of the progress.
+Existing 2D/3D datasets are re-annotated with explicit spatial relations, metric distances, or orientations~\cite{wang2024all}, and simulation engines synthesize data with perfect geometric ground truth, which is especially effective for extrapolation tasks such as mental rotation and path planning where real-world annotation is impractical~\cite{tang2024sparkle,jiang2022pseudo}.
+
+\paragraph{Model-Centric Enhancement.}
+Architectural changes target the fine-grained visual-spatial features that mainstream encoders miss.
+Because CLIP-style encoders~\cite{radford2021learning} prioritize global semantics over local geometry, higher-resolution encoders or fused features from multiple visual experts (SAM~\cite{kirillov2023sam, ravi2024sam2, carion2025sam}, DINOv2~\cite{dinov2}) sharpen the perception of shape and position; region-of-interest features or scene graphs supplied as additional input tokens decouple objects from their relationships and tighten fine-grained alignment~\cite{guo2024regiongpt}; and for 3D reasoning, models ingest point clouds, voxel grids, or depth maps directly~\cite{wangspatial} or lift 2D features into implicit 3D representations from multi-view images~\cite{zhu2024llava}.
+A recent alternative internalizes 3D awareness through auxiliary supervision instead of extra inputs: SpatialSV~\cite{tang2026spatialsv} forces hidden visual features to predict explicit 3D targets (depth, ray maps, point clouds) during training, injecting geometric priors at no inference cost.
+
+
+
+\subsubsection{Benchmarks}
+% [EgoOrientBench]: Is 'right' right? enhancing object orientation understanding in multimodal large language models through egocentric instruction tuning
+
+% [GeoMeter]: Understanding depth and height perception in large visual-language models
+% [CV-Bench]: Cambrian-1: A fully open, vision-centric exploration of multimodal llms
+% [What's Up]: What's" up" with vision-language models? investigating their struggle with spatial reasoning
+% [SEED-Bench]: Seed-bench: Benchmarking multimodal llms with generative comprehension
+% [SRBench]: Mind the gap: Benchmarking spatial reasoning in vision-language models
+% [MINDCUBE]: Spatial mental modeling from limited views
+% [RealWorldQA]: Grok-1.5v vision preview
+% [OmniSpatial]: Omnispatial: Towards comprehensive spatial reasoning benchmark for vision language models
+
+% \cite{jung2025right,azad2025understanding,tong2024cambrian,KamathHC23a,li2023seed,stogiannidis2025mind,yin2025spatial,jia2025omnispatial}
+
+Evaluation has moved from general VQA to benchmarks that probe spatial capability along four levels~\cite{liu2025deconstructing}.
+Intrinsic-attribute benchmarks test perceptual precision on single objects, with EgoOrientBench~\cite{jung2025right} evaluating object orientation from an egocentric viewpoint and GeoMeter~\cite{azad2025understanding} metric distance and dimension, and they show that even state-of-the-art models are weak at reference-free perception.
+Relational benchmarks, the most populated class, test the parsing of spatial relations through vision-centric questions such as relative position (CV-Bench~\cite{tong2024cambrian}, What's Up~\cite{KamathHC23a}), and this is where general-purpose VLMs peak.
+Deep-spatial-logic benchmarks go beyond visible relations: SRBench~\cite{stogiannidis2025mind} evaluates mental rotation and navigation, and MindCube~\cite{yin2025spatial} the construction of an internal 3D mental model from multiple views.
+Comprehensive suites such as RealWorldQA~\cite{xai2024grok15v} and OmniSpatial~\cite{jia2025omnispatial} cover all levels at once; a wider coverage map of these static probes appears in Table~\ref{tab:spatial_reasoning_benchmark} of §\ref{subsec:p3_s7_3_7}.
+
+
+
+\subsubsection{Challenges and Trends}
+Three obstacles limit what foundation models can be made to do spatially.
+Mainstream vision encoders such as CLIP optimize for global semantic alignment and capture coarse semantics at the expense of fine-grained geometric detail~\cite{wang2023makes,tong2024eyes}, and the contrastive objective compounds this by inducing the ``bag-of-concepts'' behavior that under-supervises structural relations among objects~\cite{zhou2025logic,wang2025spatialclip}.
+Training data with precise metric annotation (quantitative distance, 3D coordinates) is scarce, and existing datasets rarely support the extrapolation tasks that require reasoning beyond direct observation~\cite{liu2023visual,agrawal2023stupd}.
+Spatial reference is ambiguous: ``to the left'' may mean the viewer's left (egocentric), the object's left (allocentric), or another agent's left, and VLMs seldom switch frame of reference from context, which misaligns interpretation in embodied use~\cite{liu2023visual,lee2025perspective}.
+
+Two directions respond to these.
+Reinforcement learning with process rewards such as GRPO moves training from static VQA toward interaction, letting the model acquire spatial logic by trial and error in simulation or the real world~\cite{wu2025reinforcing}.
+World-model-informed pretraining attacks the 2D-to-3D gap directly, learning physical regularities (gravity, collision) alongside image-text correspondence from synthetic corpora with exact geometric ground truth~\cite{yang2026mindjourney,tang2024sparkle,chen2024spatialvlm}; the use of such world models at inference time is the subject of §\ref{subsec:p3_s7_3_8}.
+
+

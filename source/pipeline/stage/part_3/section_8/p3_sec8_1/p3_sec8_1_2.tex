@@ -1,0 +1,114 @@
+\subsection{2D Spatial-aware Image Generation}
+\label{subsec:p3_s8_1_2}
+\emph{2D spatial-aware image generation} synthesizes images that are faithful not only to a text prompt but to explicit spatial constraints in the image plane: where objects appear, how large they are, what shape they take, and how they relate to one another (\emph{left of}, \emph{on}, \emph{behind}).
+The constraint may be a set of boxes or a scene layout, an instance or semantic mask, an edge or sketch map, a depth or normal map, 2D keypoints, a scene graph, or a phrase bound to a region, and the pipelines that honor it are almost all diffusion models augmented with a conditioning pathway or a guidance term.
+The tension that organizes the subfield is three-way: \emph{adherence} to hard constraints against \emph{perceptual realism} and \emph{diversity}, and both against \emph{compositionality} when many small or occluding objects carry discrete relations.
+Depth and normal maps enter here as structural guides for occlusion ordering and surface orientation, not as metric measurements; recovering true distance belongs to reconstruction (§\ref{sec:p3_s8_2}).
+
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_1_2_task}
+We inherit the latent-generator framework of §\ref{subsec:p3_s8_1_1}.
+Let $\mathcal{X}$ denote tokenized prompts, $\mathcal{Z}$ the latent space induced by the autoencoder pair $(E,D)$ of Eq.~\eqref{eq:t2i_autoencoder}, and $\phi:\mathcal{X}\!\rightarrow\!\mathcal{E}$ the text encoder.
+Spatial-aware generation \emph{augments} this framework with a structural condition $\mathbf{c}\in\mathcal{C}$ drawn from one or more conditioning channels (boxes, masks, edges, depth, pose, scene graphs, region phrases, reference images), encoded by a condition encoder $\kappa:\mathcal{C}\!\rightarrow\!\mathcal{C}'$.
+The conditional latent sampler of Eq.~\eqref{eq:t2i_generator} is extended to a joint conditional
+\begin{equation}
+G_\theta:\mathcal{E}\times\mathcal{C}'\rightarrow\mathcal{Z},\qquad \hat{\mathbf{z}}\sim p_\theta\!\big(\mathbf{z}\,\big|\,\phi(\mathbf{x}),\,\kappa(\mathbf{c})\big),
+\label{eq:t2i_spatial_objective}
+\end{equation}
+and the generated image $\hat{\mathbf{y}}=D(\hat{\mathbf{z}})$ is required to be (i) photorealistic, (ii) semantically aligned with $\mathbf{x}$, and (iii) faithful to the structural condition $\mathbf{c}$ in placement, scale, shape, and pairwise relation.
+The unconditional limit $\mathbf{c}=\varnothing$ recovers pure T2I generation as in §\ref{subsec:p3_s8_1_1}; the substance of the present subsection lies in how $\kappa$ is realized for each conditioning channel and how its output is injected into $G_\theta$.
+Which channel populates $\mathbf{c}$, and how densely, ranges from pixel-level maps (masks, edges, depth) through coordinate-level scaffolds (boxes, keypoints) to discrete symbols (scene graphs, region phrases); the modality survey below follows that ordering.
+Interactive constraints supplied by dragging handles during generation belong to the editing regime of §\ref{subsec:p3_s8_1_3}.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_1_2_methodology}
+Two axes organize the methods: the \emph{conditioning modality} (what kind of structural input $\mathbf{c}$ is consumed) and the \emph{injection mechanism} (how $\kappa(\mathbf{c})$ enters the latent sampler $G_\theta$).
+They are nearly independent. One mechanism, a ControlNet-style side branch, serves canny edges, pose skeletons, depth, and segmentation alike, and one modality, bounding boxes, is served by side branches, grounded cross-attention, or inference-time attention shaping, so the design space is a matrix of (modality~$\times$~mechanism) cells rather than a list of monolithic methods.
+Figure~\ref{fig:p3_s8_1_2_mechanisms} draws the five mechanisms on one backbone silhouette.
+
+\paragraph{Conditioning Modalities.}
+\label{para:p3_s8_1_2_modalities}
+\textit{Dense pixel-level scaffolds} supply a value at every location, which makes them the easiest channels to follow and the most restrictive on creativity.
+Instance and semantic masks drive region-conditioned synthesis, with MultiDiffusion~\cite{multidiffusion} offering a training-free protocol that samples jointly over overlapping mask windows; edges, sketches, and line art, popularized by the canny and soft-edge variants of ControlNet~\cite{zhang2023adding} and the edge head of T2I-Adapter~\cite{t2iadapter2023}, fix only the location of intensity discontinuities and leave texture and appearance to the prompt; depth and normal maps, served by ControlNet's depth variant, impose coarse occlusion ordering and surface orientation without requiring a metric reconstruction.
+\textit{Coordinate-level scaffolds} drop to per-region or per-point supervision.
+Boxes with labels are the most studied channel, a set of $(\text{box},\text{label})$ tuples fixing location and rough scale, with LayoutDiffusion~\cite{zheng2023layoutdiffusion}, LayoutLLM~\cite{qu2023layoutllm}, and the open-set GLIGEN~\cite{li2023gligen} as representatives; 2D keypoints (typically human pose) are sparser still, a handful of joint coordinates, injected through ControlNet or handled by GLIGEN as a special case of grounding.
+\textit{Discrete symbolic structure} carries no pixel- or coordinate-level information at all, and the model must map it onto the image plane itself.
+Scene graphs reach back to the sg2im line of~\citet{johnson2018image} and re-emerged in the diffusion era through LLM-emitted layouts, as in LayoutLLM, where the graph is first decoded into a coordinate-level layout; region phrases and referring expressions bind a text span to a box, mask, or free-form polygon and are served by GLIGEN's grounded cross-attention and by phrase-grounding heads attached to SD and SDXL~\cite{sdxl2023}.
+
+\paragraph{Injection Mechanisms.}
+\label{para:p3_s8_1_2_mechanisms}
+Five mechanism families cover the literature; production pipelines routinely stack a side branch for dense geometric channels, an adapter for style or a reference image, and inference-time guidance to sharpen adherence on adversarial prompts.
+
+\textbf{Side-branch controllers.}
+The backbone weights stay frozen and an auxiliary branch mirroring the encoder half of the base U-Net is trained, connected through \emph{zero-convolution} layers whose weights are initialized to zero so that the augmented model reproduces the base model exactly at the start of training and degrades gracefully if the branch is poorly tuned.
+ControlNet~\cite{zhang2023adding} is the prototype and the first widely adopted retrofit pathway for non-text structural control: the condition (a canny edge map, an OpenPose skeleton, a depth or normal map, a segmentation mask, or a scribble) is encoded by the side branch in parallel with the noisy latent and injected into the base U-Net through additive residual connections at each scale.
+One branch is trained per modality on labeled image--condition pairs, which produced a library of plug-in controllers for SD~1.5 and SDXL~\cite{sdxl2023} that compose with prompt conditioning at inference time without retraining the backbone; most later designs either shrink this recipe or fold it into a unified adapter library.
+
+\textbf{Lightweight adapters.}
+Where the side branch spends capacity (half a U-Net per modality), T2I-Adapter~\cite{t2iadapter2023}, developed concurrently with the same goal of plug-in control over a frozen backbone, spends as little as possible: a few residual blocks per modality whose multi-scale features are added directly into the corresponding encoder stages.
+Several adapters can be combined at inference, an image conditioned simultaneously on an OpenPose skeleton, a depth map, and a color palette with a scalar weight on each, so the adapter is preferred for multi-channel fusion and fast iteration, and the side branch where maximum single-channel fidelity matters.
+
+\textbf{Grounded cross-attention.}
+Side branches and adapters run an external pathway alongside the backbone; the next two families intervene \emph{inside} its attention stack.
+GLIGEN~\cite{li2023gligen} inserts a new \emph{gated self-attention} layer between the existing self-attention and cross-attention of each U-Net transformer block; the layer attends jointly over the visual tokens and a set of \emph{grounding tokens} that encode each $(\text{phrase},\text{box})$ pair, a learned scalar gate controls how strongly the grounding signal enters the residual stream, and only the new layer is trained, so the network falls back to ungrounded behavior when no constraint is supplied.
+The problem it solves is complementary to the side branch: not how to inject a dense pixel-level scaffold, but how to introduce \emph{open-set} symbolic grounding (any category named in text, localized by a box, keypoints, or a reference image) into a frozen T2I backbone, with several grounding channels interleaved within one mechanism.
+
+\textbf{Layout-aware cross-attention.}
+LayoutDiffusion~\cite{zheng2023layoutdiffusion} is the dense-supervised cousin of grounded attention: rather than gating a new layer onto a frozen backbone, it co-trains a layout-aware cross-attention block end to end for layout-to-image (L2I) generation specifically.
+A structured layout, a set of $(\text{box},\text{class label})$ tuples, becomes a sequence of region tokens fused with the noisy latent at every denoising step, and an explicit \emph{object--scene} factorization models global scene context separately from per-object features so that object identity, scale, and pairwise relations survive in cluttered scenes.
+It reports stronger layout IoU and relation satisfaction than ControlNet or T2I-Adapter on multi-object COCO benchmarks, at the cost of being specialized to box-and-label input rather than the broader modality library.
+
+\textbf{Inference-time guidance.}
+The fifth family adds no parameters and modifies only sampling.
+BoxDiff~\cite{xie2023boxdiff} is the canonical training-free spatial controller: it shapes the cross-attention maps so that activations of box-localized prompt tokens concentrate inside their boxes while the backbone stays untouched.
+MultiDiffusion~\cite{multidiffusion} fuses overlapping mask windows at sampling time, and composing scores from several conditional models or tuning the classifier-free guidance scale per region are related strategies.
+Because nothing is retrained, these methods suit rapid prototyping, backbones whose weights are unavailable for fine-tuning, and per-prompt sharpening on top of the trained mechanisms above.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\linewidth]{figures/part3/section8/Five_injection_mechanisms_for_spatial-aware_T2I.pdf}
+\caption{Five mechanisms for injecting a spatial condition $\kappa(\mathbf{c})$ into a text-to-image denoiser: (a) side-branch control (ControlNet~\cite{zhang2023adding}), (b) lightweight adapters (T2I-Adapter~\cite{t2iadapter2023}), (c) gated grounding (GLIGEN~\cite{li2023gligen}), (d) layout-aware cross-attention (LayoutDiffusion~\cite{zheng2023layoutdiffusion}), and (e) inference-time guidance (BoxDiff~\cite{xie2023boxdiff}). The corgi example is illustrative, not a comparison of outputs.}
+\label{fig:p3_s8_1_2_mechanisms}
+\end{figure}
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_1_2_benchmarks}
+Two things change relative to §\ref{subsec:p3_s8_1_1}.
+The ground truth is a \emph{structural annotation} (a layout, a mask, a keypoint set) rather than a reference image, so reconstruction-style metrics give way to adherence metrics that score how closely the generated image honors $\mathbf{c}$; and every channel admits its own adherence metric, so a meaningful report combines a channel-specific score with the realism and alignment scores inherited from the previous subsection.
+
+\paragraph{Training Corpora.}
+Spatial-aware models are typically trained on corpora that pair images with rich structural annotations: COCO Captions~\cite{lin2014microsoft} for layouts and captions; ADE20K~\cite{zhou2017ade20k} ($20$K images, $150$ classes) for semantic and instance masks; Visual Genome~\cite{krishna2017visual} for object boxes, attributes, and pairwise relations supporting scene-graph conditioning; RefCOCO / RefCOCO+ / RefCOCOg~\cite{yu2016modeling} for phrase grounding; and PhraseCut~\cite{wu2020phrasecut} for region-prompt mask supervision.
+Additional structure (canny edges, depth, normals, OpenPose skeletons) is typically derived on the fly from these base corpora by running pretrained predictors over each image, producing the paired image--condition data on which ControlNet-style and adapter-style pipelines are trained.
+
+\paragraph{Evaluation Benchmark Suites.}
+Most of the suites surveyed in §\ref{subsec:p3_s8_1_1} (Table~\ref{tab:p3_s8_1_1_eval_benchmarks}) include axes that probe spatial-aware generation directly and serve as its primary out-of-the-box benchmarks.
+GenEval~\cite{ghosh2023geneval} exposes a position subset that scores whether two objects appear in a specified relation (\emph{left of}, \emph{above}); T2I-CompBench~\cite{huang2023t2icompbench} provides explicit \emph{spatial} and \emph{non-spatial relationship} categories with BLIP-VQA and UniDet scoring; HRS-Bench~\cite{bakr2023hrsbench} includes a \emph{spatial} skill among its thirteen; GenAI-Bench~\cite{li2024genaibench} offers compositional prompts on which spatial relations are a frequent failure of CLIP-based scoring; and WISE~\cite{niu2025wise} measures knowledge-grounded location accuracy.
+Beyond these, the L2I literature reports task-specific evaluations on COCO layouts: detection-based AP for box-localized objects alongside FID and CLIPScore.
+
+\paragraph{Constraint-specific Metrics.}
+Layout adherence is box IoU between the conditioning layout and the boxes recovered by a frozen detector on $\hat{\mathbf{y}}$, often with per-object center distance; mask adherence uses mask IoU and boundary $F$-score against the conditioning mask; edge and sketch adherence report recall (sometimes precision) of edges re-extracted from $\hat{\mathbf{y}}$; geometry adherence reports depth RMSE and normal angular error where ground-truth geometry exists; pose adherence reports keypoint reprojection error or PCK; and relational adherence reports relation-satisfaction accuracy and per-entity object AP for scene-graph and phrase-grounded settings.
+These numbers do not aggregate: averaging layout IoU with mask IoU has no operational meaning, since the two live on different scales and reward different shape regimes, and most papers report a different subset of them, which is the main obstacle to cross-paper comparison in this subfield.
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_1_2_challenges}
+Spatial-aware T2I inherits the compositionality and evaluation problems of §\ref{subsec:p3_s8_1_1} and sharpens them.
+
+\textbf{Faithful multi-object composition.}
+Crowded scenes with many small or partially occluded objects and hard relations (support, containment, depth ordering) fail in three recognizable ways: \emph{attention dilution}, in which a prompt token's cross-attention spreads across the canvas and no object is well localized; \emph{attribute leakage}, in which color, material, or count attaches to the wrong object (the canonical ``red cube on a blue sphere'' confusion); and \emph{object dropping}, in which small or rare entities in a multi-object layout are simply omitted.
+On GenEval the position and counting subsets remain the weakest axes across SD~1.5, SDXL, and SD~3~\cite{sd3rft2024}.
+Remedies work at three levels: Attend-and-Excite~\cite{chefer2023attend} reweights cross-attention at inference so that every subject token is strongly activated somewhere in the canvas; StructureDiffusion~\cite{feng2023training} uses prompt syntax to constrain attention structure without training; and LLM-emitted layouts, LayoutGPT~\cite{feng2023layoutgpt} and the multimodal-LLM-driven RPG of~\citet{yang2024mastering}, plan a structured layout from the free-form prompt and hand it to an L2I renderer.
+Whether the gap closes through a stronger compositional prior in the backbone or through planning as a separate stage is unresolved, and the two are not exclusive.
+
+\textbf{Constraint satisfaction against creativity and diversity.}
+Turning guidance up tightens adherence until, past a model-dependent threshold, edges oversharpen, textures flatten, and variation across seeds collapses; the same curve appears for the ControlNet conditioning weight, GLIGEN's gating strength, and the classifier-free guidance scale, leaving practitioners to tune two or three knobs at once.
+Annealing the control weight along the denoising trajectory, per-region or per-token guidance scales, and down-weighting guidance where the base model is already confident are the current responses; how to expose such schedules to end users without overwhelming the interface is open.
+Chaining spatial-aware generation with repeated local edits adds a drift problem of its own, treated in §\ref{subsec:p3_s8_1_3}.
+
+\textbf{Geometry-aware realism in 2D.}
+Depth and normal conditioning fix coarse occlusion but introduce their own artifacts: \emph{boundary banding} where a sharp depth discontinuity meets a smooth gradient in the generated image, \emph{scale ambiguity} because a monocular depth map carries no absolute scale and two objects at the same depth value can be rendered at incompatible physical sizes, and \emph{lighting incoherence} because the map fixes geometry but not the light field, so shadows disagree with the implied surface orientations.
+Better estimators are the first lever, with the diffusion-prior Marigold~\cite{ke2024repurposing} producing sharper and more globally consistent depth than CNN baselines and Depth Anything~\cite{DepthAnything} staying robust on out-of-distribution conditioning images; differentiable geometry proxies that translate depth into shading constraints are the second, explored at the boundary with full 3D synthesis (§\ref{sec:p3_s8_2}) but not yet integrated into general T2I backbones.
+Region grounding also changes the safety picture, since a harmful edit can be confined to a footprint that whole-image forensics miss; that concern belongs to editing and is taken up in §\ref{subsec:p3_s8_1_3}.

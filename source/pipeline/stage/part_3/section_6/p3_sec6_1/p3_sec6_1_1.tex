@@ -1,0 +1,162 @@
+
+
+\subsection{Keypoint and Landmark Detection}
+\label{sec:keypoint_landmark}
+Keypoint and landmark detection localizes a set of semantically consistent, precisely positioned points that characterize object geometry in images or videos: eye corners, skeletal joints, or structurally distinctive parts of man-made objects.
+Compared with region-based representations, keypoints give a sparser, explicitly geometric encoding that often survives deformation, rotation, and partial occlusion.
+Figure~\ref{fig:p3_s6_1_1_keypoint_overview} summarizes the task families and the method families surveyed below.
+
+
+
+\subsubsection{Task Definition}
+Given an input image $I$, a parametric model $f_{\theta}$ estimates a set of point locations
+\begin{equation}
+f_{\theta}(I) = \{\mathbf{p}_i\}_{i=1}^{N}, \quad \mathbf{p}_i \in \mathbb{R}^2,
+\end{equation}
+where each $\mathbf{p}_i$ is the image coordinate of a salient visual or structural element. Landmark detection fixes a predefined semantic identity for each point (a particular eye corner, a particular joint); the two terms are otherwise used interchangeably.
+
+\emph{3D keypoint detection} predicts $\mathbf{p}_i\in\mathbb{R}^{3}$ instead. From images, the depth of each point must be inferred; from depth maps or point clouds $\mathcal{P}$, surface geometry is observed, but occluded or internal landmarks still require inference. For human pose, 3D joints are usually expressed in camera coordinates relative to a root joint (the pelvis), which leaves global depth unconstrained, as a single image cannot fix it.
+
+The task varies along three axes. The input modality sets what geometry is directly available: most detectors work on 2D images (RGB, grayscale, or infrared), where keypoints must be inferred from appearance alone, whereas point clouds expose spatial structure directly; RGB-D or RGB-infrared fusion adds robustness in clutter and poor lighting, and video supplies temporal continuity through motion blur and transient occlusion.
+The prediction target ranges from planar image coordinates, which underpin most benchmarks, to 3D keypoints required in robotics and autonomous driving, to 4D trajectories tracked over time.
+The application scenario fixes what the points mean. Research has concentrated on humans: body joints for pose estimation, facial landmarks for expression recognition and identity verification, and finger joints for gesture-based interaction and sign language recognition~\cite{ko2019neural}. Keypoints are also defined on everyday items, industrial parts, and vehicles for manipulation, inspection, and driving (\eg, monocular 3D detection from vehicle keypoints~\cite{li2020rtm3d}), on animals for behavior analysis (multi-animal DeepLabCut~\cite{lauer2022multi}), and on anatomical structures in medical imaging, where universal landmark detectors cover several modalities and anatomies~\cite{zhu2021you}.
+
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/keypoint_detection_v2.pdf}
+    \caption{Keypoint and landmark detection: representative task families (top) and the methodological progression, mainly of 2D detectors, from hand-crafted feature detectors to generative models, with representative methods under each stage (bottom).}
+    \label{fig:p3_s6_1_1_keypoint_overview}
+\end{figure}
+
+
+\subsubsection{Methodology}
+Classical pipelines combined local feature detectors with statistical shape models that handled occlusion and deformation through explicit geometric constraints.
+Moravec~\cite{moravec1980obstacle}, Harris~\cite{harris1988combined}, and Shi--Tomasi~\cite{shi1994good} corners were followed by feature detectors and descriptors such as SIFT~\cite{lowe2004distinctive}, SURF~\cite{bay2006surf}, FAST~\cite{rosten2006machine}, BRIEF~\cite{calonder2010brief}, and ORB~\cite{rublee2011orb}, which improved scale invariance, speed, and robustness.
+For faces and hands, active shape models~\cite{cootes1995asm}, active appearance models~\cite{cootes1998active}, and constrained local models with regularized mean-shift fitting~\cite{saragih2011deformable} provided the parametric frameworks.
+
+
+Learning-based detection began with supervised descent for face alignment~\cite{xiong2013supervised} and, in 2014, with DeepPose~\cite{toshev2014deeppose}, which regressed human joints directly with a deep network.
+Heatmap regression then dominated through 2020: Tompson \etal~\cite{tompson2014joint,tompson2015efficient} coupled convolutional networks with graphical models, convolutional pose machines~\cite{wei2016convolutional} and stacked hourglass networks~\cite{newell2016stacked} refined heatmaps over repeated stages, and HRNet~\cite{wang2020deep} kept a high-resolution branch throughout the network for precise localization.
+
+
+Multi-person estimation splits into two strategies. Top-down methods detect each person first and then estimate keypoints inside the box, which is accurate but scales with the number of people; bottom-up methods predict all keypoints at once and then group them, which is faster but makes grouping the hard part.
+Part Affinity Fields~\cite{cao2017realtime}, consolidated as OpenPose~\cite{CaoHSWS21}, are the canonical bottom-up design; YOLO-Pose~\cite{maji2022yolo}, RTMPose~\cite{jiang2023rtmpose}, and RTMO~\cite{lu2024rtmo} advance real-time multi-person estimation through one-stage and top-down designs.
+
+
+Vision transformers and foundation models made keypoint detection general-purpose: ViTPose~\cite{xu2022vitpose} set simple transformer baselines for human pose in 2022, and Sapiens~\cite{khirodkar2024sapiens} in 2024 provides a single foundation model for human-centric vision tasks.
+
+3D human pose estimation grew out of these 2D detectors. Lifting methods take detected 2D keypoints as input and regress the 3D joints: a fully connected network on 2D joints alone was a strong baseline~\cite{martinez2017simple}, temporal convolutions over 2D pose sequences (VideoPose3D~\cite{pavllo2019videopose3d}) and spatio-temporal transformers (MotionBERT~\cite{zhu2023motionbert}) use motion to reduce the depth ambiguity, and DiffPose~\cite{gong2023diffpose} casts lifting as diffusion. Direct methods predict 3D from pixels, as in the volumetric heatmaps of Pavlakos \etal~\cite{pavlakos2017coarse}. With a calibrated multi-view rig most of the ambiguity disappears, and learnable triangulation~\cite{iskakov2019learnable} fuses per-view heatmaps into a 3D estimate. Recovering a full body mesh rather than a joint set is taken up with human motion in Section~\ref{sec:p3_s8_4}.
+
+
+Classical corner detectors were in turn replaced by learned ones: SuperPoint~\cite{detone2018superpoint} learns detection and description jointly under self-supervised homographic adaptation, DISK~\cite{tyszkiewicz2020disk} selects keypoints with a reinforcement-style objective, and SuperGlue~\cite{sarlin2020superglue} matches sparse keypoints; the detector-free LoFTR~\cite{Sun2021LoFTR} instead produces semi-dense correspondences.
+These serve as correspondence rather than semantic points and are the workhorses of the structure-from-motion, visual-odometry, and SLAM pipelines in the spatial-localization section that follows.
+
+On point clouds, keypoints mostly serve registration and pose estimation. Intrinsic Shape Signatures~\cite{zhong2009iss} select points whose local neighborhood has a distinctive eigenvalue structure; USIP~\cite{li2019usip} learns, without labels, detectors that stay stable under rigid transformation, and D3Feat~\cite{bai2020d3feat} predicts a detection score and a descriptor for every point, the 3D analogue of SuperPoint. Category-level 3D keypoints are a different kind: Suwajanakorn \etal~\cite{suwajanakorn2018discovery} discover keypoints that are consistent across instances of a category through a relative-pose objective, and kPAM~\cite{manuelli2019kpam} uses such keypoints as the interface for robotic manipulation. Keypoint-based 6D object pose, which predicts the 2D projections of 3D model keypoints and solves PnP, belongs to pose estimation (Section~\ref{sec:object_pose}).
+
+Table~\ref{tab:keypoint_coco_results} reports COCO Keypoints (val2017) results for the CNN, transformer, and real-time families.
+
+\begin{table*}[!t]
+\centering
+\caption{Reported performance of representative keypoint detection methods on COCO Keypoints (val2017). AP is computed under the OKS-based protocol.}
+\label{tab:keypoint_coco_results}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{2.0mm}
+\begin{tabular}{l l c c c c c c c c}
+\toprule
+\textbf{Method} & \textbf{Backbone} & \textbf{Input} & \textbf{\#Params (M)} & \textbf{GFLOPs} & \textbf{AP} & \textbf{AP$_{50}$} & \textbf{AP$_{75}$} & \textbf{AR} & \textbf{Year} \\
+\midrule
+HRNet-W32~\cite{wang2020deep}  & HRNet-W32   & 256$\times$192 & 28.5  & 7.1   & 74.4 & 90.5 & 81.9 & 79.8 & 2020 \\
+HRNet-W48~\cite{wang2020deep}  & HRNet-W48   & 384$\times$288 & 63.6  & 32.9  & 76.3 & 90.8 & 82.9 & 81.2 & 2020 \\
+YOLOv5s6-Pose~\cite{maji2022yolo} & YOLOv5-s   & 960$\times$960 & 15.1  & --  & 63.8 & 87.6 & 69.6 & 70.4 & 2022 \\
+YOLOv5m6-Pose~\cite{maji2022yolo} & YOLOv5-m & 960$\times$960 & 41.4 & -- & 67.4 & 89.1 & 73.7 & 73.9 & 2022 \\
+YOLOv5l6-Pose~\cite{maji2022yolo} & YOLOv5-l & 960$\times$960 & 87.0 & -- & 69.4 & 90.2 & 76.1 & 75.9 & 2022 \\
+ViTPose-B~\cite{xu2022vitpose} & ViT-B       & 256$\times$192 & 86    & --  & 75.8 & -- & -- & 81.1 & 2022 \\
+ViTPose-L~\cite{xu2022vitpose} & ViT-L       & 256$\times$192 & 307   & --  & 78.3 & -- & -- & 83.5 & 2022 \\
+ViTPose-H~\cite{xu2022vitpose} & ViT-H       & 256$\times$192 & 632   & -- & 79.1 & -- & -- & 84.1 & 2022 \\
+RTMPose-s~\cite{jiang2023rtmpose} & CSPNeXt-s & 256$\times$192 & 5.5  & 0.68  & 69.6 & -- & -- & -- & 2023 \\
+RTMPose-m~\cite{jiang2023rtmpose} & CSPNeXt-m & 256$\times$192 & 13.6  & 1.93  & 73.6 & -- & -- & -- & 2023 \\
+RTMPose-l~\cite{jiang2023rtmpose} & CSPNeXt-l & 256$\times$192 & 27.7  & 4.16  & 74.8 & -- & -- & -- & 2023 \\
+RTMO-s~\cite{lu2024rtmo} & CSPDarkNet & 640$\times$640 & 9.9 & -- & 67.7 & 87.8 & 73.7 & 71.5 & 2024 \\
+RTMO-m~\cite{lu2024rtmo} & CSPDarkNet & 640$\times$640 & 22.6 & -- & 70.9 & 89.0 & 77.8 & 74.7 & 2024 \\
+RTMO-l~\cite{lu2024rtmo} & CSPDarkNet & 640$\times$640 & 44.8 & -- & 72.4 & 89.9 & 78.8 & 76.2 & 2024 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsubsection{Datasets and Metrics}
+Keypoint datasets are mostly embedded in broader pose and action benchmarks rather than built in isolation; Table~\ref{tab:keypoint_dataset_summary} lists the most used.
+Human body datasets are the most mature and trace the field's expansion: MPII~\cite{andriluka20142d} and COCO Keypoints~\cite{lin2014microsoft} fixed in-the-wild 2D evaluation, PoseTrack~\cite{andriluka2018posetrack} added temporal association in video, Human3.6M~\cite{IonescuPOS14} supplies controlled multi-view 3D ground truth for 2D-to-3D lifting, DensePose~\cite{guler2018densepose} replaces sparse joints with dense surface correspondences, and CrowdPose~\cite{li2019crowdpose} stresses crowded, occluded scenes.
+Face datasets moved from large pose variation (AFLW~\cite{koestinger2011annotated}) and high-density annotation (HELEN~\cite{le2012interactive}) to occlusion (COFW~\cite{burgos2013robust}), the standardized 68-point protocol of 300-W~\cite{sagonas2013300} and its large-pose synthetic extension 300-W-LP~\cite{zhu2016face}, and the 98-point, hard-condition WFLW~\cite{wu2018look}.
+Hand datasets contend with fine articulation and self-occlusion through multi-view capture (CMU Panoptic HandDB~\cite{simon2017hand}), synthetic 3D labels (RHD~\cite{zimmermann2017learning}), real 3D pose and shape (FreiHAND~\cite{zimmermann2019freihand}), and interacting hands (InterHand2.6M~\cite{moon2020interhand2}).
+Animal-Pose~\cite{cao2019cross} and AP-10K~\cite{yu2021ap} carry the human recipe to animals across species, while ApolloCar3D~\cite{song2019apollocar3d} and KeypointNet~\cite{you2020keypointnet} define keypoints on rigid vehicles and 3D object categories.
+
+\begin{table*}[!t]
+\centering
+\caption{Representative datasets for keypoint and landmark detection across human body, face, hand, animal, and object domains. ``KP'' denotes the number of annotated keypoints per instance; ``Mod.'' denotes modality (2D image, 3D pose, or multi-view). Sample counts follow the official splits where available; ``--'' marks values not provided by the source paper.}
+\label{tab:keypoint_dataset_summary}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\begin{tabular}{L{0.22\textwidth} C{0.06\textwidth} L{0.23\textwidth} C{0.11\textwidth} C{0.08\textwidth} L{0.23\textwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Year} & \textbf{Domain} & \textbf{Mod.} & \textbf{KP} & \textbf{\#Samples (train\,/\,val\,/\,test)} \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \emph{Human body}} \\
+MPII~\cite{andriluka20142d}            & 2014 & In-the-wild body & 2D & 16 & 25K images (train+test) \\
+COCO Keypoints~\cite{lin2014microsoft} & 2014 & In-the-wild multi-person & 2D & 17 & 57K / 5K / 20K images \\
+PoseTrack2018~\cite{andriluka2018posetrack} & 2018 & Video body tracking & 2D & 15 & 593 / 170 / 375 videos \\
+Human3.6M~\cite{IonescuPOS14}   & 2014 & Indoor multi-view body & 3D & 32 & 3.6M frames, 11 subjects \\
+DensePose~\cite{guler2018densepose}    & 2018 & Dense body surface & 2D & SMPL surface & $\sim$50K annotated persons (COCO subset) \\
+CrowdPose~\cite{li2019crowdpose}       & 2019 & Crowded multi-person & 2D & 14 & 10K / 2K / 8K images \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \emph{Face}} \\
+AFLW~\cite{koestinger2011annotated}    & 2011 & In-the-wild face & 2D & 21 & 25K faces (22K images) \\
+HELEN~\cite{le2012interactive}         & 2012 & High-resolution face & 2D & 194 & 2K / -- / 330 images \\
+COFW~\cite{burgos2013robust}           & 2013 & Occluded face & 2D & 29 & 1.3K / -- / 507 images \\
+300-W~\cite{sagonas2013300}            & 2013 & Aggregated face & 2D & 68 & 3.1K / -- / 689 images \\
+300-W-LP~\cite{zhu2016face}            & 2016 & Large-pose synthetic face & 2D & 68 & 61K images \\
+WFLW~\cite{wu2018look}                 & 2018 & In-the-wild face (challenging) & 2D & 98 & 7.5K / -- / 2.5K images \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \emph{Hand}} \\
+CMU Panoptic HandDB~\cite{simon2017hand} & 2017 & Multi-view hand & Multi-view & 21 & 14K manual + bootstrapped \\
+RHD~\cite{zimmermann2017learning}       & 2017 & Synthetic hand & 2D + 3D & 21 & 41K / -- / 2.7K frames \\
+FreiHAND~\cite{zimmermann2019freihand}  & 2019 & Real hand pose + shape & 3D & 21 & 33K / -- / 4K samples \\
+InterHand2.6M~\cite{moon2020interhand2} & 2020 & Two-hand interaction & 3D & 42 & 2.6M frames \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \emph{Animal \& Object}} \\
+Animal-Pose~\cite{cao2019cross}         & 2019 & 5-class mammal pose & 2D & 20 & $\sim$4K images \\
+AP-10K~\cite{yu2021ap}                  & 2021 & 54-species animal pose & 2D & 17 & 10K images \\
+ApolloCar3D~\cite{song2019apollocar3d} & 2019 & Vehicle keypoints (driving) & 2D & 66 & 5.3K images \\
+KeypointNet~\cite{you2020keypointnet}   & 2020 & Multi-category 3D objects & 3D & 5--23 & 8.3K models \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Metrics measure raw or scale-normalized distances between predicted and ground-truth points. The End-Point Error (EPE) is the raw Euclidean distance. The Normalized Mean Error (NME) divides it by a reference length:
+\begin{equation}
+\mathrm{NME} = \frac{1}{N} \sum_{i=1}^{N} \frac{\lVert \hat{\mathbf{x}}_i - \mathbf{x}_i \rVert_2}{d},
+\end{equation}
+where $\hat{\mathbf{x}}_i$ and $\mathbf{x}_i$ denote the predicted and ground-truth locations of the $i$-th keypoint, and $d$ is a task-dependent normalization factor (\eg, inter-ocular distance for faces).
+The Percentage of Correct Keypoints (PCK) instead thresholds the error,
+\begin{equation}
+\mathrm{PCK@}\alpha = \frac{1}{N} \sum_{i=1}^{N}
+\mathbb{I}\!\left( \lVert \hat{\mathbf{x}}_i - \mathbf{x}_i \rVert_2 \le \alpha \cdot s \right),
+\end{equation}
+where $\alpha$ controls the tolerance and $s$ is the reference scale, giving an accuracy rate that is easy to compare across methods; the Cumulative Error Distribution (CED) curve and its Area Under the Curve (AUC) summarize behavior across thresholds.
+
+For large-scale benchmarks, Object Keypoint Similarity (OKS) incorporates object scale and keypoint-specific uncertainty,
+\begin{equation}
+\mathrm{OKS} =
+\frac{\sum_i \exp\!\left( -\frac{\lVert \hat{\mathbf{x}}_i - \mathbf{x}_i \rVert_2^2}{2 s^2 \kappa_i^2} \right)\delta(v_i > 0)}
+{\sum_i \delta(v_i > 0)}.
+\end{equation}
+Here $s$ denotes the object scale (the square root of the segmented area), $\kappa_i$ is a per-keypoint normalization constant calibrating the fall-off, and $v_i \in \{0, 1, 2\}$ is the ground-truth visibility flag for keypoint $i$, where $v_i = 0$ indicates unlabeled, $v_i = 1$ indicates labeled but occluded, and $v_i = 2$ indicates labeled and visible.
+OKS plays the role of IoU in computing average precision and recall on MS COCO~\cite{lin2014microsoft}. For 3D human pose, the Mean Per-Joint Position Error (MPJPE) averages the Euclidean joint error in millimeters after aligning the root joints; PA-MPJPE applies a Procrustes alignment of scale, rotation, and translation first, and 3DPCK thresholds the error at $150$\,mm, as on MPI-INF-3DHP~\cite{mehta2017monocular}. Point-cloud keypoint detectors are scored by repeatability under rigid transformation and, downstream, by registration recall on benchmarks such as 3DMatch~\cite{zeng20173dmatch}.
+
+\subsubsection{Challenges}
+Robustness in unconstrained scenes is still the first problem~\cite{fisal2025reported, guo2025survey}: occlusion, extreme pose, and non-rigid deformation leave partial or ambiguous configurations, and symmetric parts (left versus right limbs, the fingers of a self-occluded hand) are routinely swapped.
+Generalization is the second~\cite{kappan2026survey, ma20252d, jiang2022animal}: keypoint definitions differ across datasets even for the same object class, so models trained on one benchmark transfer poorly to another, and the gap widens for animals, objects, and anatomical structures, where annotation is scarce and demographic or species bias enters the training data.
+The accuracy--speed tension discussed for detection applies here as well~\cite{khabarlak2021fast, alvarez2021real}: high-precision models are too heavy for embedded targets, and lightweight ones lose accuracy precisely under occlusion and fast motion.
+
+
+

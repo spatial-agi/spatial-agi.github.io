@@ -1,0 +1,55 @@
+\section{Rule-based Symbolic Spatial Reasoning}
+\label{sec:p3_s7_1}
+
+\FramedInitial{R}{ule-based} symbolic spatial reasoning covers the methods that operate over \emph{explicit, model-based representations} of space (geometric primitives, physical laws, graph connectivity, formal constraints, action rules, or causal mechanisms) rather than over learned latent representations alone. What sets this family apart is that reasoning happens inside a model that can be inspected: its state and transitions are legible, so claims about feasibility, optimality, or safety can be backed by certificates rather than empirical averages, and when a plan fails it fails legibly, as an infeasible inverse kinematics, a violated constraint, a missing precondition, or an inconsistent causal attribution, not as an opaque correlation.
+
+The section surveys six kinds of explicit structure, ordered from the most concrete to the most abstract: geometric and algebraic models of position, orientation, motion, and feasibility; physical models of contact, friction, and stability; topological and graph abstractions of space that turn planning into search; formal constraint systems whose solvers return certified plans or proofs of infeasibility; rule-based and programmatic logic that sequences and supervises actions; and causal models that explain, predict counterfactually, and prescribe interventions.
+% Table~\ref{tab:p3_s7_1_paradigm_comparison} at the end of the section compares the six.
+
+These paradigms are not isolated alternatives. Modern robotic systems routinely compose them: geometric solvers serve as feasibility oracles inside constraint-based search; behavior trees wrap symbolic plans for fault tolerance; causal action languages compile to SAT; topological maps anchor both classical and learning-based navigation policies. The unifying thread is that each paradigm carries explicit structure (a state, an operator, a constraint, a rule, or a mechanism) that can be inspected, composed, and reasoned about.
+
+\input{part_3/section_7/p3_sec7_1/p3_sec7_1_1.tex}
+
+
+\input{part_3/section_7/p3_sec7_1/p3_sec7_1_2.tex}
+
+\input{part_3/section_7/p3_sec7_1/p3_sec7_1_3.tex}
+
+
+\input{part_3/section_7/p3_sec7_1/p3_sec7_1_4.tex}
+
+\input{part_3/section_7/p3_sec7_1/p3_sec7_1_5.tex}
+
+\input{part_3/section_7/p3_sec7_1/p3_sec7_1_6.tex}
+
+
+% \subsection{Summary}
+% \label{subsec:p3_s7_1_summary}
+
+% The six paradigms in §\ref{sec:p3_s7_1} build spatial intelligence on explicit, inspectable structure (geometric, mechanical, topological, formal, programmatic, or causal) rather than on learned correlations alone, and that choice buys four things. Plans, schedules, and explanations are artifacts that can be debugged and verified rather than distributions to be sampled. Each paradigm increasingly produces machine-checkable certificates (force-closure conditions, optimality witnesses, $\delta$-complete SMT proofs, unsat cores) on which safety-critical deployment can rely. Explicit interfaces (operators, constraints, rules, causal variables) let the paradigms compose with one another and with learned components without losing their guarantees. And where the model captures the relevant structure, classical methods generalize from a compact specification rather than from a large corpus.
+
+% Table~\ref{tab:p3_s7_1_paradigm_comparison} sets the six side by side; they are complementary rather than redundant, each targeting a structure that the others presuppose (geometry beneath physics), wrap (behavior trees around symbolic plans), or extend (causal mechanisms over constraint solutions).
+
+% \begin{table}[t]
+%     \centering
+%     \footnotesize
+%     \caption{Comparison of the six foundational paradigms of rule-based symbolic spatial reasoning covered in §\ref{sec:p3_s7_1}.}
+%     \label{tab:p3_s7_1_paradigm_comparison}
+%     \begin{tabularx}{\linewidth}{@{}l X X X X@{}}
+%         \toprule
+%         \textbf{Paradigm} & \textbf{Core representation} & \textbf{Output / artifact} & \textbf{Notable strength} & \textbf{Main limitation} \\
+%         \midrule
+%         §\ref{subsec:p3_s7_1_1} Geometric \& algebraic         & $SE(3)$ poses, projective geometry, Jacobians, contact wrenches                  & Frame-aligned coordinates, workspace / reachability sets, feasibility certificates      & Closed-form precision; coordinate-free formulations                          & Brittle near singularities; assumes exact geometry \\
+%         §\ref{subsec:p3_s7_1_2} Physical                       & Rigid-body dynamics, contact / friction laws, quasi-static equilibrium           & Force-closure verdict, motion cone, support-polygon test                                & Grounded in mechanics; analytically interpretable                            & Sim-to-real gap; latent parameters (mass, friction) often unobserved \\
+%         §\ref{subsec:p3_s7_1_3} Topological / graph-based      & Roadmap / decomposition / sampling graph $G=(V,E,\mathbf{w})$                    & Collision-free path $\pi$, topological map, multi-agent trajectories                    & Combinatorial tractability; mature solvers (A*, CBS, CH)                     & Density vs.\ optimality trade-off; appearance robustness across seasons \\
+%         §\ref{subsec:p3_s7_1_4} Constraint-based               & Decision variables + collision / IK / dynamics / logic constraints               & Certified-feasible plan, optimality gap, infeasibility witness                          & Strong correctness guarantees; certificate-producing                         & Mixed-integer scaling; symbol-grounding from perception \\
+%         §\ref{subsec:p3_s7_1_5} Rule-based / programmatic      & STRIPS / PDDL operators, FSMs, Behavior Trees, production rules                  & Action plan, reactive policy, monitored execution trace                                 & Auditable; reactive recovery; modular composition                            & Modeling burden; brittle under perception noise without grounding \\
+%         §\ref{subsec:p3_s7_1_6} Causal                         & Structural causal models, temporal networks (STN / STNU)                         & Causal model, $do(\cdot)$-effect estimate, counterfactual answer, intervention strategy & Counterfactual / responsibility queries; identifiability theorems            & Grounding causal variables; latent confounding; LiNGAM needs non-Gaussian noise \\
+%         \bottomrule
+%     \end{tabularx}
+% \end{table}
+
+% The same design philosophy exposes the limitations. Explicit models must be authored and maintained, they presume that the relevant structure is observable, and they degrade gracelessly when reality violates their idealizations (perception noise, latent parameters, unmodeled contact, drifting causal mechanisms). These are the conditions under which data-driven methods excel: learned pipelines absorb unobservable variables and perception noise into end-to-end objectives and generalize across regimes that would be intractable to specify by hand.
+
+% The rest of Chapter~\ref{sec:reasoning} takes up spatial reasoning from that complementary angle: §\ref{sec:p3_s7_2} on reasoning learned from data, §\ref{sec:p3_s7_3} on reasoning elicited from foundation models, §\ref{sec:p3_s7_4} on hybrids of the two with the classical paradigms, and §\ref{sec:p3_s7_5} on how the field measures all of them. Throughout, the classical paradigms of §\ref{sec:p3_s7_1} reappear as feasibility oracles, safety shells, structural priors, and explainability layers, and the most effective systems are those that compose the two regimes: explicit structure where it is authoritative, learned structure where it is unavoidable.
+

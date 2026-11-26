@@ -1,0 +1,126 @@
+
+\subsection{Multi-agent Spatial Reasoning}
+\label{subsec:p3_s7_2_6}
+
+
+Where the previous five subsections study a single learning agent, multi-agent spatial reasoning (MASR) moves to the \emph{joint} regime: multiple embodied or abstract agents perceive, communicate, and act within a shared environment to accomplish cooperative or competitive goals, and the structural prior now governs decentralized decisions over a shared spatial state.
+MASR links low-level sensorimotor streams (proprioception, occupancy grids, trajectories) to relational decision processes (joint planning, role assignment, coalition formation); its core problem is \emph{credit assignment and coordination} under spatial constraints, that is, how agents with partial, decentralized observations reason over nearby entities, infer latent intent, and synthesize actions that produce coherent team-level behavior.
+Deep learning has moved the field from rule-driven coordination to end-to-end policies that integrate perception, communication, and control under partial observability and non-stationarity~\cite{lowe2017maddpg,foerster2018coma,rashid2018qmix}, with autonomous driving and interactive motion forecasting over road geometry (WOMD~\cite{ettinger2021womd}, nuScenes~\cite{caesar2020nuscenes}), multi-robot exploration, formation control, and patrol under attrition~\cite{goeckner2024magec}, and real-time strategy and team-sports simulation~\cite{samvelyan2019smac,kurach2020grf} as its representative domains.
+We stress at the outset that the canonical algorithms surveyed below (VDN, QMIX, COMA, MADDPG) are themselves spatially agnostic: they solve a generic cooperative Dec-POMDP and see geometry only through the environment and the reward.
+Explicit spatial structure enters chiefly through the benchmarks and through the graph-based family, where the interaction graph $\mathcal{G}_t$ makes neighborhood relations a first-class part of the policy.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/part3/section7/multi-agent_spatial_reasoning.pdf}
+    \caption{Multi-agent spatial reasoning tasks (top) and mechanisms (bottom). Top: (a) cooperative micromanagement under partial observation (SMAC~\cite{samvelyan2019smac}), (b) interactive motion forecasting (WOMD, nuScenes~\cite{ettinger2021womd,caesar2020nuscenes}), and (c) multi-robot patrol after agent loss~\cite{goeckner2024magec}. Bottom: (d) centralized critic (MADDPG, COMA~\cite{lowe2017maddpg,foerster2018coma}), (e) value decomposition (VDN, QMIX~\cite{sunehag2018vdn,rashid2018qmix}), (f) graph coordination, and (g) attention across agents and time. Graph and sequence architectures serve prediction or control and do not by themselves imply decentralized execution. Red marks the lost agent; dashed trajectories are candidate futures and dashed graph links are intermittent interactions. Examples are schematic.}
+    \label{fig:p3_s7_2_6_masr_formulation}
+\end{figure}
+
+
+\subsubsection{Task Definition}
+We cast cooperative multi-agent spatial reasoning as a graph-structured Dec-POMDP
+\begin{equation}
+\mathcal{M}=(\mathcal{V},\{\mathcal{A}_i\},\mathcal{S},P,R,\{\mathcal{O}_i\},O,\rho_0,\gamma,T),
+\end{equation}
+with a (possibly time-varying) interaction graph $\mathcal{G}_t=(\mathcal{V},\mathcal{E}_t)$ derived from state (\eg, proximity or visibility) or estimated locally.
+At time $t$, agent $i$ receives a partial egocentric observation $o_t^i\!\sim\!O(\cdot\mid s_t,i)$ (RGB-D, LiDAR, occupancy, kinematics) and optional neighbor messages $m_t^i$; we treat $\tilde{o}_t^i=(o_t^i,m_t^i,\mathcal{G}_t^i)$ as the input available to agent $i$, with any bandwidth cost included in $R$.
+Agents act with decentralized, history-dependent policies
+\begin{equation}
+a_t^i \sim \pi_\theta^i(\cdot \mid h_t^i),\quad
+h_t^i=\mathrm{upd}(h_{t-1}^i,\tilde{o}_t^i),
+\end{equation}
+the joint policy factorizes as $\pi_\theta(\mathbf a_t\mid \mathbf h_t)=\prod_i \pi_\theta^i(a_t^i\mid h_t^i)$, and the objective is
+\begin{equation}
+\max_{\theta}\ \mathbb{E}_{s_1\sim\rho_0,\ \pi_\theta,\ P}
+\Big[\sum_{t=1}^{T}\gamma^{t-1}R(s_t,\mathbf a_t)\Big],\qquad \mathbf a_t=(a_t^1,\dots,a_t^n).
+\end{equation}
+In predictive variants, auxiliary heads output multi-agent forecasts or spatial fields with confidences for planning or losses; these are \emph{not} environment actions.
+Settings differ along two further axes: online methods act in streaming settings under tight latency, whereas offline methods learn from logged interaction data (\eg, driving datasets) with batch updates and conservative behavior constraints; and centralized training with decentralized execution (CTDE) exploits global state to train joint value functions or critics while enforcing decentralized policies at test time~\cite{foerster2018coma,rashid2018qmix}, whereas fully decentralized learning never accesses global state, trading sample efficiency for deployability.
+
+
+\subsubsection{Methodology}
+Figure~\ref{fig:p3_s7_2_6_masr_formulation} summarizes the tasks above and the method families discussed below.
+
+\paragraph{Classical Paradigms.}
+Before learning, coordination relied on potential fields, formation keeping via graph Laplacians, and optimal multi-agent pathfinding with conflict-based search~\cite{Sharon2015CBS}, treated in §\ref{subsec:p3_s7_1_3}; these methods offer strong guarantees but struggle with perception noise, combinatorial scaling, and model mismatch in open worlds.
+
+\paragraph{CTDE and Value Decomposition.}
+Two lines made CTDE work.
+Centralized critics resolve credit assignment and non-stationarity while keeping execution decentralized: COMA uses a counterfactual baseline computed by a centralized critic for decentralized actors~\cite{foerster2018coma}, and MADDPG extends deterministic policy gradients with agent-specific centralized critics~\cite{lowe2017maddpg}.
+Value factorization instead decomposes the joint value: VDN sums per-agent utilities to approximate $Q_{\text{tot}}$ for cooperative tasks~\cite{sunehag2018vdn}, and QMIX generalizes the sum to a monotonic mixing network that preserves individual-global argmax consistency with more representational capacity~\cite{rashid2018qmix}.
+These approaches made MARL scalable on SMAC~\cite{samvelyan2019smac}, where the value-decomposition line dominated the early cooperative leaderboard while the centralized-critic methods anchored other regimes (MADDPG on the particle environments, COMA on StarCraft micromanagement); the monotonic constraint and homogeneous-role assumptions limit expressivity, as the challenges below detail.
+
+\paragraph{Graph Neural Networks for Coordination.}
+Graph-based MARL encodes agents as nodes and interactions as edges, and message passing or attention over the neighborhood learns role-specialized coordination~\cite{jiang2018gcrl}; this family improves sample efficiency and robustness under topology changes and communication limits, and MAGEC~\cite{goeckner2024magec} shows resilience to agent attrition and communication disturbance in multi-robot patrol by combining GNN encoders with PPO-style multi-agent optimization.
+Graph MARL targets a different axis from the leaderboard methods, robustness to topology disturbances rather than headline return, which exposes a gap between coordination-quality benchmarks (SMAC, MPE) and deployment-quality ones (multi-robot patrol, driving forecasting on WOMD and nuScenes) that standardized suites still under-represent.
+
+\paragraph{Sequence Models and Transformers.}
+Casting MARL as sequence modeling applies attention over multi-entity, multi-horizon contexts: the Multi-Agent Transformer~\cite{wen2022mat} maps the sequence of agents' observations to a sequence of actions with an encoder--decoder, using the multi-agent advantage decomposition to turn joint policy search into sequential decisions with linear complexity in the number of agents.
+Transformer controllers, often hybridized with graph layers, address long-range temporal and relational dependencies, unify perception and control, and support offline RL through trajectory modeling; learned memory alleviates partial observability, while quadratic attention and credit assignment over long horizons remain open.
+
+
+\subsubsection{Benchmarks}
+Benchmarks span two regimes: simulation suites that stress cooperation, partial observability, and communication learning under controlled physics and reward shaping, and real-world multi-agent trajectory datasets that test interactive prediction and motion forecasting at deployment scale.
+Table~\ref{tab:MASR_datasets} summarizes the most widely used resources.
+
+\begin{table}[t]
+\centering
+\caption{Common MASR benchmarks spanning simulated coordination to real-world multi-agent trajectory datasets.}
+\label{tab:MASR_datasets}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{3mm}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Dataset / Suite} & \textbf{Year} & \textbf{Scale} & \textbf{Action/Task Space} \\
+\midrule
+SMAC \cite{samvelyan2019smac} & 2019 &
+  22+ micro scenarios & Discrete, decentralized \\
+Multi-Agent Particle Env.\ (MPE) \cite{lowe2017maddpg} & 2017 &
+  10+ 2D templates & Continuous/discrete \\
+GRF \cite{kurach2020grf} & 2020 &
+  Dozens of tasks / full-game & Continuous/discrete  \\
+nuScenes \cite{caesar2020nuscenes} & 2020 &
+  1,000 scenes $\times$ \SI{20}{s} @ \SI{2}{Hz} &
+  Trajectory prediction \\
+WOMD \cite{ettinger2021womd} & 2021 &
+  $10^{5}$ scenes $\times$ \SI{20}{s} @ \SI{10}{Hz} &
+  Trajectory prediction \\
+Neural MMO \cite{mmo20aamas, MMO23nips} & 2020 &
+  Persistent worlds; $O(10^2)$ agents & Long-horizon survival \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Evaluation depends on whether the setting is control or prediction.
+Control is scored by mean episodic return $\mathbb{E}_{\pi}\!\left[\sum_t r_t\right]$, success or win rate, time-to-goal, collision and rule-violation rates, fairness or load-balancing indices for cooperative logistics, and communication overhead; prediction and planning are scored by spatial accuracy, from displacement errors over the forecast horizon (minADE, minFDE, miss rate on WOMD and nuScenes) to intersection-over-union between predicted and ground-truth occupied regions or trajectory tubes.
+
+
+\subsubsection{Challenges and Trends}
+
+Multi-agent spatial reasoning faces structural difficulties that distinguish it from the single-agent settings of §\ref{subsec:p3_s7_2_1}--§\ref{subsec:p3_s7_2_5}, organized here along four axes within the classical multi-agent paradigm.
+
+\paragraph{Credit Assignment under Partial Observability and Long Horizons.}
+The decentralized-execution constraint of the Dec-POMDP forces each agent to act on its own history $h^i_t$ alone, so relating a local action $a^i_t$ to a delayed team-level reward $r_T$ across a horizon $T$ produces an irreducibly noisy policy gradient.
+Counterfactual baselines such as COMA \cite{foerster2018coma} marginalize over alternative actions of agent $i$ while holding the rest of $\mathbf{a}_t$ fixed and reduce gradient variance substantially, but they still rely on a centralized critic that, at scale, becomes a moving target for itself.
+Value decomposition (VDN, QMIX) \cite{sunehag2018vdn,rashid2018qmix} side-steps the centralized critic by factorizing $Q_\mathrm{tot}$ across agents, yet the monotonicity constraint $\partial Q_\mathrm{tot}/\partial Q_i \ge 0$ that guarantees decentralized \emph{argmax} consistency cannot represent strictly non-monotonic cooperation games, a representational ceiling made explicit by the later non-monotonic factorizations QTRAN, weighted QMIX, and QPLEX, and visible on cooperative matrix games and SMAC's hardest scenarios~\cite{son2019qtran,rashid2020wqmix,wang2021qplex,samvelyan2019smac}.
+Under sparse reward shaping, policies trained against these signals tend to chase short-term spatial cues (``move toward the closest enemy'', ``follow the nearest teammate'') rather than team-level objectives.
+
+\paragraph{Scaling Laws of Joint Reasoning and Communication.}
+Sequence-model multi-agent Transformers and dense graph message passing both incur $\mathcal{O}(n^2)$ complexity in the number of agents, plus additional quadratic terms across temporal contexts, which collides with the real-time latency budgets of multi-robot \cite{goeckner2024magec} and autonomous-driving deployments \cite{ettinger2021womd,caesar2020nuscenes}.
+Sparse, learned interaction graphs are the natural mitigation, but they introduce their own credit-assignment difficulty: the edges $\mathcal{E}_t$ are themselves part of the learned policy, and gradients flowing through hard edge selection are biased or high-variance.
+Communication bandwidth is a related gap: in the formulation above any message $m^i_t$ should carry a cost that appears in $R$, but the standard simulators (SMAC \cite{samvelyan2019smac}, MPE \cite{lowe2017maddpg}, GRF \cite{kurach2020grf}) idealize communication as free and noiseless, leaving little benchmark surface against which to push bandwidth-aware coordination.
+
+\paragraph{Non-stationarity, Heterogeneous Roles, and Partner Generalization.}
+Even in fully cooperative settings, intra-team policies co-evolve, so from the perspective of any single agent the environment is non-stationary \cite{lowe2017maddpg}, the failure mode the centralized-critic family of MADDPG / COMA \cite{lowe2017maddpg,foerster2018coma} was introduced to address.
+The problem sharpens when teammates are heterogeneous, may drop out (the patrol-with-attrition setting of MAGEC \cite{goeckner2024magec}), or are drawn from an unseen partner distribution at evaluation time, the zero-shot coordination problem.
+Persistent open-world simulators such as Neural MMO \cite{mmo20aamas,MMO23nips} push along this axis with procedurally generated maps and long-horizon survival, but standardized protocols for partner generalization and role specialization remain immature compared with the single-agent supervised benchmarks of §\ref{subsec:p3_s7_2_1} and §\ref{subsec:p3_s7_2_3}.
+
+\paragraph{Ambiguous Spatial Semantics and Sim-to-Real Transfer.}
+The egocentric observations $o^i_t$ that drive decentralized policies are partial and noisy: occluded teammates, uncertain affordances, and depth-discontinuity-induced map errors distort both prediction and control.
+Driving benchmarks such as WOMD \cite{ettinger2021womd} and nuScenes \cite{caesar2020nuscenes} expose the prediction side of this gap, but the closed-loop control side (whether the same forecasts survive when an agent acts on its own predictions) is comparatively under-evaluated.
+The sim-to-real gap on multi-robot systems is wider still: perception noise and actuation latency interact non-linearly with the coordination signal in ways that simulators rarely model, and resilience under realistic communication disturbance and agent attrition has only recently received first-class benchmark coverage \cite{goeckner2024magec}.
+
+Three routes follow from these axes.
+Topology-aware sparse interaction (learned edges, hierarchical groupings, or attention masks parameterized by $\mathcal{G}_t$) preserves long-range coordination while scaling sub-quadratically, with the GNN+PPO patrol architecture of MAGEC \cite{goeckner2024magec} as an early instantiation and graph encoders combined with sequence-model attention over short temporal windows as the natural next step.
+The monotonicity ceiling of VDN / QMIX \cite{sunehag2018vdn,rashid2018qmix} can be relaxed by attention-weighted mixers, weighted projection schemes, or dueling-style decompositions that keep individual-global \emph{argmax} consistency while admitting non-monotonic cooperation, so that COMA-style counterfactual credit assignment \cite{foerster2018coma} no longer depends on a joint-action critic that becomes the bottleneck.
+And explicit objectives for agent attrition and communication disturbance \cite{goeckner2024magec}, paired with failure-centric curricula and hooks for formal verification, move resilience from an emergent property of training to a first-class objective, decisive in safety-critical multi-robot and driving deployments \cite{ettinger2021womd,caesar2020nuscenes} where worst-case performance dominates the deployment decision; closed-loop evaluation suites that jointly report team return, safety, calibration, and latency are the missing measurement substrate, and the benchmarks for partner generalization, bandwidth-aware coordination, and sim-to-real transfer that would play the role SMAC and GRF played for CTDE are still under construction.

@@ -1,0 +1,144 @@
+{
+  "figure": "9.14",
+  "sources": [
+    "assets/figures/figures/part4/section9/wearable_safety.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      2062
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/wearable_safety.pdf",
+  "assets": [
+    {
+      "file": "interfaces/glove-and-exoskeleton-user.png",
+      "title": "glove and exoskeleton user",
+      "panel": "interfaces",
+      "size": [
+        768,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        107.5,
+        217.5,
+        452.5,
+        677.5
+      ],
+      "box": [
+        53.75,
+        108.75,
+        226.25,
+        338.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        53.846,
+        108.718,
+        226.154,
+        338.462
+      ],
+      "placement_confidence": 0.9951
+    },
+    {
+      "file": "feedback/haptic-glove.png",
+      "title": "haptic glove",
+      "panel": "feedback",
+      "size": [
+        627,
+        561
+      ],
+      "source_index": 0,
+      "source_box": [
+        202.5,
+        1555.0,
+        430.0,
+        1757.5
+      ],
+      "box": [
+        101.25,
+        777.5,
+        215.0,
+        878.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        101.538,
+        776.599,
+        215.385,
+        878.462
+      ],
+      "placement_confidence": 0.9804
+    },
+    {
+      "file": "assistance/exoskeleton-user.png",
+      "title": "exoskeleton user",
+      "panel": "assistance",
+      "size": [
+        627,
+        688
+      ],
+      "source_index": 0,
+      "source_box": [
+        900.0,
+        1545.0,
+        1097.5,
+        1762.5
+      ],
+      "box": [
+        450.0,
+        772.5,
+        548.75,
+        881.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        450.769,
+        773.647,
+        547.692,
+        880.0
+      ],
+      "placement_confidence": 0.986
+    },
+    {
+      "file": "control/mobile-robot.png",
+      "title": "mobile robot",
+      "panel": "control",
+      "size": [
+        768,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1587.5,
+        1510.0,
+        1772.5,
+        1757.5
+      ],
+      "box": [
+        793.75,
+        755.0,
+        886.25,
+        878.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 3,
+      "pdf_box": [
+        793.846,
+        755.385,
+        886.154,
+        878.462
+      ],
+      "placement_confidence": 0.998
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

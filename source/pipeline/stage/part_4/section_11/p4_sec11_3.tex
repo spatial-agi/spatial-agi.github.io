@@ -1,0 +1,238 @@
+\section{Aerospace Engineering}
+\label{sec:p4_s11_3}
+
+\subsection{Introduction}
+\label{subsec:p4-sec11-3-introduction}
+
+Aerospace engineering designs and operates systems that work within and beyond the Earth's atmosphere, and its missions are spatial problems at their core.
+Rendezvous and docking (RVD), on-orbit servicing (OOS), debris inspection, and planetary landing and roving all depend on estimating three-dimensional structure and relative motion, often of a non-cooperative target that carries no markers, while communication delays rule out continuous ground control.
+Both spacecraft autonomy (\eg, guidance, navigation, and control) and human-in-the-loop operations (\eg, situational awareness for ground controllers) therefore rest on spatial perception and reasoning over geometry, relative motion, semantics, and physical constraints.
+
+Aerospace engineering is thus a demanding deployment target for the perception and reasoning capabilities surveyed in Part~\ref{part:3}: the detection, segmentation, pose-estimation, and 3D-reconstruction techniques of Chapter~\ref{chapter:3:sec:6} and the planning and decision-making methods of Chapter~\ref{sec:reasoning} are here specialized to non-cooperative orbital targets, extreme illumination, and long-horizon autonomy under radiation-hardened compute and communication latency.
+
+\subsection{System Overview}
+\label{subsec:p4-sec11-3-system-overview}
+The value of spatial intelligence in aerospace lies less in any single perception module than in the closed autonomy loop it serves (Figure~\ref{fig:p4_s11_3_overview}): onboard and ground-based sensing (monocular and multi-view cameras, LiDAR, telemetry) feeds a perception-reasoning-decision core, whose commands change the scene that is sensed next.
+The four pivotal tasks treated below are complementary stages of this loop.
+\textbf{Satellite pose estimation} supplies the geometric anchor, recovering where a target is and how it is oriented;
+\textbf{spacecraft detection, segmentation, and parts recognition} enrich that anchor with structural semantics, identifying what the target is and which functional components it exposes;
+\textbf{operator agents} lift this perceptual state into high-level reasoning, planning, and human-facing decision support; and
+\textbf{planetary robotics} closes the loop on the surface, coupling perception, localization, and planning into physical exploration and sampling.
+Table~\ref{tab:p4_s11_3_benchmarks}, after Task-4, consolidates representative benchmarks and metrics across all four.
+
+\begin{figure}[!th]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/aerospace-overview.pdf}
+    \caption{Aerospace spatial intelligence as a closed loop from onboard and ground sensing, through a perception--reasoning--decision core, to complementary pose, structural-semantic, planning, and surface-action outputs. Decisions may request additional observations; mission execution produces subsequent measurements. Pose and semantic estimates are information products rather than physical actions. Satellite views, point clouds, and rover imagery are schematic.}
+    \label{fig:p4_s11_3_overview}
+\end{figure}
+
+
+\subsection{Pivotal Task-1: Satellite Pose Estimation}
+\label{subsec:p4-sec11-3-pivotal-task-1-satellite-pose-estimation}
+
+Vision-based satellite pose estimation predicts the 6-DoF relative position and orientation of a target spacecraft from monocular or multi-view imagery; it is the geometric anchor of the autonomy loop and a prerequisite for rendezvous, docking, and on-orbit servicing.
+It specializes the 6-DoF estimation problem of Chapter~\ref{chapter:3:sec:6} to a hostile setting: harsh illumination, specular reflections, little texture, and a severe gap between the synthetic images models are trained on and the real images they meet in orbit.
+Figure~\ref{fig:p4_s11_3_pose} traces the pipeline from method to evaluation.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/part4/section11/aerospace-pose.pdf}
+    \caption{Satellite pose estimation: a monocular image of a non-cooperative target passes through alternative feature-based, regression, or hybrid pipelines to a target pose relative to the camera. Translation and relative-rotation errors compare estimated and reference poses; 2D reprojection compares detected image keypoints with projected model points. The satellite render and keypoint residuals are schematic; no numerical benchmark scores are implied.}
+    \label{fig:p4_s11_3_pose}
+\end{figure}
+
+Traditional methods relied on hand-engineered features (\eg, Harris corners, SIFT, SURF, and ORB) or model-based tracking~\cite{d2014poseestimationuncooperativespacecraft}, which are sensitive to noise and domain shift, and deep learning has since become dominant~\cite{proencca2020deepURSO}.
+The first deep models regress the pose directly with CNNs~\cite{garcia2021lspnet}, as in the Spacecraft Pose Network (SPN)~\cite{sharma2020neuralposeestimation}, a GoogLeNet-based network~\cite{phisannupawong2020vision}, and a VGG backbone~\cite{sonawani2020assistive}, trained on synthetic data and on laboratory imagery that simulates an on-orbit assembly operation.
+SPNv2~\cite{park2024robustspacecraftposeestimation} made multi-task learning the prevailing design: its shared encoder jointly predicts keypoints, a direct pose regression, and foreground segmentation, and it narrows the synthetic-to-real gap by online domain refinement, adapting the network's normalization layers on unlabeled target imagery at deployment.
+Hybrid pipelines estimate a coarse pose with a deep model and refine it with geometry-based optimization, keeping the final estimate physically consistent; early work classified discretized viewpoints with a CNN~\cite{sharma2018pose}, and the same coarse-to-fine pattern now extends to 6-DoF tracking with stereo event cameras~\cite{liu2025stereo}.
+
+SPEED~\cite{Sharma2019SpacecraftPE} and SPEED+~\cite{park2022speed+} are the standard testbeds (Table~\ref{tab:ssa_datasets}): both pair a large synthetic training set with laboratory hardware-in-the-loop test images, so that the synthetic-to-real gap is measured rather than assumed, and the Satellite Pose Estimation Challenge built on them fixed common training regimes, input formats, and metrics~\cite{kisantal2020satellitechallenge}.
+CubeSat-CDT~\cite{musallam2022cubesatcdt} adds trajectories of a symmetric target, so that temporal methods and pose ambiguity can be evaluated.
+Evaluation reports translation and rotation error as defined for SPEED~\cite{Sharma2019SpacecraftPE}, often with 2D reprojection or keypoint error~\cite{garcia2021lspnet}; results are given separately on synthetic and real test sets, and robustness to illumination, occlusion, and background clutter is probed explicitly~\cite{park2024robustspacecraftposeestimation}.
+
+\begin{table}[!ht]
+\centering
+\caption{Overview of existing pose estimation datasets. \textit{sim} refers to simulated images and \textit{lab} to laboratory data. SPARK's 11 classes are 10 spacecraft and one debris class.}
+\label{tab:ssa_datasets}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\begin{tabular}{L{0.17\textwidth} C{0.08\textwidth} C{0.11\textwidth} C{0.08\textwidth} C{0.13\textwidth} C{0.10\textwidth} C{0.11\textwidth} C{0.08\textwidth}}
+\toprule
+\multirow{2}{*}{\textbf{Dataset}} & \multicolumn{2}{c}{\textbf{Image}} & \multirow{2}{*}{\textbf{Classes}} & \multirow{2}{*}{\textbf{Resolution}}  & \multirow{2}{*}{\textbf{Rendering}} & \multirow{2}{*}{\textbf{Trajectories}} & \multirow{2}{*}{\textbf{Public}} \\
+\cmidrule(r){2-3}
+& \textbf{Synthetic} & \textbf{Non-synthetic} & & & & & \\
+\midrule
+SPARK~\cite{musallam2021spacecraft} & 150k & - & 11 & $1024 \times 1024$ & sim & \crossmark & \checkmark  \\
+SPEED~\cite{Sharma2019SpacecraftPE} & 15k & 305 & 1 & $1920 \times 1200$  & sim + lab & \crossmark & \checkmark \\
+SPEED+~\cite{park2022speed+} & 60k & 10k & 1 & $1920 \times 1200$ & sim + lab & \crossmark & \checkmark \\
+URSO~\cite{proencca2020deepURSO} & 15k & - & 2 & $1080 \times 960$ & sim & \crossmark & \checkmark \\
+SwissCube~\cite{hu2021widedepthrange} & 50k & - & 1 & $1024 \times 1024$ & sim & \checkmark & \checkmark \\
+Cygnus~\cite{black2021realCygnus} & 20k & 540 & 1 & $1024 \times 1024$ & sim + real  & \crossmark & \crossmark \\
+Prisma12K~\cite{park2019towardsPrisma12K} & 12k & - & 1 & $752 \times 580$ & sim  & \crossmark & \crossmark \\
+Prisma25~\cite{park2019towardsPrisma12K} & - & 25 & 1 & -NA- & real  & \crossmark & \crossmark \\
+CubeSat-CDT~\cite{musallam2022cubesatcdt} & 14k & 8k & 1 & $1440 \times 1080$ & sim + lab & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Pivotal Task-2: Spacecraft Detection, Segmentation, and Parts Recognition}
+\label{subsec:p4-sec11-3-pivotal-task-2-spacecraft-detection-segmentation-and-parts-recognition}
+
+Detection, segmentation, and parts recognition enrich the geometric anchor of Task-1 with structural semantics, telling what the target is and which functional components it exposes; proximity operations, on-orbit servicing, debris inspection, and collision avoidance all depend on this.
+The detection and segmentation machinery of Chapter~\ref{chapter:3:sec:6} meets the obstacles of Task-1 here (strong illumination variation, specular metallic surfaces, little texture) and, in addition, a scarcity of annotated real imagery.
+The stack runs from coarse presence to fine structure: detection localizes the spacecraft, segmentation delineates its silhouette, and parts recognition resolves its components, as Figure~\ref{fig:p4_s11_3_detection} illustrates.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/part4/section11/aerospace-detection.pdf}
+    \caption{The ``detect--segment--recognize'' perception stack for non-cooperative spacecraft: (1) object localization, (2) encoder--decoder silhouette segmentation, and (3) recognition of solar panels, the main body, antenna, and thruster. The same synthetic target is used throughout. The silhouette is an illustrative foreground mask, not a measured prediction; arrows indicate increasing semantic detail rather than requiring every implementation to run these stages serially.}
+    \label{fig:p4_s11_3_detection}
+\end{figure}
+
+Convolutional and transformer architectures now carry all three stages~\cite{shao2023satellite}.
+Detection is formulated as bounding-box or keypoint localization, with lightweight saliency-driven detectors for onboard compute, while encoder--decoder networks, pyramid attention modules, and hybrid 2D/3D architectures delineate silhouettes and component boundaries~\cite{zhao20223dnoncooperativespacecraft}.
+Parts recognition (solar panels, antennas, thrusters, reflectors) often adds semantic priors or 3D geometric reasoning to stay robust under occlusion.
+Two recent lines reduce the dependence on manual labels: prompt-guided Segment Anything (SAM) automates the annotation of space targets~\cite{zhang2024automaticspacetarget}, and diffusion priors support few-shot segmentation and adaptation to unseen spacecraft~\cite{li2025exploitingdiffusion}.
+
+The datasets in Table~\ref{tab:satellite_datasets_datasetwise} differ along a few axes.
+Labels range from whole-object masks (SwissCube~\cite{hu2021widedepthrange}, a pose dataset that also provides CubeSat masks, and SPARK~\cite{musallam2021spacecraft}) and object-level boxes (STAR-24K~\cite{zhang2022star24K}) to component labels, from a single component (the solar panels of the Tsinghua dataset~\cite{li2020noncooperativeobjectdetection}) up to nine (Spacecraft-DS~\cite{cao2024spacecraftds}).
+Most are rendered (Unity3D for SPARK, Unreal Engine~4 for UESD~\cite{zhao2023intelligentUESD}), whereas Spacecraft-DS uses hardware-in-the-loop capture to narrow the synthetic-to-real gap.
+The Adelaide dataset~\cite{dung2021spacecraftdataset} fixed the common three-component scheme (solar panel, main body, antenna), which Shao \etal~\cite{shao2023satellite} extended to video sequences rendered under three illumination conditions and several relative-motion modes; Zhao \etal~\cite{zhao20223dnoncooperativespacecraft} carried the same labels to 3D point clouds, and NCSTP~\cite{liu2025largencstp} raised the scale to 200,000 images of satellites, debris, and rocks.
+Detection is scored by mean average precision and segmentation by IoU, as in Chapter~\ref{chapter:3:sec:6}.
+
+\begin{table}[!ht]
+\centering
+\caption{Summary of satellite recognition datasets. `-' indicates that the exact quantity is unknown; the Zhao \etal dataset consists of point clouds rather than images.}
+\label{tab:satellite_datasets_datasetwise}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.5mm}
+\begin{tabular}{L{0.32\textwidth} C{0.12\textwidth} C{0.16\textwidth} C{0.16\textwidth} C{0.13\textwidth}}
+\toprule
+\textbf{Dataset}
+& \textbf{\#Images}
+& \textbf{\#Satellite Models}
+& \textbf{Segmentation Level}
+& \textbf{\#Components}   \\
+\midrule
+SwissCube~\cite{hu2021widedepthrange} & 50{,}000 & 1 & Global & 0  \\
+UESD~\cite{zhao2023intelligentUESD} & 10{,}000 & 33 & Component & 5 \\
+SPARK~\cite{musallam2021spacecraft} & 150{,}000 & 10 & Global & 0  \\
+STAR-24K~\cite{zhang2022star24K} & 24{,}451 & - & Global & - \\
+NCSTP~\cite{liu2025largencstp} & 200{,}000 & 16 & Component & 4 \\
+Tsinghua Satellite Dataset~\cite{li2020noncooperativeobjectdetection} & 18{,}381 & - & Component & 1 \\
+Adelaide Satellite Dataset~\cite{dung2021spacecraftdataset} & 3{,}117 & - & Component & 3   \\
+Satellite Component Video Dataset~\cite{shao2023satellite} & 32{,}402 & 13 & Component & 3  \\
+Spacecraft-DS~\cite{cao2024spacecraftds} & 1{,}602 & 2 & Component & 9 \\
+3D component point clouds (Zhao \etal)~\cite{zhao20223dnoncooperativespacecraft} & - & 33 & Component & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Pivotal Task-3: Operator Agents}
+\label{subsec:p4-sec11-3-pivotal-task-3-operator-agents}
+
+Operator agents lift the perceptual state recovered by Tasks 1 and 2 into reasoning, planning, and decision support, monitoring, interpreting, and controlling spacecraft systems to reduce operator workload and allow more autonomous mission execution.
+They are the aerospace instance of the planning and decision-making capabilities of Chapter~\ref{sec:reasoning}.
+Rooted in rule-based and model-driven architectures, their role has expanded from health monitoring and scheduling to high-level control in dialogue with human experts, a history that runs from symbolic planning through multi-agent coordination to foundation-model reasoning (Figure~\ref{fig:p4_s11_3_operator}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/part4/section11/aerospace-operator.pdf}
+    \caption{Three paradigms in the development of spacecraft operator agents: (1) symbolic planning and expert systems, (2) multi-agent coordination across a constellation, and (3) LLM- and RAG-based agents that combine telemetry with retrieved domain knowledge to propose natural-language plans. Inter-panel arrows indicate historical development, not required dataflow. In the rule example, observations and action outcomes support the goal; blue peer links and dashed ground links denote communication. Satellite imagery and rules are illustrative.}
+    \label{fig:p4_s11_3_operator}
+\end{figure}
+
+Early operator-agent architectures were built on symbolic reasoning, constraint-based planning, and expert-system principles.
+The Remote Agent Experiment~\cite{bernard1998designremoteagent} and early autonomous spacecraft-agent prototypes~\cite{pell1997autonomousspacecraftagent} demonstrated onboard planning, diagnosis, and execution in deep-space missions.
+As autonomy requirements grew, multi-agent planning frameworks~\cite{colby2016autonomousmultiagent,picard2021autonomousAgents} were introduced to coordinate heterogeneous spacecraft, manage distributed sensing, and schedule jointly across satellite constellations.
+Large language models changed the design: recent work~\cite{rodriguez2024languagemodelsspacecraft,carrasco2025visualoperatoragents} uses LLMs as operator agents that interpret telemetry, generate action plans, respond to anomalies, and follow natural-language mission specifications, and fine-tuned LLMs~\cite{zucchelli2025finetunellmSpace,carrasco2024finetuneAutonomousSpacecraft,foutter2024spacellava,carrasco2025llmAutonomousSpacecraft} have been tested in simulators such as Kerbal Space Program (KSP) for guidance, navigation, and control. To meet the interpretability and safety requirements of mission-critical decisions, other studies integrate retrieval-augmented generation (RAG)~\cite{belo2025languageragSpaceSpace}, domain knowledge graphs~\cite{powell2025questionknowledgegraphssatellite}, and structured symbolic reasoning, while hybrid architectures such as MCP-based multi-component agents~\cite{wu2025spacemind} combine small specialized models with foundation models to balance computational cost and reasoning depth, particularly for on-orbit servicing.
+
+Evaluation environments followed the same path.
+The Remote Agent Experiment~\cite{bernard1998designremoteagent} supplied real mission scenarios for onboard planning and diagnosis, and multi-agent planning studies~\cite{colby2016autonomousmultiagent} supply constellation-level scheduling, resource-allocation, and communication constraints.
+LLM agents are tested in simulation, chiefly in KSP~\cite{carrasco2025llmAutonomousSpacecraft} and in the KSPDG suite of SpaceGym~\cite{allen2023spacegym}, a set of multi-agent pursuit--evasion differential games built in the KSP engine.
+Classical agents are scored on planning optimality, constraint satisfaction, fault-diagnosis accuracy, and task completion; LLM agents are additionally judged on adherence to safety constraints, robustness to shifts in telemetry or mission context, and the interpretability of their decisions, which is why uncertainty estimation and human-in-the-loop verification recur throughout this work.
+
+
+\subsection{Pivotal Task-4: Planetary Robotics}
+\label{subsec:p4-sec11-3-pivotal-task-4-planetary-robotics}
+
+Planetary robotics closes the autonomy loop on the surface, coupling the perception, localization, and planning capabilities of Chapters~\ref{chapter:3:sec:6} and~\ref{sec:reasoning} into exploration, navigation, and sampling on the Moon, Mars, and small bodies.
+Unlike orbital operations, surface missions face uneven and unstructured terrain, delayed and limited communication, restricted sensing, and long stretches of autonomy without continuous human supervision.
+Figure~\ref{fig:p4_s11_3_planetary} layers the autonomy stack from perception and mapping through hierarchical decision-making to vision-guided manipulation.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part4/section11/aerospace-planetary.pdf}
+    \caption{The planetary-robotics autonomy stack: visual-odometry feature tracks and 3D terrain mapping support hierarchical decisions and vision-guided manipulation. Mission reasoning handles goals, task decomposition, resources, and replanning; path planning uses global/local maps and constraints; reactive locomotion handles obstacles, stability, and terrain adaptation. Solid downward links convey plans, and dashed upward links convey status. Manipulation yields samples, material observations, environment updates, and task progress. Scenes and map geometry are illustrative.}
+    \label{fig:p4_s11_3_planetary}
+\end{figure}
+
+Surface robots are organized around a mobility stack that couples perception, localization, mapping, planning, and control, with manipulation and science operations integrated at the task level.
+Feature tracking, visual odometry, and stereo reconstruction estimate rover motion and build local 3D models of rugged terrain, a capability flown since the Mars Exploration Rovers~\cite{maimone2007two}.
+The Enhanced AutoNav (ENav) system on NASA's Perseverance rover~\cite{toupet2025enav} builds onboard 3D terrain maps, evaluates hazards, and plans safe local traverses under severe computational and communication constraints, and it evaluated terrain over a large majority of the rover's traversed distance.
+This autonomy remains embedded in a human-supervised workflow: ground operators specify science goals and route segments, and onboard autonomy resolves local navigation and hazard avoidance.
+
+Research and analogue-testbed systems extend these capabilities to multiple robots, where cooperative visual navigation and shared mapping improve coverage and robustness~\cite{bahraini2021autonomousplanetaryrobots}.
+Hierarchical frameworks decompose behavior across temporal and functional layers, balancing reactive locomotion and obstacle avoidance with deliberative path planning, task scheduling, and mission-level reasoning under safety, power, communication, and resource constraints.
+
+Vision-guided manipulation supports sample collection and instrument deployment by coupling image-based pose estimation with position-controlled or compliant manipulation suited to contact with natural terrain~\cite{nickels2010visionplanetaryrobotics}.
+Learning-based methods are increasingly explored for terrain classification, slip prediction, and traversability estimation, but model-based perception, localization, and planning remain central: safety requirements are stringent, mission-representative labeled data is scarce, onboard computation is constrained, and purely data-driven methods are hard to validate for mission-critical use.
+Evaluation therefore combines physics-based simulators, mission-derived datasets, and laboratory or analogue-field testbeds that model illumination, dust, wheel--soil interaction, and communication delay, and it reports localization accuracy, map quality, hazard-aware traversal, task completion, and energy use.
+
+\begin{table}[!ht]
+\centering
+\caption{Representative benchmarks and headline metrics for the four pivotal aerospace tasks. The headline column names the standard evaluation axis, not a single best score.}
+\label{tab:p4_s11_3_benchmarks}
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\begin{tabular}{L{0.18\textwidth} L{0.24\textwidth} L{0.30\textwidth} L{0.20\textwidth}}
+\toprule
+\textbf{Pivotal task} & \textbf{Benchmark} & \textbf{Representative method / system} & \textbf{Headline metric} \\
+\midrule
+Pose estimation & SPEED / SPEED+~\cite{Sharma2019SpacecraftPE,park2022speed+} & Multi-task / domain-adaptive CNN~\cite{park2024robustspacecraftposeestimation} & Translation + rotation error \\
+Pose estimation & CubeSat-CDT~\cite{musallam2022cubesatcdt} & Cross-domain regression~\cite{garcia2021lspnet} & 2D reprojection error \\
+Detection \& parts & Adelaide / SPARK~\cite{dung2021spacecraftdataset,musallam2021spacecraft} & Encoder-decoder segmentation~\cite{zhao20223dnoncooperativespacecraft} & mAP \\
+Detection \& parts & NCSTP~\cite{liu2025largencstp} & SAM-based prompt segmentation~\cite{zhang2024automaticspacetarget} & mAP / IoU \\
+Operator agents & KSPDG / SpaceGym~\cite{allen2023spacegym} & Fine-tuned LLM agent~\cite{carrasco2025llmAutonomousSpacecraft} & Maneuver success rate \\
+Operator agents & Deep Space 1 flight experiment~\cite{bernard1998designremoteagent} & Symbolic planner / diagnosis~\cite{pell1997autonomousspacecraftagent} & Task completion \\
+Planetary robotics & Mars rover traverses~\cite{toupet2025enav} & Visual odometry~\cite{maimone2007two} & Localization drift \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Established Tools and Systems}
+\label{subsec:p4-sec11-3-established-tools-and-systems}
+
+\textbf{Simulators and rendering engines.}
+Because real orbital imagery is scarce and flight opportunities are expensive, most perception research is trained and validated in simulation.
+General-purpose game and physics engines have been repurposed as space testbeds: Unity3D and Blender drive the synthetic rendering pipelines behind the SPARK~\cite{musallam2021spacecraft} and satellite-component~\cite{shao2023satellite} datasets, while the Kerbal Space Program\footnote{\url{https://www.kerbalspaceprogram.com/}} engine underpins LLM-agent guidance-navigation-control studies~\cite{carrasco2025llmAutonomousSpacecraft}.
+For decision-making, SpaceGym\footnote{\url{https://github.com/mit-ll/spacegym-kspdg}}~\cite{allen2023spacegym} packages its OrbitDefender2D gridworld games and the KSPDG suite as standardized non-cooperative game environments, and robotics simulators such as NVIDIA Isaac Sim\footnote{\url{https://developer.nvidia.com/isaac/sim}} and Gazebo\footnote{\url{https://gazebosim.org/}} provide the wheel-soil and sensor models used to prototype planetary-rover autonomy.
+
+\textbf{Public challenges.}
+The Satellite Pose Estimation Challenge~\cite{kisantal2020satellitechallenge}, run by Stanford's Space Rendezvous Laboratory and the European Space Agency on its Kelvins platform\footnote{\url{https://kelvins.esa.int/}}, set the protocols that pose estimation now follows, and its SPEED+ edition~\cite{park2022speed+} made the synthetic-to-real gap the explicit test.
+
+\textbf{Flight-proven autonomy systems.}
+The NASA Remote Agent~\cite{bernard1998designremoteagent}, flown on Deep Space 1, remains the canonical reference for onboard planning, diagnosis, and execution.
+On planetary surfaces, rover visual odometry~\cite{maimone2007two} and the Enhanced AutoNav stack flown on Perseverance~\cite{toupet2025enav} set the operational baseline against which hierarchical-autonomy and learning-augmented methods are measured, and current work pairs such flight-qualified stacks with foundation-model agents~\cite{wu2025spacemind}.
+
+
+\subsection{Challenges}
+\label{subsec:p4-sec11-3-challenges}
+Orbital and planetary environments differ from terrestrial ones in ways that terrestrial data does not cover, and the open problems follow the pipeline: the data gap that limits perception, the compute budget that limits deployment, and the trustworthiness requirements that limit certification.
+
+\paragraph{The Unresolved Sim-to-Real Domain Gap.}
+Autonomous space systems, such as those performing on-orbit servicing or debris removal, are trained largely on simulated data, and simulators do not reproduce the high-dynamic-range lighting of orbit (\eg, solar glare and deep shadow), intricate material reflections, or sensor degradation such as radiation noise.
+Models consequently lose accuracy on real imagery, as the hardware-in-the-loop test sets of the pose-estimation challenges show~\cite{kisantal2020satellitechallenge,park2022speed+}, which keeps domain adaptation and domain randomization central to the field.
+
+\paragraph{Computational Constraints and Real-time Operation.}
+Spacecraft hardware is bound by size, weight, and power (SWaP) limits and must use radiation-hardened processors that are far less powerful than ground-based GPUs.
+Running 6-DoF pose estimation or SLAM at the update rates that proximity operations require on such computers calls for model compression, lightweight architectures, and hardware-aware optimization that preserve accuracy while cutting latency and power consumption.
+
+\paragraph{Assuring Trustworthiness and Robustness in Extreme Conditions.}
+Space missions are safety-critical, so perception must hold up under extreme visual ambiguity, such as estimating the pose of highly symmetric targets like CubeSats~\cite{musallam2022cubesatcdt} or navigating where standard reference signals are unavailable.
+Deployed systems also explain little about their own failures, so operators cannot easily trace a perception anomaly (\eg, a pose error caused by sensor saturation) to its root cause in time to intervene.
+Formal verification and interpretable models that guarantee predictable behavior across operating extremes remain open problems.

@@ -1,0 +1,221 @@
+\section{GeoAI}
+\label{sec:p4_s11_2}
+
+
+\subsection{Introduction}
+\label{subsec:p4-sec11-2-introduction}
+Geospatial artificial intelligence (GeoAI) applies machine learning to geographic data (satellite and UAV imagery, LiDAR, GNSS traces, and IoT sensor streams) to model and act on processes that unfold over terrain, cities, and the Earth system.
+It makes the geospatial domain a large-scale deployment target for the perception and scene-understanding capabilities surveyed in Part~\ref{part:3}: the detection, segmentation, and remote-sensing techniques of Chapter~\ref{chapter:3:sec:6} (and the aerial and remote-sensing setting of Section~\ref{sec:p4_s9_4}) are here specialized to Earth-observation data and decision workflows at planetary scale.
+
+\subsection{System Overview}
+\label{subsec:p4-sec11-2-system-overview}
+A GeoAI workflow couples heterogeneous geospatial data to models that turn raw observations into spatially explicit decisions (Figure~\ref{fig:p4_s11_2_overview}).
+Following the application taxonomy of the review by Boutayeb \etal~\cite{boutayeb2024geoai}, we treat six domains as pivotal tasks: precision agriculture, the urban built environment, environmental monitoring, water resources, disaster management, and public health.
+The six share their inputs, largely the free Sentinel, Landsat, and MODIS archives, and until recently they shared a modeling pattern as well: a task-specific supervised network or tree ensemble trained for one region and one target, which the foundation models at the end of the section are beginning to replace.
+Table~\ref{tab:p4_s11_2_benchmarks} samples representative data sources, methods, and reported results across the six.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/geoai-overview.pdf}
+    \caption{GeoAI as a data-to-decision loop: satellite, UAV, LiDAR, GNSS, and IoT observations feed alternative or combined CNN, transformer, and ensemble models, whose outputs serve six application domains and act back, through planning and policy, on the sensed world.}
+    \label{fig:p4_s11_2_overview}
+\end{figure}
+
+\subsection{Pivotal Task-1: Precision Agriculture}
+\label{subsec:p4-sec11-2-pivotal-task-1-precision-agriculture}
+Precision agriculture tailors irrigation, fertilization, and pest control to the conditions of each field, or each plant, instead of managing a field uniformly.
+GeoAI supplies the maps and predictions this requires through the complementary mapping, yield-estimation, and irrigation tasks of Figure~\ref{fig:p4_s11_2_agriculture}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/geoai-agriculture.pdf}
+    \caption{Three GeoAI tasks for precision agriculture: (a) crop mapping, (b) yield and leaf-area-index (LAI) estimation, and (c) variable-rate precision irrigation. Maps and fitted points are schematic.}
+    \label{fig:p4_s11_2_agriculture}
+\end{figure}
+
+\textbf{Crops Mapping.} Crop mapping turns a time series of satellite or UAV imagery into a per-pixel crop-type label, and the accuracy gains in recent work track the richness of the temporal signal.
+Han \etal~\cite{han2023spatio} combine a ResNet feature extractor with cross-attention and spatio-temporal self-attention over Sentinel-1 SAR series, reaching 96\% overall accuracy on the Brandenburg benchmark.
+3D convolutional networks over Sentinel-2~\cite{gallo2023season} and Landsat~\cite{MOHAMMADI2023272} series treat time as a third convolution axis, and fusing Sentinel-1 SAR with Sentinel-2 optical data maps rice phenological stages within the season~\cite{tiwari2024automated}.
+Multi-season and SAR--optical inputs consistently beat single-date classification, in part because SAR sees through the cloud that interrupts optical series.
+At the other end of the resolution range, UAV imagery supports row-level segmentation, where U-Net outperforms LinkNet and PSPNet on sugarcane crop lines~\cite{ribeiro2024automated}.
+
+\textbf{Yields Prediction.} Yield prediction regresses a continuous productivity estimate from the same imagery, and the usual design has two stages: extract a vegetation index or phenotype, then regress.
+Random forests over Sentinel-2, RTK GPS, and LiDAR variables predict cotton yield~\cite{carneiro2023soil}, and an ensemble over Landsat-8 NDVI and agro-meteorological data reports R$^2$ 0.99 for tea yield on its test set~\cite{ramzan2023multimodal}.
+UAV imagery earns its extra cost where the target is a fine-grained phenotype: Mask R-CNN extracts wheat-spike phenotypes that feed a yield regressor~\cite{PengWZYLRLSX23}, and a linear mixed-effect model on fixed-wing UAV multispectral imagery estimates rice leaf-area index and biomass~\cite{rs11111371}.
+
+\textbf{Precision Irrigation.} Irrigation closes the loop, turning maps and estimates into water-delivery decisions~\cite{AbioyeAMBIROOR20}.
+One line of work detects irrigation infrastructure at scale, such as center-pivot systems in Sentinel-2 series with Mask R-CNN~\cite{AlbuquerqueCSLB21} or irrigation types in NAIP aerial images with a U-Net and transfer learning~\cite{RaeiANSPA22}.
+The other controls water locally: a drone system fuses RGB, thermal-infrared, and GPS data to find the driest zones of a field and sets valve flow with a random forest~\cite{JalajamonyNMF23}.
+
+\subsection{Pivotal Task-2: Urban Planning, Logistics, and Transport}
+\label{subsec:p4-sec11-2-pivotal-task-2-urban-planning-logistics-and-transport}
+The second task turns GeoAI on the built environment. Figure~\ref{fig:p4_s11_2_urban} presents five complementary tasks on a shared urban context, from built structure and temporal change to services, transport, and green infrastructure.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/geoai-urban.pdf}
+    \caption{GeoAI for the built environment: (a) building and land-use extraction from overhead and street-view imagery; (b) temporal urban change; (c) sensor-supported digital twins and operational services; (d) mobility, routing, and infrastructure analysis; and (e) canopy, parks, green roofs, and biosecurity monitoring. Tasks are complementary rather than a mandatory serial pipeline. Shared map geometry, temporal trends, and the city illustration are schematic; arrows denote time, data flow, or travel direction within the corresponding panels.}
+    \label{fig:p4_s11_2_urban}
+\end{figure}
+
+\textbf{Urban Data Extraction.} Land use and built form are classified from overhead and street-level imagery, and fusing the two views resolves ambiguities that neither settles alone.
+A fine-tuned EfficientNet classifies the 21 land-use classes of the UC Merced set~\cite{AlemK22}, while a dual-branch network that pairs dilated convolutions on Google Earth imagery with an attention-based multi-view network on Street View detects informal urban villages~\cite{ChenFNYGYGL22}.
+
+\textbf{Urban Dynamics.} Temporal models capture how urban form changes over time.
+An LSTM with attention simulates urban densification from land-use rasters of 2000, 2010, and 2020~\cite{el2023long}, and a pix2pix GAN predicts land-use and land-cover change by conditioning Landsat imagery on planning indicators~\cite{SunMFWH21}.
+A static quantity such as urban solar exposure needs no temporal model; a feed-forward network on building geometry, occupancy, and orientation suffices~\cite{tehrani2024predicting}.
+
+\textbf{Smart Cities.} The service layer turns these representations into live operation: video georeferencing and small-object detection inside an urban digital twin~\cite{HuLYHCYLY23}, LSTM parking-occupancy prediction served to a mobile application~\cite{CanliT21}, and detection of commercial signage in Street View imagery to map urban commerce~\cite{YeWKXC19}.
+
+\textbf{Logistics and Transport.} Movement through the city splits into two problems with different tools.
+Flow forecasting is temporal: bus arrival times are predicted from a traffic-density matrix with recurrent and convolutional models~\cite{PanovskiZ20}, a hybrid GRU--LSTM forecasts traffic from OpenStreetMap and GIS features~\cite{ZafarHSCM22}, IODRNN decomposes its outputs incrementally to remove the lag in GNSS-based forecasts~\cite{LuMPXC24}, and itinerary recommendation adds a denoising autoencoder with collaborative learning~\cite{ChenZCWC20}.
+Infrastructure mapping is a segmentation problem: open LiDAR point clouds inventory rockfall-prone road slopes~\cite{RuaNAM23}, SegNet on RapidEye imagery updates rural road networks~\cite{kearney2020maintaining}, and U-Net with PointNet++ performs panoptic segmentation of railway environments from multimodal LiDAR~\cite{grandio2023multimodal}.
+
+\textbf{Green Infrastructure and Bio Security.} Vegetation monitoring moves from coverage to function to threat, and each step demands finer spatial and spectral resolution than the last.
+A semi-supervised DeepLabv3+ maps urban tree cover nationwide from high-resolution satellite imagery~\cite{guo2023nationwide}; a Faster R-CNN tree inventory identifies seven canopy species and, through geographically weighted regression, their effect on land-surface temperature~\cite{das2022geoai}; and biosecurity surveillance of invasive forest pests uses multispectral aerial imagery, where an instance-segmentation model reached an F1-score of 79\% against 58\% for a tile classifier~\cite{carnegie2023airborne}.
+
+\subsection{Pivotal Task-3: Environmental Monitoring}
+\label{subsec:p4-sec11-2-pivotal-task-3-environmental-monitoring}
+The third task observes the Earth system itself, across the three fronts of Figure~\ref{fig:p4_s11_2_environment}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/geoai-environment.pdf}
+    \caption{Three parallel GeoAI tasks for environmental monitoring: (a) climate and vegetation (NDVI/LAI trends), (b) atmospheric chemistry (NO$_2$, SO$_2$, aerosols), and (c) environmental impact of land-cover change. Maps and trends are illustrative, not measured changes.}
+    \label{fig:p4_s11_2_environment}
+\end{figure}
+
+\textbf{Climate Change.} Long-term land-surface change is read mostly through vegetation records spanning decades of Landsat, Sentinel, and MODIS data, and the methods trade spatial detail against record length.
+Lou \etal~\cite{lou2023deep} map land use and land cover on Google Earth Engine with a deep network and find rapid greening of the Qinghai--Tibet Plateau from 1988 to 2018.
+Deep-learning-enhanced spatiotemporal fusion reconstructs long-term NDVI in the Danjiang River Basin~\cite{wang2023applying}, random forests retrieve vegetation phenology from MODIS more accurately than rule-based methods~\cite{XinLLLZ20}, and a bidirectional LSTM produces the GLASS 250\,m leaf-area-index product (version 6) from MODIS reflectance~\cite{ma2022development}.
+
+\textbf{Atmospheric Chemistry.} Atmospheric composition is retrieved by learning the map from satellite radiances and meteorology to ground-measured concentrations.
+Nitrogen dioxide is the most studied target, estimated hourly from Sentinel-5P, meteorology, and sensor data with XGBoost~\cite{kim2021importance} and daily across China with a random forest and K-means clustering over OMI data~\cite{dou2021estimates}.
+A convolutional autoencoder coupled to WRF-Chem models volcanic SO$_2$ dispersion~\cite{opio2023modeling}, AQNet fuses Sentinel-2 and Sentinel-5P to predict NO$_2$, O$_3$, and PM$_{10}$~\cite{rowley2023predicting}, an LSTM forecasts five pollutants from ground-station series~\cite{seng2021spatiotemporal}, and a deep network derives aerosol absorption from the OMI ultraviolet aerosol index, validated against AERONET~\cite{SunVVL21}.
+
+\textbf{Environmental Impacts.} Impact assessment links land-use change to ecological outcomes, and it is judged not only on accuracy but on whether it can name the responsible driver, which is why explainability recurs here.
+Neural networks on multi-temporal Landsat land-cover maps assess urban ecological quality~\cite{alqadhi2024applying}; multiscale geographically weighted regression, random forests, and SHAP relate agricultural land to PM$_{2.5}$ concentrations~\cite{gianquintieri2024implementation}; and interpretable ensembles measure the effect of climate change on agricultural land suitability~\cite{ShevchenkoLTBGKNSKM24}.
+
+\subsection{Pivotal Task-4: Water Resources Management and Precipitation Forecasting}
+\label{subsec:p4-sec11-2-pivotal-task-4-water-resources-management-and-precipitation-forecasting}
+The fourth task addresses four complementary aspects of water resources in Figure~\ref{fig:p4_s11_2_water}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/geoai-water.pdf}
+    \caption{Four GeoAI tasks for water resources: (a) surface hydrology, (b) groundwater from GRACE storage anomalies and auxiliary data, (c) water quality calibrated against in-situ samples, and (d) radar-based precipitation nowcasting. The panels are parallel tasks, not successive stages of the water cycle; all values are schematic.}
+    \label{fig:p4_s11_2_water}
+\end{figure}
+
+\textbf{Hydrological Modeling.} Convolutional models dominate local surface geometry.
+Space-time image velocimetry on UAV video estimates river velocity and discharge, validated with LiDAR-derived terrain~\cite{islam2023mutual}; U-Net extracts drainage ditches from LiDAR in low-relief terrain~\cite{du2024drainage}; quadtree decomposition with multi-scale CNNs extracts coastlines at lower cost than FCN and U-Net baselines~\cite{sun2024quadtree}; and a reflectance-transformation CNN maps bathymetry from Landsat and Sentinel-2 imagery~\cite{ChanZX0WA24}.
+At basin scale, where streamflow depends on several precipitation products (MODIS, CHIRPS, MSWEP), super-ensembles that weight multiple regressors take over~\cite{wegayehu2023super}.
+
+\textbf{Groundwater.} No optical sensor sees the water table, so groundwater models work from proxy variables and gravimetry.
+Static delineation of recharge or shallow-groundwater zones uses tree ensembles and deep networks over hydrogeological and remote-sensing variables~\cite{al2024hybrid,sahour2022identification,nhu2024new}.
+GRACE/GRACE-FO measures total-water-storage changes; isolating groundwater requires auxiliary estimates of other water-storage components. Storage forecasting uses these gravity-derived anomalies, which a CNN--LSTM forecasts with an RMSE of 44.92\,mm/month~\cite{seo2021predicting} and which machine-learning regressors downscale to catchment resolution~\cite{sabzehee2023enhancing}.
+
+\textbf{Water Quality.} Water quality is regressed from spectral reflectance against in-situ samples, and accuracy follows the optical signature of the constituent.
+Pigments with a clear signature are tractable: fusion of data and classifiers through higher-order SVD estimates chlorophyll-a in Lake Nicaragua~\cite{sun2021ensemble}, and on UAV multispectral and hyperspectral data of a karst wetland, transformers and gradient boosting predict phycocyanin, dissolved oxygen, and chlorophyll-a, interpreted with SHAP~\cite{yang2023monitoring}.
+Dissolved nutrients remain harder because their optical fingerprint is faint, whether estimated from MODIS with a spatiotemporal deep belief network~\cite{wu2022spatiotemporal} or from Landsat-8 with an ANN~\cite{vakili2020determination}.
+Optical water types themselves can be classified from Sentinel-2 with an SVM~\cite{dasilva2021machine}.
+
+\textbf{Precipitation Forecasting.} Precipitation nowcasting predicts the next radar frames from the current sequence.
+HST-AFP fuses radar echoes with weather forecasts through attention~\cite{niu2023heterogeneous}, STIN adds humidity, wind, and temperature~\cite{jin2023spatiotemporal}, and PFST-LSTM adds pseudo-flow estimation to follow echo motion~\cite{luo2020pfst}; at longer range, multi-model ensembles post-process numerical weather prediction~\cite{sengoz2023machine}.
+
+\subsection{Pivotal Task-5: Disaster Management}
+\label{subsec:p4-sec11-2-pivotal-task-5-disaster-management}
+The fifth task covers the disaster lifecycle (hazard or susceptibility mapping, event observation, and damage assessment) for earthquakes, floods, and forest fires, arranged as a grid in Figure~\ref{fig:p4_s11_2_disaster}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/geoai-disaster.pdf}
+    \caption{GeoAI for disaster management as a lifecycle-by-hazard grid: earthquakes, floods, and forest fires (columns) across hazard or susceptibility mapping, event observation, and post-event assessment (rows). All maps and severity scales are schematic.}
+    \label{fig:p4_s11_2_disaster}
+\end{figure}
+
+\textbf{Earthquakes.} For earthquakes the lifecycle includes hazard mapping, event-related observation, and damage assessment; these tasks should not be equated with reliable prediction of an exact earthquake.
+A CNN over elevation, vector, and attribute data maps seismic risk in north-eastern India~\cite{jena2021earthquake}, and encoder--decoder LSTMs~\cite{xiong2022gnss} and neural networks~\cite{hafeez2021possible} detect ionospheric anomalies in GNSS total-electron-content data around events such as the 2019 Pakistan earthquake.
+After the event, LiDAR, orthophotos, and multispectral imagery estimate building vulnerability~\cite{torres2019integration}, and change detection on multi-temporal photogrammetric point clouds classifies structural damage into grades~\cite{zahs2023classification}.
+
+\textbf{Floods.} Floods lean on radar.
+Forecasting fuses meteorological, hydrological, and crowdsourced data, either comparing classical learners under cross-validation~\cite{PuttinaovaratH20} or with a ConvLSTM that learns spatial rainfall patterns and their temporal dynamics jointly~\cite{MoishinDPRA21}.
+Inundation mapping falls to SAR segmentation, which sees through cloud, as in an attention-augmented U-Net on dual-polarized Sentinel-1 imagery~\cite{LiWCWJG22}.
+
+\textbf{Forest Fires.} Fire has the fullest lifecycle.
+Susceptibility is predicted from drone imagery with temperature and humidity sensing~\cite{rathod2023multipurpose}, or from elevation, vegetation indices, and hydrometeorology with a neuro-fuzzy system tuned by an artificial bee colony~\cite{PHAM2024102392}.
+Detection is trained on drone RGB and infrared imagery such as the FLAME 2 dataset~\cite{ChenHWOARFCRW22} and can be distributed across sites with federated learning~\cite{SiddiqueADBAA24}.
+Burn scars are delineated afterward by a U-Net on PlanetScope RGB and near-infrared imagery, with F1 up to 0.94~\cite{ChoPKKLS23}.
+
+\subsection{Pivotal Task-6: Healthcare}
+\label{subsec:p4-sec11-2-pivotal-task-6-healthcare}
+The sixth task brings GeoAI to public health, where spatial signals couple disease and environment (Figure~\ref{fig:p4_s11_2_health}).
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/geoai-health.pdf}
+    \caption{Three parallel GeoAI tasks for public health: (a) disease surveillance and incidence forecasting, (b) spatial spread modeled by graph message passing over regions, and (c) pollution exposure assessment. The panels are not causally linked; maps and intervals are illustrative, not surveillance results.}
+    \label{fig:p4_s11_2_health}
+\end{figure}
+
+\textbf{Infectious Diseases and Toxins.} Disease surveillance gains most from leading indicators, since search queries and geotagged posts surface an outbreak before clinical reporting does.
+Influenza forecasting combines CDC surveillance data with Google Flu Trends and climate in a multi-stage LSTM~\cite{DBLP:journals/access/VennaTGRMN19}, with geotagged Twitter posts in a neural network tuned by an artificial-tree algorithm~\cite{hu2018prediction}, and with search frequencies and health records in a network-based regression that exploits synchrony across U.S. states~\cite{lu2019improved}; dengue in China is forecast from climate and weekly case counts, with support-vector regression performing best~\cite{guo2017developing}.
+FINDER shows the payoff most clearly: it geolocates web-search signals of foodborne illness to restaurants, and the restaurants it flagged were three times more likely to pose food-safety risks than those found by complaint-based inspection~\cite{SadilekCDMSBJRG18}.
+
+\textbf{Pandemics.} A pandemic shifts the question to transmission across geography.
+Geospatial similarity learning predicts respiratory-virus spread in new regions~\cite{ZhaoHJCWWYR23}, and spatio-temporal regression tracks COVID-19 in Brazil~\cite{da2021covid}.
+Detection networks catch what an epidemic curve misses: gatherings of people and vehicles in satellite imagery~\cite{atek2022geospatial}, proximity between re-identified individuals in video~\cite{ZhangLCZJ23}, and the drop in PM$_{2.5}$ during lockdown, measured from MODIS and Sentinel-5P~\cite{TanLGJ22}.
+
+\textbf{Public Health.} Chronic exposure links where people are to what they breathe.
+On the mobility side, mobile health uses wireless devices for clinical and public-health purposes~\cite{kahn2010mobile}, and the MD2K center turns mobile-sensor streams into markers of smoking, craving, and stress~\cite{KumarAAaBCCCEEG15}.
+On the pollutant side, a geographically weighted gradient-boosting machine~\cite{zhan2017spatiotemporal} and a neural network over MODIS aerosol optical depth and land-use features~\cite{di2016assessing} map daily PM$_{2.5}$ across China and the United States.
+Exposure assessment is only as sharp as the coarser of the two spatial scales.
+
+\begin{table}[!th]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative data sources and methods for GeoAI, one or two per pivotal task. Numbers are each paper's own test set and are not comparable across rows; cells without a number name the metric the paper reports.}
+\label{tab:p4_s11_2_benchmarks}
+\begin{tabular}{L{0.20\textwidth} L{0.24\textwidth} L{0.28\textwidth} L{0.20\textwidth}}
+\toprule
+\textbf{Pivotal task} & \textbf{Representative data source} & \textbf{Representative method} & \textbf{Headline metric} \\
+\midrule
+Precision agriculture & Sentinel-1 SAR & STMA~\cite{han2023spatio} & 96\% OA (Brandenburg) \\
+Precision agriculture & Landsat-8 NDVI + meteorology & Ensemble~\cite{ramzan2023multimodal} & R$^2$ 0.99 \\
+Urban planning & UC Merced land use & EfficientNet (fine-tuned)~\cite{AlemK22} & accuracy \\
+Environmental monitoring & Landsat, 1988--2018 & Deep LUCC mapping on GEE~\cite{lou2023deep} & LUCC accuracy \\
+Water resources & GRACE / precipitation & CNN--LSTM~\cite{seo2021predicting} & RMSE 44.92\,mm/month \\
+Disaster (flood) & Sentinel-1 SAR & Attention U-Net~\cite{LiWCWJG22} & precision / recall / F1 \\
+Disaster (forest fire) & PlanetScope (RGB+NIR) & U-Net~\cite{ChoPKKLS23} & F1 0.94 \\
+Healthcare & CDC / Google Flu / climate & Multi-stage LSTM~\cite{DBLP:journals/access/VennaTGRMN19} & RMSE / MAPE \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Established Tools and Systems}
+\label{subsec:p4-sec11-2-established-tools-and-systems}
+
+\textbf{Cloud geospatial platforms} provide planetary-scale storage and analysis next to the data. Google Earth Engine\footnote{\url{https://earthengine.google.com/}} offers a petabyte-scale archive of satellite imagery with server-side analysis, Microsoft's Planetary Computer\footnote{\url{https://planetarycomputer.microsoft.com/}} pairs open Earth-observation data with a Python/STAC API, and commercial providers such as Esri ArcGIS\footnote{\url{https://www.arcgis.com/}} and Descartes Labs\footnote{\url{https://www.descarteslabs.com/}} deliver hosted GeoAI pipelines for enterprise and government users.
+
+\textbf{Open-source GIS and ML toolkits} carry the modeling layer. QGIS\footnote{\url{https://qgis.org/}} is the de facto open desktop GIS, while deep-learning libraries tailored to raster geospatial data, such as TorchGeo\footnote{\url{https://github.com/microsoft/torchgeo}} and Raster Vision\footnote{\url{https://rastervision.io/}}, bridge PyTorch to satellite imagery, and Sentinel Hub\footnote{\url{https://www.sentinel-hub.com/}} streamlines on-demand access and processing of Copernicus archives.
+
+\textbf{Open Earth-observation programmes} supply the data foundation: the European Copernicus programme's Sentinel constellation and NASA/USGS Landsat provide free, calibrated, multi-decadal imagery, complemented by gravimetric (GRACE/GRACE-FO), atmospheric (OMI, Sentinel-5P), and high-resolution commercial (WorldView, PlanetScope) sources that recur throughout the methods above.
+
+\subsection{Toward Geospatial Foundation Models and GeoLLMs}
+\label{subsec:p4-sec11-2-toward-geospatial-foundation-models-and-geollms}
+Almost every method surveyed above is a task-specific supervised model: a CNN, random forest, LSTM, or GAN trained from scratch for one crop, one hazard, or one pollutant. That design is being displaced by the same pretraining-and-transfer paradigm that reshaped the rest of the field (Chapter~\ref{sec:reasoning}), and the geospatial community has begun building its own foundation models. Masked-autoencoding backbones lead the shift: SatMAE~\cite{cong2022satmae} adapts the masked image model to the temporal and multi-spectral structure of satellite imagery, Scale-MAE~\cite{reed2023scalemae} makes the pretext task explicitly scale-aware so a single backbone serves the huge ground-sample-distance range Earth observation spans, and Prithvi~\cite{jakubik2023foundation} packages such a backbone as a generalist model fine-tunable across flood mapping, burn-scar delineation, and crop segmentation. A single pretrained encoder thus stands in for the dozens of bespoke feature extractors that populate the tasks above.
+
+The language side is moving just as fast. RemoteCLIP~\cite{liu2024remoteclip} aligns remote-sensing imagery with text, giving open-vocabulary retrieval and zero-shot classification without per-class labels; GeoChat~\cite{kuckreja2024geochat} grounds a large vision-language model on overhead imagery so an analyst can query a scene, ask for region-level descriptions, and obtain referring localizations in dialogue; and SegEarth-R1~\cite{li2025segearth} pushes further into pixel-level geospatial reasoning, generating segmentation masks from implicit, reasoning-heavy queries rather than fixed class names. These systems inherit the multimodal reasoning and world-model machinery of Part~\ref{part:3} and specialize it to Earth observation, pointing toward GeoAI workflows driven by natural-language instructions rather than hand-built per-task pipelines.
+
+\subsection{Challenges}
+\label{subsec:p4-sec11-2-challenges}
+Most of the methods above were trained and tested in one region on one sensor, and that pattern shapes the open problems: whether a model transfers across regions and sensors, how heterogeneous and uneven data are reconciled, whether pipelines run at the scale and latency that operations need, and what new failure modes the geospatial foundation models bring.
+
+\paragraph{Generalization across Regions and Sensors.} Few of the studies surveyed test a model outside the region, season, or sensor it was trained on, so their reported accuracies say little about transfer. Crop calendars, building styles, and spectral responses vary from place to place, and a crop map or flood segmenter trained on one country or one satellite can degrade sharply on another. Pretrained backbones such as Prithvi~\cite{jakubik2023foundation} are motivated by exactly this gap, but systematic cross-region benchmarks remain rare.
+
+\paragraph{Data Heterogeneity and Quality.} Geospatial workflows combine imagery, sensor streams, vector layers, and crowdsourced inputs that differ in resolution, revisit time, and reliability, and the volume of these archives makes curation itself demanding~\cite{boutayeb2024geoai}. Open-access data needs quality control before it can serve as training labels. Geospatial data is also strategically sensitive, which raises questions of data sovereignty, and adversarial manipulation of inputs is a threat that none of the methods above addresses.
+
+\paragraph{Scale and Latency.} Operational services such as flood mapping during an event, precipitation nowcasting, and traffic forecasting must ingest new acquisitions continuously and update their models as satellites deliver data, which strains pipelines built around one-off training runs. When several models are chained in one workflow, validation and deployment cost grow with each link, pushing systems toward distributed, modular architectures.
+
+\paragraph{Open Problems for Geospatial Foundation Models.} The foundation models of the previous subsection bring problems of their own: pretraining that fuses radar, optical, and hyperspectral sensors at very different resolutions; evaluation benchmarks that test geospatial reasoning rather than image-level recognition; and grounding language output in physically consistent, georeferenced coordinates, which dialogue systems such as GeoChat~\cite{kuckreja2024geochat} do not yet guarantee.

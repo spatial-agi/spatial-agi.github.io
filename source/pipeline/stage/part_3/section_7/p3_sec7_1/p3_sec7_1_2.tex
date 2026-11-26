@@ -1,0 +1,72 @@
+
+\subsection{Physical Reasoning}
+\label{subsec:p3_s7_1_2}
+% - Concerned with physical laws governing spatial environments (mechanics, dynamics, collisions, friction, stability, etc.).
+% - Newtonian mechanics, quasi-static models, collision simulation
+% - Applications: grasp stability, push/pull prediction, object stacking
+
+Physically-aware spatial reasoning predicts how a spatial configuration evolves under physical law: rigid-body dynamics, contact and friction, and the conditions for static stability. Will a grasp hold? How will an object move when pushed? Will a stack of blocks stand or fall? Answering these from a model of mechanics, rather than from observed correlations, is what lets a robot anticipate the outcome of an interaction before committing to it; Figure~\ref{fig:physical-reasoning} shows the three canonical cases.
+
+\subsubsection{Task Definition}
+Let the environment at time $t$ be the state
+\begin{equation}
+    \mathbf{s}_t = (\mathbf{q}_t, \mathbf{v}_t, \theta),
+\end{equation}
+with generalized coordinates $\mathbf{q}_t \in \mathbb{R}^n$, velocities $\mathbf{v}_t=\dot{\mathbf{q}}_t$, and physical parameters $\theta$ (masses and inertias in the mass matrix $M(\mathbf{q})$, friction coefficients $\{\mu_k\}$, restitution, geometry). An action $\mathbf{u}_t$ (a push, a grasp) enters as a generalized force $\boldsymbol{\tau}_{\mathrm{ext},t+1}$, and the next state follows from a \emph{contact-implicit time-stepping} update:
+\begin{equation}
+\begin{aligned}
+M(\mathbf{q}_{t})\,\frac{\mathbf{v}_{t+1}-\mathbf{v}_{t}}{\Delta t}
++ \mathbf{h}(\mathbf{q}_{t},\mathbf{v}_{t+1})
+&= \boldsymbol{\tau}_{\mathrm{ext},t+1}
++ \sum_{k=1}^{K}\Big(J_{n,k}^\top \lambda_{n,k} + J_{t,k}^\top \boldsymbol{\lambda}_{t,k}\Big), \\
+\mathbf{q}_{t+1}&=\mathbf{q}_{t}+\Delta t\,\mathbf{v}_{t+1},
+\end{aligned}
+\end{equation}
+where $\mathbf{h}$ collects Coriolis, centrifugal, and gravitational terms, and for each potential contact $k$ with gap function $\phi_k(\mathbf{q})$ and Jacobians $J_{n,k},J_{t,k}$ the normal and tangential contact forces satisfy non-penetration, complementarity, and Coulomb friction:
+\begin{equation}
+\begin{aligned}
+\phi_k(\mathbf{q}_{t+1}) \ge 0,\quad \lambda_{n,k}&\ge 0,\quad \lambda_{n,k}\,\phi_k(\mathbf{q}_{t+1})=0,\\
+\|\boldsymbol{\lambda}_{t,k}\| &\le \mu_k\,\lambda_{n,k}.
+\end{aligned}
+\label{eq:p3_s7_1_2_contact}
+\end{equation}
+Physical reasoning is the computation, or approximation, of this transition $\mathbf{s}_{t+1}=\mathcal{T}(\mathbf{s}_t,\mathbf{u}_t)$ and of the queries derived from it (stability, collision, reachability). When motion is slow enough that inertial terms vanish, the \emph{quasi-static} form
+\begin{equation}
+\sum_{k=1}^{K}\Big(J_{n,k}^\top \lambda_{n,k} + J_{t,k}^\top \boldsymbol{\lambda}_{t,k}\Big) + \boldsymbol{\tau}_{\mathrm{ext}} - \mathbf{h}(\mathbf{q},\mathbf{0}) \approx \mathbf{0},
+\qquad \|\boldsymbol{\lambda}_{t,k}\| \le \mu_k\,\lambda_{n,k},
+\end{equation}
+reduces reasoning to an equilibrium feasibility test, which is the setting of the classical analytic models of grasping, pushing, and stacking.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/part3/section6/physical_reasoning.pdf}
+  \caption{Physics-aware spatial reasoning in robotics: (a) grasp stability from contact forces and friction cones, (b) planar pushing under quasi-static assumptions, and (c) stacking stability under equilibrium and support constraints.}
+  \label{fig:physical-reasoning}
+\end{figure}
+
+\subsubsection{Methodology}
+Model-based physical reasoning is carried out either numerically, in a physics engine that integrates the dynamics above, or analytically, with closed-form criteria for the quasi-static cases. Both rest on the same Newtonian foundation and differ in whether fidelity or interpretability is the priority.
+
+\paragraph{Physics Engines.}
+MuJoCo~\cite{todorov2012mujoco}, Bullet~\cite{coumans2021}, ODE, and DART~\cite{DART2023} integrate rigid-body dynamics with contact by time stepping, and they resolve contact in one of two ways. Penalty methods treat a contact as a compliant spring-damper that resists interpenetration,
+\begin{equation}
+f_{n,k} = \max\!\left(0, k_p\,\delta_k + k_d\,\dot{\delta}_k\right),
+\end{equation}
+with penetration depth $\delta_k$, stiffness $k_p$, and damping $k_d$, and regularize friction similarly; they are cheap and simple, but stiff parameters destabilize the integration and soft ones introduce artificial compliance, which is acceptable in graphics and approximate planning but not in control. Constraint-based methods enforce Eq.~\eqref{eq:p3_s7_1_2_contact} directly as complementarity constraints~\cite{trinkle1997dynamic}, solved per step as a linear or nonlinear complementarity problem~\cite{cottle2009linear}, a convex quadratic program~\cite{lin1987iterative}, or a second-order cone program for exact friction cones~\cite{alizadeh2003second} (projected Gauss--Seidel and sequential-impulse schemes are the usual implementations). They give physically consistent, nearly penetration-free contact forces at higher cost and with harder scaling in the number of contacts, so engines in practice hybridize: hard constraints on normal forces, regularized tangential friction, warm starting, contact aggregation, and stabilization terms.
+
+\paragraph{Analytic Quasi-Static Models.}
+For the three settings of Figure~\ref{fig:physical-reasoning}, closed-form criteria replace simulation. At a point contact the admissible forces form the friction cone
+\begin{equation}
+\mathcal{F}_k = \{(f_{n,k},\mathbf{f}_{t,k}) \mid f_{n,k} \ge 0, \ \|\mathbf{f}_{t,k}\|\le \mu_k f_{n,k}\},
+\end{equation}
+which a polyhedral approximation turns into linear constraints. Mapping each contact's cone through its moment arm into wrench space and taking the convex hull gives the grasp wrench space, and the grasp is force-closed when the origin lies strictly inside it, Eq.~\eqref{eq:p3_s7_1_1_force_closure}~\cite{bicchi2000robotic}; form closure is the stronger, purely geometric condition in which contact geometry alone prevents motion, and the Ferrari--Canny $\epsilon$-metric (the distance from the origin to the hull boundary) grades grasp quality. For planar pushing the limit surface relates the applied wrench to the resulting slip, and its ellipsoidal approximation yields a motion cone of object velocities reachable from a given push, the basis of stable pushing and closed-loop push planning. For stacking, stability under gravity requires that the gravitational wrench be balanced by the supporting contacts~\cite{groth2018shapestacks}: without friction, the center of mass must project into the support polygon; with friction, the contacts' friction cones must generate a wrench cone containing the negative of the gravitational wrench.
+
+\subsubsection{Benchmarks}
+PHYRE~\cite{bakhtin2019phyre} poses 2D physics puzzles in which an object must be placed so that simulated physics reaches a goal, scored by the log-weighted area under the success-rate curve as the attempt budget increases (AUCCESS) within and across puzzle templates; ShapeStacks~\cite{groth2018shapestacks} labels 3D stacks as stable or unstable; PlasticineLab~\cite{huang2021plasticinelab} is a differentiable-physics suite for deformable manipulation; and the video suites IntPhys~\cite{riochet2018intphys}, CLEVRER~\cite{Yi2020CLEVRER}, and Physion~\cite{Bear2021Physion} test prediction and counterfactual judgment of physical outcomes, with ComPhy~\cite{chen2022comphy} asking for hidden properties such as mass to be inferred from motion. Grasp quality under quasi-static analysis is evaluated on the grasping benchmarks of §\ref{subsec:p3_s7_1_1} (Cornell, YCB, GraspNet-1Billion). Metrics are predictive: position or trajectory error against the simulated outcome, success rate (stable stack, successful push or grasp), binary stability accuracy, and physical-plausibility terms such as momentum conservation and constraint violation.
+
+\subsubsection{Challenges and Trends}
+The parameters that matter most, mass, friction, elasticity, internal stability, are rarely observable. They must be inferred from interaction, from how far an object moves when pushed or how it responds to a collision; ComPhy~\cite{chen2022comphy} tests exactly this, and most methods still either assume the parameters known, as classical simulation does, or approximate them in ways that fail outside the lab. Latent-dynamics learning~\cite{battaglia2016interaction} and system identification~\cite{an1985estimation,muralidhar2020phynet} are the two established routes.
+
+The simulation-to-reality gap is the second limit. Small errors in restitution, micro-contact behavior, or unmodeled environmental factors compound once a policy leaves the engine, and fidelity trades against speed: high-fidelity simulation is too slow for large-scale training or real-time control, lightweight approximation too inaccurate. Hybrid physics-plus-learning models, domain adaptation between simulated and real dynamics, and uncertainty-aware transfer each address one side of this trade-off; none closes it.
+
+Perception is the third. Geometry, material, and object state come from noisy, incomplete sensing, and a small error in shape, pose, or contact location propagates into a large error in predicted force or stability. Systems that couple vision to a physics engine, Galileo~\cite{wu2015galileo} and PhyNet~\cite{muralidhar2020phynet} among them, show that physical priors improve perception and that physical consistency can constrain it in return, but end-to-end pipelines in which the two regularize each other remain the exception.

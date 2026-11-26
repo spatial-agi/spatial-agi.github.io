@@ -1,0 +1,244 @@
+\section{Aerial Agents}
+\label{sec:p4_s9_4}
+
+
+% AeroVerse: UAV-Agent Benchmark Suite for Simulating, Pre-training, Finetuning, and Evaluating Aerospace Embodied World Models
+% Airvista-ii: An agentic system for embodied uavs toward dynamic scene semantic understanding
+% Towards Autonomous UAV Visual Object Search in City Space: Benchmark and Agentic Methodology
+% Next-Generation LLM for UAV: From Natural Language to Autonomous Flight
+
+\subsection{Introduction}
+\label{subsec:p4-sec9-4-introduction}
+
+
+Aerial agents (satellites, high-altitude platform stations (HAPS), and unmanned aerial vehicles (UAVs)) acquire rich, dynamic, large-scale observations from the sky and near space and, increasingly, perceive, decide, and act on them autonomously through onboard processing and adaptive control (Table~\ref{tab:air-agents}).
+The aerial domain is a demanding testbed for the spatial capabilities surveyed in Part~\ref{part:3}: it stresses perception across extreme scale and viewpoint changes (Chapter~\ref{chapter:3:sec:6}) and decision-making under partial observability and tight latency budgets (Chapter~\ref{sec:reasoning}), across platform tiers that differ in altitude, resolution, endurance, and latency by orders of magnitude.
+
+Satellites supply the global tier. Navigation constellations, namely GPS~\cite{enge1994global,leick2015gps} within the broader Global Navigation Satellite System (GNSS), Russia's GLONASS~\cite{ivanov1992glonass}, the European Union's Galileo, and China's BeiDou~\cite{yang2019introduction,yang2020basic}, provide the positioning, navigation, and timing on which vehicles~\cite{li2022real}, smartphones~\cite{zangenehnejad2021gnss}, network synchronization~\cite{hasan2018gnss}, and every lower aerial tier rely.
+Earth-observation satellites operate continuously over years, which suits long-term, wide-area monitoring that neither ground sensors nor short-endurance UAVs can provide: seasonal vegetation dynamics~\cite{malingreau1986global}, wildlife migration~\cite{dobrynin2017integration}, river-basin ecosystem health~\cite{ferreira2013estimating}, deforestation~\cite{tucker2000strategies,finer2018combating}, desertification~\cite{del1998status,collado2002satellite}, biodiversity loss~\cite{turner2015free}, and climate indicators such as land surface temperature, ocean color, and atmospheric composition~\cite{yang2013role,kaufman2002satellite}, together with ecological conservation~\cite{pettorelli2014satellite,boyle2014high}, multispectral and hyperspectral resource discovery~\cite{pettorelli2019satellite}, precision agriculture~\cite{guo2018multi} and crop-yield estimation~\cite{maas1988using,ferencz2004crop}, and the detection of algal blooms~\cite{fang2022global} and pollutant leakage~\cite{pandey2019satellite}.
+
+\begin{table}[!ht]
+\centering
+\caption{Comparison of satellite, HAPS, and UAV platforms.} 
+\label{tab:air-agents}
+\small
+\setlength{\tabcolsep}{2.5mm}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Satellite} & \textbf{HAPS} & \textbf{UAV} \\
+\midrule
+Altitude & 500--36,000 km & 20--50 km & < 10 km \\
+Spatial Resolution & m to sub-m & dm to cm & cm-level \\
+Temporal Coverage & Hours--days revisit & Persistent (regional) & Real-time (local) \\
+Coverage Area & Global/regional & Regional & Localized \\
+Endurance & Years & Months & Hours \\
+Maneuverability & Minimal & Limited & High \\
+Data Latency & High & Medium & Low \\
+Payload Capacity & High & Moderate & Low \\
+Onboard Processing & Limited & Moderate & High \\
+Atmospheric Impact & Minimal & Low & High \\
+Deployment Speed & Slow & Medium & Fast \\
+Cost Structure & High (low per area) & Medium & Low (high per area) \\
+%AI Suitability & Large-scale datasets & Regional monitoring & Real-time inference \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+Differently, UAVs, commonly known as drones, have gained widespread popularity due to their agility, low operational cost, and capability for autonomous operation. Equipped with onboard sensors and processing units, UAVs can perceive their surroundings, plan flight paths, and adapt to dynamic conditions in real time. This unique perspective allows UAVs to capture high-resolution imagery and video from flexible vantage points, enabling frequent revisits and reduced occlusions in complex environments. Compared to satellites, UAVs excel in capturing fine-grained, localized data, and can be rapidly deployed to areas of interest, including hazardous or otherwise inaccessible regions. They now serve aerial photography~\cite{zhao2023ms,shao2022efficient}, cinematography~\cite{pitas2022autonomous,dang2022path}, environmental mapping~\cite{zheng2020university,wang2021each,lin2022joint}, precision agriculture~\cite{goodrich2023placement}, geolocalization~\cite{liu2019lending,shi2019spatial,shi2020optimal,shi2020looking,shi2022beyond,shi2022accurate,shi2022cvlnet,shi2023boosting,song2023learning}, and last-mile delivery~\cite{sorbelli2023wind,dissanayaka2023review}.
+
+Filling the altitude gap between satellite systems and UAVs, emerging platforms such as stratospheric balloons, solar-powered high-altitude platform stations, and small satellite constellations (\eg, CubeSats~\cite{lemmer2017propulsion}) are increasingly being integrated into aerial observation networks.
+These high-altitude platform stations (HAPS) offer complementary advantages: HAPS~\cite{gonzalo2018capabilities} provide persistent regional coverage with higher spatial resolution than satellites, while orbital systems~\cite{cunningham2004national} enable global, long-term monitoring at varying temporal and spectral scales.
+Together, they form a multi-tiered aerial ecosystem capable of capturing heterogeneous multimedia data, from visible and thermal imagery to hyperspectral and LiDAR scans, across spatiotemporal scales unattainable by any single platform alone.
+For instance, solar-powered HAPS such as Airbus Zephyr~\cite{kothe2019flight} or HAWK30 by AeroVironment/HAPSMobile~\cite{fladeland2019demonstrating} can operate autonomously in the stratosphere (about 20 km altitude) for weeks, offering persistent observation and communication relay services with sub-meter resolution, which is superior to most Earth observation satellites and at lower cost than maintaining UAV fleets.
+
+A growing trend is the coordination of heterogeneous aerial agents into cooperative networks, where satellites offer global context, HAPS serve as communication relays or edge computing nodes, and UAVs execute localized missions, enabling real-time, closed-loop intelligence. The utility of these systems is further amplified by advances in artificial intelligence, including machine learning, computer vision, big data analytics, and transfer learning~\cite{wang2024multiple,wang2022learning,zheng2022adaptive}. These technologies empower intelligent processing of massive aerial datasets, enabling automated image and video analysis~\cite{liu2023robust,li2021uav,9854892,zheng2019unsupervised,wang2023context,ju2025video2bev}, real-time object detection and tracking~\cite{zhang2019eye,wen2021detection}, predictive modeling for urban dynamics~\cite{fang2022cognitive,shi2022geometry}, natural language-based control interfaces~\cite{chu2024towards}, and city-scale digital twin simulations~\cite{zheng2022citysim}. Data privacy, airspace integration, energy efficiency, and operational robustness remain open, and are taken up in the Challenges below.
+
+
+\subsection{System Overview}
+\label{subsec:p4_s9_4_overview}
+An aerial agent realizes a sensing-to-action loop that spans the multi-tier ecosystem of Table~\ref{tab:air-agents}: satellites supply global context and positioning, HAPS act as persistent regional relays and edge-computing nodes, and UAVs execute localized, low-latency missions at the point of interest. Across this stack, spatial intelligence is exercised through three complementary stages, which constitute the pivotal tasks of this section. Cross-view perception anchors aerial and ground observations to a common geographic frame, so that what a drone sees can be matched to a map or a street-level query (Pivotal Task-1); remote-sensing detection and environmental understanding turn that imagery into structured scene knowledge about objects, layouts, and human activity (Pivotal Task-2); and autonomous navigation and decision making convert perception into flight plans and control actions in unseen environments (Pivotal Task-3). Figure~\ref{fig:p4_s9_4_overview} sketches this pipeline, with a feedback path from action back onto sensing that ties the three stages into one closed loop rather than a feed-forward chain.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section9/aerial_overview.pdf}
+    \caption{Spatial intelligence for aerial agents as a closed loop from multi-tier aerial sensing (satellite, HAPS, UAV, GNSS, onboard sensors), through three complementary core capabilities, to flight plans with 6-DoF pose targets and downstream flight control. The controller executes the plan; subsequent observations close the sensing loop. The core comprises cross-view geolocalization, detection and environmental understanding, and navigation and decision making. Land-use, water, and infrastructure layers are parallel examples. Platform and scene imagery is illustrative.}
+    \label{fig:p4_s9_4_overview}
+\end{figure}
+
+\subsection{Pivotal Task-1: Ground-Air Collaborative Perception and Visual Geolocalization}
+\label{subsec:p4_s9_4_task1}
+
+A foundational requirement of any aerial system is to place its observations on the map: the integration of ground-level and aerial views for cross-modal understanding enables visual geolocalization, determining the geographic location of a query image by matching it against a reference database. This task anchors the perception stage of the system and is particularly challenging due to the large modality gap between ground street-view images and overhead (aerial or satellite) imagery, an instance of the cross-view correspondence problem treated more generally in Chapter~\ref{chapter:3:sec:6}.
+For instance, the \textit{University-1652} dataset~\cite{zheng2020university} has become a benchmark for this task, offering ground, drone and satellite image triplets of campus buildings, thus facilitating research on cross-view matching and localization. Such capabilities are critical for urban search-and-rescue, augmented reality, and infrastructure monitoring, where precise alignment between ground observations and aerial maps is essential.
+Progress has come from bridging the modality gap, encoding spatial structure into a viewpoint-invariant representation, and exploiting multiple views per location (Figure~\ref{fig:p4_s9_4_geoloc}).
+
+
+
+\textbf{Bridging the modality gap.} Most extant research frames geolocalization as a cross-view image retrieval problem, where the core challenge is to learn a viewpoint-invariant representation that effectively bridges the disparity between images captured from different perspectives. Recent advances in deep learning have led to the widespread application of Convolutional Neural Networks (CNNs) and Vision Transformers (ViTs) for extracting robust visual features. One prominent line of inquiry employs metric learning to construct a shared latent space for images acquired from diverse platforms. Workman~\etal~\cite{workman2015location} show that a CNN pre-trained on the Places dataset~\cite{zhou2014learning} can, by itself, yield highly discriminative features without explicit fine-tuning for the task. The integration of contrastive loss, which minimizes the distance between positive pairs in the feature space, further enhances geolocalization performance~\cite{workman2015wide,lin2015learning}. Liu~\etal~\cite{liu2019stochastic} introduce the Stochastic Attraction and Repulsion Embedding (SARE) loss, which minimizes the Kullback-Leibler divergence between the learned and actual data distributions, and more recently Deuser~\etal~\cite{deuser2023sample4geo} show that hard negative sampling strategies also significantly influence the final discriminative power.
+
+\textbf{Encoding spatial structure.} Another significant body of work addresses the problem of spatial misalignment in ground-to-aerial matching, injecting geometric priors into the representation. Vo~\etal evaluate various network architectures and propose an orientation regression loss to train an orientation-aware network~\cite{vo2016localizing}. Zhai~\etal~\cite{zhai2017predicting} utilize semantic segmentation maps to facilitate semantic alignment, while Hu~\etal~\cite{hu2018cvm} incorporate a NetVLAD layer to extract more discriminative features. Subsequently, Liu~\etal~\cite{liu2019lending} propose a Siamese Network to explicitly integrate spatial cues, such as orientation maps, into the training process, and Shi~\etal~\cite{shi2020optimal} introduce a spatial-aware layer to improve localization performance. Given that each location has multiple training images from different viewpoints, Zheng~\etal~\cite{zheng2020university} train a multi-branch CNN as a base model. Building upon this multi-branch architecture, Wang~\etal~\cite{wang2021each} further partition the feature map into multiple segments to improve matching discriminability, while Lin~\etal~\cite{lin2022joint} incorporate keypoint detection into the learning process. More recently, researchers resort to ViT structures: L2LTR~\cite{yang2021cross} adopts a hybrid CNN-ViT architecture, leveraging CNNs to extract high-level semantic features and ViTs to encode them into global representations; GeoDTR~\cite{zhang2023cross} further enhances geometric reasoning by introducing a ViT-based layout extractor that generates geometry-aware attention maps; and TransGeo~\cite{zhu2022transgeo} advances the paradigm with a two-branch ViT model and a two-stage coarse-to-fine learning strategy.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section9/aerial_geoloc.pdf}
+    \caption{Cross-view visual geolocalization as viewpoint-invariant metric learning: the illustrated shared encoder embeds ground, drone, and satellite views so that same-place (positive) pairs cluster and different-place negatives separate. Architecture variants may instead use view-specific branches. Arrows within the feature-space sketch indicate attraction and repulsion during representation learning, not geographic motion. Synthetic views illustrate a common site rather than a calibrated image triplet.}
+    \label{fig:p4_s9_4_geoloc}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\setlength{\tabcolsep}{3pt}
+\caption{Comparison of visual geolocalization datasets. R@K: recall at top $K$; AP: average precision; PR: precision-recall.}
+\label{table:geo-dataset}
+\small
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lccccccc}
+\toprule
+Dataset & Univ.-1652~\cite{zheng2020university} & SUES-200~\cite{zhu2023sues} & CVUSA~\cite{zhai2017predicting} & CVACT~\cite{liu2019lending} & Lin~\etal~\cite{lin2015learning} & Tian~\etal~\cite{tian2017cross} & Vo~\etal~\cite{vo2016localizing} \\
+\midrule
+\#Train imgs. & 701$\times$71.6 & 120 loc. & 35.5k$\times$2 & 35.5k$\times$2 & 37.5k$\times$2 & 15.7k$\times$2 & 900k$\times$2 \\
+Platform & Drone, Ground, Sat. & Drone, Sat. & Ground, Sat. & Ground, Sat. & Ground, 45$^{\circ}$ Aerial & Ground, 45$^{\circ}$ Aerial & Ground, Sat. \\
+Imgs./loc. & 54+16.6+1 & drone + 1 & 1+1 & 1+1 & 1+1 & 1+1 & 1+1 \\
+Target & Building & Diverse & User & User & Building & Building & User \\
+Eval. & R@K, AP & R@K, AP & R@K & R@K & PR, AP & PR, AP & R@K \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\textbf{From image pairs to multi-view benchmarks.} The maturation of these methods is closely tied to the datasets that score them (see Table~\ref{table:geo-dataset}). The majority of prior geolocalization datasets are based on image pairs, designed for matching images from two distinct platforms such as terrestrial cameras and satellites. One of the earliest contributions~\cite{lin2015learning} leverages public sources to create 78,000 image pairs spanning a 45-degree bird's-eye perspective and the ground. In a similar vein, Tian~\etal~\cite{tian2017cross} compile image pairs for urban localization, positing that buildings are crucial for this task and thus incorporating building detection into their pipeline. The CVUSA~\cite{zhai2017predicting} and CVACT~\cite{liu2019lending} datasets instead address matching panoramic ground-view images with satellite-view images, which is particularly useful for user localization when GPS data is unavailable. A key distinction is one of objective: the latter two focus on localizing the user who captures the photograph, while the former focus on localizing a specific target within the image, so that multiple views of the target are more beneficial for the target-localization datasets (Lin~\etal, Tian~\etal) because they encourage the model to learn the target's structure. However, most existing datasets typically provide only two views of a given location. The University-1652 dataset~\cite{zheng2020university} addresses this by including a greater number of views per target, thereby fostering more robust viewpoint-invariant features; SUES-200~\cite{zhu2023sues} follows a similar multi-view strategy with drone-captured real-world data. Wang~\etal~\cite{wang2024multiple} further extend University-1652 to multi-weather evaluation (rain, fog, and other complex conditions), while Chu~\etal~\cite{chu2024towards} introduce linguistic annotations and a language-based query setting for a more intuitive user experience.
+
+\textbf{Metrics.} These benchmarks are scored by retrieval metrics that reflect their gallery structure. Several datasets~\cite{liu2019lending,zhai2017predicting,vo2016localizing} adopt Recall@K, defined as 1 if a correct match appears within the top K retrieved images; Recall@K is highly sensitive to the rank of the first correct match and is best suited for test sets containing only a single ground-truth match in the gallery. In contrast, datasets such as University-1652~\cite{zheng2020university} and SUES-200~\cite{zhu2023sues} include multiple ground-truth matches from various viewpoints, where Recall@K fails to comprehensively reflect retrieval performance; they therefore also employ Average Precision (AP), as used by Lin~\etal~\cite{lin2015learning} and Tian~\etal~\cite{tian2017cross}. AP, defined as the area under the Precision-Recall (PR) curve, considers all ground-truth images in the gallery, and recent evaluations usually report both Recall@K and the mean Average Precision (mAP) across all queries.
+
+
+\subsection{Pivotal Task-2: Remote Sensing Detection and Environmental Understanding}
+\label{subsec:p4_s9_4_task2}
+
+Once observations are geolocalized, the next stage turns aerial imagery into structured scene knowledge. Aerial platforms are integral to large-scale environmental monitoring and public safety, facilitating fine-grained object detection in complex scenes, a specialization of the detection and segmentation machinery of Chapter~\ref{chapter:3:sec:6} to the aerial viewpoint. Prominent datasets such as \textit{DOTA}~\cite{xia2018dota}, \textit{DOTA-v2}~\cite{xia2018dota,ding2021object}, and \textit{VisDrone}~\cite{du2019visdrone} provide comprehensive annotations for detecting various objects, including vehicles and pedestrians, under a wide range of weather, illumination, and scale conditions. These benchmarks have spurred the development of robust detection models specifically engineered to address challenges inherent to aerial perspectives, such as extreme aspect ratios, dense object clustering, and diminutive object sizes. A significant application is found in UAV-based wildlife monitoring, where systems are deployed for animal census in conservation areas~\cite{vermeulen2013unmanned}, highlighting the utility of aerial technologies in promoting ecological sustainability. Figure~\ref{fig:p4_s9_4_detection} relates the aerial-specific difficulties of orientation, scale, and density to the detectors built for them and to the human-centric understanding that aerial video enables.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section9/aerial_detection.pdf}
+    \caption{Remote-sensing detection from the aerial viewpoint: arbitrary orientation, extreme scale variation, and dense small objects (top) motivate (1) oriented-object detection and (2) multi-scale feature learning, which provide complementary representations for human-centric understanding (bottom). Person re-identification matches identities across views; action examples are alternative classes, not a prescribed sequence; tracking maintains identities across frames. Synthetic scenes illustrate these tasks.}
+    \label{fig:p4_s9_4_detection}
+\end{figure}
+
+Beyond object detection, as shown in Table~\ref{tab:uav_reid_datasets}, with the proliferation of UAVs in smart-city and other human-centric applications, human behavior understanding~\cite{li2021uav} has emerged as a critical and formidable research challenge, including person re-identification and action recognition. For instance, the UAV person re-identification (re-ID) task~\cite{albaluchi2025uav} is designed to address cross-drone identity matching amid substantial viewpoint and illumination variations, thereby motivating the creation of view-invariant feature representations. In conjunction with resources like \textit{VisDrone}, which contains multi-target tracking sequences from mobile UAVs, these datasets facilitate the design of intelligent video analytics systems capable of performing long-term human behavior analysis and anomaly detection in dynamic environments.
+
+
+\begin{table}[t]
+\centering
+\caption{Comparison of UAV-based human and object datasets.}
+\label{tab:uav_reid_datasets}
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\begin{tabular}{L{0.15\textwidth} L{0.26\textwidth} L{0.25\textwidth} L{0.25\textwidth}}
+    \toprule
+    \textbf{Feature} & \textbf{UAV-Human}~\cite{li2021uav} & \textbf{DOTA-v2}~\cite{xia2018dota,ding2021object} & \textbf{VisDrone}~\cite{du2019visdrone} \\
+    \midrule
+
+    \textbf{Primary Focus} & Human Behavior Understanding & Object Detection & Object Detection / Tracking / Crowd Counting \\
+
+    \textbf{Data Type} &  Videos \& Images & Images & Videos \& Images \\
+
+    \textbf{\#Images} & 22,476 frames for pose estimation, 41,290 frames for re-ID, 22,263 frames for attribute recognition & 11,268 & 10,209 \\
+
+    \textbf{\#Videos} & 67,428  & N/A & 288 \\
+
+    \textbf{\#Categories} & 155 action categories & 18 object categories & 10 object categories \\
+
+    \textbf{\#Instances} & 119 subjects for action recognition, 1,144 identities for re-ID & 1,793,658 & > 2.6 million annotated bounding boxes \\
+
+    \textbf{Sensor Modalities} & RGB, Depth, Infrared (IR), Fisheye, Night-Vision & RGB (from Google Earth, aerial) \& Grayscale (from satellites) & RGB \\
+
+    \textbf{Image Resolution} & 1920$\times$1080 (RGB), 640$\times$576 (Depth,IR), 640$\times$480(Fisheye, Night-Vision), & 800$\times$800 to 20,000$\times$20,000 pixels & 2000$\times$1500 (image),  3840$\times$2160 (video) \\
+
+    \textbf{Annotation Format} & Bounding boxes, 17 keypoints for pose & Oriented Bounding Boxes (Quadrilaterals) & Bounding boxes with attributes (\eg, occlusion) \\
+
+    \textbf{Scene Diversity} & Urban and rural, daytime and nighttime & Wide area, diverse landscapes (ports, airports, cities, etc.) & 14 different cities, urban and rural, various weather and lighting \\
+
+    \textbf{Platform} & Drone (DJI Matrice 100) & Satellite, Aerial Platforms & Drone \\
+
+    %\textbf{Unique Features} & Rich multi-modal data for fine-grained human-centric analysis. & Very high-resolution images with oriented bounding boxes for rotated objects. & A comprehensive benchmark with multiple tailored tasks for drone vision. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+Remote sensing object detection is primarily challenged by the prevalence of arbitrarily oriented objects and substantial scale variations~\cite{xia2018dota, ding2021object, sun2022fair1m, liu2016ship, cheng2022anchor, yao2023automated}, and existing research can be broadly organized along two corresponding fronts.
+\textbf{Detection of arbitrarily oriented objects.} A significant line of work focuses on developing specialized oriented object detection (OOD) methods. Early approaches often augment horizontal bounding boxes (HBBs) with an angle parameter, employing techniques such as feature refinement in the detector neck~\cite{yang2019scrdet,yang2021r3det}, extraction of rotated regions of interest (RoIs)~\cite{ding2019learning,xie2021oriented}, or designing specific OOD heads~\cite{hou2022shape,han2021redet,ming2021dynamic}. However, these methods frequently suffer from boundary discontinuity and representation ambiguity due to their reliance on angle parameters. To mitigate these issues, subsequent research has explored more flexible \textit{object representations}: some methods describe oriented objects using points~\cite{fu2020point, li2022oriented} or gliding vertexes~\cite{xu2020gliding}, while others model them with Gaussian distributions~\cite{yang2021rethinking, yang2021learning, cheng2022dual} and design corresponding loss functions~\cite{qian2021learning}.
+\textbf{Handling substantial scale variations.} Another research direction designs specialized backbones and feature extraction strategies to cope with large scale variations in remote sensing images (RSIs). A common strategy is multi-scale feature learning, achieved through data augmentation~\cite{zhao2019multi, shamsolmoali2021rotation, chen2020stitcher}, multi-scale feature integration~\cite{zhang2019hierarchical,zheng2020hynet,9382268,liu2016ssd}, enhanced feature pyramid networks (FPNs)~\cite{lin2017feature,hou2022refined,zhang2021laplacian,guo2020rotational}, or multi-scale anchor generation~\cite{guo2018geospatial, hou2021self, qiu2019a2rmnet}. Other works focus on ensuring equivalent receptive fields for objects of different orientations~\cite{han2021redet,pu2023adaptive}. More recently, some methods~\cite{Li_2023_ICCV} have employed large kernel convolutions~\cite{liu2022convnet,ding2022scaling,liu2022more} to enlarge the spatial receptive field for large objects, though this can introduce background noise for smaller ones, while others harness multi-scale convolution kernels and attention to address scale variance~\cite{guo2022segnext,dai2023multi,zhang2022multiscale,cai2024poly}.
+
+These method fronts are evaluated on a complementary set of benchmarks and metrics. The VisDrone dataset~\cite{du2019visdrone} provides a comprehensive benchmark for drone-captured imagery, featuring urban and rural scenes with challenges like varying altitudes and occlusions; DOTA-v2~\cite{xia2018dota,ding2021object} focuses on oriented object detection in high-resolution satellite images, emphasizing rotated bounding boxes for objects like planes and ships; and UAV-Human~\cite{li2021uav} targets human behavior understanding from UAVs, with multi-modal sequences for pose and action analysis. Complementary datasets, such as UAVDT~\cite{du2018uavdt} for traffic surveillance and iSAID~\cite{waqas2019isaid} for instance segmentation, broaden the scope of aerial detection tasks and collectively enable cross-dataset fine-tuning to mitigate domain gaps. Evaluation extends standard metrics to address orientation, scale, and density: the primary metric, mean Average Precision (mAP), is computed as the area under the precision-recall curve, typically at an Intersection over Union (IoU) threshold of 0.5 (mAP@0.5) or across 0.5:0.95 for stricter assessment~\cite{lin2014microsoft}, and for oriented detection, as in DOTA-v2, rotated IoU variants ensure alignment with object headings~\cite{xia2018dota}. Per-class and per-size Average Precision exposes imbalances, and small objects ($<32\times32$ pixels) remain the main source of error on drone imagery~\cite{du2019visdrone}. Additional metrics include precision, recall, and F1-score to assess false positives (\eg, background clutter) and misses (\eg, occlusions), while Frames Per Second (FPS) is critical for real-time UAV deployment, targeting 30+ FPS~\cite{yang2023laiyolo}. Video-specific metrics like Multiple Object Tracking Accuracy (MOTA) are used for dynamic scenes in datasets like UAV-Human~\cite{li2021uav}. Modern real-time detectors of the YOLO family~\cite{wang2024yolov9} are increasingly adapted to the aerial setting, though aggregated aerial mAP still trails their COCO-level performance owing to small-object and orientation hardness, keeping open gaps such as multi-modal fusion and zero-shot adaptation active.
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section9/aerial_navigation.pdf}
+    \caption{Autonomous aerial navigation from a language instruction: a UAV observation is grounded into a semantic-topometric graph; the instruction and graph condition an LLM planner that produces pose waypoints with velocity. The displayed route is a top-down projection, with attitude and altitude encoded in the waypoint state. Multi-drone planning is an extension with coordinated altitude separation. SR: success rate; SPL: success weighted by path length; NE: navigation error. Metric glyphs indicate evaluation criteria, not measured scores; scenes and graph geometry are schematic.}
+    \label{fig:p4_s9_4_navigation}
+\end{figure}
+
+
+\subsection{Pivotal Task-3: Autonomous Aerial Navigation and Decision Making}
+\label{subsec:p4_s9_4_task3}
+
+The final stage closes the loop, converting perception into action. Traditional UAV geolocalization addresses basic aerial navigation by matching a query (\eg, a satellite image or textual description) to a database of historical flight paths or geographic points~\cite{zheng2020university,chu2024towards}. However, a critical distinction exists between such perception-oriented tasks and the overarching goal of autonomous navigation: the latter requires complex decision-making and control to bridge perception to action, drawing on the spatial-reasoning and planning paradigms of Chapter~\ref{sec:reasoning}. In practical scenarios, the objective is often for an aerial agent to autonomously locate a destination, particularly an unexplored target, through environmental exploration and, when available, collaboration with a map. This goal introduces significant challenges in generalization to unseen environments, including novel objects, unmapped regions, and interaction with the environment. For instance, recent benchmarks adapted from general Vision-Language Navigation (VLN) have begun to address this by requiring models to output a detailed flight plan with 6-DoF control signals~\cite{wang2024towards}. Figure~\ref{fig:p4_s9_4_navigation} follows the problem from the perception-to-action gap to foundation-model-driven VLN and multi-agent extensions.
+
+
+
+\begin{table}[!ht]
+\small
+\centering
+\caption{Comparison of recent aerial VLN datasets.}
+\label{tab:aerial_datasets}
+\begin{tabular}{@{}p{2.5cm}lp{2.5cm}p{2cm}p{3cm}p{3.5cm}@{}}
+\toprule
+\textbf{Dataset} & \textbf{Yr} & \textbf{Env.} & \textbf{Size} & \textbf{Modalities} & \textbf{Key Features} \\
+\midrule
+UAVA~\cite{albanis2020dronepose} & 2020 & Indoor simulated (MP3D) & 90 traj. & RGB, depth, flow, ego/exo views & Photorealistic UAV assist; vision/robotics tasks; gamified traj. \\
+AVDN~\cite{fan2022aerial} & 2022 & Outdoor simulated (xView) & 3,064 traj. with dialog & RGB, dialog & Async human dialogs; attn. for interactive nav. \\
+AerialVLN~\cite{liu2023aerialvln} & 2023 & Outdoor simulated (cities) & 8,446 traj. and 25,338 instructions & RGB, lang. instr. & Synthetic VLN; landmark nav in urban scenes. \\
+CityNav~\cite{lee2024citynav} & 2024 & Real-world (UK cities) & 32,637 traj./instr. & 3D point clouds, RGB, geo-lang & Real 3D scans (4.65 km²); human demos; scalable VLN. \\
+UAV-Need-Help~\cite{wang2024towards} & 2024 & Outdoor simulated (OpenUAV) & 12,149 traj. & RGB, lang. instr. & Continuous 6-DoF traj.; target-oriented. \\
+OpenFly~\cite{gao2025openfly} & 2025 & Outdoor real/sim (18 scenes) & 100k traj. & 3D point clouds, RGB, lang. instr. & Large-scale; real-to-sim transfer. \\
+AirV2X~\cite{gao2025airv2x} & 2025 & Outdoor simulated (CARLA+AirSim) & 6.73 hours of UAV-ground traj. & 3D point clouds, RGB & V2X collab; drone strategies; reduces occlusions. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\textbf{From visual perception to language-guided planning.} Recent years have witnessed significant progress in UAV navigation, with a primary focus on visual perception~\cite{loquercio2018dronet,kang2019generalization,giusti2015machine,smolyanskiy2017toward,fan2020learn,bozcan2020air,majdik2017zurich} and collision avoidance~\cite{xu2025navrl,singla2019memory}. Building on this aerial-perception foundation, Vision-and-Language Navigation (VLN) for UAVs remains an emerging area of research. To address it, recent efforts have leveraged Large Multi-modal Models (LMMs) to harness general knowledge for navigation planning: STMR~\cite{gao2024aerial} builds upon AerialVLN~\cite{liu2023aerialvln} with a zero-shot LLM-based framework utilizing a Semantic-TopoMetric Representation for enhanced spatial reasoning. A parallel line reframes UAV autonomy as a full agentic loop rather than one-shot instruction following. AeroVerse~\cite{yao2024aeroverse} assembles a simulator, real-virtual pre-training corpora, and five downstream tasks, \ie, scene awareness, spatial reasoning, navigational exploration, task planning, and motion decision, to train aerospace embodied world models, and proposes SkyAgentX as a unified perception-reasoning-navigation-planning agent; AirVista-II~\cite{lin2025airvista} pursues zero-shot dynamic-scene semantic understanding via agent-based task scheduling and adaptive keyframe selection; and PRPSearcher~\cite{ji2025uavsearch} casts aerial visual object search over the CityAVOS benchmark as a perception-reasoning-planning problem solved by a multimodal LLM agent. Complementary systems such as NeLV~\cite{yuan2025nelv} operationalize the language-to-flight pipeline end to end, chaining an LLM parser, route and path planners, and a control platform across short-, medium-, and long-range missions. Beyond single-agent setups, some works have begun to explore multi-drone systems; for instance, Wu~\etal~\cite{wu2025aeroduo} deploy two drones flying at different altitudes to facilitate planning.
+
+\textbf{Datasets and simulators.} As shown in Table~\ref{tab:aerial_datasets}, several foundational frameworks and datasets have been established. One of the early works, \ie, UAVA~\cite{albanis2020dronepose}, leverages the panorama images in the Matterport3D dataset~\cite{chang2017matterport3d} to render the indoor environment, while harnessing the camera viewpoints as physically available flight anchors to generate trajectories. AerialVLN~\cite{liu2023aerialvln} introduces a large-scale dataset with an effective baseline, and further infrastructure contributions include datasets such as CityNav~\cite{lee2024citynav}, AVDN~\cite{fan2022aerial}, and OpenFly~\cite{gao2025openfly}. Notably, UAV-Need-Help~\cite{wang2024towards} provides a realistic UAV dynamics simulator, \ie, OpenUAV, alongside its evaluation protocol; OpenUAV is further used in HaL-13k~\cite{wu2025aeroduo} to simulate two drones at different altitudes. Additional observation agents, such as road infrastructures and vehicles with depth sensing, have also been incorporated to enrich environmental understanding~\cite{gao2025airv2x}.
+
+\textbf{Metrics.} Evaluation metrics for UAV aerial navigation, especially VLN, measure how well a model navigates a drone based on visual inputs and language instructions. Common metrics include Success Rate (SR), which checks if the UAV reaches the target location within a specified distance, and Success weighted by Path Length (SPL), which balances success with how efficiently the drone travels (shorter paths score higher). Path Length (PL) measures the total distance traveled, while Navigation Error (NE) calculates the distance between the final position and the goal. Together these metrics assess both accuracy (reaching the target) and efficiency (taking an optimal route), providing a clear way to compare model performance across datasets like UAVA, AerialVLN, and CityNav.
+
+
+\subsection{Established Tools and Systems}
+\label{subsec:p4-sec9-4-established-tools-and-systems}
+Beyond the methods and benchmarks above, the aerial domain rests on a real-world layer of simulators, platforms, and infrastructure that turns research prototypes into deployable systems; we group it into three tiers.
+
+\textbf{Simulation environments and benchmarks.} Because flight data is costly and safety-critical to collect, high-fidelity simulation underpins much of the field. The OpenUAV simulator released with UAV-Need-Help~\cite{wang2024towards} supplies realistic UAV dynamics and a continuous 6-DoF evaluation protocol, and is reused to simulate multi-altitude drone teams in HaL-13k~\cite{wu2025aeroduo}; OpenFly~\cite{gao2025openfly} targets large-scale real-to-sim transfer across diverse scenes; and AerialVLN~\cite{liu2023aerialvln} pairs a city-scale synthetic environment with a navigation baseline. Photorealistic indoor rendering for UAV tasks is provided through Matterport3D~\cite{chang2017matterport3d} in UAVA~\cite{albanis2020dronepose}, while V2X-style multi-agent simulation combines CARLA and Microsoft AirSim\footnote{\url{https://microsoft.github.io/AirSim/}} in AirV2X~\cite{gao2025airv2x}.
+
+\textbf{Commercial platforms and vendors.} On the hardware side, consumer and enterprise drones from DJI\footnote{\url{https://www.dji.com/}} (whose Matrice series collects datasets such as UAV-Human) and autonomy-focused vendors such as Skydio\footnote{\url{https://www.skydio.com/}} dominate the UAV tier. In the stratospheric tier, solar-powered HAPS such as Airbus Zephyr~\cite{kothe2019flight} and AeroVironment/HAPSMobile's HAWK30~\cite{fladeland2019demonstrating} provide persistent regional coverage, complemented by small-satellite constellations built on CubeSat platforms~\cite{lemmer2017propulsion} and broader HAPS programs~\cite{gonzalo2018capabilities}.
+
+\textbf{Connectivity and positioning infrastructure.} Aerial autonomy ultimately depends on shared positioning and communication backbones: the GNSS constellations introduced above (GPS~\cite{enge1994global}, GLONASS~\cite{ivanov1992glonass}, Galileo, and BeiDou~\cite{yang2019introduction}) supply global timing and localization, while space-based broadband relays such as Starlink~\cite{michel2022first} and orbital observation systems~\cite{cunningham2004national} increasingly serve as the connectivity layer for coordinated, real-time aerial operations.
+
+
+\subsection{Challenges}
+\label{subsec:p4-sec9-4-challenges}
+Aerial autonomy is limited less by any single model than by the gaps between platforms, scales, and operating conditions. Four threads follow the pipeline in order: fusing heterogeneous platforms into a coherent situational model, perceiving small objects and complex activities reliably, navigating unseen and GPS-denied environments, and meeting the ethical and operational constraints under which any of this can be deployed.
+
+\paragraph{Heterogeneous-Platform Fusion.}
+A primary obstacle lies in integrating aerial agents with heterogeneous platforms for robust environmental perception. Coordinating a UAV with ground-based sensors or satellite systems to construct a cohesive situational-awareness model remains complex, particularly in dynamic or cluttered settings where the platforms differ in resolution, latency, and viewpoint (Table~\ref{tab:air-agents}). Reconciling these asynchronous, multi-resolution streams into a single consistent representation, without one modality's noise corrupting the fused estimate, is the standing difficulty, and it motivates the V2X-style cooperative-perception efforts that incorporate road infrastructure and ground vehicles as additional observers.
+
+\paragraph{Small-Object and Complex-Activity Understanding.}
+Aerial perception is defined by extremes of scale and density. The recognition of small objects, such as identifying debris in disaster zones or distinguishing wildlife in ecological surveys, demands high-resolution imaging and detectors robust to dense clustering, which often strain onboard computational resources. Understanding complex activities, such as discerning human behavior during search-and-rescue missions, compounds the problem by requiring nuanced spatio-temporal and contextual analysis that current systems struggle to deliver consistently. Closing this gap calls for detectors and activity models that remain accurate at extreme scale variation while fitting a UAV's tight compute and power budget.
+
+\paragraph{Navigation in Unseen and GPS-denied Environments.}
+Autonomous operation in unseen or GPS-denied environments, such as dense urban canyons or subterranean spaces, further complicates the action stage, as agents must rely on real-time mapping and obstacle avoidance without pre-existing data. The core requirement is generalization: a navigation policy must extend to novel objects, unmapped regions, and genuinely interactive scenarios, rather than replaying matched trajectories. This is precisely the gap that foundation-model-driven VLN and multi-altitude cooperative planning aim to narrow, but validating such behavior to a safety standard in the open world remains open.
+
+\paragraph{Privacy, Airspace, and Operational Robustness.}
+Beyond perception and navigation, several ethical and operational challenges persist. Data-privacy concerns arise when aerial agents capture high-fidelity multimedia data, potentially compromising individual rights without stringent safeguards, motivating privacy-preserving approaches such as federated learning. Airspace integration poses another hurdle, as regulatory frameworks struggle to accommodate the proliferation of aerial agents alongside traditional aviation, necessitating harmonized protocols to ensure safety. Energy efficiency remains a critical bottleneck, since prolonged missions demand lightweight yet powerful power sources and motivate renewable solutions such as solar-powered propulsion. Finally, operational robustness is challenged by environmental uncertainties, such as extreme weather or electromagnetic interference, that can disrupt system reliability. Advances in artificial intelligence and sensor fusion that address these constraints, rather than perception accuracy alone, are what will let aerial agents move from bounded demonstrations toward dependable, large-scale deployment.
+

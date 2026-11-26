@@ -1,0 +1,424 @@
+{
+  "figure": "7.24",
+  "source": "assets/figures/figures/part3/section7/code_DSL_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1000
+  ],
+  "assets": [
+    {
+      "file": "i-understanding/scene.png",
+      "title": "Understanding scene",
+      "source_box": [
+        40,
+        154,
+        605,
+        428
+      ],
+      "kind": "scene",
+      "size": [
+        565,
+        274
+      ]
+    },
+    {
+      "file": "i-planning/initial-scene.png",
+      "title": "Planning: initial scene",
+      "source_box": [
+        33,
+        608,
+        334,
+        896
+      ],
+      "kind": "exterior",
+      "size": [
+        301,
+        288
+      ]
+    },
+    {
+      "file": "iii-result/result-scene.png",
+      "title": "Planning: resulting scene",
+      "source_box": [
+        1522,
+        606,
+        1816,
+        888
+      ],
+      "kind": "exterior",
+      "size": [
+        294,
+        282
+      ]
+    },
+    {
+      "file": "i-understanding/white-cube.png",
+      "title": "White cube",
+      "source_box": [
+        69,
+        217,
+        187,
+        348
+      ],
+      "kind": "polygon",
+      "polygon": [
+        [
+          71,
+          243
+        ],
+        [
+          94,
+          219
+        ],
+        [
+          184,
+          219
+        ],
+        [
+          184,
+          323
+        ],
+        [
+          175,
+          346
+        ],
+        [
+          72,
+          345
+        ]
+      ],
+      "size": [
+        118,
+        131
+      ]
+    },
+    {
+      "file": "i-understanding/red-cube.png",
+      "title": "Red cube",
+      "source_box": [
+        207,
+        217,
+        317,
+        348
+      ],
+      "kind": "polygon",
+      "polygon": [
+        [
+          208,
+          243
+        ],
+        [
+          218,
+          219
+        ],
+        [
+          313,
+          219
+        ],
+        [
+          310,
+          345
+        ],
+        [
+          209,
+          345
+        ]
+      ],
+      "size": [
+        110,
+        131
+      ]
+    },
+    {
+      "file": "i-understanding/green-sphere.png",
+      "title": "Green sphere",
+      "source_box": [
+        335,
+        218,
+        460,
+        343
+      ],
+      "kind": "polygon",
+      "polygon": [
+        [
+          397,
+          219
+        ],
+        [
+          414,
+          222
+        ],
+        [
+          430,
+          229
+        ],
+        [
+          445,
+          243
+        ],
+        [
+          454,
+          260
+        ],
+        [
+          457,
+          279
+        ],
+        [
+          455,
+          298
+        ],
+        [
+          447,
+          315
+        ],
+        [
+          433,
+          330
+        ],
+        [
+          416,
+          338
+        ],
+        [
+          397,
+          341
+        ],
+        [
+          378,
+          337
+        ],
+        [
+          361,
+          329
+        ],
+        [
+          348,
+          316
+        ],
+        [
+          340,
+          300
+        ],
+        [
+          337,
+          280
+        ],
+        [
+          340,
+          261
+        ],
+        [
+          348,
+          243
+        ],
+        [
+          361,
+          229
+        ],
+        [
+          378,
+          222
+        ]
+      ],
+      "size": [
+        125,
+        125
+      ]
+    },
+    {
+      "file": "i-understanding/white-cylinder.png",
+      "title": "White cylinder",
+      "source_box": [
+        475,
+        205,
+        576,
+        348
+      ],
+      "kind": "cylinder",
+      "size": [
+        101,
+        143
+      ]
+    },
+    {
+      "file": "i-planning/robot-arm.png",
+      "title": "Initial robot arm",
+      "source_box": [
+        49,
+        608,
+        263,
+        808
+      ],
+      "kind": "arm",
+      "polygon": [
+        [
+          49,
+          608
+        ],
+        [
+          263,
+          608
+        ],
+        [
+          263,
+          772
+        ],
+        [
+          111,
+          772
+        ],
+        [
+          111,
+          787
+        ],
+        [
+          124,
+          791
+        ],
+        [
+          124,
+          799
+        ],
+        [
+          103,
+          805
+        ],
+        [
+          72,
+          805
+        ],
+        [
+          49,
+          800
+        ]
+      ],
+      "size": [
+        214,
+        200
+      ]
+    },
+    {
+      "file": "i-planning/red-block.png",
+      "title": "Initial red block",
+      "source_box": [
+        194,
+        780,
+        246,
+        828
+      ],
+      "kind": "red",
+      "size": [
+        52,
+        48
+      ]
+    },
+    {
+      "file": "i-planning/blue-block.png",
+      "title": "Initial blue block",
+      "source_box": [
+        263,
+        780,
+        314,
+        828
+      ],
+      "kind": "blue",
+      "size": [
+        51,
+        48
+      ]
+    },
+    {
+      "file": "iii-result/robot-arm.png",
+      "title": "Resulting robot arm",
+      "source_box": [
+        1535,
+        606,
+        1746,
+        800
+      ],
+      "kind": "arm",
+      "polygon": [
+        [
+          1535,
+          606
+        ],
+        [
+          1746,
+          606
+        ],
+        [
+          1746,
+          747
+        ],
+        [
+          1595,
+          747
+        ],
+        [
+          1595,
+          779
+        ],
+        [
+          1610,
+          784
+        ],
+        [
+          1610,
+          792
+        ],
+        [
+          1590,
+          798
+        ],
+        [
+          1556,
+          798
+        ],
+        [
+          1535,
+          793
+        ]
+      ],
+      "size": [
+        211,
+        194
+      ]
+    },
+    {
+      "file": "iii-result/red-block.png",
+      "title": "Stacked red block",
+      "source_box": [
+        1708,
+        747,
+        1759,
+        791
+      ],
+      "kind": "red",
+      "size": [
+        51,
+        44
+      ]
+    },
+    {
+      "file": "iii-result/blue-block.png",
+      "title": "Stacked blue block",
+      "source_box": [
+        1708,
+        785,
+        1759,
+        825
+      ],
+      "kind": "blue",
+      "size": [
+        51,
+        40
+      ]
+    }
+  ],
+  "frontend": [
+    "Understanding: restore the blue selection rectangle independently; draw the request, code, perception API and result as frontend elements.",
+    "Planning: draw code, instruction, result labels, arrows and the execution-feedback loop independently.",
+    "Complete scene plates preserve contact shadows; cutouts preserve source shading and visible occlusion."
+  ]
+}

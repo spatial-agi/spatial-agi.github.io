@@ -1,0 +1,66 @@
+{
+  "source": "assets/figures/figures/part3/section7/value-based-rl.webp",
+  "source_size": [
+    2000,
+    571
+  ],
+  "assets": [],
+  "note": "Pure diagram. All elements will be reconstructed in SVG; no pictorial PNG extraction is necessary.",
+  "regions": [
+    {
+      "region": "State",
+      "elements": [
+        "White rounded black frame",
+        "State label and s formula"
+      ]
+    },
+    {
+      "region": "Q-network",
+      "elements": [
+        "White rounded black frame",
+        "Q-network label",
+        "Q(s, a; θ) formula"
+      ]
+    },
+    {
+      "region": "Greedy action",
+      "elements": [
+        "Blue arrow toward the environment",
+        "Action a* = argmaxₐ Q(s, a; θ) formula"
+      ]
+    },
+    {
+      "region": "Environment",
+      "elements": [
+        "White rounded black frame",
+        "Environment label and calligraphic ℰ"
+      ]
+    },
+    {
+      "region": "Transition feedback",
+      "elements": [
+        "Blue elbow arrow from Environment toward Bellman Target",
+        "State s′, reward r label"
+      ]
+    },
+    {
+      "region": "Bellman target",
+      "elements": [
+        "White rounded black frame",
+        "Bellman Target label",
+        "y = r + γ maxₐ Q(s′, a′; θ′) formula"
+      ]
+    },
+    {
+      "region": "Training loss",
+      "elements": [
+        "White rounded black frame",
+        "Train Loss label",
+        "(y − Q(s, a; θ))² formula",
+        "Blue arrow from Bellman Target",
+        "Blue elbow arrow from Q-network"
+      ]
+    }
+  ],
+  "animation": "White light cores and soft blue glowing halos, following Figure 7.13."
+}

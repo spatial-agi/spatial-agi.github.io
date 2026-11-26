@@ -1,0 +1,30 @@
+\chapter{Spatial Reasoning}
+\label{sec:reasoning}
+
+\FramedInitial{S}{patial} reasoning is the step that turns perceived structure into decisions: given detections, depths, poses, and a task, it works out the relations, the causes, and the actions that follow, the why and how of spatial interaction rather than merely the what and where. It is where perception becomes goal-directed, supporting inference, planning, and problem-solving in physical and virtual environments.
+
+The chapter is organized along the spectrum by which spatial reasoning has actually developed, from explicit symbolic models to learned and foundation-model-driven ones. At one end, reasoning runs over hand-built representations of geometry, physics, and logic, whose structure is inspectable and whose conclusions can be certified. In the middle, it emerges from data, as neural models acquire spatial competence directly rather than being told the rules. More recently, large pre-trained models supply reasoning as a general capability to be elicited and steered. Hybrid approaches recombine these, pairing the semantic reach of foundation models with the precision and verifiability of symbolic and learned components; a closing survey of benchmarks then records how the field measures spatial reasoning as it shifts from passive observation toward active, situated interaction.
+
+\input{part_3/section_7/p3_sec7_1}
+% \newpage
+\input{part_3/section_7/p3_sec7_2}
+% \newpage
+\input{part_3/section_7/p3_sec7_3}
+% \newpage
+\input{part_3/section_7/p3_sec7_4}
+% \newpage
+\input{part_3/section_7/p3_sec7_5}
+
+
+\section{Summary and Outlook}
+\label{sec:p3_s7_6}
+
+This chapter followed spatial reasoning along the spectrum on which it developed: inference over explicit geometric, physical, topological, logical, and causal models (§\ref{sec:p3_s7_1}); reasoning acquired from data (§\ref{sec:p3_s7_2}); reasoning elicited from large pre-trained models (§\ref{sec:p3_s7_3}); hybrids that combine these components (§\ref{sec:p3_s7_4}); and the benchmarks that measure them (§\ref{sec:p3_s7_5}).
+
+\textbf{Precision and grounding sit at opposite ends of the spectrum.} Rule-based methods are inspectable and can certify feasibility or safety, but they assume exact, fully specified inputs and a closed vocabulary of predicates, and they break down where perception is noisy or a task falls outside the authored rules. Learning-based methods acquire spatial competence from data, yet often reach high benchmark accuracy through dataset-specific shortcuts that do not survive novel compositions (§\ref{subsec:p3_s7_2_1}), and they need far more interaction than classical planners. Foundation models bring broad semantic competence, but their visual encoders retain only coarse geometry, textual reasoning mistracks coordinates over multi-step chains (§\ref{subsec:p3_s7_3_3}), and vision-language-action models often interpret an instruction correctly and execute it incorrectly (§\ref{subsec:p3_s7_3_2}). Hybrid systems aim to pair the semantic reach of the last family with the metric precision and verifiability of the first two.
+
+\textbf{The failures concentrate at interfaces.} Across tool-augmented, memory-augmented, and hybrid reasoning, the recurring limitations arise less within any single component than where components meet: in forming a query that a memory or tool can answer, in translating between closed and open vocabularies, and in keeping coordinate frames and scales consistent across modules (§\ref{sec:p3_s7_4}).
+
+\textbf{Evaluation lags the shift toward situated reasoning.} The field is moving from questions posed to a detached observer toward agents that must localize themselves, gather evidence, and act, yet no current benchmark exercises perception fidelity, symbolic precision, memory persistence, and long-horizon action together, and few attribute an end-to-end score to the components that produced it (§\ref{sec:p3_s7_5}).
+
+Reasoning in this chapter takes the evidence of Chapter~\ref{chapter:3:sec:6} as given. Chapter~\ref{sec:generation} turns to the inverse problem of producing spatial content, and its world models (§\ref{sec:p3_s8_6}) supply the simulators that world-model-based reasoning (§\ref{subsec:p3_s7_3_8}) consults.

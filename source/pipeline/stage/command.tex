@@ -1,0 +1,323 @@
+%!TEX root = ../main.tex
+
+\newenvironment{abstract}{}{}
+\usepackage{abstract}
+% \usepackage[T1]{fontenc} % 疑似修改点
+% \usepackage{newpxtext,newpxmath} % 疑似修改点
+\usepackage{arxiv}
+\usepackage[square,numbers]{natbib}
+
+
+
+
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+% \usepackage{tgpagella}
+% \usepackage{mathpazo}
+% \usepackage{tgtermes}
+% \usepackage{newtxmath}
+\usepackage[english]{babel}
+\usepackage{dsfont} %
+\usepackage{xcolor}
+
+\usepackage{hyperref}
+\definecolor{linkgreen}{HTML}{009000}
+\definecolor{linkcobalt}{HTML}{3646F0}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=linkgreen,
+    filecolor=linkcobalt,
+    urlcolor=linkcobalt,
+    pdfpagemode=FullScreen,
+    }    % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}		% Can be removed after putting your text content
+\usepackage{graphicx}
+
+\usepackage{doi}
+\usepackage{amsmath}
+\usepackage{gensymb}
+\usepackage{enumitem}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{pifont}
+\usepackage{xparse}
+\usepackage{xspace}
+
+\newcommand{\vs}{\textit{vs.}\xspace}
+\newcommand{\ie}{\textit{i.e.,}\xspace}
+\newcommand{\eg}{\textit{e.g.,}\xspace}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+
+
+%\usepackage[landscape,a4paper]{geometry}
+\usepackage{colortbl}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\usepackage{longtable}
+
+\usepackage{titlesec}
+% 四级标题
+\titleformat{\paragraph}[runin]{\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{6pt}{4pt}
+% 五级标题
+\titleformat{\subparagraph}[runin]{\normalsize\itshape}{\thesubparagraph}{1em}{}
+\titlespacing*{\subparagraph}{0pt}{4pt}{3pt}
+\renewcommand\theparagraph{\thesubsubsection.\arabic{paragraph}}
+\renewcommand\thesubparagraph{\theparagraph.\arabic{subparagraph}}
+\setcounter{secnumdepth}{4}
+\setcounter{secnumdepth}{5} % 允许显示五级标题的序号
+
+%\usepackage[numbers]{natbib}
+% \usepackage[margin=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{trees, tikzmark, shadows, arrows.meta, positioning, calc}
+%\usepackage{forest}
+
+% draw the tree
+\usepackage[edges]{forest}
+\usepackage[normalem]{ulem}
+% For timeline
+\usepackage[most]{tcolorbox}
+
+% 158 195 231
+\definecolor{ai_blue}{RGB}{158, 195, 231}
+
+\definecolor{forestgreen}{RGB}{34,139,34}
+\definecolor{steelred}{RGB}{139,30,30}
+\newtcolorbox{quotebox}{
+    colback=ai_blue!60, 
+    colframe=gray!30,
+    coltext=black,
+    boxrule=0pt,
+    arc=4pt,
+    left=10pt,
+    right=10pt,
+    top=10pt,
+    bottom=10pt,
+    enhanced,
+    drop shadow={black!50!white}
+}
+
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{cleveref}
+
+\tikzset{%
+    parent/.style =          {align=center,text width=2cm,rounded corners=3pt, line width=0.3mm},%, fill=gray!10,draw=gray!80},
+    child/.style =           {align=center,text width=2.3cm,rounded corners=3pt, fill=blue!10,draw=blue!80,line width=0.3mm},
+    grandchild/.style =      {align=center,text width=2cm,rounded corners=3pt},
+    greatgrandchild/.style = {align=center,text width=1.5cm,rounded corners=3pt},
+    greatgrandchild2/.style = {align=center,text width=1.5cm,rounded corners=3pt},    
+    referenceblock/.style =  {align=center,text width=1.5cm,rounded corners=2pt},
+    %%%% Re-define
+    % Pretrain Model
+    pretrain/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill=blue!10,draw=blue!80,line width=0.3mm},   
+    pretrain_work/.style =           {align=center, text width=2.9cm,rounded corners=3pt, fill=blue!10,draw=blue!0,line width=0.3mm},  
+    % Template Mining
+    template/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill=red!10,draw=red!80,line width=0.3mm},   
+    template_work/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill=red!10,draw=red!0,line width=0.3mm},    
+    % Answering Mining
+    answer/.style =           {align=center,text width=2.9cm,rounded corners=3pt,line width=0.3mm},%, fill= cyan!10,draw= cyan!80,},   
+    answer_work/.style =           {align=center,text width=2.9cm,rounded corners=3pt,line width=0.3mm},%, fill= cyan!10,draw= cyan!0,},      
+    % Multi-prompt 
+    multiple/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill= orange!10,draw= orange!80,line width=0.3mm},   
+    multiple_work/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill= orange!10,draw= orange!0,line width=0.3mm},        
+    % Tuning Strategy
+    tuning/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill= magenta!10,draw= magenta!80,line width=0.3mm},   
+    tuning_work/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill= magenta!10,draw= magenta!0,line width=0.3mm},
+    % Assurance
+    assurance/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill= green!10,draw= green!80,line width=0.3mm},   
+    assurance/.style =           {align=center,text width=2.9cm,rounded corners=3pt, fill= green!10,draw= green!0,line width=0.3mm},
+}
+
+
+\usepackage{color}			% Color extended names
+
+%DEFINE ENVIRONMENT BLOCK 
+% Riddle
+\newenvironment{Riddle}{		% Riddle environment
+  \begin{center}			% Centering minipage
+    \colorbox[HTML]{F8E0E0} {		% Set's the color of minipage
+      \begin{minipage}[b]{380px} 	% Starts minipage
+ 	\textbf{Riddle: }\\ \itshape 	% Set's title and starts italic for text 
+      \end{minipage}}			% End minipage
+}{\end{center}}				% End Riddle environment
+
+
+\usepackage{tabularx}
+\usepackage{tabularray}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}  % centered, auto-wrapping fixed-width column (fraction of \textwidth)
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}  % left-aligned, auto-wrapping fixed-width column
+\usepackage{CJKutf8}  % for Chinese text
+
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+
+\tcbuselibrary{theorems,breakable}
+
+% First, adjust the theorem style to match proof spacing
+\newtheoremstyle{definition}
+  {6pt}        % Space above - matching \topsep6pt from proof
+  {6pt}        % Space below - matching \topsep6pt from proof  
+  {\normalfont} % Body font
+  {}           % Indent amount
+  {\bfseries}  % Theorem head font
+  {.}          % Punctuation after theorem head
+  {.5em}       % Space after theorem head (similar to \labelsep)
+  {}           % Theorem head spec
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+% Then adjust tcolorbox to preserve these spacings
+\definecolor{DefGreen}{HTML}{E8F5E9}
+\tcolorboxenvironment{definition}{
+  colback=DefGreen, %blue!5!white,
+  boxrule=0pt,
+  boxsep=0pt,
+  % Match internal spacing to typical proof environment
+  left=2pt,    % Use same label separation as proof
+  right=\labelsep,   % Symmetric padding
+  top=12pt,           % Small top padding inside box
+  bottom=12pt,        % Small bottom padding inside box
+  oversize=2pt,
+  sharp corners,
+  % Match external spacing to \topsep
+  before skip=6pt,   % Same as proof \topsep6pt
+  after skip=6pt,    % Same as proof \topsep6pt
+  breakable,
+}
+
+% Alternative color schemes you might prefer for definitions:
+% Option 1: Light gray (more neutral)
+% colback=gray!5!white,
+
+% Option 2: Light green (suggesting growth/construction)
+% colback=green!5!white,
+
+% Option 3: Light yellow (highlighting important concepts)
+% colback=yellow!5!white,
+
+
+
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{red}{#1}}
+\newcommand{\bang}[1]{\textcolor{red}{#1}}
+\newcommand{\mc}[1]{\textcolor{red}{MC#1}}
+\newcommand{\hs}[1]{\textcolor{red}{Huan:#1}}
+\newcommand{\kunlun}[1]{{{\textcolor{red}{[Kunlun: #1]}}}}
+\newcommand{\xlqi}[1]{{{\textcolor{red}{[Xiaoliang: #1]}}}}
+\newcommand{\xf}[1]{{{\textcolor{red}{[Xinfeng: #1]}}}}
+\newcommand{\hsr}[1]{{{\textcolor{red}{[Sirui: #1]}}}}
+\newcommand{\hbc}[1]{{\textcolor{red}{[haibo: #1]}}}
+\newcommand{\hb}[1]{{\textcolor{red}{ #1}}}
+\newcommand{\tjhe}[1]{{{\textcolor{red}{[Tanjin: #1]}}}}
+\newcommand{\yg}[1]{\textcolor{red}{Yu Gu:#1}}
+\newcommand{\jy}[1]{\textcolor{red}{Jiayi:#1}}
+
+\newcommand{\yuyu}[1]{\textcolor{red}{Yuyu:#1}}
+
+
+\definecolor{customgreen}{RGB}{191,255,191} % BFFFBF in RGB
+\definecolor{customblue}{RGB}{228,254,254} % E4FEFE in RGB
+\definecolor{customyellow}{RGB}{255,255,191} % FFFFBF in RGB
+\definecolor{customred}{RGB}{255,191,191} % FFBFBF in RGB
+
+\definecolor{sealblue}{HTML}{173F67}
+\definecolor{sealgold}{HTML}{B08B3E}
+
+% =============
+% \DeclareRobustCommand{\FramedGlyph}[1]{%
+%   \tikz[baseline=(Letter.base)]{%
+%     \node[
+%       rounded corners=1.5pt,
+%       fill=sealblue,
+%       draw=sealgold,
+%       double=white,
+%       double distance=1.2pt,
+%       line width=0.7pt,
+%       minimum width=1.02cm,
+%       minimum height=1.12cm,
+%       inner sep=0pt
+%     ] (Frame) {};%    
+%     \node[
+%       font=\fontsize{29}{29}\selectfont\bfseries,
+%       text=white,
+%       inner sep=0pt,
+%       yshift=-4pt
+%     ] (Letter) at (Frame.center) {#1};%
+%   }%
+% }
+
+% \newcommand{\FramedInitial}[2]{%
+%   \lettrine[
+%     lines=3,
+%     lraise=0.02,
+%     lhang=0.00,
+%     loversize=0,
+%     findent=0.35em,
+%     nindent=0.60em,
+%     refstring=T
+%   ]{\FramedGlyph{#1}}{#2}%
+% }
+
+\DeclareRobustCommand{\FramedGlyph}[1]{%
+  \raisebox{0.10\baselineskip}{%
+    \tikz[baseline=(Letter.base)]{%
+      % 固定整个图形的边界，避免 lettrine 误判高度
+      \path[use as bounding box] (0,0) rectangle (1.20,1.34);
+
+      % 外框
+      \node[
+        rounded corners=2pt,
+        fill=sealblue,
+        draw=sealgold,
+        line width=0.9pt,
+        minimum width=1.02cm,
+        minimum height=1.12cm,
+        inner sep=0pt
+      ] (Frame) at (0.60,0.67) {};
+
+      % 内部细边框
+      \draw[
+        white,
+        line width=0.45pt
+      ]
+      ([xshift=2.2pt,yshift=-2.2pt]Frame.north west)
+      rectangle
+      ([xshift=-2.2pt,yshift=2.2pt]Frame.south east);
+
+      % 字母：向上微调，解决“视觉上偏下”
+      \node[
+          % font=\initfamily\fontsize{29}{29}\selectfont,
+          font=\fontsize{29}{29}\selectfont\bfseries,
+        text=white,
+        inner sep=0pt,
+        yshift=1.6pt
+      ] (Letter) at (Frame.center) {#1};
+    }%
+  }%
+}
+\newcommand{\FramedInitial}[2]{%
+  \lettrine[
+    lines=3,
+    lraise=0.02,
+    lhang=0.00,
+    loversize=0,
+    findent=0.35em,
+    nindent=0.60em,
+    refstring=T
+  ]{\FramedGlyph{#1}}{#2}%
+}

@@ -1,0 +1,163 @@
+\section{Medicine and Clinical Healthcare}
+\label{sec:p4_s12_1}
+
+\subsection{Introduction}
+\label{subsec:p4-sec12-1-introduction}
+
+Anatomy is a three-dimensional arrangement of organs with shape, volume, and topology; disease is \emph{localized}, so that a lesion is a position and an extent in the body frame rather than a label on an image; and intervention is fundamentally an act of navigation, guiding an instrument to a target through tissue that must not be harmed.
+
+The perception machinery of Chapter~\ref{chapter:3:sec:6} (detection, segmentation, depth, pose) and the reconstruction and generation of Chapter~\ref{sec:generation} reappear here, specialized to volumetric data, to registration across modalities and time, and to a regulatory setting in which a wrong answer harms a patient. 
+The unit of analysis is the individual patient and the individual procedure: the molecular and cellular scale belongs to the natural sciences (§\ref{sec:Natural Science}), the generic digital twin, of which the patient-specific medical twin below is a specialization, to §\ref{sec:p4_s11_1}, and the population scale of spatial epidemiology to the GeoAI of §\ref{sec:p4_s11_2}.
+
+\subsection{System Overview}
+\label{subsec:p4-sec12-1-system-overview}
+
+Figure~\ref{fig:p4_s12_1_overview} draws clinical spatial intelligence as a closed loop around the patient: multimodal imaging (computed tomography, magnetic resonance, ultrasound, endoscopy, pathology) is acquired and the anatomy perceived, a patient-specific 3D model is built and a plan formed, the plan is executed under image guidance, and the outcome is imaged anew. 
+Registration connects the image, patient, and instrument frames throughout this pipeline; the recurring difficulty is keeping the virtual model aligned with the physical patient as tissue moves and deforms. The three pivotal tasks map onto the loop directly (Task-1 perceives, Task-2 models and plans, Task-3 acts), and Table~\ref{tab:p4_s12_1_benchmarks} collects their benchmarks.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section12/medical_overview.pdf}
+    \caption{Clinical spatial intelligence with two connected information paths: acquired observations support anatomical perception and patient-specific planning, while live imaging and tracking update the alignment used for guided intervention. Physical intervention changes the patient state, prompting subsequent observation. Anatomical scenes are schematic; pathology may require specimen correspondence.}
+    \label{fig:p4_s12_1_overview}
+\end{figure}
+
+\subsection{Pivotal Task-1: Volumetric Medical Image Perception}
+\label{subsec:p4-sec12-1-pivotal-task-1-volumetric-medical-image-perception}
+
+The first task perceives the anatomy. Medical perception is intrinsically volumetric: it converts a voxel grid into delineated 3D anatomical objects with measurable shape and volume, localizes disease in the body frame, and aligns observations across modalities and time. Figure~\ref{fig:p4_s12_1_perception} illustrates three complementary outputs: segmented organs, a localized candidate finding, and a cross-modal alignment; these tasks need not form a serial pipeline.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section12/medical_perception.pdf}
+    \caption{Three input-operation-output views of medical perception: (a) image volumes yield voxel labels, organ masks, and 3D anatomy; (b) detected candidate regions are mapped from voxel indices to physical patient coordinates using image geometry; and (c) moving and reference modalities jointly determine a spatial transform for anatomical alignment. Synthetic CT/MRI-style images and the hypothetical ROI illustrate task structure, not measured clinical findings or a validated registration result.}
+    \label{fig:p4_s12_1_perception}
+\end{figure}
+
+\textbf{Volumetric segmentation.} Segmentation is the spatial core of medical imaging, and its history is a move from two-dimensional slices to full volumes. 
+The encoder-decoder U-Net~\cite{ronneberger2015unet} founded the area, and its volumetric successors, the 3D U-Net~\cite{cciccek20163d} and the V-Net~\cite{milletari2016vnet} (which introduced the now-ubiquitous Dice loss to handle voxel class imbalance), moved it into three dimensions. 
+The self-configuring nnU-Net~\cite{isensee2021nnunet} adapts preprocessing, architecture, and training to each dataset and remains the baseline that is hard to beat, while transformer encoders such as UNETR~\cite{hatamizadeh2022unetr} and Swin-UNETR~\cite{hatamizadeh2022swinunetr} add global context. 
+At the whole-body scale, TotalSegmentator~\cite{wasserthal2023totalsegmentator} delineates more than a hundred anatomical structures in a single CT, functioning as a spatial atlas in routine use. 
+These methods are evaluated by the Dice similarity coefficient for volumetric overlap and by boundary-geometry metrics, the 95th-percentile Hausdorff distance and the average symmetric surface distance, that capture shape errors which overlap alone misses~\cite{taha2015metrics}.
+
+\textbf{Medical foundation models.} The recent shift mirrors the rest of vision: from per-task specialists to promptable foundation models that segment arbitrary anatomy from spatial prompts. 
+The Segment Anything Model~\cite{kirillov2023sam} catalyzed the move, and MedSAM~\cite{ma2024medsam} adapted it by fine-tuning on more than a million medical image--mask pairs. 
+Because anatomy is volumetric, the decisive step is into 3D: SAM-Med3D~\cite{wang2023sammed3d} replaces the slice-wise encoder with a fully three-dimensional one, and SegVol~\cite{du2024segvol} supports both spatial and textual prompts over hundreds of anatomical categories. 
+Much of this work is built on the open MONAI framework~\cite{cardoso2022monai}, whose medical-aware 3D transforms and model zoo have become standard infrastructure.
+
+\textbf{Detection and landmark localization.} Detection localizes a finding in the body frame, and landmark localization fixes canonical anatomical coordinates; both are spatial tasks distinct from whole-image classification. 
+Lung-nodule detection is anchored by the LIDC-IDRI reference database~\cite{armato2011lidcidri} and the LUNA16 benchmark~\cite{setio2017luna16}, which standardized evaluation on the free-response operating characteristic (sensitivity against false positives per scan). 
+Anatomical landmarks can be found by treating localization as a sequential spatial search, as in the reinforcement-learning agent of Ghesu \etal~\cite{ghesu2016landmark} that navigates the volume to a target.
+
+\textbf{Registration as spatial alignment.} Registration brings two images into a common coordinate frame and is foundational for multimodal fusion, atlas-based labeling, longitudinal tracking, and surgical planning. 
+Learning-based methods reframe it as predicting a dense deformation field in a single forward pass: VoxelMorph~\cite{balakrishnan2019voxelmorph} established the unsupervised CNN formulation, and TransMorph~\cite{chen2022transmorph} added a transformer backbone. 
+These build on classical diffeomorphic and intensity-based methods, principally the symmetric diffeomorphic SyN~\cite{avants2008syn} and the intensity-based toolbox elastix~\cite{klein2010elastix}, and are measured by the target registration error between corresponding landmarks. 
+Segmentation and detection are benchmarked on generalist suites such as the Medical Segmentation Decathlon~\cite{antonelli2022msd}, the brain-tumor benchmark BraTS~\cite{menze2015brats}, the abdominal multi-organ datasets AMOS~\cite{ji2022amos} and BTCV~\cite{landman2015btcv}, the kidney-tumor KiTS19~\cite{heller2021kits19}, and the cardiac ACDC~\cite{bernard2018acdc}.
+
+\subsection{Pivotal Task-2: Anatomical Reconstruction, Modeling, and Surgical Planning}
+\label{subsec:p4-sec12-1-pivotal-task-2-anatomical-reconstruction-modeling-and-surgical-planning}
+
+The second task turns the perceived anatomy into a patient-specific 3D model that can be measured, simulated, and planned upon, bridging from pixels to clinical decisions. Figure~\ref{fig:p4_s12_1_modeling} previews this progression from a segmentation to an anatomical mesh, a patient-specific simulation, and a surgical plan.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part4/section12/medical_reconstruction.pdf}
+    \caption{Anatomical reconstruction, modeling, and planning: a volumetric segmentation becomes a 3D anatomical mesh, is personalized into a medical digital twin (\eg, a cardiac electrophysiology or blood-flow model), and is used to simulate outcomes and design a surgical or radiotherapy plan. New patient observations update model personalization. Cardiac targeting and radiotherapy dose prediction are alternative planning examples; synthetic anatomy and vector overlays illustrate the workflow rather than clinical results.}
+    \label{fig:p4_s12_1_modeling}
+\end{figure}
+
+\textbf{3D anatomical reconstruction.} A segmentation becomes a usable model once it is turned into geometry. 
+The classical route extracts an isosurface mesh by Marching Cubes~\cite{lorensen1998marching}, optionally constrained by a statistical shape model that encodes anatomical priors as a learned distribution over landmarks, an idea founded by Active Shape Models~\cite{cootes1995asm} and surveyed for medical use by Heimann and Meinzer~\cite{heimann2009ssm}. 
+Deep methods deform a template mesh directly from the volume, as in Voxel2Mesh~\cite{wickramasinghe2020voxel2mesh} and the whole-heart reconstruction of Kong \etal~\cite{kong2021meshdeformnet}. 
+Implicit neural representations supply a continuous alternative, with DeepSDF~\cite{park2019deepsdf} and Occupancy Networks~\cite{mescheder2019occupancy} as the substrate (Chapter~\ref{sec:generation}) and medical adaptations such as the neural attenuation fields of NAF~\cite{zha2022naf} reconstructing volumes from sparse-view cone-beam CT.
+
+\textbf{Patient-specific modeling and the medical digital twin.} A geometric model becomes a \emph{twin} when it is endowed with patient-specific physiology and kept faithful to a particular patient, a medical specialization of the generic digital twin of §\ref{sec:p4_s11_1}. 
+What is clinically specific is that the model is built from the patient's own imaging and physiological signals, governed by mechanistic physiology rather than CAD, and bound by regulatory credibility. 
+Cardiac twins are the most mature instance: the vision was set out by Corral-Acero \etal~\cite{corralacero2020digital}, the mechanistic backbone is the multiscale cardiac modeling reviewed by Niederer \etal~\cite{niederer2019cardiacmodels}, and a personalized virtual heart built from scar imaging has been used to guide ablation of ventricular tachycardia~\cite{prakosa2018personalized}. 
+Hemodynamic twins compute fractional flow reserve from coronary CT by simulating blood flow~\cite{taylor2013ffrct}, and the paradigm extends to the brain, where a virtual epileptic patient estimates the epileptogenic zone to guide surgery~\cite{wang2023vep}. 
+Such models also underwrite in-silico trials, in which virtual patient cohorts partially substitute for physical ones~\cite{viceconti2016avicenna}, a route that regulators have begun to accept, as in the VICTRE imaging trial~\cite{badano2018victre}. 
+The broader landscape is surveyed in recent reviews of digital twins for health~\cite{katsoulakis2024digital}.
+
+\textbf{Surgical and treatment planning.} The patient model is finally used to plan. 
+Open platforms such as 3D Slicer~\cite{fedorov2012slicer} assemble segmentation, registration, and 3D modeling into a planning workflow, and real-time finite-element engines such as SOFA~\cite{faure2012sofa} support interactive surgical simulation and rehearsal on deformable tissue. 
+In radiotherapy, planning is increasingly cast as a learning problem of predicting an achievable dose distribution from anatomy, standardized by the OpenKBP challenge~\cite{babier2021openkbp}. 
+Across these settings the plan is a spatial object, a trajectory, a dose map, or a resection boundary, defined on the patient's own anatomy.
+
+\subsection{Pivotal Task-3: Image-Guided Intervention and Surgical Navigation}
+\label{subsec:p4-sec12-1-pivotal-task-3-image-guided-intervention-and-surgical-navigation}
+
+The third task brings the plan into the operating room and acts within the patient's live coordinate frame. 
+The central problem is patient-to-image registration under real-world deformation and latency: the preoperative model must be aligned to the physical patient, and instruments tracked within that frame, in real time. 
+Figure~\ref{fig:p4_s12_1_navigation} previews registered preoperative anatomy and augmented-reality guidance alongside the complementary reconstruction of a deforming endoscopic scene.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section12/medical_navigation.pdf}
+    \caption{Patient-frame guidance combines registered anatomy and a calibrated tracked-tool pose. New intraoperative observations update anatomical registration; display calibration supports AR presentation. A separate endoscopic branch reconstructs dynamic geometry and registers it to the patient before optional fusion. The robot controller consumes the fused state rather than raw endoscopic imagery. Dashed connections denote optional downstream use. Anatomical scenes, overlays, and silicone-phantom reconstruction are schematic; transforms act on homogeneous coordinates.}
+    \label{fig:p4_s12_1_navigation}
+\end{figure}
+
+\textbf{Surgical navigation.} Navigation aligns the preoperative model to the patient and tracks instruments within that frame, typically by optical tracking, which is sub-millimeter but requires line of sight, or electromagnetic tracking, which tolerates occlusion but is perturbed by metal. 
+The defining difficulty is deformation: in neuronavigation, the brain shifts by up to centimeters once the skull is opened, invalidating the rigid preoperative registration, which is why intraoperative imaging and learning-based compensation are active concerns.
+
+\textbf{Augmented-reality guidance.} Rather than divert the surgeon's gaze to a screen, augmented reality overlays the segmented anatomy directly on the surgical field, a use of the XR runtime treated in §\ref{sec:p4_s10_1}. 
+The approach is most mature in spine surgery, where the Augmedics xvision system, the first FDA-cleared augmented-reality navigation platform, projects the patient's CT-derived spine onto a transparent head-mounted display for pedicle-screw placement~\cite{molina2021xvision}.
+
+\textbf{Endoscopic spatial perception.} Minimally invasive surgery presents a hard perception problem: a monocular, moving camera views a deforming, specular, poorly lit scene. 
+Surgical workflow and instruments are recognized from video, as standardized by the Cholec80 dataset and the EndoNet architecture for joint tool and phase recognition~\cite{twinanda2017endonet}. 
+Geometry is recovered by self-supervised depth and visual odometry, benchmarked by the SCARED challenge~\cite{allan2021scared} and the EndoSLAM dataset~\cite{ozyoruk2021endoslam}, and the deforming surgical scene is reconstructed in 3D by dynamic neural rendering, as in EndoNeRF~\cite{wang2022endonerf}, a clinical specialization of the neural reconstruction of Chapter~\ref{sec:generation}.
+
+\textbf{Surgical robotics.} Robotic systems execute the plan within the patient frame; their manipulation and control are the subject of §\ref{sec:p4_s9_1}, and the concern here is the spatial perception and autonomy they enable. 
+The da Vinci Research Kit~\cite{kazanzides2014dvrk} is the standard open research platform, and autonomy is commonly graded on a six-level scale from teleoperation to full autonomy~\cite{yang2017autonomy}. 
+Most deployed systems remain teleoperated, but the frontier of autonomous spatial action is exemplified by the Smart Tissue Autonomous Robot, which performs supervised-autonomous soft-tissue suturing using 3D tissue tracking~\cite{shademan2016star} and has been extended to in-vivo intestinal anastomosis~\cite{saeidi2022star}.
+
+\begin{table}[!th]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative benchmarks for spatial intelligence in medicine, spanning the three pivotal tasks.}
+\label{tab:p4_s12_1_benchmarks}
+\begin{tabular}{L{0.16\textwidth} L{0.28\textwidth} L{0.28\textwidth} L{0.20\textwidth}}
+\toprule
+\textbf{Pivotal task} & \textbf{Benchmark / dataset} & \textbf{Representative method} & \textbf{Headline metric} \\
+\midrule
+Segmentation & MSD~\cite{antonelli2022msd} & nnU-Net~\cite{isensee2021nnunet} & Dice / HD95 \\
+Segmentation & BraTS~\cite{menze2015brats} & Swin-UNETR~\cite{hatamizadeh2022swinunetr} & Dice \\
+Multi-organ & AMOS~\cite{ji2022amos} / BTCV~\cite{landman2015btcv} & UNETR~\cite{hatamizadeh2022unetr} & Dice \\
+Detection & LUNA16~\cite{setio2017luna16} & 3D CNN detectors (challenge entries)~\cite{setio2017luna16} & FROC sensitivity \\
+Registration & multi-site brain MRI (OASIS, ADNI, ABIDE) & VoxelMorph~\cite{balakrishnan2019voxelmorph} & TRE / Dice \\
+Reconstruction & MM-WHS~\cite{zhuang2019mmwhs} & whole-heart mesh~\cite{kong2021meshdeformnet} & surface distance \\
+Modeling & patient-specific cardiac & virtual heart~\cite{prakosa2018personalized} & ablation-target agreement \\
+Endoscopy & SCARED~\cite{allan2021scared} & EndoNeRF~\cite{wang2022endonerf} & depth error \\
+Workflow & Cholec80~\cite{twinanda2017endonet} & EndoNet~\cite{twinanda2017endonet} & phase accuracy \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Established Tools and Systems}
+\label{subsec:p4-sec12-1-established-tools-and-systems}
+
+\textbf{Open-source frameworks.} The research stack runs from voxels to a planned model: \textbf{3D Slicer}\footnote{\url{https://www.slicer.org/}} and \textbf{MITK}\footnote{\url{https://www.mitk.org/}} provide segmentation, registration, and planning environments over the lower-level \textbf{ITK} and \textbf{SimpleITK}\footnote{\url{https://itk.org/}} engines; \textbf{MONAI}\footnote{\url{https://monai.io/}} supplies 3D-native deep-learning components and \textbf{nnU-Net}\footnote{\url{https://github.com/MIC-DKFZ/nnUNet}} the standard segmentation pipeline; and the web viewer \textbf{OHIF}\footnote{\url{https://ohif.org/}} renders and annotates volumes in the browser.
+
+\textbf{Navigation and surgical-robotics vendors.} The clinical stack carries the model from preoperative registration to constrained in-OR action. Navigation systems from \textbf{Brainlab}\footnote{\url{https://www.brainlab.com/}}, \textbf{Medtronic} (StealthStation)\footnote{\url{https://www.medtronic.com/}}, and \textbf{Stryker}\footnote{\url{https://www.stryker.com/}} register and track instruments, and \textbf{Augmedics}\footnote{\url{https://augmedics.com/}} adds an augmented-reality head-mounted overlay. Surgical robots span teleoperated soft-tissue systems (\textbf{Intuitive} da Vinci and Ion\footnote{\url{https://www.intuitive.com/}}, \textbf{Medtronic} Hugo, \textbf{CMR Surgical} Versius\footnote{\url{https://cmrsurgical.com/}}) and CT-planned, haptically constrained orthopedic systems (\textbf{Stryker} Mako, \textbf{Zimmer Biomet} ROSA\footnote{\url{https://www.zimmerbiomet.com/}}).
+
+\textbf{Imaging-AI and clinical platforms.} A deployed layer turns spatial findings into care. \textbf{Aidoc}\footnote{\url{https://www.aidoc.com/}} triages critical findings on CT, \textbf{Viz.ai}\footnote{\url{https://www.viz.ai/}} alerts stroke teams to large-vessel occlusions, \textbf{HeartFlow}\footnote{\url{https://www.heartflow.com/}} computes non-invasive fractional flow reserve from coronary CT, \textbf{PathAI}\footnote{\url{https://www.pathai.com/}} quantifies biomarkers on whole-slide pathology, and \textbf{Tempus}\footnote{\url{https://www.tempus.com/}} fuses imaging with genomic and clinical data.
+
+\subsection{Challenges}
+\label{subsec:p4-sec12-1-challenges}
+
+Every capability in the clinical loop must be accurate, robust to deformation, and trustworthy enough to act on a patient. The open problems follow from those demands: generalizing across scanners and sites, obtaining labels under privacy constraints, registering deforming tissue during surgery, earning regulatory and clinical trust, and meeting real-time budgets while fusing imaging with non-imaging evidence.
+
+\paragraph{Generalization across Scanners and Sites.} Models trained at one institution degrade at another, because scanner vendor, reconstruction kernel, and acquisition protocol induce a covariate shift that curated benchmarks underrepresent. 
+Domain generalization and adaptation are therefore prerequisites for deployment, and leaderboard results routinely overstate performance at a new site.
+
+\paragraph{Data Scarcity, Annotation Cost, and Privacy.} Volumetric expert annotation is slow and expensive, and patient data is locked in privacy-restricted silos. 
+Self-supervised pretraining reduces the labeling burden~\cite{huang2023ssl}, and federated learning trains shared models without moving data across institutions~\cite{rieke2020federated}, but label efficiency and privacy-preserving collaboration remain limiting.
+
+\paragraph{Non-Rigid Intraoperative Registration.} The hardest open spatial problem is keeping the model aligned with the patient as tissue moves. Brain shift after craniotomy and soft-tissue deformation during surgery invalidate rigid preoperative registration, and while learning-based deformable registration~\cite{balakrishnan2019voxelmorph} addresses the static case, real-time non-rigid intraoperative alignment under sparse, partial observation is not solved.
+
+\paragraph{Validation, Regulation, and Trust.} A model that changes a clinical decision needs prospective validation and regulatory clearance before use, and at the bedside it needs calibrated uncertainty and explanations that support appropriate rather than blind reliance. Retrospective benchmark accuracy establishes none of these.
+
+\paragraph{Real-Time Constraints and Multimodal Fusion.} Intraoperative guidance must run within a tight latency budget while the scene deforms, a constraint that few surgical-video algorithms yet meet without specialized hardware. 
+At the same time, the richest clinical picture comes from fusing imaging with electronic health records and genomics~\cite{acosta2022multimodal}, so spatial perception must ultimately integrate with non-spatial evidence.
+

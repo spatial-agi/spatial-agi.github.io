@@ -1,0 +1,320 @@
+{
+  "figure": "7.28",
+  "source": "assets/figures/figures/part3/section7/world_model_based_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1197
+  ],
+  "assets": [
+    {
+      "file": "i-query/initial-scene.png",
+      "title": "Initial observation",
+      "source_box": [
+        18,
+        138,
+        312,
+        418
+      ],
+      "kind": "exterior",
+      "size": [
+        294,
+        280
+      ]
+    },
+    {
+      "file": "a-observations/frame-t.png",
+      "title": "Imagined frame at t",
+      "source_box": [
+        26,
+        775,
+        217,
+        956
+      ],
+      "kind": "exterior",
+      "size": [
+        191,
+        181
+      ]
+    },
+    {
+      "file": "a-observations/frame-t1.png",
+      "title": "Imagined frame at t+1",
+      "source_box": [
+        283,
+        775,
+        473,
+        956
+      ],
+      "kind": "exterior",
+      "size": [
+        190,
+        181
+      ]
+    },
+    {
+      "file": "i-query/robot-arm.png",
+      "title": "Initial robot arm",
+      "source_box": [
+        35,
+        138,
+        240,
+        331
+      ],
+      "kind": "arm",
+      "polygon": [
+        [
+          35,
+          138
+        ],
+        [
+          240,
+          138
+        ],
+        [
+          240,
+          295
+        ],
+        [
+          96,
+          295
+        ],
+        [
+          96,
+          309
+        ],
+        [
+          110,
+          314
+        ],
+        [
+          110,
+          321
+        ],
+        [
+          89,
+          327
+        ],
+        [
+          57,
+          327
+        ],
+        [
+          35,
+          323
+        ]
+      ],
+      "size": [
+        205,
+        193
+      ]
+    },
+    {
+      "file": "i-query/red-block.png",
+      "title": "Initial red block",
+      "source_box": [
+        175,
+        304,
+        226,
+        351
+      ],
+      "kind": "red",
+      "size": [
+        51,
+        47
+      ]
+    },
+    {
+      "file": "i-query/blue-block.png",
+      "title": "Initial blue block",
+      "source_box": [
+        242,
+        304,
+        293,
+        351
+      ],
+      "kind": "blue",
+      "size": [
+        51,
+        47
+      ]
+    },
+    {
+      "file": "a-observations/robot-t.png",
+      "title": "Imagined robot at t",
+      "source_box": [
+        37,
+        775,
+        173,
+        901
+      ],
+      "kind": "arm",
+      "polygon": [
+        [
+          37,
+          775
+        ],
+        [
+          173,
+          775
+        ],
+        [
+          173,
+          876
+        ],
+        [
+          79,
+          876
+        ],
+        [
+          79,
+          888
+        ],
+        [
+          88,
+          891
+        ],
+        [
+          88,
+          896
+        ],
+        [
+          76,
+          900
+        ],
+        [
+          54,
+          900
+        ],
+        [
+          37,
+          896
+        ]
+      ],
+      "size": [
+        136,
+        126
+      ]
+    },
+    {
+      "file": "a-observations/red-t.png",
+      "title": "Red block at t",
+      "source_box": [
+        128,
+        880,
+        161,
+        913
+      ],
+      "kind": "red",
+      "size": [
+        33,
+        33
+      ]
+    },
+    {
+      "file": "a-observations/blue-t.png",
+      "title": "Blue block at t",
+      "source_box": [
+        172,
+        880,
+        204,
+        913
+      ],
+      "kind": "blue",
+      "size": [
+        32,
+        33
+      ]
+    },
+    {
+      "file": "a-observations/robot-t1.png",
+      "title": "Imagined robot at t+1",
+      "source_box": [
+        293,
+        775,
+        428,
+        899
+      ],
+      "kind": "arm",
+      "polygon": [
+        [
+          293,
+          775
+        ],
+        [
+          428,
+          775
+        ],
+        [
+          428,
+          864
+        ],
+        [
+          333,
+          864
+        ],
+        [
+          333,
+          884
+        ],
+        [
+          344,
+          887
+        ],
+        [
+          344,
+          893
+        ],
+        [
+          330,
+          897
+        ],
+        [
+          310,
+          897
+        ],
+        [
+          293,
+          894
+        ]
+      ],
+      "size": [
+        135,
+        124
+      ]
+    },
+    {
+      "file": "a-observations/red-t1.png",
+      "title": "Red block at t+1",
+      "source_box": [
+        403,
+        866,
+        436,
+        893
+      ],
+      "kind": "red",
+      "size": [
+        33,
+        27
+      ]
+    },
+    {
+      "file": "a-observations/blue-t1.png",
+      "title": "Blue block at t+1",
+      "source_box": [
+        403,
+        890,
+        436,
+        917
+      ],
+      "kind": "blue",
+      "size": [
+        33,
+        27
+      ]
+    }
+  ],
+  "frontend": [
+    "Initial and imagined scenes preserve the source photographs; robots and blocks are also separate cutouts.",
+    "Scene geometry, future-state blocks, trajectory branches, latent vectors, formulas and all prediction/feedback arrows will be frontend elements."
+  ]
+}

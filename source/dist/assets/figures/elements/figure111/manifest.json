@@ -1,0 +1,83 @@
+{
+  "figure": "11.1",
+  "sources": [
+    "assets/figures/figures/part4/section11/digital_twins_overview.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1445
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/digital_twins_overview.pdf",
+  "assets": [
+    {
+      "file": "physical-asset/machine-tool.png",
+      "title": "machine tool",
+      "panel": "physical-asset",
+      "size": [
+        656,
+        539
+      ],
+      "source_index": 0,
+      "source_box": [
+        65.0,
+        190.0,
+        575.0,
+        610.0
+      ],
+      "box": [
+        32.5,
+        95.0,
+        287.5,
+        305.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        33.789,
+        55.537,
+        294.445,
+        269.705
+      ],
+      "placement_confidence": 0.9976
+    },
+    {
+      "file": "construct/machine-mesh.png",
+      "title": "machine mesh",
+      "panel": "construct",
+      "size": [
+        656,
+        539
+      ],
+      "source_index": 0,
+      "source_box": [
+        747.5,
+        195.0,
+        1252.5,
+        610.0
+      ],
+      "box": [
+        373.75,
+        97.5,
+        626.25,
+        305.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        382.939,
+        58.181,
+        640.378,
+        269.705
+      ],
+      "placement_confidence": 0.9834
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

@@ -1,0 +1,206 @@
+%!TEX root = ../main.tex
+\clearpage
+\chapter*{Notation}
+\label{sec:notations-notation}
+
+Symbols are listed in chapter order, with the meanings used in the referenced sections.
+
+\definecolor{verylightgray}{gray}{0.95}
+
+\begin{longtable}{lll}
+	\textbf{Symbol} & \textbf{Description} & \textbf{Reference}\\
+    % %%% Agent framework notations
+    % $\mathcal{W}$ & The world with society systems. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathcal{S}$ & State space of an environment.  & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $s_t \in \mathcal{S}$ & Environment's state at time $t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathcal{O}$  & Observation space. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $o_t \in \mathcal{O}$ & Observation at time $t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathcal{A}$  & Agent's action space. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $a_t \in \mathcal{A}$ & Agent's action output at time $t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathcal{M}$ & Mental states space. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $M_t \in \mathcal{M}$ & Agent's mental state at time $t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $M_t^{\mathrm{mem}}$  & \textit{Memory} component in $M_t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $M_t^{\mathrm{wm}}$  & \textit{World model} component in $M_t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $M_t^{\mathrm{emo}}$ & \textit{Emotion} component in $M_t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $M_t^{\mathrm{goal}}$ & \textit{Goal} component in $M_t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $M_t^{\mathrm{rew}}$  & \textit{Reward/Learning} signals in $M_t$. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathrm{L}$ & Agent's learning function. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathrm{R}$ & Agent's reasoning function. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathrm{C}$ & Agent's cognition function. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathrm{E}$ & Action execution (effectors). & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % $\mathrm{T}$ & Environment transition. & Sec.~\ref{subsec:agent-framework-symbols}\\
+    % %%% other notations (put a brief summary here)
+    % % Self Improvement Agent Space
+    % $\mathrm{P}$           & Prompt text / prompt set fed to the LLM.                                    & Sec.~\ref{sec:prompt-optim} \\
+    % $K_{\text{wf}}$        & Agentic workflow composed of interconnected nodes and control flows.        & Sec.~\ref{sec:workflow-optimization} \\
+    % $N$           & Node representing a single LLM invocation used in $K_{\text{wf}}$. & Sec.~\ref{sec:workflow-optimization} \\
+    % % Scientific knowledge discovery 
+    % $\theta$ & Parameters of the world model $M_t^{\mathrm{wm}}$. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % $P_\theta$ & Predicted data distribution. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % $P_\mathcal{W}$ & True data distribution in the real world. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % $\mathcal{K}$ & Space of known data and information. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % $\mathcal{U}$ & Space of unknown data and information. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % ${\bf x}$ & Dataset representing scientific knowledge. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % ${\bf x}_{\mathrm{K}}$ & Known dataset sampled from $\mathcal{K}$. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % ${\bf x}_{\mathrm{U}}$ & Unknown dataset sampled from $\mathcal{U}$. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % $D_0$ & KL divergence from $P_\mathcal{W}$ to $P_\theta$ at time $t=0$. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % $D_{\mathrm{K}}$ & KL divergence from $P_\mathcal{W}$ to $P_\theta$ after acquiring knowledge. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % $IQ_t^{\mathrm{agent}}$ & Agent's intelligence at time $t$. & Sec.~\ref{subsec:KL_measure_intelligence} \\
+    % $\Delta $ & Subspace of $\mathcal{U}$ for knowledge expansion. & Sec.~\ref{subsec:IQ_increase_w_knowledge} \\
+    % ${\bf x}_\Delta$ & Dataset from $\Delta$. & Sec.~\ref{subsec:IQ_increase_w_knowledge} \\
+    % $\Theta$ & Space of possible world model parameters $\theta$. & Sec.~\ref{subsec:knowledge_expansion_strategy} \\
+    % $\theta^*_{\mathrm{K},t}$ & Optimal world model parameters given the agent's knowledge at time $t$. & Sec.~\ref{subsec:knowledge_expansion_strategy} \\
+    % $D_{\mathrm{K},\Theta}^{\rm min}$ & Minimum unknown given the agent's knowledge and $\Theta$. & Sec.~\ref{subsec:knowledge_expansion_strategy} \\
+    % % Basic Sequences
+    % $\mathbf{x}_{1:n}$ & Input token sequence. & Sec.~\ref{ssec:brain_sec_threat} \\
+    % $\mathbf{y}$ & Generated output sequence. & Sec.~\ref{ssec:brain_sec_threat} \\
+    % % Jailbreak and Adversarial Attacks
+    % $p$ & Probability of generating $\mathbf{y}$ given $\mathbf{x}_{1:n}$. & Sec.~\ref{sssec:jailbreak} \\
+    % $\tilde{\mathbf{x}}_{1:n}$ & Perturbed input sequence. & Sec.~\ref{sssec:jailbreak} \\
+    % $\mathcal{R}^*$ & Ideal alignment reward (measuring adherence to safety/ethical guidelines). & Sec.~\ref{sssec:jailbreak} \\
+    % $\mathbf{y}^\star$ & Jailbreak output induced by perturbations. & Sec.~\ref{sssec:jailbreak} \\
+    % $\mathcal{A}$ & a set of safety/ethical guidelines & Sec.~\ref{sssec:jailbreak} \\
+    % $\mathcal{T}$ & the distribution or set of possible jailbreak instructions. & Sec.~\ref{sssec:jailbreak} \\
+    % $\mathcal{L}^{adv}$ & Jailbreak loss. & Sec.~\ref{sssec:jailbreak} \\
+    % % Prompt Injection Attacks
+    % $\mathbf{p}$ & Prompt injected into the original input. & Sec.~\ref{sssec:promptinj} \\
+    % $\mathbf{x}'$ & Combined (injected) input sequence. & Sec.~\ref{sssec:promptinj} \\
+    % $\mathcal{L}^{inject}$ & Prompt injection loss. & Sec.~\ref{sssec:promptinj} \\
+    % $\mathbf{p}^\star$ & Optimal injected prompt minimizing $\mathcal{L}^{inject}$. & Sec.~\ref{sssec:promptinj} \\
+    % $\mathcal{P}$ & Set of feasible prompt injections. & Sec.~\ref{sssec:promptinj} \\
+    % % Hallucination Metrics
+    % $e_{x_i}\in\mathbb{R}^{d_e}$ & Embedding of token $x_i$ in a $d_e$-dimensional space. & Sec.~\ref{sssec:hallucination} \\
+    % $\mathrm{W}_Q,\mathrm{W}_K,\mathrm{W}_V$ & Projection matrices for query, key, and value. & Sec.~\ref{sssec:hallucination} \\
+    % $A_{ij}$ & Attention score between tokens $i$ and $j$. & Sec.~\ref{sssec:hallucination} \\
+    % $o_i$ & Contextual representation of token $i$ (weighted sum result). & Sec.~\ref{sssec:hallucination} \\
+    % $\delta_{x_i}$ & Perturbation applied to $e_{x_i}$, satisfying $\|\delta_{x_i}\|\leq\epsilon$. & Sec.~\ref{sssec:hallucination} \\
+    % $\tilde{e}_{x_i}$ & Perturbed token embedding. & Sec.~\ref{sssec:hallucination} \\
+    % $A_{ij}^\Delta$ & Attention score under perturbation. & Sec.~\ref{sssec:hallucination} \\
+    % $\tilde{o}_i$ & Updated token representation under perturbation. & Sec.~\ref{sssec:hallucination} \\
+    % $\mathcal{H}$ & Hallucination metric. & Sec.~\ref{sssec:hallucination} \\
+    % % Misalignment Issues
+    % $\mathcal{R}$ & Actual alignment reward of the model's output. & Sec.~\ref{sssec:misalignment} \\
+    % $\Delta_{\text{align}}$ & Alignment gap. & Sec.~\ref{sssec:misalignment} \\
+    % $\mathcal{L}^{misalign}$ & Misalignment loss. & Sec.~\ref{sssec:misalignment} \\
+    % $\lambda$ & Trade-off parameter for the alignment gap in the misalignment loss. & Sec.~\ref{sssec:misalignment} \\
+    % % Poisoning Attacks
+    % $\mathcal{D}$ & Clean training dataset. & Sec.~\ref{sssec:poison} \\
+    % $\tilde{\mathcal{D}}$ & Poisoned training dataset. & Sec.~\ref{sssec:poison} \\
+    % $\theta$ & Model parameters. & Sec.~\ref{sssec:poison} \\
+    % $\theta^\star$ & Model parameters learned from the poisoned dataset. & Sec.~\ref{sssec:poison} \\
+    % $\theta_{\text{clean}}$ & Model parameters obtained using the clean dataset. & Sec.~\ref{sssec:poison} \\
+    % $\Delta_\theta$ & Deviation of model parameters due to poisoning. & Sec.~\ref{sssec:poison} \\
+    % $t$ & Backdoor trigger. & Sec.~\ref{sssec:poison} \\
+    % $\mathcal{B}$ & Backdoor success rate. & Sec.~\ref{sssec:poison} \\
+    % $\mathbb{I}$ & Indicator function. & Sec.~\ref{sssec:poison} \\
+    % $\mathcal{Y}_{\text{malicious}}$ & Set of undesirable outputs. & Sec.~\ref{sssec:poison} \\
+    % % Privacy Concerns
+    % $g$ & Function estimating the probability that input $\mathbf{x}$ was in the training set, with range $[0,1]$. & Sec.~\ref{ssec:brain_priv_threat} \\
+    % $\eta$ & Threshold for membership inference. & Sec.~\ref{ssec:brain_priv_threat} \\
+    % $\mathbf{x}^\star$ & Reconstructed training sample in a data extraction attack. & Sec.~\ref{ssec:brain_priv_threat} \\
+    % $\mathbf{p}_{sys}$ & System prompt defining the agent's internal guidelines. & Sec.~\ref{ssec:brain_priv_threat} \\
+    % $\mathbf{p}_{user}$ & User prompt. & Sec.~\ref{ssec:brain_priv_threat} \\
+    % $\mathbf{p}^\star$ & Reconstructed prompt via inversion. & Sec.~\ref{ssec:brain_priv_threat} \\
+$\mathcal{E}$ & Physical or simulated environment. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\mathcal{S}$ & AI system or agent. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\mathcal{T},\;t\in\mathcal{T}$ & Task space and a task in that space. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\mathcal{R}_{\mathcal{S}}$ & Internal spatial representation space of the system. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\Phi_{\mathcal{S}}$ & Mapping from the environment to the internal spatial representation space. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\mathcal{F}_{\mathcal{S}}$ & Set of operators for perception, reasoning, prediction, and action. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\mathcal{O},\;\mathcal{A}$ & Observation space and action space, respectively. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$f^{\mathcal{S}}_{\mathrm{perc}}$ & Operator that maps observations to spatial representations. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$f^{\mathcal{S}}_{\mathrm{reason}}$ & Reasoning operator inferring relations and constraints in the current representation. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$f^{\mathcal{S}}_{\mathrm{pred}}$ & Prediction operator mapping a representation and an action to a future representation. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$f^{\mathcal{S}}_{\mathrm{act}}$ & Action operator mapping a spatial representation to an action. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\pi_{\mathcal{S}}$ & Task-conditioned policy for selecting actions. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\mathcal{R}^{\mathcal{S}}_t$ & Internal spatial representation state at time $t$. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$a^{\mathcal{S}}_t,\;o_{t+1}$ & Selected action and subsequent observation. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\Psi_{\mathcal{S}}$ & Update function for the internal spatial representation. & Sec.~\ref{subsec:spatial-intelligence-formalization} \\
+$\Omega$ & Image grid or domain of pixel coordinates. & Sec.~\ref{subsec:p-2-sec-4-2D-image-and-video-representations} \\
+$I,\;V$ & Image and video, respectively. & Sec.~\ref{subsec:p-2-sec-4-2D-image-and-video-representations} \\
+$S,\;\mathcal{L}$ & Segmentation map and its set of labels. & Sec.~\ref{subsec:p-2-sec-4-2D-segmentation-maps} \\
+$D(u,v)$ & Depth value at pixel $(u,v)$. & Sec.~\ref{subsec:p-2-sec-4-2D-depth-maps} \\
+$\mathbf{N}(u,v)$ & Unit surface normal at pixel $(u,v)$. & Sec.~\ref{subsec:p-2-sec-4-2D-surface-normal-maps} \\
+$\mathbf{F}(u,v)$ & Optical flow giving horizontal and vertical pixel displacement. & Sec.~\ref{subsec:p-2-sec-4-2D-optical-flow-maps} \\
+$\mathcal{K},\;H_k$ & Set of keypoint locations and the heatmap for keypoint $k$. & Sec.~\ref{subsec:p-2-sec-4-2D-2d-keypoints} \\
+$P=\{p_i\}$ & Point cloud with 3D coordinates and optional attributes. & Sec.~\ref{sec:rep_3d_point} \\
+$M=(V,F)$ & Triangle mesh with vertex set $V$ and face set $F$. & Sec.~\ref{sec:rep_3d_mesh} \\
+$f(\mathbf{x})$ & Implicit scalar field whose level set defines a surface; a signed distance function in the SDF case. & Sec.~\ref{sec:rep_3d_implicit} \\
+$F_\Theta$ & Neural radiance field mapping position and viewing direction to color and volume density. & Sec.~\ref{sec:rep_3d_nerf} \\
+$\mathbf{x},\;\mathbf{d}$ & 3D query position and viewing direction in a radiance field. & Sec.~\ref{sec:rep_3d_nerf} \\
+$\sigma,\;\mathbf{c}$ & Volume density and emitted RGB color in a radiance field. & Sec.~\ref{sec:rep_3d_nerf} \\
+$\boldsymbol{\mu},\;\boldsymbol{\Sigma}$ & Center and covariance matrix of a 3D Gaussian primitive. & Sec.~\ref{sec:rep_3d_gaussian} \\
+$\alpha_i,\;c_i$ & Opacity and color of the $i$-th Gaussian primitive. & Sec.~\ref{sec:rep_3d_gaussian} \\
+$\Delta\mathbf{x}(\mathbf{x},t)$ & Position- and time-dependent displacement to a canonical 3D position. & Sec.~\ref{sec:rep_4d_nerf} \\
+$\mathcal{G}(t)$ & Time-dependent collection of Gaussian primitives in a dynamic scene. & Sec.~\ref{sec:rep_4d_gaussian} \\
+$b_i,\;c_i,\;s_i$ & Bounding box, class label, and confidence score of detection $i$. & Sec.~\ref{sec:6-1-2} \\
+$f_\theta,\;\theta$ & Parameterized prediction model and its learned parameters. & Sec.~\ref{sec:keypoint_landmark} \\
+$\mathbb{I}(\cdot)$ & Indicator function, equal to one when its condition holds and zero otherwise. & Sec.~\ref{sec:keypoint_landmark} \\
+$Z,\;f,\;B,\;d$ & Stereo depth, focal length, camera baseline, and disparity, with $Z=fB/d$. & Sec.~\ref{sec:depth_estimation} \\
+$K$ & Camera intrinsic matrix. & Sec.~\ref{sec:height_distance} \\
+$R,\;\mathbf{t}$ & Rotation and translation mapping world coordinates into the camera frame. & Sec.~\ref{sec:height_distance} \\
+$\mathbf{T}_t$ & Camera-to-world rigid transformation for frame $t$. & Sec.~\ref{sec:visual_odometry} \\
+$\Delta\mathbf{T}_{i\to j}$ & Pose of camera frame $j$ expressed in camera frame $i$. & Sec.~\ref{sec:visual_odometry} \\
+$\mathcal{G}$ & Scene graph of subject--predicate--object triplets. & Sec.~\ref{sec:scene_graph_generation} \\
+$\mathbf{v}(\mathbf{x})$ & Scene flow: 3D displacement of the surface point observed at pixel $\mathbf{x}$. & Sec.~\ref{sec:scene_flow} \\
+$\mathcal{T}_k$ & Time-indexed trajectory of tracked object $k$. & Sec.~\ref{sec:object_tracking} \\
+$\mathrm{SO}(3),\;\mathrm{SE}(3)$ & Groups of 3D rotations and rigid transformations, respectively. & Sec.~\ref{subsec:p3_s7_1_1} \\
+$\mathbf{F}$ & Fundamental matrix relating corresponding image points in two views. & Sec.~\ref{subsec:p3_s7_1_1} \\
+$\mathbf{q},\;\mathbf{J}(\mathbf{q})$ & Joint configuration and the Jacobian mapping joint velocities to task-space velocities. & Sec.~\ref{subsec:p3_s7_1_1} \\
+$\mathcal{C}_{\mathrm{free}}$ & Feasible configuration space used in reachability and motion planning. & Sec.~\ref{subsec:p3_s7_1_1} \\
+$\mathcal{W}$ & Set of contact wrenches used to test grasp force closure. & Sec.~\ref{subsec:p3_s7_1_1} \\
+$\mathbf{s}_t,\;\mathbf{u}_t$ & Physical system state and applied action in the dynamics model. & Sec.~\ref{subsec:p3_s7_1_2} \\
+$M(\mathbf{q})$ & Configuration-dependent mass matrix. & Sec.~\ref{subsec:p3_s7_1_2} \\
+$G=(V,E,w)$ & Planning graph with vertices, edges, and edge weights. & Sec.~\ref{subsec:p3_s7_1_3} \\
+$\operatorname{do}(X=x)$ & Intervention that sets variable $X$ to $x$ in a causal model. & Sec.~\ref{subsec:p3_s7_1_6} \\
+$z^\star$ & Optimal solution returned by a differentiable optimization layer. & Sec.~\ref{subsec:p3_s7_2_4} \\
+$\pi_\theta$ & Learned policy for selecting actions. & Sec.~\ref{subsec:p3_s7_2_5} \\
+$r_t,\;\gamma$ & Reward at time $t$ and the discount factor. & Sec.~\ref{subsec:p3_s7_2_5} \\
+$Q^*(s,a)$ & Maximum expected discounted return from taking action $a$ in state $s$. & Sec.~\ref{subsec:p3_s7_2_5} \\
+$R_t$ & Discounted return from time $t$ onward. & Sec.~\ref{subsec:p3_s7_2_5} \\
+$V_\phi,\;A_\phi$ & State-value function and advantage function. & Sec.~\ref{subsec:p3_s7_2_5} \\
+$a_{t:t+H}$ & Action sequence predicted over horizon $H$ by a vision-language-action policy. & Sec.~\ref{subsec:p3_s7_3_2} \\
+$\tau=(t_1,\ldots,t_L)$ & Sequence of intermediate reasoning steps in a chain of thought. & Sec.~\ref{subsec:p3_s7_3_3} \\
+$\mathcal{M}_t$ & External spatial memory after the update at time $t$. & Sec.~\ref{subsec:p3_s7_3_6} \\
+$\mathcal{X},\;\mathbf{x}$ & Space of tokenized text prompts and an input prompt. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$\mathcal{Y},\;\mathbf{y}$ & Pixel-space image domain and an image in that domain. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$\mathcal{Z},\;\mathbf{z}$ & Latent representation space and a latent code. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$E,\;D$ & Image encoder and decoder of the latent autoencoder. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$\phi,\;\mathcal{E}$ & Text encoder and its conditioning embedding space. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$G_\theta$ & Conditional generator or sampler. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$p_\theta(\cdot\mid\cdot)$ & Learned conditional distribution over generated outputs or latent codes. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$\epsilon_\theta$ & Noise predictor used in diffusion generation. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$\mathbf{z}_t$ & Latent code at diffusion or flow time $t$. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$v_\theta$ & Learned velocity field used in flow matching. & Sec.~\ref{subsec:p3_s8_1_1} \\
+$\mathbf{c},\;\mathcal{C}$ & Structural conditioning signal and its input space. & Sec.~\ref{subsec:p3_s8_1_2} \\
+$\kappa,\;\mathcal{C}^{\prime}$ & Condition encoder and the space of encoded conditions. & Sec.~\ref{subsec:p3_s8_1_2} \\
+$\mathcal{M}$ & Mask identifying the region to be edited. & Sec.~\ref{subsec:p3_s8_1_3} \\
+$\mathcal{R},\;\mathbf{r}$ & Space of 3D representations and a 3D asset in that space. & Sec.~\ref{subsec:p3_s8_2_1} \\
+$\pi,\;\pi_v$ & Camera pose used for rendering, with $v$ indexing a view. & Sec.~\ref{subsec:p3_s8_2_1} \\
+$\mathrm{Render}$ & Renderer mapping a 3D representation and a camera pose to an image. & Sec.~\ref{subsec:p3_s8_2_1} \\
+$\mathcal{L}_{\mathrm{SDS}}$ & Score-distillation objective for optimizing a representation with a frozen diffusion prior. & Sec.~\ref{subsec:p3_s8_2_1} \\
+$\mathcal{L}_{\mathrm{rec}}$ & Loss measuring agreement between a reconstruction and its observations. & Sec.~\ref{subsec:p3_s8_2_3} \\
+$\lambda,\;\Omega$ & Weight and regularizer used in scene reconstruction. & Sec.~\ref{subsec:p3_s8_2_3} \\
+$\Lambda$ & Operator lifting a panorama or a set of panoramic views into a 3D representation. & Sec.~\ref{subsec:p3_s8_2_4} \\
+$E_\theta$ & Editing operator mapping a 3D representation and a condition to an edited representation. & Sec.~\ref{subsec:p3_s8_2_5} \\
+$\mathbf{m}^{1:T}$ & Sequence of body poses describing a motion. & Sec.~\ref{subsec:p3_s8_4_1} \\
+$\mathbf{r}^{1:T}$ & Time-indexed sequence of 3D representations for a dynamic scene. & Sec.~\ref{sec:p3_s8_5} \\
+$W_\theta$ & Learned world model predicting the next state from state, action, and observation. & Sec.~\ref{sec:p3_s8_6} \\
+$S(t),\;A(t),\;O(t)$ & World state, action, and observation, respectively. & Sec.~\ref{sec:p3_s8_6} \\
+$E_\phi,\;P_\theta$ & Observation encoder and latent-state predictor in a representation world model. & Sec.~\ref{subsec:p3_s8_6_rep} \\
+$\operatorname{sg}(\cdot)$ & Stop-gradient operator used in representation learning. & Sec.~\ref{subsec:p3_s8_6_rep} \\
+$M(t)$ & Latent mental state of another agent, including beliefs, desires, and intentions. & Sec.~\ref{subsec:p3_s8_6_mental} \\
+$s_t^{\mathrm{phy}},\;s_t^{\mathrm{ment}}$ & Physical and mental components of a joint world state. & Sec.~\ref{subsec:p3_s8_6_mental} \\
+$\rho,\;\mathcal{L}$ & Symbolic scene program and its language. & Sec.~\ref{subsubsec:p3_s8_7_task} \\
+$R(\rho)$ & Execution or rendering of symbolic scene program $\rho$. & Sec.~\ref{subsubsec:p3_s8_7_task} \\
+$M_t$ & Semantic environment map maintained during warehouse localization and mapping. & Sec.~\ref{subsec:p4-sec9-5-pivotal-task-2-localization-and-mapping} \\
+\end{longtable}
+
+
+    
+
+
+
+    
+    
+

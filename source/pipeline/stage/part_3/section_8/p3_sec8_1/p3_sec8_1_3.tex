@@ -1,0 +1,142 @@
+\subsection{2D Spatial Inpainting \& Editing}
+\label{subsec:p3_s8_1_3}
+
+\emph{2D spatial inpainting \& editing} modifies an image inside a specified region while leaving the rest intact: filling holes and occlusions, removing or inserting objects, changing attributes (color, material, texture, text), adjusting layout, or harmonizing pasted content with its new background.
+The intent arrives as a mask, a structural hint (edges, sketches), a geometry proxy (depth, normals), or a natural-language instruction, and the tensions are between \textbf{local editability} and \textbf{global consistency} of lighting, perspective, and shadow, between \textbf{constraint adherence} and \textbf{realism}, and between \textbf{semantic plausibility} and \textbf{identity preservation} for person- or product-centric edits.
+Editing holds the model to its strongest geometric account: the \emph{unedited} region of $I$ supplies ground-truth pixels that any plausible edit must respect, exposing failure modes that pure synthesis can hide, among them color drift, lighting reflow, identity loss, and attribute leakage across the mask boundary.
+
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_1_3_task}
+We inherit the latent-generator framework of §\ref{subsec:p3_s8_1_1}.
+Let $(E,D)$ denote the autoencoder pair of Eq.~\eqref{eq:t2i_autoencoder}, $\phi:\mathcal{X}\!\rightarrow\!\mathcal{E}$ the text encoder, and $G_\theta$ the conditional latent sampler of Eq.~\eqref{eq:t2i_generator}.
+Inpainting and editing depart from de-novo generation in one crucial respect: the input is no longer the empty set but an existing image $I\in\mathcal{Y}$, encoded into $\mathbf{z}^{\text{in}}=E(I)$.
+A mask $\mathcal{M}\in\{0,1\}^{H\times W}$ designates the editable region, and an editing control set $\mathbf{c}\in\mathcal{C}$ (text prompts, structural cues, exemplar patches, or drag-style handles) populates the conditioning channel, encoded by $\kappa:\mathcal{C}\!\rightarrow\!\mathcal{C}'$.
+The conditional latent sampler is extended to
+\begin{equation}
+G_\theta:\mathcal{Z}\times\{0,1\}^{H\times W}\times\mathcal{E}\times\mathcal{C}'\!\rightarrow\!\mathcal{Z},\qquad
+\hat{\mathbf{z}}\sim p_\theta\!\big(\mathbf{z}\,\big|\,\mathbf{z}^{\text{in}},\,\mathcal{M},\,\phi(\mathbf{x}),\,\kappa(\mathbf{c})\big),
+\label{eq:t2i_edit_objective}
+\end{equation}
+and the edited image $\hat{I}=D(\hat{\mathbf{z}})$ is required to (i) realize the requested change \emph{inside} $\mathcal{M}$, (ii) preserve $I$ \emph{outside} $\mathcal{M}$ up to imperceptible deviations, and (iii) remain globally coherent in color, lighting, geometry, and semantics.
+Setting $\mathbf{z}^{\text{in}}=\varnothing$ and $\mathcal{M}=\mathbf{1}$ recovers the spatial-aware synthesis of §\ref{subsec:p3_s8_1_2} (Eq.~\eqref{eq:t2i_spatial_objective}); the distinctive substance of editing therefore lies in the interplay between the \emph{preservation} constraint outside $\mathcal{M}$ and the \emph{change} constraint inside it.
+The mask may be hard, soft, inferred from a referring expression, or implicit (whole-image instruction editing with $\mathcal{M}=\mathbf{1}$).
+
+\paragraph{Variants by Task Type.}
+\label{para:p3_s8_1_3_variants}
+The tasks differ in what populates $\mathbf{c}$ and $\mathcal{M}$ and in whether ground-truth pixels exist for evaluation.
+Reconstruction-style completion carries no semantic intent: hole filling repairs scratches and occlusions from $(I,\mathcal{M})$ alone, and object removal reconstructs the background behind a specified instance.
+Constraint-driven local synthesis adds intent inside $\mathcal{M}$: text-guided local editing follows an instruction scoped to a region (``make the \emph{left cup} red''), structure-guided inpainting takes edges, sketches, or semantic maps as a scaffold for shape and boundary, and geometry-guided inpainting conditions on depth or normals to respect occlusion ordering.
+Object-level edits treat the region as an object whose identity or embedding in the scene is the unit of change: insertion with harmonization of color, grain, lighting, shadows, and reflections; attribute and appearance editing that changes material or style while preserving identity (garments, products, logos); and exemplar-guided transfer that drives content or style from a reference patch.
+Interactive workflows replace declarative constraints with actions taken at edit time: point- or handle-based reshaping, and multi-round, multi-region sessions in which stability across rounds is itself the requirement.
+The metrics appropriate to each are collected in Benchmarks below.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_1_3_methodology}
+Methods are organized by \emph{editing mechanism}, that is, by how $G_\theta$ of Eq.~\eqref{eq:t2i_edit_objective} is realized so that change is confined to $\mathcal{M}$ and preservation is enforced outside it.
+The mechanism is largely independent of the task type above, since text-guided local editing can be served by masked denoising, by inversion and rewrite, or by an instruction-tuned editor, and one mechanism such as inversion serves both attribute edits and structure-guided ones.
+Figure~\ref{fig:p3_s8_1_3_mechanisms} sets the five mechanisms against a single example edit.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\linewidth]{figures/part3/section8/Five_editing_mechanisms_for_2D_spatial_inpainting_and_editing.pdf}
+\caption{Local 2D editing with context preservation (top) and five editing mechanisms: (a) masked denoising, where $M=1$ marks the editable region; (b) inversion and rewrite; (c) instruction-tuned editing; (d) exemplar / reference-guided editing; and (e) drag-based optimization. The cup images are illustrative, not outputs of the surveyed methods.}
+\label{fig:p3_s8_1_3_mechanisms}
+\end{figure}
+
+\paragraph{Editing Mechanisms.}
+\label{para:p3_s8_1_3_mechanisms}
+
+\textbf{Masked latent denoising.}
+The most direct realization of Eq.~\eqref{eq:t2i_edit_objective} runs the diffusion sampler only inside $\mathcal{M}$ while clamping the latent outside $\mathcal{M}$ to a noise-perturbed copy of $\mathbf{z}^{\text{in}}$ at every step.
+RePaint~\cite{lugmayr2022repaint} does this with a \emph{pretrained, unconditional} DDPM and no retraining, replacing the known-region pixels with a forward-noised sample of the input at each reverse step and adding a \emph{resampling} schedule that re-injects noise periodically so the in-fill can re-harmonize with its context over several rounds.
+Blended Diffusion~\cite{avrahami2022blended} made the same scheme text-driven by interleaving a CLIP-guided gradient step that steers the content inside $\mathcal{M}$ toward a target prompt with the context-clamping step outside it, the first widely cited text-guided local editor.
+LaMa~\cite{suvorov2022lama} predates the diffusion line and is instead a feed-forward inpainter whose fast Fourier convolutions give every layer an image-wide receptive field, a Fourier-domain inductive bias that stays robust on the very large holes that defeat purely local CNN backbones.
+Region-aware noise schedules and classifier-free guidance are standard add-ons, and ControlNet-inpaint and the inpainting variants of T2I-Adapter (§\ref{para:p3_s8_1_2_mechanisms}) compose with masked denoising by supplying the inside-$\mathcal{M}$ condition.
+
+\textbf{Inversion + rewrite.}
+A complementary strategy first recovers the noise trajectory that the model would have used to generate $I$ (\emph{inversion}) and then re-runs the reverse process under an edited prompt while reusing or swapping the attention maps of the original (\emph{rewrite}).
+Prompt-to-Prompt~\cite{prompt-to-prompt} reuses or reweights source cross-attention maps during generation under the edited prompt, which preserves spatial structure while changing selected semantic content; for a real image an inversion step first supplies a suitable noise trajectory.
+Imagic~\cite{kawar2023imagic} jointly optimizes the text embedding and lightly fine-tunes the model to reconstruct $I$, then interpolates the embedding toward the target prompt, preserving identity-level features (faces, garments) under non-rigid edits.
+Null-Text Inversion~\cite{mokady2023nulltext} fixes the practical failure that plain DDIM inversion drifts away from $I$ under classifier-free guidance, by optimizing the \emph{null-text} embeddings used in the inverse pass so that exact reconstruction holds at ordinary guidance scales.
+The family needs no full backbone fine-tune for Prompt-to-Prompt or Null-Text and dominates attribute, style, and structure-preserving real-image edits.
+
+\textbf{Instruction-tuned editing.}
+A third family avoids inversion entirely by retraining a diffusion editor on paired (before, instruction, after) triplets, mapping $I$ directly to $\hat{I}$ from a natural-language instruction with no explicit mask.
+InstructPix2Pix~\cite{brooks2023instructpix2pixlearningfollowimage} built its corpus by pairing GPT-3-generated edit instructions with Prompt-to-Prompt edits of Stable Diffusion samples and fine-tuned Stable Diffusion on the triplets, so that at inference the user supplies only $(I,\text{instruction})$ and the editor localizes the change itself.
+MagicBrush~\cite{zhang2024magicbrush} replaced the synthetic data with about 10K manually annotated real-image edits across multi-turn sessions, yielding both a stronger supervised editor and the standard instruction-editing test set.
+Emu Edit~\cite{sheynin2024emu} trained a single model on a heterogeneous mixture of \emph{recognition} (segmentation, detection) and \emph{generation} (insertion, removal, style change) tasks with learned task embeddings that route each input, and leads its own benchmark on precision and instruction following.
+Instruction editors are the most user-friendly mechanism, no mask and no inversion, at the cost of large supervised retraining.
+
+\textbf{Exemplar / reference-guided editing.}
+A visual \emph{exemplar}, an example image or patch encoding the desired content or style, replaces the textual instruction and enters through an auxiliary cross-attention pathway beside the standard text conditioning.
+Paint-by-Example~\cite{yang2023paintbyexample} fine-tunes Stable Diffusion to fill $\mathcal{M}$ with the content of an exemplar whose identity is encoded by a CLIP image encoder, with strong exemplar augmentation (cropping, color jitter) at training time to prevent copy-paste behavior and force semantic rather than pixel-level transfer.
+IP-Adapter~\cite{ye2023ipadapter} generalizes this into a \emph{plug-in} reference channel: a lightweight decoupled cross-attention head consumes a CLIP image embedding of the exemplar and is inserted into a frozen SD or SDXL backbone, so that any number of reference images can be combined with text prompts and with structural adapters such as ControlNet at inference time.
+It is the standard route for subject personalization and style transfer when the desired content is hard to describe in words.
+
+\textbf{Drag-based latent optimization.}
+The most interactive family takes user-supplied (source point, target point) pairs and iteratively optimizes the latent so that the features at each source point migrate to the corresponding target while a locality regularizer pins the latent outside the user-marked region.
+DragGAN~\cite{pan2023draggan} introduced the recipe on a StyleGAN backbone: a motion-supervision loss tracks the source feature and pulls it toward the target by gradient descent in the $\mathcal{W}^+$ latent space, and a point-tracking step re-localizes the moved feature at each iteration to prevent drift.
+DragDiffusion~\cite{shi2023dragdiffusion} ported the recipe to the LDM latent space, running a per-timestep latent-update loop together with an identity-preserving LoRA fine-tune of the U-Net so that both the dragged subject and the unmarked context survive.
+Both are inference-time optimizers with latency proportional to the number of drag iterations, and no other family yet offers the same directness of spatial control.
+
+Read across the five families, the mechanisms track the generative substrate: feed-forward inpainters such as LaMa gave way to inversion-based diffusion editors (Prompt-to-Prompt, Imagic), which in turn yielded to supervised instruction-tuned editors (InstructPix2Pix, Emu Edit) as paired data became available at scale.
+Orthogonal to that migration, the structural conditioning interfaces of §\ref{subsec:p3_s8_1_2} compose with every mechanism here, so a production pipeline pairs a mechanism with a structural channel rather than choosing one: Blended Diffusion with ControlNet-depth for geometry-aware text-guided edits, or IP-Adapter with DragDiffusion for exemplar-driven drag edits.
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_1_3_benchmarks}
+Editing is evaluated in two regimes: \emph{reference-based}, where a held-out ground-truth region exists (holes synthesized over real images), and \emph{reference-free}, where only constraint satisfaction and human preference are available (instruction editing).
+No single suite covers both, so the field keeps a small library of task-specific benchmarks next to the holistic T2I suites of §\ref{subsec:p3_s8_1_1}.
+
+\paragraph{Training Corpora.}
+Inpainting draws on Places2~\cite{zhou2017places} and Paris StreetView for scene-level masks, DIV2K for high-resolution patches, and the COCO / ADE20K mask supervision of §\ref{subsec:p3_s8_1_2}~\cite{lin2014microsoft,zhou2017ade20k}.
+Constraint-driven local synthesis reuses the structural channels of the previous subsection, RefCOCO / RefCOCO+ / RefCOCOg~\cite{yu2016modeling} and PhraseCut~\cite{wu2020phrasecut} for referring-expression masks, SA-1B masks~\cite{kirillov2023sam}, and COCO edge and depth predictions, with the convention that the mask is supplied or derived from the expression; geometry-guided editing adds depth and normal supervision from NYUv2~\cite{silberman2012nyudv2}, Replica~\cite{straub2019replica}, and synthetic corpora, and insertion with harmonization uses composite datasets such as iHarmony4.
+Instruction editing has its own data ecology: the synthetic InstructPix2Pix corpus of Prompt-to-Prompt-generated triplets, the manually annotated MagicBrush triplets~\cite{zhang2024magicbrush}, and the multi-task Emu Edit training mixture~\cite{sheynin2024emu}.
+
+\paragraph{Evaluation Benchmark Suites.}
+The holistic suites of §\ref{subsec:p3_s8_1_1} (Table~\ref{tab:p3_s8_1_1_eval_benchmarks}) carry over in part: T2I-CompBench~\cite{huang2023t2icompbench} and GenAI-Bench~\cite{li2024genaibench} score the attribute and compositional fidelity that edited images must also satisfy, and HEIM~\cite{lee2023heim} includes alignment and quality axes that apply to edits.
+The dedicated suites are EditBench~\cite{wang2023editbench}, released with Imagen Editor, a curated set of text-guided inpainting prompts over object, attribute, and scene categories that serves as the standard evaluation for text-driven mask inpainting; the MagicBrush test set~\cite{zhang2024magicbrush}, $1{,}053$ manually annotated single- and multi-turn triplets, which is the standard for instruction-tuned editors; and the Emu Edit benchmark~\cite{sheynin2024emu}, which extends instruction editing to per-task subsets (insertion, removal, style change, color change, global change).
+Drag-based methods evaluate on small custom test sets curated by~\citet{pan2023draggan} and~\citet{shi2023dragdiffusion}; a community-wide drag-editing benchmark has not yet emerged.
+
+\paragraph{Constraint-specific Metrics.}
+Reconstruction quality (PSNR / SSIM / LPIPS against ground truth, with FID / KID for diverse-completion settings) is defined only where held-out content exists.
+Region adherence uses mask-restricted CLIPScore or region-level VQAScore to ask whether the edit honors the prompt \emph{inside} $\mathcal{M}$; edit locality measures $\ell_1$ or LPIPS \emph{outside} $\mathcal{M}$ against $I$, lower being better; harmonization is scored by color-statistic divergence, shadow-direction consistency, and the rate at which an off-the-shelf forgery detector flags the composite; identity preservation uses feature-cosine similarity over face or landmark regions for people and CLIP-image similarity for products and characters; and instruction following is paired accuracy, whether $\hat{I}$ honors the instruction better than $I$, judged by human raters or by a VLM over a structured rubric, as is now standard on MagicBrush and Emu Edit.
+Change inside $\mathcal{M}$ and preservation outside it are reported together; a method that wins on one and loses on the other has not solved the task.
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_1_3_challenges}
+Several problems are specific to editing an existing image.
+
+\textbf{Structure-faithful hallucination in large holes.}
+Large irregular holes and rare structures remain the hardest case: inpainters tile a salient local texture across the hole instead of synthesizing appropriate content, straight lines, perspective cues, and silhouettes break at the mask seam, and in-fills that are locally plausible contradict the global scene (a patch of grass inside a room).
+Quality degrades sharply with hole size.
+LaMa's image-wide Fourier convolutions and RePaint's resampling schedule (§\ref{para:p3_s8_1_3_mechanisms}) are the established responses; retrieval-augmented priors, which search a paired corpus for candidate completions and use them as soft conditioning, are an emerging one at the intersection of editing and retrieval.
+
+\textbf{Edit locality against drift across rounds.}
+A single well-calibrated edit does not guarantee a stable session.
+Across rounds the unedited background shifts in white balance or saturation (\emph{color drift}), shadows and highlights migrate as if the edit had changed the global illumination (\emph{lighting reflow}), and salient textures from the edited region reappear in nearby unedited regions through attention leakage (\emph{texture replication}); the errors compound even when each round individually meets its locality budget.
+Hard attention masking that confines non-edit tokens to $\mathcal{M}$, mask-aware noise schedules that anneal noise inside $\mathcal{M}$ only, and edit-history-aware sampling that conditions on the trajectory of prior edits are the active mitigations.
+Inversion-based editors (Null-Text Inversion~\cite{mokady2023nulltext}, Imagic~\cite{kawar2023imagic}) carry a variant of the problem: any residual reconstruction error in the inverted trajectory leaks into the edit and accumulates.
+
+\textbf{Harmonization under complex illumination.}
+Inserted content betrays itself when the host scene has structured light: its shadow disagrees with the dominant light direction recoverable from the scene, there is no interreflection between the object and adjacent surfaces, and its albedo is tone-mapped inconsistently with the host, producing the cut-and-paste look that off-the-shelf forgery detectors flag.
+Differentiable rendering proxies that turn depth and normals into shading constraints and back-propagate harmonization losses into the editor, illumination maps as an additional conditioning channel, and explicit shadow-synthesis modules are being explored; integration with the 3D-aware methods of §\ref{sec:p3_s8_2} is the natural next step and remains nascent.
+
+\textbf{Language grounding and safety.}
+Region-level instructions must be grounded reliably: an edit aimed at one object spills onto neighbors with similar attributes, spatial referring expressions are misparsed (``the left cup'' lands on the right one), and mildly perturbed instructions produce large deviations in the edit trajectory.
+Borrowing GLIGEN's gated grounding~\cite{li2023gligen} (§\ref{para:p3_s8_1_2_mechanisms}) to confine edit attention, and using LLM-emitted layouts to harden the grounding before the edit is applied, are the current responses.
+The same precision cuts the other way for safety.
+A harmful edit (an identity swap inside one bounding box, watermark removal inside one mask) can be confined to a footprint that whole-image forensic detectors miss; large generative models reproduce individual training images under targeted prompting~\cite{somepalli2023diffusion}, which becomes acute when the training set contains copyrighted artwork or identifiable faces and motivates artist-side defenses such as Glaze~\cite{shan2023glaze}, which perturbs source artworks so that downstream fine-tunes mimic a different style; and most pipelines still lack robust per-image watermarking, so a photograph with a small synthesized region cannot be told from a wholly synthetic one.
+Watermarking, region-aware safety filters, and licensing frameworks for the underlying corpora are all needed, and none is settled.
+
+\textbf{Evaluation under plausibility ambiguity.}
+Ground-truth pixels are often not the only plausible completion: a removed pedestrian leaves a hole that could contain road, curb, or shadow, and any reconstruction metric that compares against one ground truth over-penalizes good alternatives, while PSNR and SSIM rate sharp but contextually wrong in-fills highly.
+The field is converging on \emph{paired evaluation}, asking whether $\hat{I}$ honors the instruction better than $I$ under a held-out judge, now standard on MagicBrush~\cite{zhang2024magicbrush} and Emu Edit~\cite{sheynin2024emu}; the judge-prompt sensitivity and benchmark-contamination caveats of §\ref{subsec:p3_s8_1_1} apply here as well.
+
+\textbf{Scalability and interactive latency.}
+Inversion-based methods store cross-attention activations at every timestep, multi-step sampling at $4$K and above scales with image area for standard U-Net backbones, and drag editors run an inner optimization loop per operation, so interactive editing lags behind the user's hand by hundreds of milliseconds.
+Consistency-style distillation~\cite{song2023consistency,lcm2023} (§\ref{subsec:p3_s8_1_1}) compresses the reverse trajectory to a handful of steps, memory-efficient adaptive patching runs the denoiser only in a window around $\mathcal{M}$, and progressive-refinement schedules return a coarse preview within a perceptual-latency budget and refine in the background.
+Closing the gap to the responsiveness of a photo editor is increasingly a systems problem shared with production T2I inference stacks.

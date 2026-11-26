@@ -1,0 +1,189 @@
+{
+  "figure": "12.8",
+  "sources": [
+    "assets/figures/figures/part4/section12/natural_science_lifescience_v2.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      893
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section12/natural_science_lifescience_v2.pdf",
+  "assets": [
+    {
+      "file": "reconstruct/protein-structure.png",
+      "title": "protein structure",
+      "panel": "reconstruct",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        191.523,
+        81.84,
+        315.542,
+        205.859
+      ],
+      "pdf_source_box": [
+        87.84,
+        37.535,
+        144.72,
+        94.415
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "reconstruct/cryo-em-projection-1.png",
+      "title": "cryo em projection 1",
+      "panel": "reconstruct",
+      "size": [
+        128,
+        128
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        29.827,
+        296.911,
+        75.353,
+        342.436
+      ],
+      "pdf_source_box": [
+        13.68,
+        136.175,
+        34.56,
+        157.055
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "reconstruct/cryo-em-projection-2.png",
+      "title": "cryo em projection 2",
+      "panel": "reconstruct",
+      "size": [
+        128,
+        128
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        83.203,
+        296.911,
+        128.728,
+        342.436
+      ],
+      "pdf_source_box": [
+        38.16,
+        136.175,
+        59.04,
+        157.055
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "reconstruct/cryo-em-projection-3.png",
+      "title": "cryo em projection 3",
+      "panel": "reconstruct",
+      "size": [
+        128,
+        128
+      ],
+      "source_index": 0,
+      "pdf_image_index": 3,
+      "pdf_box": [
+        136.578,
+        296.911,
+        182.104,
+        342.436
+      ],
+      "pdf_source_box": [
+        62.64,
+        136.175,
+        83.52,
+        157.055
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "reconstruct/protein-density.png",
+      "title": "protein density",
+      "panel": "reconstruct",
+      "size": [
+        887,
+        887
+      ],
+      "source_index": 0,
+      "pdf_image_index": 4,
+      "pdf_box": [
+        232.339,
+        274.933,
+        312.402,
+        354.995
+      ],
+      "pdf_source_box": [
+        106.56,
+        126.095,
+        143.28,
+        162.815
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "interact/binding-surface.png",
+      "title": "binding surface",
+      "panel": "interact",
+      "size": [
+        887,
+        887
+      ],
+      "source_index": 0,
+      "pdf_image_index": 5,
+      "pdf_box": [
+        397.174,
+        73.991,
+        613.815,
+        290.631
+      ],
+      "pdf_source_box": [
+        182.16,
+        33.935,
+        281.52,
+        133.295
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "design/protein-backbone.png",
+      "title": "protein backbone",
+      "panel": "design",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 6,
+      "pdf_box": [
+        816.326,
+        77.13,
+        965.463,
+        226.267
+      ],
+      "pdf_source_box": [
+        374.4,
+        35.375,
+        442.8,
+        103.775
+      ],
+      "kind": "cutout"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

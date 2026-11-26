@@ -1,0 +1,72 @@
+\subsection{Retrieval- \& Memory-augmented Spatial Reasoning}
+\label{subsec:p3_s7_3_6}
+\label{ssec:memory_spatial_reasoning}
+
+Retrieval- and memory-augmented spatial reasoning is best understood through a \emph{Planner-Memory-Retriever} decomposition. The Planner $\mathcal{P}$ decides what spatial information is needed for the current instruction; the Memory Bank $\mathcal{M}$ stores an external, updateable state of the world; and the Retriever $\mathcal{R}$ selects the subset of that memory that should condition the next reasoning or action step. Unlike one-shot retrieval-augmented generation, spatial memory must also support \emph{write} and \emph{update}: an agent may discover that a door is blocked, that an object has moved, or that a previous topological belief was wrong, and the memory state must change accordingly.
+
+The memory bank is therefore not merely a text corpus. In spatial domains, $\mathcal{M}$ may contain vector embeddings of views and instructions, metric maps and voxel belief states, dynamic 3D scene graphs, frontier snapshots, past trajectories, user preferences, and brain-inspired episodic archives. The central problem is to make these heterogeneous memories queryable: semantic retrieval must locate relevant objects and events, while geometric retrieval must preserve relations such as containment, support, reachability, and path connectivity.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/retrieval_memory_augmented_spatial_reasoning.pdf}
+    \caption{Retrieval- and memory-augmented spatial reasoning: (i) a query and a memory bank of vector records, spatial scene graphs, and episodic archives, (ii) retrieval and update via spatial RAG, dynamic 3D scene graphs, or layered memory, and (iii) alternative output forms rather than joint outputs of one query. In the example, the keys were on the kitchen counter five minutes ago and are in the hallway now. Scenes and retrieval diagrams are illustrative, not measured similarity scores.}
+    \label{fig:p3_s7_3_6_memory_formulation}
+\end{figure}
+
+\subsubsection{Task Definition}
+Where §\ref{subsec:p3_s7_3_5} treats memory as one black-box tool among others, here the \emph{external memory itself} is the central learning target. Formally, a retrieval- \& memory-augmented system is the triple $(\mathcal{P}, \mathcal{M}, \mathcal{R})$, where $\mathcal{P}$ is a reasoning core (an LLM, VLM, or embodied planner), $\mathcal{M}$ is an external memory store, and $\mathcal{R}: \mathcal{Q} \times \mathcal{M} \to \mathcal{C}$ maps a query $q_t$ and the current memory state to a relevant context fragment $c_t$. Given an instruction $x$, an observation stream $o_t$, and a reasoning history $h_t$ (initially $h_0 = \varnothing$), the system proceeds by the iterative update
+\begin{equation}
+\begin{aligned}
+q_t &= \mathrm{Query}_{\mathcal{P}}(x, o_t, h_{t-1}), &
+c_t &= \mathcal{R}(q_t, \mathcal{M}_{t-1}), &
+s_t &= \mathcal{P}(x, o_t, c_t, h_{t-1}), \\
+\mathcal{M}_t &= \mathrm{Write}(\mathcal{M}_{t-1}, o_t, s_t, c_t), &
+h_t &= h_{t-1} \cup \{(o_t, q_t, c_t, s_t)\},
+\end{aligned}
+\end{equation}
+where $\mathrm{Query}_{\mathcal{P}}$ extracts the planner's information need, $\mathcal{R}$ returns the retrieved context, and $\mathrm{Write}$ inserts, revises, or invalidates memory entries using the newest observation and decision state. The decomposition brings three concrete advantages: \emph{scalability}, by letting agents operate over large environments while fetching only task-relevant subgraphs or vectors; \emph{personalization}, through targeted retrieval of user profiles, historical preferences, and episodic interactions; and \emph{explainability}, since decisions can be traced to the specific memories, rules, or map fragments that were retrieved.
+
+\subsubsection{Methodology}
+Three families of memory architecture instantiate the $(\mathcal{P}, \mathcal{M}, \mathcal{R})$ triple at different levels of abstraction and scale.
+
+\paragraph{Retrieval-Augmented Generation for Navigation and Instruction.}
+Vision-and-Language Navigation (VLN) demands a tight coupling of visual perception, language understanding, and action generation, and retrieval-augmented generation (RAG) bridges high-level planning and local observation by externalizing spatial context; the design question is what the memory bank should store and how the retriever should index it.
+
+\emph{Textual abstraction vs.\ visual fidelity.} NavRAG~\cite{wang2025navrag} argues for hierarchical abstraction: a ``Hierarchical Scene Description Tree'' converts the 3D environment into structured text (Region $\rightarrow$ Object $\rightarrow$ Attribute), so the retriever can access information at the granularity the query requires, at the cost of visual nuance. VisRAG~\cite{yu2024visrag} takes the opposite stance with a multimodal pipeline that bypasses text parsing entirely: a VLM retrieves images directly from the query, preserving texture, lighting, and style that text-only retrieval discards.
+
+\emph{Privileged maps vs.\ egocentric mental simulation.} A second line replaces privileged global maps with human-like episodic memory. GoViG~\cite{wu2025govig} generates instructions solely from egocentric observations of start and goal states, alternating between predicting the next visual view and generating the corresponding instruction, so that the navigational narrative is built on a hallucinated path; retrieval shifts from static facts to potential futures.
+
+\emph{Hybridizing spatial and semantic logic.} Retrieval in physical spaces requires logic that pure semantic search cannot provide (\eg,\ ``near'', ``inside'', ``along''). Spatial-RAG~\cite{yu2025spatial} combines sparse spatial filtering (SQL-based constraints) with dense semantic matching, formulating retrieval as multi-objective optimization, which is what grounds CoT reasoning~\cite{liu2023retrieval} so that multi-step plans respect geometric feasibility.
+
+\paragraph{Dynamic 3D Scene Graphs and Subgraph Retrieval.}
+As environments grow, flat memory representations such as point clouds become intractable, and hierarchical abstraction through 3D scene graphs (3DSGs) has taken over: Hydra~\cite{hughes2022hydra} builds metric-semantic scene graphs in real time, and open-vocabulary successors embed vision--language features directly into graph nodes~\cite{gu2024conceptgraphs}, turning scene graphs from rigid structural maps into queryable vector stores. Because global graphs overwhelm planner context windows, processing has moved from holistic graph analysis to sparse subgraph retrieval, through semantic pruning~\cite{rana2023sayplan} or RAG-based mechanisms~\cite{xie2024embodiedrag} that isolate task-relevant topological neighborhoods. The convergence of graph and vector retrieval matters for spatial memory in particular: graph edges preserve physical relations, while vector neighborhoods preserve open-vocabulary semantic similarity.
+
+\paragraph{Unified and Brain-Inspired Memory Architectures.}
+RAG provides access to information; the organization of that information is equally critical, and recent architectures borrow the brain's division of labor. RoboMemory~\cite{lei2025robomemory} integrates working, short-term, and long-term memory in one cognitive framework so that the agent iteratively refines its model of the environment, and 3D-Mem~\cite{yang20253dmem} takes a visual-centric route, using ``frontier snapshots'' to manage exploration and hallucinate potential future states. 3DLLM-Mem~\cite{hu20253dllmmem} grounds the integration of retrieved memory into the inference stream with a memory fusion layer that cross-attends from the current instruction into the stored 3D memory bank:
+\begin{equation}
+f^Q_{\text{fuse}} = \mathrm{Softmax}\!\left( \frac{f^Q_t (f^K)^\top}{\sqrt{C}} \right) f^V,
+\end{equation}
+where $f^Q_t$ are the query features of the current instruction and $f^K$, $f^V$ the keys and values derived from the memory bank. Addressing specific failure modes, VLM$^2$~\cite{liu2025vision} introduces a dual-memory module for the semantic--geometric misalignment of video-based spatial reasoning, and Vision-to-Geometry~\cite{cai2025vision} incorporates geometric cues such as field-of-view coverage to prevent redundant re-exploration.
+
+
+
+\subsubsection{Benchmarks}
+Progress in memory-augmented spatial reasoning requires separating \emph{memory-specific} tests from broad spatial probes.
+
+\paragraph{Memory-specific evaluation.}
+3DMem-Bench~\cite{hu20253dllmmem} serves as a standard for assessing long-term persistence: comprising over 26{,}000 trajectories, it challenges agents with Spatial--Temporal QA (\eg,\ ``What color was the bed in the room you visited five minutes ago?''), requiring the retrieval of past observations that are no longer in the active context. Moving beyond static environments, EmbodiedBench~\cite{yang2025embodiedbench} tests long-horizon planning where objects are moved or manipulated during the task, benchmarking the \emph{write/update} capability of memory systems, their ability to overwrite obsolete data without catastrophic forgetting. OpenEQA~\cite{majumdar2024openeqa} offers a complementary episodic-memory setting by asking questions about an environment the agent has previously explored, making it useful for measuring whether retrieved experience rather than immediate perception supports the answer.
+
+\paragraph{Broad spatial probes as diagnostic complements.}
+Benchmarks such as SpaCE-10~\cite{gong2025space10}, SITE~\cite{wang2025site}, and the static probes collected in Table~\ref{tab:spatial_reasoning_benchmark} (OmniSpatial~\cite{jia2025omnispatial}, Spatial-DISE~\cite{huang2025spatialdise}, Open3DVQA~\cite{zhang2025open3dvqa}) evaluate spatial orientation, perspective taking, metric estimation, open-space 3D relations, and intrinsic/extrinsic static or dynamic reasoning. They are valuable for diagnosing what information a memory system should retain (viewpoint-dependent relations, object-centric attributes, multi-step multi-view dependencies), but they are not memory benchmarks unless the protocol hides necessary information in a prior episode and requires retrieval from $\mathcal{M}$: a model can fail a broad spatial probe because it lacks geometric perception, because it retrieved the wrong memory, or because the memory was never written in the first place.
+
+
+\subsubsection{Challenges and Trends}
+The recurring limitations originate in the Planner-Memory-Retriever interface rather than in any individual component.
+\textbf{Query formation under unbounded context} is the central bottleneck, not memory size alone: the act of deciding what to retrieve requires compressing the current task, viewpoint, uncertainty, and history into a finite representation, and memory paging and scheduling alleviate but do not remove the need for a learned retrieval policy.
+\textbf{Write/update consistency} is where append-only memories become dangerous: agents need mechanisms for reconciling conflicting observations, invalidating stale object locations, and representing uncertainty when the world may have changed since the last visit; EmbodiedBench-style protocols make the issue visible, but robust update semantics remain open.
+\textbf{Integration mechanics} are unresolved between in-context learning, which concatenates retrieved text to the prompt (simple but token-inefficient), and cross-attention fusion, which injects retrieved 3D features into attention layers (3DLLM-Mem~\cite{hu20253dllmmem}; expressive but architecture-coupled), with no clear winner on the fidelity--modularity trade-off.
+\textbf{Modality mismatch} has no general theory: RAG-over-text (NavRAG~\cite{wang2025navrag}) discards visual nuance, RAG-over-images (VisRAG~\cite{yu2024visrag}) loses structural priors, and when to retrieve text, images, or 3D representations remains task-dependent.
+
+Memory is shifting \emph{from static maps to dynamic semantic belief states}: systems store probabilities, semantic labels, and interaction histories rather than coordinates, enabling agents to reason under uncertainty about where an object \emph{likely} resides given commonsense and past observation, as RoboMemory~\cite{lei2025robomemory} typifies.
+Graph- and vector-based retrieval are converging into hybrid architectures that use vector search to identify graph entry nodes and topological traversal for neighborhood reasoning.
+Most abstractly, \emph{meta-cognitive memory} such as Meta-Memory~\cite{mao2025meta} generates task-specific ``cognitive maps'' and retrieves \emph{strategies} rather than raw data, pointing toward learnable retrieval policies and bridging into the agentic orchestration of §\ref{subsec:p3_s7_3_7}.

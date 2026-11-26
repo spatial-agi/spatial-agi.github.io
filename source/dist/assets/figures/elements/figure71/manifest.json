@@ -1,0 +1,100 @@
+{
+  "source": "assets/figures/figures/part3/section7/711_geo.webp",
+  "source_size": [
+    2000,
+    892
+  ],
+  "assets": [
+    {
+      "file": "i-inputs/camera.png",
+      "source_box": [
+        30,
+        85,
+        89,
+        134
+      ]
+    },
+    {
+      "file": "i-inputs/image-points.png",
+      "source_box": [
+        95,
+        54,
+        174,
+        152
+      ]
+    },
+    {
+      "file": "i-inputs/depth-sensor.png",
+      "source_box": [
+        8,
+        198,
+        105,
+        334
+      ]
+    },
+    {
+      "file": "i-inputs/lidar-points.png",
+      "source_box": [
+        101,
+        198,
+        180,
+        290
+      ]
+    },
+    {
+      "file": "i-inputs/joint-states-arm.png",
+      "source_box": [
+        14,
+        339,
+        166,
+        461
+      ]
+    },
+    {
+      "file": "i-inputs/environment-obstacles.png",
+      "source_box": [
+        23,
+        653,
+        190,
+        738
+      ]
+    },
+    {
+      "file": "ii-reasoning/kinematics-arm.png",
+      "source_box": [
+        642,
+        548,
+        777,
+        664
+      ]
+    },
+    {
+      "file": "ii-reasoning/contact-gripper.png",
+      "source_box": [
+        1260,
+        588,
+        1351,
+        675
+      ]
+    },
+    {
+      "file": "iii-outputs/reachable-arm.png",
+      "source_box": [
+        1558,
+        401,
+        1654,
+        483
+      ]
+    },
+    {
+      "file": "iii-outputs/grasp-gripper.png",
+      "source_box": [
+        1495,
+        696,
+        1590,
+        781
+      ]
+    }
+  ],
+  "frontend": "All text, formulas, axes, transformations, epipolar lines, view cones, reachable-region boundaries, paths, arrows, check/cross symbols, cube and mesh geometry, panel borders and dividers."
+}

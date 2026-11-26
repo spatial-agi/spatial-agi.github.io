@@ -1,0 +1,29 @@
+{
+  "source": "assets/figures/figures/part3/section7/explicit_structured_neural_reasoning_method.webp",
+  "source_size": [
+    2000,
+    437
+  ],
+  "assets": [
+    {
+      "file": "c-module-network/room.png",
+      "title": "Indoor scene photograph",
+      "source_box": [
+        985,
+        288,
+        1080,
+        353
+      ],
+      "size": [
+        95,
+        65
+      ]
+    }
+  ],
+  "frontend": {
+    "a-mac": "Panel border, three MAC cells, Control/Read/Write boxes, Q and A labels, recurrence arrows.",
+    "b-state-machine": "Concept detector, probabilistic scene graph, graph nodes and edges, reading head, finite-automaton transitions and state symbols.",
+    "c-module-network": "Question, parser, layout, LSTM and CNN blocks, colored module tiles, answer node and all connecting arrows.",
+    "d-program-generator": "LLM, generated Python code, vision-tool API, tool boxes, final answer and all connecting arrows."
+  }
+}

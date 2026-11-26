@@ -1,0 +1,1426 @@
+{
+  "figure": "8.8",
+  "sources": [
+    "assets/figures/figures/part3/section8/3D-reconstruction.webp"
+  ],
+  "source_sizes": [
+    [
+      1024,
+      446
+    ]
+  ],
+  "assets": [
+    {
+      "file": "two-view/row-1-rgb.png",
+      "title": "row 1 rgb",
+      "box": [
+        24,
+        12,
+        66,
+        43
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        25,
+        12,
+        68,
+        44
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "two-view/row-1-depth.png",
+      "title": "row 1 depth",
+      "box": [
+        69,
+        12,
+        111,
+        43
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        71,
+        12,
+        114,
+        44
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "two-view/row-1-heat.png",
+      "title": "row 1 heat",
+      "box": [
+        113,
+        12,
+        155,
+        43
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        116,
+        12,
+        159,
+        44
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "two-view/row-2-rgb.png",
+      "title": "row 2 rgb",
+      "box": [
+        24,
+        46,
+        66,
+        77
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        25,
+        47,
+        68,
+        79
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "two-view/row-2-depth.png",
+      "title": "row 2 depth",
+      "box": [
+        69,
+        46,
+        111,
+        77
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        71,
+        47,
+        114,
+        79
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "two-view/row-2-heat.png",
+      "title": "row 2 heat",
+      "box": [
+        113,
+        46,
+        155,
+        77
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        116,
+        47,
+        159,
+        79
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "two-view/row-3-rgb.png",
+      "title": "row 3 rgb",
+      "box": [
+        24,
+        80,
+        66,
+        111
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        25,
+        82,
+        68,
+        114
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "two-view/row-3-depth.png",
+      "title": "row 3 depth",
+      "box": [
+        69,
+        80,
+        111,
+        111
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        71,
+        82,
+        114,
+        114
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "two-view/row-3-heat.png",
+      "title": "row 3 heat",
+      "box": [
+        113,
+        80,
+        155,
+        111
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        116,
+        82,
+        159,
+        114
+      ],
+      "size": [
+        43,
+        32
+      ]
+    },
+    {
+      "file": "multi-view/view-1.png",
+      "title": "view 1",
+      "box": [
+        169,
+        12,
+        227,
+        44
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        173,
+        12,
+        232,
+        45
+      ],
+      "size": [
+        59,
+        33
+      ]
+    },
+    {
+      "file": "multi-view/view-2.png",
+      "title": "view 2",
+      "box": [
+        169,
+        46,
+        227,
+        78
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        173,
+        47,
+        232,
+        80
+      ],
+      "size": [
+        59,
+        33
+      ]
+    },
+    {
+      "file": "multi-view/view-3.png",
+      "title": "view 3",
+      "box": [
+        169,
+        80,
+        227,
+        112
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        173,
+        82,
+        232,
+        115
+      ],
+      "size": [
+        59,
+        33
+      ]
+    },
+    {
+      "file": "multi-view/reconstruction-1.png",
+      "title": "reconstruction 1",
+      "box": [
+        229,
+        12,
+        375,
+        73
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        234,
+        12,
+        384,
+        75
+      ],
+      "size": [
+        150,
+        63
+      ]
+    },
+    {
+      "file": "multi-view/reconstruction-2.png",
+      "title": "reconstruction 2",
+      "box": [
+        229,
+        75,
+        375,
+        109
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        234,
+        77,
+        384,
+        112
+      ],
+      "size": [
+        150,
+        35
+      ]
+    },
+    {
+      "file": "continuous/forest-strip.png",
+      "title": "forest strip",
+      "box": [
+        389,
+        14,
+        500,
+        31
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        398,
+        14,
+        512,
+        32
+      ],
+      "size": [
+        114,
+        18
+      ]
+    },
+    {
+      "file": "continuous/people-strip.png",
+      "title": "people strip",
+      "box": [
+        505,
+        14,
+        621,
+        31
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        517,
+        14,
+        636,
+        32
+      ],
+      "size": [
+        119,
+        18
+      ]
+    },
+    {
+      "file": "continuous/forest-scene.png",
+      "title": "forest scene",
+      "box": [
+        388,
+        37,
+        501,
+        111
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        397,
+        38,
+        513,
+        114
+      ],
+      "size": [
+        116,
+        76
+      ]
+    },
+    {
+      "file": "continuous/people-scene.png",
+      "title": "people scene",
+      "box": [
+        507,
+        36,
+        637,
+        107
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        519,
+        37,
+        652,
+        110
+      ],
+      "size": [
+        133,
+        73
+      ]
+    },
+    {
+      "file": "large-scale/reconstruction.png",
+      "title": "reconstruction",
+      "box": [
+        644,
+        10,
+        820,
+        111
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        659,
+        10,
+        840,
+        114
+      ],
+      "size": [
+        181,
+        104
+      ]
+    },
+    {
+      "file": "matching/correspondences.png",
+      "title": "correspondences",
+      "box": [
+        831,
+        12,
+        985,
+        112
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        851,
+        12,
+        1009,
+        115
+      ],
+      "size": [
+        158,
+        103
+      ]
+    },
+    {
+      "file": "static-3dgs/view-1.png",
+      "title": "view 1",
+      "box": [
+        24,
+        162,
+        74,
+        210
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        25,
+        166,
+        76,
+        215
+      ],
+      "size": [
+        51,
+        49
+      ]
+    },
+    {
+      "file": "static-3dgs/view-2.png",
+      "title": "view 2",
+      "box": [
+        24,
+        214,
+        74,
+        262
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        25,
+        219,
+        76,
+        268
+      ],
+      "size": [
+        51,
+        49
+      ]
+    },
+    {
+      "file": "static-3dgs/view-3.png",
+      "title": "view 3",
+      "box": [
+        189,
+        162,
+        239,
+        210
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        194,
+        166,
+        245,
+        215
+      ],
+      "size": [
+        51,
+        49
+      ]
+    },
+    {
+      "file": "static-3dgs/view-4.png",
+      "title": "view 4",
+      "box": [
+        189,
+        214,
+        239,
+        262
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        194,
+        219,
+        245,
+        268
+      ],
+      "size": [
+        51,
+        49
+      ]
+    },
+    {
+      "file": "static-3dgs/view-5.png",
+      "title": "view 5",
+      "box": [
+        77,
+        160,
+        188,
+        263
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        79,
+        164,
+        193,
+        269
+      ],
+      "size": [
+        114,
+        105
+      ]
+    },
+    {
+      "file": "dynamic-3dgs/view-strip.png",
+      "title": "view strip",
+      "box": [
+        248,
+        162,
+        278,
+        211
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        254,
+        166,
+        285,
+        216
+      ],
+      "size": [
+        31,
+        50
+      ]
+    },
+    {
+      "file": "dynamic-3dgs/scene-top.png",
+      "title": "scene top",
+      "box": [
+        294,
+        162,
+        418,
+        210
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        301,
+        166,
+        428,
+        215
+      ],
+      "size": [
+        127,
+        49
+      ]
+    },
+    {
+      "file": "dynamic-3dgs/scene-1.png",
+      "title": "scene 1",
+      "box": [
+        248,
+        214,
+        331,
+        262
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        254,
+        219,
+        339,
+        268
+      ],
+      "size": [
+        85,
+        49
+      ]
+    },
+    {
+      "file": "dynamic-3dgs/scene-2.png",
+      "title": "scene 2",
+      "box": [
+        335,
+        214,
+        418,
+        262
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        343,
+        219,
+        428,
+        268
+      ],
+      "size": [
+        85,
+        49
+      ]
+    },
+    {
+      "file": "nvs-no-3d/render-1.png",
+      "title": "render 1",
+      "box": [
+        433,
+        163,
+        477,
+        212
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        443,
+        167,
+        488,
+        217
+      ],
+      "size": [
+        45,
+        50
+      ]
+    },
+    {
+      "file": "nvs-no-3d/render-2.png",
+      "title": "render 2",
+      "box": [
+        482,
+        163,
+        525,
+        212
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        494,
+        167,
+        538,
+        217
+      ],
+      "size": [
+        44,
+        50
+      ]
+    },
+    {
+      "file": "nvs-no-3d/render-3.png",
+      "title": "render 3",
+      "box": [
+        433,
+        214,
+        477,
+        261
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        443,
+        219,
+        488,
+        267
+      ],
+      "size": [
+        45,
+        48
+      ]
+    },
+    {
+      "file": "nvs-no-3d/render-4.png",
+      "title": "render 4",
+      "box": [
+        482,
+        214,
+        525,
+        261
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        494,
+        219,
+        538,
+        267
+      ],
+      "size": [
+        44,
+        48
+      ]
+    },
+    {
+      "file": "nvs-no-3d/render-5.png",
+      "title": "render 5",
+      "box": [
+        532,
+        174,
+        599,
+        262
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        545,
+        178,
+        613,
+        268
+      ],
+      "size": [
+        68,
+        90
+      ]
+    },
+    {
+      "file": "video-nvs/view-1.png",
+      "title": "view 1",
+      "box": [
+        611,
+        162,
+        690,
+        208
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        626,
+        166,
+        707,
+        213
+      ],
+      "size": [
+        81,
+        47
+      ]
+    },
+    {
+      "file": "video-nvs/view-2.png",
+      "title": "view 2",
+      "box": [
+        709,
+        162,
+        787,
+        208
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        726,
+        166,
+        806,
+        213
+      ],
+      "size": [
+        80,
+        47
+      ]
+    },
+    {
+      "file": "video-nvs/view-3.png",
+      "title": "view 3",
+      "box": [
+        611,
+        216,
+        690,
+        262
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        626,
+        221,
+        707,
+        268
+      ],
+      "size": [
+        81,
+        47
+      ]
+    },
+    {
+      "file": "video-nvs/view-4.png",
+      "title": "view 4",
+      "box": [
+        709,
+        216,
+        787,
+        262
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        726,
+        221,
+        806,
+        268
+      ],
+      "size": [
+        80,
+        47
+      ]
+    },
+    {
+      "file": "image-nvs/source.png",
+      "title": "source",
+      "box": [
+        800,
+        163,
+        897,
+        261
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        819,
+        167,
+        919,
+        267
+      ],
+      "size": [
+        100,
+        100
+      ]
+    },
+    {
+      "file": "image-nvs/novel-1.png",
+      "title": "novel 1",
+      "box": [
+        903,
+        162,
+        942,
+        211
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        925,
+        166,
+        965,
+        216
+      ],
+      "size": [
+        40,
+        50
+      ]
+    },
+    {
+      "file": "image-nvs/novel-2.png",
+      "title": "novel 2",
+      "box": [
+        948,
+        162,
+        987,
+        211
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        971,
+        166,
+        1011,
+        216
+      ],
+      "size": [
+        40,
+        50
+      ]
+    },
+    {
+      "file": "image-nvs/novel-3.png",
+      "title": "novel 3",
+      "box": [
+        903,
+        214,
+        942,
+        262
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        925,
+        219,
+        965,
+        268
+      ],
+      "size": [
+        40,
+        49
+      ]
+    },
+    {
+      "file": "image-nvs/novel-4.png",
+      "title": "novel 4",
+      "box": [
+        948,
+        214,
+        987,
+        262
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        971,
+        219,
+        1011,
+        268
+      ],
+      "size": [
+        40,
+        49
+      ]
+    },
+    {
+      "file": "3dgs-generation/ocean.png",
+      "title": "ocean",
+      "box": [
+        24,
+        312,
+        125,
+        411
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        25,
+        319,
+        128,
+        421
+      ],
+      "size": [
+        103,
+        102
+      ]
+    },
+    {
+      "file": "3dgs-generation/frame-1.png",
+      "title": "frame 1",
+      "box": [
+        129,
+        312,
+        161,
+        342
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        132,
+        319,
+        165,
+        350
+      ],
+      "size": [
+        33,
+        31
+      ]
+    },
+    {
+      "file": "3dgs-generation/frame-2.png",
+      "title": "frame 2",
+      "box": [
+        129,
+        346,
+        161,
+        376
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        132,
+        354,
+        165,
+        385
+      ],
+      "size": [
+        33,
+        31
+      ]
+    },
+    {
+      "file": "3dgs-generation/frame-3.png",
+      "title": "frame 3",
+      "box": [
+        129,
+        380,
+        161,
+        410
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        132,
+        389,
+        165,
+        420
+      ],
+      "size": [
+        33,
+        31
+      ]
+    },
+    {
+      "file": "nerf-generation/source.png",
+      "title": "source",
+      "box": [
+        181,
+        334,
+        238,
+        393
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        185,
+        342,
+        244,
+        402
+      ],
+      "size": [
+        59,
+        60
+      ]
+    },
+    {
+      "file": "nerf-generation/rgb-1.png",
+      "title": "rgb 1",
+      "box": [
+        241,
+        312,
+        290,
+        359
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        247,
+        319,
+        297,
+        368
+      ],
+      "size": [
+        50,
+        49
+      ]
+    },
+    {
+      "file": "nerf-generation/normal-1.png",
+      "title": "normal 1",
+      "box": [
+        241,
+        362,
+        290,
+        410
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        247,
+        371,
+        297,
+        420
+      ],
+      "size": [
+        50,
+        49
+      ]
+    },
+    {
+      "file": "nerf-generation/rgb-2.png",
+      "title": "rgb 2",
+      "box": [
+        291,
+        312,
+        340,
+        359
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        298,
+        319,
+        348,
+        368
+      ],
+      "size": [
+        50,
+        49
+      ]
+    },
+    {
+      "file": "nerf-generation/normal-2.png",
+      "title": "normal 2",
+      "box": [
+        291,
+        362,
+        340,
+        410
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        298,
+        371,
+        348,
+        420
+      ],
+      "size": [
+        50,
+        49
+      ]
+    },
+    {
+      "file": "nerf-generation/rgb-3.png",
+      "title": "rgb 3",
+      "box": [
+        342,
+        312,
+        391,
+        359
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        350,
+        319,
+        400,
+        368
+      ],
+      "size": [
+        50,
+        49
+      ]
+    },
+    {
+      "file": "nerf-generation/normal-3.png",
+      "title": "normal 3",
+      "box": [
+        342,
+        362,
+        391,
+        410
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        350,
+        371,
+        400,
+        420
+      ],
+      "size": [
+        50,
+        49
+      ]
+    },
+    {
+      "file": "mesh-generation/axe.png",
+      "title": "axe",
+      "box": [
+        412,
+        311,
+        474,
+        366
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        422,
+        318,
+        485,
+        375
+      ],
+      "size": [
+        63,
+        57
+      ]
+    },
+    {
+      "file": "mesh-generation/lamp.png",
+      "title": "lamp",
+      "box": [
+        412,
+        365,
+        480,
+        411
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        422,
+        374,
+        492,
+        421
+      ],
+      "size": [
+        70,
+        47
+      ]
+    },
+    {
+      "file": "mesh-generation/jacket.png",
+      "title": "jacket",
+      "box": [
+        478,
+        312,
+        595,
+        411
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        489,
+        319,
+        609,
+        421
+      ],
+      "size": [
+        120,
+        102
+      ]
+    },
+    {
+      "file": "slam/mapped-room.png",
+      "title": "mapped room",
+      "box": [
+        610,
+        311,
+        801,
+        413
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        625,
+        318,
+        820,
+        423
+      ],
+      "size": [
+        195,
+        105
+      ]
+    },
+    {
+      "file": "robotics/row-1-rgb.png",
+      "title": "row 1 rgb",
+      "box": [
+        821,
+        312,
+        873,
+        360
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        841,
+        319,
+        894,
+        369
+      ],
+      "size": [
+        53,
+        50
+      ]
+    },
+    {
+      "file": "robotics/row-1-mask.png",
+      "title": "row 1 mask",
+      "box": [
+        876,
+        312,
+        928,
+        360
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        897,
+        319,
+        950,
+        369
+      ],
+      "size": [
+        53,
+        50
+      ]
+    },
+    {
+      "file": "robotics/row-1-feature.png",
+      "title": "row 1 feature",
+      "box": [
+        932,
+        312,
+        984,
+        360
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        954,
+        319,
+        1008,
+        369
+      ],
+      "size": [
+        54,
+        50
+      ]
+    },
+    {
+      "file": "robotics/row-2-rgb.png",
+      "title": "row 2 rgb",
+      "box": [
+        821,
+        363,
+        873,
+        411
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        841,
+        372,
+        894,
+        421
+      ],
+      "size": [
+        53,
+        49
+      ]
+    },
+    {
+      "file": "robotics/row-2-mask.png",
+      "title": "row 2 mask",
+      "box": [
+        876,
+        363,
+        928,
+        411
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        897,
+        372,
+        950,
+        421
+      ],
+      "size": [
+        53,
+        49
+      ]
+    },
+    {
+      "file": "robotics/row-2-feature.png",
+      "title": "row 2 feature",
+      "box": [
+        932,
+        363,
+        984,
+        411
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        954,
+        372,
+        1008,
+        421
+      ],
+      "size": [
+        54,
+        49
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

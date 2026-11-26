@@ -1,0 +1,76 @@
+{
+  "source": "assets/figures/figures/part3/section6/height_estimation_1.webp",
+  "notes": "Only pictorial assets. Rebuild headings, captions, formulas, dividers, corner dots, camera icons, borders, arrows and pitch geometry natively.",
+  "assets": [
+    {
+      "file": "a/street-clean.png",
+      "source_box": [
+        30,
+        174,
+        647,
+        585
+      ],
+      "size": [
+        617,
+        411
+      ],
+      "notes": "Shared street photograph restored from both panels; blue rays, label and horizon removed. Reused in panel c."
+    },
+    {
+      "file": "c/street-clean.png",
+      "source_box": [
+        1353,
+        174,
+        1970,
+        585
+      ],
+      "size": [
+        617,
+        411
+      ],
+      "notes": "Same clean street, separately grouped for the horizon panel."
+    },
+    {
+      "file": "b/checkerboard-left.png",
+      "source_box": [
+        714,
+        195,
+        858,
+        312
+      ],
+      "size": [
+        144,
+        117
+      ],
+      "notes": "Checkerboard only; blue corner dots are redrawn in the frontend."
+    },
+    {
+      "file": "b/checkerboard-center.png",
+      "source_box": [
+        906,
+        171,
+        1076,
+        303
+      ],
+      "size": [
+        170,
+        132
+      ],
+      "notes": "Checkerboard only; blue corner dots are redrawn in the frontend."
+    },
+    {
+      "file": "b/checkerboard-right.png",
+      "source_box": [
+        1097,
+        198,
+        1271,
+        310
+      ],
+      "size": [
+        174,
+        112
+      ],
+      "notes": "Checkerboard only; blue corner dots are redrawn in the frontend."
+    }
+  ]
+}

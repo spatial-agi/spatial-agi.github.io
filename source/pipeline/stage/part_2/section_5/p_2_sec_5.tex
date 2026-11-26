@@ -1,0 +1,135 @@
+\chapter{Cross-Modal Spatial Representation}
+\label{chapter:cross_modality}
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkgreen}{T}}{he} 
+\FramedInitial{T}{he}
+aim of cross-modal spatial representation is a latent space in which heterogeneous perceptual signals, images, 3D scenes, video, audio, and language are aligned so that the spatial structure each carries is preserved rather than averaged away.
+Where the previous chapter asked how much geometry a single modality holds on its own, the concern here is the opposite and harder one: how signals that encode space in incompatible formats (a pixel grid, a world-frame point set, a waveform, a sentence) can be brought into correspondence without the alignment itself distorting what it aligns.
+
+No single recipe achieves this.
+Methods differ in what they treat as the unit of alignment, in the objective that binds one modality to another, in how tightly they anchor the space to physical geometry, and in the linguistic interface through which it is queried.
+These choices are not independent, and the chapter first makes them explicit as a small set of design axes before turning to the individual cross-modal pairings in which they play out.
+
+\section{Overview}
+\label{sec:cross_modal_overview}
+
+\FramedInitial{W}{e} define four axes that structure this cross-modal representation learning problem, which we use to organize the remainder of the chapter. 
+The first axis is the \textit{alignment strategy}, which we categorize into contrastive alignment, generative alignment, and programmatic alignment. 
+Contrastive alignment learns a shared embedding space by pushing together paired samples and pulling away negative samples. 
+Such alignment scales to weakly paired data and enables retrieval and coarse grounding, but often needs additional spatial supervision to understand fine-grained relations grounded to specific visual regions. 
+In contrast, generative alignment predicts across modalities (\eg, captioning from vision or language-conditioned decoding into images, 3D, or video), which gives rich supervision and coverage, but also tends to drift from true underlying geometry unless it is further constrained, for example, by multi-view consistency. 
+Finally, programmatic alignment aligns visual entities to explicit symbols (\eg, attributes, relation graphs, or concepts in domain-specific languages), which define spatial semantics and naturally interface with program-based, verifiable reasoning, but often requires stronger supervision and trades off expressiveness for structure.
+
+The second axis is \textit{spatial modality}, which ranges from view-aligned 2D to world-aligned 4D. Here, two-dimensional tokens (\eg, pixels, patches) are expressive and broadly applicable, but rely on some form of geometric structure to capture faithful spatial relationships. 
+Three-dimensional tokens (\eg, points, meshes, implicit fields, Gaussian primitives) better encode metric scale and rigid-body invariance (\ie SE(3) consistency: rotations and translations of the scene do not change the underlying semantics), so that linguistic queries are grounded in world coordinates rather than in image projections. 
+However, they are less ubiquitous and often rely on partial and noisy reconstructions of geometry. 
+Extending 3D through time yields 4D traces (\eg, tracks), that bind actions to expressive motion and change, but significantly increase computational complexity and require reliable alignment data, while being sensitive to tracking errors such as identity switches.
+These different spatial modalities correspond to and build upon the single-modality representations of Chapter~\ref{chapter:single_modality}.
+
+The third axis is the \textit{language interface}, from free-form text to structured interfaces. 
+Free-form text (\eg, natural language) enables open-vocabulary understanding for referring expressions, retrieval, and instruction following, but comes with corresponding ambiguity in terms of frames of reference, scale, and units. 
+In contrast, structured interfaces (\eg, programs) reduce such ambiguity by explicitly describing spatial semantics, enabling integration with symbolic reasoning, but are less flexible in capturing the full range of natural language descriptions.
+
+The fourth axis is the \textit{training regime}, which defines both the level of supervision and coverage. Paired supervision, for example, from captioned videos or referring expressions in 3D scenes, gives strong alignment, but is expensive and can be biased toward frequent compositions and co-occurrences. 
+Weakly paired internet data, for example, from alt-text or transcripts, enable diversity, but, due to low signal-to-noise ratios, often yield noisier spatial grounding.
+
+Below, we organize the chapter by cross-modal pair, using \emph{spatial modality} (which pair) and \emph{alignment strategy} (which objective) as the primary organisational axes; the \emph{language interface} and \emph{training regime} axes recur as cross-cutting attributes referenced throughout. 
+We give an overview of 2D-text alignment (Section~\ref{cross_modality_2d_text}), 3D-text alignment (Section~\ref{cross_modality_3d_text}), audio-text alignment (Section~\ref{cross_modality_audio_text}), and vision-vision alignment (Section~\ref{cross_modality_vision_vision}); each follows the scope and axes defined here.
+
+
+\section{2D-text}
+\label{cross_modality_2d_text}
+\FramedInitial{T}{he} most developed cross-modal setting pairs images with language. 
+Its defining tension is that a text-aligned 2D representation lives in the image projection, not the world: appearance and layout sit on the pixel grid, yet the relations a caption asserts (left of, above, behind) are only implicit there. 
+How faithfully those relations survive alignment turns on two choices: the granularity at which the image is represented, and the objective that binds it to text, and this section is organized around them. 
+Models often fall into three broad families of visual representations, across different levels of granularity. First are global embeddings that compress an entire image into a single vector paired with a sentence embedding. 
+Here, dual-encoder approaches such as CLIP~\cite{radford2021learning} and ALIGN~\cite{jia2021scaling} show that large-scale contrastive pretraining over noisy web data yields strong zero-shot classification and retrieval performance. 
+Second, many works have proposed local tokens tied to image subregions, in which vision-language models, often transformers (\eg, ViLBERT~\cite{lu2019vilbert}, LXMERT~\cite{tan2019lxmert}, UNITER~\cite{chen2020uniter}, OSCAR~\cite{li2020oscar}) input region features extracted by bottom-up detectors (\eg, Faster R-CNN~\cite{ren2015faster}) into cross-modal attention blocks, enabling word-region alignment, and hence fine-grained reasoning over object proposals. 
+A third class of methods makes relations explicit; here, models extract intermediate representations that are directly aligned with spatial predicates such as ``left-of'' or ``on.'' NSCL~\cite{mao2019neuro} and LEFT~\cite{hsu2023s} learn hybrid representations that explicitly bind named visual concepts with latent features. 
+This representational spectrum, from global to region to relation-based, forms the basis for the objectives below.
+
+Contrastive retrieval serves as a common objective for large-scale pretraining, as it learns a shared metric space, without requiring dense and expensive supervision. 
+As representative examples, CLIP~\cite{radford2021learning} and ALIGN~\cite{jia2021scaling} maximize agreement between paired image and text embeddings, enabling robust zero-shot transfer; LiT~\cite{zhai2022lit} shows that contrastively tuning only the text encoder on top of a locked image encoder can further improve such transfer; and CoCa~\cite{yu2022coca} fuses contrastive learning with captioning in a single encoder-decoder architecture to combine discriminative and generative strengths. 
+Another line of work adapts contrastive alignment to more fine-grained regions. 
+RegionCLIP~\cite{zhong2022regionclip} lifts global contrast to region-text pairs, FILIP~\cite{yao2021filip} proposes late token-token interaction to align words with patches efficiently, X-VLM~\cite{zeng2021multi} learns multi-grained alignment such that entities and attributes can be localized and described consistently across granularities, and ALBEF~\cite{li2021align} conducts image-text contrast with cross-modal fusion and momentum-distilled pseudo-targets to stabilize learning on noisy web data. 
+
+In addition, masked modeling with textual conditioning has been shown to provide a complementary self-supervised signal that encourages cross-modal consistency. LXMERT~\cite{tan2019lxmert} and UNITER~\cite{chen2020uniter} pretrain with masked language modeling, masked region modeling, and image-text matching to build word-region alignment.
+VLMo~\cite{bao2022vlmo} generalizes this idea with mixture-of-modality experts, and BEiT-3~\cite{wang2023image} performs masked data modeling over images, text, and image-text pairs in a single multiway transformer.
+
+With more labels, generative objectives can be applied for this representation learning problem, and also complement self-supervised ones. 
+Here, methods teach models to produce language conditioned on images, intuitively, to generate tokens that act as spatially grounded explanations. 
+As representative examples, SimVLM~\cite{wang2021simvlm} shows that a prefix language-modeling objective trained on weak supervision can improve performance on captioning and visual question answering, BLIP~\cite{li2022blip} adds caption bootstrapping to denoise web supervision, and GIT~\cite{wang2022git} simplifies a scalable image-encoder and text-decoder architecture.
+
+In a more fine-grained manner, grounding objectives can directly optimize spatial correspondence between language and 2D pixels, points, or boxes. Here, text-conditioned detection and phrase grounding unify detection and language. 
+MDETR~\cite{kamath2021mdetr} learns a DETR-style~\cite{carion2020end} detector modulated by text, GLIP~\cite{li2022grounded} pretrains on both detection and grounding corpora and self-generates boxes from image-text pairs to scale supervision, and Grounding DINO~\cite{liu2024grounding} augments strong detection backbones with grounded pretraining for open-set detection. 
+At the pixel level, DenseCLIP~\cite{rao2022denseclip} adapts image-text matching to pixel-text matching for dense prediction, and GroupViT~\cite{xu2022groupvit} shows that segmentation structure can appear from text supervision alone.
+
+Across these categories, we see that 2D-text representations can emerge from diverse approaches, for example, differing in whether spatial structure is implicit (\eg, in attention over patches) or explicit (\eg, in region tokens), and whether supervision is weakly paired and contrastive, generative, or explicitly grounded. 
+Models that learn 2D vision-language representations now increasingly combine all contrastive, captioning, grounding, and masked objectives to solve a wide range of downstream tasks, from (more semantic) referring expression comprehension to (more visually grounded) localization.
+
+\section{3D-text}
+\label{cross_modality_3d_text}
+\FramedInitial{M}{oving} from the image plane to the scene itself removes the projection gap that limits 2D-text alignment: language is now bound to geometry expressed in world coordinates, so that metric scale and the invariance of meaning under rotation and translation become properties the representation can actually enforce. 
+The difficulty shifts accordingly, from recovering relations that pixels hide to obtaining and aligning 3D structure that is often partial, noisy, and expensive to annotate. 
+As before, the representation families and the alignment objectives acting on them jointly organize the section. 
+Two complementary families of representations have emerged in this domain. First, object-centric and scene-centric encoders learn world-aligned tokens, then align them to language via contrastive or generative objectives. 
+ULIP~\cite{xue2023ulip} instantiates this paradigm by aligning point-cloud features to an image-text space, scaling supervision through synthetic triplets.
+OpenShape~\cite{liu2023openshape} extends this direction further with curated 3D corpora and hard negative mining to support open-world 3D retrieval, and OpenScene~\cite{peng2023openscene} co-embeds dense features for 3D scenes with text and image pixels in CLIP feature space. 
+Additional projection strategies have also been explored, for example, adapting 2D vision-language models to 3D by rendering depth or multi-view images and transferring CLIP's alignment to point clouds; PointCLIP~\cite{zhang2022pointclip} and CLIP2Point~\cite{huang2023clip2point} do so and enable adapters for cross-modal transfer.
+
+A second family binds language to implicit scene fields. Here, LERF~\cite{kerr2023lerf} optimizes a dense 3D language field inside NeRF~\cite{mildenhall2021nerf} by rendering CLIP embeddings across views, enabling open-vocabulary queries that return relevancy volumes. 
+CLIP-Fields~\cite{shafiullah2022clip} similarly distills 2D vision-language cues into 3D implicit maps to support semantic search and view localization. 
+In addition, replacing NeRF with 3D Gaussian Splatting~\cite{kerbl20233d} yields efficient language fields; for example, LangSplat~\cite{qin2024langsplat} combines CLIP features with Gaussians for fast, precise open-vocabulary querying. 
+These methods build on advances in explicit 3D primitives and real-time rendering to maintain high-fidelity representations while training efficiently.
+
+In this 3D-text domain, objectives also follow the representation choices. Contrastive alignment remains common, for example, ULIP trains with InfoNCE~\cite{oord2018representation} over point clouds-images-text, while OpenShape scales both data and hard-negative mining. 
+Projection-based approaches transfer contrastive objectives to depth and multi-view renders to align point clouds with text labels. 
+Grounded objectives enforce explicit 3D correspondence between language and geometry. 
+3D referring expression datasets and models (\eg, ScanRefer~\cite{chen2020scanrefer}, ReferIt3D~\cite{achlioptas2020referit3d}, 3D-VisTA~\cite{zhu20233d}, BUTD-DETR~\cite{jain2022bottom}, NS3D~\cite{hsu2023ns3d}, InstanceRefer~\cite{yuan2021instancerefer}) localize targets from language descriptions and learn to understand complex relations dependent on viewpoints.
+
+Here, geometry-aware representations are critical for aligning language with the physical world. 
+Ideal 3D-text representations should respect SE(3) structure (\eg, rotations and translations should not spuriously change semantics), yet cross-modal alignment should still encode view-dependent language (\eg, ``the chair to the left of the table''). 
+To this end, priors from equivariant architectures, such as the SE(3)-Transformer~\cite{fuchs2020se} and Vector Neurons~\cite{deng2021vector}, can be integrated into 3D-text models. 
+Implicit fields enable different options; while NeRF-based language fields are not strictly equivariant, multi-view consistency and cross-view regularization can improve their spatial coherence. 
+Alternatively, Gaussian splatting uses a canonical world frame and enables efficient supervision during language-field optimization. 
+Overall, these representation choices and objectives give rise to a wide range of approaches for 3D-text alignment, from tri-modal contrastive pretraining to implicit or splat-based language fields.
+
+\section{Audio-text}
+\label{cross_modality_audio_text}
+\FramedInitial{S}{ound} aligns to language along a different primary dimension than vision does. What an acoustic signal encodes first is time, the sequence of events as they unfold, and only secondarily, and coarsely, does it carry spatial attributes such as direction of arrival or distance. 
+Audio-text representation learning therefore aims for embeddings that are open-vocabulary and temporally grounded, with spatial awareness added where the labels permit. 
+The section again moves from the representation granularity to the objectives that align it with text. 
+One such direction is to embed audio-text representations at a coarse level, for example, with global encoders mapping an entire audio clip and a full sentence into a joint space, enabling zero-shot retrieval. 
+Here, CLAP~\cite{elizalde2023clap} and LAION-CLAP~\cite{wu2023large} scale contrastive language-audio pretraining with curated datasets, and show strong transfer across retrieval benchmarks. 
+In addition, AudioCLIP~\cite{guzhov2022audioclip} extends CLIP to a tri-modal image-text-audio setting, to leverage visual-text semantics, and Wav2CLIP~\cite{wu2022wav2clip} distills CLIP's alignment into an audio encoder when audio-text pairs are scarce.
+
+Beyond global representations, a line of work that aims to extract representations at a more fine-grained scale learns temporally local structure, for example, by operating on spectrogram patch tokens with transformer architectures. 
+The Audio Spectrogram Transformer (AST)~\cite{gong2021ast} and PaSST~\cite{koutini2021efficient} show that attention over time-frequency patches captures long-range temporal dependencies, and HTS-AT~\cite{chen2022hts} further returns frame-level maps that are useful for event localization. 
+These tokenizations make it straightforward to bind subclip semantics to text (\eg, ``a door slams, then footsteps echo''). 
+Self-supervised masked objectives, \eg, SSAST~\cite{gong2022ssast}, MAE-AST~\cite{baade2022mae}, and Audio-MAE~\cite{huang2022masked}, additionally pretrain such backbones by reconstructing masked patches, while BEATs~\cite{chen2022beats} adds an iterative tokenizer-encoder scheme that encourages high-level semantic abstraction.
+
+Across advances in representations and objectives, an emergent and increasingly common paradigm is to first pretrain an audio backbone with masked modeling, then align embeddings to text via contrastive losses, and finally, optionally add a captioning head to increase supervision. 
+In tasks where spatial semantics is important, incorporating spatial labels, such as direction-of-arrival, helps refine the audio-text representation space. 
+By leveraging these approaches, models can learn to align predicates such as ``left-of'' or ``far'' with meaningful acoustic features. 
+These methods enable models to learn embeddings that are not only open-vocabulary and temporally grounded, but also (coarsely) spatially aware.
+
+\section{Vision-vision}
+\label{cross_modality_vision_vision}
+\FramedInitial{A}{} common approach to improving vision-language alignment is to first align vision with vision, intuitively, enforcing geometric consistency such that visual features are anchored to a persistent world model before combining with language.
+Concretely, the goal of vision-vision representation learning is to fuse visual inputs (\eg, multiview RGB) into a set of world-aligned scene tokens, such that they are invariant to viewpoint changes and can be later queried by language. 
+Here, we discuss three broad families of approaches: lifting 2D features into 3D scene tokens, projecting these 3D tokens back into 2D for supervision, and using audiovisual correspondence to add constraints that further anchor the world model.
+
+Lifting 2D to 3D follows two complementary directions. The most classical and canonical approach first estimates camera poses and geometry with structure-from-motion (SfM) and simultaneous localization and mapping (SLAM), then adds semantics to the generated map. 
+Here, commonly used frameworks include COLMAP for SfM~\cite{schonberger2016structure}, KinectFusion and ElasticFusion for dense RGB-D mapping~\cite{newcombe2011kinectfusion,  whelan2015elasticfusion}, and ORB-SLAM2 for SLAM~\cite{mur2017orb}. 
+Learning-based reconstructions build upon this direction by back-projecting per-view features into a 3D volume and predicting TSDF or occupancy directly from posed images, for example, as in NeuralRecon~\cite{sun2021neuralrecon}. 
+Though components may differ, all of these approaches output view-agnostic scene tokens that can later be guided by linguistic supervision and queries.
+
+Projecting 3D back to 2D provides self-supervision. Differentiable rendering in neural fields anchors world-aligned tokens to multiview observations, and enforces cross-view consistency~\cite{mildenhall2021nerf}. 
+Distilling 2D foundation features into 3D fields adds semantic knowledge without manual, expensive 3D labels. Here, works typically transfer 2D features into a co-registered 3D feature volume, which can be rendered to any view~\cite{shen2023distilled, ye2023featurenerf}. 
+In addition, distillation is not limited to 2D language targets alone; for example, ImageBind~\cite{girdhar2023imagebind} proposes a multisensor feature target (image-text-audio-depth-thermal-IMU), which enables transfer of cross-sensor semantics even when there are few explicit labels. 
+Although these distillations are vision-vision processes, they are explicitly designed for language alignment later. The key benefit is that now vision-language alignment is conducted on a geometry-consistent representation, rather than directly on view-specific features.
+
+Audio-visual alignment can further constrain this vision-vision world model; self-supervised objectives have been designed to enforce consistency between audio and visual motion, which allows models to localize sound sources and disambiguate co-occurring events~\cite{arandjelovic2017look, owens2018audio, zhao2018sound}. 
+Such cues provide directional or timing semantics that help anchor linguistic queries to specific world-aligned entities, especially in cases with multiple candidate entities. 
+Across this variety of approaches, vision-vision representation learning methods all aim to learn a persistent world model that is geometrically and temporally consistent before adding any linguistic supervision, therefore making downstream cross-modal alignment more data-efficient and spatially faithful to the physical world.

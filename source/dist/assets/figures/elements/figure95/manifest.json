@@ -1,0 +1,82 @@
+{
+  "figure": "9.5",
+  "sources": [
+    "assets/figures/figures/part4/section9/robotic_constraints.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1539
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/robotic_constraints.pdf",
+  "assets": [
+    {
+      "file": "symbolic-planning/collision-check.png",
+      "title": "collision check",
+      "panel": "symbolic-planning",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        147.5,
+        670.0,
+        512.5,
+        912.5
+      ],
+      "box": [
+        73.75,
+        335.0,
+        256.25,
+        456.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        73.783,
+        335.426,
+        255.887,
+        456.829
+      ],
+      "placement_confidence": 0.9874
+    },
+    {
+      "file": "contact/gripper-and-mug.png",
+      "title": "gripper and mug",
+      "panel": "contact",
+      "size": [
+        506,
+        467
+      ],
+      "source_index": 0,
+      "source_box": [
+        732.5,
+        235.0,
+        1030.0,
+        510.0
+      ],
+      "box": [
+        366.25,
+        117.5,
+        515.0,
+        255.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        365.777,
+        118.245,
+        514.914,
+        255.887
+      ],
+      "placement_confidence": 0.9869
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

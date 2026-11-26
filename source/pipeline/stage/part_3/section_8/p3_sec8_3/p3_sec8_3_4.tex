@@ -1,0 +1,63 @@
+
+
+
+\subsection{Other Controlled Video Generation}
+\label{subsec:p3_s8_3_4}
+
+Beyond the spatial scaffolds of §\ref{subsec:p3_s8_3_2} and the motion signals of §\ref{subsec:p3_s8_3_3}, a video can be steered by further, application-specific conditions: an artistic style reference, a handful of draggable points, a bird's-eye-view road layout, a target text string to render, or a synchronizing audio track.
+Each externalizes an attribute that text specifies only loosely, extending controllable generation to creative, interactive, and domain-specific settings; together they raise the question the single-axis interfaces leave open, how to honor \emph{several} conditions at once, which the universal frameworks at the end of this subsection try to answer.
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_3_4_task}
+Taken one at a time, each ``other'' modality instantiates the generic conditional sampler of Eq.~\eqref{eq:p3_s8_3_objective} with an encoder $\kappa_{\text{o}}$ of a heterogeneous control signal $\mathbf{c}$ (a style reference, a set of draggable points, a BEV layout, a target text string, or an audio track). The distinctive task of this subsection, however, is to honor \emph{several} such conditions simultaneously: universal and multi-task frameworks fuse $K$ encoded signals into a single sequence,
+\begin{equation}
+\hat{\mathbf{z}}^{1:T}\sim p_\theta\!\big(\mathbf{z}^{1:T}\,\big|\,\phi(\mathbf{x}),\,\kappa_1(\mathbf{c}_1),\dots,\kappa_K(\mathbf{c}_K)\big),
+\label{eq:p3_s8_3_4_objective}
+\end{equation}
+so that the $K$ encoded conditions are processed jointly rather than one axis at a time, with $K=1$ recovering the single-modality case and $\kappa_k=\varnothing$ for all $k$ recovering the text-to-video base case of §\ref{subsec:p3_s8_3_1}.
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_3_4_methodology}
+The methods fall into single-modality channels (style, points, BEV, text rendering, audio) and multi-task frameworks that combine compatible conditions. Writing $u_k=\kappa_k(\mathbf c_k)$, the common interface is
+\begin{equation}
+\hat{\mathbf z}^{1:T}=G_\theta\!\big(\mathbf n,\phi(\mathbf x);\mathcal F_\psi(u_1,\dots,u_K)\big),
+\label{eq:p3_s8_3_4_inject}
+\end{equation}
+where $\mathcal F_\psi$ is a model-specific conditioning interface that may act at several layers rather than produce one fixed-size embedding. Three implementations are representative and can be combined: summed adapter residuals $\sum_k\Delta h_k$, concatenation of the encoded channels with the model input or features, and unified attention over condition tokens. Figure~\ref{fig:p3_s8_3_4_mechanisms} shows the five input modalities and these three fusion designs; $K=1$ denotes one selected modality and $K>1$ a supported combination.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\linewidth]{figures/part3/section8/other_control_modalities_for_video_generation.pdf}
+\caption{Further control modalities for video generation, (a)--(e), each with its own encoder $E_k$ implementing $\kappa_k$, and (f) alternative ways of fusing $K\geq 1$ encoded conditions. The watercolor driving sequence is illustrative.}
+\label{fig:p3_s8_3_4_mechanisms}
+\end{figure}
+
+\noindent\textbf{Style Control.} Style-guided generation transfers the artistic style of a reference image or video to a target video. Per-frame style transfer flickers; diffusion-based approaches such as Rerender A Video~\cite{yang2023rerender}, StyleCrafter~\cite{liu2023stylecrafter}, FRESCO~\cite{yang2024fresco}, and StyleMaster~\cite{ye2025stylemaster} instead integrate the style into generation, often by guiding it with the CLIP embedding of the style reference so that the style holds across frames, and UniVST~\cite{song2024univst} generalizes this into a universal framework. FrameGuidance~\cite{jang2025frameguidancetrainingfreeguidance} and OmniVDiff~\cite{xi2025omnivdiffomnicontrollablevideo} add training-free frame-level guidance and omni-controllable diffusion, respectively.
+
+\noindent\textbf{Point Control.} Point control fixes \emph{motion} through a sparse, interactive interface: the user drags a few points on an object from an initial frame to a new position in a later frame, and the model infers a plausible motion for the whole object. Drag-A-Video~\cite{teng2023drag} introduced the approach by optimizing latent codes to satisfy the point constraints, Track4Gen~\cite{jeong2025track4genteachingvideodiffusion} focuses on tracking the user-specified points robustly, and the 3D-aware camera controllers of §\ref{subsec:p3_s8_3_3}~\cite{gu2025diffusionshader3dawarevideo,bian2025gsditadvancingvideogeneration} also accept sparse point input for non-rigid manipulation.
+
+\noindent\textbf{Bird's-Eye View (BEV) Control.} BEV-guided generation serves autonomous-driving simulation: a sequence of top-down semantic maps dictates the road layout, the positions of other vehicles, and the movements of pedestrians. DriveDreamer-2~\cite{zhao2024drivedreamer2llmenhancedworldmodels}, MagicDrive-V2~\cite{gao2025magicdrivev2highresolutionlongvideo}, DiVE~\cite{jiang2024dive}, DreamForge~\cite{mei2024dreamforge}, and Panacea~\cite{wen2023panaceapanoramiccontrollablevideo} take these maps as input and generate first-person driving video consistent with the specified layout and dynamics.
+
+\noindent\textbf{Text Rendering.} Many generators cannot render coherent, legible text inside a scene, so a dedicated channel treats the target string itself as the control signal. Text-Animator~\cite{liu2024textanimatorcontrollablevisualtext} adds text-embedding injection and refinement modules that improve the structure and temporal stability of rendered text, and Wan~\cite{wan2025wan} reports being the first video foundation model able to render legible Chinese and English text.
+
+\noindent\textbf{Audio Control.} Audio-controlled generation synthesizes video synchronized with an input audio signal, in two sub-domains.
+\emph{Voice-guided generation} produces talking heads: EMO~\cite{tian2024emoemoteportraitalive}, VASA-1~\cite{xu2024vasa1lifelikeaudiodriventalking}, DreamTalk~\cite{ma2023dreamtalk}, and AniPortrait~\cite{wei2024aniportrait} take a reference image and a speech clip, extract audio features with a pretrained encoder, and drive facial motion with accurate lip-sync and expression; Say Anything~\cite{ma2025sayanythingaudiodrivenlipsynchronization}, MuseTalk~\cite{zhang2025musetalkrealtimehighfidelityvideo}, and CAFE-TALK~\cite{chen2025cafetalkgenerating3dtalking} focus on high-fidelity lip synchronization, and V-Express~\cite{wang2024vexpressconditionaldropoutprogressive} and MegActor~\cite{yang2024megactorharnesspowerraw} balance audio against other control signals.
+\emph{Sound-guided generation} follows more general audio such as music or ambient sound, using its rhythm, pitch, and emotional tone to drive visual elements, motion, and scene transitions: TA2V~\cite{10420468}, MotionCraft~\cite{aira2024motioncraftphysicsbasedzeroshotvideo}, AV-Link~\cite{hajiali2025avlinktemporallyaligneddiffusionfeatures}, and ASVA~\cite{linz2024asva} generate music visualizations or scenes that follow the energy and structure of a track, and MagicInfinite~\cite{yi2025magicinfinitegeneratinginfinitetalking} and Sound2Sight~\cite{cherian2020sound2sightgeneratingvisualdynamics} explore more open-ended audio-driven generation.
+
+\noindent\textbf{Universal and Multi-Task Control.} The single-modality channels each add one encoder; universal frameworks realize the fusion of Eq.~\eqref{eq:p3_s8_3_4_objective} in a single model, along two lines. Autoregressive models built on multimodal large language models generate video from discrete visual tokens, as in VideoPoet~\cite{kondratyuk2024videopoetlargelanguagemodel} and Emu3~\cite{wang2024emu3}. Diffusion models are being adapted to many conditions at once: VideoComposer~\cite{wang2023videocomposercompositionalvideosynthesis} integrates depth, pose, motion, and other conditions by channel concatenation, OmniHuman~\cite{lin2025omnihuman1rethinkingscalinguponestage} generates human video under multiple controls by mixing cross-attention and concatenation, and FullDiT~\cite{ju2025fullditmultitaskvideogenerative} processes all conditions with unified attention, the third realization of $\mathcal{F}_\psi$.
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_3_4_benchmarks}
+Being heterogeneous, the ``other'' modalities share no single suite: each is evaluated against data and metrics specialized to its signal, with the general corpora of §\ref{subsec:p3_s8_3_1} supplying the appearance and motion priors. BEV control is evaluated on driving collections such as nuScenes~\cite{caesar2020nuscenes}, whose paired BEV layouts and front-camera footage furnish both the conditioning signal and the ground truth. Voice-guided talking-head generation is evaluated on portrait-video collections (HDTF~\cite{zhang2021hdtf} and VFHQ~\cite{xie2022vfhq} are standard) and sound-guided generation on audio--video corpora with aligned music or ambient tracks. Style and point control, having no canonical benchmark, are assessed on the general corpora plus qualitative and user studies.
+
+\paragraph{Control-fidelity Metrics.}
+Beyond the generic video-quality metrics of §\ref{subsec:p3_s8_3_1} (FVD~\cite{unterthiner2018fvd}, CLIPSIM, and VBench~\cite{huang2023vbench} dimensions), each modality adds an \emph{adherence} metric tailored to its signal, reported together with generic quality as in §\ref{subsec:p3_s8_3_2}.
+\emph{Style adherence} combines a CLIP style-similarity to the reference with a temporal-consistency term that penalizes flicker.
+\emph{Point adherence} re-localizes the dragged keypoints in the output and reports their $L_2$ deviation from the target path, as in the trajectory metric of §\ref{subsec:p3_s8_3_3}.
+\emph{BEV adherence} renders or detects objects in the generated clip and reports detection-mAP and layout-IoU against the input map.
+\emph{Text adherence} runs OCR on the rendered frames and reports recognition accuracy and legibility.
+\emph{Audio adherence} measures lip-sync quality with SyncNet-style confidence and landmark error for voice, and audio--visual synchrony for sound.
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_3_4_challenges}
+The central difficulty here, fusing conditions of incommensurate dimensionality and strength without one washing out or dominating the others, is shared with the spatial and temporal axes and discussed in §\ref{subsec:p3_s8_3_6}. Two problems are specific to these modalities. Text rendering must keep glyphs legible and stable at once, and per-frame legibility and temporal coherence pull against each other as the camera or the text moves. BEV control covers a narrow domain: models trained on a handful of driving datasets inherit their sensor rigs, cities, and traffic statistics, and generalize poorly beyond them.

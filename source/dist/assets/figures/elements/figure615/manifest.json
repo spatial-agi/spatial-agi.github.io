@@ -1,0 +1,52 @@
+{
+  "source": "assets/figures/figures/part3/section6/layout_parsing.webp",
+  "source_size": [
+    2000,
+    1003
+  ],
+  "notes": "Three separate RGBA PNG photographs. Their original rectangular photo backgrounds are retained. Polygonal room layouts, dashed occluded edges, vertices, surface maps, hatch patterns, legends, arrows, separators and all text will be drawn independently in the frontend.",
+  "assets": [
+    {
+      "file": "perspective/room.png",
+      "source_box": [
+        24,
+        82,
+        641,
+        391
+      ],
+      "size": [
+        617,
+        309
+      ],
+      "notes": "Perspective room photograph; headings and labels excluded."
+    },
+    {
+      "file": "panorama/room.png",
+      "source_box": [
+        689,
+        82,
+        1305,
+        391
+      ],
+      "size": [
+        616,
+        309
+      ],
+      "notes": "Panoramic room photograph, preserving the original projection; headings and labels excluded."
+    },
+    {
+      "file": "urban/street.png",
+      "source_box": [
+        1353,
+        82,
+        1970,
+        391
+      ],
+      "size": [
+        617,
+        309
+      ],
+      "notes": "Urban street photograph; headings and labels excluded."
+    }
+  ]
+}

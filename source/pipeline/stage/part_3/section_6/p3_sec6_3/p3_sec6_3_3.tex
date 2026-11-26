@@ -1,0 +1,112 @@
+
+
+\subsection{Layout Estimation and Room Parsing}
+\label{sec:layout_estimation}
+
+Layout estimation recovers the structural geometry of an indoor space, the corners, walls, floor, and ceiling that bound it, as a simplified 3D ``wireframe'' called the room layout.
+Room parsing extends this by also detecting, localizing, and labeling the objects inside (furniture and fixtures), giving a complete description of the scene.
+For outdoor scenes, the analogous problem is recovering a road layout in bird's-eye view from a street image~\cite{YangLLYMHP21}.
+Figure~\ref{fig:p3_s6_3_3_layout_overview} shows the inputs and output representations for the structural part of the task.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section6/layout_parsing.pdf}
+    \caption{Inputs and output representations of structural layout estimation. Top: (i) indoor perspective images, (ii) 360$^\circ$ panoramas, and (iii) outdoor street views. Bottom: (a) polygonal room layouts and (b) schematic indoor/outdoor surface-label maps, illustrating representations that may be predicted separately or jointly. Object-level parsing and outdoor bird's-eye-view outputs are not depicted.}
+    \label{fig:p3_s6_3_3_layout_overview}
+\end{figure}
+
+\subsubsection{Task Definition}
+Given an image $\mathbf{I}\in\mathbb{R}^{H\times W\times 3}$ (a perspective view, a $360^\circ$ panorama, or a multi-view or video capture), layout estimation recovers the dominant surfaces that bound the navigable volume of a room as a \emph{room layout}
+$\mathcal{L}=\{P_k\}_{k=1}^{K}$, where each $P_k$ is a planar polygon in 3D; equivalently the output may be plane parameters $(\mathbf{n}_k,d_k)$ or a per-pixel structural-surface label map. Under a vertical-wall model, the layout compresses to a floor-plan polygon with floor and ceiling heights $y_f, y_c$. Outdoor road-layout methods instead predict road regions and vehicle occupancy in bird's-eye view.
+Room parsing adds per-object instance masks $\{m_i\}$ or boxes with class labels, drawn from a fixed ontology or, in the open-vocabulary setting, from free-form language.
+
+\subsubsection{Methodology}
+
+\paragraph{Pre-deep-learning approaches.}
+Classical room layout estimation rests on the \textbf{Manhattan assumption}~\cite{CoughlanY99}: the scene is built from surfaces aligned with three mutually orthogonal directions, as walls, floors, and ceilings in most built environments are.
+Hedau \etal~\cite{HedauHF09} introduced the task, modeling a cluttered indoor image jointly as a 3D box layout (the room as if empty) and per-pixel surface labels (visible walls, floor, ceiling, and objects).
+Three mutually orthogonal vanishing points are first estimated with a robustified variant of Rother's method~\cite{Rother02}, in which a line segment $l$ votes for a candidate vanishing point $p$ with
+\begin{equation}
+v(l,p) = |l| \cdot \exp\!\left(-\frac{\alpha(l,p)^2}{2\sigma^2}\right),
+\end{equation}
+where $\alpha(l,p)$ is the angle between $l$ and the line from the midpoint of $l$ to $p$, $|l|$ is the segment length, and $\sigma$ is a fixed bandwidth; candidates are selected greedily, removing the lines that supported each selected point.
+The vanishing points fix the orientation of the box; sampling pairs of rays through two of them generates box-layout hypotheses, whose remaining edges follow from the third vanishing point, and a learned structured regressor scores the hypotheses and selects the layout.
+
+\paragraph{Deep learning approaches.}
+Mallya and Lazebnik~\cite{MallyaL15} first used a fully convolutional network to predict informative edge maps, then kept the classical hypothesis-generation-and-ranking step, scoring hypotheses with features from the learned edges together with line membership and geometric context.
+Later deep estimators are best organized by input modality and geometric representation, which vary independently: panorama input does not imply a cuboid output, and non-cuboid geometry need not break the Manhattan assumption. Figure~\ref{fig:p3_s6_3_3_methodology_overview} groups the representative methods of 2015--2021 along these lines.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/layout_parsing_method.pdf}
+    \caption{Representative layout-estimation methods, 2015--2021. Each lane pairs a core-mechanism illustration with a publication timeline: (i) perspective corner and edge prediction, (ii) panorama representations, (iii) beyond-cuboid floor plans, and (iv-a, iv-b) indoor plane geometry and outdoor cross-view prediction. Timeline spacing is not proportional; arrows indicate chronology, not method dependencies.}
+    \label{fig:p3_s6_3_3_methodology_overview}
+\end{figure}
+
+\textbf{(i) Perspective-image corner and edge predictors.}
+RoomNet~\cite{lee2017roomnet} regresses an ordered set of room corners with a recurrent encoder--decoder conditioned on one of 11 predefined cuboid topologies, and LayoutNet~\cite{ZouCSH18} predicts corner and boundary probability maps and fits a cuboid to them. The topology constraint simplifies reconstruction, but a single perspective view often leaves part of the room outside the frame.
+
+\textbf{(ii) Panorama-based methods.}
+A $360^\circ$ equirectangular panorama removes the field-of-view truncation of a perspective image, though not occlusion. LayoutNet~\cite{ZouCSH18} predicts 2D corner and boundary maps from a gravity-aligned panorama; HorizonNet~\cite{sun2019horizonnet} compresses the layout into three 1D per-column signals (floor-wall boundary, ceiling-wall boundary, and wall-wall corner indicator), adds Pano Stretch augmentation, and reconstructs general Manhattan layouts as well as cuboids; HoHoNet~\cite{sun2021hohonet} learns latent horizontal features decodable into layout, depth, and semantics; and LED2-Net~\cite{wang2021led2net} supervises the layout through differentiable depth rendering, comparing depth rendered from the predicted layout with the target geometry.
+
+\textbf{(iii) Beyond-cuboid and Atlanta-world methods.}
+Floor-plan prediction separates the number of walls from the constraints on their orientation. DuLa-Net~\cite{yang2019dulanet} combines equirectangular and ceiling--floor projections to estimate a floor plan under a Manhattan prior, which admits non-rectangular rooms with orthogonal walls. AtlantaNet~\cite{pintore2020atlantanet} projects a gravity-aligned panorama onto horizontal planes above and below the camera and predicts a room footprint and height under the Atlanta-world model, which keeps walls vertical but allows arbitrary horizontal orientation, including curved footprints. Both still assume vertical walls, so slanted walls and ceilings remain out of reach.
+
+\textbf{(iv) Plane-based indoor geometry and outdoor cross-view prediction.}
+GeoLayout~\cite{0005ZZ20} predicts pixel-level plane parameters, infers the depth map of each dominant plane, and reads layout boundaries off the intersections of those depth maps, a geometric alternative to regressing polygon vertices; the accompanying Matterport3D-Layout dataset covers cuboid and non-cuboid rooms. For outdoor scenes, Yang \etal~\cite{YangLLYMHP21} use a cross-view transformation with cycle-consistency constraints to predict road layout and vehicle occupancy in bird's-eye view from a monocular front-facing image.
+
+\subsubsection{Datasets and Metrics}
+Table~\ref{tab:layout_estimation_room_parsing_dataset} summarizes the benchmarks. Perspective-image evaluation grew from Hedau~\cite{HedauHF09} (308 web and LabelMe images with box layouts and surface labels) through its augmented successor Hedau+ and the more cluttered SUNbox drawn from SUN2012~\cite{XiaoHEOT10}, both built by Mallya and Lazebnik~\cite{MallyaL15} to train FCN edge predictors, to LSUN Room Layout~\cite{yu2015lsun}, the standard perspective benchmark with corner positions and cuboid topologies on over 5K images. Corridor and video data serve navigation: Yang~\cite{YangMS16} labels ground versus wall in corridor images, FreeYourCamera~\cite{FurlanMSLS13} records six-degree-of-freedom smartphone walks that frequently violate box and Manhattan assumptions, and MichiganIndoorCorridor~\cite{TsaiXLK11} provides non-Manhattan corridors with glass and reflections. Panoramic and 3D evaluation rests on PanoContext~\cite{zhang2014panocontext} (cuboid layouts and furniture for about 500 SUN360 panoramas, the standard testbed for LayoutNet, HorizonNet, and LED2-Net), Stanford 2D-3D-S~\cite{armeni2017joint} (70,496 perspective RGB images and 1,413 RGB panoramas, with aligned depth, normals, semantics, and 3D meshes over 270 rooms), and Matterport3D-Layout~\cite{0005ZZ20}, derived from Matterport3D~\cite{chang2017matterport3d} with RANSAC-fitted plane ground truth for cuboid and non-cuboid rooms.
+
+\begin{table*}[!t]
+    \centering
+    \caption{Layout estimation and room parsing benchmarks. Scale is in images unless noted.}
+    \label{tab:layout_estimation_room_parsing_dataset}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{2.0mm}
+    \begin{tabular}{L{0.20\textwidth} c C{0.08\textwidth} C{0.11\textwidth} C{0.12\textwidth} L{0.27\textwidth}}
+    \toprule
+    \textbf{Dataset} & \textbf{Year} & \textbf{Scene} & \textbf{Modality} & \textbf{Scale} & \textbf{Annotation} \\
+    \midrule
+    Hedau \cite{HedauHF09} & 2009 & Room & Image & 308 & Box layout + surface labels \\
+    Hedau+ \cite{MallyaL15} & 2015 & Room & Image & 337 & Box layout (Hedau + 75 bedroom images) \\
+    SUNbox \cite{MallyaL15} & 2015 & Room & Image & 543 & Box layout, cluttered SUN2012 scenes \\
+    LSUN Room Layout \cite{yu2015lsun} & 2015 & Room & Image & 5,394 & Corners + 11 cuboid topologies \\
+    Yang \cite{YangMS16} & 2016 & Corridor & RGB-D image & 967 & Ground / non-ground masks \\
+    FreeYourCamera \cite{FurlanMSLS13} & 2013 & Mixed & Video (6-DoF) & 10 seq.\ (84 frames) & Layout under non-box, non-Manhattan motion \\
+    MichiganIndoorCorridor \cite{TsaiXLK11} & 2011 & Corridor & Video & 11 seq.\ ($\sim$3,300 frames) & Ground + three walls on first frame \\
+    PanoContext \cite{zhang2014panocontext} & 2014 & Room & Panorama & $\sim$500 & Cuboid layout + furniture \\
+    Matterport3D-Layout \cite{0005ZZ20} & 2020 & Room & RGB-D image & 7,360 & Plane parameters, cuboid + non-cuboid \\
+    Stanford 2D-3D-S \cite{armeni2017joint} & 2017 & Building & RGB-D & 70,496 views; 1,413 panoramas & Depth, normals, semantics, mesh \\
+    \bottomrule
+    \end{tabular}
+\end{table*}
+
+Metrics follow the output representation. Perspective benchmarks (Hedau, LSUN) report \emph{pixel error}, the fraction of pixels whose predicted surface label differs from the ground truth, and \emph{corner error}, the mean distance between predicted and true corners normalized by image size; the edge-map methods additionally report the contour-detection F-scores at the optimal dataset scale (ODS, one threshold for the whole set) and optimal image scale (OIS, the best threshold per image). Panoramic and 3D benchmarks (PanoContext and panoramic layout subsets of Stanford 2D-3D-S and Matterport3D) report 3D and 2D \emph{room IoU} between the predicted and ground-truth layout volumes or floor plans, with frequency-weighted IoU and pixel accuracy as segmentation-style complements. A method trained for one input type rarely transfers to the other without re-training, so perspective and panoramic results are not compared directly, and the outdoor road-layout protocol~\cite{YangLLYMHP21} is separate again.
+
+\begin{table}[!t]
+    \centering
+    \caption{Panorama-based layout estimation, 3D IoU (\%) on PanoContext, Stanford 2D-3D-S, and the 2,295-panorama Matterport3D layout subset (overall), as reported in the comparison of LED2-Net~\cite{wang2021led2net}. Higher is better.}
+    \label{tab:layout_performance}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.5mm}
+    \begin{tabular}{L{0.16\textwidth} L{0.28\textwidth} c C{0.10\textwidth} C{0.13\textwidth} C{0.14\textwidth}}
+    \toprule
+    \textbf{Method} & \textbf{Representation} & \textbf{Year} & \textbf{PanoContext} & \textbf{Stanford 2D-3D-S} & \textbf{Matterport3D} \\
+    \midrule
+    LayoutNet~\cite{ZouCSH18}              & 2D corner + boundary maps      & 2018 & 74.48 & 76.33 & 75.82 \\
+    DuLa-Net~\cite{yang2019dulanet}         & Dual projection, Manhattan plan & 2019 & 77.42 & 79.36 & 75.05 \\
+    HorizonNet~\cite{sun2019horizonnet}     & 1D column representation       & 2019 & 82.17 & 79.79 & 78.73 \\
+    AtlantaNet~\cite{pintore2020atlantanet} & Top-down footprint, Atlanta world & 2020 & 78.76 & 82.43 & 80.02 \\
+    LED2-Net~\cite{wang2021led2net}         & Differentiable depth rendering & 2021 & \textbf{82.75} & \textbf{83.77} & \textbf{81.52} \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+Table~\ref{tab:layout_performance} compares the panorama methods under one protocol. The 1D column representation of HorizonNet gained about eight IoU points over LayoutNet's 2D maps on PanoContext, and the geometric supervision of LED2-Net adds a further point or two on every benchmark; AtlantaNet exceeds HorizonNet on the Matterport3D subset, whereas DuLa-Net remains below it, so these results do not show a uniform advantage for beyond-cuboid methods.
+
+\subsubsection{Challenges}
+The geometric priors that make layout estimation tractable also bound it. Cuboid models cannot express alcoves or L-shaped plans; Manhattan models keep orthogonal walls even when the footprint is free-form; the Atlanta-world model of AtlantaNet~\cite{pintore2020atlantanet} frees wall orientation but not wall tilt; and plane-based methods such as GeoLayout~\cite{0005ZZ20} approximate curved geometry only with many planes. Slanted enclosures, split levels, and the outdoor bird's-eye-view target of~\cite{YangLLYMHP21}, which is a different output space altogether, all sit outside the standard formulations.
+Clutter and occlusion are the second obstacle: furniture hides the corners, boundaries, and vanishing lines that both classical and learned methods read, so estimators must hallucinate hidden structure from layout priors, and confidently wrong boundaries without uncertainty are the typical failure.
+Generalization follows from the data: benchmarks are indoor, mostly rooms and corridors, and models trained on one set degrade on another's appearance, architecture, and lighting, while sparse, unposed multi-view capture breaks the pose assumptions of classical pipelines; the feed-forward geometry models of \S\ref{sec:visual_odometry} are the natural starting point for layout from such input.
+

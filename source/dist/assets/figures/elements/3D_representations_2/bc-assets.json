@@ -1,0 +1,344 @@
+[
+  {
+    "file": "b/gaussian-teapot.png",
+    "source_box": [
+      674,
+      56,
+      1048,
+      282
+    ],
+    "position": [
+      668,
+      50
+    ],
+    "size": [
+      385,
+      238
+    ],
+    "repaired": true
+  },
+  {
+    "file": "b/gaussian-detail.png",
+    "source_box": [
+      678,
+      350,
+      844,
+      582
+    ],
+    "position": [
+      671,
+      344
+    ],
+    "size": [
+      178,
+      243
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/gaussian-detail-top.png",
+    "source_box": [
+      695,
+      350,
+      831,
+      453
+    ],
+    "position": [
+      689,
+      345
+    ],
+    "size": [
+      147,
+      114
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/gaussian-detail-small.png",
+    "source_box": [
+      678,
+      453,
+      770,
+      524
+    ],
+    "position": [
+      673,
+      448
+    ],
+    "size": [
+      100,
+      80
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/gaussian-detail-large.png",
+    "source_box": [
+      740,
+      434,
+      845,
+      580
+    ],
+    "position": [
+      736,
+      429
+    ],
+    "size": [
+      113,
+      156
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/raster-gaussian-primitives.png",
+    "source_box": [
+      1128,
+      146,
+      1205,
+      241
+    ],
+    "position": [
+      1121,
+      138
+    ],
+    "size": [
+      90,
+      110
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/raster-projected-splats.png",
+    "source_box": [
+      1264,
+      146,
+      1315,
+      232
+    ],
+    "position": [
+      1257,
+      139
+    ],
+    "size": [
+      66,
+      96
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/raster-depth-splats.png",
+    "source_box": [
+      1138,
+      331,
+      1187,
+      401
+    ],
+    "position": [
+      1132,
+      323
+    ],
+    "size": [
+      63,
+      86
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/raster-depth-stack.png",
+    "source_box": [
+      1246,
+      305,
+      1298,
+      409
+    ],
+    "position": [
+      1238,
+      298
+    ],
+    "size": [
+      66,
+      119
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/raster-blend-stack.png",
+    "source_box": [
+      1136,
+      484,
+      1199,
+      573
+    ],
+    "position": [
+      1128,
+      479
+    ],
+    "size": [
+      77,
+      100
+    ],
+    "repaired": false
+  },
+  {
+    "file": "b/raster-render-teapot.png",
+    "source_box": [
+      1253,
+      501,
+      1323,
+      556
+    ],
+    "position": [
+      1247,
+      494
+    ],
+    "size": [
+      83,
+      66
+    ],
+    "repaired": false
+  },
+  {
+    "file": "c/tetrahedral-grid-teapot.png",
+    "source_box": [
+      1418,
+      90,
+      1653,
+      277
+    ],
+    "position": [
+      1415,
+      83
+    ],
+    "size": [
+      244,
+      201
+    ],
+    "repaired": false
+  },
+  {
+    "file": "c/triangle-mesh-teapot.png",
+    "source_box": [
+      1436,
+      363,
+      1628,
+      491
+    ],
+    "position": [
+      1429,
+      356
+    ],
+    "size": [
+      205,
+      143
+    ],
+    "repaired": false
+  },
+  {
+    "file": "c/render-teapot.png",
+    "source_box": [
+      1480,
+      562,
+      1548,
+      614
+    ],
+    "position": [
+      1473,
+      556
+    ],
+    "size": [
+      83,
+      63
+    ],
+    "repaired": false
+  },
+  {
+    "file": "c/triplane-xy.png",
+    "source_box": [
+      1699,
+      103,
+      1776,
+      252
+    ],
+    "position": [
+      1694,
+      98
+    ],
+    "size": [
+      87,
+      156
+    ],
+    "repaired": true
+  },
+  {
+    "file": "c/triplane-xz.png",
+    "source_box": [
+      1887,
+      103,
+      1966,
+      252
+    ],
+    "position": [
+      1883,
+      98
+    ],
+    "size": [
+      88,
+      157
+    ],
+    "repaired": true
+  },
+  {
+    "file": "c/feature-xy.png",
+    "source_box": [
+      1727,
+      278,
+      1749,
+      345
+    ],
+    "position": [
+      1719,
+      270
+    ],
+    "size": [
+      38,
+      83
+    ],
+    "repaired": false
+  },
+  {
+    "file": "c/feature-yz.png",
+    "source_box": [
+      1821,
+      278,
+      1842,
+      345
+    ],
+    "position": [
+      1813,
+      270
+    ],
+    "size": [
+      37,
+      83
+    ],
+    "repaired": false
+  },
+  {
+    "file": "c/feature-xz.png",
+    "source_box": [
+      1917,
+      278,
+      1938,
+      345
+    ],
+    "position": [
+      1909,
+      270
+    ],
+    "size": [
+      37,
+      83
+    ],
+    "repaired": false
+  }
+]

@@ -1,0 +1,93 @@
+
+
+
+\subsection{Mapping and SLAM}
+\label{sec:mapping_slam}
+Mapping builds a spatial representation of an unknown environment from streaming sensor observations, together with an estimate of the agent's trajectory through it.
+Doing so from on-board sensors requires the agent to localize itself inside the partial map it is still building: the chicken-and-egg problem known as \emph{Simultaneous Localization and Mapping (SLAM)}. SLAM resolves it by estimating trajectory and map jointly from the same sensor stream, and observations of previously visited places supply the external references that bound the drift of purely proprioceptive odometry (IMU, wheel encoders). The result is a globally consistent spatial model that supports localization, path planning, obstacle avoidance, and exploration.
+Figure~\ref{fig:p3_s6_3_5_slam_modules} depicts the pipeline from sensors through front-end odometry and back-end optimization to the final map.
+
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/slam.pdf}
+    \caption{Example SLAM outputs: real-time visual SLAM (left), a keyframe trajectory over a sparse feature map with tracked image features in the inset, and LiDAR SLAM (right), a dense point-cloud map.}
+    \label{fig:p3_s6_3_5_slam_overview}
+\end{figure}
+
+\subsubsection{Task Definition}
+The input is a stream of exteroceptive observations (camera images, RGB-D frames, LiDAR, or radar), optionally fused with proprioceptive readings (IMU, wheel odometry, velocity and steering commands) and priors such as a coarse map, an initial pose, or GPS.
+The output is a map plus the estimated trajectory. Maps lie on an abstraction--detail spectrum: a \emph{topological map} is a graph of distinctive places and their traversable connections, with no metric layout; a \emph{sparse metric map} stores registered keypoints or landmarks and the camera-pose graph that observes them, enough for accurate localization but not for geometry; and a \emph{dense metric map} reconstructs a complete surface or volume (point cloud, mesh, TSDF, or occupancy grid) for obstacle avoidance and 3D reconstruction. Two dense representations have become prominent in the past three years: \emph{neural implicit maps} that store geometry and appearance in network weights (an MLP in iMAP~\cite{Sucar2021iMAP}, a voxel-grid encoder in NICE-SLAM~\cite{Zhu2022NICESLAM}) and \emph{3D Gaussian Splatting (3DGS) maps} that represent the scene as explicit, differentiable 3D Gaussians~\cite{Keetha2024SplaTAM,Yan2024GSSLAM,Matsuki2024MonoGS}.
+
+
+\subsubsection{Methodology}
+
+SLAM systems are classified by the exteroceptive sensor and by the density of the map they build.
+\textbf{LiDAR SLAM} measures range directly with a stable error model; KISS-ICP~\cite{Vizzo2023KISSICP} and KISS-SLAM~\cite{Guadagnino2025KISSSLAM} show that a minimal pipeline delivers robust real-time 3D LiDAR odometry and mapping at city scale. \textbf{Visual SLAM} uses monocular, stereo, or RGB-D cameras, exploiting texture for place recognition, with PTAM~\cite{KleinMurray2007PTAM} and the ORB-SLAM family~\cite{mur2015orb,Campos2021ORBSLAM3} as the foundational systems. \textbf{Multi-sensor SLAM} tightly fuses cameras, IMUs, and/or LiDAR (VINS-Mono, OKVIS, FAST-LIO2), and \textbf{event-camera SLAM} uses asynchronous per-pixel brightness changes for high-speed and high-dynamic-range operation~\cite{Huang2026EventSLAMSurvey}.
+By map density, sparse keypoint-and-pose-graph systems (ORB-SLAM) sit next to direct methods that minimize photometric error over semi-dense (LSD-SLAM~\cite{engel2014lsd}) or sparse (DSO~\cite{engel2017direct}) image samples, dense geometric systems that fuse point clouds, meshes, or TSDFs (KinectFusion, ElasticFusion), neural implicit systems (iMAP~\cite{Sucar2021iMAP}, NICE-SLAM~\cite{Zhu2022NICESLAM}, Co-SLAM, NICER-SLAM), and 3DGS systems that render and optimize Gaussians jointly with poses (SplaTAM~\cite{Keetha2024SplaTAM}, MonoGS~\cite{Matsuki2024MonoGS}, SplatSLAM).
+Read historically, the field moved from feature-based geometry (PTAM, ORB-SLAM) to direct methods (LSD-SLAM, DSO), to tightly coupled multi-sensor systems (OKVIS, VINS-Mono, ORB-SLAM3), to learning-augmented pipelines (DROID-SLAM~\cite{teed2021droid}, SuperPoint and SuperGlue matching~\cite{detone2018superpoint,sarlin2020superglue}), to neural implicit and then 3DGS maps, and most recently to 3D geometry foundation models (DUSt3R~\cite{wang2024dust3r}, MASt3R~\cite{mast3r}, MASt3R-SLAM~\cite{Murai2025MASt3RSLAM}).
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/slam_method.pdf}
+    \caption{SLAM module data flow. Sensor observations feed odometry and place recognition; odometry constraints and verified revisit constraints enter back-end optimization. Mapping registers raw observations using optimized poses and landmarks, producing a map and trajectory. The blue edge in the pose graph is a loop-closure constraint between previously visited poses, not an execution-loop arrow. Map representations are alternatives.}
+    \label{fig:p3_s6_3_5_slam_modules}
+\end{figure}
+
+Whatever the sensor or map, a SLAM system runs the four modules of Figure~\ref{fig:p3_s6_3_5_slam_modules} in a loop.
+The \textbf{front end} is visual (or LiDAR) odometry, the incremental motion estimate between consecutive readings treated as a stand-alone task in \S\ref{sec:visual_odometry}; because each pose is estimated relative to the last, its errors accumulate as drift.
+\textbf{Back-end optimization} corrects that drift globally. Modern back ends pose the problem as factor-graph optimization: robot poses and landmarks are nodes, and measurements between them (visual reprojection, IMU pre-integration, GPS, loop-closure relative poses) are factors; solving for all nodes at once yields a consistent trajectory and map, factor graphs absorb heterogeneous sensors naturally, and incremental solvers such as iSAM2 update the estimate in real time, with GTSAM, g\textsuperscript{2}o, and OKVIS as representative libraries.
+\textbf{Loop closing} supplies the back end with its strongest constraints by recognizing that the agent has returned to a previously visited place, comparing current observations against the history and, on a match, adding a constraint between two temporally distant poses that pulls the accumulated drift of the intervening trajectory back into alignment.
+\textbf{Mapping} finally places the sensor data in the global frame using the optimized trajectory, in whatever representation the application needs; for neural implicit and 3DGS maps it also minimizes a rendering loss (photometric or perceptual such as LPIPS) between observed images and views rendered from the current map, optimizing geometry, appearance, and poses jointly~\cite{Keetha2024SplaTAM}.
+
+\begin{table*}[!th]
+\centering
+\caption{Mapping and SLAM benchmarks. Scale counts sequences unless noted.}
+\label{tab:mapping_slam_dataset}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.2mm}
+\begin{tabular}{L{0.17\textwidth} C{0.10\textwidth} C{0.16\textwidth} C{0.11\textwidth} C{0.13\textwidth} C{0.07\textwidth} C{0.13\textwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Task} & \textbf{Modality} & \textbf{Agent} & \textbf{Scene} & \textbf{Scale} & \textbf{Ground Truth} \\
+\midrule
+COLD \cite{PronobisC09} & VSLAM & mono + omni + odom & wheeled & lab & 76 & laser \\
+TUM RGB-D \cite{Sturm2012TUMRGBD} & VSLAM & RGB-D & handheld, wheeled & office, work shed & 39 & MoCap \\
+KITTI \cite{KITTI-GeigerLU12} & VSLAM, VO & stereo + laser & car & suburban, highway & 22 & GPS/OXTS \\
+ICL-NUIM \cite{HandaWMD14} & VSLAM, VO & RGB-D & synthetic & home, office & 8  & simulator \\
+EuRoC \cite{Burri2016EuRoC} & MSLAM & stereo + IMU & drone & work shed & 11  & Vicon MoCap/laser \\
+SceneNet \cite{McCormacHLD17} & VSLAM & RGB-D & synthetic & home & 15K  & simulator \\
+TUM VI \cite{Schubert2018TUMVI} & MSLAM, VO & stereo + IMU & handheld & campus buildings & 28  & MoCap \\
+Bonn RGB-D \cite{PalazzoloBLGS19} & VSLAM & RGB-D & handheld & lab & 24  & MoCap \\
+InteriorNet \cite{LiSMCTYHTL18} & MSLAM & RGB-D + IMU & synthetic & home & 15K  & simulator \\
+OpenLORIS-Scene \cite{ShiLZTTLZSQSGW020} & MSLAM & RGB-D stereo + IMU + odom & wheeled & indoor & 22  & MoCap/laser \\
+Replica \cite{straub2019replica}        & dense       & RGB-D     & synthetic      & indoor       & 18    & simulator \\
+ScanNet++ \cite{yeshwanth2023scannet++}  & dense, sem  & RGB-D     & handheld       & indoor       & 460   & laser \\
+TartanAir \cite{TartanAir}      & MSLAM, VO   & stereo + IMU & synthetic  & diverse      & 1M+ frames   & simulator \\
+ETH3D SLAM \cite{ETH3DSLAM}             & VSLAM, VO   & stereo + global shutter & handheld & indoor/outdoor &  -- & LiDAR \\
+DSEC \cite{gehrig2021dsec}              & event SLAM  & stereo events & car       & driving      & 53    & LiDAR + GPS \\
+CU-Multi \cite{albin2025cu}            & collab.\ SLAM & RGB-D + LiDAR + IMU & wheeled & outdoor & 8 runs & RTK-GNSS \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsubsection{Datasets and Metrics}
+Table~\ref{tab:mapping_slam_dataset} groups the benchmarks by what they stress. The classical trajectory sets are TUM RGB-D~\cite{Sturm2012TUMRGBD} (handheld indoor RGB-D with motion-capture ground truth), KITTI~\cite{KITTI-GeigerLU12} (stereo and LiDAR driving), and the synthetic ICL-NUIM~\cite{HandaWMD14} with exact ground truth, while COLD~\cite{PronobisC09} targets topological localization under changing conditions. Visual-inertial systems are tested on EuRoC~\cite{Burri2016EuRoC} (micro-aerial vehicle), TUM VI~\cite{Schubert2018TUMVI}, and OpenLORIS-Scene~\cite{ShiLZTTLZSQSGW020}, the last built for lifelong SLAM in changing indoor scenes, and Bonn RGB-D~\cite{PalazzoloBLGS19} isolates dynamic objects. Large synthetic corpora (SceneNet~\cite{McCormacHLD17}, InteriorNet~\cite{LiSMCTYHTL18}, Replica~\cite{straub2019replica}, TartanAir~\cite{TartanAir}) supply photorealistic training and controlled evaluation, with Replica the standard testbed for neural implicit and 3DGS SLAM; ScanNet++~\cite{yeshwanth2023scannet++} and ETH3D SLAM~\cite{ETH3DSLAM} add laser-scanned geometry for dense reconstruction quality; and DSEC~\cite{gehrig2021dsec} and CU-Multi~\cite{albin2025cu} extend evaluation to event cameras and multi-robot data association. AirSwarm~\cite{li2025airswarm} is a multi-UAV research platform rather than a benchmark dataset.
+
+Evaluation covers trajectory, map, rendering, and system cost. Trajectory accuracy uses the absolute trajectory error and relative pose error defined in \S\ref{sec:visual_odometry}, after aligning the estimated trajectory to the ground truth by a rigid or, for monocular systems, similarity transform; RMSE is the usual summary, with mean, median, and standard deviation also reported.
+Dense maps are scored by \emph{accuracy} (mean distance from reconstructed points to the nearest ground-truth point) and \emph{completeness} (the reverse), summarized by an F-score at a distance threshold, with Chamfer distance common for neural and 3DGS maps. Neural implicit and 3DGS maps add novel-view-synthesis metrics (PSNR, SSIM, LPIPS) on held-out views of the same trajectory. Memory footprint, tracking and mapping frame rates, and end-to-end latency decide embedded deployment~\cite{Guadagnino2025KISSSLAM}.
+Mature evaluation tools such as EVO\footnote{\url{https://github.com/MichaelGrupp/evo}} and the RPG Trajectory Evaluation toolbox\footnote{\url{https://github.com/uzh-rpg/rpg_trajectory_evaluation}} implement these protocols.
+
+
+
+
+
+
+
+
+\subsubsection{Challenges}
+Deployment often violates common SLAM assumptions of static scenes, stable illumination, abundant texture, and ample computation. Dynamic objects induce correspondences that drift with their own motion; illumination change, reflective and transparent surfaces, and repetitive texture create perceptual aliasing that confuses data association and place recognition alike; and resource-constrained platforms must run ever heavier front and back ends. Current work answers each directly. Moving features are detected and excluded through semantic segmentation, motion-consistency checks, or learned masks; learned matchers (SuperPoint~\cite{detone2018superpoint}, SuperGlue~\cite{sarlin2020superglue}, LoFTR~\cite{Sun2021LoFTR}) replace hand-crafted descriptors and tolerate larger viewpoint and illumination changes; neural implicit and 3DGS maps are optimized jointly with poses and yield photorealistic reconstructions usable for inspection, telepresence, and policy learning; and the two-view geometry priors of DUSt3R~\cite{wang2024dust3r} and MASt3R~\cite{mast3r} remove the fragile hand-engineered front end, already enabling real-time dense monocular SLAM at the robustness of MASt3R-SLAM~\cite{Murai2025MASt3RSLAM}.
+
+Two broader shifts follow. Lifelong SLAM aims at months of continuous operation by combining relocalization, map update, and place re-identification against changing environments, and is now an evaluation track of its own; collaborative multi-agent SLAM fuses observations across robots for faster coverage and graceful degradation, increasingly together with event cameras and heterogeneous sensors for high-speed, low-light, and high-dynamic-range conditions. What remains open is concrete: 3DGS maps still do not scale to city-level memory and rendering budgets, learned components carry a sim-to-real gap, and incorrect loop closures under strong perceptual aliasing are still the failure that breaks every back end.
+
+

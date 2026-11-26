@@ -1,0 +1,112 @@
+
+
+
+\subsection{Scene Classification}
+\label{sec:scene_classification}
+
+% 最开始是简单的scene classification，即简单的分类任务，但是后续变得更加的fine-grained的任务，变成multi-label classification，再更加详细的话，就会变成scene （image/video/3D）captioning task.
+
+Going beyond objects, regions, and keypoints, scene classification (SC) assigns a single semantic label to a whole image describing the environment it portrays~\cite{zeng2021deep}.
+Where object recognition names the things in a picture (``car'', ``tree'', ``person''), scene classification names the \emph{where}: ``a busy street'', ``a serene beach'', ``a modern kitchen''.
+It asks ``\emph{What kind of place is this?}'', a judgment that rests on the global layout and gist of the image rather than on any single object~\cite{henderson1999high,epstein2005cortical}, and it supplies the holistic prior on which an embodied or virtual agent conditions its later behavior~\cite{liao2016understand,ni2022improved,muhammad2022vision,Zhang2024UrbanVI}.
+
+
+\subsubsection{Task Definition}
+
+Formally, scene classification learns a mapping $f: I \mapsto y \in \mathcal{Y}$ from an image $I$ to a label $y$ in a predefined category set $\mathcal{Y}$, or, in the multi-label case, to a subset $Y \subseteq \mathcal{Y}$ covering several facets of the scene~\cite{boutell2004learning} (``urban'' for area, ``parking lot'' for place, ``night'' for condition).
+Beyond the single-/multi-label split, the task is instantiated by domain, with indoor~\cite{quattoni2009recognizing} and outdoor~\cite{6724252} scenes, remote-sensing imagery~\cite{nogueira2017towards,cheng2017remote}, and driving contexts such as highways and tunnels~\cite{ni2022improved}, and by modality, extending from still images to video~\cite{huang1999integration} and acoustic scenes~\cite{mesaros2018multi}.
+
+
+\subsubsection{Methodology}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section6/scene_classification.pdf}
+    \caption{Scene classification: four task formulations, from single-label classification to compositional captioning output (top), and the methodological progression from hand-crafted descriptors to multimodal LLMs, with representative methods under each stage (bottom).}
+    \label{fig:p3_s6_1_4_scene_classification_overview}
+\end{figure}
+
+Figure~\ref{fig:p3_s6_1_4_scene_classification_overview} summarizes the progression from hand-crafted global descriptors through deep features to vision--language models.
+
+Early methods summarized the whole image into one discriminative vector of low-level texture, color, and gradient statistics.
+The Spatial Envelope model~\cite{oliva2001modeling} describes a scene by a few perceptual dimensions (naturalness, openness, roughness, expansion, ruggedness), a descriptor commonly called GIST.
+Bag-of-Visual-Words (BoVW)~\cite{csurka2004visual} treats the image as a histogram of quantized local features such as SIFT~\cite{lowe2004distinctive}, discarding most spatial information~\cite{7025553}; Spatial Pyramid Matching (SPM)~\cite{lazebnik2006beyond} restores coarse layout by computing BoVW histograms over a pyramid of sub-regions and concatenating them.
+
+Deep networks learn scene features end to end.
+CNNs~\cite{krizhevsky2012imagenet,o2015introduction} such as AlexNet~\cite{krizhevsky2012imagenet}, VGG~\cite{simonyan2014very}, ResNet~\cite{he2016deep}, and DenseNet~\cite{huang2017densely}, pre-trained on ImageNet~\cite{ImageNet, krizhevsky2012imagenet}, proved to be strong global feature extractors for scenes, and Places-CNN~\cite{zhou2014learning} re-trained them on the large-scale Places benchmark to establish the standard transfer recipe.
+Vision Transformers~\cite{vit} match or exceed CNNs with a class-token embedding that attends over all patches, in the manner of BERT~\cite{devlin2019bert}.
+
+
+A separate line models layout explicitly, since a stadium is recognized by its global oval while a classroom differs from an office by the mid-scale arrangement of desks and blackboard.
+Multi-scale pooling over the CNN feature hierarchy (FPN-style~\cite{lin2017feature}) captures structure at several scales, and scene graphs~\cite{johnson2015image} make objects and their relations explicit, so that propagating over them with graph convolutional networks~\cite{kipf2017semisupervised} yields layout-aware scene features~\cite{Liang2020ADN}.
+
+Vision--language models (VLMs) turn scene classification into open-vocabulary, zero-shot matching.
+Contrastive models such as CLIP~\cite{radford2021learning} embed the image and the textual names of all candidate classes in one space and pick the most similar class~\cite{li2023rs}, needing no fine-tuning beyond prompt design~\cite{sahoo2024systematic}; the recipe extends to 3D point clouds~\cite{huang2023clip2point}.
+Autoregressive multimodal large language models (MLLMs; LLaVA~\cite{liu2023llava}, Qwen-VL~\cite{bai2023qwen}, Gemma~3~\cite{team2025gemma}) instead generate the label as text in response to an instruction~\cite{Saha_2024_CVPR}.
+With rich semantics available for free, the research focus has shifted from one global label toward compositional understanding of what is inside the scene~\cite{chen2023clip2scene}.
+
+\subsubsection{Datasets and Metrics}
+Table~\ref{tab:sceneclf_datasets} lists the standard benchmarks. The small early sets, Scene 15~\cite{lazebnik2006beyond} and the indoor MIT 67~\cite{quattoni2009recognizing}, were superseded by SUN 397~\cite{XiaoHEOT10,Xiao2014SUNDE}, which fixed a near-exhaustive category list, and by Places~\cite{zhou2014learning, zhou2017places}, which scaled scene recognition to millions of images across its Places205, Places88, Places365-Standard, and Places365-Challenge subsets. NYU Depth v2~\cite{silberman2012nyudv2} and SUN RGB-D~\cite{song2015sunrgbd} add aligned depth and a scene category per image for indoor RGB-D classification.
+
+\begin{table*}[!t]
+\centering
+\caption{Representative scene classification datasets. ``Mod.'' denotes modality; ``--'' marks a value not fixed by the source (scene-category subsets vary across protocols).}
+\label{tab:sceneclf_datasets}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{2.2mm}
+\begin{tabular}{l c l c c l}
+\toprule
+\textbf{Dataset} & \textbf{Year} & \textbf{Domain} & \textbf{Mod.} & \textbf{\#Classes} & \textbf{\#Images (protocol)} \\
+\midrule
+Scene 15~\cite{lazebnik2006beyond}                    & 2006 & Indoor + outdoor, grayscale & 2D & 15  & 4,448 \\
+MIT Indoor 67~\cite{quattoni2009recognizing}               & 2009 & Indoor                      & 2D & 67  & 15,620 (80 / 20 per class) \\
+SUN 397~\cite{XiaoHEOT10,Xiao2014SUNDE}       & 2010 & Indoor + outdoor            & 2D & 397 & 108,754 (50 test per class) \\
+Places205~\cite{zhou2014learning}          & 2014 & Indoor + outdoor            & 2D & 205 & 2.5M \\
+Places365-Standard~\cite{zhou2017places}   & 2017 & Indoor + outdoor            & 2D & 365 & $\sim$1.8M \\
+Places365-Challenge~\cite{zhou2017places}  & 2017 & Indoor + outdoor            & 2D & 365 & $\sim$8M \\
+NYU Depth v2~\cite{silberman2012nyudv2}    & 2012 & Indoor                      & RGB-D & -- & 1,449 labeled pairs \\
+SUN RGB-D~\cite{song2015sunrgbd}           & 2015 & Indoor                      & RGB-D & -- & 10,335 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Scene classification is evaluated primarily with top-1 accuracy (the fraction of images for which the highest-scoring predicted class matches the ground truth) and top-5 accuracy (the fraction of images where the ground-truth class is among the top five predictions), with the latter especially useful on long-tail benchmarks such as Places-365 and SUN 397.
+For multi-label settings, the mean Average Precision (mAP) and class-wise F1 are reported instead, mirroring the protocol used in multi-label image recognition.
+
+\begin{table*}[!t]
+\centering
+\caption{Reported performance of representative scene classification methods on Places-365 val and SUN 397. ``--'' marks a metric not reported by the corresponding source.}
+\label{tab:sceneclf_results}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{5.4mm}
+\begin{tabular}{l l c c c}
+\toprule
+\textbf{Method} & \textbf{Backbone} & \textbf{Places-365 Top-1} & \textbf{SUN 397 Top-1} & \textbf{Year} \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{5}{l}{$\bullet$ \emph{Supervised}} \\
+Places365-AlexNet~\cite{zhou2017places}    & AlexNet   & 53.2 & --   & 2017 \\
+Places365-VGG~\cite{zhou2017places}        & VGG-16    & 55.2 & --   & 2017 \\
+Places365-ResNet~\cite{zhou2017places}     & R152      & 54.7 & --   & 2017 \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{5}{l}{$\bullet$ \emph{Vision-language zero-shot}} \\
+CLIP~\cite{radford2021learning}            & ViT-B/32  & --   & 63.2 & 2021 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Table~\ref{tab:sceneclf_results} reports results on the two most-cited scene benchmarks. Supervised CNNs on Places-365 cluster in a narrow band of roughly $53$--$55\%$ top-1, with diminishing returns from AlexNet to ResNet, while CLIP reaches $63.2\%$ top-1 on SUN 397 zero-shot~\cite{radford2021learning}, on par with supervised scene classifiers without any target-set training.
+
+
+
+
+\subsubsection{Challenges}
+Closed-set accuracy on Places-365, SUN 397, and MIT 67 is now recovered zero-shot by CLIP~\cite{radford2021learning} and by MLLMs (LLaVA~\cite{liu2023llava}, Qwen-VL~\cite{bai2023qwen}, Gemma~3~\cite{team2025gemma}), so ``what kind of place is this'' is no longer the frontier.
+The task has climbed a granularity ladder, from one label to attribute sets to grounded, compositional description across image, video, and 3D, and the open problems sit at that richer end, where MLLMs are weaker than their coarse-label accuracy suggests.
+
+\textbf{Fine-grained and long-tail discrimination.} MLLMs still trail dedicated classifiers and CLIP-style models on fine-grained and long-tail categories, where the distinction between, \eg, a ``bistro'' and a ``brasserie'' turns on subtle cues~\cite{NEURIPS2024_5c702404}.
+
+\textbf{Compositional and spatial grounding.} The natural output is no longer a label but a description whose claims can be grounded in specific objects and layouts~\cite{chen2023clip2scene}.
+MLLMs describe fluently but ground weakly: objects are referenced vaguely rather than by region or box, and the persistent failure is structural rather than semantic, since models name the constituents of a scene correctly yet err on relative layout, depth ordering, orientation, and cross-view or 3D consistency.
+The cause is representational: 2D patch tokens are optimized for semantic alignment with language, not geometry, so fine spatial cues are lost once flattened into the language stream, and spatial-cognition benchmarks show even strong MLLMs degrading sharply as tasks move from naming toward layout and 3D reasoning~\cite{xu2025spatialbench,daxberger2025mmspatial}.
+
+\textbf{Hallucination and faithfulness.} Free-form description reintroduces a failure mode that closed-set classification never had: MLLMs assert objects, attributes, or relations absent from the image, and their reasoning traces rarely point to verifiable spatial evidence~\cite{daxberger2025mmspatial}.

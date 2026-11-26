@@ -1,0 +1,58 @@
+\subsection{Spatial Controlled Video Generation}
+\label{subsec:p3_s8_3_2}
+
+While textual descriptions provide high-level semantic guidance, they often lack the granularity required for precise control over object placement, scene geometry, or character appearance. Spatial-controlled video generation addresses this limitation by augmenting the generation process with explicit spatial conditioning signals, affording users more direct and deterministic influence over the synthesized visual output.
+The geometry, articulation, and layout that the text-to-video base case of §\ref{subsec:p3_s8_3_1} had to \emph{hallucinate} from the prompt alone are here \emph{externalized} into a per-frame scaffold: the spatial structure becomes an input the model must honor rather than an emergent property it must invent, which is precisely what makes the output controllable and verifiable.
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_3_2_task}
+Spatial control instantiates Eq.~\eqref{eq:p3_s8_3_objective} with a control encoder $\kappa_{\text{s}}$ acting on a spatial condition $\mathbf{c}_{\text{s}}^{1:T}$ (a static or sparse reference image, a pose sequence, a depth-map sequence, facial landmarks, a sketch sequence, or a bounding-box track),
+\begin{equation}
+\hat{\mathbf{z}}^{1:T}\sim p_\theta\!\big(\mathbf{z}^{1:T}\,\big|\,\phi(\mathbf{x}),\,\kappa_{\text{s}}(\mathbf{c}_{\text{s}}^{1:T})\big),
+\label{eq:p3_s8_3_2_objective}
+\end{equation}
+so that the scaffold pins down the per-frame spatial layout while the prompt $\mathbf{x}$ and the temporal modules supply appearance and motion. The conditioning channels surveyed below differ only in what $\mathbf{c}_{\text{s}}$ encodes (appearance for an image, articulation for pose or landmarks, 3D structure for depth, free-form layout for a sketch, or object location for a bounding box), and recover the text-to-video base case of Eq.~\eqref{eq:p3_s8_3_1_objective} exactly when $\mathbf{c}_{\text{s}}=\varnothing$.
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_3_2_methodology}
+The six channels carry different spatial information, while the injection mechanism depends on the model. A common design is a ControlNet-style adapter~\cite{zhang2023adding}: a trainable control branch processes the encoded condition and injects a residual into intermediate features of a video backbone, schematically at layer $\ell$
+\begin{equation}
+h_\ell' = h_\ell + \Delta h_\ell,
+\qquad
+\Delta h_\ell = \mathcal{A}_{\psi,\ell}\!\big(\kappa_{\text{s}}(\mathbf{c}_{\text{s}}^{1:T})\big),
+\label{eq:p3_s8_3_2_inject}
+\end{equation}
+where $h_\ell$ denotes backbone features and $\mathcal{A}_{\psi,\ell}$ a trainable control branch (dependence on the noisy latent, diffusion step, and other conditioning is omitted, and the backbone may be frozen while the adapter trains); latent concatenation and attention-based conditioning are the other common implementations.
+Figure~\ref{fig:p3_s8_3_2_mechanisms} shows the six channels alongside this adapter pathway: a reference image acts as a static appearance anchor, the other five are usually frame-indexed sequences, and compatible channels can be combined.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\linewidth]{figures/part3/section8/spatial_control_channels_for_video_generation.pdf}
+\caption{Six spatial-control channels for video generation, (a)--(f), which can be selected or combined, and an example injection route (right) in which a trainable adapter adds residual features to a frozen video backbone (Eq.~\eqref{eq:p3_s8_3_2_inject}). Frames and control maps are illustrative.}
+\label{fig:p3_s8_3_2_mechanisms}
+\end{figure}
+
+\noindent\textbf{Image Control.} A reference image (Figure~\ref{fig:p3_s8_3_2_mechanisms}a) specifies the style, content, or initial state of a video, which is the basis of animating a still and of keeping a subject's appearance consistent. I2VGen-XL~\cite{zhang2023i2vgen}, Stable Video Diffusion (SVD)~\cite{blattmann2023stable}, VideoCrafter1~\cite{chen2023videocrafter1}, and Lumiere~\cite{bar2024lumiere} use the reference image as an initial condition, often by concatenating its latent with the initial noise, and ConsistI2V~\cite{ren2024consisti2v} refines this for consistency. The model then generates a plausible motion sequence that evolves from the image, typically under a text prompt, as in DynamiCrafter~\cite{xing2024dynamicrafter}.
+
+\noindent\textbf{Pose Control.} Pose-guided generation (Figure~\ref{fig:p3_s8_3_2_mechanisms}b) animates articulated subjects, predominantly humans, along a predefined sequence of skeletal poses, the video counterpart of pose-guided image generation~\cite{ju2023humansd,zhang2023adding,Ju_2023_CVPR} and the core of avatar animation and character generation. The pose keypoints (\eg, from MMPose~\cite{mmpose2020}) are encoded and injected at each denoising step, frequently through a ControlNet-style adapter~\cite{zhang2023adding}. MagicAnimate~\cite{xu2024magicanimate}, Animate Anyone~\cite{hu2024animate}, Follow-Your-Pose~\cite{ma2024followyourpose}, and DreamPose~\cite{karras2023dreampose} pair a reference image for appearance with a pose sequence for motion, DisPose~\cite{li2024dispose} disentangles the pose guidance, and Champ~\cite{zhu2024champ} and MagicPose~\cite{chang2023magicpose} target high-fidelity motion, so that the output keeps the subject's identity while following the target poses.
+
+\noindent\textbf{Depth Control.} A sequence of depth maps (Figure~\ref{fig:p3_s8_3_2_mechanisms}c), estimated from an existing video or rendered from a 3D model, specifies dense 3D structure and so enforces consistent object layout and realistic occlusion. ControlVideo~\cite{zhao2025controlvideo}, Make-Your-Video~\cite{xing2024make}, Control-A-Video~\cite{chen2023control}, and ControlNeXt~\cite{peng2024controlnext} adapt the ControlNet framework to video, processing each frame's depth map with a trainable adapter that guides the denoiser; DreamDance~\cite{pang2024dreamdance} and SparseCtrl~\cite{guo2024sparsectrl} also use depth for dynamic scene generation.
+
+\noindent\textbf{Landmark Control.} Facial landmarks (Figure~\ref{fig:p3_s8_3_2_mechanisms}d) give fine-grained control over expression and are the standard interface for talking-head animation. EchoMimic~\cite{chen2024echomimic}, HunyuanPortrait~\cite{xu2025hunyuanportrait}, and LivePortrait~\cite{guo2024liveportrait} animate a static portrait from landmarks, often themselves driven by audio, so that lip movements, blinks, and subtle expressions stay synchronized; TASTE-Rob~\cite{zhao2025taste}, Takin-ADA~\cite{lin2024takin}, and Follow-Your-Emoji~\cite{ma2024follow} extend landmarks to more expressive control.
+
+\noindent\textbf{Sketch Control.} Sketches (Figure~\ref{fig:p3_s8_3_2_mechanisms}e) let users define compositional layout and motion with simple line drawings, an intuitive interface for animation. ToonCrafter~\cite{xing2024tooncrafter}, VidSketch~\cite{jiang2025vidsketch}, AniDoc~\cite{meng2025anidoc}, and SketchBetween~\cite{loftsdottir2022sketchbetween} take a sequence of sketches to guide interpolation or generation, encoding the line art and injecting it as a condition; LayerAnimate~\cite{yang2025layeranimate} animates hand-drawn characters and scenes layer by layer, and MagicStick~\cite{ma2025magicstick} uses sketch-like structural cues for editing.
+
+\noindent\textbf{Bounding Box (BBox) Control.} Bounding-box tracks (Figure~\ref{fig:p3_s8_3_2_mechanisms}f) specify where objects are and how they move over time, and dominate autonomous-driving simulation: MagicDrive~\cite{gao2023magicdrive}, DriveDreamer~\cite{wang2024drivedreamer}, DriveScape~\cite{wu2024drivescape}, and DreamForge~\cite{mei2024dreamforge} use 3D boxes to control the position and motion of vehicles and pedestrians. The box information enters either through cross-attention, as in DiVE~\cite{jiang2024dive}, or as a spatial feature map, and Boximator~\cite{wang2024boximator} and Ctrl-V~\cite{luo2025ctrl} generate and control object motion from box sequences.
+
+Nearly every structural channel (pose, depth, sketch, box) is paired with an appearance reference image, since structure alone cannot fix identity or texture, and the channels cluster by application: image and landmark control in portrait and talking-head synthesis, pose and sketch control in character animation, depth and box control in geometry-faithful and driving-simulation settings.
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_3_2_benchmarks}
+Unlike the text-to-video base case of §\ref{subsec:p3_s8_3_1}, spatial control has no single canonical corpus or suite: each channel is trained and evaluated on data specialized to its application. Models are typically built on the general web-scale corpora of §\ref{subsec:p3_s8_3_1} (WebVid-10M~\cite{bain2021frozen} and successors) for appearance priors, then specialized on task data: human-animation channels on dance- and fashion-video collections paired with extracted pose keypoints (\eg, via OpenPose~\cite{cao2017realtime} or MMPose~\cite{mmpose2020}), talking-head landmark control on portrait-video sets, and bounding-box driving simulation on annotated driving datasets such as nuScenes~\cite{caesar2020nuscenes}, whose 3D box and trajectory labels supply the control signal directly.
+
+\paragraph{Control-fidelity Metrics.}
+Spatial control is judged on two axes simultaneously: the generic video-quality metrics of §\ref{subsec:p3_s8_3_1} (FVD~\cite{unterthiner2018fvd}, CLIPSIM, and VBench~\cite{huang2023vbench} dimensions) and channel-specific \emph{adherence} metrics that measure how faithfully the output respects $\mathbf{c}_{\text{s}}$. The latter are necessarily per-channel: pose and landmark control report keypoint accuracy (re-detected-keypoint distance to the target skeleton or face mesh); depth control reports depth consistency between the re-estimated and the conditioning maps; image control reports identity and appearance preservation (face-/subject-similarity to the reference); and bounding-box control reports detection mAP and trajectory IoU of the generated objects against the conditioning boxes. Neither axis suffices alone, so methods report a quality-plus-adherence tuple: a model can maximize adherence by ignoring the prompt (rigid, texture-collapsed output) or maximize quality by ignoring the control. The same holds for every controlled axis that follows.
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_3_2_challenges}
+Single-channel spatial control has three problems of its own; those that arise once several conditions are fused are discussed in §\ref{subsec:p3_s8_3_6}. Because the structural scaffold and the appearance reference pass through the same denoiser, strong control leaks structure into texture: pose and depth conditioning induce identity drift or bake the scaffold's silhouette into the surface, and disentangling what moves from what it looks like (as DisPose~\cite{li2024dispose} attempts for pose) remains open. Dense scaffolds (image, depth) over-constrain and suppress plausible motion, whereas sparse ones (boxes, coarse sketches) leave appearance and fine geometry ambiguous, so no channel is uniformly preferable and the right granularity depends on the task. And adapters trained on, say, frontal human dance transfer poorly to unusual viewpoints or non-human subjects, which is the data cost of per-channel specialization and one motivation for the multi-condition frameworks of §\ref{subsec:p3_s8_3_4}.

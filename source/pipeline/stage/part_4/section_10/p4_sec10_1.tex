@@ -1,0 +1,185 @@
+
+\section{AR/VR/XR}
+\label{sec:p4_s10_1}
+
+\subsection{Introduction}
+\label{subsec:p4-sec10-1-introduction}
+
+Augmented, virtual, and mixed reality (collectively, extended reality or XR) form a continuum of media in which a head-worn display couples the user's egocentric viewpoint to a computational world that is registered to, or substituted for, the physical surroundings. 
+What distinguishes XR from screen-based media is that spatial intelligence is not an optional feature but a constitutive requirement: before any pixel can be drawn, the system must know where the headset is, what geometry surrounds it, and where the user is looking and reaching. 
+XR is therefore the most demanding real-time deployment target for the spatial capabilities surveyed in Part~\ref{part:3}. 
+The perception machinery (detection, depth, pose, reconstruction) of Chapter~\ref{chapter:3:sec:6}, the spatial reasoning and planning of Chapter~\ref{sec:reasoning}, and the neural reconstruction and rendering of Chapter~\ref{sec:generation} all reappear here, but specialized to run egocentrically, on-device, and within a hard latency budget.
+
+This section treats the XR \emph{medium itself} as a spatial-computing platform: the runtime engine that localizes the device, maps and registers the world, senses the user's body, and presents a composited result. 
+The neighboring section on entertainment (§\ref{sec:entertainment}) builds \emph{on top of} this engine, treating entertainment as an application domain: its real-time AR/VR experiences and virtual production, together with the offline, high-fidelity reconstruction and performance capture that supply them with authored content; here we focus on the platform that makes such experiences run at interactive rates.
+Concretely, a headset must continuously answer three coupled questions, \ie, where am I (6-DoF self-localization), what is around me (geometry and semantics), and how do I fuse virtual content into that reality so that it appears physically present, while simultaneously sensing the user and refreshing the display. 
+Early systems answered the localization question with outside-in tracking, using external base stations or cameras (SteamVR Lighthouse, the original Oculus constellation), but the dominant modern paradigm is inside-out tracking, in which visual--inertial SLAM runs entirely on the device, as in Meta Quest, Apple Vision Pro, and Microsoft HoloLens. 
+The three pivotal tasks below correspond to the stages of this loop.
+
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section10/xr_overview.pdf}
+    \caption{Spatial intelligence for XR as a closed real-time loop: world-facing sensing, tracking and mapping, and registration (T1), user-facing input (T2), and rendering and display (T3). The latency values are illustrative end-to-end targets, not per-stage budgets.}
+    \label{fig:p4_s10_1_overview}
+\end{figure}
+
+
+\subsection{System Overview}
+\label{subsec:p4-sec10-1-system-overview}
+
+As sketched in Figure~\ref{fig:p4_s10_1_overview}, an XR device closes a tight real-time loop. Egocentric sensors first \textbf{sense} the device and the user (outward cameras and an inertial measurement unit for head pose; inward-facing cameras for eyes and outward- or downward-facing cameras for hands and body). 
+The system then \textbf{tracks and maps} the environment, recovering a 6-DoF pose and a persistent geometric model, and \textbf{registers} virtual content into that model with correct anchoring, occlusion, and lighting. 
+Finally, it \textbf{renders and displays} the composite back through the headset optics, after which the user moves and the loop repeats. 
+The pipeline shares an end-to-end motion-to-photon budget; roughly $20$\,ms at a display refresh of $90$\,Hz or higher are the commonly cited targets, though the right values depend on device and application, and exceeding them degrades presence and comfort. 
+The three pivotal tasks map onto this loop directly: Task-1 is the world-facing engine (track, map, register), Task-2 is the user-facing input (egocentric sensing and interaction), and Task-3 is the user-facing output (display and rendering).
+
+
+
+\subsection{Pivotal Task-1: Spatial Tracking, Mapping, and Registration}
+\label{subsec:p4-sec10-1-pivotal-task-1-spatial-tracking-mapping-and-registration}
+
+The first task is the medium's spatial backbone: it answers where the device is, what surrounds it, and how virtual content is pinned to the world so convincingly that the illusion holds. 
+It proceeds in three steps: localize the device, model the environment, and register synthetic content into that model. 
+Figure~\ref{fig:p4_s10_1_tracking} sketches this progression from inside-out tracking to a persistent scene map and finally to anchored, occluded, and relit virtual content.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section10/xr_tracking.pdf}
+    \caption{The XR world-facing engine: (a) inside-out visual--inertial tracking of 6-DoF pose, (b) mapping of geometry, semantic labels, and persistent anchors, and (c) registration of virtual content with depth-tested occlusion and matched lighting. The room and shading are illustrative, not measured reconstructions.}
+    \label{fig:p4_s10_1_tracking}
+\end{figure}
+
+\textbf{Inside-out 6-DoF tracking.} The foundational layer estimates the headset's six-degree-of-freedom pose at high rate by fusing visual features with inertial measurements. 
+Feature-based visual SLAM with loop closure and relocalization remains the academic standard, exemplified by the ORB-SLAM lineage and its visual-inertial extension ORB-SLAM3~\cite{Campos2021ORBSLAM3}, while tightly-coupled visual--inertial odometry such as VINS-Mono~\cite{qin2018vins} underpins many mobile and headset stacks; direct (photometric) methods such as DSO~\cite{engel2017direct} and the earlier LSD-SLAM~\cite{engel2014lsd} offer an alternative that does not depend on sparse keypoints. 
+More recent learned dense systems, including DROID-SLAM~\cite{teed2021droid} and transformer-based geometric matchers~\cite{mast3r}, trade computation for robustness in low-texture and fast-motion regimes. 
+These methods are evaluated chiefly on EuRoC~\cite{Burri2016EuRoC} and TUM-VI~\cite{Schubert2018TUMVI}, with absolute trajectory error (ATE) as the headline metric, but the binding constraints in XR are drift accumulation, recovery from tracking loss (the kidnapped-device problem), and the power and thermal envelope of on-device inference.
+
+\textbf{Spatial mapping and scene understanding.} The tracked stream is consolidated into a usable model of the environment: dense depth and mesh, planar surfaces (floor, wall, table), and semantic labels. 
+Real-time volumetric fusion in the KinectFusion tradition~\cite{newcombe2011kinectfusion} provides the geometric substrate, on top of which plane and mesh extraction expose the surfaces that gameplay and user interfaces attach to. 
+(The offline, high-fidelity reconstruction of such scenes as navigable content is treated in §\ref{sec:entertainment} and Chapter~\ref{sec:generation}; here the map is a means to localization and registration, not an end in itself.) 
+Semantic and instance understanding is benchmarked on indoor datasets such as ScanNet~\cite{dai2017scannet} and Matterport3D~\cite{chang2017matterport3d}, with mean intersection-over-union (mIoU) for segmentation, and increasingly on mobile-captured data with laser ground truth such as ARKitScenes~\cite{baruch2021arkitscenes} and high-quality reconstructions such as Replica~\cite{straub2019replica} for depth and geometry evaluation.
+
+\textbf{Persistent and shared anchors.} For content to survive across sessions and to be experienced jointly by co-located users, the map must be persistent and shareable. 
+Cloud-hosted and peer-to-peer world maps let a device relocalize against a previously built model, and at city scale a Visual Positioning System anchors content to real landmarks in well-mapped areas. 
+The open problems are relocalization under appearance change (lighting, season, rearranged furniture), the memory footprint of on-device maps, and the privacy implications of uploading scans of private spaces, a thread we return to in the challenges.
+
+\textbf{Registration and realistic compositing.} Finally, virtual content must be registered both geometrically and photometrically so that it appears to occupy the scene. 
+Geometric registration pins objects to anchors and planes in the SLAM frame; depth-based occlusion lets real geometry correctly hide virtual pixels, as in the per-pixel depth produced for mobile interaction by DepthLab and the ARCore Depth API~\cite{du2020depthlab}; and lighting estimation predicts the dominant light direction and an ambient environment map from a single image so that virtual objects are shaded and shadowed consistently~\cite{gardner2017learning}. 
+Small errors here are perceptually unforgiving: a few centimeters of depth error at an object boundary, or a mismatched shadow, immediately reveals the composite as synthetic, which is why robust occlusion and real-time inverse lighting remain active research problems.
+
+\subsection{Pivotal Task-2: Egocentric Human Sensing and Spatial Interaction}
+\label{subsec:p4-sec10-1-pivotal-task-2-egocentric-human-sensing-and-spatial-interaction}
+
+The second task closes the loop from the user's body back into the system: it senses the hands, eyes, and posture from inside-out cameras and turns those signals into spatial intent. Low-level egocentric estimates of hands, gaze, and body are fused into selection, manipulation, and locomotion. As Figure~\ref{fig:p4_s10_1_sensing} indicates, the same headset sensors that localize the device are repurposed to track the user, and the resulting estimates drive a gaze-and-gesture interaction model.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section10/xr_sensing.pdf}
+    \caption{Egocentric human sensing for XR interaction: (a) articulated hand tracking, (b) gaze from inward-facing eye cameras, (c) full-body pose inferred from three tracked points, and (d) gaze-plus-pinch selection, in which gaze supplies the target and a pinch confirms it.}
+    \label{fig:p4_s10_1_sensing}
+\end{figure}
+
+\textbf{Hand tracking.} Articulated 3D hand pose (commonly $21$ joints, often a full mesh) is regressed from headset cameras under heavy self-occlusion and truncation. 
+The standard hand model is MANO~\cite{romero2017mano}, and on-device pipelines such as MediaPipe Hands~\cite{zhang2020mediapipe} combine a palm detector with a landmark regressor to run in real time. 
+Methods are benchmarked on FreiHAND~\cite{zimmermann2019freihand} and the two-hand InterHand2.6M~\cite{moon2020interhand2}, with 3D mean per-joint position error (MPJPE) in millimeters as the headline metric; robust two-hand interaction and egocentric truncation remain the hard cases.
+
+\textbf{Eye and gaze tracking.} Estimating 3D gaze from infrared eye images serves three roles: calibration, gaze as a pointing modality, and as the driver for foveated rendering (Task-3). 
+Appearance-based estimation in the iTracker and GazeCapture tradition~\cite{krafka2016gazecapture} established that gaze can be regressed from commodity cameras, and headset-specific datasets such as OpenEDS~\cite{garbin2019openeds} provide near-eye infrared imagery with dense eye-region segmentation, with the later OpenEDS2020 track adding gaze prediction (angular error in degrees). 
+The decisive interaction consequence is that gaze targets quickly but lacks a natural trigger, a long-standing difficulty known as the Midas-touch problem, which motivates the gaze-plus-pinch pattern discussed below.
+
+\textbf{Full-body pose from sparse signals.} Driving a full-body avatar from a headset and two controllers is an underconstrained inverse problem, since the lower body is unobserved and must be synthesized. 
+Recent methods infer plausible full-body motion from these three tracked points, including the transformer-based AvatarPoser~\cite{jiang2022avatarposer} and the diffusion-based AGRoL~\cite{du2023agrol}, while a parallel line recovers pose from sparse body-worn inertial sensors, as in DIP~\cite{huang2018dip}, TransPose~\cite{yi2021transpose}, and the physics-aware PIP~\cite{yi2022pip}. 
+These models are trained on large motion corpora such as AMASS~\cite{mahmood2019amass} and evaluated with MPJPE and temporal jitter. 
+This sparse, live setting is distinct both from the wearable-IMU body sensing of §\ref{sec:p4_s9_3} (which instruments the body more densely) and from the studio performance capture that drives authored avatars in §\ref{sec:entertainment}; the XR-specific challenge is plausibility from radically incomplete observation.
+
+\textbf{Multimodal interaction and locomotion.} The recovered signals are fused into spatial actions. The foundational idea of combining a deictic gesture with a complementary modality dates to Bolt's ``Put-That-There''~\cite{bolt1980putthatthere}, and the modern instantiation decouples targeting from confirmation: the eyes select while a hand pinch or a voice command commits, sidestepping the Midas-touch problem. 
+Locomotion through a virtual space larger than the physical room is handled by redirected walking, which applies imperceptible rotational and translational gains to steer the user within a confined area~\cite{razzaque2001redirected}, with teleportation as the common non-natural fallback. 
+Spatial user interfaces, in turn, must choose a reference frame (world-locked, body-locked, or head-locked) and increasingly anchor panels to scene semantics so that content lands on appropriate surfaces.
+Learning these interaction behaviors at scale is increasingly grounded in large egocentric corpora such as Ego4D~\cite{grauman2022ego4d}, which supply the first-person video of hands, objects, and activities that egocentric-understanding models are trained and benchmarked on.
+
+\subsection{Pivotal Task-3: Spatial Display and Real-Time Rendering}
+\label{subsec:p4-sec10-1-pivotal-task-3-spatial-display-and-real-time-rendering}
+
+The third task presents the composited world back to the user within the perceptual budget that the previous two stages must respect. 
+Three questions decide it: where to spend rendering effort, how to hide system latency, and how to display the result comfortably. 
+Figure~\ref{fig:p4_s10_1_display} previews this pipeline, from gaze-contingent shading through latency compensation to the optics that place the image before the eye.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section10/xr_display.pdf}
+    \caption{The XR display and rendering pipeline: (a) gaze-contingent foveated rendering, (b) late reprojection of a rendered frame to the latest pose, and (c) alternative video-passthrough and optical see-through display paths. The motion-to-photon target is illustrative and applies end to end.}
+    \label{fig:p4_s10_1_display}
+\end{figure}
+
+\textbf{Foveated rendering.} Because acuity falls off sharply outside the fovea, rendering effort can be concentrated at the gaze point. Foveated 3D graphics established multi-resolution shading driven by eye tracking~\cite{guenter2012foveated}, and subsequent work added temporal stability and contrast preservation to make the quality reduction imperceptible~\cite{patney2016foveated}. Eye-tracked foveated rendering now ships on consumer headsets, materially reducing shading cost on thermally constrained hardware.
+
+\textbf{Latency compensation.} Even an efficient renderer cannot meet the motion-to-photon budget on every frame, so the last stage warps the rendered image to the most recent head pose. 
+Asynchronous time warp applies a rotational reprojection at display refresh, asynchronous space warp adds depth-aware frame extrapolation, and head-mounted optical-see-through systems use per-pixel late-stage reprojection~\cite{vanwaveren2016timewarp}. 
+These techniques keep the world stable under fast head motion and are essential to comfort.
+
+\textbf{Passthrough versus optical see-through.} Two display regimes trade off differently. Video passthrough mixed reality (as on Meta Quest~3 and Apple Vision Pro) renders the real world from cameras, granting full control over occlusion and relighting at the cost of camera-to-display latency, parallax, and limited dynamic range; optical see-through (as on HoloLens~2 and Magic Leap~2) presents the real world with zero latency at its true focal depth (though the virtual overlay still incurs render latency and a fixed focal plane) but cannot occlude real light or match real-world brightness. 
+The choice propagates back into the registration problem of Task-1.
+
+\textbf{Depth-correct rendering and visual comfort.} Conventional stereo displays fix the focal plane while vergence varies with content, producing the vergence-accommodation conflict and the eye strain that limits session length. 
+Varifocal, light-field, and holographic near-eye displays aim to restore correct focus cues~\cite{maimone2017holographic}, but remain largely at the prototype stage.
+
+\textbf{Neural rendering for telepresence.} Finally, photoreal social presence requires driving a faithful avatar of a remote user from headset-mounted cameras that see only oblique crops of the face. 
+The codec-avatar line, beginning with deep appearance models~\cite{lombardi2018deep}, learns a person-specific decoder that is driven on-device, a direct specialization of the neural rendering of Chapter~\ref{sec:generation} to the constrained, real-time XR setting.
+
+\begin{table}[!ht]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative benchmarks for spatial intelligence in XR, spanning the three pivotal tasks.}
+\label{tab:p4_s10_1_benchmarks}
+\begin{tabular}{L{0.16\textwidth} L{0.25\textwidth} L{0.30\textwidth} L{0.20\textwidth}}
+\toprule
+\textbf{Pivotal task} & \textbf{Benchmark} & \textbf{Representative method} & \textbf{Headline metric} \\
+\midrule
+Tracking & EuRoC~\cite{Burri2016EuRoC} & ORB-SLAM3~\cite{Campos2021ORBSLAM3} & ATE \\
+Tracking & TUM-VI~\cite{Schubert2018TUMVI} & VINS-Mono~\cite{qin2018vins} & ATE \\
+Mapping & ScanNet~\cite{dai2017scannet} & dense fusion / semantics & mIoU \\
+Mapping & ARKitScenes~\cite{baruch2021arkitscenes} & mobile RGB-D mapping & depth abs-rel \\
+Hand tracking & InterHand2.6M~\cite{moon2020interhand2} & InterNet~\cite{moon2020interhand2} & 3D MPJPE \\
+Body (sparse) & AMASS~\cite{mahmood2019amass} & AvatarPoser~\cite{jiang2022avatarposer} & MPJPE / jitter \\
+Gaze & OpenEDS~\cite{garbin2019openeds} & appearance-based gaze regressor & angular error \\
+Interaction & Ego4D~\cite{grauman2022ego4d} & egocentric understanding & task-specific \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Established Tools and Systems}
+\label{subsec:p4-sec10-1-established-tools-and-systems}
+
+A mature ecosystem implements these tasks across mobile AR, standalone headsets, and the web, and it is organized into developer frameworks, cross-platform standards, hardware, and the companies that drive them.
+
+\textbf{SDKs and standards.} At the device level, \textbf{Apple's ARKit}\footnote{\url{https://developer.apple.com/augmented-reality/}} and \textbf{Google's ARCore}\footnote{\url{https://developers.google.com/ar}} expose plane detection, anchors, depth, light estimation, and people occlusion, with ARCore's Geospatial API localizing against world imagery for outdoor anchoring; \textbf{Vuforia}\footnote{\url{https://developer.vuforia.com}} specializes in robust image and object targets for industrial AR. 
+Cross-engine abstraction layers such as \textbf{Unity AR Foundation}\footnote{\url{https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@6.0/}} and the \textbf{Meta Presence Platform and Spatial SDK}\footnote{\url{https://developers.meta.com/horizon/develop/spatial-sdk}} present the common subset (planes, anchors, meshes, occlusion, hand and body tracking) over multiple devices, while \textbf{8th Wall and WebXR}\footnote{\url{https://immersiveweb.dev}} bring markerless AR into the browser. These abstractions matter because XR content is expensive to author and must migrate across devices and sessions; this is the role of cross-platform standards, principally \textbf{OpenXR}\footnote{\url{https://www.khronos.org/openxr/}} as a unifying runtime API and glTF together with OpenUSD and \textbf{USDZ}\footnote{\url{https://openusd.org}} as asset and scene-description formats. Without a shared runtime and shared asset formats, the ecosystem fragments into incompatible walled gardens.
+
+\textbf{Hardware.} Current headsets divide along the passthrough versus optical-see-through axis. 
+\textbf{Apple Vision Pro}\footnote{\url{https://www.apple.com/apple-vision-pro/}} (2024) and \textbf{Meta Quest~3 and 3S}\footnote{\url{https://www.meta.com/quest/}} use high-resolution video passthrough, with the Quest line the consumer volume leader; \textbf{Microsoft HoloLens~2}\footnote{\url{https://www.microsoft.com/en-us/hololens/}} (optical see-through, with production ended in 2024) and \textbf{Magic Leap~2}\footnote{\url{https://www.magicleap.com}} target enterprise, and \textbf{Varjo}\footnote{\url{https://varjo.com}} and \textbf{Pico}\footnote{\url{https://www.picoxr.com}} serve high-fidelity simulation and the Asian consumer market respectively. 
+Lightweight true-AR glasses, such as \textbf{Snap Spectacles}\footnote{\url{https://www.spectacles.com}} and \textbf{Meta's Orion and Project Aria} research prototypes, signal the all-day-glasses horizon toward which the field is converging.
+
+\textbf{Companies and platforms.} Meta leads consumer volume and the most aggressive glasses research bet; 
+\textbf{Apple} defines the premium spatial-computing tier and the USD content pipeline; \textbf{Google} supplies world-scale localization through ARCore and Android XR; \textbf{Microsoft} has pivoted from first-party HoloLens hardware toward OpenXR software and enterprise cloud services; \textbf{Niantic}\footnote{\url{https://www.nianticspatial.com}} operates a city-scale Visual Positioning System for persistent, multi-user AR; and Snap, Varjo, and ByteDance's Pico round out the social-AR, high-fidelity, and consumer-standalone niches.
+
+\subsection{Challenges}
+\label{subsec:p4-sec10-1-challenges}
+
+XR runs every spatial capability egocentrically and on-device under a perceptual real-time budget, and its open problems follow from that constraint: holding the motion-to-photon budget, fitting perception into the compute and thermal envelope of glasses, keeping tracking and registration robust in the wild, sharing persistent maps without compromising privacy, and making extended wear visually comfortable.
+
+\paragraph{Latency and the Motion-to-Photon Budget.} Meeting the motion-to-photon targets of the System Overview is increasingly difficult as pipelines add wireless or split rendering, cloud offload, and learned perception in the loop, each of which contributes its own delay that the reprojection stage of Task-3 can only partially mask.
+
+\paragraph{On-Device Compute, Thermal, and Power.} All-day glasses face a hard energy and heat envelope: a lightweight form factor leaves little room for the silicon that SLAM, hand and eye tracking, and scene understanding demand. The frontier is partitioning perception across on-device accelerators, companion devices such as wristbands or pucks, and edge offload, without violating the latency or thermal budget.
+
+\paragraph{Robust Tracking and Registration in the Wild.} Visual--inertial SLAM and relocalization degrade in dynamic scenes, textureless rooms, repetitive structures, low light, and outdoors, exactly the conditions that curated benchmarks such as EuRoC and ScanNet underrepresent~\cite{Burri2016EuRoC,dai2017scannet}. 
+Persistent Visual Positioning Systems push toward city-scale anchoring, but globally drift-free, cross-device localization, together with convincing occlusion and lighting registration, remains unsolved.
+
+\paragraph{Persistent, Shared Maps and Privacy.} Co-located multi-user AR requires a shared, persistent spatial map, an ``AR cloud'', which collides directly with privacy: always-on egocentric cameras continuously scan private spaces and bystanders. 
+Designing maps that support shared anchoring while minimizing the retention of raw imagery, and that admit meaningful consent, is both a research and a policy frontier.
+
+\paragraph{Visual Comfort.} Beyond latency, fixed-focus stereo optics decouple vergence from accommodation, causing eye strain that limits session length, and poorly designed locomotion induces cybersickness. 
+Varifocal and holographic displays, gaze-contingent depth-of-field, and accurate interpupillary-distance matching are promising but immature, leaving comfort a gating factor for mainstream adoption.
+
+Because XR subjects the perception, reasoning, and generation capabilities of Part~\ref{part:3} to egocentric, on-device, real-time constraints, it exposes failure modes that offline settings rarely reveal.

@@ -1,0 +1,96 @@
+\section{4D}
+\label{sec:rep_4d}
+
+\FramedInitial{T}{he} 4D representations extend the 3D representations of Section~\ref{sec:rep_3d} into the temporal dimension, modeling not only the geometry and appearance of a scene at a single instant but also how both evolve over time.
+They are the substrate for tasks that involve dynamic content (moving objects, deformable bodies, fluid simulation, novel-view synthesis of casually captured videos), where a sequence of independent 3D reconstructions would either fail to maintain temporal coherence or be prohibitively expensive to recompute frame by frame.
+
+We organize this section around five 4D representations (Figure~\ref{fig:p2_s4_3_4d_representations}), each obtained by adding time to one of the 3D representations of Section~\ref{sec:rep_3d}: RGBD video, point clouds, meshes, neural radiance fields, and deformable 3D Gaussian Splatting.
+The voxel and implicit-field families of Section~\ref{sec:rep_3d} admit analogous time extensions but are less commonly used in the 4D literature, and we therefore omit them as standalone subsections here.
+
+
+
+\begin{figure}[!th]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part2/4D_representations.pdf}
+     % \vspace{-7pt}
+    \caption{Five 4D representations, each a 3D primitive evolving over time: (a) RGBD video, (b) 4D point cloud, (c) deformable mesh, (d) dynamic NeRF, and (e) deformable 3DGS. The RGBD example uses changing camera poses across time to observe the scene from different viewpoints; the top-view camera icons use the same azimuths as the paired RGB and depth renderings. The point-cloud panel distinguishes independent frame-wise samples from persistent point trajectories. Mesh colors indicate vertex displacement; re-extraction is an alternative to preserving vertex and face identities. In (d), rows are views and columns are times. In (e), $R$ and $S$ abbreviate the time-dependent $R_i(t)$ and $S_i(t)$; constant opacity and color describe the illustrated parameterization. All scenes are controlled synthetic illustrations, not experimental reconstructions.}
+    \label{fig:p2_s4_3_4d_representations}
+\end{figure}
+
+
+
+\subsection{RGBD Video}
+\label{sec:rep_4d_rgbd}
+RGBD videos $\mathcal{V}=\{(I_t, D_t)\}_{t=1}^T$, with $I_t \in \mathbb{R}^{H \times W \times 3}$ and $D_t \in \mathbb{R}^{H \times W}$, are a straightforward extension of RGBD images (see Section~\ref{sec:rep_3d_rgbd}) to the temporal domain.
+Equivalently, they can be stored as a 4D tensor $\mathcal{V} \in \mathbb{R}^{T \times H \times W \times 4}$, with the last channel holding depth.
+RGBD videos can be captured using depth sensors, such as Microsoft Kinect or Intel RealSense, which provide synchronized RGB and depth data.
+These videos are commonly used in applications such as motion capture, gesture recognition, and augmented reality.
+There are also many learning-based methods~\cite{wang2023neural,hu2025depthcrafter,chen2025video} that directly predict consistent RGBD videos from monocular video sequences
+$\mathcal{I}=\{I_t\}_{t=1}^T$.
+However, such a representation may struggle to handle complex dynamic scenes with significant occlusions or topology changes.
+If we want to further reconstruct a unified 4D scene in a canonical space, we may also need to provide or estimate camera poses
+$
+\mathcal{P}=\{P_t\}_{t=1}^T
+$
+for each frame, as well as point trajectories over time to establish temporal correspondences, \eg via joint pose-trajectory optimization in recent video-based SfM systems~\cite{li2025megasam}.
+
+
+
+
+
+
+\subsection{Point Cloud}
+\label{sec:rep_4d_point}
+Point clouds are another popular representation for 3D scenes (see Section~\ref{sec:rep_3d_point}), and they can be extended to 4D by incorporating temporal information.
+A 4D point cloud can be represented as $\mathcal{P}=\{(\mathbf{p}_i(t), \mathbf{c}_i(t))\}_{i=1}^N$, where $\mathbf{p}_i(t) \in \mathbb{R}^3$
+is the 3D position of point $i$ at time step $t$, and $\mathbf{c}_i(t) \in \mathbb{R}^3$ is the corresponding color.
+To map an uncalibrated, continuous video sequence $\mathcal{I}=\{I_t\}_{t=1}^T, I_t\in \mathbb{R}^{H \times W \times 3}$, to a 4D point cloud representation, there are generally two types of representations:
+(1) a sequence of point clouds $\mathcal{P}=\{\mathcal{P}_t\}_{t=1}^T$ in a fixed coordinate system, where each $\mathcal{P}_t=\{(\mathbf{p}_i(t), \mathbf{c}_i(t))\}_{i=1}^{H \times W}$ is an independent point cloud at time step $t$;
+(2) a unified point cloud $\mathcal{P}=\{(\mathbf{p}_i(t), \mathbf{c}_i(t))\}_{i=1}^{N}$, where $N$ is the number of persistent point identities, and each point $i$ has a trajectory over time.
+The first representation is easier to obtain, as it can be directly derived from the depth maps estimated from each frame using monocular depth estimation methods~\cite{li2025megasam}.
+However, it may suffer from temporal inconsistencies and a lack of point correspondences across frames.
+The second representation, in contrast, requires explicit temporal correspondences (either ground-truth tracks, optical-flow lifting~\cite{teed2020raft}, or jointly optimized point trajectories~\cite{li2025megasam}), and is therefore harder to acquire, but it offers persistent point identities and consistent trajectories that are useful for downstream 4D reconstruction, motion analysis, and dynamic NeRF/3DGS initialization.
+
+\subsection{Mesh}
+\label{sec:rep_4d_mesh}
+We can extend the mesh representation (see Section~\ref{sec:rep_3d_mesh}) to 4D by representing a sequence of 3D meshes over time.
+A 4D mesh is a sequence $\{\mathcal{M}_t\}_{t=1}^T$ with $\mathcal{M}_t = (\mathbf{V}_t, \mathbf{F}_t)$, where $\mathbf{V}_t \in \mathbb{R}^{N \times 3}$ and $\mathbf{F}_t \in \mathbb{N}^{M \times 3}$ are the vertices and faces of the mesh at time $t$, respectively.
+To reconstruct a 4D mesh using deep learning, researchers typically sample a set of points on the mesh surface at the original time step $t=0$, and then learn a deformation field to model the motion of these points over time~\cite{cao2024motion2vecsets}.
+Then, the deformed points at each time step can be used to reconstruct watertight manifold meshes using
+Marching Cubes~\cite{lorensen1998marching} or Poisson Surface Reconstruction~\cite{kazhdan2006poisson}.
+
+
+
+
+
+
+
+
+\subsection{NeRF}
+\label{sec:rep_4d_nerf}
+As discussed in Section~\ref{sec:rep_3d_nerf}, NeRF~\cite{mildenhall2021nerf} is a continuous, volume-based 3D representation that maps a 3D position $\mathbf{x} \in \mathbb{R}^3$ and a 2D viewing direction $\mathbf{d} \in \mathbb{S}^2$ to a color $\mathbf{c} \in \mathbb{R}^3$ and a volume density $\sigma \in \mathbb{R}_{\geq 0}$ via a learned function $F_\Theta:(\mathbf{x}, \mathbf{d}) \rightarrow (\mathbf{c}, \sigma)$.
+This function is typically implemented using a neural network, which is trained on a set of input images and their corresponding camera poses.
+To extend NeRF to dynamic scenes, we can introduce a temporal dimension $t$ to the input of the function, resulting in a 4D representation
+$F_\Theta: (\mathbf{x}, \mathbf{d}, t) \rightarrow (\mathbf{c}_t, \sigma_t)$.
+This allows the model to capture changes in the scene over time, enabling the rendering of novel views at different time steps.
+In practice, the temporal dimension can be represented in various ways.
+For example, a deformation network can take an observed position $\mathbf{x}$ and time $t$ as input and predict a displacement $\Delta\mathbf{x}(\mathbf{x},t)$ that maps it to a canonical position $\mathbf{x}_c=\mathbf{x}+\Delta\mathbf{x}(\mathbf{x},t)$~\cite{pumarola2021d}.
+Alternatively, the deformation can be parameterized using a dense
+$\text{SE}(3)$ field~\cite{park2021nerfies}, which models the rigid transformations (rotation and translation) of points in the scene over time.
+Other approaches~\cite{gao2021dynamic} may also incorporate additional latent codes to represent different time steps, enabling the model to capture more complex temporal variations.
+
+
+
+
+
+
+
+\subsection{Deformable 3D Gaussian Splatting}
+\label{sec:rep_4d_gaussian}
+Given a static scene representation $\mathcal{G}=\{(\alpha_i, \boldsymbol{\mu}_i, \boldsymbol{\Sigma}_i, c_i)\}_{i=1}^G$, which contains $G$ 3D Gaussians~\cite{kerbl20233d} (see Section~\ref{sec:rep_3d_gaussian}),
+where $\alpha_i \in [0, 1]$ is the opacity, $\boldsymbol{\mu}_i\in\mathbb{R}^3$ is the mean (3D position), $\boldsymbol{\Sigma}_i\in\mathbb{R}^{3\times 3}$ is the covariance matrix, and $c_i: \mathbb{S}^2 \rightarrow \mathbb{R}^3$ is the color function that maps a viewing direction to an RGB color, we extend it to a \emph{deformable} 3D Gaussian Splatting representation for dynamic scenes by letting both the mean and the covariance vary in time: $\mathcal{G}(t)=\{(\alpha_i, \boldsymbol{\mu}_i(t), \boldsymbol{\Sigma}_i(t), c_i)\}_{i=1}^G$~\cite{wu20244d}.
+The mean is parameterized by a deformation field, $\boldsymbol{\mu}_i(t)=\boldsymbol{\mu}_i(0)+\Delta\boldsymbol{\mu}_i(t)$, where $\boldsymbol{\mu}_i(0)$ is the initial position at $t=0$ and $\Delta\boldsymbol{\mu}_i(t)$ is the time-dependent offset.
+The covariance is decomposed in the same way as in the static case, $\boldsymbol{\Sigma}_i(t)=\mathcal{R}_i(t)\mathcal{S}_i(t)\mathcal{S}_i(t)^{T}\mathcal{R}_i(t)^{T}$, with the rotation $\mathcal{R}_i(t)$ and scaling $\mathcal{S}_i(t)$ themselves outputs of the deformation field at time $t$.
+The opacity $\alpha_i$ and color function $c_i$ are typically kept constant over time.
+In practice, this means that the appearance of the scene does not change significantly over time, while the latest work~\cite{zhang2025gaussian} also explores time-varying colors and opacities.
+This representation allows for efficient rendering of dynamic scenes by accounting for the temporal changes in the positions and shapes of the 3D Gaussians.

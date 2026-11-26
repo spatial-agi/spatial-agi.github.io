@@ -1,0 +1,191 @@
+\chapter{Research Gaps and Future Directions}
+\label{chapter:p5_challenges}
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkgreen}{F}}{uture}
+% Vision-based ranger involves leveraging geometric principles to calculate distance.
+% A vision-based ranger could use one or multiple cameras.
+% The monocular camera ranger requires prior knowledge (\eg the size of a reference object), and can only estimating in a rough distance.
+
+\FramedInitial{T}{he} problems in this chapter are widely acknowledged and concern missing methods, inadequate measurements, and systems that work in the laboratory but not yet in open environments.
+Section~\ref{sec:p5_gaps} describes research gaps along the loop of Figure~\ref{fig:p1_s2_1_intro}, Section~\ref{sec:p5_benchmarks} gaps in how progress is measured, Section~\ref{sec:p5_deployment} bottlenecks in deployment, and Section~\ref{sec:p5_directions} directions for future work.
+
+Chapter~\ref{chapter:p5_discussions} asked why these problems are hard in principle; this chapter asks where current systems fail, how the failures can be measured, and which methods could be tested against them.
+Four themes are its own: competence at tabletop or room scale does not transfer to buildings and cities; correct spatial judgments do not reliably become completed long-horizon actions; much evaluation does not measure the abilities it is named for; and deployed systems face latency, distribution shift, security, data scarcity, and multi-agent synchronization that research systems rarely confront.
+Where a failure has a principled explanation in the preceding chapter, we point to it rather than repeat it.
+
+\section{Research Gaps along the Loop}
+\label{sec:p5_gaps}
+
+\FramedInitial{M}{ost} of the following gaps are invisible in single-step evaluations and appear only when a system must integrate many views, revise its memory, act over many steps, or operate beyond room scale.
+
+\paragraph{Models recognize scenes without relating views to one another.}
+Multimodal models can name nearly every object in a room yet cannot reliably say where the objects are; Chapter~\ref{chapter:3:sec:6} found them strong on contextual and functional relations and weak on distances, sizes, and angles (Section~\ref{sec:spatial_relation_extraction}).
+Given several views of a room, they rarely notice that one was captured after an object moved \cite{cao2026samespace}, and over routes spanning several streets they answer by recognizing landmarks and matching text, with little evidence of path integration \cite{mahendran2026kilometervision}.
+These failures admit more than one explanation: the model may hold no account of the scene against which a later view could be checked, or it may hold spatial information that it cannot associate across viewpoints, update, or use in a metric computation.
+Current benchmarks do not separate these cases (Section~\ref{sec:p5_benchmarks}).
+
+SLAM registers each new view against a map and treats disagreement as a signal to correct one or the other (Section~\ref{sec:mapping_slam}).
+Whether registering views in a common frame before language is involved (Section~\ref{cross_modality_vision_vision}), for instance with feed-forward models that regress point maps from image collections (Section~\ref{sec:visual_odometry}), closes the gap for multimodal models is unsettled, and metric estimates must in any case survive unknown or wrong camera calibration, the main open problem even for specialist pipelines (Section~\ref{sec:height_distance}).
+
+\paragraph{Memory breaks when it has to be revised.}
+Section~\ref{sec:p5_persistence} argued that persistence requires revising beliefs, not only retaining observations.
+The gap is that few learned systems implement a write policy deciding what enters the world state, with what confidence, and when an entry is revised or removed.
+Work on spatial memory has concentrated on recall, through longer contexts, better retrieval, and richer memory structures (Section~\ref{subsec:p3_s7_3_6}), whereas the reported failures concern revision: outdated beliefs kept after the world changes \cite{zhang2026theory}, append-only memories that accumulate contradictions, and agents that drift as their context fills (Section~\ref{subsec:p3_s7_3_7}).
+Applications make the requirement concrete: a manipulator must keep an object's pose current while its own gripper occludes it (Section~\ref{sec:p4_s9_1}), and a home assistant must track object locations over weeks as the household moves things (Section~\ref{sec:p4_s13_1}).
+SLAM makes a version of these decisions when it selects keyframes, merges landmarks, and discards map regions that no longer match (Section~\ref{sec:mapping_slam}); we are not aware of a learned counterpart for the richer world states that applications now require.
+
+\paragraph{Pixel prediction is mismatched with the needs of control.}
+Video world models predict pixels, while a controller needs the quantities that decide whether an action succeeds, such as contact, mass, and friction, which are often invisible in images (Section~\ref{subsec:p3_s7_1_2}).
+A pixel loss spends most of a model's capacity on lighting and texture, pixel predictions drift over long horizons (Section~\ref{subsec:p3_s8_3_6}), and a model can score well on tasks with incorrect dynamics \cite{gonzalezlaiz2026limits}.
+The objective rewards appearance; the use requires outcomes.
+World-action models that predict compact encodings of future observations match generative ones at much lower cost \cite{yu2026jam}, following the predictive-embedding principle of the JEPA family (Section~\ref{subsec:p3_s8_6_rep}), and a further step is to predict physical quantities directly, estimated through pushing, lifting, or probing.
+Whether such predictions hold under intervention is the question of Section~\ref{sec:p5_validity}; the gap here is that these quantities are rarely prediction targets at all.
+
+\paragraph{Correct perception does not carry through to completed actions.}
+Chapter~\ref{sec:reasoning} described the gap between spatial judgment and action as instructions interpreted correctly and executed incorrectly (Section~\ref{subsec:p3_s7_3_2}).
+On VABench, models that judge spatial relations well still fail many manipulation tasks and almost all long-horizon ones, and degrade markedly on unfamiliar shapes \cite{zhang2026vabench}; generalist robot policies improve rapidly, yet their spatial representations drift over long action sequences (Section~\ref{subsec:p3_s7_3_2}).
+Small errors compound over many steps, and in contact-rich tasks a single misjudged grasp can end an episode, so the gap is one of execution rather than judgment and grows with the horizon.
+An agent must keep observing and correcting until the task is complete, as the gains from letting a model look again suggest (Section~\ref{sec:p5_agency}); this is the third open tension of Chapter~\ref{chapter:structure}, the integration of spatial reasoning into long-horizon embodied agents.
+Closing it requires training and evaluating the act--observe--correct loop as a whole, with benchmarks that reward recovery as well as first-attempt success.
+
+\paragraph{Room-scale results say little about larger spaces.}
+Most results in this handbook concern single rooms or tabletops.
+At street and city scale, models revert to landmark recognition even over a single kilometer \cite{mahendran2026kilometervision}, geospatial models trained on one region or sensor degrade on another (Section~\ref{sec:p4_s11_2}), aerial and ground robots must align views from very different heights (Section~\ref{sec:p4_s9_4}), and skills learned on one robot body transfer poorly to another (Section~\ref{sec:p4_s9_1}).
+Scale changes more than the size of the numbers: the dominant representation shifts from local metric geometry to routes and topology and then to georeferenced coordinates, the sensing from egocentric views to aerial imagery, most of the state from seen to remembered or inferred, and the rate of change from seconds to years.
+
+Geographic information systems handle scale by nesting reference frames, placing an object in a room, the room in a building, and the building in a georeferenced map, each level with its own coordinates and precision.
+Learned spatial models rarely represent such nesting.
+We expect nested frames to be part of the solution, together with benchmarks that pose the same question at several scales (Section~\ref{sec:p5_benchmarks}), and we regard cross-scale transfer as a challenge in its own right.
+
+Each of these gaps appears where one part of the loop depends on another's output, which is why evaluating each part on its own misses them.
+
+
+
+
+\section{Benchmarking Gaps}
+\label{sec:p5_benchmarks}
+
+\FramedInitial{T}{he} preface asked how the field can measure genuine progress without mistaking benchmark saturation for it.
+Chapter~\ref{chapter:p5_discussions} described the properties a usable spatial model should have; this section asks how to measure them.
+Most benchmarks compared in Section~\ref{sec:p3_s7_5} pose questions about a single image or video, and few require the model to act.
+This format admits shortcuts, which models have repeatedly exploited: models that nearly solved synthetic visual reasoning datasets failed on novel combinations of familiar elements and on real images (Section~\ref{subsec:p3_s7_2_1}), and much of a referring-expression score survives when the words of the expression are shuffled (Section~\ref{sec:vl_grounding}).
+
+Measured against the loop of Chapter~\ref{chapter:definition}, current evaluation covers some components far better than others.
+Perception is evaluated frame by frame, through detection, segmentation, depth, and tracking accuracy, and rarely by whether its uncertainty is calibrated or its output stable over time.
+Reasoning is evaluated by answer accuracy on static questions, rarely by whether the answer rests on a correct belief about the scene.
+Prediction is evaluated by visual quality, rarely by correctness under actions absent from training.
+Action is evaluated by task success in simulation, rarely by recovery after failure.
+The update $\Psi_{\mathcal{S}}$ is rarely evaluated on its own, and neither is the effect a system has on the people who use it.
+
+\paragraph{Score the belief behind the answer.}
+A correct answer may come from language priors, regularities in the answer format, or a correct model of the scene, and accuracy alone cannot tell them apart, nor separate the explanations left open for the first gap of Section~\ref{sec:p5_gaps}.
+Benchmarks can instead read out a model's belief about the scene and score it directly, as Theory of Space does at each step of an exploration \cite{zhang2026theory}, or probe hidden states, as was done for the Othello model of Section~\ref{sec:rep_language}.
+A cheaper variant asks several questions about the same scene and checks that the answers are consistent with a single layout.
+Controls that remove the image or shuffle the input are inexpensive and should be standard.
+
+\paragraph{Gathering evidence is a separate ability.}
+Static benchmarks supply the evidence; deployed systems must collect it.
+Deciding where to look, when to move, and when to ask is a skill in its own right, and the active--passive gap of Section~\ref{sec:p5_agency} shows that current models lack it.
+We propose reporting accuracy as a function of an interaction budget, the number of views, moves, or queries a model may use, which places passive and active evaluation on one scale and rewards models that reach correct answers with little effort.
+In deployment the budget has a direct cost in time and energy.
+
+\paragraph{Spatial failures unfold over time.}
+Most benchmark questions refer to a single moment, while many failures in Section~\ref{sec:p5_gaps} emerge only over time.
+Streaming protocols show the model only the video seen so far, so it cannot use future frames to answer about the past \cite{li2026ovosbench}; revisit protocols move the camera away and back to check whether a place is rendered consistently or changed correctly \cite{wang2026worldprobe}; change protocols alter the scene behind the agent and test whether its belief follows.
+None is yet standard, and long-horizon tasks remain rare even among embodied benchmarks (Section~\ref{sec:p3_s7_5}).
+
+\paragraph{The same question should be asked at several scales.}
+Benchmarks cluster at room scale and are often built on a few indoor scan collections, while surgery, orbital operations, and underwater robotics have benchmarks of their own that rarely share protocols with them (Sections~\ref{sec:p4_s12_1} and~\ref{sec:p4_s11_3} and Chapter~\ref{sec:p4_s14}).
+Posing the same spatial question at the scale of a table, a building, and a city would show where competence stops transferring and whether a model represents nested frames; a model that answers well about a desk and poorly about a building has learned the regularities of tabletop scenes, not a general spatial ability.
+
+\paragraph{Generated worlds should be judged by what an agent can do in them.}
+Generated and reconstructed worlds are still evaluated mainly by appearance, which Chapter~\ref{sec:generation} showed to be misleading.
+Video metrics do not register physically impossible motion (Section~\ref{subsec:p3_s8_3_6}), rendered-view similarity cannot distinguish a solid object from a cut-out that matches the training views (Section~\ref{subsec:p3_s8_2_1}), no standard protocol exists for the physical correctness or long-term stability of world models (Section~\ref{subsec:p3_s8_6_discussion}), and vision-language judges share the blind spots of the models they evaluate (Section~\ref{sec:p3_s8_8}).
+A more informative test asks whether an agent that plans or trains in the generated world succeeds in the real one, complemented by the interventional tests of Section~\ref{sec:p5_validity}.
+
+\paragraph{Benchmarks should borrow construct validity from psychometrics.}
+Spatial benchmarks adopted tasks from psychometrics, from mental rotation to perspective taking (Chapter~\ref{chapter:definition}), but not its standards.
+A psychometric test reports the distribution of human performance, establishes reliability across repeated testing, and checks construct validity through agreement with other tests of the same ability and divergence from tests of different ones; most AI benchmarks report at most a single human score.
+A benchmark whose questions can be answered from text alone does not measure spatial ability, and automatically generated benchmarks, now common, need such checks all the more.
+
+
+
+
+\section{Deployment Bottlenecks}
+\label{sec:p5_deployment}
+
+\FramedInitial{M}{ost} spatial systems that operate reliably in deployment do so by restricting the world they must handle, a pattern that recurs across Part~\ref{part:applications}.
+Driving systems are approved for a restricted operational design domain and add sensors and fallbacks to stay within it (Section~\ref{sec:p4_s9_2}); warehouse robots work in sites with fixed item sets and layouts (Section~\ref{sec:p4_s9_5}); surgical robots are mostly teleoperated and planetary rovers act within ground-supervised workflows (Sections~\ref{sec:p4_s12_1} and~\ref{sec:p4_s11_3}); headsets track most reliably in previously mapped rooms, and the first home robots rely on remote operators for tasks they cannot yet perform (Sections~\ref{sec:p4_s10_1} and~\ref{sec:p4_s13_1}).
+When the domain is widened, the world state is typically the first component to fail.
+
+\paragraph{Guarantees end at the edge of the model.}
+A constraint-based planner certifies collision avoidance only for the obstacles it knows about, and a driving system is validated only on anticipated scenarios (Sections~\ref{sec:p4_s9_1} and~\ref{sec:p4_s9_2}).
+Learning moves these boundaries without notice: a model accurate on average can be confidently wrong in rare situations, its uncertainty estimates can lose validity when its use changes (Section~\ref{sec:p5_validity}), and an update that improves one behavior can silently degrade another (Section~\ref{sec:p4_s9_2}).
+No practical method yet states and verifies a property of a learned spatial system over a realistic domain.
+Legal responsibility is bounded the same way, since under conditional automation the manufacturer is responsible for driving only within a narrow domain (Section~\ref{sec:p4_s9_2}), and each extension reopens the question.
+
+\paragraph{The large model cannot sit in the inner loop.}
+A headset must respond to head motion within tens of milliseconds, a robot arm must update its state estimate at control rate, a drone must detect small objects in real time on onboard hardware, and a spacecraft must do similar work on radiation-hardened processors far weaker than ground computers (Sections~\ref{sec:p4_s10_1}, \ref{sec:p4_s9_1}, \ref{sec:p4_s9_4}, and~\ref{sec:p4_s11_3}).
+Large foundation models are much slower, even after work that accelerates them by predicting geometry internally and compressing spatial tokens \cite{li2026geothinkerf}.
+A practical architecture lets a small, fast component keep the world state current at sensor rate and lets the large model consult it when time permits, mirroring the fast--slow division that Section~\ref{subsec:p3_s7_3_5} described for tool-augmented reasoning.
+Whether that state is explicit, learned, or mixed is the question of Section~\ref{sec:p5_persistence}; the deployment constraint is only that it be maintained at sensor rate and remain consultable.
+
+\paragraph{A map starts going stale as soon as it is made.}
+Furniture is moved, shop displays change, buildings are renovated, crops grow, and tissue shifts during surgery, so a deployed map must be updated continually, which Part~\ref{part:applications} found difficult in every domain.
+How a state should be revised is the algorithmic question of Section~\ref{sec:p5_persistence}; the deployment problem is the cost and latency of keeping it revised and the synchronization of its copies across devices.
+Digital twins call the discrepancy between model and asset the liveness gap and treat closing it at scale as open (Section~\ref{sec:p4_s11_1}); lifelong SLAM must withstand months of appearance change (Section~\ref{sec:mapping_slam}); shared augmented-reality maps are hard to keep current (Section~\ref{sec:entertainment}); surgical navigation loses its preoperative registration once the brain shifts (Section~\ref{sec:p4_s12_1}).
+We suggest that deployed systems report how far their world state lags behind the world it describes, a quantity that is rarely measured.
+
+\paragraph{Real data are scarcest where simulation is least trustworthy.}
+Spacecraft perception is trained mostly on simulated images, and simulators do not reproduce the lighting of orbit, reflections from spacecraft materials, or radiation noise (Section~\ref{sec:p4_s11_3}); touch, force, and sound have the least data of all modalities and are also hard to simulate (Sections~\ref{subsec:p3_s7_3_8} and~\ref{sec:p4_s9_1}); clinical data are scarce because of privacy regulation and the cost of expert annotation (Section~\ref{sec:p4_s12_1}).
+In the first two cases simulation cannot compensate, since the simulator is least accurate for exactly the effects the missing data would capture.
+Simulations built from real measurements, data engines that target rare cases, and cross-institution training without sharing raw data all help, but none yet operates at the breadth that general spatial competence requires.
+
+\paragraph{A persistent map is also an attack surface.}
+Geospatial data raise issues of sovereignty and adversarial manipulation (Section~\ref{sec:p4_s11_2}), a compromised digital-twin server exposes the layout and vulnerabilities of the asset it mirrors (Section~\ref{sec:p4_s11_1}), and world-action models can be attacked through their visual inputs, with small perturbations producing large changes in behavior \cite{wu2026pasakv}.
+These risks grow with the persistence of a map and the number of parties sharing it, turning the privacy concerns of Section~\ref{sec:p5_agency} into security concerns.
+
+
+
+
+\section{Future Directions}
+\label{sec:p5_directions}
+
+\FramedInitial{T}{he} following directions build on the gaps above and on the questions left open in Chapter~\ref{chapter:p5_discussions}.
+Each is a hypothesis rather than a recommendation: where it takes an architectural position, we name the alternative it must beat and an experiment that would decide.
+
+\paragraph{Persistence and rendering can be separated.}
+Interactive video models remember a place by regenerating it, which ties memory to the context window and to the renderer.
+A factorized design would keep what must persist, such as layout, object identities, and their uncertainty, in an explicit layer, and use a learned layer to predict change and render what the agent needs to see, with $\Psi_{\mathcal{S}}$ promoting confirmed predictions into the explicit layer and revising it when observations contradict it.
+The alternatives are a latent state with learned memory, as in models that factorize memory inside the generator \cite{yu2026grome}, and a growing context with retrieval.
+The hypothesis is that at equal compute the factorized design stays consistent over longer horizons and more changes; it is refuted if a latent-only model matches it on revisit and change protocols while passing the faithfulness tests of Section~\ref{sec:p5_validity}.
+The decisive experiment is an agent that leaves a building, returns hours later, detects what changed, and acts accordingly; for the factorized variant, the open question is the interface that decides when a prediction enters the explicit layer and when an entry is overridden.
+
+\paragraph{The medium of spatial reasoning can be learned per query.}
+Section~\ref{sec:p5_sufficiency} found that spatial answers improve when a model can work with maps, imagined views, or geometric tools.
+The choice of medium can be learned per query from whether it led to a correct answer and at what cost, so that simple questions are answered in language and a map or simulation is invoked only when needed, with the intermediate steps later distilled into the model (Section~\ref{subsec:p3_s7_3_8}).
+The comparison is with the same model reasoning in text alone and with a policy that always invokes the tool, on map building and perspective taking, with image-removed controls; the hypothesis fails if the learned selector does not beat the always-tool policy on cost at equal accuracy.
+
+\paragraph{The update policy can be trained from experience.}
+Passive data leave the update policy of Section~\ref{sec:p5_persistence} largely untrained (Section~\ref{sec:p5_agency}).
+It can be trained directly, by rewarding observations that add information to the map and penalizing beliefs kept after the evidence has changed, with learning inside a world model lowering the cost by trying alternatives in imagination first (Section~\ref{subsec:p3_s7_3_7}); benchmarks that read out a model's belief (Section~\ref{sec:p5_benchmarks}) supply the training signal as well as the evaluation.
+The target is an agent that builds as accurate a world state from its own exploration as from a curated set of views, and the scripted strategies that currently outperform foundation models \cite{zhang2026theory} are the baseline to beat.
+
+\paragraph{Verification is feasible where part of the state is explicit.}
+Neural networks are difficult to verify, whereas objects, poses, and programs can be checked against constraints.
+The Algebraic World Model turns exploration into hypotheses checked by machine-verified proofs \cite{pan2026algebraic}, and uncertainty can be verified once its calibration is matched to the policy actually executed \cite{mittal2026calibrated}.
+The alternative is to verify latent states indirectly, through probes and faithfulness tests \cite{gonzalezlaiz2026limits}, which is cheaper and yields statistical rather than logical guarantees.
+In either case the obstacle is perception, since any guarantee about the state inherits the errors of its estimate from sensor data.
+A machine-checked property, such as a bound on collision probability, holding for a learned agent over a deployment-scale domain would change the situation of Section~\ref{sec:p5_deployment}; no current system provides one.
+
+\paragraph{A shared world state needs the machinery of version control.}
+When several agents and people maintain one world state, they need a common reference frame, stable object identities, a record of changes, a procedure for resolving conflicts, and permissions on who may read and write what.
+Version control solved the analogous problems for shared code, and multi-agent systems that build cognitive maps already record changes as atomic commits and cross-check one another \cite{zhang2026cocosi}.
+Embodied teams add difficulty, since ground and aerial robots must first align very different viewpoints (Section~\ref{sec:p4_s9_4}) and city-scale and planetary digital twins supply the georeferenced frames into which local maps must fit (Sections~\ref{sec:p4_s11_1} and~\ref{sec:p4_s11_2}); permissions are also where the privacy requirements of Section~\ref{sec:p5_agency} can be enforced.
+A suitable test is a team of heterogeneous robots and a person who maintain one consistent world state of a building over several days, each able to query how the others currently perceive it.
+
+\paragraph{A theory of spatial representation has a concrete agenda.}
+Section~\ref{sec:p5_sufficiency} proposed sufficiency relative to tasks and actions as the criterion for a representation.
+Turning it into a theory requires identifiability results stating which world-state variables are recoverable from a given set of modalities and actions, extending the sensor-specific analyses of Chapter~\ref{chapter:3:sec:6}; sufficiency results stating which variables must be preserved for a task family under every action the agent may take, of which equivariance to rigid motion (Section~\ref{subsec:p3_s7_2_3}) is the one case already worked out; faithfulness tests deciding, for any architecture, whether a latent state's dynamics follow the environment's \cite{gonzalezlaiz2026limits}; and a specification of which parts of a representation must be explicit for inspection and verification.
+Such results would let the world-centered property required by Chapter~\ref{chapter:definition} be tested for any system, regardless of architecture.

@@ -511,7 +511,7 @@ def fig45():
       'lamp':dict(t='Language · Above',b='The description places the lamp above the table. The drawing uses a top view to locate the objects.'),
       'tokens':dict(t='Move sequence',b='The model receives a sequence of Othello moves as tokens. The diagram illustrates sequence-only training.'),
       'model':dict(t='Transformer hidden activations',b='Hidden activations can carry information about the spatial state implied by the move history.'),
-      'probe':dict(t='Linear probe',b='A probe reads the hidden activations to predict board occupancy. The arrows illustrate information flow, not additional moves being played.'),
+      'probe':dict(t='Probe',b='A probe reads the hidden activations to predict board occupancy. The arrows illustrate information flow, not additional moves being played.'),
       'board':dict(t='Recovered board state',b='The 8 × 8 board visualizes empty squares and black or white discs decoded from the model’s activations.')}
     out=['<div class="nf nf-45" data-nf="45" data-pagefind-ignore="all"><div class="f45-viewport"><svg class="nf-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 788" role="group" aria-label="Figure 4.5: spatial information in language representations">',
       '<defs><marker id="f45-blue" markerWidth="19" markerHeight="18" refX="16" refY="9" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L19 9L0 18L4 9Z" fill="#164F9B"/></marker><marker id="f45-black" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L16 8L0 16Z" fill="#111"/></marker><radialGradient id="f45-disc-white" cx="35%" cy="30%"><stop stop-color="#fff"/><stop offset="1" stop-color="#edf2ec"/></radialGradient><linearGradient id="f45-board" x2="1" y2="1"><stop stop-color="#ccd8b4"/><stop offset=".5" stop-color="#bfcea5"/><stop offset="1" stop-color="#c8d6af"/></linearGradient></defs>']
@@ -543,7 +543,7 @@ def fig45():
     model+=route('M1220 480V448',ink,750,500)+route('M1220 389V359',ink,1250,500)+route('M1220 285V257',ink,1750,500)
     model+=text(1413,260,'Hidden\nactivations',30,blue,'middle')+route('M1327 327H1466V376',delay=2300,duration=1100)
     out.append(zone('model',1114,174,389,381,model))
-    out.append(zone('probe',1400,377,180,119,R(1410,384,111,104,fill='white',stroke=blue,lw=3,r=12)+text(1465,427,'linear\nprobe',30,blue,'middle')+route('M1523 436H1567',delay=3400,duration=650)))
+    out.append(zone('probe',1400,377,180,119,R(1410,384,111,104,fill='white',stroke=blue,lw=3,r=12)+text(1465,427,'probe',30,blue,'middle')+route('M1523 436H1567',delay=3400,duration=650)))
     # The board is redrawn as 64 independent cells and 13 discs; match source coordinates.
     board=['<rect x="1611" y="205" width="372" height="380" fill="url(#f45-board)" stroke="#222" stroke-width="3"/>']
     for i in range(1,8):

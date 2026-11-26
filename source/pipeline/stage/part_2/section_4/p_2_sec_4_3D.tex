@@ -1,0 +1,283 @@
+\section{3D}
+\label{sec:rep_3d}
+
+\FramedInitial{T}{he} 3D representations lift the 2D pixel grid into the ambient space the scene actually occupies, replacing image-plane appearance with explicit geometry and topology.
+They are the substrate on which downstream tasks that require metric reasoning, occlusion handling, viewpoint manipulation, or physical simulation are built, from autonomous driving and robotic manipulation to medical visualization and immersive graphics.
+Compared with the depth and surface normal maps of Section~\ref{sec:rep_2d}, which still inhabit the image grid, 3D representations expose geometry directly and can therefore describe parts of the scene that are not visible in any single view.
+
+We organize this section around the eight 3D representations that dominate current practice (Figure~\ref{fig:p2_s4_2_3d_representation_1}, Table~\ref{tab:p2_s4_1_3d_comparison}): RGB-D images, voxels, point clouds, meshes, implicit fields, neural radiance fields (NeRF), 3D Gaussian Splatting (3DGS), and hybrids of the above.
+They differ in what they store (surfaces vs.\ volumes, explicit primitives vs.\ neural functions), how they trade off fidelity against memory and rendering speed, and how amenable they are to editing and to gradient-based optimization.
+
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{RGB-D Image}. Pairs a standard RGB image with a per-pixel depth map; view-dependent and cannot capture occluded surfaces from a single frame.
+    \item \textbf{Voxel}. A uniform 3D grid of volumetric elements; conceptually simple and well suited to inherently volumetric data, but memory grows as $O(N^3)$ for $N$ cells per axis.
+    \item \textbf{Point Cloud}. An unstructured set of 3D points, typically the native output of LiDAR or photogrammetry; faithful to the raw measurement but lacks surface connectivity.
+    \item \textbf{Mesh}. Surfaces defined by vertices and faces; the dominant representation in graphics for its GPU-friendliness, at the cost of a fixed connectivity that complicates topology change.
+    \item \textbf{Implicit Representation}. Defines surfaces as the level set of a continuous function (\eg, Signed Distance Functions); resolution-agnostic and topology-flexible, but slow to render.
+    \item \textbf{NeRF (Neural Radiance Field)}. A neural function over a 5D input domain (3D location + 2D viewing direction) that supports state-of-the-art novel-view synthesis.
+    \item \textbf{3DGS (3D Gaussian Splatting)}. Represents a scene as anisotropic 3D Gaussian primitives rendered through a differentiable splatting rasteriser, reaching NeRF-level quality at real-time speeds.
+    \item \textbf{Hybrid Methods}. Combinations of the above (\eg, DMTet, Tri-plane) that pair explicit primitives with implicit decoders to balance fidelity, efficiency, and gradient-based optimizability.
+\end{itemize}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.99\linewidth]{figures/part2/3d_representation.pdf}
+  \caption{Examples of 3D representations: RGB-D image, voxel grid, point cloud, triangle mesh, and a signed distance field (SDF) slice.}
+  \label{fig:p2_s4_2_3d_representation_1}
+\end{figure}
+
+
+% \bigskip
+
+\begin{table}[!t]
+\centering
+% \small
+% \setlength{\tabcolsep}{4pt} % Adjust column spacing for a better fit
+\caption{Qualitative comparison of 3D representations (relative ratings, not measured values).}
+\label{tab:p2_s4_1_3d_comparison}
+% \fontsize{9}{11}\selectfont
+% \setlength{\tabcolsep}{2.5mm}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{l|ccccc}
+\toprule
+\textbf{Representation} & \textbf{Fidelity} & \textbf{Memory Cost} & \textbf{Render Speed} & \textbf{Topology Flexibility} & \textbf{Editability} \\
+\midrule
+\textbf{RGB-D Image}    & Low (2.5D)  & Low                 & High                  & View-dependent           & Low          \\
+\textbf{Voxel}          & Low--Medium & High ($O(N^3)$)     & Medium                & High                     & Medium       \\
+\textbf{Point Cloud}    & Medium      & Medium (scalable)   & High                  & High                     & Medium       \\
+\textbf{Mesh}           & High        & Low (GPU-friendly)  & Very High             & Low (fixed connectivity) & High         \\
+\textbf{Implicit (SDF)} & High        & Low                 & Low (volume query)    & High                     & Low          \\
+\textbf{NeRF}           & Very High   & Low                 & Low (ray marching)    & High                     & Very Low     \\
+\textbf{3DGS}           & Very High   & Medium              & Very High (real-time) & High                     & Medium       \\
+\textbf{Hybrid}         & Very High   & Medium              & High                  & Adaptive                 & Medium--High \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+
+\subsection{RGB-D Images}
+\label{sec:rep_3d_rgbd}
+
+RGB-D images are a popular 2.5D representation that captures both photometric and geometric information from a single viewpoint.
+This data format consists of two co-registered images: a standard RGB color image providing appearance and texture details, and a corresponding depth map where each pixel value encodes the camera-space depth of the corresponding scene point.
+Formally, it can be defined as a function mapping a 2D image grid $\Omega$ to a 4D space combining color and depth:
+\begin{equation}
+I_{rgbd}: \Omega \rightarrow \mathbb{R}^3 \times \mathbb{R}_{\geq 0},
+\end{equation}
+where the first three channels represent RGB color and the fourth channel encodes the depth of the corresponding scene point. In practice, RGB-D data is stored as a tensor $I \in \mathbb{R}^{H \times W \times 4}$.
+
+The primary advantage of RGB-D data lies in its efficiency and accessibility.
+It is captured by low-cost sensors such as Microsoft Kinect or Intel RealSense, and its image-like grid structure enables the direct application of powerful 2D convolutional neural networks (CNNs) to tasks such as semantic segmentation and object detection~\cite{dai2016r,couprie2013indoor,vu2019dada}.
+This fusion of color and depth provides a rich, multi-modal input for scene understanding.
+However, a significant limitation is its view-dependent nature; an RGB-D image represents only a partial view of the 3D world, suffering from occlusions and providing no information about surfaces hidden from the camera.
+Despite this, its real-time acquisition and processing capabilities make it indispensable in robotics for navigation~\cite{desouza2002vision} and grasping~\cite{bicchi2000robotic,saxena2006robotic,zhao2025towards}, in augmented reality (AR) for scene interaction, and as a foundational input for 3D reconstruction pipelines that fuse multiple frames into a complete model~\cite{newcombe2011kinectfusion}.
+
+
+
+
+
+
+
+\subsection{Voxel Grids}
+\label{sec:rep_3d_voxel}
+
+The voxel grid is a foundational 3D representation that discretizes space into a uniform grid of volumetric elements, or \textit{voxels} (a portmanteau of ``volume'' and ``pixel'').
+Analogous to a pixel in 2D, a voxel grid can be modeled as a function mapping discrete 3D coordinates to a set of attributes:
+\begin{equation}
+G: \{1, \dots, D\} \times \{1, \dots, H\} \times \{1, \dots, W\} \rightarrow \mathcal{A},
+\end{equation}
+where $D, H, W$ are the grid dimensions and $\mathcal{A}$ can represent occupancy, color, density, or material properties, thereby enabling a detailed volumetric description of an object.
+
+A key advantage of this representation is its ability to model complex geometries and internal structures, which are often challenging for surface-based methods like polygon meshes to capture.
+The conceptual simplicity of voxels, which can be seen as the three-dimensional extension of 2D pixels, facilitates straightforward implementation and manipulation.
+Consequently, voxel grids are natively suited for applications involving inherently volumetric data, such as medical imaging (\eg, MRI and CT scans)~\cite{cciccek20163d}, where biological tissues are naturally captured as a 3D array of values.
+They are also widely adopted in computer graphics and gaming for tasks like procedural generation and creating destructible environments, as popularized by games like \textit{Minecraft}.
+
+\subsection{Point Clouds}
+\label{sec:rep_3d_point}
+
+Point clouds offer a direct and unstructured 3D representation, defined as a set of points in 3D space:
+\begin{equation}
+P = \{p_i\}_{i=1}^N, \quad p_i = (x_i, y_i, z_i, \mathbf{a}_i) \in \mathbb{R}^3 \times \mathbb{R}^C.
+\end{equation}
+Each point $p_i$ consists of its geometric coordinates $(x_i, y_i, z_i)$ and an optional $C$-dimensional attribute vector $\mathbf{a}_i$ encoding properties such as color, intensity, or surface normals. They are the native output of active 3D scanning technologies like LiDAR (Light Detection and Ranging) and structured-light scanners~\cite{behroozpour2017lidar}, as well as passive methods like photogrammetry~\cite{schonberger2016structure}.
+
+The primary strength of point clouds lies in their raw and unstructured nature; they represent geometry without imposing any explicit topological connectivity (unlike meshes) or spatial discretization (unlike voxels).
+This makes them a faithful and often highly precise representation of the captured data.
+However, this very lack of inherent structure poses significant challenges for downstream processing.
+The unordered and potentially sparse distribution of points makes tasks like feature extraction, segmentation, and reconstruction non-trivial, necessitating specialized algorithms and deep learning architectures (\eg, PointNet~\cite{qi2017pointnet} and its successors~\cite{qi2017pointnetplus}) that are designed to operate directly on irregular point sets.
+
+
+\subsection{Meshes}
+\label{sec:rep_3d_mesh}
+
+A mesh is a canonical surface representation in computer graphics, defining an object's boundary with a set of geometric and topological primitives. Formally, a triangle mesh is a tuple $M = (V, F)$, where
+\begin{equation}
+V = \{v_i\}_{i=1}^{|V|} \subset \mathbb{R}^3, \; F\subset V \times V \times V.
+\end{equation}
+Here, $V$ is a set of vertices representing points in 3D space, and $F$ is a set of faces (typically triangles) that define connectivity between vertices.
+
+The key characteristic of a mesh is its explicit topological structure, which encodes the connectivity between these elements. This structure strikes an effective balance between descriptive power and computational efficiency. Its prevalence is due to several key advantages: meshes can represent complex, smooth surfaces with arbitrary fidelity through adaptive tessellation (\ie, varying the polygon density); moreover, this representation is natively supported by modern Graphics Processing Units (GPUs), enabling highly efficient real-time rendering. The explicit connectivity also facilitates the straightforward computation of essential surface properties like normals and curvature, which are critical for realistic lighting and physical analysis. However, as a purely surface-based representation, standard meshes are ill-suited for modeling volumetric or internal structures, and representing objects with complex or changing topologies can be algorithmically challenging.
+
+
+
+
+
+
+
+
+\subsection{Implicit Representations}
+\label{sec:rep_3d_implicit}
+
+Implicit representations define 3D geometry not as a discrete set of primitives (\eg, points or polygons), but as the level set of a continuous function:
+\begin{equation}
+f: \mathbb{R}^3 \to \mathbb{R}.
+\end{equation}
+The surface $\mathcal{S}$ is implicitly defined as the set of points where the function evaluates to a specific value, typically zero:
+\begin{equation}
+\mathcal{S} = \{\mathbf{x} \in \mathbb{R}^3 | f(\mathbf{x}) = 0\}.
+\end{equation}
+
+A particularly powerful and popular form of this is the \textbf{Signed Distance Function (SDF)}.
+An SDF maps any spatial coordinate $\mathbf{x}$ to the closest distance to the surface, where the sign indicates whether the point is inside ($f(\mathbf{x}) < 0$) or outside ($f(\mathbf{x}) > 0$) the object.
+This formulation inherently guarantees watertight, closed surfaces and provides a smooth, continuous description of the geometry, making it resolution-agnostic.
+A key advantage of implicit fields is their ability to elegantly handle complex and dynamic topologies; operations like merging, splitting, or creating holes do not require complex and error-prone re-meshing procedures.
+This makes them ideal for physical simulations, such as fluid dynamics and shape manipulation.
+
+This paradigm has experienced a major resurgence with the rise of \textbf{neural fields} or \textbf{neural implicit representations}. Instead of storing the function in a grid, a neural network is trained to approximate it~\cite{mescheder2019occupancy} (\eg, DeepSDF~\cite{park2019deepsdf}).
+This approach is memory-efficient and can learn continuous, high-fidelity shape priors from data.
+Extensions such as Neural Radiance Fields (NeRF) further generalize implicit fields to jointly model geometry and appearance, and are discussed in detail in Section~\ref{sec:rep_3d_nerf}.
+To visualize or use implicit surfaces in traditional rendering pipelines, an explicit mesh representation is often extracted via algorithms like Marching Cubes~\cite{lorensen1998marching}.
+
+
+
+
+
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\linewidth]{figures/part2/3D_representations_2.pdf}
+  % \vspace{-7pt}
+  \caption{Neural and hybrid 3D representations: (a) NeRF, (b) 3DGS, and (c) hybrid methods (DMTet and Tri-plane).}
+  \label{fig:p2_s4_2_3d_representation_2}
+\end{figure}
+
+
+\subsection{Neural Radiance Fields}
+\label{sec:rep_3d_nerf}
+
+Neural Radiance Fields (NeRF) represent a paradigm shift in novel view synthesis and implicit 3D scene representation \cite{mildenhall2021nerf}.
+The core innovation is to represent a static scene as a continuous function with a 5D input domain (3D location $+$ 2D viewing direction), parameterized by a simple Multi-Layer Perceptron (MLP).
+This neural network, denoted as $F_\Theta$, maps a 3D spatial coordinate $\mathbf{x}=(x,y,z)$ and a 2D viewing direction $\mathbf{d}=(\theta, \phi)$ to a volume density $\sigma$ and an emitted color $\mathbf{c}=(r,g,b)$.
+A crucial design choice is that density $\sigma$ depends only on the location $\mathbf{x}$, while the color $\mathbf{c}$ depends on both location and viewing direction $(\mathbf{x}, \mathbf{d})$.
+This allows NeRF to capture complex, non-Lambertian surface effects such as specular reflections and translucency.
+
+To render an image from a novel viewpoint, rays are cast through the scene, and their colors are computed by integrating the predicted color and density values along each ray using principles of classical volume rendering and numerical quadrature.
+By optimizing the network's weights to minimize the photometric reconstruction error between rendered and ground-truth images, NeRF can learn a highly detailed and coherent representation of the scene from only a sparse set of posed input images.
+The resulting state-of-the-art photorealism has established NeRF as a foundational technique, inspiring a vast body of follow-up research aimed at improving its speed, scalability, and applicability to dynamic scenes~\cite{muller2022instant,barron2021mip,barron2023zip,multinerf2022}.
+
+\subsection{3D Gaussian Splatting}
+\label{sec:rep_3d_gaussian}
+
+3D Gaussian Splatting (3DGS) has recently emerged as a groundbreaking alternative to neural radiance fields, achieving state-of-the-art quality for novel view synthesis while enabling real-time rendering \cite{kerbl20233d}.
+Unlike the implicit representation of NeRF, 3DGS represents a scene as a set of $N$ anisotropic 3D Gaussian primitives, each parameterized by:
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{Position} $\boldsymbol{\mu} \in \mathbb{R}^3$: the 3D center of the Gaussian;
+    \item \textbf{Covariance} $\boldsymbol{\Sigma} \in \mathbb{R}^{3\times 3}$: shape and orientation, allowing thin planes through to volumetric wisps;
+    \item \textbf{Color}: Spherical Harmonics (SH) coefficients capturing view-dependent appearance;
+    \item \textbf{Opacity} $\alpha \in [0,1]$: opacity ($0$ is transparent and $1$ is opaque).
+\end{itemize}
+The density contributed by a single primitive at a query point $\mathbf{x} \in \mathbb{R}^3$ is
+\begin{equation}
+G(\mathbf{x}; \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \exp\!\left(-\tfrac{1}{2} (\mathbf{x}-\boldsymbol{\mu})^{\top} \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right).
+\end{equation}
+$\boldsymbol{\Sigma}$ is decomposed into a scaling matrix $\mathcal{S}$ and rotation matrix $\mathcal{R}$, such that
+\begin{equation}
+\boldsymbol{\Sigma} = \mathcal{R}\mathcal{S}\mathcal{S}^T\mathcal{R}^T,
+\end{equation}
+with per-primitive scaling and rotation stored as $s \in \mathbb{R}^{N \times 3}$ and quaternions $r \in \mathbb{R}^{N \times 4}$. The key to 3DGS's real-time performance lies in the differentiable splatting rasteriser introduced together with the representation~\cite{kerbl20233d}, which extends earlier differentiable rasterization work on meshes~\cite{liu2019soft}.
+Instead of costly per-pixel ray marching, 3DGS projects (or ``splats'') these 3D Gaussians onto the 2D image plane, creating 2D Gaussian splats.
+These splats are then sorted and alpha-blended in a highly-parallelized, feed-forward process that is exceptionally well-suited for modern GPU architectures.
+Differentiable splatting applies a viewing transform $W$ and Jacobian $J$ to compute the transformed covariance $\boldsymbol{\Sigma}^{\prime} = JW\boldsymbol{\Sigma} W^TJ^T$, enabling novel view rendering. Each pixel color $\mathcal{C}$ is obtained by blending the $N$ overlapping primitives along the ray:
+\begin{equation}
+\mathcal{C} = \sum_{i=1}^{N}c_i \alpha_i \prod_{j=1}^{i-1} (1-\alpha_j),
+\end{equation}
+where $c_i$ and $\alpha_i$ denote the color and opacity of the $i$-th primitive.
+The entire model, initialized from a sparse point cloud (typically from Structure-from-Motion), is optimized end-to-end against training images.
+The optimization process also includes an adaptive density control mechanism to dynamically add, split, or prune Gaussians to best represent the scene's geometry.
+This combination of an explicit, flexible primitive with a fast, differentiable rasterizer has set a new standard for performance and quality in 3D scene reconstruction.
+
+
+
+
+
+\subsection{Hybrid Methods}
+\label{sec:rep_3d_hybrid}
+To harness the complementary strengths of different 3D representations, hybrid methods have emerged as a powerful paradigm.
+These approaches combine two or more representations, integrating the high-fidelity and continuous nature of implicit functions with the computational efficiency and explicit structure of primitives like meshes or voxels.
+This section reviews two influential hybrid techniques: Deep Marching Tetrahedra (DMTet) and Tri-plane.
+
+\paragraph{Deep Marching Tetrahedra (DMTet).}
+Deep Marching Tetrahedra (DMTet)~\cite{shen2021deep} is an innovative hybrid technique that bridges learned implicit fields with explicit polygonal meshes. 
+Its core concept involves using a neural network to predict an implicit representation of a shape, such as a Signed Distance Function (SDF)~\cite{vicini2022differentiable} or an occupancy field. 
+A differentiable version of the marching tetrahedra algorithm subsequently extracts a high-quality, explicit triangle mesh surface from this implicit representation.
+
+The primary advantage of DMTet lies in its end-to-end differentiability. 
+The entire pipeline, from the implicit field prediction to the final mesh generation, allows gradients to flow from a 2D-image-based loss function back to the 3D shape parameters.
+This enables direct optimization of the mesh geometry using 2D supervision, leading to highly detailed and accurate models.
+Furthermore, DMTet can learn to produce an adaptive mesh, allocating higher tetrahedral density to regions of fine detail, thus optimizing computational resources while maintaining high fidelity.
+
+
+\paragraph{Tri-plane.}
+The Tri-plane representation~\cite{chan2022efficient} offers an efficient, factorized approach to modeling 3D scenes and objects. Instead of encoding information in a dense 3D volume, it decomposes the 3D space into three orthogonal 2D feature planes (typically aligned with the XY, YZ, and XZ axes). This design significantly reduces the memory and computational complexity associated with 3D representations.
+
+The working principle is to derive the feature for any 3D point by projecting it onto the three 2D planes, querying the features at the corresponding projected coordinates, and aggregating them (\eg, through summation or concatenation). 
+This aggregated feature vector is then fed into a small MLP to decode the final property of the point, such as its color, density, or SDF value.
+This ``explicit-grid-plus-implicit-decoder'' structure is the essence of its hybrid nature.
+It benefits from the efficiency of 2D grid-based feature storage, which can be processed by powerful 2D CNNs, while avoiding the prohibitive memory cost of a full 3D grid.
+
+
+\begin{table}[!t]
+\centering
+\caption{Representative methods for each 3D representation family, chosen to show its historical progression and dominant design choices.}
+\label{tab:p2_s4_3d_representative_methods}
+% \small
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{L{0.19\textwidth}L{0.4\textwidth} L{0.4\textwidth}}
+\toprule
+\textbf{Representation} & \textbf{Representative Methods} & \textbf{Key Idea / Contribution} \\
+\midrule
+\textbf{RGB-D Image} & KinectFusion~\cite{newcombe2011kinectfusion}, DADA~\cite{vu2019dada}, SemanticFusion~\cite{mccormac2017semanticfusion} & Fuses color and per-pixel depth for real-time reconstruction and semantic understanding. \\
+\textbf{Voxel Grid} & VoxNet~\cite{maturana2015voxnet}, 3D U-Net~\cite{cciccek20163d}, OGN~\cite{tatarchenko2017octree} & Direct 3D CNNs on regular grids; octree variants reduce memory for high resolution. \\
+\textbf{Point Cloud} & PointNet~\cite{qi2017pointnet}, PointNet++~\cite{qi2017pointnetplus}, Point Transformer~\cite{zhao2021point}, PointNeXt~\cite{qian2022pointnext} & Permutation-invariant and attention-based architectures for unordered point sets. \\
+\textbf{Mesh} & MeshCNN~\cite{hanocka2019meshcnn}, Pixel2Mesh~\cite{wang2018pixel2mesh}, AtlasNet~\cite{groueix2018papier} & Learning on mesh edges and single-image mesh generation from data. \\
+\textbf{Implicit (SDF/occupancy)} & Occupancy Networks~\cite{mescheder2019occupancy}, DeepSDF~\cite{park2019deepsdf}, IM-Net~\cite{chen2019imnet}, NeuS~\cite{wang2021neus} & Neural networks encode continuous surfaces via occupancy or signed-distance fields. \\
+\textbf{NeRF} & NeRF~\cite{mildenhall2021nerf}, Plenoxels~\cite{fridovich2022plenoxels}, Instant-NGP~\cite{muller2022instant}, Mip-NeRF 360~\cite{barron2022mip} & 5D radiance fields; later works accelerate training and reduce aliasing. \\
+\textbf{3DGS} & 3D Gaussian Splatting~\cite{kerbl20233d}, Mip-Splatting~\cite{yu2024mip}, Scaffold-GS~\cite{lu2024scaffold}, 4DGS~\cite{wu20244d} & Anisotropic Gaussian primitives with differentiable rasterization for real-time rendering. \\
+\textbf{Hybrid} & DMTet~\cite{shen2021deep}, Tri-plane~\cite{chan2022efficient}, NeRFactor~\cite{zhang2021nerfactor} & Combines explicit grids or meshes with compact implicit decoders. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% \subsection{Comparison, Applications, and Challenges}
+% \label{sec:rep_3d_summary}
+
+% Table~\ref{tab:p2_s4_1_3d_comparison} highlights the complementary trade-offs among the eight representations surveyed above, while Table~\ref{tab:p2_s4_3d_representative_methods} collects representative methods.
+% RGB-D images, voxels, point clouds, and meshes remain the workhorses of applications that prize acquisition simplicity, volumetric modeling, raw geometric fidelity, or GPU rendering, respectively.
+% Neural representations, NeRF and 3DGS in particular, have shifted the frontier toward photorealistic novel-view synthesis from sparse images, but they do so at the cost of editability and, in the case of NeRF, rendering speed.
+% Hybrid methods attempt to occupy the middle ground by pairing explicit primitives with compact neural decoders.
+
+% These trade-offs manifest differently across application domains.
+% In \textbf{robotics}, RGB-D sensors and point clouds dominate perception and grasping pipelines; meshes and implicit fields are common for collision checking and simulation.
+% In \textbf{autonomous driving}, LiDAR point clouds are the canonical input, while voxel grids and bird's-eye-view feature maps serve as intermediate representations for detection and prediction.
+% In \textbf{graphics and virtual production}, meshes remain the standard for real-time rendering, while NeRF and 3DGS are increasingly used for view synthesis, digital humans, and scene relighting.
+% In \textbf{medical imaging}, voxel grids are natural for CT and MRI data, and implicit surfaces are used for organ and tumor segmentation.
+
+% Several open challenges cut across all of these representations.
+% The most pervasive is \textbf{scalability}: as scenes grow from single objects to rooms, buildings, and outdoor environments, memory and computation become bottlenecks for voxels, point clouds, and dense Gaussian primitives alike.
+% Even where memory is not the limiting factor, \textbf{editability and composability} lag behind: neural fields and 3DGS are difficult to edit in the intuitive way meshes or voxels allow, and combining several reconstructed assets into a coherent scene remains nontrivial.
+% Time compounds both problems, since most representations surveyed here assume static geometry, and extending them to \textbf{dynamic and deformable scenes} (articulated objects, fluids, general deformable media) is still an active research direction.
+% Underlying all of these is \textbf{cross-representation conversion} (extracting meshes from neural fields, compressing point clouds into Gaussians, or turning implicit surfaces into editable primitives), which remains a practical barrier to deploying these representations in downstream pipelines.
+% Progress will therefore depend not only on better individual representations, but on principled ways to compose and convert between them.

@@ -1,0 +1,99 @@
+
+
+\subsection{Geometry-aware Neural Spatial Reasoning}
+\label{subsec:p3_s7_2_3}
+Where the implicit and explicit methods above learn spatial relationships from data, geometry-aware approaches build the relevant symmetries into the network itself: an object rotated, translated, or re-indexed keeps its identity, and the architecture is constructed so that this holds by design rather than being learned from many transformed examples.
+The gain is sample efficiency and robustness under the chosen transformations; the cost is that the symmetry group has to be chosen in advance.
+Figure~\ref{fig:p3_s7_2_3_geometry_formulation} pairs three symmetry-driven task settings with the method families that supply the matching inductive bias.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/geometry-aware_neural_spatial_reasoning.pdf}
+    \caption{Symmetry-driven tasks (top) and geometric neural mechanisms (bottom). Top: (i) rotation-invariant classification, (ii) SE(3)-equivariant grasping, shown with a planar rotation, and (iii) a molecular scalar invariant to rigid motion and atom reindexing. Bottom: (a) STN~\cite{jaderberg2015spatial}, (b) G-CNN~\cite{cohen2016group}, (c) steerable CNN~\cite{cohen2017steerable}, (d) PointNet~\cite{qi2017pointnet}, and (e) TFN / SE(3)-Transformer~\cite{thomas2018tensorfield,fuchs2020se}. Blue marks transformations, geometric features, and preserved outputs; all examples are schematic.}
+    \label{fig:p3_s7_2_3_geometry_formulation}
+\end{figure}
+
+\subsubsection{Task Definition}
+The input $x$ lives in a space with a known geometric structure (a 2D image, a 3D point cloud, a molecular graph), optionally with a query $q$, and the network $M_{\theta,G}$ is designed to respect a chosen group $G$ of transformations: translations for standard CNNs, rotations SO(3), rigid motions SE(3), or permutations of set elements.
+Its output $\mathbf{z}$ is either invariant or equivariant to the action of $G$.
+
+\begin{quotebox}
+\noindent\textbf{Invariance vs.\ equivariance.} An \emph{invariant} representation stays fixed under the group action, $M_{\theta,G}(g\cdot x)=M_{\theta,G}(x)$, and deliberately discards pose; an \emph{equivariant} representation co-transforms with the input, $M_{\theta,G}(g\cdot x)=\rho(g)\cdot M_{\theta,G}(x)$, where $\rho(g)$ is the representation of the group action on the feature space, and thereby preserves it. In either case geometric consistency is a native constraint that the architecture guarantees by construction.
+\end{quotebox}
+
+\subsubsection{Methodology}
+
+Invariance is the right target when the output should not depend on orientation or position (classification), equivariance when pose and relative arrangement are the point (manipulation, keypoints, instance segmentation, molecular modeling); the layers below realize each.
+
+\paragraph{Invariance by Pooling and Augmentation.}
+The baseline strategies work without changing the architecture.
+Augmenting the training set with rotated, flipped, or scaled copies pushes a standard CNN toward assigning the same label to all variants, but buys only an approximate invariance and requires examples of every transformation to be tolerated; global average pooling~\cite{lin2013network} at the end of a feature extractor discards the ``where'' of each feature and keeps only its presence, which is the main reason classification CNNs are robust to translation.
+Neither guarantees invariance to anything beyond translation.
+
+\paragraph{Active Alignment with Spatial Transformer Networks.}
+Rather than ignoring transformations, a Spatial Transformer Network (STN)~\cite{jaderberg2015spatial} learns to undo them: a small localization network regresses the parameters of an affine transformation that it predicts will bring the object into a canonical pose, a grid generator turns these parameters into a sampling grid, and a differentiable sampler produces the rectified feature map, so the localization network is trained by backpropagation from the task loss alone.
+The module can be inserted at any point in a network and acts as learned attentional alignment, normalizing a region of interest for the layers downstream; the invariance it provides is learned, not guaranteed.
+
+\paragraph{Permutation Invariance over Point Sets.}
+A separate symmetry arises when the input is an unordered set rather than a grid: the model must be invariant to the ordering of its elements.
+DeepSets~\cite{zaheer2017deep} shows that any permutation-invariant function over a set can be written as $f(X)=\phi\!\left(\sum_{x\in X}\psi(x)\right)$ for suitable $\phi$ and $\psi$, encode each element independently, sum, then decode, which turns set-level invariance from an ad-hoc choice into a constructive recipe and makes explicit which aggregators preserve invariance and which silently break it; the same framework yields permutation-\emph{equivariant} layers for per-element outputs (per-point labels, per-atom properties).
+PointNet~\cite{qi2017pointnet} is the canonical instance on raw point clouds, a shared multilayer perceptron per point followed by symmetric max pooling, and PointNet++~\cite{qi2017pointnetplus} adds locality by repeatedly grouping points within a metric ball and applying the same shared-MLP-plus-pool pattern at multiple scales.
+Permutation invariance comes for free in this family; rigid-motion invariance does not, which is the gap the equivariant methods below address.
+
+\paragraph{From Translation to Group Equivariance.}
+A standard convolution is translation-equivariant (shifting the image shifts the feature map) but not rotation-equivariant: rotating the input changes the feature map unpredictably.
+Group equivariant convolutions (G-CNNs)~\cite{cohen2016group} generalize the operation to a larger discrete group such as the four planar rotations: a single filter is rotated into a set of transformed copies, all are correlated with the input, and the feature map gains an orientation dimension, so a feature that reads ``edge at $45^\circ$'' becomes ``edge at $135^\circ$'' at the corresponding location when the input rotates by $90^\circ$.
+Equivariance is therefore not learned but imposed, layer by layer.
+
+\paragraph{Steerable Filters and Equivariance in Every Layer.}
+Steerable CNNs~\cite{cohen2017steerable} replace the group-indexed filter copies by filters expressed in a steerable basis, so that the response at a transformed orientation follows by linear combination of basis responses rather than by explicit rotation; the general E(2) framework~\cite{weiler2019general} extends this to continuous rotations and reflections with circular-harmonic bases under one configurable interface, and library efforts such as e3nn~\cite{geiger2022e3nn} do the same for E(3) / SE(3).
+Full equivariance also requires that pooling, nonlinearities, and normalization respect the group: a standard ReLU applied to the components of a geometric vector breaks it (activations are therefore applied to invariant quantities such as the vector norm), and channel-wise batch normalization breaks the coupling between channels, which motivates equivariant normalization~\cite{meng2024geometric}.
+The guarantee is only as strong as its weakest layer; one non-equivariant operation anywhere in the stack silently undoes the symmetry the rest preserve.
+
+\paragraph{Equivariant Attention and Continuous SE(3) Symmetries.}
+A more recent line lifts the treatment from convolutions to attention, with queries, keys, and values that transform predictably under a chosen Lie group.
+The SE(3)-Transformer~\cite{fuchs2020se} is the canonical instance, building each attention layer from tensor-field representations so that rotating the input scene rotates the whole stack of outputs consistently; Tensor Field Networks~\cite{thomas2018tensorfield} use the same machinery without an attention head and have been especially influential in molecular modeling, where SE(3) equivariance is a problem constraint rather than an optional bias.
+Both parameterize the kernel as a combination of spherical-harmonic basis functions, which is computationally heavy, so a parallel line pursues lighter equivariance: E($n$)-equivariant graph networks (EGNN)~\cite{satorras2021egnn} achieve E($n$)-equivariant message passing from relative distances and coordinate updates alone, and Vector Neurons~\cite{deng2021vector} lift scalar point-cloud features to 3D vectors, obtaining SO(3) equivariance as a drop-in primitive, each trading representational richness for scalability.
+With the libraries above, trying equivariance on a new task now costs about as much engineering as a convolutional baseline; the choice of group still has to be made by the designer.
+
+
+\subsubsection{Benchmarks}
+
+Benchmarks in this area are constructed to expose behavior under symmetry transformations.
+MNIST-rot is the standard 2D testbed, separating methods that learn rotation robustness through augmentation from those that build it in; ModelNet40~\cite{wu20153d} evaluates point-cloud classification under three protocols, aligned training and test (z/z), training with azimuthal rotations and testing under arbitrary SO(3) rotations (z/SO(3)), and arbitrary rotations in both (SO(3)/SO(3)), which is where augmentation, STN-style alignment, and PointNet's permutation-invariant pooling are separated from genuine rotation handling; ScanObjectNN~\cite{uy2019scanobjectnn} adds real scan noise and occlusion.
+For equivariance as a hard constraint, QM9~\cite{ramakrishnan2014quantum} (small-molecule property prediction) and interatomic-potential tasks are the reference, where the SE(3)-equivariant models NequIP~\cite{batzner2022e3} and MACE~\cite{batatia2022mace} set the current points for data efficiency and accuracy.
+Table~\ref{tab:p3_s7_2_3_symmetry} reports the two ladders on which the method families can be compared directly.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Symmetry benchmarks. MNIST-rot: test error (\%, lower is better); plain CNN and P4CNN figures from \citet{cohen2016group}, E(2)-steerable figure from \citet{weiler2019general}. ModelNet40: classification accuracy (\%, higher is better) under the train/test rotation protocols z/z, z/SO(3), and SO(3)/SO(3), all as re-evaluated by \citet{deng2021vector}.}
+    \label{tab:p3_s7_2_3_symmetry}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{3.0mm}
+    \begin{tabular}{L{0.30\textwidth} C{0.14\textwidth} C{0.11\textwidth} C{0.11\textwidth} C{0.13\textwidth}}
+        \toprule
+        \textbf{Method} & \textbf{MNIST-rot err.} & \textbf{z/z} & \textbf{z/SO(3)} & \textbf{SO(3)/SO(3)} \\
+        \midrule
+        Plain CNN (Z2CNN)~\cite{cohen2016group}                & 5.03 & --   & --   & --   \\
+        P4CNN (G-CNN)~\cite{cohen2016group}                    & 2.28 & --   & --   & --   \\
+        E(2)-steerable CNN~\cite{weiler2019general}            & 0.68 & --   & --   & --   \\
+        PointNet~\cite{qi2017pointnet}                         & --   & 85.9 & 19.6 & 74.7 \\
+        PointNet++~\cite{qi2017pointnetplus}                   & --   & 91.8 & 28.4 & 85.0 \\
+        VN-PointNet~\cite{deng2021vector}                      & --   & 77.5 & 77.5 & 77.2 \\
+        VN-DGCNN~\cite{deng2021vector}                         & --   & 89.5 & 89.5 & 90.2 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\subsubsection{Challenges and Trends}
+The most fundamental difficulty is choosing the symmetry group: invariance to a group that is too large (SO(3) when only SO(2) is task-relevant) destroys discriminative information, invariance to one too small leaves the model brittle to the symmetries the task actually exhibits, and the trade-off has no purely data-driven solution~\cite{cohen2016group,cohen2017steerable}.
+Cost scales with the group: classical equivariant architectures index filters by group elements, so parameters and memory grow with the size of the chosen group, limiting how freely reflections, multi-scale rotations, or higher-order tensor representations can be included~\cite{weiler2019general}.
+The assumption of \emph{exact} symmetry is also brittle: point clouds with self-occlusion, partial-view RGB, and noisy LiDAR scans do not realize an SO(3)-orbit, so an architecture that is mathematically equivariant can still fail when the input violates the assumed structure.
+Table~\ref{tab:p3_s7_2_3_symmetry} shows where the two targets diverge: on 2D classification both hand-coded invariance and learned equivariance saturate, so data efficiency rather than accuracy becomes the discriminating axis, while on ModelNet40 the invariance-only PointNet family collapses under unseen rotations and the equivariant family holds its accuracy, because the task requires geometric information to be \emph{preserved}, not discarded.
+Finally, hard equivariance sits uneasily with the attention-based representations that dominate the rest of the stack (§\ref{subsec:p3_s7_2_1}, §\ref{subsec:p3_s7_2_2}, vision--language pretraining): self-attention is permutation-equivariant but not rotation-equivariant, and bolting an equivariant layer onto an attention pipeline often degrades the inductive bias that motivated the choice.
+
+Equivariant attention is the main compromise on offer, and frame averaging~\cite{puny2022frameaveraging} moves in the opposite direction, turning any off-the-shelf backbone into an invariant or equivariant one by symmetrizing its outputs over a small input-dependent set of group frames, which decouples the choice of symmetry from the choice of architecture and sidesteps the parameter cost of group-indexed filters.
+These threads are pulling geometry-aware reasoning back toward the rest of the chapter: vision--language and vision--language--action models attach equivariant heads where 3D pose and geometric consistency matter, as in grasp policies and pose-conditioned generation, and primitives first devised for object classification are finding second lives in world models, embodied control, and 3D generation.
+
+

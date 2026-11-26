@@ -1,0 +1,203 @@
+\subsection{3D Object Synthesis}
+\label{subsec:p3_s8_2_1}
+
+
+3D object synthesis generates a complete, usable 3D asset (geometry and, optionally, appearance) from \textit{text}, \textit{a single image}, or \textit{a sparse set of views}.
+Where reconstruction recovers an object consistent with given observations, synthesis additionally asks for plausible completion of what was never observed, for generative diversity, and for usability in downstream graphics and embodied pipelines (\eg, game engines, simulators, manipulation); the output is a textured mesh, a radiance field, or a set of 3D Gaussians depending on which of fidelity, editability, rendering speed, and toolchain compatibility matters most.
+It is also the point at which the \emph{semantic-to-pixel} prior of §\ref{sec:p3_s8_1} (the conditional latent sampler $G_\theta$ of Eq.~\eqref{eq:t2i_generator}) becomes a \emph{semantic-to-3D} prior $G_\theta^{\text{3D}}$: 3D-native generators train on 3D corpora directly, score-distillation pipelines invert the frozen 2D prior under rendering supervision, multi-view pipelines fine-tune it to emit consistent views and lift them, and feed-forward reconstructors and 3D-native latent diffusion exploit the recent object-scale 3D corpora to learn one-shot text- or image-to-3D maps.
+Figure~\ref{fig:3D_object_generation} illustrates the text- or single-image-conditioned setting.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.89\linewidth]{figures/part3/section8/3D-objects-gen-1.png}
+    \caption{Illustration of 3D object generation conditioned on text or a single image (adapted from~\cite{xiang2025trellis}).}
+    \label{fig:3D_object_generation}
+\end{figure}
+
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_2_1_task}
+
+We cast 3D object synthesis as a paradigm-agnostic extension of the latent-generator framework of §\ref{subsec:p3_s8_1_1}.
+Let $\mathcal{R}$ denote a 3D-representation space taken from $\{\,\textit{mesh},\,\textit{SDF},\,\textit{voxel},\,\textit{triplane},\,\textit{NeRF},\,\text{\textit{3DGS}},\,\textit{structured latent}\,\}$, and let $\mathcal{C}$ denote the conditioning-input space comprising a text prompt $\mathbf{x}\!\in\!\mathcal{X}$ embedded via $\phi$ (as in Eq.~\eqref{eq:t2i_generator}), a single image $I\!\in\!\mathcal{Y}$, or a multi-view set $\{(I_v,\pi_v)\}_{v=1}^V$ pairing images with camera poses $\pi_v$.
+A condition encoder $\kappa:\mathcal{C}\!\to\!\mathcal{C}'$ maps each input into a shared conditioning embedding.
+The core learning problem is to train a conditional 3D generator
+\begin{equation}
+G_\theta^{\text{3D}}:\mathcal{C}'\rightarrow \mathcal{R},\qquad \hat{\mathbf{r}}\sim p_\theta^{\text{3D}}\!\big(\mathbf{r}\,\big|\,\kappa(\mathbf{c})\big),
+\label{eq:p3_s8_2_1_objective}
+\end{equation}
+so that the sampled asset $\hat{\mathbf{r}}\in\mathcal{R}$ admits high-fidelity geometry, plausibly completes unobserved regions, and renders consistently across viewpoints.
+Two limiting cases locate Eq.~\eqref{eq:p3_s8_2_1_objective} in the literature.
+When $\kappa(\mathbf{c})=\varnothing$ the sampler degenerates to \emph{unconditional} 3D generation, the regime of early GAN- and diffusion-based 3D generators trained on category-specific corpora.
+At the other extreme, when $\mathbf{c}$ is text-only and $G_\theta^{\text{3D}}$ is realized by distilling the 2D sampler $G_\theta$ of Eq.~\eqref{eq:t2i_generator} (via score-distillation sampling, multi-view consistency objectives, or volume-rendering supervision), one recovers the DreamFusion-style text-to-3D pipeline that has dominated open-vocabulary 3D synthesis since 2022.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_2_1_methodology}
+
+The four paradigms below are four ways of parameterizing and optimizing the sampler $G_\theta^{\text{3D}}$ of Eq.~\eqref{eq:p3_s8_2_1_objective}, taken in the order in which each became prominent.
+Figure~\ref{fig:p3_s8_2_1_paradigms} contrasts them, making explicit which components are trained versus frozen and where the 3D representation $\mathcal{R}$ is instantiated.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section8/3D_object_synthesis.pdf}
+    \caption{Four paradigm families for 3D object synthesis: (P1) 3D-native generation; (P2) distillation from a frozen 2D diffusion prior (SDS); (P3) multi-view generation with a fine-tuned prior, then lifting to 3D; and (P4) learned direct-to-3D routes, by one-pass reconstruction or iterative 3D latent sampling. The families can overlap, notably P1 and the latent route of P4; chair images are illustrative.}
+    \label{fig:p3_s8_2_1_paradigms}
+\end{figure}
+
+\paragraph{3D-Native Generators.}
+\label{para:p3_s8_2_1_native}
+The earliest 3D generators instantiate $G_\theta^{\text{3D}}$ as a sampler trained \emph{directly} on a 3D representation, by denoising score matching on voxels, SDFs, or triplanes or, in earlier work, by an adversarial fit to a category-specific 3D corpus $p_{\text{data}}^{\text{3D}}(\mathbf{r})$,
+\begin{equation}
+\mathcal{L}_{\text{native}}(\theta)
+=
+\mathbb{E}_{\mathbf{r}_0\sim p_{\text{data}}^{\text{3D}},\,t,\,\epsilon}\Big[\big\|\epsilon - \epsilon_\theta^{\text{3D}}\!\big(\mathbf{r}_t,\,t,\,\kappa(\mathbf{c})\big)\big\|^2\Big],
+\quad
+\mathbf{r}_t=\alpha_t \mathbf{r}_0 + \sigma_t\,\epsilon,
+\label{eq:p3_s8_2_1_native_objective}
+\end{equation}
+where the noise predictor $\epsilon_\theta^{\text{3D}}$ operates directly on $\mathbf{r}\!\in\!\mathcal{R}$ with no 2D intermediary, so the supervision signal scales with the size of the 3D corpus rather than with 2D image--text pairs.
+Because 3D data is heterogeneous, these generators are themselves diverse, having been instantiated on signed distance fields~\cite{gao2022get3d}, voxel grids~\cite{wu2016learning, yang20173d, zhu2018visual}, point clouds~\cite{lin2018learning, huang2020pf}, view sets~\cite{park2017transformation, nguyen2019hologan}, neural radiance fields~\cite{chan2022efficient, chan2021pi, deng2022gram, niemeyer2021giraffe, schwarz2020graf}, triplanes~\cite{chen2023singlestage, shue20233dtriplanetriplane, wang2023rodin}, and 3D Gaussian Splatting~\cite{wewer2024latentsplat, roessle2024l3dg, zou2024triplane}.
+The scarcity and monotony of 3D corpora remain the bottleneck: even with sophisticated architectures, generated geometry and texture lack fidelity and stay confined to a handful of canonical categories, which is what pushed the field, around 2022--2023, toward paradigms that use the much larger \emph{2D} corpora as an indirect supervision signal for 3D structure.
+
+\paragraph{2D-Prior Distillation (SDS Family).}
+\label{para:p3_s8_2_1_sds}
+The second paradigm sidesteps the 3D-data bottleneck by realizing $G_\theta^{\text{3D}}$ as a \emph{per-shape optimization} that distills gradients from a pretrained 2D generator (a CLIP model~\cite{radford2021learning} or a 2D diffusion model~\cite{rombach2022ldm}) trained on web-scale image data~\cite{schuhmann2022laion5b}.
+Given the \emph{frozen} 2D noise predictor $\epsilon_\phi$ of Eq.~\eqref{eq:t2i_generator} and a differentiable renderer $\mathrm{Render}(\mathbf{r}_\theta,\pi)$ that images a 3D representation $\mathbf{r}_\theta\!\in\!\mathcal{R}$ under camera pose $\pi$, score distillation updates only the \emph{per-shape} 3D parameters $\theta$ via the gradient
+\begin{equation}
+\nabla_\theta \mathcal{L}_{\text{SDS}}
+=
+\mathbb{E}_{t,\,\epsilon,\,\pi}\Big[\,w(t)\,\big(\epsilon_\phi(\mathbf{y}_t^\pi,\,t,\,\phi(\mathbf{x})) - \epsilon\big)\,\tfrac{\partial \mathbf{y}^\pi}{\partial \theta}\,\Big],
+\quad
+\mathbf{y}^\pi = \mathrm{Render}(\mathbf{r}_\theta,\pi),
+\label{eq:p3_s8_2_1_sds_objective}
+\end{equation}
+where $w(t)$ is a step-dependent weighting and $\mathbf{y}_t^\pi$ is the rendered view perturbed by the diffusion forward process.
+The contrast with Eq.~\eqref{eq:p3_s8_2_1_native_objective} is sharp: the 2D prior of §\ref{sec:p3_s8_1} is held \emph{fixed} and no 3D corpus is consumed, while the trainable parameters live in the representation of a \emph{single} asset, hence the per-shape optimization cost paid at inference.
+A line of work~\cite{jain2022zerodreamfields, poole2022dreamfusion, lin2023magic3d, wang2023score} applies score-distillation sampling (SDS) or its variants to a NeRF or mesh; DreamFusion~\cite{poole2022dreamfusion} obtains zero-shot text-to-3D by optimizing a NeRF whose multi-view renderings the 2D diffusion prior scores, and GaussianDreamer~\cite{yi2024gaussiandreamer} moves the same recipe onto a 3DGS representation.
+These methods need no 3D training data, but because the optimization is rerun for every prompt they are slow, prone to over-saturated color, and subject to the ``multi-face'' (Janus) artifact in which the 2D prior fails to disambiguate the front and back of an object; variational score distillation~\cite{wang2023prolificdreamer} mitigates the over-saturation but not the per-prompt cost.
+
+\paragraph{Multi-View Generation and Lifting.}
+\label{para:p3_s8_2_1_mv}
+The third paradigm realizes $G_\theta^{\text{3D}}$ as a two-stage pipeline: a fine-tuned 2D diffusion model generates a small set of geometrically consistent views, and a separate reconstructor lifts them to a 3D asset, so that Eq.~\eqref{eq:p3_s8_2_1_objective} factorizes as
+\begin{equation}
+\hat{\mathbf{r}}
+=
+\mathcal{F}_\psi\Big(\big\{\hat{\mathbf{y}}_v,\,\pi_v\big\}_{v=1}^V\Big),
+\qquad
+\hat{\mathbf{y}}_v \sim p_\theta\big(\mathbf{y}_v \,\big|\, \mathbf{y}_{\text{ref}},\,\pi_v,\,\phi(\mathbf{x})\big),
+\label{eq:p3_s8_2_1_mv_objective}
+\end{equation}
+where the view-conditional 2D sampler $p_\theta(\cdot\mid\cdot)$ is a fine-tuned variant of Eq.~\eqref{eq:t2i_generator} that additionally consumes a reference image or text $\mathbf{y}_{\text{ref}}$ and a target camera pose $\pi_v$, and $\mathcal{F}_\psi$ is a (typically feed-forward) multi-view-to-3D reconstructor.
+Two differences from Eq.~\eqref{eq:p3_s8_2_1_sds_objective} follow: the 2D prior is \emph{fine-tuned} rather than frozen, and the 3D representation appears only inside the deterministic lift $\mathcal{F}_\psi$, with no per-shape inner loop at inference, which is what lets this paradigm run one to two orders of magnitude faster than SDS at the price of depending on the view-consistency of the synthesized $\hat{\mathbf{y}}_v$.
+The first step was to make a pretrained diffusion model pose-aware. Following fine-tuning recipes such as ControlNet~\cite{zhang2023adding} and LoRA~\cite{hu2022lora}, several works~\cite{raj2023dreambooth3d, seo2023let3DFuse} fine-tune for cross-view consistency; Zero-1-to-3~\cite{liu2023zero} opened the open-world single-image setting by training a diffusion model to synthesize a novel view conditioned on an input view and a relative camera pose; MVDream~\cite{shi2023mvdream} and ImageDream~\cite{wang2023imagedream} fix a world-camera coordinate convention from which geometry can be recovered; Magic123~\cite{qian2023magic123} combines the Zero-1-to-3 prior with the 2D prior of Stable Diffusion; One-2-3-45~\cite{liu2023one2345} lifts Zero-1-to-3 views to a mesh; and Consistent123~\cite{lin2024consistent123} and MVD-Fusion~\cite{hu2024mvdfusion} add boundary and depth priors.
+Attention then turned to consistency \emph{across} the generated views: SyncDreamer~\cite{liu2023syncdreamer} correlates features across views with a 3D-aware attention, CAT3D and Free3D~\cite{gao2024cat3d, zheng2024free3d} model the multi-view distribution jointly, and Zero123++~\cite{shi2023zero123++} tiles six surrounding views into a single grid image, a trick inherited by One-2-3-45++~\cite{liu2024one2345++}, Instant3D~\cite{li2023instant3d}, InstantMesh~\cite{xu2024instantmesh}, and AR-1-to-3~\cite{zhang2025ar123}.
+
+\paragraph{Feed-Forward Reconstruction and 3D-Native Latent Diffusion.}
+\label{para:p3_s8_2_1_lrm}
+The fourth group amortizes generation across object-scale 3D corpora rather than optimizing each asset against a frozen 2D prior, in two instantiations.
+A \emph{feed-forward reconstructor} trains $G_\theta^{\text{3D}}$ end-to-end to map the conditioning embedding $\kappa(\mathbf{c})$ directly to a 3D representation $\hat{\mathbf{r}}\!\in\!\mathcal{R}$, supervised by differentiable rendering against $V$ ground-truth views $\{\mathbf{y}_v,\pi_v\}$ drawn from the corpus,
+\begin{equation}
+\mathcal{L}_{\text{LRM}}(\theta)
+=
+\mathbb{E}_{(\mathbf{c},\,\{\mathbf{y}_v,\pi_v\}_v)\sim p_{\text{data}}^{\text{3D}}}\,
+\sum_{v=1}^V \big\|\mathrm{Render}\big(G_\theta^{\text{3D}}(\kappa(\mathbf{c})),\,\pi_v\big) - \mathbf{y}_v\big\|^2.
+\label{eq:p3_s8_2_1_lrm_objective}
+\end{equation}
+A \emph{3D-native latent diffusion} model instead learns a 3D autoencoder pair $(E^{\text{3D}}, D^{\text{3D}})$ with $\mathbf{z}^{\text{3D}}\!=\!E^{\text{3D}}(\mathbf{r})$, trains a denoising model on the compact latent, and decodes via $\hat{\mathbf{r}}=D^{\text{3D}}(\hat{\mathbf{z}}^{\text{3D}})$,
+\begin{equation}
+\mathcal{L}_{\text{3DL}}(\theta)
+=
+\mathbb{E}_{\mathbf{z}^{\text{3D}}_0,\,t,\,\epsilon}\Big[\big\|\epsilon - \epsilon_\theta\big(\mathbf{z}^{\text{3D}}_t,\,t,\,\kappa(\mathbf{c})\big)\big\|^2\Big],
+\label{eq:p3_s8_2_1_latdiff_objective}
+\end{equation}
+which is the 2D LDM objective Eq.~\eqref{eq:t2i_ldm_objective} of §\ref{subsec:p3_s8_1_1} with the autoencoder moved from pixels to $\mathcal{R}$.
+Both variants avoid the per-shape optimization of Eq.~\eqref{eq:p3_s8_2_1_sds_objective}, but only the reconstructor uses a single prediction pass; latent diffusion still samples iteratively.
+The unlocking factor was the arrival of Objaverse and Objaverse-XL~\cite{deitke2023objaverse, deitke2023objaversexl}.
+LRM~\cite{hong2023lrm} and its follow-ups~\cite{tang2024lgm, wang2024crm, wang2025moving} show that large transformers trained purely with rendering losses capture object geometry and texture in detail and generalize to unseen images, and a parallel line introduces compact \emph{3D-native latent codes}~\cite{chen20253dtopia, zhang20233dshape2vecset, ye2022structured, yang2025prometheus} whose distribution a latent diffusion model can learn; TRELLIS~\cite{xiang2025trellis}, CLAY~\cite{zhang2024clay}, HiGS-RGBN~\cite{shen2025highGSRGBN}, and Hunyuan3D~\cite{yang2024hunyuan3d} build on this to bring generated assets close to production grade while keeping the open-vocabulary reach that the SDS family pioneered.
+
+Two design choices cut across the four paradigms.
+The representation $\mathcal{R}$ (\textit{mesh}, \textit{SDF}, \textit{voxel}, \textit{triplane}, \textit{NeRF}, \textit{3DGS}, or \textit{structured latent}) is largely independent of the paradigm: SDS has been run on NeRFs and on 3DGS, feed-forward reconstructors output triplanes, meshes, or Gaussians, and latent-diffusion stacks decode to almost any explicit representation through a learned VAE.
+So is the conditioning modality: the same backbone takes text, a single image, or sparse views by changing only the encoder $\kappa$ and the camera-pose embedding, and production systems chain them (image-to-3D conditioned on a text-to-image preview).
+The succession of paradigms itself tracks the accumulation of supervision at each level, from 3D-native corpora to 2D image--text pairs to Zero-1-to-3-style multi-view priors to Objaverse-XL-scale 3D, with the most recent industrial systems sitting in the fourth paradigm while inheriting the multi-view-consistency tricks of the third.
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_2_1_benchmarks}
+
+Evaluation draws on object-scale training corpora, on dedicated benchmark suites that curate prompts and human ratings, and on metrics that probe alignment, geometry, and appearance separately.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/part3/section8/objaverse.png}
+    \caption{Demonstration of the Objaverse~\cite{deitke2023objaversexl} dataset.}
+    \label{fig:objaverse}
+\end{figure}
+
+\paragraph{Training Corpora.}
+Object-scale 3D corpora drive the feed-forward and latent-diffusion paradigms; Table~\ref{tab:p3_s8_2_1_corpora} lists the ones most commonly used, and Figure~\ref{fig:objaverse} shows representative Objaverse-XL assets.
+They span the classical CAD repository ShapeNet~\cite{shapenet2015}, category-bounded real-world scans with accurate geometry and PBR textures (Google Scanned Objects~\cite{downs2022googleGSO}, OmniObject3D~\cite{wu2023omniobject3d} with dense multi-view imagery), the open-vocabulary web-scraped Objaverse and Objaverse-XL~\cite{deitke2023objaverse, deitke2023objaversexl} that unlocked the fourth paradigm, and G-Objaverse~\cite{zuo2024gobjavers}, which adds text-driven synthesized assets between the two.
+
+\begin{table}[t]
+    \centering
+    \fontsize{8}{10}\selectfont
+    \setlength{\tabcolsep}{1.0mm}
+    \caption{Representative training corpora for 3D object synthesis. ``Scale'' gives order-of-magnitude object counts as reported in each release.}
+    \label{tab:p3_s8_2_1_corpora}
+    \begin{tabular}{L{0.22\textwidth} C{0.07\textwidth} C{0.14\textwidth} L{0.20\textwidth} L{0.29\textwidth}}
+        \toprule
+        \textbf{Dataset} & \textbf{Year} & \textbf{Scale (\#objects)} & \textbf{Acquisition} & \textbf{Primary annotation / modality} \\
+        \midrule
+        ShapeNet~\cite{shapenet2015} & 2015 & ${\sim}51\mathrm{K}$ & Curated CAD & Semantic category, part labels \\
+        Google Scanned Objects~\cite{downs2022googleGSO} & 2022 & ${\sim}1\mathrm{K}$ & Real-world scans & High-fidelity geometry + PBR textures \\
+        OmniObject3D~\cite{wu2023omniobject3d} & 2023 & ${\sim}6\mathrm{K}$ & Real-world scans & Dense multi-view + reconstructions \\
+        Objaverse~\cite{deitke2023objaverse} & 2023 & ${\sim}800\mathrm{K}$ & Web-scraped & Open-vocabulary text tags \\
+        Objaverse-XL~\cite{deitke2023objaversexl} & 2023 & ${\sim}10\mathrm{M}$ & Web-scraped at scale & Open-vocabulary text tags \\
+        G-Objaverse~\cite{zuo2024gobjavers} & 2024 & ${\sim}280\mathrm{K}$ & Synthesized + curated & Text-driven assets, rendered views \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{Evaluation Benchmark Suites.}
+Recent benchmarks have moved to \emph{multi-dimensional} assessment beyond plain text--image alignment.
+GT23D-Bench~\cite{cai2024gt23d} curates a high-fidelity dataset and a suite of 3D-aware metrics spanning alignment and visual quality; MATE-3D~\cite{zhang2025mate3d} provides designed prompt categories with large-scale human annotations across several perceptual dimensions and introduces HyperScore as a learned evaluator; T23D-QA~\cite{li2025t23d} adopts a question-answer protocol that scores geometry, texture, and alignment independently; and Gen3DEval~\cite{maiti2025gen3deval} fine-tunes a vision-language model for 3D quality assessment, scoring text fidelity, appearance, and surface quality from rendered surface normals.
+Together with the 3D-relevant subsets of the 2D suites collected in §\ref{subsec:p3_s8_1_1} (Table~\ref{tab:p3_s8_1_1_eval_benchmarks}), they form the de facto evaluation protocol for 3D object synthesis.
+
+\paragraph{Constraint-specific Metrics.}
+Because an asset is judged from many viewpoints and under different downstream uses, evaluation reports complementary metrics along three axes.
+\textbf{Text-3D alignment} renders multi-view images from the asset and measures text--image similarity with CLIP-like encoders, aggregated across views (mean, worst-case, or view-consistency variants); pure CLIP alignment can be misled by texture ``shortcuts'' and does not guarantee geometric correctness, which motivates the 3D-aware alignment scores of GT23D-Bench~\cite{cai2024gt23d} and learned evaluators such as HyperScore~\cite{zhang2025mate3d}.
+\textbf{Geometry quality} is measured against ground-truth shapes, where they exist, by Chamfer Distance (CD)~\cite{huang2025spar3d}, F-score at varying thresholds, normal consistency, and volumetric IoU for watertight meshes; for text-to-3D without ground truth it falls back on multi-view depth and normal consistency, silhouette consistency, and learned 3D-quality predictors.
+\textbf{Appearance and multi-view consistency} are measured by perceptual distances (LPIPS) between rendered views and references where available, by view-consistency measures (variance across views under fixed lighting and camera trajectories), and by human studies, which recent benchmarks collect as multi-dimensional ratings to calibrate the automatic metrics~\cite{zhang2025mate3d, li2025t23d}.
+
+The paradigm succession of §\ref{subsubsec:p3_s8_2_1_methodology} shows up in two measurable quantities.
+Generation time has fallen by about three orders of magnitude: DreamFusion~\cite{poole2022dreamfusion} needs roughly 1.5 hours per asset and Magic3D~\cite{lin2023magic3d} about 40 minutes, whereas LRM~\cite{hong2023lrm} reconstructs a shape in about 5 seconds and InstantMesh~\cite{xu2024instantmesh} completes image-to-3D in around 10 seconds.
+Image-to-3D geometry is now routinely scored on Google Scanned Objects~\cite{downs2022googleGSO} with Chamfer Distance (lower is better) and F-score at $\tau{=}0.2$ (higher is better), where InstantMesh~\cite{xu2024instantmesh} reaches CD~$\approx 0.18$ and FS~$\approx 0.88$, ahead of TripoSR~\cite{tochilkin2024triposr} ($0.217$ / $0.843$), CRM~\cite{wang2024crm} ($0.252$ / $0.787$), and LGM~\cite{tang2024lgm} ($0.345$ / $0.671$).
+Coarse text-to-3D alignment, by contrast, is saturated: CLIP-style scores no longer separate the strongest systems, so Hunyuan3D~2.0~\cite{hunyuan3d22025tencent} reports ULIP- and Uni3D-based image- and text-to-shape similarity backed by a study in which 50 participants rated 300 unselected results, and learned evaluators (HyperScore on MATE-3D~\cite{zhang2025mate3d}, T23D-QA~\cite{li2025t23d}) score geometry and texture on separate axes.
+The reconstruction metrics carry their own caveat: CD and F-score saturate on coarse geometry and can reward visually plausible but physically thin assets, so reported gains are credible mainly where geometric, perceptual, and human ratings agree.
+Commercial text- and image-to-3D services now ship these capabilities with PBR export to game engines, alongside research systems such as Meta 3D Gen~\cite{bensadoun2024meta3dgen} and the open-vocabulary 3D-native-latent systems CLAY~\cite{zhang2024clay}, TRELLIS~\cite{xiang2025trellis}, and Hunyuan3D~\cite{yang2024hunyuan3d, hunyuan3d22025tencent}.
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_2_1_challenges}
+
+Four problems remain open, and they depend on one another: the multi-view consistency of the asset, the representation it lands in, whether progress on either can be measured reliably, and the data that ultimately drives all three.
+
+\paragraph{Multi-View and 3D Consistency under Open-Vocabulary Prompts.}
+Enforcing consistent geometry and texture across viewpoints while preserving fine detail remains difficult in all four paradigms, and the failures have names.
+The \emph{Janus artifact} renders both the front and the back of an object as a frontal face, most acutely in SDS pipelines, where the 2D prior cannot disambiguate camera direction; \emph{view drift} makes adjacent views of a multi-view stack disagree on geometry, a residual concern in Zero-1-to-3-style cascades that SyncDreamer's cross-view attention and Zero123++'s tiled six-view trick only partly remove; and \emph{texture seams} appear where neighboring views' color and lighting cannot be merged into a globally coherent UV map, a persistent weakness of feed-forward reconstructors.
+These failures motivate 3D-native backbones with \emph{structured latents}~\cite{xiang2025trellis} that share parameters across views by construction, and benchmarks that score multi-view consistency rather than a single rendered view~\cite{zhang2025mate3d}.
+
+\paragraph{Representation Trade-offs between Fidelity, Editability, and Deployability.}
+Even a consistent asset must \emph{land somewhere} a downstream tool can consume, and the choice of representation is not neutral.
+Meshes with UV/PBR textures are what game engines and simulators want but lose detail to discretization; radiance fields and Gaussians give high visual fidelity and fast rendering but require conversion, which introduces its own failures: \emph{topology breakage} during marching-cubes-style meshing, \emph{baked illumination} that fuses lighting into albedo when converting from a NeRF or 3DGS, and \emph{texture bleeding} across UV seams.
+The response is \emph{unified latent representations} that decode to several formats~\cite{xiang2025trellis}, so that a single generator serves diverse downstream requirements and the choice of $\mathcal{R}$ is deferred to inference.
+
+\paragraph{Scalable, Reliable Evaluation and Human-Aligned Metrics.}
+These representation choices complicate evaluation, because the metric panel a paper reports tends to depend on which format its generator targets, and the automatic metrics remain imperfect for geometry plausibility and asset usability.
+CLIP-style alignment is fooled by \emph{texture shortcuts} that ignore the underlying shape; Chamfer Distance saturates on coarse geometry while penalizing semantically irrelevant fine detail; and LPIPS on rendered views cannot distinguish a physically plausible asset from a visually plausible cardboard cut-out.
+Multi-dimensional evaluators trained on large human-annotation sets (\eg, HyperScore on MATE-3D~\cite{zhang2025mate3d}) and diagnostic benchmarks (\eg, GT23D-Bench~\cite{cai2024gt23d}, T23D-QA~\cite{li2025t23d}) that score alignment, geometry, and texture on independent axes are the current answer, so that progress on one axis is no longer masked by averaging.
+
+\paragraph{Data Scaling and Asset Readiness.}
+Underlying consistency, representation, and evaluation alike is the supply of training data and the industrial scale at which it can be exploited.
+Large-scale corpora such as Objaverse-XL~\cite{deitke2023objaversexl} and industrial-scale systems such as Hunyuan3D~\cite{hunyuan3d22025tencent, hunyuan3d2025hunyuan3domni} and Meta 3D Gen~\cite{bensadoun2024meta3dgen} point toward \emph{high-resolution, engine-ready assets} with controllable materials, relightable textures, and post-processing for watertightness and topology.
+The question has shifted from \emph{whether} a paradigm can be trained at scale, which the fourth paradigm has settled, to \emph{which slice} of the 3D-asset distribution the available corpora still under-represent: articulated objects, semi-transparent or refractive materials, and topologically non-trivial assemblies are visibly thinner in current open corpora than in production pipelines, and closing this gap is the explicit target of recent industrial releases.

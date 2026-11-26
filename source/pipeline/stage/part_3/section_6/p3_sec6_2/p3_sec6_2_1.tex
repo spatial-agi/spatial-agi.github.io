@@ -1,0 +1,169 @@
+\subsection{Depth Estimation}
+\label{sec:depth_estimation}
+Depth estimation predicts, for every pixel, the distance from the camera to the surface it observes, turning a 2D image into the 3D structure that reconstruction, navigation, and manipulation build on. Figure~\ref{fig:p3_s6_2_1_depth_overview} summarizes the input configurations and the method families surveyed below.
+
+\subsubsection{Task Definition}
+Given an image $I$ and optional auxiliary observations $\mathcal{V}$ (a second view, a multi-view set, a sparse sensor measurement, or neighboring video frames), a depth estimator predicts a depth map
+\begin{equation}
+f_\theta(I,\mathcal{V}) = D \in \mathbb{R}_{+}^{H\times W},
+\end{equation}
+where $D(u)$ is the distance along the optical axis from the camera center to the surface seen at pixel $u$. The task splits along three axes.
+
+\textbf{Sensing.} Active methods emit light (structured light, time-of-flight, LiDAR) and measure its return, providing reliable metric depth even on textureless surfaces but tying accuracy to the sensor and degrading under strong ambient light or at long range. Passive methods infer depth from ordinary images alone; they need no special hardware and have become the dominant research line, at the cost of sensitivity to texture and illumination.
+
+\textbf{Scale.} Metric depth gives distances in physical units, which 3D reconstruction and navigation require. Relative depth recovers only pixel ordering, or depth up to an affine transform; it cannot support metric measurement but is easier to supervise and generalizes better because heterogeneous datasets can be mixed without a consistent scale.
+
+\textbf{Density and Input Configuration.} Classical pipelines produced sparse depth at feature points or semi-dense depth along high-gradient edges; dense per-pixel prediction is now the norm. The input configuration fixes how much geometry is available: active sensing measures depth directly; stereo recovers it from the disparity between two calibrated views; multi-view estimation enforces consistency across many views, which improves robustness to occlusion and matching ambiguity at the price of computation and known camera poses; monocular estimation lacks direct multi-view triangulation constraints and relies on learned statistical, structural, and semantic cues, which is why it is ill-posed in scale yet the most widely applicable setting.
+
+% \paragraph{Extend Tasks}
+
+%  \item Depth Completion (RGB + sparse depth)
+%  \item Depth Upsampling
+%  \item Depth Refinement
+%  \item Depth Fusion
+
+\subsubsection{Methodology}
+% 深度估计方法整体脉络可整理为早期依据几何方法直接求解三维的深度数值，而后进入深度学习领域，从早期的有监督方法发展至无监督和自监督方法，其中又由传统的CNN网络转变为更强大的Transformer架构。目前最新的深度估计也在探索具有更好Zero-Shot表现、泛化性能更强的方法。
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/depth_estimation_v3.pdf}
+    \caption{Depth estimation: four input configurations (top) and five overlapping method families with representative methods on an approximate emergence timeline (bottom). Cost volumes and attention are distinct mechanisms; denoising applies to the generative branch. The depth maps are schematic illustrations, with brighter values indicating nearer surfaces.}
+    \label{fig:p3_s6_2_1_depth_overview}
+\end{figure}
+
+\paragraph{Geometric Methods.}
+Classical depth estimation solves geometry explicitly. In binocular stereo, two rectified cameras with focal length $f$ and baseline $B$ observe a point whose projections differ by the disparity $d = x_1 - x_2$; similar triangles give
+\begin{equation}
+Z = \frac{fB}{d},
+\end{equation}
+so depth follows once correspondences are found. Stereo matching is therefore a correspondence problem, usually posed as an energy that balances data fidelity against smoothness; Semi-Global Matching approximates the global optimum by aggregating costs along several 1D paths and remains a standard dense baseline. Structure from Motion (SfM) extends triangulation to many uncalibrated views, recovering camera poses and a sparse point cloud up to global scale, and supplies the poses that Multi-View Stereo (MVS) densifies. MVS typically proceeds by plane sweep: for a reference pixel $u_r$ and a hypothesized depth $d_k$, back-project with the intrinsics $K_r$, transform into a source view with the relative pose $(R, t)$, reproject, and keep the depth whose reprojections are most photometrically consistent across source views,
+\begin{equation}
+u_s \sim K_s\left(R\, d_k K_r^{-1} u_r + t\right), \qquad
+D(u_r) = \arg\min_{d_k} \sum_s \left\| I_s(u_s) - I_r(u_r) \right\|.
+\end{equation}
+Plane sweep is thus triangulation turned into a search over depth planes, and it is the template that MVSNet~\cite{yao2018mvsnet} and CasMVSNet~\cite{gu2020cascade} later made differentiable as learned cost volumes.
+
+Two single-image cues complete the classical picture. Depth from defocus exploits the thin-lens relation $1/f = 1/z + 1/z'$: a point off the focal plane blurs into a circle of confusion whose diameter grows with its distance from that plane, so measured blur can be inverted for depth. Shape from shading inverts a reflectance model, typically Lambertian, to recover surface orientation from intensity and integrates it into depth; it is treated under surface normals in \S\ref{sec:surface_normal}. Both are ill-posed under unknown illumination, reflectance, or optics and survive today mainly as auxiliary cues.
+
+\paragraph{Active Depth Sensing.}
+Active sensors measure depth rather than infer it. Time-of-flight systems time the round trip of emitted light: LiDAR scans the scene with laser beams and returns a sparse but long-range point cloud, whereas ToF cameras flood the scene and recover a dense depth map at every pixel, best suited to short-range indoor use. Structured light projects a coded pattern (the Kinect v1 used a pseudo-random infrared speckle) and triangulates from its deformation; active stereo projects texture onto the scene only to make ordinary stereo matching stable on featureless surfaces.
+
+\paragraph{Early Learning-Based Methods.}
+% 早期的机器学习方法
+Data-driven depth began in the mid-2000s with monocular estimation. Saxena \etal~\cite{saxena2005learning} regressed depth from hand-crafted multi-scale features with a Markov random field enforcing spatial coherence, and Make3D~\cite{saxena2008make3d} extended the model to the 3D position and orientation of scene patches while releasing a laser-scanned outdoor dataset that served as an early benchmark.
+
+\paragraph{Supervised CNN Regression.}
+Eigen \etal~\cite{eigen2014depth} first applied CNNs to monocular depth with a coarse-to-fine two-scale network, and their evaluation protocol became the standard; a follow-up~\cite{eigen2015predicting} showed that the same architecture predicts depth, normals, and semantic labels with minor changes. Deep Convolutional Neural Fields~\cite{liu2015deep} paired CNN unaries with a continuous CRF, FCRN~\cite{laina2016deeper} introduced a fully convolutional encoder--decoder with efficient upsampling of ResNet features, and DORN~\cite{fu2018deep} recast depth as ordinal regression over a spacing-increasing discretization.
+
+\paragraph{Learned Stereo and Multi-View Stereo.}
+Learning entered the geometric pipelines first as a replacement for individual components: MC-CNN~\cite{zbontar2015computing} computed stereo matching costs with a Siamese network in place of hand-crafted similarity. Mayer \etal~\cite{mayer2016large} then showed that networks can regress disparity and scene flow end to end, and GC-Net~\cite{kendall2017end} and PSMNet~\cite{chang2018pyramid} embedded the cost volume and its regularization inside the network. The same move reached multi-view geometry with SurfaceNet~\cite{ji2017surfacenet} and MVSNet~\cite{yao2018mvsnet}, which infer depth from several posed images, and R-MVSNet~\cite{yao2019recurrent} and CasMVSNet~\cite{gu2020cascade} improved their memory footprint and resolution.
+
+\paragraph{Self-Supervised and Multi-Task Learning.}
+Ground-truth depth is costly, so a second line replaced it with geometric consistency. SfM-Net~\cite{vijayanarasimhan2017sfm} and SfM-Learner~\cite{zhou2017unsupervised} learn depth and camera motion jointly from unlabeled video by minimizing photometric reprojection error between adjacent frames; Monodepth~\cite{godard2017unsupervised} obtains the same signal from stereo pairs, and Monodepth2~\cite{godard2019digging} unifies both sources in one framework. GeoNet~\cite{yin2018geonet} adds optical flow to the joint estimate. Because all of these train a monocular network with stereo or multi-view supervision, the old separation between input configurations began to dissolve. Alongside, multi-task sharing (depth with semantic segmentation~\cite{wang2015towards}), ImageNet-pretrained encoders with structural losses (DenseDepth~\cite{alhashim2018high,deng2009imagenet,huang2017densely}), local planar guidance (BTS~\cite{lee2019big}), and mixed-dataset training for zero-shot transfer (MiDaS~\cite{MiDaS}) each pushed accuracy and generalization.
+
+\paragraph{Transformers and Foundation Models.}
+Self-attention~\cite{attention} gives every pixel access to global context, which helps precisely where local convolutions fail: textureless regions, occlusions, and large scenes. DPT~\cite{dpt} established the pattern of a Vision Transformer~\cite{vit} encoder with a light dense decoder, and DepthFormer~\cite{li2023depthformer} combined global attention with local convolutional refinement. Scaling data and model size then produced depth foundation models that are trained once and transferred zero-shot: ZoeDepth~\cite{zoedepth} and Depth Anything~\cite{DepthAnything} learn from large mixed corpora with flexible supervision and generalize across scenes and capture conditions without per-dataset adaptation.
+
+\paragraph{Video and Generative Depth.}
+Video adds temporal constraints. ManyDepth~\cite{watson2021temporal} aggregates neighboring frames into a cost volume at test time, whereas MonoViT~\cite{zhao2022monovit} keeps the self-supervised video objective but strengthens single-frame reasoning with a Transformer. A separate line treats depth as conditional generation: VPD~\cite{zhao2023unleashing} showed that text-to-image diffusion backbones carry usable geometric features, Marigold~\cite{ke2024repurposing} reframed monocular depth as conditional denoising and obtained globally coherent maps under hard conditions, and GeoWizard~\cite{fu2024geowizard} extended the recipe to joint depth and normal prediction. The same diffusion-as-perception idea recurs for surface normals and object pose later in this section.
+
+\paragraph{Event-Based Depth.}
+% 早期几何驱动 → 学习驱动方法和自监督硬件优化方法 → 综述 (Event-based Stereo Depth Estimation: A Survey 2024)
+Event cameras record asynchronous per-pixel brightness changes~\cite{mahowald1992vlsi, lichtsteiner2008128}, offering microsecond latency and high dynamic range where frame cameras fail. Early event-based depth relied on geometric constraints and temporal accumulation~\cite{rebecq2018emvs, ieng2018neuromorphic,zhou2018semi, xie2017event}; learned event stereo~\cite{tulyakov2019learning, zhang2022discrete}, event--image fusion~\cite{mostafavi2021event, ghosh2022multi}, and self-supervised or hardware-aware frameworks~\cite{cho2023learning, de2025derd, cho2024temporal} followed. The line remains a niche complement for extreme dynamics; see the survey~\cite{ghosh2025event}.
+
+\subsubsection{Datasets and Metrics}
+Table~\ref{tab:depth_estimation_datasets} groups the main datasets into Type I, which ship explicit depth maps for direct supervision, and Type II, which require depth to be derived from LiDAR, stereo, or SfM. Three waves are visible. Indoor RGB-D collections (NYU Depth v2~\cite{silberman2012nyudv2}, TUM RGB-D~\cite{Sturm2012TUMRGBD}, SUN RGB-D~\cite{song2015sunrgbd}, later ScanNet~\cite{dai2017scannet} and Matterport3D~\cite{chang2017matterport3d}) and the LiDAR-based KITTI~\cite{Geiger2013KITTI,uhrig2017sparsity} fixed the indoor and outdoor protocols that still anchor the field, with Make3D~\cite{saxena2008make3d} as the laser-scanned precursor. Relative-depth supervision from internet photos (DIW~\cite{chen2016single}, ReDWeb~\cite{xian2018monocular}, MegaDepth~\cite{li2018megadepth}) and synthetic data (Scene Flow~\cite{mayer2016large}) then relaxed the need for metric sensors, while ETH3D~\cite{Schoeps2017ETH3D}, iBims-1~\cite{koch2018evaluation}, ApolloScape~\cite{wang2019apolloscape}, and Cityscapes stereo pairs~\cite{cordts2016cityscapes} served precision evaluation and self-supervised training. The current wave is driven by autonomous driving and rendering: multi-sensor fleets (nuScenes~\cite{caesar2020nuscenes}, Waymo Open~\cite{WaymoOpen-SunKDCPTGZCCVHN20}, Argoverse~2~\cite{wilson2023argoverse}, KITTI-360~\cite{liao2022kitti360}, DDAD~\cite{guizilini20203d}) supply millions of LiDAR-calibrated frames, photorealistic synthetic sets (Hypersim~\cite{roberts2021hypersim}, Virtual KITTI~2~\cite{Cabon2020VirtualKITTI2}, UrbanSyn~\cite{UrbanSyn}, TartanAir~\cite{TartanAir}) supply exact ground truth even for transparent surfaces and hard lighting, and DIODE~\cite{vasiljevic2019diode}, BlendedMVS~\cite{yao2020blendedmvs}, ARKitScenes~\cite{baruch2021arkitscenes}, Mannequin~\cite{li2019learning}, and WildRGB-D~\cite{xia2024rgbd} cover high-precision scans, handheld LiDAR, and dynamic or cluttered capture.
+
+\begin{table}[!t]
+\centering
+\caption{Depth estimation datasets grouped by supervision type: Type~I datasets provide explicit depth maps for direct supervision; Type~II datasets require depth to be derived from raw LiDAR, stereo pairs, or SfM, often through projection or self-supervision.}
+\label{tab:depth_estimation_datasets}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{2.5mm}
+\begin{tabular}{lccccccr}
+\toprule
+\textbf{Name} & \textbf{Year} & \textbf{Scene} & \textbf{Type} & \textbf{Metric} & \textbf{Setup} & \textbf{Volume} & \textbf{Data Source} \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{8}{l}{$\bullet$ \textit{Type I: Datasets with Explicit Depth Maps (Direct Supervision})} \\
+Make3D~\cite{saxena2008make3d} & 2009 & Outdoor & Real & Metric & Mono & 534 & Laser Scanner \\
+NYU Depth v2~\cite{silberman2012nyudv2} & 2012 & Indoor & Real & Metric & Mono & 1.4K & Kinect (SL) \\
+TUM RGB-D~\cite{Sturm2012TUMRGBD} & 2012 & Indoor & Real & Metric & Mono & 39 Seqs & Kinect (SL) \\
+SUN RGB-D~\cite{song2015sunrgbd} & 2015 & Indoor & Real & Metric & Mono & 10K & RGB-D Cameras \\
+DIW~\cite{chen2016single} & 2016 & Varied & Real & Relative & Mono & 495K & Internet Photos \\
+KITTI (Depth)~\cite{uhrig2017sparsity} & 2017 & Outdoor & Real & Metric & Stereo & 93K & LiDAR (Velodyne) \\
+ScanNet~\cite{dai2017scannet} & 2017 & Indoor & Real & Metric & Mono & 2.5M & Structure Sensor \\
+Matterport3D~\cite{chang2017matterport3d} & 2017 & Indoor & Real & Metric & Mono & 194K & Matterport (RGB-D) \\
+ETH3D~\cite{Schoeps2017ETH3D} & 2017 & Both & Real & Metric & Multi-V & 13 Scans & Laser Scanner \\
+ApolloScape~\cite{wang2019apolloscape} & 2018 & Outdoor & Real & Metric & Stereo & 140K & LiDAR + Stereo \\
+iBims-1~\cite{koch2018evaluation} & 2018 & Indoor & Real & Metric & Mono & 100 & Camera + Laser \\
+MegaDepth~\cite{li2018megadepth} & 2018 & Outdoor & Real & Relative & Mono & 130K & Internet + SfM \\
+ReDWeb~\cite{xian2018monocular} & 2018 & Varied & Real & Relative & Mono & 3.6K & Internet + Stereo \\
+DIODE~\cite{vasiljevic2019diode} & 2019 & Both & Real & Metric & Mono & 26K & Camera + LiDAR \\
+BlendedMVS~\cite{yao2020blendedmvs} & 2020 & Both & Syn+Real & Metric & Multi-V & 17K & MVS Reconstruction \\
+Hypersim~\cite{roberts2021hypersim} & 2020 & Indoor & Syn & Metric & Mono & 77K & Simulation \\
+DDAD~\cite{guizilini20203d} & 2020 & Outdoor & Real & Metric & Multi-V & 76K & HD LiDAR \\
+Virtual KITTI 2~\cite{Cabon2020VirtualKITTI2} & 2020 & Outdoor & Syn & Metric & Stereo & 21K & Simulation (Unity) \\
+TartanAir~\cite{TartanAir} & 2020 & Varied & Syn & Metric & Stereo & $\sim$1M & Simulation (UE4) \\
+ARKitScenes~\cite{baruch2021arkitscenes} & 2021 & Indoor & Real & Metric & Mono & 5K Clips & iPad LiDAR \\
+UrbanSyn~\cite{UrbanSyn} & 2023 & Outdoor & Syn & Metric & Mono & 7.5K & Simulation \\
+WildRGB-D~\cite{xia2024rgbd} & 2024 & Varied & Real & Metric & Mono & 20K & RGB-D Cameras \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{8}{l}{$\bullet$ \textit{Type II: Datasets Requiring Depth to be Derived from Raw Geometry (LiDAR, Stereo or SfM)}} \\
+KITTI (Raw)~\cite{Geiger2013KITTI} & 2012 & Outdoor & Real & Metric & Stereo & 42K & LiDAR (Velodyne) \\
+Cityscapes~\cite{cordts2016cityscapes} & 2016 & Outdoor & Real & Metric & Stereo & 25K & Stereo Camera \\
+Scene Flow~\cite{mayer2016large} & 2016 & Varied & Syn & Metric & Stereo & 39K & Simulation (Blender) \\
+NuScenes~\cite{caesar2020nuscenes} & 2019 & Outdoor & Real & Metric & Multi-V & 1.4M & LiDAR \\
+Waymo Open~\cite{WaymoOpen-SunKDCPTGZCCVHN20} & 2019 & Outdoor & Real & Metric & Multi-V & 200K & LiDAR \\
+Mannequin~\cite{li2019learning} & 2019 & Varied & Real & Relative & Mono & 170K & Internet + SfM \\
+KITTI-360~\cite{liao2022kitti360} & 2020 & Outdoor & Real & Metric & Stereo & 100K+ & LiDAR + Stereo \\
+Argoverse 2~\cite{wilson2023argoverse} & 2022 & Outdoor & Real & Metric & Multi-V & 6M & LiDAR \\
+\bottomrule
+\end{tabular}
+
+\end{table}
+
+% 经典指标：RMSE、RMSE Log；强调相对偏差时：Abs Rel、Sq Rel；针对尺度模糊、引入不变性：Scale-Invariant Log Error；特定于深度估计，评估相对准确率：δ Threshold Accuracy；相对误差/排序指标主要用于相对深度估计的深度顺序关系
+Depth is evaluated with pixel-wise regression metrics. The root mean squared error and its logarithmic variant,
+\begin{equation}
+\mathrm{RMSE} = \sqrt{ \frac{1}{N} \sum_{i=1}^{N} \left( \hat{d}_i - d_i \right)^2 }, \qquad
+\mathrm{RMSE}_{\log} = \sqrt{ \frac{1}{N} \sum_{i=1}^{N} \left( \log \hat{d}_i - \log d_i \right)^2 },
+\end{equation}
+measure absolute deviation, the log form damping the dominance of far-range errors. Because an error of fixed size matters more at close range, relative errors normalize by the true depth,
+\begin{equation}
+\mathrm{Abs\ Rel} = \frac{1}{N} \sum_{i=1}^{N} \frac{ \left| \hat{d}_i - d_i \right| }{ d_i }, \qquad
+\mathrm{Sq\ Rel} = \frac{1}{N} \sum_{i=1}^{N} \frac{ \left( \hat{d}_i - d_i \right)^2 }{ d_i },
+\end{equation}
+and Abs Rel is the primary metric on most benchmarks. For monocular prediction, whose scale is ambiguous, the scale-invariant log error discounts a global scale shift,
+\begin{equation}
+\mathrm{SI\text{-}Log} =
+\frac{1}{N} \sum_{i=1}^{N} \left( \log \hat{d}_i - \log d_i \right)^2
+-
+\frac{1}{N^2} \left( \sum_{i=1}^{N} \left( \log \hat{d}_i - \log d_i \right) \right)^2 .
+\end{equation}
+Threshold accuracy reports the fraction of pixels within a multiplicative tolerance,
+\begin{equation}
+\delta =
+\frac{1}{N}
+\left|
+\left\{
+i \;\middle|\;
+\max\!\left(
+\frac{\hat{d}_i}{d_i},
+\frac{d_i}{\hat{d}_i}
+\right)
+< \tau
+\right\}
+\right|, \qquad \tau \in \{1.25,\, 1.25^2,\, 1.25^3\}.
+\end{equation}
+Ordinal metrics, which score only the pairwise depth ordering, are used where supervision is relative; they track perceived layout but say nothing about metric precision.
+
+On KITTI, supervised regressors such as BTS~\cite{lee2019big} and DPT~\cite{dpt} reach Abs Rel around $0.06$ with $\delta_{1.25}$ near $0.96$, while the self-supervised Monodepth2~\cite{godard2019digging} reaches Abs Rel near $0.10$ without any ground-truth depth. On NYU Depth v2, ZoeDepth~\cite{zoedepth} and Depth Anything~\cite{DepthAnything} reach $\delta_{1.25}$ of $0.96$ and $0.98$ after fine-tuning, and UniDepth~\cite{UniDepth} matches them zero-shot, which makes transfer a credible alternative to per-benchmark training. Generative models such as Marigold~\cite{ke2024repurposing} match or exceed regression on scale-invariant metrics while producing sharper boundaries, so recent gains come more from representation and data scale than from architectural depth. Boundary sharpness, temporal stability, and latency are still not evaluated in a standard way.
+
+\subsubsection{Challenges}
+Monocular depth is ill-posed: distinct 3D scenes project to the same image, so a single view alone does not uniquely determine 3D structure or metric scale and predictions drift across scenes. Scene content adds its own failures. Moving objects break the static-world assumption behind self-supervised and multi-view methods, and in video the result is flicker between frames and scale drift over time. Transparent and reflective materials and textureless regions give weak or misleading appearance cues; thin structures and sharp boundaries lose detail; low light, adverse weather, and underwater imagery degrade models trained on clean data. These scene effects compound into a domain gap: models are tied to the geometry and depth distribution of their training data, the indoor--outdoor divide is especially wide, real depth labels are scarce and noisy, and synthetic data still transfers imperfectly.
+
+Current work attacks these problems from several sides. Depth foundation models~\cite{DepthAnything,UniDepth,zoedepth} supply strong zero-shot priors, and Video Depth Anything~\cite{chen2025video} adds temporal modules to one of them for consistent video depth, while video depth diffusion (DepthCrafter~\cite{hu2025depthcrafter}, ChronoDepth~\cite{shao2025learning}, RollingDepth~\cite{ke2025video}) pursues the same goal generatively. Coupling depth with 3D scene representations (DepthSplat~\cite{xu2024depthsplat}) improves spatial consistency, language cues help anchor metric scale~\cite{zeng2024rsa}, and lightweight architectures such as MonoLENS~\cite{higashiuchi2025monolens} and LMDepth~\cite{long2025lmdepth} target the real-time budgets of driving, robotics, and AR/VR.
+
+
+

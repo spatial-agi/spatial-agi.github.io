@@ -1,0 +1,127 @@
+{
+  "source": "assets/figures/figures/part3/section7/differentiable_optimization_layers_for_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    742
+  ],
+  "assets": [
+    {
+      "file": "ii-mpc/cart-pole-initial.png",
+      "title": "MPC \u00b7 initial cart-pole",
+      "source_box": [
+        849,
+        66,
+        968,
+        223
+      ],
+      "size": [
+        119,
+        157
+      ]
+    },
+    {
+      "file": "ii-mpc/cart-pole-target.png",
+      "title": "MPC \u00b7 target cart-pole",
+      "source_box": [
+        1159,
+        54,
+        1278,
+        223
+      ],
+      "size": [
+        119,
+        169
+      ]
+    },
+    {
+      "file": "iii-bundle-adjustment/input-camera-left.png",
+      "title": "BA input \u00b7 left camera",
+      "source_box": [
+        1391,
+        55,
+        1452,
+        113
+      ],
+      "size": [
+        61,
+        58
+      ]
+    },
+    {
+      "file": "iii-bundle-adjustment/input-camera-center.png",
+      "title": "BA input \u00b7 center camera",
+      "source_box": [
+        1484,
+        27,
+        1520,
+        84
+      ],
+      "size": [
+        36,
+        57
+      ]
+    },
+    {
+      "file": "iii-bundle-adjustment/input-camera-right.png",
+      "title": "BA input \u00b7 right camera",
+      "source_box": [
+        1557,
+        41,
+        1597,
+        101
+      ],
+      "size": [
+        40,
+        60
+      ]
+    },
+    {
+      "file": "iii-bundle-adjustment/output-camera-left.png",
+      "title": "BA output \u00b7 left camera",
+      "source_box": [
+        1748,
+        57,
+        1811,
+        113
+      ],
+      "size": [
+        63,
+        56
+      ]
+    },
+    {
+      "file": "iii-bundle-adjustment/output-camera-center.png",
+      "title": "BA output \u00b7 center camera",
+      "source_box": [
+        1842,
+        27,
+        1879,
+        84
+      ],
+      "size": [
+        37,
+        57
+      ]
+    },
+    {
+      "file": "iii-bundle-adjustment/output-camera-right.png",
+      "title": "BA output \u00b7 right camera",
+      "source_box": [
+        1916,
+        41,
+        1957,
+        101
+      ],
+      "size": [
+        41,
+        60
+      ]
+    }
+  ],
+  "frontend": {
+    "i-assignment": "Sudoku grids, cell values, QP solver box, arrows and captions will be frontend elements.",
+    "ii-mpc": "Two cart-pole PNGs are isolated. Ground hatching, state/control labels, MPC box and arrows will be reconstructed separately.",
+    "iii-bundle-adjustment": "Six cameras are separate PNGs. Observation rays, 3D point nodes, solver box, arrows and text will be frontend elements.",
+    "bottom-methods": "OptNet, CVXPY, Deep Declarative Networks and SATNet: all boxes, formulas, contour rings, optimization trajectory, feedback lines and arrows will be drawn in the frontend."
+  }
+}

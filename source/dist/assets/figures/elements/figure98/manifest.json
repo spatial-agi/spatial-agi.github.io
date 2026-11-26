@@ -1,0 +1,82 @@
+{
+  "figure": "9.8",
+  "sources": [
+    "assets/figures/figures/part4/section9/driving_perception_tasks.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1727
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/driving_perception_tasks.pdf",
+  "assets": [
+    {
+      "file": "detection/street-scene.png",
+      "title": "street scene",
+      "panel": "detection",
+      "size": [
+        1672,
+        941
+      ],
+      "source_index": 0,
+      "source_box": [
+        65.0,
+        347.5,
+        590.0,
+        642.5
+      ],
+      "box": [
+        32.5,
+        173.75,
+        295.0,
+        321.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        32.967,
+        104.003,
+        295.133,
+        251.55
+      ],
+      "placement_confidence": 0.9738
+    },
+    {
+      "file": "pedestrian/crossing-scene.png",
+      "title": "crossing scene",
+      "panel": "pedestrian",
+      "size": [
+        1672,
+        941
+      ],
+      "source_index": 0,
+      "source_box": [
+        1067.5,
+        987.5,
+        1627.5,
+        1302.5
+      ],
+      "box": [
+        533.75,
+        493.75,
+        813.75,
+        651.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        533.752,
+        423.955,
+        813.187,
+        581.221
+      ],
+      "placement_confidence": 0.9805
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

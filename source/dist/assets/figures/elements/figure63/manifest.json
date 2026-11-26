@@ -1,0 +1,109 @@
+{
+  "source": "assets/figures/figures/part3/section6/segmentation-method.webp",
+  "assets": [
+    {
+      "file": "classical-snake.png",
+      "source_box": [
+        30,
+        45,
+        244,
+        270
+      ],
+      "size": [
+        214,
+        225
+      ]
+    },
+    {
+      "file": "graph-cuts.png",
+      "source_box": [
+        270,
+        75,
+        387,
+        240
+      ],
+      "size": [
+        117,
+        165
+      ]
+    },
+    {
+      "file": "dilated-context.png",
+      "source_box": [
+        802,
+        112,
+        1122,
+        247
+      ],
+      "size": [
+        320,
+        135
+      ]
+    },
+    {
+      "file": "region-queries.png",
+      "source_box": [
+        1175,
+        78,
+        1290,
+        114
+      ],
+      "size": [
+        115,
+        36
+      ]
+    },
+    {
+      "file": "region-predicted-masks.png",
+      "source_box": [
+        1428,
+        67,
+        1490,
+        267
+      ],
+      "size": [
+        62,
+        200
+      ]
+    },
+    {
+      "file": "foundation-prompt.png",
+      "source_box": [
+        1560,
+        97,
+        1618,
+        150
+      ],
+      "size": [
+        58,
+        53
+      ]
+    },
+    {
+      "file": "foundation-input-image.png",
+      "source_box": [
+        1558,
+        194,
+        1635,
+        267
+      ],
+      "size": [
+        77,
+        73
+      ]
+    },
+    {
+      "file": "foundation-output-mask.png",
+      "source_box": [
+        1866,
+        137,
+        1959,
+        222
+      ],
+      "size": [
+        93,
+        85
+      ]
+    }
+  ]
+}

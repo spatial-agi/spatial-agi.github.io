@@ -1,0 +1,175 @@
+{
+  "figure": "9.2",
+  "sources": [
+    "assets/figures/figures/part4/section9/robotic_anchors.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1303
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/robotic_anchors.pdf",
+  "assets": [
+    {
+      "file": "anchors/view-1.png",
+      "title": "view 1",
+      "panel": "anchors",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        37.5,
+        167.5,
+        312.5,
+        350.0
+      ],
+      "box": [
+        18.75,
+        83.75,
+        156.25,
+        175.0
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        6.34,
+        55.904,
+        147.02,
+        149.691
+      ],
+      "placement_confidence": 0.9714
+    },
+    {
+      "file": "anchors/view-2.png",
+      "title": "view 2",
+      "panel": "anchors",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        360.0,
+        167.5,
+        635.0,
+        350.0
+      ],
+      "box": [
+        180.0,
+        83.75,
+        317.5,
+        175.0
+      ],
+      "kind": "photo",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        169.401,
+        55.904,
+        310.082,
+        149.691
+      ],
+      "placement_confidence": 0.958
+    },
+    {
+      "file": "policy/grasp-execution.png",
+      "title": "grasp execution",
+      "panel": "policy",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        762.5,
+        1062.5,
+        1030.0,
+        1240.0
+      ],
+      "box": [
+        381.25,
+        531.25,
+        515.0,
+        620.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        375.626,
+        511.517,
+        511.511,
+        602.106
+      ],
+      "placement_confidence": 0.996
+    },
+    {
+      "file": "generalization/seen-objects.png",
+      "title": "seen objects",
+      "panel": "generalization",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        1382.5,
+        200.0,
+        1650.0,
+        377.5
+      ],
+      "box": [
+        691.25,
+        100.0,
+        825.0,
+        188.75
+      ],
+      "kind": "photo",
+      "pdf_image_index": 3,
+      "pdf_box": [
+        690.558,
+        73.489,
+        826.443,
+        164.078
+      ],
+      "placement_confidence": 0.9891
+    },
+    {
+      "file": "generalization/unseen-objects.png",
+      "title": "unseen objects",
+      "panel": "generalization",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        1672.5,
+        202.5,
+        1940.0,
+        380.0
+      ],
+      "box": [
+        836.25,
+        101.25,
+        970.0,
+        190.0
+      ],
+      "kind": "photo",
+      "pdf_image_index": 4,
+      "pdf_box": [
+        839.232,
+        73.489,
+        975.117,
+        164.078
+      ],
+      "placement_confidence": 0.9864
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

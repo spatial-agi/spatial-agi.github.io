@@ -1,0 +1,350 @@
+[
+  {
+    "name": "Shengqiong Wu",
+    "homepage": "https://sqwu.top/",
+    "scholar": "https://scholar.google.com/citations?user=RJJLKR0AAAAJ",
+    "email": "shengqiongwu@gmail.com",
+    "expertise": [
+      "multimodal foundation models",
+      "multimodal agents",
+      "cross-modal modeling and reasoning",
+      "physics-grounded vision generation",
+      "spatial intelligence"
+    ]
+  },
+  {
+    "name": "Yu Zhao",
+    "expertise": []
+  },
+  {
+    "name": "Tianjie Ju",
+    "homepage": "https://jometeorie.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=f8PPcnoAAAAJ",
+    "email": "jutianjie@nus.edu.sg",
+    "expertise": [
+      "MLLM agents",
+      "geospatial reasoning",
+      "world modeling",
+      "AI scientist"
+    ]
+  },
+  {
+    "name": "Jundong Xu",
+    "homepage": "https://aiden0526.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=kx4xFzMAAAAJ",
+    "email": "jundong.xu@u.nus.edu",
+    "expertise": [
+      "symbolic reasoning",
+      "logic and reasoning",
+      "neuro-symbolic frameworks"
+    ]
+  },
+  {
+    "name": "Bobo Li",
+    "homepage": "https://libobo.site/",
+    "scholar": "https://scholar.google.com/citations?user=90mnP8MAAAAJ",
+    "email": "libobo@nus.edu.sg",
+    "expertise": [
+      "large language models",
+      "language agents",
+      "cognitive intelligence"
+    ]
+  },
+  {
+    "name": "Jingkang Yang",
+    "homepage": "https://www.jingkangyang.com/",
+    "scholar": "https://scholar.google.com/citations?user=S-YjbUYAAAAJ",
+    "email": "yangjingkang001@gmail.com",
+    "expertise": [
+      "large multimodal models",
+      "world models",
+      "egocentric data",
+      "scene understanding",
+      "AI safety",
+      "out-of-distribution detection"
+    ]
+  },
+  {
+    "name": "Shulin Tian",
+    "homepage": "https://shulin16.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=8COQQ8QAAAAJ",
+    "email": "shulin002@ntu.edu.sg",
+    "expertise": [
+      "multimodal agents",
+      "visual reasoning",
+      "long-horizon multimodal understanding",
+      "tool-augmented reasoning"
+    ]
+  },
+  {
+    "name": "Daoan Zhang",
+    "homepage": "https://dwan.ch/",
+    "scholar": "https://scholar.google.com/citations?user=yeLdvGoAAAAJ",
+    "email": "daoan.zhang@rochester.edu",
+    "expertise": [
+      "generative models",
+      "multimodal agents",
+      "AI for science"
+    ]
+  },
+  {
+    "name": "Yanguang Zhao",
+    "expertise": []
+  },
+  {
+    "name": "Xuan Ju",
+    "homepage": "https://juxuan27.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=pWzvK20AAAAJ",
+    "email": "juxuan.27@gmail.com",
+    "expertise": [
+      "multimodal learning",
+      "image generation",
+      "video generation"
+    ]
+  },
+  {
+    "name": "Haoyu Zhao",
+    "homepage": "https://maxwell-zhao.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=VVTMCA0AAAAJ",
+    "email": "haoyu.zhao@link.cuhk.edu.hk",
+    "expertise": [
+      "embodied intelligence",
+      "simulated data generation",
+      "3D simulation",
+      "3D vision",
+      "AI for medical imaging"
+    ]
+  },
+  {
+    "name": "Yuchen Zhou",
+    "homepage": "https://yuchen2199.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=A4jp2FMAAAAJ",
+    "email": "ewanzhou@tencent.com",
+    "expertise": [
+      "multimodal physical-world perception and interaction",
+      "vision-language models",
+      "embodied foundation models",
+      "human-robot interaction"
+    ]
+  },
+  {
+    "name": "Xiangtai Li",
+    "homepage": "https://lxtgh.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=FL3ReD0AAAAJ",
+    "email": "xiangtai.li@bytedance.com",
+    "expertise": [
+      "computer vision",
+      "multi-modal learning",
+      "large language models",
+      "AIGC"
+    ]
+  },
+  {
+    "name": "Zhedong Zheng",
+    "homepage": "https://www.zdzheng.xyz/",
+    "scholar": "https://scholar.google.com/citations?user=XT17oUEAAAAJ",
+    "email": "zhedongzheng@um.edu.mo",
+    "expertise": [
+      "data-centric AI",
+      "AIGC and synthetic data",
+      "uncertainty estimation",
+      "spatial intelligence",
+      "object re-identification",
+      "domain adaptation"
+    ]
+  },
+  {
+    "name": "Joy Hsu",
+    "homepage": "https://joycjhsu.github.io/",
+    "email": "joy.cj.hsu@gmail.com",
+    "expertise": [
+      "multimodal reasoning models",
+      "agentic systems",
+      "generalization across domains",
+      "long-horizon tasks"
+    ]
+  },
+  {
+    "name": "Xin Kong",
+    "homepage": "https://kxhit.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=eddJsWsAAAAJ",
+    "email": "xinkong221@gmail.com",
+    "expertise": [
+      "world models",
+      "physical AI",
+      "robotics"
+    ]
+  },
+  {
+    "name": "Ruining Li",
+    "homepage": "https://ruiningli.com/",
+    "scholar": "https://scholar.google.com/citations?user=JmQkXLUAAAAJ",
+    "email": "ruining.li@linacre.ox.ac.uk",
+    "expertise": [
+      "world modelling",
+      "generative simulation",
+      "physically-grounded video and 3D generative models",
+      "embodied AI"
+    ]
+  },
+  {
+    "name": "Cheng Zhang",
+    "homepage": "https://chengzhag.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=2uEyZJQAAAAJ",
+    "email": "cheng.zhang@monash.edu",
+    "expertise": [
+      "3D generation",
+      "novel view synthesis",
+      "image generation"
+    ]
+  },
+  {
+    "name": "Chengzu Li",
+    "homepage": "https://chengzu-li.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=t_Bwt70AAAAJ",
+    "email": "cl917@cam.ac.uk",
+    "expertise": [
+      "visual intelligence",
+      "spatial reasoning",
+      "multimodal LLMs",
+      "video generation models",
+      "multimodal agents"
+    ]
+  },
+  {
+    "name": "Jiafei Duan",
+    "homepage": "https://jiafei1224.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=d1WCSJIAAAAJ",
+    "email": "duanjf@comp.nus.edu.sg",
+    "expertise": [
+      "robot learning",
+      "embodied AI",
+      "robotics foundation models"
+    ]
+  },
+  {
+    "name": "Yu (Bryan) Zhou",
+    "homepage": "https://yu-bryan-zhou.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=61rJc-YAAAAJ",
+    "email": "yuzhou@cs.ucla.edu",
+    "expertise": [
+      "multimodal learning",
+      "vision and language",
+      "embodied learning"
+    ]
+  },
+  {
+    "name": "Kenneth Li",
+    "homepage": "https://likenneth.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=XkV5uOAAAAJ",
+    "email": "likenneth.ai@gmail.com",
+    "expertise": []
+  },
+  {
+    "name": "Chuanxia Zheng",
+    "homepage": "https://physicalvision.github.io/people/~chuanxia",
+    "scholar": "https://scholar.google.com/citations?user=mvpE6bIAAAAJ",
+    "email": "chuanxia.zheng@ntu.edu.sg",
+    "expertise": [
+      "physical AI",
+      "spatial AI",
+      "generative AI",
+      "perceiving, reconstructing and simulating the physical world"
+    ]
+  },
+  {
+    "name": "Lei Cui",
+    "homepage": "https://www.microsoft.com/en-us/research/people/lecu/",
+    "scholar": "https://scholar.google.com/citations?user=ajJQoUcAAAAJ",
+    "email": "lecu@microsoft.com",
+    "expertise": [
+      "foundation models",
+      "multimodal AI"
+    ]
+  },
+  {
+    "name": "Furu Wei",
+    "homepage": "https://thegenerality.com/",
+    "scholar": "https://scholar.google.com/citations?user=G-V1VpwAAAAJ",
+    "email": "fuwei@microsoft.com",
+    "expertise": [
+      "large foundation models",
+      "general AI",
+      "natural language processing",
+      "speech",
+      "multimodal AI"
+    ]
+  },
+  {
+    "name": "Ziwei Liu",
+    "homepage": "https://liuziwei7.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=lc45xlcAAAAJ",
+    "email": "ziwei.liu@ntu.edu.sg",
+    "expertise": [
+      "computer vision",
+      "machine learning",
+      "computer graphics"
+    ]
+  },
+  {
+    "name": "Steven K. Feiner",
+    "homepage": "https://www.cs.columbia.edu/~feiner/",
+    "scholar": "https://scholar.google.com/citations?user=PogsVkYAAAAJ",
+    "email": "feiner@cs.columbia.edu",
+    "expertise": [
+      "human-computer interaction",
+      "augmented and virtual reality",
+      "3D and 2D user interfaces",
+      "automated design of graphics and multimedia",
+      "mobile and wearable computing",
+      "information visualization"
+    ]
+  },
+  {
+    "name": "Jiebo Luo",
+    "homepage": "https://www.cs.rochester.edu/u/jluo/",
+    "scholar": "https://scholar.google.com/citations?user=CcbnBvgAAAAJ",
+    "email": "jluo@cs.rochester.edu",
+    "expertise": [
+      "computer vision",
+      "machine learning",
+      "data mining",
+      "social media",
+      "computational social science",
+      "digital health"
+    ]
+  },
+  {
+    "name": "Jianfei Cai",
+    "homepage": "https://jianfei-cai.github.io/",
+    "scholar": "https://scholar.google.com/citations?user=N6czCoUAAAAJ",
+    "email": "jianfei.cai@monash.edu",
+    "expertise": [
+      "visual computing",
+      "computer vision",
+      "multimedia"
+    ]
+  },
+  {
+    "name": "Shuicheng Yan",
+    "homepage": "https://www.lv-lab.org/",
+    "scholar": "https://scholar.google.com/citations?user=DNuiPHwAAAAJ",
+    "email": "yansc@comp.nus.edu.sg",
+    "expertise": [
+      "e-AGI (efficient, executive, evolving)",
+      "computer vision",
+      "machine learning"
+    ]
+  },
+  {
+    "name": "Hao Fei",
+    "homepage": "https://haofei.vip/",
+    "scholar": "https://scholar.google.com/citations?user=YGDX46AAAAAJ",
+    "email": "haofei7419@gmail.com",
+    "expertise": [
+      "natural language processing",
+      "computer vision",
+      "multimodal / vision-language learning"
+    ]
+  }
+]

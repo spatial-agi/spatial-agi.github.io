@@ -1,0 +1,66 @@
+{
+  "source": "assets/figures/figures/part3/section6/layout_parsing_method.webp",
+  "source_size": [
+    2000,
+    1031
+  ],
+  "notes": "Four separately saved RGBA photographic thumbnails, grouped by lane. Photo backgrounds retained. Corner and edge maps, 3D rooms, boundary signals, footprints, plane-depth patches, bird\u2019s-eye-view diagram, method boxes, timeline ticks, arrows and all text will be drawn independently in the frontend.",
+  "assets": [
+    {
+      "file": "perspective/room.png",
+      "source_box": [
+        338,
+        103,
+        471,
+        170
+      ],
+      "size": [
+        133,
+        67
+      ],
+      "notes": "Exact source thumbnail crop; surrounding text, arrows and geometry excluded."
+    },
+    {
+      "file": "panorama/room.png",
+      "source_box": [
+        338,
+        299,
+        471,
+        367
+      ],
+      "size": [
+        133,
+        68
+      ],
+      "notes": "Exact source thumbnail crop; surrounding text, arrows and geometry excluded."
+    },
+    {
+      "file": "beyond-cuboid/room.png",
+      "source_box": [
+        338,
+        496,
+        471,
+        565
+      ],
+      "size": [
+        133,
+        69
+      ],
+      "notes": "Exact source thumbnail crop; surrounding text, arrows and geometry excluded."
+    },
+    {
+      "file": "outdoor/street.png",
+      "source_box": [
+        338,
+        878,
+        471,
+        946
+      ],
+      "size": [
+        133,
+        68
+      ],
+      "notes": "Exact source thumbnail crop; surrounding text, arrows and geometry excluded."
+    }
+  ]
+}

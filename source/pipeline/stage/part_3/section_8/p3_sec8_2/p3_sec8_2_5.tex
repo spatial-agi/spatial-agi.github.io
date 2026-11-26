@@ -1,0 +1,174 @@
+
+
+\subsection{3D Scene Editing}
+\label{subsec:p3_s8_2_5}
+
+The preceding subsections build 3D content; 3D scene editing takes an existing asset and modifies it under user control while preserving everything the edit should leave untouched.
+Such incremental control is exactly what spatial intelligence asks of a 3D world model: an agent that must correct a mistake, personalize an environment, or keep a scene consistent as its task unfolds cannot afford to regenerate the world from scratch every time it changes.
+Technically, 3D editing lifts the 2D inpainting-and-editing machinery of §\ref{subsec:p3_s8_1_3} from the image plane to a multi-view-consistent 3D representation, adding a cross-view coherence requirement that has no analogue in the 2D case; the five method families below are distinguished by how the edit signal is injected into that representation.
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section8/3d_editing_tasks.png}
+    \caption{Demonstrations of 3D editing tasks. (a) appearance editing, (b) object transformation, (c) shape deformation, (d) scene inpainting, and (e) creative editing. Figure adapted from~\cite{zhu2026survey3D}.}
+    \label{fig:3D_editing_tasks}
+\end{figure}
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_2_5_task}
+
+3D scene (and object) editing modifies an existing 3D asset or reconstructed scene according to a user intent (typically language or reference images, as in Figure~\ref{fig:3D_editing_tasks}) while preserving 3D consistency for novel-view rendering.
+Unlike text-to-3D generation, editing operates on a given representation (\eg, NeRF, 3D Gaussian Splatting, or meshes) and requires (i) locality and identity preservation for unedited regions, (ii) multi-view (and potentially temporal) coherence, and (iii) controllability over the edited attributes, whether geometry, appearance, material, or semantics.
+
+Formally, 3D editing is the 3D-lifted counterpart of the 2D inpainting-and-editing operator of §\ref{subsec:p3_s8_1_3} (Eq.~\eqref{eq:t2i_edit_objective}).
+Given an input 3D representation $\mathbf{r}^{\text{in}}\in\mathcal{R}$ drawn from the same representation space $\mathcal{R}$ as §\ref{subsec:p3_s8_2_1}, an edit intent $\mathbf{c}\in\mathcal{C}\supseteq\{\text{text instruction},\text{reference image},\text{mask / region},\text{scribble}\}$, and an optional 3D region of interest $\mathcal{M}\subseteq\mathbb{R}^3$, the goal is an editing operator
+\begin{equation}
+E_\theta:\mathcal{R}\times\mathcal{C}'\rightarrow\mathcal{R},
+\qquad
+\hat{\mathbf{r}} = E_\theta\big(\mathbf{r}^{\text{in}},\,\kappa(\mathbf{c})\big),
+\label{eq:p3_s8_2_5_objective}
+\end{equation}
+trained or optimized to minimize an objective that couples three competing terms,
+\begin{equation}
+\mathcal{L}_{\text{edit}}
+=
+\underbrace{\mathcal{L}_{\text{intent}}\big(\hat{\mathbf{r}},\mathbf{c};\mathcal{M}\big)}_{\text{edit-region adherence}}
+\;+\;
+\lambda_{\text{p}}\underbrace{\mathcal{L}_{\text{preserve}}\big(\hat{\mathbf{r}},\mathbf{r}^{\text{in}};\mathbb{R}^3\!\setminus\!\mathcal{M}\big)}_{\text{identity preservation}}
+\;+\;
+\lambda_{\text{c}}\underbrace{\mathcal{L}_{\text{consist}}\big(\{\mathrm{Render}(\hat{\mathbf{r}},\pi_v)\}_v\big)}_{\text{multi-view coherence}},
+\label{eq:p3_s8_2_5_loss}
+\end{equation}
+where $\kappa$ is the condition encoder of §\ref{subsec:p3_s8_2_1}, $\mathrm{Render}$ is the differentiable renderer of §\ref{subsec:p3_s8_2_3}, and $\lambda_{\text{p}},\lambda_{\text{c}}$ trade off preservation and consistency against edit strength.
+The limiting case that anchors Eq.~\eqref{eq:p3_s8_2_5_objective} to its 2D origin is instructive: when $\mathcal{R}$ collapses to a single image ($V=1$, no rendering), $E_\theta$ reduces exactly to the 2D editing operator of Eq.~\eqref{eq:t2i_edit_objective} and the multi-view-consistency term vanishes, so 3D editing is 2D editing plus a cross-view coherence constraint.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_2_5_methodology}
+
+Recent 3D object and scene editing methods can be categorized by \emph{how} the edit signal of Eq.~\eqref{eq:p3_s8_2_5_objective} is injected into the 3D representation, from lifting 2D edits view by view, through enforcing cross-view consistency, to operating directly on 3D primitives, reasoning with language models, and amortizing the edit into a single feed-forward pass.
+Figure~\ref{fig:p3_s8_2_5_mechanisms} schematizes the five families and how each realizes the operator $E_\theta$.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section8/Five_method_families_for_3D_scene_editing.pdf}
+    \caption{Five method families for 3D scene editing: (a) 2D-lifted iterative editing, (b) multi-view-consistent guidance, (c) 3D-native primitive editing, (d) LLM-integrated editing, and (e) efficient and training-free editing. The chair edit (top) is illustrative, not a measured result.}
+    \label{fig:p3_s8_2_5_mechanisms}
+\end{figure}
+
+\paragraph{2D-lifted Iterative Editing.}
+A dominant paradigm inherits from instruction-based NeRF editing~\cite{bao2023sine,khalid2024latenteditor,mikaeili2023sked,zhou2023repaintnerf}: the method iterates between rendering views from the current scene, applying a 2D diffusion-based editor to them, and updating the 3D representation to match the edited guidance under geometric regularization.
+Formally, this family instantiates $E_\theta$ of Eq.~\eqref{eq:p3_s8_2_5_objective} as a \emph{per-scene} optimization that drives the rendered views toward the output of a \emph{frozen} 2D editor $\mathcal{E}_{\text{2D}}$ (the InstructPix2Pix-style operator of §\ref{subsec:p3_s8_1_3}),
+\begin{equation}
+\hat{\mathbf{r}} = \arg\min_{\mathbf{r}\in\mathcal{R}} \sum_{v} \big\| \mathrm{Render}(\mathbf{r},\pi_v) - \mathcal{E}_{\text{2D}}\!\big(\mathrm{Render}(\mathbf{r}^{\text{in}},\pi_v),\,\mathbf{c}\big) \big\|^2 + \lambda\,\Omega(\mathbf{r}),
+\label{eq:p3_s8_2_5_lift}
+\end{equation}
+so that the 2D edits are \emph{lifted} into the 3D representation and the $\arg\min$ is re-solved from scratch for every scene; Figure~\ref{fig:p3_s8_2_5_mechanisms}(a) depicts this render-edit-update loop.
+Instruct-NeRF2NeRF~\cite{haque2023instructnerf2nerf}, EditNeRF~\cite{liu2021editingnerf}, Free-Editor~\cite{karim2024freeeditor}, and CTRL-D~\cite{he2025ctrld} lift instruction-driven 2D edits into the radiance field this way, and with the rise of 3D Gaussian Splatting (3DGS)~\cite{kerbl20233d} the same principle moved to Gaussian primitives: Instruct-GS2GS~\cite{vachha2024instructgs2gs} iteratively edits the training images with InstructPix2Pix~\cite{brooks2023instructpix2pixlearningfollowimage} and re-optimizes the 3DGS to reflect the instruction while preserving 3D structure~\cite{wang2024viewedit,wynn2025morpheus}.
+The recipe is simple and borrows the full strength of 2D editors, but it is slow, prone to view-dependent artifacts, and only as good as the stability of the 2D editor and the coverage of the rendered guidance views.
+
+\paragraph{Multi-view-consistent Guidance.}
+Because independently edited views can disagree (inconsistent textures, hallucinated geometry), recent work~\cite{chen2024dge} enforces multi-view consistency at the \emph{guidance} level rather than relying on the 3D update to reconcile conflicting edits.
+Formally, rather than editing each view independently as in Eq.~\eqref{eq:p3_s8_2_5_lift}, this family makes the guidance images mutually consistent before the lift,
+\begin{equation}
+\{\hat{I}_v\} = \arg\min_{\{I_v\}} \sum_{v} \mathcal{L}_{\text{intent}}(I_v,\mathbf{c}) \;+\; \beta\!\!\sum_{(u,v)} \big\| I_u - \mathcal{W}_{u\to v}(I_v) \big\|^2,
+\label{eq:p3_s8_2_5_mvc}
+\end{equation}
+where $\mathcal{W}_{u\to v}$ warps view $v$ into view $u$ using geometry or depth derived from the current 3D estimate, penalizing cross-view disagreement; the consolidated $\{\hat{I}_v\}$ then drive the 3D update of Eq.~\eqref{eq:p3_s8_2_5_lift}, as in Figure~\ref{fig:p3_s8_2_5_mechanisms}(b).
+GaussCtrl~\cite{wu2024gaussctrl} edits several rendered views in a coupled fashion rather than sequentially, improving multi-view consistency for text-driven 3DGS editing~\cite{wang2024viewedit,xia2025towardsConsistent}, and VcEdit~\cite{wang2024viewedit} integrates the 3DGS into the image-editing process itself with consistency modules that counter cross-view disagreement and mode collapse.
+A complementary line transfers a \emph{single-view} edit to other views via geometry: \citet{gomel2024diffusionBasedAttention} extracts diffusion attention features from a reference edit, warps them across views using depth from the Gaussian splats, and injects the warped features to propagate a coherent edit.
+These methods preserve 3D coherence more robustly but still struggle with large non-rigid shape changes or severe occlusion, where reliable correspondence and geometry are hard to come by.
+
+\paragraph{3D-native Primitive Editing.}
+To reduce reliance on unstable 2D guidance and enable interactive use, 3D-native approaches operate directly on explicit scene primitives.
+Formally, this family bypasses the rendering loop of Eq.~\eqref{eq:p3_s8_2_5_lift} entirely: a grounding or segmentation operator $\mathcal{G}$ selects the target subset of primitives and a direct geometric transform $\mathcal{T}$ applies the edit,
+\begin{equation}
+\hat{\mathbf{r}} = \mathcal{T}\!\big(\mathbf{r}^{\text{in}};\,\mathcal{G}(\mathbf{r}^{\text{in}},\mathbf{c})\big), \qquad \mathcal{T}\in\{\text{add},\,\text{delete},\,\text{move},\,\text{recolor},\,\text{replace}\},
+\label{eq:p3_s8_2_5_native}
+\end{equation}
+acting on explicit Gaussians or mesh facets so that the unedited primitives are preserved \emph{by construction}: the identity-preservation term of Eq.~\eqref{eq:p3_s8_2_5_loss} is satisfied structurally rather than by a penalty; Figure~\ref{fig:p3_s8_2_5_mechanisms}(c) shows this pathway.
+3DSceneEditor~\cite{yan20243dsceneeditor} runs a fully 3D pipeline, combining instance segmentation and zero-shot grounding to localize the target and then performing Gaussian-level addition, deletion, relocation, recoloring, and replacement with strong controllability in real time, and InterGSEdit~\cite{wen2025intergsedit} adds user-in-the-loop key-view selection and a geometry-consistent attention prior for iterative, preference-guided 3DGS editing with control over the edit degree.
+More broadly, GaussianEditor and 3DSceneEditor~\cite{chen2024gaussianeditor,yan20243dsceneeditor} impose higher-level structure on the Gaussians, grouping them by object identity or semantic coherence (typically through zero-shot grounding or segmentation~\cite{hu2024semanticanythinggaussians,cen2025segmentany3dgaussians} followed by anchoring) so that an edit can be formulated at the level of an instance rather than of individual primitives, which localizes the target more precisely and protects the background.
+
+\paragraph{LLM-integrated Editing.}
+Large language models have been integrated into 3D editing pipelines not merely as text encoders but as high-level reasoning and control modules.
+Formally, the LLM decomposes the instruction into an ordered program of geometry-aware operators applied to the asset,
+\begin{equation}
+\hat{\mathbf{r}} = (o_K \circ \cdots \circ o_1)(\mathbf{r}^{\text{in}}), \qquad (o_1,\dots,o_K) = \mathrm{LLM}\big(\mathbf{c},\,\mathbf{r}^{\text{in}}\big),
+\label{eq:p3_s8_2_5_llm}
+\end{equation}
+so that high-level reasoning (attribute inference, edit planning, dependency resolution) is separated from the low-level operators $o_k$, often the primitive transforms of Eq.~\eqref{eq:p3_s8_2_5_native}, that it dispatches; Figure~\ref{fig:p3_s8_2_5_mechanisms}(d) depicts this plan-then-execute pathway.
+ShapeLLM-Omni~\cite{ye2025shapellmOmni} casts 3D editing as language-grounded reasoning in which the LLM performs shape understanding, attribute inference, and edit planning before invoking geometry-aware operators, and LL3M~\cite{lu2025ll3m} extends this to multimodal 3D manipulation requiring compositional understanding of geometry, appearance, and spatial relations.
+A complementary line~\cite{ma2025feedforward3DEditing} uses the LLM to guide or parameterize image-to-3D or text-to-3D backbones in a feed-forward setting rather than a per-scene optimization, and LLMs also serve as coordination agents for global consistency~\cite{huang2024blenderalchemy,zhang2025scenelanguage}: \citet{xia2025towardsConsistent} shows that reasoning over object identities, relations, and edit dependencies reduces the conflicts that arise in purely diffusion- or optimization-based pipelines when several objects and attributes must be edited at once.
+
+\paragraph{Efficient and Training-free Editing.}
+A final trend reduces test-time cost through feed-forward reconstruction or reuse of pretrained models~\cite{erkocc2025preditor3d,li2025voxhammer}. These strategies are distinct: a training-free editing pipeline can still involve iterative diffusion inference. The amortized feed-forward case evaluates the editing operator of Eq.~\eqref{eq:p3_s8_2_5_objective} directly,
+\begin{equation}
+\hat{\mathbf{r}} = E_\theta\big(\mathbf{r}^{\text{in}},\,\kappa(\mathbf{c})\big) \quad \text{(amortized, no per-scene optimization)},
+\label{eq:p3_s8_2_5_ff}
+\end{equation}
+eliminating the per-scene $\arg\min$ of Eq.~\eqref{eq:p3_s8_2_5_lift} by amortizing inference into a trained network. Training-free alternatives instead reuse pretrained components, potentially through single-view guidance, mesh proxies, or iterative native-3D latent editing; Figure~\ref{fig:p3_s8_2_5_mechanisms}(e) distinguishes these routes from the per-scene optimization loop in panel~(a).
+Free-Editor~\cite{karim2024freeeditor} edits a NeRF zero-shot from text without scene-specific retraining, countering multi-view style inconsistency with a ``single-view editing'' scheme and an Edit Transformer; on the scene-operation side (insert, replace, delete), FreeEdit~\cite{madhavaram2025towardsTrainingFree} uses a mesh proxy to perform training-free edits guided by foundation models at near real-time rates in complex indoor scenes.
+These methods improve usability but typically trade away edit fidelity and coverage, especially for fine-grained geometry, and depend strongly on robust grounding and localization in 3D.
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_2_5_benchmarks}
+
+Several benchmarks have recently been introduced for systematic evaluation.
+3D-Alpaca-Editing~\cite{ye2025shapellmOmni} focuses on instruction-following 3D editing, assessing whether a model interprets natural-language commands correctly while preserving unedited content.
+CMD~\cite{li2025cmd} emphasizes compositional and multi-step instructions, where reasoning and planning matter.
+Edit3D-Bench~\cite{li2025voxhammer} is a general-purpose suite covering geometry, appearance, and object-level operations, with 3D edit regions annotated on 100 source models (300 edits), which allows fair comparison across editing paradigms.
+3DEditVerse~\cite{xia2025towardsConsistent} is a large-scale paired benchmark built for robustness and generalization across varied objects, scenes, and intents.
+Together they standardize evaluation in terms of instruction compliance, edit locality, and scalability; Table~\ref{tab:p3_s8_2_5_datasets} summarizes their scale and the evaluation axes each one annotates.
+
+\begin{table}[!ht]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative 3D editing benchmarks. ``Edit region'' indicates whether a localized edit mask / region is annotated; ``Consistency'' and ``Harmony'' indicate whether multi-view consistency and edit harmonization are evaluated. The criteria follow the four requirements set out with 3DEditVerse~\cite{xia2025towardsConsistent}.}
+\label{tab:p3_s8_2_5_datasets}
+\begin{tabular}{L{0.24\textwidth} C{0.11\textwidth} C{0.10\textwidth} C{0.11\textwidth} C{0.12\textwidth} C{0.12\textwidth} C{0.10\textwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Training size} & \textbf{Testing size} & \textbf{Edit region} & \textbf{Train / test split} & \textbf{Consistency} & \textbf{Harmony} \\
+\midrule
+3D-Alpaca-Editing~\cite{ye2025shapellmOmni} & ${\sim}70{,}000$ & -- & \cmark & \crossmark & \crossmark & \cmark \\
+CMD~\cite{li2025cmd} & ${\sim}40{,}000$ & 50 & \crossmark & \cmark & \cmark & \crossmark \\
+Edit3D-Bench~\cite{li2025voxhammer} & -- & 300 & \cmark & \crossmark & \cmark & \cmark \\
+3DEditVerse~\cite{xia2025towardsConsistent} & 116,309 & 1,500 & \cmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Evaluation Metrics.}
+Evaluation considers geometric fidelity, appearance quality, and semantic alignment with the instruction.
+Geometry is measured by Chamfer Distance (CD)~\cite{ma2025feedforward3DEditing}, lower being better, and by F-score~\cite{xia2025towardsConsistent}, which captures surface overlap at a distance threshold.
+Texture and appearance are assessed by comparing renderings of the edited representation against target or inpainted images with SSIM~\cite{wang2004image}, LPIPS~\cite{zhang2018unreasonable}, and DreamSim~\cite{fu2023dreamsim}~\cite{gao20253dmeshedit}.
+Visual--text alignment is scored with CLIP- or DINO-based embedding similarity~\cite{shu2025gaussedit}, and GPTEval3D~\cite{wu2024gpt4vt23dgen} uses GPT-4V to compare multi-view renderings of edited shapes on text alignment, 3D plausibility, and texture detail.
+To measure the edit relative to the input rather than in isolation, directional CLIP (CLIP$_{\text{dir}}$)~\cite{wynn2025morpheus} checks that the change in image embedding, computed over multi-view renderings of input and output, follows the change in text embedding.
+
+Edit cost is the clearest axis separating the five families.
+Instruct-NeRF2NeRF~\cite{haque2023instructnerf2nerf} takes on the order of 30--90 minutes per edit; GaussianEditor~\cite{chen2024gaussianeditor} brings this under 20 minutes by operating on explicit Gaussians; PrEditor3D~\cite{erkocc2025preditor3d} edits a shape in a few minutes, and VoxHammer~\cite{li2025voxhammer} performs precise local edits training-free in a native 3D latent space.
+On quality the field reports DINO-I and CLIP-T on Edit3D-Bench~\cite{li2025voxhammer}, directional CLIP~\cite{wynn2025morpheus}, and GPT-4V judgment~\cite{wu2024gpt4vt23dgen}; the 3D-native and feed-forward families lead on locality and speed, while 2D-lifted methods keep an edge on open-vocabulary appearance edits where a strong 2D editor does the work.
+The speed of feed-forward editing comes at a cost in fine-grained geometry control and a dependence on robust 3D grounding, taken up below.
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_2_5_challenges}
+
+Several problems remain genuinely open and define the current frontier of 3D editing.
+
+\paragraph{Geometry-level, not merely appearance, editing.}
+Most current methods edit color and texture well but treat geometry as fixed: precise, instruction-driven changes to shape, including thin, transparent, or high-frequency structures, remain unreliable, and edits that should alter the underlying surface often only repaint it. Closing this gap requires editors that operate on geometry and appearance jointly rather than deferring geometry to a frozen reconstruction.
+
+\paragraph{Large non-rigid and structural edits.}
+Adding, removing, or substantially deforming structure while preserving the identity of the rest of the asset is still difficult: drag-driven, as-rigid-as-possible Gaussian editors~\cite{han2025arapgs} handle moderate deformation, but large non-rigid motion and topology changes frequently lose original detail. Robust structural and compositional editing, including relation-aware multi-object edits, remains an active frontier.
+
+\paragraph{Material--lighting disentanglement and relightable editing.}
+Because most representations bake illumination into appearance, an edit that changes an object's material or color is not guaranteed to stay consistent when the scene is relit. Relightable representations that decompose geometry, BRDF, and incident light~\cite{gao2024relightable} are a prerequisite for edits that survive relighting and for inserting edited content into new lighting, yet stable material--light decomposition under editing is not solved.
+
+\paragraph{The consistency bottleneck has moved to 3D grounding.}
+Now that native-3D editing handles appearance coherence, the limiting factor is localization: methods such as VoxHammer~\cite{li2025voxhammer} are highly sensitive to 3D mask accuracy and degrade rapidly when the target region is imprecisely grounded. Robust open-vocabulary 3D grounding and segmentation~\cite{hu2024semanticanythinggaussians,cen2025segmentany3dgaussians}, ideally without user-provided masks~\cite{xia2025towardsConsistent}, is therefore the new gate on edit quality, and it is most acute in dynamic scenes, where the edited region must be tracked with temporal identity preserved across frames~\cite{he2025ctrld}.
+
+Two pressures cut across all four. Evaluation remains immature: the benchmarks of §\ref{subsubsec:p3_s8_2_5_benchmarks} are small (Edit3D-Bench annotates 100 source models and 300 edits) and no metric panel is yet standard, so progress on the harder edits above is difficult to measure reliably. And the strongest forward trend is unification, bringing generation, segmentation, grounding, and editing into a single structured pipeline~\cite{park2026generative} with interfaces that go beyond text to reference images~\cite{shu2025gaussedit}, masks~\cite{barda2025instant3dit}, sketches~\cite{mikaeili2023sked}, and object-level operations, so that an agent can specify and verify a geometry-, material-, and relighting-consistent edit rather than only a repaint.

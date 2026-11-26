@@ -1,0 +1,85 @@
+\subsection{Geometric and Algebraic Reasoning}
+\label{subsec:p3_s7_1_1}
+% - Coordinate transformation, workspace computation, FoV estimation
+% - Euclidean, projective geometry, Jacobian-based reasoning
+% - Applications: reachability analysis, sensor coverage, grasp range
+
+Geometric and algebraic reasoning uses explicit mathematical models of position, orientation, shape, and motion to turn local measurements (image points, depths, joint angles, odometry) into quantities that can be analyzed and verified: where things are in a common frame, what a sensor can see, what a mechanism can reach, and whether a grasp will hold. The same models extend to time-varying settings, where relationships evolve under kinematic and differential constraints and the question becomes not only where entities can be but how they can move. Precision, interpretability, and domain independence have made this the common substrate of robotics~\cite{Murray1994RoboticManipulation,Lynch2017ModernRobotics,siciliano2010robotics}, AR/VR~\cite{hartley2003multiple,azuma1997survey}, and autonomous systems~\cite{Thrun2005Probabilistic,sola2018micro,LaValle2006Planning}, and the source of the hard constraints that learned components are checked against. Figure~\ref{fig:p3_s7_1_1_geo_algebra_abstract} gives the abstract formulation.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section7/711_geo.pdf}
+    \caption{Abstract task formulation of geometric and algebraic reasoning: (i) local spatial measurements and system models are mapped by (ii) a core of reusable symbolic formalisms to (iii) analyzable, verifiable spatial outputs.}
+    \label{fig:p3_s7_1_1_geo_algebra_abstract}
+\end{figure}
+
+\subsubsection{Task Definition}
+Given measurements $\{\mathbf{z}_k\}$ expressed in local frames (pixels, ranges, joint readings, pose increments) and a system model $\Theta$ (sensor calibration, kinematic parameters, environment geometry), geometric reasoning computes a world-frame quantity and a feasibility verdict,
+\begin{equation}
+    \mathbf{x} = g(\{\mathbf{z}_k\};\, \Theta), \qquad
+    \psi(\mathbf{x};\, \Theta) \in \{\mathrm{true}, \mathrm{false}\},
+\end{equation}
+where $\mathbf{x}$ may be a pose, a reconstructed surface, a workspace or visibility region, or a trajectory, and $\psi$ is a chosen predicate, such as reachability, visibility, or force closure, checked against the model. In the time-varying case the inputs are indexed over time and $\mathbf{x}$ becomes a trajectory with reachable sets and feasibility certificates along it.
+
+\subsubsection{Methodology}
+
+\paragraph{Transformation and Pose Representation.}
+Rigid-body relationships between sensors, objects, and mechanisms are elements of the special Euclidean group
+\begin{equation}
+\mathbf{T} =
+\begin{bmatrix}
+\mathbf{R} & \mathbf{t} \\
+\mathbf{0}^\top & 1
+\end{bmatrix} \in SE(3),
+\end{equation}
+where $\mathbf{R} \in SO(3)$ is a rotation and $\mathbf{t} \in \mathbb{R}^3$ a translation; composing them moves measurements across frames. Early robotics parameterized serial chains through the Denavit--Hartenberg convention~\cite{Denavit1955Kinematic,Paul1981Robot}, which gives forward kinematics from a minimal set of link parameters. Lie-group formulations instead write motion as exponentials of screw axes, the product-of-exponentials representation~\cite{Murray1994RoboticManipulation,Lynch2017ModernRobotics}, which is coordinate-free and behaves well where the DH parameterization has discontinuities. Quaternions~\cite{Shoemake1985QuaternionCurves,Horn1987Orientation} and dual quaternions~\cite{Daniilidis1999DualQuat,horn2021online} give compact, numerically stable encodings of rotation and screw motion for calibration and sensor fusion.
+
+\paragraph{Projective and Multi-View Geometry.}
+Reasoning from images must recover 3D structure and camera motion from 2D measurements under perspective distortion and scale ambiguity. The constraint between corresponding points in two views is the epipolar condition
+\begin{equation}
+\mathbf{x}'^\top \mathbf{F} \mathbf{x} = 0,
+\end{equation}
+with $\mathbf{F}$ the fundamental matrix. The eight-point algorithm~\cite{LonguetHiggins1981Scene} solves for $\mathbf{F}$ linearly, Hartley's normalization~\cite{Hartley1997EightPoint} made it numerically stable, and Nistér's five-point solver~\cite{Nister2004FivePoint} reaches the minimal case for calibrated cameras. Zhang's homography-based calibration~\cite{zhang2000flexible} removed the need for special rigs; the field is consolidated in~\cite{hartley2003multiple}, and structure-from-motion systems such as COLMAP~\cite{schonberger2016structure} scale it to thousands of images, with RANSAC~\cite{Fischler1981RANSAC} enforcing the algebraic constraints against outliers throughout.
+
+\paragraph{Jacobian and Differential Formulations.}
+For motion rather than static configuration, the map from configuration to task space,
+\begin{equation}
+\mathbf{x} = f(\mathbf{q}),
+\end{equation}
+is differentiated to relate velocities,
+\begin{equation}
+\dot{\mathbf{x}} = \mathbf{J}(\mathbf{q}) \dot{\mathbf{q}},
+\end{equation}
+and the Jacobian $\mathbf{J}(\mathbf{q})$ carries the information about feasibility, singularities, and controllability along a motion. Whitney's resolved motion rate control~\cite{Whitney1969ResolvedMotion} used it to command Cartesian velocities without closed-form inverse kinematics; Nakamura's damped least squares~\cite{Nakamura1986IKSingularity} trades exactness for stability near singularities; redundancy resolution~\cite{Liegeois1977Redundancy,Siciliano1991Redundancy} uses null-space motion for secondary objectives; and Khatib's operational-space formulation~\cite{Khatib1987OperationalSpace} separates task and null-space dynamics so that objectives are written directly in task space.
+
+\paragraph{Visibility and Coverage Geometry.}
+What a sensor at pose $p$ can observe is the set
+\begin{equation}
+\mathcal{V}(p) = \{ x \in \mathcal{E} \mid \text{line}(p,x) \cap \mathcal{O}
+= \emptyset \},
+\end{equation}
+with $\mathcal{E}$ the environment and $\mathcal{O}$ the obstacles. The Art Gallery theorem~\cite{Chvatal1975ArtGallery,ORourke1987ArtGallery} bounds the number of viewpoints needed for full coverage; polygon visibility~\cite{Lee1983Visibility} and shortest-path queries~\cite{Guibas1987ShortestPath} made the computations algorithmic; and Tarabanis \etal~\cite{Tarabanis1995SensorPlanning} cast sensor planning as geometric optimization over fields of view modeled as cones, frusta, or polygons.
+
+\paragraph{Workspace and Reachability Analysis.}
+The reachable workspace of a mechanism is
+\begin{equation}
+\mathcal{R} = \{ \mathbf{x} \mid \exists\, \mathbf{q} \in \mathcal{C}_{\mathrm{free}}
+\text{ such that } \mathbf{x} = f(\mathbf{q}) \},
+\end{equation}
+with $\mathcal{C}_{\mathrm{free}}$ the feasible configuration space. Roth~\cite{Roth1975Performance} and Gosselin~\cite{Gosselin1990Singularity} added performance and dexterity measures so that manipulability is characterized along with reachability; Merlet~\cite{Merlet1998Workspace} classified workspace types; Zlatanov \etal~\cite{Zlatanov1994Constraints} analyzed constraint-induced singularities; and sampling-based reachability maps~\cite{lu2026richmap} trade closed-form guarantees for empirical coverage in high-dimensional systems.
+
+\paragraph{Contact and Grasp Geometry.}
+Whether a set of contacts can hold an object is decided in wrench space. Ferrari and Canny~\cite{Ferrari1992Grasp} model the forces each contact can apply as a convex set of wrenches $\mathcal{W}$; the grasp is force-closed if
+\begin{equation}
+\mathbf{0} \in \text{int}\,\text{conv}(\mathcal{W}),
+\label{eq:p3_s7_1_1_force_closure}
+\end{equation}
+so that any external wrench can be resisted. GraspIt!~\cite{Miller2004GraspIt} made these metrics computable for arbitrary hands and objects; task-oriented measures~\cite{Lin2015TaskGrasp} weight the wrench space by what the task requires; and Dex-Net~\cite{Mahler2017DexNet} samples analytic grasps at scale to train data-driven grasp predictors that keep the geometric criterion as their label.
+
+\subsubsection{Benchmarks}
+Geometric reasoning is evaluated against geometrically grounded ground truth: camera poses and intrinsics, depth maps and meshes, object models, grasp annotations. The pose, odometry, SLAM, and multi-view reconstruction benchmarks (TUM RGB-D~\cite{Sturm2012TUMRGBD}, EuRoC~\cite{Burri2016EuRoC}, TUM-VI~\cite{Schubert2018TUMVI}, KITTI~\cite{KITTI-GeigerLU12}, ETH3D~\cite{Schoeps2017ETH3D}, Tanks and Temples~\cite{knapitsch2017tanks}, DTU~\cite{Aanaes2016DTU}, Middlebury~\cite{Seitz2006Middlebury,Scharstein2002Stereo}, HPatches~\cite{Balntas2017HPatches}) and the long-term localization suites under seasonal and day-night change (Aachen, RobotCar Seasons, CMU Seasons~\cite{Sattler2018Benchmarking}, InLoc~\cite{Taira2018InLoc}, 4Seasons~\cite{wenzel2021seasons}) are those of Section~\ref{sec:visual_odometry} and Section~\ref{sec:mapping_slam}, where their protocols and headline results are tabulated. Specific to the reasoning problems above are BAL~\cite{agarwal2010bundle}, which standardizes large bundle-adjustment problems for solver evaluation; the Active Vision Dataset~\cite{Johns2016AVD}, ScanNet~\cite{dai2017scannet}, and HM3D~\cite{Ramakrishnan2021HM3D} for next-best-view, coverage, and exploration protocols; Cornell~\cite{Jiang2011Cornell}, Jacquard~\cite{Depierre2018Jacquard}, and GraspNet-1Billion~\cite{Fang2020GraspNet} for grasp quality (rectangle labels, simulated grasp trials, and dense 6-DoF annotations with seen / unseen / novel splits respectively), with the YCB object set~\cite{Calli2015YCB} as the shared physical test set; and MoveIt~\cite{Cohen2012MoveIt}, whose reachability tooling is the de facto harness for inverse kinematics and motion-planning evaluation.
+
+\subsubsection{Challenges and Trends}
+The formulations above assume exact geometry, and real sensing is noisy, incomplete, and subject to calibration drift~\cite{Sturm2012TUMRGBD,Burri2016EuRoC}; bundle adjustment~\cite{agarwal2010bundle} and reachability analysis scale poorly with problem size; many methods fail near singularities or degenerate feature configurations~\cite{Nakamura1986IKSingularity,Hartley1997EightPoint}; the frameworks are strongest for static rigid bodies and approximate deformable and human-centric geometry~\cite{SicilianoKhatib2016}; and evaluation is concentrated on a few canonical datasets and manipulators, which limits cross-domain comparison.
+
+The response has been to keep the geometry and wrap it in probabilistic or learned machinery: factor-graph SLAM and robust bundle adjustment attach uncertainty to the symbolic model (Section~\ref{sec:mapping_slam}); learned correspondence priors are refined by RANSAC~\cite{Fischler1981RANSAC}; and the long-term benchmarks~\cite{wenzel2021seasons,Sattler2018Benchmarking} push the same pipelines toward continual adaptation under changing conditions.

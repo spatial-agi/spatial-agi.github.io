@@ -1,0 +1,260 @@
+{
+  "figure": "8.12",
+  "sources": [
+    "assets/figures/figures/part3/section8/Five_method_families_for_3D_scene_editing.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1725
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/blue-chair-room.png",
+      "title": "blue chair room",
+      "box": [
+        20,
+        30,
+        152,
+        162
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        40,
+        60,
+        304,
+        324
+      ],
+      "size": [
+        264,
+        264
+      ]
+    },
+    {
+      "file": "task/red-chair-room.png",
+      "title": "red chair room",
+      "box": [
+        843,
+        30,
+        975,
+        162
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1686,
+        60,
+        1950,
+        324
+      ],
+      "size": [
+        264,
+        264
+      ]
+    },
+    {
+      "file": "a/rendered.png",
+      "title": "rendered",
+      "box": [
+        186,
+        263,
+        263,
+        339
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        372,
+        526,
+        526,
+        678
+      ],
+      "size": [
+        154,
+        152
+      ]
+    },
+    {
+      "file": "a/edited.png",
+      "title": "edited",
+      "box": [
+        186,
+        470,
+        233,
+        517
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        372,
+        940,
+        466,
+        1034
+      ],
+      "size": [
+        94,
+        94
+      ]
+    },
+    {
+      "file": "d/edited-scene.png",
+      "title": "edited scene",
+      "box": [
+        30,
+        756,
+        107,
+        832
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        60,
+        1512,
+        214,
+        1664
+      ],
+      "size": [
+        154,
+        152
+      ]
+    },
+    {
+      "file": "b/view-1.png",
+      "title": "view 1",
+      "box": [
+        360,
+        275,
+        425,
+        340
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        720,
+        550,
+        850,
+        680
+      ],
+      "size": [
+        130,
+        130
+      ]
+    },
+    {
+      "file": "b/view-2.png",
+      "title": "view 2",
+      "box": [
+        456,
+        275,
+        521,
+        340
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        912,
+        550,
+        1042,
+        680
+      ],
+      "size": [
+        130,
+        130
+      ]
+    },
+    {
+      "file": "b/view-3.png",
+      "title": "view 3",
+      "box": [
+        553,
+        275,
+        618,
+        340
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1106,
+        550,
+        1236,
+        680
+      ],
+      "size": [
+        130,
+        130
+      ]
+    },
+    {
+      "file": "b/target-1.png",
+      "title": "target 1",
+      "box": [
+        365,
+        463,
+        418,
+        516
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        730,
+        926,
+        836,
+        1032
+      ],
+      "size": [
+        106,
+        106
+      ]
+    },
+    {
+      "file": "b/target-2.png",
+      "title": "target 2",
+      "box": [
+        461,
+        463,
+        514,
+        516
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        922,
+        926,
+        1028,
+        1032
+      ],
+      "size": [
+        106,
+        106
+      ]
+    },
+    {
+      "file": "b/target-3.png",
+      "title": "target 3",
+      "box": [
+        557,
+        463,
+        610,
+        516
+      ],
+      "kind": "photo",
+      "source_index": 0,
+      "source_box": [
+        1114,
+        926,
+        1220,
+        1032
+      ],
+      "size": [
+        106,
+        106
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

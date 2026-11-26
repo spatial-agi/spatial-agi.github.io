@@ -1,0 +1,179 @@
+\subsection{Text-to-image Generation}
+\label{subsec:t2i}
+\label{subsec:p3_s8_1_1}
+
+Text-to-image (T2I) generation synthesizes an image from a natural-language description.
+For the rest of this chapter its importance lies less in the images themselves than in the prior it provides: a high-capacity mapping from compositional language to the visual space of objects, surfaces, layouts, and viewpoints, learned once at web scale and then reused.
+The spatial controllers of §\ref{subsec:p3_s8_1_2} and the editors of §\ref{subsec:p3_s8_1_3} impose constraints on this prior rather than replacing it, and the text-to-3D pipelines of §\ref{sec:p3_s8_2} distill it through score distillation or multi-view consistency objectives; whatever relational competence the prior has, or lacks, therefore propagates downstream.
+The field has passed through three architectural paradigms, from adversarial training to autoregressive token modeling to iterative denoising, with diffusion and its flow-matching generalization now setting the standard for quality and prompt fidelity~\cite{rombach2022ldm,peebles2023dit}.
+
+
+\subsubsection{Task Definition}
+We formulate text-to-image generation in a paradigm-agnostic form that exposes the structural choices shared by modern systems.
+Let $\mathcal{X}$ denote the space of tokenized text prompts and $\mathcal{Y}=[0,1]^{H\times W\times 3}$ the pixel-space image domain.
+Almost all modern T2I systems operate not directly on $\mathcal{Y}$ but on a compressed \emph{latent space} $\mathcal{Z}\subset\mathbb{R}^d$ provided by an autoencoder pair
+\begin{equation}
+E:\mathcal{Y}\rightarrow\mathcal{Z},\qquad D:\mathcal{Z}\rightarrow\mathcal{Y},\qquad D\!\circ\!E\approx \mathrm{id}_{\mathcal{Y}},
+\label{eq:t2i_autoencoder}
+\end{equation}
+where $E$ encodes a training image into a low-dimensional code and $D$ decodes a code back into a pixel image.
+A text encoder $\phi:\mathcal{X}\rightarrow\mathcal{E}$ maps the prompt into a conditioning embedding $\phi(\mathbf{x})\in\mathcal{E}$.
+The core learning problem is then to train a conditional latent sampler
+\begin{equation}
+G_\theta:\mathcal{E}\rightarrow\mathcal{Z},\qquad \hat{\mathbf{z}}\sim p_\theta\!\big(\mathbf{z}\,\big|\,\phi(\mathbf{x})\big),
+\label{eq:t2i_generator}
+\end{equation}
+so that, after decoding, the resulting image $\hat{\mathbf{y}}=D(\hat{\mathbf{z}})$ is both photorealistic and semantically aligned with the prompt $\mathbf{x}$.
+The three paradigms covered below differ chiefly in how the conditional distribution $p_\theta(\mathbf{z}\mid\phi(\mathbf{x}))$ is parameterized and optimized; the autoencoder pair $(E,D)$ and the text encoder $\phi$ are largely shared design choices across paradigms.
+Figure~\ref{fig:p3_s8_1_1_framework} schematizes this paradigm-agnostic pipeline and the substrate that the three paradigms share.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\linewidth]{figures/part3/section8/t2i_framework_and_paradigms.pdf}
+\caption{The latent-generator view of text-to-image generation. Top: the shared pipeline of Eqs.~\eqref{eq:t2i_autoencoder} and~\eqref{eq:t2i_generator}; the encoder $E$ and the dashed paths are used only in training. Bottom: the sampler $G_\theta$ as (a) a GAN, (b) an autoregressive token model, and (c) diffusion or flow matching. Not every architecture uses a separate autoencoder; the corgi is a schematic illustration.}
+\label{fig:p3_s8_1_1_framework}
+\end{figure}
+
+
+\subsubsection{Methodology}
+
+Three generative paradigms, taken in the order in which each dominated T2I, parameterize the sampler $G_\theta$ of Eq.~\eqref{eq:t2i_generator} differently; the bottom row of Figure~\ref{fig:p3_s8_1_1_framework} draws them against the common pipeline.
+A second set of advances refines the sampler without redefining it: backbone evolution, sampling acceleration, and the migration of leading systems to proprietary stacks.
+Structural conditioning interfaces, the fourth such refinement, are the subject of §\ref{subsec:p3_s8_1_2} and are not repeated here.
+
+\paragraph{Generative Adversarial Networks.}\label{para:p3_s8_1_1_gan}
+GAN-based T2I models instantiate $G_\theta$ as a feed-forward generator $G_\theta(\mathbf{n},\phi(\mathbf{x}))\!\to\!\hat{\mathbf{z}}$ driven by an auxiliary noise vector $\mathbf{n}\sim\mathcal{N}(0,I)$; the conditional distribution $p_\theta(\mathbf{z}\mid\phi(\mathbf{x}))$ is defined only implicitly, as the pushforward of $\mathbf{n}$ through $G_\theta$.
+Training follows the two-player game of \citet{goodfellow2014gan}, pitting the generator against a discriminator $D_\psi$,
+\begin{equation}
+\min_\theta \max_\psi\ \mathbb{E}_{\mathbf{y}\sim p_\text{data}}\!\big[\log D_\psi(\mathbf{y},\phi(\mathbf{x}))\big] + \mathbb{E}_{\mathbf{n}}\!\big[\log\!\big(1-D_\psi(D(G_\theta(\mathbf{n},\phi(\mathbf{x}))),\phi(\mathbf{x}))\big)\big],
+\label{eq:t2i_gan_objective}
+\end{equation}
+in which $D_\psi$ scores both photorealism and text-image consistency.
+The result is sharp high-frequency detail and single-pass inference, bought at the price of unstable training and mode collapse.
+Within this framework, StackGAN~\cite{stackgan2017} generated a low-resolution image first and refined it with a second GAN conditioned on both the text and the coarse image; AttnGAN~\cite{attngan2018} let the generator attend to individual words while rendering different regions, with an auxiliary image-text matching loss (DAMSM) that reduced attribute errors such as wrongly colored objects; XMC-GAN~\cite{xmcgan2021} replaced that loss with cross-modal contrastive learning and improved multi-object prompts.
+By 2021 diffusion models had overtaken these systems on COCO, chiefly because they train stably and cover more of the image distribution, and research attention moved on; the GAN emphasis on high-frequency detail survives in hybrid and adversarially fine-tuned samplers.
+
+\paragraph{Autoregressive Models.}\label{para:p3_s8_1_1_ar}
+Autoregressive (AR) models discretize the latent space: the autoencoder $E$ is realized as a vector-quantized variational autoencoder (VQ-VAE) whose output is a sequence of discrete tokens $\mathbf{z}=(z_1,\dots,z_N)\in\mathcal{V}^N$ over a learned codebook $\mathcal{V}$, and $G_\theta$ is factorized in causal raster order,
+\begin{equation}
+p_\theta\!\big(\mathbf{z}\,\big|\,\phi(\mathbf{x})\big) \;=\; \prod_{n=1}^{N} p_\theta\!\big(z_n\,\big|\,z_{<n},\,\phi(\mathbf{x})\big),
+\label{eq:t2i_ar_factorisation}
+\end{equation}
+trained by maximum likelihood on the next-token cross-entropy.
+T2I thus becomes sequence-to-sequence translation, and the transformer that performs it inherits the compositional competence of language models: DALL-E~\cite{dalle2021} modeled text and image tokens as a single sequence and showed zero-shot generalization across prompt types.
+The cost is decoding latency, one forward pass per token, which grows with resolution.
+Parti~\cite{parti2022} scaled the transformer to 20B parameters, generated at $256\times256$, and reached $1024\times1024$ with a convolutional super-resolution stage; Muse~\cite{chang2023muse} abandoned strict sequential order for masked token prediction, filling in many tokens per step over a handful of rounds, and matched diffusion quality on several benchmarks at a fraction of the sampling time.
+AR generation remains attractive where images are produced jointly with text (interleaved documents, storyboards) and a single sequence model handles both.
+
+\paragraph{Diffusion Models.}\label{para:p3_s8_1_1_diffusion}
+Diffusion models realize $G_\theta$ as iterative denoising rather than a single feed-forward pass.
+A fixed \emph{forward} process corrupts the clean latent $\mathbf{z}_0=E(\mathbf{y})$ along a schedule $(\alpha_t,\sigma_t)_{t=0}^{T}$, $\mathbf{z}_t=\alpha_t \mathbf{z}_0+\sigma_t\epsilon$ with $\epsilon\sim\mathcal{N}(0,I)$ and $\mathbf{z}_T\!\approx\!\mathcal{N}(0,I)$; a noise-prediction network $\epsilon_\theta$ learns to invert it under the denoising score-matching objective
+\begin{equation}
+\min_\theta\ \mathbb{E}_{t,\mathbf{z}_0,\epsilon}\!\left[\left\|\epsilon-\epsilon_\theta\!\big(\mathbf{z}_t,\,t,\,\phi(\mathbf{x})\big)\right\|_2^2\right],
+\label{eq:t2i_ldm_objective}
+\end{equation}
+which is the diffusion-specific realization of the training objective implicit in Eq.~\eqref{eq:t2i_generator}.
+At inference the model starts from $\mathbf{z}_T\sim\mathcal{N}(0,I)$, applies $\epsilon_\theta$ for $t=T,\dots,1$, and decodes $\hat{\mathbf{y}}=D(\hat{\mathbf{z}}_0)$; each step corrects a small error, which is why the final samples are both detailed and faithful.
+Running this process in the latent space of Eq.~\eqref{eq:t2i_autoencoder} rather than in pixels, as Latent Diffusion Models~\cite{rombach2022ldm} did (\eg, $4\times64\times64$ instead of $3\times512\times512$ for a 512px image), cut memory and compute enough to train on commodity hardware and to release Stable Diffusion openly.
+Conditioning the denoiser on embeddings from a pretrained language-image model, as in GLIDE~\cite{glide2022} and DALL$\cdot$E~2~\cite{dalle2_2022}, improved prompt alignment, and classifier-free guidance~\cite{ho2022classifierfree} supplied a single knob that trades diversity against fidelity by extrapolating the conditional prediction away from the unconditional one.
+The remaining weakness is sampling cost, dozens of sequential network evaluations per image; higher-order ODE samplers and the distillation methods below address it.
+Diffusion or flow-matching cores now underlie most leading systems, with the native multimodal autoregressive stacks discussed under proprietary systems the main exception.
+
+\paragraph{Flow Matching and Rectified Flow.}\label{para:p3_s8_1_1_fm}
+Rather than a fourth paradigm, flow matching is diffusion reformulated in continuous time.
+It parameterizes $G_\theta$ as a learned \emph{velocity field} $v_\theta(\mathbf{z}_t,t,\phi(\mathbf{x}))$ instead of a noise predictor: training picks the straight interpolation $\mathbf{z}_t=(1-t)\mathbf{z}_0+t\mathbf{z}_1$ between a clean latent $\mathbf{z}_0=E(\mathbf{y})$ and a Gaussian sample $\mathbf{z}_1\!\sim\!\mathcal{N}(0,I)$ and regresses the velocity,
+\begin{equation}
+\min_\theta\ \mathbb{E}_{t,(\mathbf{z}_0,\mathbf{z}_1)}\!\left[\left\|v_\theta(\mathbf{z}_t,t,\phi(\mathbf{x}))-(\mathbf{z}_1-\mathbf{z}_0)\right\|_2^2\right],
+\label{eq:t2i_fm_objective}
+\end{equation}
+and inference integrates the probability-flow ODE $\mathrm{d}\mathbf{z}_t/\mathrm{d}t=v_\theta(\mathbf{z}_t,t,\phi(\mathbf{x}))$ from $t=1$ back to $t=0$.
+The formulation was introduced concurrently by~\citet{lipman2023flow} (Flow Matching) and~\citet{liu2023rectifiedflow} (Rectified Flow); \citet{albergo2023building} gave the unifying stochastic-interpolant view in which diffusion is the special case of a noisier interpolation schedule.
+Three consequences matter in practice. Straight-line interpolations yield nearly straight ODE trajectories, so matched quality is reached in noticeably fewer steps (genuine one-step generation still needs a reflow or distillation stage); the objective is a single regression with no noise-schedule design and no per-schedule guidance recalibration; and the loss scales smoothly with model size and resolution.
+Stable Diffusion~3~\cite{sd3rft2024} scaled the recipe to T2I on a DiT-style transformer backbone and reported the best GenEval scores among open models together with favorable human preference on Parti-prompts; the Flux family followed the same recipe.
+Flow matching composes with every refinement below as readily as a noise-predictor core does and has become the default continuous-time formulation in 2024-onwards systems.
+
+\paragraph{Backbone Evolution: From U-Net to Diffusion Transformers.}
+Early diffusion models used the U-Net for its multiscale feature fusion and locality bias.
+The Diffusion Transformer (DiT) of~\citet{peebles2023dit} replaced it with a stack of transformer layers over latent patch tokens, giving every denoising step a global receptive field, and showed that FID improves monotonically with depth, width, and token count along predictable scaling laws, reaching FID 2.27 on class-conditional ImageNet at $256^2$.
+Attention cost grows quadratically with resolution, so hybrid CNN-transformer designs and efficient attention remain active; the DiT lineage nonetheless underlies SD3 and most 2024-onwards systems, and it points toward a single transformer that generates several modalities, differing only in tokenization and training data.
+
+\paragraph{Sampling Acceleration and Distillation.}
+Fifty or more denoising steps rule out interactive use and low-power deployment.
+\citet{salimans2022progressive} distilled a $T$-step teacher into a $T/2$-step student and iterated the halving to reach $1$--$4$ steps.
+Consistency Models~\cite{song2023consistency} train a network to map a noisy latent at any timestep directly to the clean image, either from scratch with a consistency loss or by distilling a pretrained diffusion model, and Latent Consistency Models~\cite{lcm2023} applied the idea to Stable Diffusion's latent space, matching $50$-step quality in $2$--$4$ steps.
+All of these are post-training procedures that leave the architecture untouched, so any strong backbone can be made fast after the fact.
+
+\paragraph{Proprietary and Commercial Systems.}
+Leading systems have migrated to proprietary, industrially scaled stacks of three kinds.
+Native multimodal models such as OpenAI's GPT~Image~1.5~\cite{openai2025images} and Google's Gemini~3~Pro~Image (Nano~Banana~Pro) run a unified transformer over interleaved text and image tokens and emphasize semantic reasoning and multi-turn editing; latent-diffusion iterations such as Imagen~4 scale the LDM recipe with stronger text encoders and curated data; preference-tuned systems such as Midjourney~v7~\cite{midjourney_v7_alpha} and FLUX.2~[max]~\cite{bfl_flux2_max} fine-tune strong priors on human-preference data (FLUX.2 on the rectified-flow recipe of §\ref{para:p3_s8_1_1_fm}; Midjourney's architecture is undisclosed).
+Each reduces to one of the three paradigms plus some of the refinements just listed; because architectural and training detail is withheld, public benchmarking and reproduction still rest on the open SD / DiT stack.
+
+\subsubsection{Benchmarks}
+Three independent things are usually conflated under ``benchmark'': the training corpora on which models are fit, the evaluation suites of prompts that probe particular capabilities, and the metrics that score the resulting images.
+A model trained on LAION-5B can be evaluated on GenEval prompts and scored by FID, CLIPScore, or an LLM judge, and disagreement between those scores is itself informative.
+
+\paragraph{Training Corpora.}
+Corpus scale has driven much of T2I progress.
+Early work fit fine-grained sets with ten captions per image, CUB-200-2011 (11,788 bird images)~\cite{wah2011cub} and Oxford-102 Flowers (8,189 images)~\cite{nilsback2008flowers}; MS-COCO Captions~\cite{lin2014microsoft} (123,287 images, five captions each) became the standard general-scene corpus and, for years, the evaluation set as well, a conflation that the suites below were designed to end.
+Current models train on web-scale image-text pairs: LAION-5B~\cite{schuhmann2022laion5b} releases 5.85 billion CLIP-filtered pairs, and proprietary corpora of similar scale, less documented, underlie DALL-E~2 and Parti.
+Scale brought duplication, demographic bias, unsafe content, and licensing disputes with it, and filtered subsets such as LAION-Aesthetics and curation pipelines are now part of every training recipe.
+
+\paragraph{Evaluation Benchmark Suites.}
+An evaluation suite is a curated prompt set plus a verification protocol: prompts are adversarial or capability-stratified, reference images are usually absent, and scoring is automatic (an object detector, a VQA model, or an LLM/MLLM judge) rather than reconstruction-based.
+Table~\ref{tab:p3_s8_1_1_eval_benchmarks} lists the main suites since 2022.
+The earliest, DrawBench~\cite{saharia2022photorealistic} and PartiPrompts~\cite{parti2022}, are human-pairwise prompt sets released with Imagen and Parti; HRS-Bench~\cite{bakr2023hrsbench} and HEIM~\cite{lee2023heim} are holistic, scoring 13 and 12 axes respectively; TIFA~\cite{hu2023tifa}, GenEval~\cite{ghosh2023geneval}, and T2I-CompBench~\cite{huang2023t2icompbench} introduced automatic verification by VQA, object detection, and BLIP-VQA plus UniDet, and the latter two are now reported alongside FID and CLIPScore in most papers.
+For spatial intelligence the salient suite is VISOR~\cite{gokhale2022visor}, which isolates two-object relations (left/right, above/below) over $25{,}280$ prompts and finds that otherwise strong models frequently render the wrong configuration.
+DPG-Bench~\cite{hu2024ella} targets dense, long compositional prompts, GenAI-Bench~\cite{li2024genaibench} pairs compositional prompts with VQAScore judging, and WISE~\cite{niu2025wise} asks whether generated images agree with real-world facts (flag colors, landmarks, anatomy), a knowledge axis orthogonal to compositional binding.
+
+\begin{table}[!ht]
+\centering
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative evaluation benchmark suites for text-to-image generation, ordered approximately by year of release. ``Scoring'' indicates the dominant verification mechanism: detector- or VQA-based automatic checking, learned preference models, MLLM/LLM-as-judge rubric scoring, or aggregated human preference. Several suites combine multiple scoring channels.}
+\label{tab:p3_s8_1_1_eval_benchmarks}
+\begin{tabular}{L{0.17\textwidth} C{0.06\textwidth} C{0.11\textwidth} L{0.33\textwidth} L{0.25\textwidth}}
+\toprule
+\textbf{Benchmark} & \textbf{Year} & \textbf{\#~Prompts} & \textbf{Evaluation Axis} & \textbf{Scoring} \\
+\midrule
+DrawBench~\cite{saharia2022photorealistic}       & 2022 & 200   & Broad capability + alignment ($11$ categories) & Human pairwise \\
+PartiPrompts~\cite{parti2022}     & 2022 & 1{,}600 & Capability spectrum ($12$ categories) & Human pairwise \\
+VISOR~\cite{gokhale2022visor}     & 2022 & 25{,}280 & Two-object spatial relations (left/right, above/below) & Object-detector verification \\
+TIFA~\cite{hu2023tifa}            & 2023 & 4{,}081 & Faithfulness (VQA over auto-generated questions) & VQA / LLM-as-judge \\
+HRS-Bench~\cite{bakr2023hrsbench} & 2023 & 45{,}000 & Holistic; $13$ skills $\times$ $50$ scenarios & Automatic, mixed \\
+HEIM~\cite{lee2023heim}           & 2023 & 62 scenarios & Holistic; $12$ aspects (alignment, quality, knowledge, bias, toxicity, \ldots) & Automatic $+$ human \\
+GenEval~\cite{ghosh2023geneval}   & 2023 & 553   & Object-centric: single/two-obj., counting, color, position, attribute & Detector verification \\
+T2I-CompBench~\cite{huang2023t2icompbench} & 2023 & 6{,}000 & Compositional: attribute binding, object relationships, complex prompts & BLIP-VQA $+$ UniDet \\
+DPG-Bench~\cite{hu2024ella}       & 2024 & 1{,}065 & Dense, long compositional prompts & MLLM-based scoring \\
+GenAI-Bench~\cite{li2024genaibench} & 2024 & 1{,}600 & Compositional T2V/T2I prompts & VQAScore (LLM-judge) \\
+WISE~\cite{niu2025wise}           & 2025 & 1{,}000 & World-knowledge-informed semantic accuracy & LLM-based grading \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Evaluation Metrics.}
+Metrics fall into four tiers.
+Distributional metrics compare the generated and real image populations and say nothing about any individual prompt: the Fr\'echet Inception Distance (FID)~\cite{heusel2017gans} is the Wasserstein-2 distance between Gaussian fits of Inception-V3 features of generated and real images, the Inception Score rewards images that are individually confidently classified yet collectively diverse, and generative precision/recall~\cite{sajjadi2018assessing,kynkaanniemi2019improved} separate quality from coverage through neighborhood tests in feature space.
+Alignment metrics score one image against its prompt; CLIPScore~\cite{hessel2021clipscore}, the cosine similarity between the CLIP embeddings of $\hat{\mathbf{y}}$ and $\mathbf{x}$, is cheap and reference-free but inherits CLIP's insensitivity to attribute binding, counting, and spatial relations.
+Learned preference models, HPSv2~\cite{wu2023hpsv2}, ImageReward~\cite{xu2023imagereward} (fit to $137$K human comparisons), and PickScore~\cite{kirstain2023pickapic} (fit to the ${\sim}500$K real-user comparisons of Pick-a-Pic), regress a scalar that correlates with average user preference, bundling realism, alignment, and aesthetics; they have become the default automatic ranking while inheriting their raters' biases and degrading out of distribution.
+
+The newest tier uses a vision-language model as judge.
+TIFA~\cite{hu2023tifa} has a language model write verification questions from the prompt and a VQA model answer them against the image, the score being the fraction answered correctly; VQAScore~\cite{lin2024evaluating} collapses this to a single yes/no probability under a fine-tuned CLIP-FlanT5 model and reports the best human correlation on compositional suites; VIEScore~\cite{ku2023viescore} and LLMScore~\cite{lu2023llmscore} prompt a multimodal LLM with a structured rubric and return per-axis scores with brief rationales, and direct prompting of frontier VLMs with custom rubrics has become routine for ad-hoc capability probes.
+Judge metrics track human preference on compositional and spatial prompts far better than CLIPScore, at the cost of a frontier-model call per image, sensitivity to rubric wording, and drift across judge-model versions that makes numbers from different papers hard to compare.
+No single tier suffices, and current papers report a tuple (FID or IS, CLIPScore, one or two preference scores, one judge score) on several suites plus a small human study; cross-metric disagreement is read as a warning rather than averaged away.
+
+
+\subsubsection{Challenges and Trends}
+The weakness that matters most for this handbook is \textbf{spatial-relation faithfulness}, a sub-problem of compositionality.
+Models frequently misplace objects relative to one another: a prompt that puts a cup to the left of a laptop is often rendered with the two swapped or stacked, and VISOR~\cite{gokhale2022visor} shows that language-specified relations are frequently ignored outright.
+Data-centric remedies help; SPRIGHT~\cite{chatterjee2024spright} re-captions training images with explicit spatial descriptions and measurably improves consistency, but reliable control over where objects appear remains open.
+Because layout-conditioned generation (§\ref{subsec:p3_s8_1_2}) and text-to-3D (§\ref{sec:p3_s8_2}) inherit whatever relational competence this prior provides, the limitation is foundational rather than cosmetic.
+Fine structure is a second gap: legible text, hands, and faces still fail in otherwise strong models and appear to need architectural or data-specific fixes rather than scale alone.
+
+\textbf{Evaluation reliability} is the third.
+Automatic scores correlate imperfectly with human judgment precisely on the compositional, counting, and spatial-relation prompts that matter here; judge-based metrics close part of the gap but add rubric sensitivity and judge-version drift, so headline numbers across papers are not directly comparable.
+As GenEval and T2I-CompBench become standard, their prompts risk leaking into web-scraped training corpora, in which case high scores increasingly measure memorization rather than capability; periodic refresh of held-out prompts, blinded judges, and explicit train/test decontamination are the obvious countermeasures and are not yet routine.
+
+\textbf{Societal concerns} follow the data.
+Models inherit demographic bias from their corpora and will produce unsafe content on request; prompt classifiers, safety filters, and fine-tuning on curated subsets reduce but do not remove the problem, and photorealistic synthesis raises misinformation and intellectual-property questions that watermarking and data curation address only in part.
+The extension of these priors along the time axis, where identity and motion must stay consistent across frames, is the subject of §\ref{sec:p3_s8_3}; the next two subsections stay in the image plane and ask how the prior can be made to obey spatial constraints and local edits.
+

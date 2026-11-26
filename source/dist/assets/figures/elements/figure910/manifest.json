@@ -1,0 +1,51 @@
+{
+  "figure": "9.10",
+  "sources": [
+    "assets/figures/figures/part4/section9/driving_decision_and_control.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1492
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/driving_decision_and_control.pdf",
+  "assets": [
+    {
+      "file": "sensors/street-observation.png",
+      "title": "street observation",
+      "panel": "sensors",
+      "size": [
+        1672,
+        941
+      ],
+      "source_index": 0,
+      "source_box": [
+        50.0,
+        567.5,
+        312.5,
+        715.0
+      ],
+      "box": [
+        25.0,
+        283.75,
+        156.25,
+        357.5
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        16.648,
+        244.802,
+        152.935,
+        321.504
+      ],
+      "placement_confidence": 0.9859
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

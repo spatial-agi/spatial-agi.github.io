@@ -1,0 +1,261 @@
+{
+  "figure": "12.3",
+  "sources": [
+    "assets/figures/figures/part4/section12/medical_reconstruction.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1334
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section12/medical_reconstruction.pdf",
+  "assets": [
+    {
+      "file": "reconstruction/input-ct.png",
+      "title": "input ct",
+      "panel": "reconstruction",
+      "size": [
+        577,
+        578
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        81.633,
+        38.47,
+        227.629,
+        184.72
+      ],
+      "pdf_source_box": [
+        37.44,
+        17.644,
+        104.4,
+        84.72
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "reconstruction/volume-ct-layer-1.png",
+      "title": "volume ct layer 1",
+      "panel": "reconstruction",
+      "size": [
+        577,
+        578
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        72.213,
+        47.889,
+        218.21,
+        194.139
+      ],
+      "pdf_source_box": [
+        33.12,
+        21.964,
+        100.08,
+        89.04
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "reconstruction/volume-ct-layer-2.png",
+      "title": "volume ct layer 2",
+      "panel": "reconstruction",
+      "size": [
+        577,
+        578
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        62.794,
+        57.308,
+        208.791,
+        203.558
+      ],
+      "pdf_source_box": [
+        28.8,
+        26.284,
+        95.76,
+        93.36
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "reconstruction/heart-mesh.png",
+      "title": "heart mesh",
+      "panel": "reconstruction",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 3,
+      "pdf_box": [
+        67.504,
+        445.317,
+        246.468,
+        624.28
+      ],
+      "pdf_source_box": [
+        30.96,
+        204.24,
+        113.04,
+        286.32
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "patient-model/heart-anatomy.png",
+      "title": "heart anatomy",
+      "panel": "patient-model",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 4,
+      "pdf_box": [
+        326.531,
+        54.422,
+        452.119,
+        180.01
+      ],
+      "pdf_source_box": [
+        149.76,
+        24.96,
+        207.36,
+        82.56
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "patient-model/scar-mri.png",
+      "title": "scar mri",
+      "panel": "patient-model",
+      "size": [
+        578,
+        578
+      ],
+      "source_index": 0,
+      "pdf_image_index": 5,
+      "pdf_box": [
+        551.02,
+        63.841,
+        623.234,
+        136.054
+      ],
+      "pdf_source_box": [
+        252.72,
+        29.28,
+        285.84,
+        62.4
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "patient-model/heart-digital-twin.png",
+      "title": "heart digital twin",
+      "panel": "patient-model",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 6,
+      "pdf_box": [
+        376.766,
+        391.941,
+        583.987,
+        599.163
+      ],
+      "pdf_source_box": [
+        172.8,
+        179.76,
+        267.84,
+        274.8
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "planning/simulated-heart.png",
+      "title": "simulated heart",
+      "panel": "planning",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 7,
+      "pdf_box": [
+        748.823,
+        40.293,
+        913.658,
+        205.128
+      ],
+      "pdf_source_box": [
+        343.44,
+        18.48,
+        419.04,
+        94.08
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "planning/catheter-heart.png",
+      "title": "catheter heart",
+      "panel": "planning",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "pdf_image_index": 8,
+      "pdf_box": [
+        736.264,
+        316.588,
+        916.797,
+        497.122
+      ],
+      "pdf_source_box": [
+        337.68,
+        145.2,
+        420.48,
+        228.0
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "planning/radiotherapy-ct.png",
+      "title": "radiotherapy ct",
+      "panel": "planning",
+      "size": [
+        577,
+        578
+      ],
+      "source_index": 0,
+      "pdf_image_index": 9,
+      "pdf_box": [
+        711.146,
+        551.915,
+        799.058,
+        639.979
+      ],
+      "pdf_source_box": [
+        326.16,
+        253.13,
+        366.48,
+        293.52
+      ],
+      "kind": "photo"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

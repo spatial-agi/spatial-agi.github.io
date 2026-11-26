@@ -1,0 +1,164 @@
+{
+  "source": "assets/figures/figures/part3/section6/scene_flow_estimation.webp",
+  "source_size": [
+    2000,
+    1077
+  ],
+  "assets": [
+    {
+      "file": "single-image/frame.png",
+      "source_box": [
+        32,
+        100,
+        230,
+        205
+      ],
+      "size": [
+        198,
+        105
+      ],
+      "notes": "RGBA road photograph; external border excluded."
+    },
+    {
+      "file": "stereo/left.png",
+      "source_box": [
+        427,
+        110,
+        581,
+        198
+      ],
+      "size": [
+        154,
+        88
+      ],
+      "notes": "RGBA road photograph; external border excluded. Blue annotation and translucent interior restored from the clean single-image view."
+    },
+    {
+      "file": "stereo/right.png",
+      "source_box": [
+        617,
+        110,
+        771,
+        198
+      ],
+      "size": [
+        154,
+        88
+      ],
+      "notes": "RGBA road photograph; external border excluded. Blue annotation and translucent interior restored from the clean single-image view."
+    },
+    {
+      "file": "monocular-video/t0.png",
+      "source_box": [
+        848,
+        110,
+        974,
+        198
+      ],
+      "size": [
+        126,
+        88
+      ],
+      "notes": "RGBA road photograph; external border excluded. Blue annotation and translucent interior restored from the clean single-image view."
+    },
+    {
+      "file": "monocular-video/t1.png",
+      "source_box": [
+        1042,
+        110,
+        1167,
+        198
+      ],
+      "size": [
+        125,
+        88
+      ],
+      "notes": "RGBA road photograph; external border excluded. Blue annotation and translucent interior restored from the clean single-image view."
+    },
+    {
+      "file": "multi-view/view-01.png",
+      "source_box": [
+        1242,
+        91,
+        1373,
+        146
+      ],
+      "size": [
+        131,
+        55
+      ],
+      "notes": "RGBA road photograph; external border excluded."
+    },
+    {
+      "file": "multi-view/view-02.png",
+      "source_box": [
+        1417,
+        91,
+        1549,
+        146
+      ],
+      "size": [
+        132,
+        55
+      ],
+      "notes": "RGBA road photograph; external border excluded."
+    },
+    {
+      "file": "multi-view/view-03.png",
+      "source_box": [
+        1242,
+        165,
+        1373,
+        219
+      ],
+      "size": [
+        131,
+        54
+      ],
+      "notes": "RGBA road photograph; external border excluded."
+    },
+    {
+      "file": "multi-view/view-04.png",
+      "source_box": [
+        1417,
+        165,
+        1549,
+        219
+      ],
+      "size": [
+        132,
+        54
+      ],
+      "notes": "RGBA road photograph; external border excluded."
+    },
+    {
+      "file": "self-supervised/next-frame.png",
+      "source_box": [
+        1251,
+        510,
+        1349,
+        598
+      ],
+      "size": [
+        98,
+        88
+      ],
+      "notes": "RGBA road photograph; external border excluded. Blue annotation and translucent interior restored from the clean single-image view."
+    },
+    {
+      "file": "self-supervised/current-frame.png",
+      "source_box": [
+        1460,
+        510,
+        1558,
+        598
+      ],
+      "size": [
+        98,
+        88
+      ],
+      "notes": "RGBA road photograph; external border excluded. Blue annotation and translucent interior restored from the clean single-image view."
+    }
+  ],
+  "notes": "Eleven individual scene images grouped by panel. All blue tracking boxes, labels, formulas, arrows, energy curves, CNN/GRU modules, motion-field nodes, method boxes and separators will be reconstructed as frontend geometry."
+}

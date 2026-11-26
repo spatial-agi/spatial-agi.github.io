@@ -1,0 +1,21 @@
+{
+  "figure": "12.6",
+  "sources": [
+    "assets/figures/figures/part4/section12/natural_science_physics_v2.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      868
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section12/natural_science_physics_v2.pdf",
+  "assets": [],
+  "frontend": [
+    "This source figure is entirely vector artwork; no raster plates are embedded. Every diagram element should be rebuilt independently in the frontend.",
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

@@ -1,0 +1,65 @@
+
+
+\section{Foundation Model-driven Spatial Reasoning}
+\label{sec:p3_s7_3}
+
+\FramedInitial{F}{oundation} model-driven spatial reasoning turns to large pre-trained models (LLMs, vision-language models, vision-language-action models, and large vision models) as the engine of spatial inference. The motivation is empirical: such models display a striking facility with spatial concepts and relations even without task-specific fine-tuning, and a large body of work now recruits them as the core of systems for spatial question answering, planning, and explanation.
+
+What separates these approaches is the locus and granularity at which the foundation model intervenes. At one end the model is the reasoning core itself, answering spatial queries directly (LLM/VLM-centric reasoning) or additionally emitting low-level actions (VLA-based reasoning). Its reasoning can be drawn out step by step, as intermediate deductions in language (chain-of-thought) or as an executable program synthesized from the task (code and DSL generation). It can be coupled to external machinery such as planners, renderers, simulators, and perception modules (tool-augmented reasoning), or grounded in external spatial memory (retrieval- and memory-augmented reasoning). And it can be handed control of a closed interaction loop with the environment (agentic reasoning) or paired with a learned neural simulator of dynamics that serves as the spatial substrate (world-model-based reasoning).
+
+
+\input{part_3/section_7/p3_sec7_3/p3_sec7_3_1.tex}
+
+\input{part_3/section_7/p3_sec7_3/p3_sec7_3_2.tex}
+
+\input{part_3/section_7/p3_sec7_3/p3_sec7_3_3.tex}
+
+\input{part_3/section_7/p3_sec7_3/p3_sec7_3_4.tex}
+
+\input{part_3/section_7/p3_sec7_3/p3_sec7_3_5.tex}
+
+\input{part_3/section_7/p3_sec7_3/p3_sec7_3_6.tex}
+
+\input{part_3/section_7/p3_sec7_3/p3_sec7_3_7.tex}
+
+\input{part_3/section_7/p3_sec7_3/p3_sec7_3_8.tex}
+
+
+
+
+
+
+
+
+% \subsection{Summary}
+% \label{subsec:p3_s7_3_summary}
+
+% The eight subsections vary \emph{where} and \emph{how} the foundation model intervenes in the reasoning loop: as the reasoning core itself (§\ref{subsec:p3_s7_3_1}--§\ref{subsec:p3_s7_3_2}), as a generator of intermediate rationales or programs (§\ref{subsec:p3_s7_3_3}--§\ref{subsec:p3_s7_3_4}), as an orchestrator over tools, memory, and a closed interaction loop (§\ref{subsec:p3_s7_3_5}--§\ref{subsec:p3_s7_3_7}), or beside a learned simulator that supplies the spatial substrate (§\ref{subsec:p3_s7_3_8}).
+% Table~\ref{tab:p3_s7_3_paradigm_comparison} summarizes the eight along the axes used for the symbolic paradigms in §\ref{sec:p3_s7_1} and the learning-based paradigms in §\ref{sec:p3_s7_2}.
+
+% \begin{table}[t]
+%     \centering
+%     \fontsize{8}{10}\selectfont
+%     \setlength{\tabcolsep}{2pt}
+%     \caption{Comparison of the eight paradigms of foundation-model-driven spatial reasoning covered in §\ref{sec:p3_s7_3}, on the same axes as the comparison tables of §\ref{sec:p3_s7_1} and §\ref{sec:p3_s7_2}.}
+%     \label{tab:p3_s7_3_paradigm_comparison}
+%     \begin{tabularx}{\textwidth}{@{}p{2.9cm} p{3.3cm} p{3.3cm} X X@{}}
+%         \toprule
+%         \textbf{Paradigm} & \textbf{Locus of foundation-model intervention} & \textbf{Canonical inputs / outputs} & \textbf{Strengths} & \textbf{Limitations} \\
+%         \midrule
+%         §\ref{subsec:p3_s7_3_1} LLM/VLM-centric reasoning   & Pre-trained model \emph{is} the reasoning core; intervention via prompt / train / data / model-centric enhancement & Text-only or image$+$query $\to$ qualitative relation, distance, orientation, navigation plan & Zero-shot deployment; rapid prompt iteration; benefits from any backbone improvement                  & Ungrounded under text-only; metric-precision gap under VLM; reference-ambiguity in embodied use \\
+%         §\ref{subsec:p3_s7_3_2} VLA-based reasoning         & Pre-trained model also emits low-level actions (action tokens / deltas / waypoints)                                & Image $+$ proprioception $+$ instruction $\to$ executable action sequence                            & End-to-end semantic-to-motor pipeline; cross-embodiment positive transfer via large data            & Semantic--physical misalignment; pseudo-interaction; inference-latency under autoregressive decoding \\
+%         §\ref{subsec:p3_s7_3_3} Chain-of-thought (CoT \& variants) & Pre-trained model, with intermediate textual rationale as the prior; five topologies (CoT/ToT/GoT/PoT/CoA) unified as guided search & Query $\to$ rationale trace $\to$ grounded answer (qualitative relation, coordinate, plan, action) & Multi-step decomposition; verifier-friendly intermediate states; search-quality tunable               & Spatial-coordinate hallucination under simple textual CoT; rationale not grounded in truth signal; ToT/GoT cost scales super-linearly in depth \\
+%         §\ref{subsec:p3_s7_3_4} Code / DSL generation         & Pre-trained model generates an executable program; environment supplies the truth signal                          & Query$+$API $\to$ program $P$ $\to$ executed output (answer with trace, or environment change)   & Interpretable rationale trace; execution-grounded; composes existing perception or control tools     & Reliance on a fixed human-authored DSL; brittle code execution under upstream-module error; sample-inefficient debug loops \\
+%         §\ref{subsec:p3_s7_3_5} Tool-augmented reasoning      & Pre-trained model orchestrates a tool catalogue $\mathcal{T}$ via policy $\pi_\phi$, along execution / representation / validation / memory axes & Query$+$observation$+$tool set $\to$ history-conditioned answer $+$ tool-call trace             & Modular extension of perceptual / geometric / verification capacity; orchestration policy as the learning target & Combinatorial exploration in tool-action space; metric gap in the LLM--tool interface; conceptual overlap with §\ref{subsec:p3_s7_3_4} / §\ref{subsec:p3_s7_3_6} \\
+%         §\ref{subsec:p3_s7_3_6} Retrieval- \& memory-augmented & External memory bank itself is the central learning target; Planner--Memory--Retriever triple $(\mathcal{P}, \mathcal{M}, \mathcal{R})$ & Query$+$scene observation$+$memory $\to$ action plan, retrieved subgraph, retrieved past observation & Kilometer-scale environment coverage; personalization; explainable trace of retrieved memories       & Stateless inference under unbounded context; ICL vs.\ cross-attention fusion unresolved; modality mismatch in retrieval (text vs.\ image vs.\ 3D) \\
+%         §\ref{subsec:p3_s7_3_7} Agentic reasoning             & Orchestration policy $\pi$ over the perceive--reason--act--reflect cycle becomes the central learning target; tools (§\ref{subsec:p3_s7_3_5}) and memory (§\ref{subsec:p3_s7_3_6}) composed into closed-loop control & Instruction$+$observation $+$ tools $+$ memory $\to$ sensorimotor action sequence, accumulated skill library, updated world model & Closed-loop error correction; long-horizon procedural-knowledge accumulation; explicit Spatial Theory-of-Mind in multi-agent settings & Sim-to-real fidelity gap; long-horizon spatiotemporal coherence; convergence with §\ref{subsec:p3_s7_3_3}--§\ref{subsec:p3_s7_3_6} blurs the agentic boundary \\
+%         §\ref{subsec:p3_s7_3_8} World-model--based reasoning  & Learned generative simulator $\mathbb{P}(s_0,\dots,s_T \mid a_0,\dots,a_{T-1}, c)$ replaces / augments the foundation model as the spatial substrate & Context $c$ ($+$ actions if conditioned) $\to$ inferred spatial properties (understanding) or policies $\pi$ (planning) & Predictive-physics reasoning; inference-time mental simulation; 4D / object-centric structural priors & World-model upper bound (Genie-style long-term memory loss); modality coverage gated by pre-training data; likelihood-vs.-physics gap (likelihood necessary but not sufficient) \\
+%         \bottomrule
+%     \end{tabularx}
+% \end{table}
+
+% Down the table the locus of intervention moves from \textbf{model-as-core} (§\ref{subsec:p3_s7_3_1}--§\ref{subsec:p3_s7_3_2}) through \textbf{model-as-rationale-generator} (§\ref{subsec:p3_s7_3_3}--§\ref{subsec:p3_s7_3_4}) and \textbf{model-as-orchestrator} over external components (§\ref{subsec:p3_s7_3_5}--§\ref{subsec:p3_s7_3_7}) to a \textbf{learned simulator as the reasoning substrate} (§\ref{subsec:p3_s7_3_8}), and the principal learning target migrates with it, from model weights to prompt structure to the orchestration policy $\pi$ to the world model $\mathbb{P}$ itself.
+% The paradigms are cumulative rather than parallel: from §\ref{subsec:p3_s7_3_3} onward each adds one dimension (programs, tools, memory, reflection, world models) on top of the previous ones, so the ``agentic'' boundary of §\ref{subsec:p3_s7_3_7} lies where the orchestration policy itself becomes a learning target rather than where any new capability appears, which is an open research question rather than a settled definition.
+% The open problem that cuts across all eight is the \emph{precision--grounding asymmetry}: the foundation models that supply semantic competence (§\ref{subsec:p3_s7_3_1}--§\ref{subsec:p3_s7_3_4}) lack the metric precision physical manipulation requires, while the external components that supply precision (§\ref{subsec:p3_s7_3_5}--§\ref{subsec:p3_s7_3_8}) inherit the LLM--tool interface as a new bottleneck.
+% That asymmetry is the bridge to §\ref{sec:p3_s7_4}, where foundation-model-driven and symbolic or learning-based components are composed to close the gap from both sides at once.

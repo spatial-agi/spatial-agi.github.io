@@ -1,0 +1,114 @@
+{
+  "figure": "10.4",
+  "sources": [
+    "assets/figures/figures/part4/section10/xr_display.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1366
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section10/xr_display.pdf",
+  "assets": [
+    {
+      "file": "foveated-rendering/living-room.png",
+      "title": "living room",
+      "panel": "foveated-rendering",
+      "size": [
+        887,
+        887
+      ],
+      "source_index": 0,
+      "source_box": [
+        52.5,
+        290.0,
+        587.5,
+        825.0
+      ],
+      "box": [
+        26.25,
+        145.0,
+        293.75,
+        412.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        14.936,
+        109.332,
+        287.631,
+        382.027
+      ],
+      "placement_confidence": 0.9627
+    },
+    {
+      "file": "reprojection/earlier-pose-room.png",
+      "title": "earlier pose room",
+      "panel": "reprojection",
+      "size": [
+        887,
+        887
+      ],
+      "source_index": 0,
+      "source_box": [
+        710.0,
+        397.5,
+        910.0,
+        597.5
+      ],
+      "box": [
+        355.0,
+        198.75,
+        455.0,
+        298.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        350.19,
+        162.267,
+        454.456,
+        266.533
+      ],
+      "placement_confidence": 0.9508
+    },
+    {
+      "file": "reprojection/latest-pose-room.png",
+      "title": "latest pose room",
+      "panel": "reprojection",
+      "size": [
+        887,
+        887
+      ],
+      "source_index": 0,
+      "source_box": [
+        710.0,
+        397.5,
+        910.0,
+        597.5
+      ],
+      "box": [
+        355.0,
+        198.75,
+        455.0,
+        298.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        531.452,
+        162.267,
+        635.718,
+        266.533
+      ],
+      "placement_confidence": 0.9508
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

@@ -1,0 +1,704 @@
+
+
+\chapter{Spatial Intelligence: A Rising AI Paradigm}
+\label{chapter:intro}
+
+
+
+
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkblue}{A}}{I} 
+\FramedInitial{A}{I} 
+has entered a stage where scale and capability alone are no longer sufficient.
+Despite remarkable advances in perception, language, and generation, modern AI systems continue to struggle with a fundamental challenge: understanding, representing, and acting within the structured physical world.
+As intelligent systems increasingly move beyond static inputs and isolated tasks, the question shifts from how well a model predicts tokens or labels to how it forms internal models of space, time, action, and causality.
+This shift marks the emergence of \emph{spatial intelligence} as a central organizing paradigm in artificial intelligence.
+
+
+Spatial intelligence concerns the ability of an intelligent system to build and manipulate internal representations of the world that support perception, reasoning, prediction, and embodied interaction.
+It is inherently world-centered, grounded in geometry, motion, and physical constraints, and inseparable from action and experience.
+Rather than treating space as an auxiliary signal or downstream output, spatial intelligence positions it as a core substrate through which intelligence is structured.
+This perspective cuts across traditional boundaries, unifying problems in computer vision, robotics, autonomous systems, simulation, cognitive science, spatial computing, AR/VR, and geospatial analysis under a shared representational question: how should an intelligent system model the world it inhabits?
+
+
+This chapter establishes spatial intelligence as a rising AI paradigm by addressing two foundational questions.
+Section~\ref{sec:why-spatial-intelligence} examines why spatial intelligence has become critical \emph{now}, tracing its emergence to converging shifts in AI paradigms, methodologies, modalities, and disciplines.
+Section~\ref{sec:historical-evolution} then situates this paradigm historically, organizing decades of fragmented progress into a coherent sequence of representational eras.
+Together, these perspectives provide the conceptual grounding for the rest of the handbook, framing spatial intelligence not as a collection of tasks or techniques, but as a unifying foundation for world-centered artificial intelligence.
+
+
+
+
+
+
+
+
+
+\section{Why Spatial Intelligence? Why Now?}
+\label{sec:why-spatial-intelligence}
+
+% \section{From Data-Centric AI to World-Centric AI}
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkblue}{A}}{s} 
+\FramedInitial{A}{s}
+AI continues to advance, a growing consensus has emerged that data alone is not enough; true intelligence must be grounded in the physical world \cite{park2024model,zhang2025world,long2025survey}. 
+This realization marks a fundamental shift from purely \emph{data-centric} paradigms, centered around language or perception, to \emph{world-centric} systems capable of modeling, reasoning, and acting within spatially structured environments. 
+In this section, we explore the motivations behind this transition, drawing from the AI paradigm, methodology, and modality to disciplines.
+
+
+
+
+\begin{figure}
+    \centering
+    % \resizebox{0.92\linewidth}{!}{\input{figures/part1/si_shifts_tikz}}
+    % \includegraphics[width=0.99\linewidth]{figures/part1/si-shift-2.png}
+    \includegraphics[width=\linewidth]{figures/part1/si_shifts_v2.pdf}
+    \caption{Spatial intelligence emerges from converging shifts in AI paradigms, methodologies, modalities, and disciplines, collectively pushing AI toward world modeling and embodied reasoning.}
+    \label{fig:p1_s1_1_si_covering_shifts}
+\end{figure}
+
+
+% \subsection{From Task-Specific to World-Centric: A Paradigm Shift}
+\subsection{AI Paradigm Shift}
+\label{subsec:ai-paradigm-shift}
+
+AI is undergoing a foundational paradigm shift, \ie, from task-specific models toward world-centric general intelligence. 
+Traditional AI systems were designed to solve narrowly defined problems, such as image classification, text generation, or speech recognition, each trained and optimized within a well-constrained input-output space. 
+However, the emergence of foundation models and large language models (LLMs) has reshaped expectations: AI is now envisioned to generalize across domains, modalities, and tasks in open-world settings. 
+This ambition hinges on a deeper capability, the ability to understand and model the world itself, often described as building a ``world model'' \cite{ha2018world}.
+
+
+\emph{Spatial Intelligence} emerges as a central pillar enabling this capability.
+It encompasses the perception and representation of objects, scenes, spatial layouts, motion, and physical interactions, and it serves as a carrier of world-generalizable knowledge that supports reasoning and transfer across tasks and modalities.
+Fei-Fei Li has made this stake explicit: ``\emph{Our dreams of truly intelligent machines will not be complete without spatial intelligence}'' \cite{Feifei2025spatial}.
+On her account, any AI system that aims to serve in physical environments must possess a rich understanding of spatial structure and dynamics.
+
+
+
+Moreover, this transformation also signals a shift in the boundary of context: traditional AI focused on self-contained intelligence, where the model reasons primarily over its own input context.
+Today's systems, in contrast, must be understood as \emph{individuals embedded in the world}\footnote{In Context Engineering \cite{hua2025context}, the authors frame the former paradigm as \emph{Context as Instruction}, and cast the latter as \emph{Context as World}.}, agents whose perception and action are grounded in broader spatial, temporal, and social environments.
+Beyond the technical evolution, this amounts to a philosophical deepening of AI's cognitive scope.
+Li captures the underlying continuity in evolutionary terms: spatial intelligence is, in her words, what ``\emph{links perception with action}'', the capacity that turned seeing into surviving and, eventually, into understanding and doing \cite{Feifei2024ted}.
+
+
+
+Without accurate spatial modeling of the world, therefore, there can be no robust reasoning, decision-making, or interaction.
+A wide range of emerging tasks, including robotic manipulation, embodied navigation, video understanding, and virtual human interaction, demand spatial grounding as a prerequisite, which makes spatial intelligence a load-bearing requirement for any AI system expected to act in, adapt to, and help within the real world.
+
+
+
+
+
+
+
+\subsection{AI Methodological Shift}
+\label{subsec:ai-methodological-shift}
+
+Historically, from the era of classical machine learning \cite{CoughlanY99} to the deep learning revolution \cite{goodfellow2016deep}, and now to the LLM wave \cite{achiam2023gpt,vicuna2023}, progress in AI has largely followed a data-centric trajectory: larger models trained on increasingly vast static corpora.
+While this paradigm has delivered remarkable achievements, it also imposes an inherent limitation, in that AI systems are still framed as static input--output function approximators rather than as agents that can perceive, reason, and act within the real world.
+The recent surge of LLMs, such as GPT \cite{achiam2023gpt}, PaLM \cite{chowdhery2023palm}, and LLaMA \cite{touvron2023llama}, has only amplified this trajectory.
+Although these models exhibit stunning linguistic fluency, symbolic manipulation, and emergent generalization capabilities \cite{yamada2023evaluating,zhang2025mllms}, they remain intrinsically disembodied and spatially ungrounded.
+They can generate poetic descriptions of a cup on the table, yet they cannot perceive the cup, interact with it, or build a physical model to explain its behavior.
+This exposes the core limitation of the current paradigm: \emph{LLMs might operate on surface-level linguistic statistics without accessing the structured constraints, causal mechanisms, and physical affordances of the real world}.
+
+
+Fei-Fei Li has repeatedly emphasized this disconnect.
+Linguistic competence, she argues, must not be mistaken for understanding: for all their capability, today's language models \emph{``remain wordsmiths in the dark; eloquent but inexperienced, knowledgeable but ungrounded''} \cite{Feifei2025spatial}.
+Without spatial intelligence, encompassing physics, motion, and the transformative nature of actions, AI systems cannot develop a grounded, interactive model of reality.
+Her insight exposes a deeper methodological gap: true intelligence must ground its internal representations in embodied space, action, and physical experience, and text alone cannot supply that grounding.
+
+
+
+Yann LeCun extends this critique at the architectural level, famously dismissing LLMs as ``\emph{an off-ramp, a distraction, a dead end}'' on the path toward human-level intelligence.
+In his view, autoregressive language models do not, and cannot, construct models of how the world works; they continue text through pattern completion rather than through prediction grounded in the dynamics of an external world \cite{lecun2022path}.
+His proposed alternative, an architecture organized around a learned predictive world model, points squarely toward systems capable of predictive modeling, causal reasoning, and dynamic world interaction.
+
+
+
+Rich Sutton, from a reinforcement learning (RL) perspective, presses the same point on the learning process itself.
+Sutton's ``bitter lesson'' famously argued that general methods which scale with computation win out over hand-engineered knowledge \cite{sutton2019bitter}; notably, he does not regard today's LLMs as the vindication of that argument.
+In his recent view, systems trained once on static human data and then frozen are cut off from the very thing that drives intelligence, namely continual learning from one's own experience \cite{silver2025era}.
+Silver and Sutton argue that the field must move from the ``era of human data'' into an ``era of experience'', in which agents learn predominantly from acting in the world and observing consequences.
+Learning from static text captures correlations in what humans have already written; understanding the world requires action, consequence prediction, and causal discovery.
+
+
+
+
+Taken together, these critiques, arising independently from visual cognition, neural architectures, and reinforcement learning, signal a profound methodological shift in progress: AI must evolve from a purely LLM-centric paradigm to one of world-integrated intelligence.
+It must move beyond static, offline training toward continual, interactive, and adaptive learning, and it must outgrow shallow pattern matching in text to engage with the physical, spatial, and causal structures that govern real environments.
+More than an algorithmic upgrade, this demands a redefinition of what intelligence means: agents capable of perceiving the world, predicting its dynamics, interacting within it, and learning continuously from such experiences \cite{bengio2017consciousness,yao2022react,hao2023reasoning}.
+
+
+
+
+
+
+
+
+\subsection{Modality Shift}
+\label{subsec:modality-shift}
+
+Human intelligence is inherently multimodal. 
+Any meaningful pursuit of AGI must therefore embrace multimodality as a foundational principle. 
+The trajectory of multimodal AI is undergoing a significant shift, from early-stage \emph{modality separation} toward deep \emph{modality integration}. 
+In earlier AI systems, perception and modeling were often confined to a single modality \cite{he2016deep}, such as text-only language models, speech recognition engines, or visual classification systems. 
+However, with the rise of foundation models, the research paradigm is shifting towards hybrid-modality \cite{lu2019vilbert,tan2019lxmert} and even any-to-any cross-modal understanding and generation \cite{wu2024next}. 
+That is, both input and output can now be flexibly composed across arbitrary modalities (\eg, audio-based question answering, video synthesis, image-conditioned dialogue) \cite{yan2021videogpt,yun2021pano,zhang2024dialogstudio}.
+Simultaneously, the very nature of modality is expanding in dimensionality and diversity. 
+Traditional sensory modalities, \eg, vision, language, and audition, represent only a subset of how humans perceive the world. 
+With the rapid advancement of sensor technology, future AI systems are expected to be equipped with a broader range of high-dimensional and multi-channel sensory inputs \cite{li2020review,liu2023multimodal,park2023cross,salih2024odors}, including spectrograms, millimeter-wave radar, infrared thermography, tactile feedback, gustatory signals, and olfactory landscapes. 
+These emerging modalities are especially vital in domains such as medicine \cite{topol2019high}, robotics \cite{Levine2016DeepGrasp}, environmental monitoring \cite{alotaibi2024artificial}, and AR \cite{nizam2018review}, offering a more human-aligned perceptual basis for multimodal AI systems. 
+This multimodal expansion necessitates a unified modeling capability that operates at the level of holistic world understanding.
+
+
+
+
+Among all modalities, vision remains the most central to human perception. 
+One of the most critical trends in modality development is the transition from static imagery to video, and from 2D representations to richer 3D and even 4D (spatiotemporal) structures \cite{saxena2008make3d,peng2023openscene}. 
+Traditional image-based recognition tasks operate on single-frame static inputs. 
+However, real-world environments demand continuous understanding, prediction, and generation across space and time. 
+This drives the growing importance of tasks such as 3D reconstruction, temporal modeling, trajectory prediction, video-based question answering, and dynamic world state tracking \cite{ciaparrone2020deep,azuma2022scanqa}. 
+The increasing richness of modalities goes well beyond a technological extension; it is a necessary foundation for building AGI.
+To rival or surpass human intelligence, AGI must be equipped with a comparably rich sensorium, enabling it to perceive, reason, and act effectively in dynamic, multimodal environments. 
+Thus, the integration and extension of modalities are not ends in themselves, but serve the larger ambition of world modeling, \ie, the central focus of this work.
+
+
+
+
+This point has been underscored by Fei-Fei Li in her discussion of spatial intelligence. Tracing the evolutionary arc from the first light-sensing organisms to primates, she observes that \emph{``nature has created this virtuous cycle of seeing and doing powered by spatial intelligence''} \cite{Feifei2024ted}.
+Such capability acts as a bridge between cognition and the physical world, a necessary scaffold for grounding AI in embodied reality; without it, meaningful interaction with the real world is out of reach.
+Where traditional intelligence centers on language or symbolic manipulation, spatial intelligence is tightly coupled with physical structure, three-dimensional relationships, and dynamic evolution, making it the cornerstone of embodied, interactive intelligence.
+From the perspective of modality development, then, spatial intelligence marks the turning point where multimodal intelligence evolves from surface-level perception to deep, structured understanding, well beyond a mere byproduct of increasing sensory complexity.
+The focus of AI research must accordingly shift from modeling and aligning modalities to modeling the structured world that those modalities collectively describe, the path toward a closed-loop paradigm from perception to world modeling, and from world modeling to causal reasoning.
+
+
+
+
+
+
+
+\subsection{Disciplinary Convergence}
+\label{subsec:disciplinary-convergence}
+
+Modern AI research is undergoing a profound disciplinary evolution, centered around \textit{modality enrichment} and \textit{spatiophysical coupling}. 
+This paradigm shift reflects a convergence of traditionally siloed domains, spanning Computer Vision (CV), Natural Language Processing (NLP), Audio Processing, Robotics, Geographic Information Systems (GIS), and Urban Simulation, toward a unified framework for modeling intelligent agents that are physically embedded in and interact with the real world.
+
+
+In the vision domain, the research focus has gradually shifted from static image processing to dynamic scene understanding. 
+These developments provide a perceptual foundation for large-scale world modeling. 
+Language modalities have also evolved beyond static language modeling (\eg, BERT~\cite{devlin2019bert}, GPT~\cite{brown2020language}), toward multimodal semantic fusion tasks such as Visual Question Answering (VQA)~\cite{antol2015vqa}, Vision-and-Language Navigation (VLN)~\cite{gu2022vision}, and embodied dialogue, which have become critical interfaces in the expansion of large language models into the multimodal regime. 
+The audio modality has similarly moved beyond traditional speech recognition to include audio event detection, ambient sound understanding, and even 3D auditory modeling, all of which support spatial cognition and situational awareness in real-world interactive environments~\cite{chen2020soundspaces,chen2022soundspaces}.
+
+
+Meanwhile, the rapid development of robotics and embodied AI is pushing the evolution of AI systems from ``perception-understanding'' pipelines to closed-loop ``perception-action'' systems.
+AI is outgrowing its existence as software on a computer, becoming embodied, real-time, and spatially grounded.
+In domains such as autonomous driving, robotic manipulation, and wearable AI systems, tasks increasingly require deep spatial reasoning capabilities for layout perception, path planning, and object manipulation~\cite{howard2019evolving,gupta2021embodied}. 
+These tasks demand integration not only of vision and language capabilities but also of knowledge from control theory, motion planning, and state estimation, marking a shift toward truly multidisciplinary AI systems.
+
+
+
+The expansion of modalities is also reshaping traditional disciplines through interdisciplinary integration. 
+In GIS and urban computing, AI models are increasingly combined with spatial coordinates, map representations, and temporal population data, enabling applications in smart city planning, trajectory prediction, and disaster simulation. 
+In Earth sciences and remote sensing, AI is employed for multimodal surface analysis, climate modeling, and environmental monitoring, pushing the frontier toward 3D Earth modeling and dynamic ecological understanding~\cite{janga2023review}. 
+In architectural design and digital twin systems, AI supports full lifecycle 3D spatial modeling, simulation, and predictive analytics for complex structures and spaces.
+
+
+
+Cognitive science and neuro-inspired AI (NeuroAI) are playing an increasingly pivotal role in this trend. 
+Foundational research on spatial intelligence in human cognition, such as hippocampus-mediated cognitive maps, spatial memory, and embodied cognition theory, is gradually informing the design of AI spatial perception systems~\cite{o1978hippocampus,barsalou2008grounded}. 
+As Fei-Fei Li puts it, spatial intelligence is \emph{``the scaffolding upon which our cognition is built''}, the substrate that anchors intelligence to the physical world~\cite{Feifei2025spatial}.
+Thus, the path toward AGI must transcend abstract symbolic computation and advance toward grounded-in-reality agent intelligence.
+This trend reshapes the research trajectory of AI and, at the same time, redefines the underlying infrastructure of general intelligence itself, with spatial intelligence standing as a central pillar of the emerging world-centered era.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Historical Evolution and Milestones}
+\label{sec:historical-evolution}
+
+% \scott{TODO: add enough necessary formulations, equations.}
+
+% style-1
+% \lettrine[lines=3]{\initfamily\textcolor{darkblue}{T}}{he}
+% style-2
+% \lettrine[
+%   lines=3,
+%   findent=0.3em,
+%   nindent=0.6em
+% ]{\colorbox{darkblue}{\textcolor{white}{\bfseries T}}}{he}
+% style-3
+% \renewcommand{\LettrineFontHook}
+%   {\color{darkblue}\rmfamily\bfseries}
+% \lettrine[
+%   lines=3,
+%   loversize=0.05,
+%   lhang=0.05,
+%   findent=0.15em,
+%   nindent=0.45em
+% ]{T}{he}
+% style-4
+\FramedInitial{T}{he} 
+history of spatial intelligence is best understood as a sequence of shifts in \emph{how space is represented} and \emph{what that representation is expected to support}. 
+Over decades, the field has repeatedly shifted among explicit structure and learned abstraction, offline reconstruction and online interaction, and local geometry and world-level state.
+To make this evolution concrete, we organize the landscape into five eras, each characterized by a dominant representation paradigm and its associated methodological commitments: from early symbolic and cognitive notions of spatial structure, to probabilistic geometric estimation, to learning-based spatial perception, to large foundation representations that are transferable and cross-modal, and finally to world-centered spatial intelligence where representations must be executable, updatable, and tightly coupled with action in dynamic environments \cite{kuipers1978modeling,Thrun2005Probabilistic,eigen2014depth,driess2023palm,Feifei2025spatial}.
+Figure~\ref{fig:p1_s1_2_si_evolution} shows how each era would represent the same scene, Table~\ref{tab:p1_s1_2_eras} condenses what each era took space to be and what it left unsolved, and Figure~\ref{fig:p1_s1_2_milestones} places about a hundred representative works from six fields on a common time axis.
+
+
+
+
+
+\begin{figure}[!t]
+\centering
+% \resizebox{0.99\linewidth}{!}{\input{figures/part1/si_evolution_tikz}}
+% \includegraphics[width=0.99\linewidth]{figures/part1/si_evolution.png}
+\includegraphics[width=\linewidth]{figures/part1/si_evolution_v2.pdf}
+\vspace{1mm}
+\caption{The historical evolution of spatial intelligence across five representation-centric eras, from explicit symbolic structure, through estimated geometry and learned features, to executable world states. The visual examples highlight the dominant representation and its role in each era. Dates indicate approximate shifts in emphasis, not exclusive boundaries; earlier paradigms remain in use.}
+\label{fig:p1_s1_2_si_evolution}
+\end{figure}
+
+\begin{table}[!t]
+\centering
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{The five eras of spatial intelligence compared along six dimensions: how each treated space, its core representations, what the representation was for, its characteristic methods, the fields that drove it, and what it left unsolved for the next era.}
+\label{tab:p1_s1_2_eras}
+\begin{tabular}{L{0.145\textwidth} L{0.159\textwidth} L{0.159\textwidth} L{0.159\textwidth} L{0.159\textwidth} L{0.159\textwidth}}
+\toprule
+ & \textbf{I.\ Symbolic and cognitive} \newline {\scriptsize 1950s--1980s} & \textbf{II.\ Geometric and probabilistic} \newline {\scriptsize 1980s--2012} & \textbf{III.\ Learning-based} \newline {\scriptsize 2012--2019} & \textbf{IV.\ Foundation models} \newline {\scriptsize 2019--2023} & \textbf{V.\ World-centered} \newline {\scriptsize 2023--} \\
+\midrule
+\textbf{Space treated as} & discrete symbols and relations & metric geometry under uncertainty & learned, task-specific features & shared latent priors & an executable, persistent world state \\
+\textbf{Core representations} & cognitive maps, topological graphs, predicates & occupancy grids, landmark maps, pose graphs & feature maps, depth and flow maps, point and voxel features & pretrained embeddings, cross-modal alignment, neural fields & world models, action-conditioned dynamics, spatial memory \\
+\textbf{What it is for} & planning and inference by symbol manipulation & a consistent pose and map from noisy sensing & perception objectives: detection, depth, motion & transfer across tasks, modalities, and environments & long-horizon prediction, planning, and interaction \\
+\textbf{Characteristic methods} & heuristic search, rule-based planning, logic & Bayesian filtering, nonlinear least squares, multi-view geometry & supervised and self-supervised deep networks & large-scale pretraining, contrastive alignment, instruction tuning & action-conditioned prediction, memory, closed-loop learning \\
+\textbf{Main fields} & cognitive science, classical AI, early robotics & robotics, photogrammetry and vision, GIS & computer vision, autonomous driving & multimodal AI, neural rendering, embodied AI & embodied AI, simulation and digital twins, AR/VR \\
+\textbf{Left unsolved} & meaning asserted by rules, not inferred from noisy sensing & features and pipelines engineered by hand & one model per task; no persistent world model & no persistent state that action updates & open: long-horizon consistency under motion and partial observability \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Era 1: Symbolic and Cognitive Spatial Computing (1950s--1980s)}
+\label{subsec:era-symbolic-cognitive}
+
+\paragraph{Symbolic Space and Cognitive Structure as the Starting Point.}
+This era marks the cognitive and symbolic origin of spatial intelligence. 
+Under severe limits in computation and data, space was primarily treated as a structured object that could be explicitly described, reasoned about, and manipulated.
+Accordingly, researchers favored symbolic rules, relational descriptions, and graph-like structures to encode environments, viewing spatial representation as a verifiable ``spatial description language'' that enables planning and logical inference \cite{kuipers1978modeling,kuipers2000spatial}.
+The lasting contribution of this stage is not empirical performance, but two foundational commitments.
+First, goal-directed behavior requires an internal world representation.
+Second, spatial representations are inherently compositional, consisting of objects, relations, and connectivity, which naturally supports rule-based spatial reasoning \cite{sun1995robust}.
+
+
+From a cognitive science perspective, this period also established the idea that spatial ability is not mere perception but an internal, operable mental model.
+Concepts such as cognitive maps and spatial memory motivated the view that an intelligent system should maintain structured internal states that support navigation, mental imagery, and transformation of spatial relations \cite{eichenbaum1999hippocampus,allen2004human}.
+In parallel, early robotics provided an engineering prototype of this view: the classic sense-plan-act pipeline connected symbolic spatial models with planners and execution, demonstrating how an agent can translate limited sensing into purposeful behavior within an environment \cite{nilsson1984shakey,Arkin1998BehaviorBased}.
+
+\paragraph{Representative Milestones in Techniques and Representations.}
+A widely cited conceptual root is Tolman's proposal of ``cognitive maps'' (1948), which framed navigation as relying on internal map-like structures rather than stimulus-response associations \cite{tolman1948cognitive}.
+In classical AI, the Dartmouth Workshop (1956) crystallized the symbolic paradigm and encouraged formal, rule-based representations of intelligence, providing intellectual soil for early spatial reasoning systems \cite{mccarthy2006proposal,krauss2024artificial}.
+Planning and search then became the main computational language for spatial decision making: A* heuristic search (1968)~\cite{Hart1968Astar} offered a principled graph search framework for shortest-path style navigation problems, and STRIPS (1971)~\cite{Fikes1971STRIPS} formalized actions as operators over states, making spatial tasks expressible as sequences of symbolic state transitions \cite{nilsson2014principles,pearl1983heuristics}.
+
+
+
+In robotics, Shakey (late 1960s to early 1970s) became a milestone system that integrated perception, symbolic spatial modeling, planning, and acting in a closed pipeline \cite{nilsson1984shakey}.
+Although the sensory and actuation capabilities were primitive by modern standards, the system concretely instantiated the era's thesis that spatial intelligence can be built by maintaining symbolic representations and using them to plan actions.
+In neuroscience and cognitive modeling, O'Keefe and Nadel's \emph{The Hippocampus as a Cognitive Map} (1978) further systematized the cognitive map account, reinforcing the interpretation that internal spatial representations are functional substrates for memory and navigation \cite{o1978hippocampus}.
+
+
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{figures/web/si_milestones_tikz.pdf}
+\caption{Representative works in spatial intelligence by field and year, set against the five eras of Table~\ref{tab:p1_s1_2_eras} (shaded bands, I--V). Each marker sits at the year of the original work, and the bracketed number cites it; where several works share a year, labels are spread and joined to their markers by short leaders. The time axis is compressed before 1980 and expanded after 2012.}
+\label{fig:p1_s1_2_milestones}
+\end{figure}
+
+Across these milestones, several representation families repeatedly appeared and stabilized: symbolic spatial models and rule-based spatial descriptions; topological graphs capturing connectivity and place relations; qualitative spatial relations such as containment, adjacency, and support; landmark-based representations for navigation; and grid-world abstractions that later became a convenient substrate for sequential decision making and, eventually, reinforcement learning (RL) formulations \cite{arulkumaran2017deep}.
+Together, they define the representation-centric signature of Era 1: spatial intelligence begins with explicit structure, grounded in cognition-inspired internal maps and implemented through symbolic reasoning and sense-plan-act-style control.
+
+\subsection{Era 2: Geometric and Probabilistic Spatial Modeling (1980s--2012)}
+\label{subsec:era-geometric-probabilistic}
+
+
+\paragraph{From Symbolic Descriptions to Metric Geometry under Uncertainty.}
+With the maturation of sensors (laser range finders, wheel odometry, early vision), computing infrastructure, and probabilistic estimation theory, spatial representation shifted away from purely symbolic description toward mathematical modeling of continuous geometry with uncertainty.
+Space was increasingly treated as a measurable physical entity whose state must be inferred, rather than a rule-based structure whose meaning is asserted.
+Consequently, the central question of this era shifted from describing the world in symbols to maintaining spatial consistency under noise, drift, and partial observability.
+This transition also re-centered the representation itself: a map is not a static record, but a set of uncertain state variables, typically the joint configuration of pose and environment, which must be updated and refined through Bayesian estimation and optimization \cite{Thrun2005Probabilistic,dellaert2006square}.
+
+In this view, representation is inseparable from the inference machinery that maintains it.
+Coordinate frames and metric spaces became the common language that connects sensing, estimation, and control, while probabilistic modeling provided a principled way to fuse heterogeneous measurements and quantify uncertainty.
+As a result, a representation-centric principle was consolidated: spatial intelligence requires not only a geometric model of the environment, but also an explicit account of how that model is updated over time as new evidence arrives \cite{smith1990estimating,bar2001estimation,thrun2002robotic}.
+This era also laid much of the groundwork for long-term autonomy by formalizing how an agent can localize itself, build maps, and navigate using a consistent geometric state.
+
+In parallel, macro-scale spatial disciplines pushed representation standardization beyond local robotics maps.
+Surveying, geodesy, cartography, remote sensing, and GIScience strengthened coordinate reference systems, map projections, topological relations, and spatial databases, making large-scale spatial representations structured, queryable, and interoperable at city-to-Earth scale \cite{goodchild1992geographical}.
+At the same time, computer vision developed a rigorous multi-view geometry toolkit that defined how 3D structure and camera motion can be recovered from images, reinforcing the idea that geometry is an estimable latent state rather than an explicit symbolic description \cite{hartley2003multiple}.
+
+
+
+
+
+\paragraph{Representative Techniques and Milestones.}
+A representative milestone in this era is the emergence of probabilistic state estimation as the dominant language for maintaining spatial consistency under noise and partial observability.
+Kalman filtering and its nonlinear variants (EKF and related formulations) became widely adopted in robotics and autonomous systems during the 1980s and 1990s, enabling spatial quantities such as pose, velocity, and sensor biases to be represented as random variables with explicit uncertainty propagation \cite{welch1995kalman}.
+This shift is representation-centric: it turns ``space'' into a belief state that must be continuously updated, rather than a deterministic symbolic description.
+Building on this estimation view, occupancy grid mapping in the mid-1980s provided a canonical probabilistic representation that directly fuses range sensing into a discretized spatial field of free versus occupied space \cite{Moravec1985SonarMaps,Thrun2005Probabilistic}.
+Although conceptually simple, occupancy grids became a durable interface between sensing and downstream planning, because they encode geometry together with uncertainty in a form amenable to incremental updates.
+Related metric map abstractions, coordinate frames, and sensor models matured in parallel, standardizing the idea that maps are measurable geometric objects anchored to physical reference systems \cite{LaValle2006Planning,hornung2013octomap}.
+
+
+The SLAM problem then consolidated these ideas into a unified formulation where the agent's pose and map are jointly inferred~\cite{dissanayake2001solution}.
+EKF-SLAM, whose stochastic-map foundations were laid in the late 1980s \cite{smith1990estimating} and refined through the 1990s into the early 2000s \cite{bailey2006consistency}, established the coupled pose-landmark state as a central representation, while particle-filter-based SLAM, including FastSLAM (2002)~\cite{montemerlo2002fastslam}, demonstrated that sampling and factorization could scale inference by exploiting conditional independencies.
+Beyond their algorithmic contributions, these lines of work stand as milestones in the operationalization of spatial representation: the map becomes a latent variable tied to motion and observation processes, with consistency defined probabilistically.
+
+As systems expanded in scale and duration, graph-based spatial representations rose to prominence in the early 2000s.
+Pose graphs and factor graphs~\cite{lu1997globally} recast spatial estimation as a global constraint-satisfaction problem, enabling loop closure and large-scale consistency through nonlinear optimization.
+GraphSLAM~\cite{thrun2006graph} and pose-graph optimization frameworks provided a modular representation where constraints from heterogeneous sensors and revisits could be integrated as edges in a unified objective \cite{grisetti2010tutorial}.
+This was a conceptual milestone because it decoupled spatial consistency from strict temporal recursion and made map structure explicit as an optimization-ready graph.
+
+
+In computer vision and photogrammetry, multi-view geometry matured into a systematic toolkit for recovering 3D structure from images.
+Bundle adjustment, a core optimization primitive with roots in analog photogrammetry and consolidated for computer vision in the late 1990s, jointly refines camera poses and 3D points to enforce global geometric consistency across views \cite{triggs2000bundle}.
+This family of methods made camera-centric coordinate frames, point clouds, and calibrated reconstructions standard spatial representations, and it established geometry and optimization, rather than semantics, as the primary organizing principles of spatial understanding in vision during this era.
+Complementary to these estimation and reconstruction pipelines, geometric registration and fusion techniques advanced practical 3D mapping.
+Iterative Closest Point (ICP) and its robust refinements enabled consistent aggregation of partial point measurements across viewpoints \cite{besl1992method,chetverikov2002trimmed}.
+In parallel, early volumetric representations, including voxel grids and truncated signed distance function style formulations, began to encode surfaces and free space within unified volumetric fields \cite{lorensen1998marching,curless1996volumetric,newcombe2011kinectfusion,niessner2013real}.
+While computationally constrained at the time, these representations introduced the field-based view of space that would later become influential for differentiable and implicit modeling.
+
+
+Finally, at macro scales, GIS and surveying communities standardized spatial representations through coordinate reference systems, projections, geodesy, and spatial databases.
+Digital elevation models, map products derived from remote sensing, and queryable geospatial layers enabled spatial reasoning at city, regional, and planetary scales with an emphasis on consistency, interoperability, and long-horizon stability \cite{goodchild1992geographical,li2025giscience}.
+Although historically less coupled to embodied agents, these infrastructures are milestones for spatial intelligence because they demonstrate how spatial representation can function as a persistent, structured substrate supporting navigation, planning, and analysis beyond local robotic maps.
+
+
+
+
+
+
+
+
+\subsection{Era 3: Learning-based Spatial Modeling (2012--2019)}
+\label{subsec:era-learning-based}
+
+\paragraph{From Engineered Geometry to Task-driven Learnable Spatial Representations.}
+This era marks a fundamental shift in how spatial representations are constructed.
+We date its onset to 2012, when AlexNet's ImageNet result made deep learning the dominant paradigm for visual perception \cite{krizhevsky2012imagenet}; the ImageNet dataset itself (2009) and early feature-learning work seeded the transition, but 2012 is when learned representations displaced hand-crafted ones as the default across spatial perception tasks.
+With the rise of machine learning, and especially deep learning, spatial modeling moves away from pipelines dominated by hand-crafted geometry, explicit probabilistic inference, and manually designed features.
+Instead, spatial structure begins to be encoded implicitly within neural networks through learned feature maps, latent embeddings, and task-optimized intermediate representations.
+Space is no longer represented solely as a map, graph, or state vector defined by engineers, but as something that can be learned directly from data through end-to-end optimization~\cite{deng2009imagenet,eigen2014depth,mildenhall2021nerf}.
+
+
+
+
+% \paragraph{Task-driven Learning and Discriminative Spatial Encoding.}
+A defining characteristic of this period is that spatial representations are learned in a strongly task-driven manner.
+Networks learn spatial cues to solve specific objectives such as object detection, semantic segmentation, depth estimation, visual odometry, or 3D recognition.
+As a result, spatial knowledge is often embedded in discriminative feature spaces tailored to particular datasets and benchmarks.
+While these representations dramatically improve performance on individual tasks, they rarely constitute a unified or reusable world model.
+Spatial intelligence in this era remains fragmented, with representations optimized locally for perception subtasks rather than globally for cross-task reasoning or long-term world understanding~\cite{long2015fcn,ren2015faster,zhou2017unsupervised}.
+
+
+
+% \paragraph{Parallel Advances Across Domains without Convergence.}
+Another important aspect of this era is the parallel but largely uncoordinated progress across multiple domains.
+In computer vision, learning-based approaches revolutionize image, video, and 3D perception.
+In robotics, learning begins to augment classical pipelines for perception and control, but geometry-heavy systems remain dominant for reliability.
+Remote sensing adopts deep models to learn spatial patterns from multispectral, hyperspectral, SAR, and LiDAR data at large scales.
+Medical imaging leverages deep networks to learn volumetric spatial representations from CT and MRI scans.
+Autonomous driving stacks integrate learned perception modules with geometric localization and mapping.
+Despite shared reliance on learned spatial features, these communities operate with different benchmarks, representations, and evaluation criteria, reinforcing the task-specific nature of spatial modeling in this era~\cite{KITTI-GeigerLU12,ronneberger2015unet,Levine2016DeepGrasp}.
+
+
+
+
+\paragraph{Representative Techniques and Milestones.}
+A widely recognized milestone is the introduction of deep convolutional neural networks (CNNs) for visual perception, catalyzed by AlexNet in 2012, which establishes CNNs as the dominant backbone for spatially grounded perception tasks \cite{krizhevsky2012imagenet,rawat2017deep}.
+This shift is quickly reinforced by region-based detection frameworks such as R-CNN and its successors from 2014 onward, which embed object-level spatial reasoning directly into learned feature hierarchies \cite{ren2015faster,he2017mask}.
+ResNet in 2015 further deepens representational capacity and becomes a de facto foundation for most spatial perception pipelines \cite{he2016deep}.
+In three-dimensional perception, PointNet in 2017 marks a milestone by introducing point clouds as a first-class input modality for deep networks \cite{qi2017pointnet}.
+This work opens the door to learned spatial representations beyond images, influencing robotics, autonomous driving, and indoor scene understanding.
+Concurrently, early voxel-based and sparse convolution methods begin to encode space volumetrically, albeit at limited resolution due to computational constraints \cite{tang2020searching}.
+
+
+
+
+Learning-based depth estimation emerges as another key milestone.
+Between 2014 and 2016, monocular and stereo depth prediction networks demonstrated that geometric cues such as disparity and scale can be inferred from data rather than explicit triangulation \cite{eigen2014depth}.
+Around the same period, learning-based visual odometry~\cite{Wang2017DeepVO} and ego-motion estimation appeared~\cite{tateno2017cnn}, operating alongside classical SLAM systems.
+This coexistence highlights a transitional moment where geometry-driven consistency and learning-driven representation evolve in parallel rather than replacing one another \cite{Wang2017DeepVO,tang2018ba}.
+Self-supervised and unsupervised learning of spatial structure became influential from 2016 to 2018.
+Methods that exploit photometric consistency, view synthesis, and temporal coherence enable networks to learn depth and motion without dense ground truth supervision \cite{zhou2017unsupervised,godard2019digging}.
+These approaches strengthen the idea that spatial representations can be learned from raw sensory streams, reinforcing the data-driven paradigm while remaining largely task-bound.
+
+
+
+
+
+Autonomous driving perception stacks introduce another representation shift toward bird's-eye-view and multi-view feature fusion.
+By the late 2010s, learned BEV representations and cost volumes became central to multi-camera and LiDAR-based perception, enabling spatial reasoning aligned with downstream planning requirements \cite{liu2023bevfusion,yao2018mvsnet,kendall2017end}.
+This reflects an increasing emphasis on representations that are geometrically meaningful yet learned.
+Toward the end of this era, early attempts at neural scene representations and coordinate-based networks appear.
+Works exploring implicit coordinate mappings and continuous scene embeddings between 2018 and 2019 lay conceptual groundwork for later developments in implicit fields and neural rendering \cite{park2019deepsdf,mescheder2019occupancy,sitzmann2019scene}.
+Although these models are not yet general or scalable, they signal a growing interest in treating scenes, rather than tasks, as the primary object of representation.
+
+
+
+Overall, Era 3 establishes learned spatial representations as the dominant paradigm.
+However, these representations remain largely discriminative, task-specific, and fragmented across domains.
+They provide powerful spatial priors for perception but stop short of forming unified, reusable world models, setting the stage for the emergence of large foundation spatial modeling in the subsequent era.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Era 4: Large Foundation Spatial Modeling (2019--2023)}
+\label{subsec:era-foundation-models}
+
+
+
+\paragraph{From Task-Specific Learning to Foundation Spatial Representations.}
+The defining shift of this era is the rise of spatial representations trained at scale as foundation-level constructs, a change of kind rather than an incremental improvement on individual spatial tasks.
+For the first time, spatial modeling is explicitly shaped through large-scale pretraining over diverse data sources, tasks, and modalities, rather than being optimized only within narrow task boundaries.
+Spatial structure is no longer learned as an auxiliary signal for detection, depth, or reconstruction, but is instead distilled into shared latent representations through massive data exposure and objective diversity.
+This marks a decisive representation-centric transition, where the primary goal becomes learning general-purpose spatial priors that can be transferred, adapted, and reused across downstream tasks with minimal supervision.
+
+
+
+A key enabler of this transition is the combination of large-scale datasets, scalable architectures, and unified training objectives.
+Vision Transformers establish architectures capable of modeling global spatial structure over high-resolution inputs, while contrastive and generative pretraining objectives align spatial patterns across vision, language, and generation.
+Through training on internet-scale image-text pairs, video corpora, and synthetic data, spatial representations acquire statistical regularities that go beyond any single environment or task.
+As a result, space increasingly functions as a shared coordinate system and embedding substrate that supports grounding, retrieval, reasoning, and conditional generation across modalities.
+Spatial intelligence in this era is therefore inseparable from scale, as both data diversity and model capacity are essential for forming transferable spatial abstractions.
+
+
+
+Another hallmark of this era is the elevation of the scene as a first-class unit of representation under large-scale learning.
+Neural scene representations, most notably neural radiance fields (NeRFs)~\cite{mildenhall2021nerf}, treat a scene as a learnable and differentiable function defined over continuous space, enabling optimization from sparse observations.
+Their significance lies not in implicitness itself, but in demonstrating that scene-level spatial structure can be recovered, manipulated, and reused through learning.
+In parallel, diffusion models introduce powerful generative priors that encode spatial coherence in latent spaces trained on massive datasets, enabling controllable synthesis of images, videos, and three-dimensional content.
+Together, these developments elevate space from something to be perceived into a scalable, generative, and composable substrate shaped through foundation-level pretraining.
+
+
+
+
+
+
+\paragraph{Representative Techniques and Milestones.}
+Before the emergence of vision-specific foundation models, a critical architectural shift had already taken place with the introduction of the Transformer \cite{attention}.
+Originally developed for sequence modeling in natural language processing, attention-based architectures demonstrated that large-scale pretraining could yield highly transferable and task-agnostic representations, as exemplified by models such as BERT~\cite{devlin2019bert}.
+The key insight was not tied to language itself, but to the ability of self-attention to capture global structure and support scalable representation learning.
+This realization set the stage for extending the same architectural paradigm to visual data, where spatial structure could likewise be learned through large-scale pretraining rather than handcrafted inductive biases.
+Following this, one central architectural milestone is the introduction of Vision Transformers~\cite{vit} in 2020, which demonstrates that large-scale pretraining on visual data can produce transferable and globally structured spatial representations.
+This architectural shift lays the groundwork for foundation visual models that can be adapted across tasks without redesigning spatial pipelines.
+Then, cross-modal alignment becomes a defining capability with the release of CLIP in 2021, which aligns visual representations with natural language through large-scale contrastive learning \cite{radford2021learning}.
+This alignment provides a universal interface for spatial semantics, enabling zero-shot transfer, retrieval, and language-conditioned spatial reasoning.
+Spatial representations learned in this manner escape the confines of a fixed label space and can be flexibly queried and recombined through language.
+
+
+
+
+Concurrently, the emergence of LLMs marks a decisive inflection point in foundation modeling.
+Unlike earlier neural models trained at modest scale, LLMs demonstrate that sufficiently large-scale pretraining on diverse data can induce qualitatively new capabilities, including abstraction, composition, and long-horizon reasoning \cite{achiam2023gpt,vicuna2023}.
+Crucially, these abilities are not hard-coded but emerge from scale, data diversity, and architectural simplicity.
+Language becomes the first modality in which foundation models exhibit general-purpose intelligence, rapidly positioning LLMs as a universal computational substrate that extends beyond NLP into vision, robotics, simulation, and scientific domains.
+For spatial intelligence, this shift is pivotal: it introduces a representation space in which spatial structure, relations, and plans can be explicitly described, manipulated, and interfaced with external perceptual or physical systems, thereby elevating language from an auxiliary annotation channel to a central medium for spatial abstraction and control.
+Also, Chain-of-Thought (CoT) style reasoning and tool-augmented prompting begin to systematically populate spatial intelligence pipelines \cite{wei2022chain}.
+The key milestone is not CoT per se, but the emergence of \emph{structured intermediate representations} induced by LLMs, such as stepwise spatial decomposition, implicit scene graphs, explicit coordinate or layout hypotheses, and program-like plans that interface with mapping, perception, or simulation modules.
+In practice, CoT becomes a mechanism to externalize and manipulate spatial states as compositional symbols that can be checked, revised, and grounded via perception or environment feedback, thereby tightening the representation loop from language to spatial structure and back.
+
+
+
+
+
+
+In parallel, LLMs begin to serve as coordinators of scene-level reasoning rather than passive text processors.
+PaLM-E~\cite{driess2023palm} in 2023 represents a critical milestone by integrating language models with embodied sensory inputs and robotic actions, demonstrating that a single foundation backbone can operate over language, vision, and control signals within a shared representational space.
+This integration highlights that scene representations must bridge symbolic reasoning and physical execution, rather than treating them as separate layers.
+Also, 2023 marks a clear milestone where Vision-Language-Action (VLA)~\cite{zitkovich2023rt2} models crystallize as a representation-centric paradigm.
+The defining contribution of these systems is not embodiment itself, but the treatment of action as a first-class modality within a shared spatial latent interface.
+VLA models learn to map perceptual states, such as images, video, and proprioception, together with language instructions, into temporally grounded action tokens or control variables.
+This reframes spatial representation from a purely geometric or perceptual construct into an \emph{action-aligned internal state}, where affordances, kinematic constraints, and task-relevant spatial variables are explicitly encoded in executable form.
+Enabled by large foundation backbones, this shift establishes a concrete representational bridge from scene-level spatial models to agent-level world states.
+
+
+
+
+
+Building upon these representational advances, the foundation paradigm begins to visibly reshape embodied and interactive systems.
+Early generalist agent models, such as Gato~\cite{reed2022generalist} in 2022, signal an attempt to unify perception, action, and spatial representation within a single pretrained architecture.
+From 2022 to 2023, LLM- and VLM-backed embodied systems increasingly adopt foundation spatial representations as priors for online decision making in navigation and manipulation tasks \cite{driess2023palm}.
+High-profile humanoid and mobile robot demonstrations in 2023 further highlight this trend, integrating LLM or VLM planners with perception stacks and low-level controllers.
+Although many such systems remain engineering-driven rather than standardized academic benchmarks, they mark a qualitative shift: spatial representations turn from offline reconstructions into online task states that must remain coherent under motion, manipulation, and partial observability.
+These developments collectively signal the maturation of foundation spatial representations into embodied world models, setting the stage for the transition toward world-centered spatial intelligence.
+
+
+
+NeRFs \cite{mildenhall2021nerf}, introduced in 2020, represent another milestone by modeling scenes as continuous functions defined over spatial coordinates and viewing directions.
+This formulation enables high-fidelity view synthesis and establishes a functional perspective on scene representation.
+Follow-up work extends this idea to signed distance functions and other continuous fields, reinforcing the notion of scene-level spatial modeling as a reusable representation primitive.
+Generative modeling advances rapidly during this period as well.
+Denoising diffusion probabilistic models~\cite{ho2020denoising}, introduced around 2020, provide a stable and scalable framework for learning generative priors over high-dimensional spatial signals.
+By 2022, large-scale text-to-image diffusion systems demonstrate that spatial layout, object relations, and scene structure can be controlled through language-conditioned latent spaces \cite{rombach2022ldm}.
+These models turn generative spatial representations into widely accessible foundation priors.
+
+
+
+In three-dimensional representation, the introduction of 3D Gaussian Splatting \cite{kerbl20233d} in 2023 significantly improves the practicality and efficiency of differentiable scene representations.
+While conceptually aligned with neural rendering, its impact lies in making scene-level spatial representations more scalable and deployable.
+This development fits naturally within the broader surge of foundation scene representations rather than defining a separate era.
+Closely following this trend, four-dimensional (4D) spatial modeling and generation, which explicitly incorporate temporal dynamics into scene representations, begin to rapidly prevail in 2024 and attract unprecedented attention from the community \cite{kong20253d}.
+Building upon continuous scene representations and generative priors established in three-dimensional settings, 4D models aim to represent scenes as time-conditioned functions or dynamic fields that capture motion, deformation, and long-term temporal consistency.
+This includes emerging paradigms such as dynamic NeRF variants~\cite{pumarola2021d,li2021neural}, spatiotemporal Gaussian representations~\cite{wu20244d,bian2025gsditadvancingvideogeneration}, video-based neural fields~\cite{liu2025free4d}, and diffusion-based 4D generation models~\cite{zhen2025tesseract}.
+The significance of this milestone lies in extending foundation spatial representations from static geometry to evolving worlds, thereby strengthening the role of space as a reusable and temporally grounded latent substrate.
+Although still closely tied to the foundation modeling paradigm of this era, the rise of 4D spatial representations foreshadows the subsequent shift toward world-centered spatial intelligence, where temporal evolution and agent interaction become first-class constraints.
+
+
+
+Across domains such as remote sensing and medical imaging, large-scale pretraining and multimodal alignment also begin to emerge.
+Efforts to pretrain spatial representations on massive satellite imagery corpora or align medical images with textual reports reflect the spread of foundation spatial modeling beyond conventional vision benchmarks \cite{cong2022satmae,sun2022ringmo}.
+Simulation and synthetic data generation further support this trend by enabling data scaling for spatial pretraining when real-world annotations are scarce~\cite{Cabon2020VirtualKITTI2,pfaff2025scalable,xu2025stable}.
+
+
+
+
+% Overall, Era 4 establishes spatial representations as foundation assets.
+% Space becomes a shared latent substrate that supports alignment, generation, and transfer across modalities and tasks.
+% This shift prepares the ground for the subsequent transition toward world-centered spatial intelligence, where these foundation representations are no longer static priors, but executable components embedded within agents acting in the world.
+
+
+
+
+
+
+
+\subsection{Era 5: World-Centered Spatial Intelligence (2023--Present)}
+\label{subsec:era-world-centered}
+
+
+
+
+
+\paragraph{From Spatial Representations to World States.}
+This era marks a decisive transition from spatial modeling toward world-centered intelligence.
+The defining shift lies in a fundamental redefinition of what spatial representations are required to support, well beyond the introduction of another three-dimensional encoding scheme.
+For the first time, spatial representations are systematically constrained to be executable, interactive, continuously updatable, and tightly coupled with agent behavior.
+They are no longer designed to serve isolated perception modules or one-shot generation tasks, but to function as persistent internal states that sustain long-running systems embedded in dynamic environments.
+As a result, representation quality is no longer judged primarily by reconstruction accuracy or visual fidelity, but by whether it can support ongoing interaction, decision making, and adaptation over extended time horizons~\cite{ha2018world,Feifei2025spatial}.
+
+
+A central conceptual shift underlying this transition is the expansion of context.
+The dominant paradigm moves from context as instruction to context as world.
+Rather than reasoning solely over prompts, local observations, or short-horizon inputs, systems are now required to organize cognition around an evolving world state that integrates spatial structure, temporal dynamics, physical constraints, and increasingly social context.
+In this view, spatial intelligence operates as an internal world state machine.
+It is written by perception, modified by action, maintained by memory, and queried by planning and prediction.
+This reframing represents a departure from representations as static input encodings toward representations as operational substrates that mediate perception, reasoning, and action in a unified loop~\cite{genie3,driess2023palm}.
+
+
+Crucially, this shift also redefines how learning itself is expected to occur.
+World-centered spatial intelligence cannot be acquired solely through one-off offline pretraining.
+Instead, representations must be shaped and continually refined through embodied interaction with the environment.
+Agents are expected to actively explore, test hypotheses, observe consequences, and update their internal world states accordingly.
+Spatial intelligence thus becomes inseparable from agency and experience.
+The internal representation must encode not only where things are, but how the world evolves under action, which affordances are available, and how constraints shape future possibilities.
+Although current systems remain at an early stage of this transition, the trajectory is clear.
+By treating spatial intelligence as a persistent, executable, and evolving world substrate, this era points toward a path where artificial agents can maintain coherent world models over long time horizons, learn autonomously through interaction, and ultimately approach human-level and potentially superhuman-level intelligence grounded in the structure and dynamics of the real world~\cite{wang2023voyager,ali2025world,wang2023robogen}.
+
+
+
+
+
+\paragraph{Representative Techniques and Milestones.}
+One prominent signal of this era is the emergence of explicit world modeling frameworks that treat perception, prediction, and memory as components of a unified state transition process.
+Yann LeCun has proposed a series of Joint Embedding Predictive Architecture (JEPA) world models from 2022 to 2025, which reframes representation learning around predicting future world states rather than reconstructing sensory inputs, emphasizing abstraction, temporal coherence, and action relevance \cite{assran2023jepa,assran2025vjepa,chen2025vl}.
+By shifting the learning objective from pixel-level fidelity to state-level consistency, JEPA positions world dynamics as the primary object of representation.
+Following this direction, a growing body of work between 2023 and 2024 explores world models that integrate prediction, memory, and action, progressively moving from short-horizon forecasting toward persistent and interaction-aware world state representations \cite{hafner2023mastering,hao2023reasoning,zhen20243d,yang2026mindjourney,garcin2026beyond}.
+These efforts collectively signal a transition from predictive representation learning to explicit world-centered modeling.
+Within this trajectory, World Labs' Marble, launched by Fei-Fei Li's team in late 2025 as one of the first generally available generative world models, turns text, image, video, or coarse 3D prompts into persistent, editable, and walkable 3D environments \cite{Feifei2025Marble}.
+Its significance for this era is twofold: it demonstrates that world-level spatial representations can be generated rather than only reconstructed, and that the resulting worlds persist as stable, downloadable state rather than transient observations.
+Marble thereby moves generative spatial modeling from research demonstrations toward deployable world-building infrastructure, reinforcing the view that spatial representations should be maintained, edited, and acted upon over long horizons.
+
+
+
+
+
+
+VLA scaling further accelerates this trend.
+RT-2 in 2023 demonstrates that models pretrained on large-scale web data can transfer semantic and spatial knowledge directly into robotic control policies \cite{zitkovich2023rt2}.
+Here, spatial representation becomes action-aligned rather than geometry-first.
+Internal states must encode affordances and task-relevant spatial variables in forms that are immediately executable, reinforcing the notion that representation quality is measured by behavioral competence.
+Agent-centric frameworks also mature during this period.
+ReAct-style agents, introduced in 2022, formalize a tight loop between reasoning and acting, where intermediate representations explicitly externalize spatial hypotheses, plans, and state updates \cite{yao2022react}.
+Voyager, released in 2023 for the Minecraft environment, further exemplifies this shift by integrating long-term memory, skill libraries, planning, and exploration into a persistent world model that evolves through interaction~\cite{wang2023voyager}.
+These systems highlight the importance of maintaining long-horizon spatial consistency rather than optimizing isolated decisions.
+
+
+
+Simulation platforms and benchmarks increasingly align with this world-centered view.
+The Habitat family of embodied AI benchmarks continues to push evaluation from static perception tasks toward closed-loop interaction, navigation, and manipulation in simulated environments \cite{savva2019habitat,szot2021habitat2,puig2023habitat3,Ramakrishnan2021HM3D}.
+This shift in evaluation methodology reinforces the requirement that spatial representations must remain coherent under motion, partial observability, and delayed feedback.
+From 2024 onward, interactive world models and action-conditioned video models gain prominence.
+These models treat the world state as a predictive object whose evolution depends explicitly on agent actions, unifying spatial prediction and control \cite{cui2025emu35,bruce2024genie}.
+Such approaches position world dynamics as first-class representational targets rather than side effects of perception.
+More broadly, multimodal agent frameworks emerging between 2024 and 2025 increasingly combine tool use, memory systems, and long-horizon planning.
+In these systems, spatial representations act as persistent world states that coordinate perception, reasoning, and action over extended time scales \cite{feng2025survey,yang2025embodiedbench,wang2023voyager}.
+
+
+
+
+From a representational standpoint, this era is characterized by the rise of world-level state representations.
+These representations often combine metric maps, semantic abstractions, scene graphs, and memory-augmented structures into unified internal states.
+Crucially, they encode not only static layout but also action-conditioned dynamics, affordances, and long-term consistency.
+The representation target shifts from isolated scenes to cross-scale world states that span rooms, cities, and even planetary systems.
+Such representations are designed to be executable, editable, and safe, enabling planning, intervention, and constraint enforcement within a single coherent framework.
+
+
+
+
+

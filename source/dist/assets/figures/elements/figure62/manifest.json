@@ -1,0 +1,57 @@
+{
+  "source": "assets/figures/figures/part3/section6/segmentation.webp",
+  "assets": [
+    {
+      "file": "raw.png",
+      "source_box": [
+        22,
+        308,
+        459,
+        590
+      ],
+      "size": [
+        437,
+        282
+      ]
+    },
+    {
+      "file": "semantic.png",
+      "source_box": [
+        525,
+        308,
+        962,
+        590
+      ],
+      "size": [
+        437,
+        282
+      ]
+    },
+    {
+      "file": "instance.png",
+      "source_box": [
+        1042,
+        308,
+        1479,
+        590
+      ],
+      "size": [
+        437,
+        282
+      ]
+    },
+    {
+      "file": "panoptic.png",
+      "source_box": [
+        1545,
+        308,
+        1982,
+        590
+      ],
+      "size": [
+        437,
+        282
+      ]
+    }
+  ]
+}

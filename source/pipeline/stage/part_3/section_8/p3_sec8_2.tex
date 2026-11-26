@@ -1,0 +1,58 @@
+
+\section{3D Spatial Reconstruction and Generation}
+\label{sec:p3_s8_2}
+
+\FramedInitial{T}{he} 3D spatial reconstruction and generation encompasses the tasks that turn images, video, sensor readings, or high-level prompts into an explicit 3D representation (a textured mesh, a signed-distance or occupancy field, a neural radiance field, or a 3D Gaussian field) of an object, a scene, or a complete navigable environment.
+Whereas §\ref{sec:p3_s8_1} taught a 2D semantic-to-pixel before honor spatial structure on the image plane, this section lifts that prior off the plane and into the volumetric substrate on which embodied perception, simulation, and interaction ultimately operate.
+This is where appearance and geometry are forced into a single, view-consistent representation: a model must not only produce plausible pixels but place matter correctly in $\mathbb{R}^3$ so that the result can be rendered from arbitrary viewpoints, physically simulated, navigated, and edited. It is the bridge between the flat generative priors of §\ref{sec:p3_s8_1} and the embodied world models, simulators, and digital twins that consume 3D structure downstream.
+
+The five subsections are organized by the direction and source of the map into a shared 3D-representation space $\mathcal{R}$.
+§\ref{subsec:p3_s8_2_1} starts with a single asset: 3D object synthesis turns the 2D prior of §\ref{sec:p3_s8_1} into a volumetric generator through 3D-native training, score distillation, multi-view lifting, or feed-forward reconstruction.
+§\ref{subsec:p3_s8_2_2} scales that generator to a structured scene of placed objects and a room envelope.
+§\ref{subsec:p3_s8_2_3} reverses the direction: reconstruction recovers a representation faithful to sensor observations, and meets synthesis exactly where the observations run out.
+§\ref{subsec:p3_s8_2_4} routes through a 360-degree panorama as a structured 2D intermediate that is then lifted to 3D, and §\ref{subsec:p3_s8_2_5} closes the loop by editing an existing representation under user control.
+% A Summary (§\ref{subsec:p3_s8_2_summary}) compares the five along shared axes.
+
+
+\input{part_3/section_8/p3_sec8_2/p3_sec8_2_1.tex}
+
+
+\input{part_3/section_8/p3_sec8_2/p3_sec8_2_2.tex}
+
+\input{part_3/section_8/p3_sec8_2/p3_sec8_2_3.tex}
+
+\input{part_3/section_8/p3_sec8_2/p3_sec8_2_4.tex}
+
+\input{part_3/section_8/p3_sec8_2/p3_sec8_2_5.tex}
+
+
+% \subsection{Summary}
+% \label{subsec:p3_s8_2_summary}
+
+% Table~\ref{tab:p3_s8_2_subfield_comparison} places the five subfields side by side: the input each consumes, the operator it instantiates over the shared 3D-representation space $\mathcal{R}$, the paradigms it surveys, the methods anchoring each, and the benchmarks on which it reports.
+
+% \begin{table}[t]
+%     \centering
+%     \fontsize{8}{10}\selectfont
+%     \setlength{\tabcolsep}{1.0mm}
+%     \caption{The five subfields of 3D spatial reconstruction and generation; each operator acts on the shared 3D-representation space $\mathcal{R}$.}
+%     \label{tab:p3_s8_2_subfield_comparison}
+%     \begin{tabular}{L{0.13\textwidth} L{0.20\textwidth} L{0.18\textwidth} L{0.19\textwidth} L{0.22\textwidth}}
+%         \toprule
+%         \textbf{Subfield} & \textbf{Input / operator} & \textbf{Dominant paradigms} & \textbf{Canonical methods} & \textbf{Benchmarks / metrics} \\
+%         \midrule
+%         §\ref{subsec:p3_s8_2_1} 3D object synthesis & Text / image / multi-view $\to$ asset; $G_\theta^{\text{3D}}:\mathcal{C}'\!\to\!\mathcal{R}$ (Eq.~\eqref{eq:p3_s8_2_1_objective}) & 3D-native generation; SDS distillation; multi-view generation and lifting; feed-forward reconstruction and 3D latent diffusion & GET3D; DreamFusion; Zero-1-to-3, MVDream; LRM, TRELLIS, Hunyuan3D & GT23D-Bench, MATE-3D, Gen3DEval; CLIP alignment, Chamfer / F-score, LPIPS \\
+%         §\ref{subsec:p3_s8_2_2} 3D scene synthesis & Text / layout / graph / sparse views / trajectory $\to$ scene tuple; $G_\theta^{\text{scene}}$ (Eq.~\eqref{eq:p3_s8_2_2_objective}) & Layout / scene-graph conditioning; view-to-3D; view-to-view; video-model-based & DiffuScene, GALA3D; DreamScene; LVSM, SEVA; CameraCtrl, ViewCrafter & 3D-FRONT, ScanNet, RealEstate10K; layout adherence, PSNR / LPIPS, FVD, pose error \\
+%         §\ref{subsec:p3_s8_2_3} 3D scene reconstruction & Posed or unposed images, depth, point clouds $\to$ 3D; $G_\theta^{\text{rec}}:\mathcal{O}\!\to\!\mathcal{R}^{\text{rec}}$ (Eq.~\eqref{eq:p3_s8_2_3_objective}) & Iterative (SfM--MVS, NeRF, 3DGS); feed-forward; generative complete reconstruction & NeRF, 3DGS; DUSt3R, MASt3R, VGGT; ReconFusion, Bolt3D & DTU, Tanks-and-Temples, Mip-NeRF360; PSNR / SSIM / LPIPS, Chamfer, pose AUC \\
+%         §\ref{subsec:p3_s8_2_4} 3D panorama synthesis & Text / NFoV image / layout / viewpoint $\to$ panorama $\to$ 3D; $G_\theta^{\text{pano}}$ $+$ lift $\Lambda$ (Eq.~\eqref{eq:p3_s8_2_4_objective}) & Panoramic image synthesis; panoramic video; panoramic reconstruction; panorama-based scene generation & PanFusion, CubeDiff; 360DVD, Imagine360; PanSplat; LayerPano3D, HunyuanWorld & Structured3D, SUN360, Matterport3D; FID / FAED, WS-PSNR, seam and loop consistency \\
+%         §\ref{subsec:p3_s8_2_5} 3D scene editing & Existing asset $+$ edit intent $\to$ edited asset; $E_\theta:\mathcal{R}\!\times\!\mathcal{C}'\!\to\!\mathcal{R}$ (Eq.~\eqref{eq:p3_s8_2_5_objective}) & 2D-lifted iterative; multi-view-consistent guidance; 3D-native primitive; LLM-integrated; feed-forward / training-free & Instruct-NeRF2NeRF; GaussCtrl, VcEdit; 3DSceneEditor; ShapeLLM-Omni; VoxHammer & Edit3D-Bench, 3DEditVerse; Chamfer / F-score, CLIP$_{\text{dir}}$, GPTEval3D \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+% The subfields partition not by output domain, since all five produce an element of the same $\mathcal{R}$, but by the direction and source of the map: synthesis (§\ref{subsec:p3_s8_2_1}, §\ref{subsec:p3_s8_2_2}) maps high-level priors into $\mathcal{R}$, reconstruction (§\ref{subsec:p3_s8_2_3}) maps sensor observations into it, panorama synthesis (§\ref{subsec:p3_s8_2_4}) inserts a 2D intermediate before the map, and editing (§\ref{subsec:p3_s8_2_5}) maps $\mathcal{R}$ back into itself.
+% Synthesis and reconstruction are not disjoint. As observations grow sparse, the reconstruction operator of Eq.~\eqref{eq:p3_s8_2_3_objective} must hallucinate the unobserved regions and collapses into the generative posterior of Eq.~\eqref{eq:p3_s8_2_1_objective}, so the complete-reconstruction regime of §\ref{subsec:p3_s8_2_3} and the generative regime of §\ref{subsec:p3_s8_2_1} approach one problem from opposite sides, and the formal distinction between the two operators dissolves into a single estimator that consumes whatever observations are available and falls back on a learned prior wherever they are not.
+% Across all five subfields the 2D prior of §\ref{sec:p3_s8_1} is reused as a prior to be distilled rather than as a terminal generator (score distillation, multi-view and panorama diffusion, frozen 2D editors lifted into 3D), and all inherit the same failure mode, the 2D$\leftrightarrow$3D consistency gap (Janus artifacts, view drift, cubemap seams, edit flicker) whose suppression motivates the multi-view-consistency machinery surveyed throughout the section.
+% Evaluation, finally, has not followed the convergence seen in §\ref{sec:p3_s8_1}: no cross-subfield suite exists, each subfield reports a paradigm-specific tuple over geometry, appearance, and constraint adherence, and a layout-adherence score from §\ref{subsec:p3_s8_2_2} cannot be ranked against a novel-view PSNR from §\ref{subsec:p3_s8_2_3}; a human-aligned protocol that spans the subfields is the clearest open need.
+
+% The temporal extension of these volumetric priors (generating spatially \emph{and} temporally coherent 3D content, where a camera or the scene itself moves through time) is the subject of video-based spatial generation in §\ref{sec:p3_s8_3}.

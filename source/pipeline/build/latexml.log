@@ -1,0 +1,212 @@
+latexml (LaTeXML version 0.8.8) processing book_web.tex
+(Digesting TeX book_web...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/TeX.pool.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/eTeX.pool.ltxml... 0.00 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/pdfTeX.pool.ltxml... 0.01 sec) 0.15 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/book_web.tex...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/LaTeX.pool.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/textcomp.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/latex/base/ts1enc.dfu... 0.02 sec) 1.03 sec) 1.23 sec)
+(Processing content ../lx_preamble.tex...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/book.cls.ltxml... 0.02 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/amsmath.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/amsbsy.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/amsgen.sty.ltxml... 0.00 sec) 0.01 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/amstext.sty.ltxml... 0.01 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/amsopn.sty.ltxml... 0.01 sec) 0.06 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/amssymb.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/amsfonts.sty.ltxml... 0.00 sec) 0.02 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/amsthm.sty.ltxml... 0.01 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/mathtools.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/keyval.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/latex/graphics/keyval.sty... 0.01 sec) 0.01 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/calc.sty.ltxml... 0.00 sec) 0.05 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/bm.sty.ltxml... 0.00 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/graphicx.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/graphics.sty.ltxml... 0.01 sec) 0.02 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/xcolor.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/color.sty.ltxml... 0.01 sec) 0.05 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/url.sty.ltxml... 0.00 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/booktabs.sty.ltxml... 0.01 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/multirow.sty.ltxml... 0.00 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/array.sty.ltxml... 0.00 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/longtable.sty.ltxml... 0.00 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/makecell.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty... 0.06 sec) 0.07 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/colortbl.sty.ltxml... 0.01 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/subcaption.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/caption.sty.ltxml... 0.01 sec) 0.02 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/wrapfig.sty.ltxml... 0.00 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/enumitem.sty.ltxml... 0.01 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/pifont.sty.ltxml... 0.00 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/tabularx.sty.ltxml... 0.01 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/natbib.sty.ltxml... 0.02 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/hyperref.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/ltxcmds.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty... 0.08 sec) 0.09 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/kvsetkeys.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty... 0.06 sec) 0.06 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/kvdefinekeys.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty... 0.02 sec) 0.03 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/kvoptions.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/latex/kvoptions/kvoptions.sty... 0.13 sec) 0.14 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/nameref.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/refcount.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/infwarerr.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/generic/infwarerr/infwarerr.sty... 0.04 sec) 0.05 sec) 0.11 sec) 0.11 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/gettitlestring.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty... 0.38 sec) 0.38 sec) 0.51 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/bitset.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/generic/bitset/bitset.sty...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/intcalc.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/generic/intcalc/intcalc.sty... 0.05 sec) 0.06 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/bigintcalc.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/pdftexcmds.sty.ltxml...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/iftex.sty.ltxml... 0.00 sec) 0.01 sec) 0.16 sec) 0.17 sec) 0.38 sec) 0.39 sec) 1.29 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/cleveref.sty.ltxml...
+(Processing definitions /usr/local/texlive/2020/texmf-dist/tex/latex/cleveref/cleveref.sty...
+Info:latex:(cleveref)  Package cleveref Info: `hyperref' support loaded         at cleveref.sty; line 2370 col 1
+Info:latex:(cleveref)  Package cleveref Info: `amsthm' support loaded         at cleveref.sty; line 3026 col 3
+ 1.40 sec) 1.41 sec)
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/latexml.sty.ltxml... 0.01 sec) 3.25 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/preface.tex... 0.19 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/notations.tex... 0.70 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/glossary.tex... 0.48 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_1/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_1/section_1/p1_sec1.tex... 3.09 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_1/section_2/p1_sec2.tex... 2.57 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_1/section_3/p1_sec3.tex... 0.68 sec) 6.62 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_2/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_2/section_4/p_2_sec_4.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_2/section_4/p_2_sec_4_2D.tex... 1.14 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_2/section_4/p_2_sec_4_3D.tex... 2.23 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_2/section_4/p_2_sec_4_4D.tex... 0.80 sec) 6.15 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_2/section_5/p_2_sec_5.tex... 0.93 sec) 7.74 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_1.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_1/p3_sec6_1_2.tex... 1.38 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_1/p3_sec6_1_3.tex... 1.76 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_1/p3_sec6_1_1.tex... 1.58 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_1/p3_sec6_1_4.tex... 1.04 sec) 6.58 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_2.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_2/p3_sec6_2_1.tex... 1.66 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_2/p3_sec6_2_3.tex... 1.37 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_2/p3_sec6_2_2.tex... 1.71 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_2/p3_sec6_2_4.tex... 1.40 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_2/p3_sec6_2_5.tex... 1.55 sec) 8.73 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_3.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_3/p3_sec6_3_1.tex... 0.88 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_3/p3_sec6_3_2.tex... 1.50 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_3/p3_sec6_3_3.tex... 1.47 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_3/p3_sec6_3_4.tex... 1.58 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_3/p3_sec6_3_5.tex... 1.49 sec) 8.02 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_4.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_4/p3_sec6_4_3.tex... 1.15 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_4/p3_sec6_4_1.tex... 2.00 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_4/p3_sec6_4_2.tex... 1.54 sec) 5.51 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_5.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_5/p3_sec6_5_1.tex... 1.20 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_6/p3_sec6_5/p3_sec6_5_2.tex... 1.94 sec) 3.63 sec) 33.64 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_1.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_1/p3_sec7_1_1.tex... 1.06 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_1/p3_sec7_1_2.tex... 0.89 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_1/p3_sec7_1_3.tex... 0.79 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_1/p3_sec7_1_4.tex... 0.86 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_1/p3_sec7_1_5.tex... 0.92 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_1/p3_sec7_1_6.tex... 0.93 sec) 7.00 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_2.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_2/p3_sec7_2_1.tex... 1.09 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_2/p3_sec7_2_2.tex... 1.50 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_2/p3_sec7_2_3.tex... 1.03 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_2/p3_sec7_2_4.tex... 1.02 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_2/p3_sec7_2_5.tex... 3.18 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_2/p3_sec7_2_6.tex... 1.15 sec) 10.42 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3/p3_sec7_3_1.tex... 0.82 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3/p3_sec7_3_2.tex... 0.79 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3/p3_sec7_3_3.tex... 0.84 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3/p3_sec7_3_4.tex... 0.75 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3/p3_sec7_3_5.tex... 0.92 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3/p3_sec7_3_6.tex... 0.93 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3/p3_sec7_3_7.tex... 1.28 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_3/p3_sec7_3_8.tex... 1.04 sec) 9.47 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_4.tex... 1.42 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_7/p3_sec7_5.tex... 1.43 sec) 31.13 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_1.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_1/p3_sec8_1_1.tex... 1.64 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_1/p3_sec8_1_2.tex... 1.13 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_1/p3_sec8_1_3.tex... 1.27 sec) 4.92 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_2.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_2/p3_sec8_2_1.tex... 2.25 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_2/p3_sec8_2_2.tex... 1.38 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_2/p3_sec8_2_3.tex... 1.89 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_2/p3_sec8_2_4.tex... 2.28 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_2/p3_sec8_2_5.tex...
+(Loading /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/Package/pzd.fontmap.ltxml... 0.00 sec) 1.97 sec) 11.22 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_3.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_3/p3_sec8_3_1.tex... 1.55 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_3/p3_sec8_3_2.tex... 0.96 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_3/p3_sec8_3_3.tex... 0.98 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_3/p3_sec8_3_4.tex... 1.05 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_3/p3_sec8_3_5.tex... 1.12 sec) 7.87 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_4.tex... 5.57 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_5.tex... 2.64 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_6.tex... 2.42 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_3/section_8/p3_sec8_7.tex... 0.97 sec) 38.09 sec) 103.79 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_9/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_9/p4_sec9_1.tex... 3.36 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_9/p4_sec9_2.tex... 3.38 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_9/p4_sec9_3.tex... 3.37 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_9/p4_sec9_4.tex... 3.77 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_9/p4_sec9_5.tex... 3.80 sec) 19.34 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_10/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_10/p4_sec10_1.tex... 3.10 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_10/p4_sec10_2.tex... 2.47 sec) 6.30 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_11/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_11/p4_sec11_1.tex... 2.95 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_11/p4_sec11_2.tex... 4.08 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_11/p4_sec11_3.tex... 3.52 sec) 11.55 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_12/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_12/p4_sec12_1.tex... 2.91 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_12/p4_sec12_2.tex... 3.58 sec) 7.20 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_13/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_13/p4_sec13_1.tex... 3.38 sec) 3.82 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_4/section_14/main.tex... 3.47 sec) 54.14 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_5/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_5/section_15/main.tex... 1.12 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_5/section_16/main.tex... 1.11 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_5/section_17/main.tex... 0.17 sec) 4.14 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/acknowledge.tex... 0.01 sec)
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_6/main.tex...
+(Processing content /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/part_6/author_contribution_list.tex... 2.02 sec) 2.39 sec) 188.55 sec) 190.63 sec)
+(Building...
+(Loading compiled schema /private/tmp/LaTeXML-0.8.8/lib/LaTeXML/resources/RelaxNG/LaTeXML.model... 0.01 sec)
+Info:unexpected:rowspan Rowspan 2 in cell(3,0) covers non-empty cells; truncating.to 1 at p3_sec6_5_2.tex; line 99 col 0
+Info:unexpected:rowspan Rowspan 2 in cell(3,1) covers non-empty cells; truncating.to 1 at p3_sec6_5_2.tex; line 99 col 0
+Info:unexpected:rowspan Rowspan 2 in cell(2,0) covers non-empty cells; truncating.to 1 at p4_sec11_3.tex; line 54 col 0
+Info:unexpected:rowspan Rowspan 2 in cell(2,3) covers non-empty cells; truncating.to 1 at p4_sec11_3.tex; line 54 col 0
+Info:unexpected:rowspan Rowspan 2 in cell(2,4) covers non-empty cells; truncating.to 1 at p4_sec11_3.tex; line 54 col 0
+Info:unexpected:rowspan Rowspan 2 in cell(2,5) covers non-empty cells; truncating.to 1 at p4_sec11_3.tex; line 54 col 0
+Info:unexpected:rowspan Rowspan 2 in cell(2,6) covers non-empty cells; truncating.to 1 at p4_sec11_3.tex; line 54 col 0
+Info:unexpected:rowspan Rowspan 2 in cell(2,7) covers non-empty cells; truncating.to 1 at p4_sec11_3.tex; line 54 col 0
+ 109.84 sec)
+(Rewriting... 0.75 sec)
+(Math Parsing 2324 formulae ......
+Warning:not_parsed:UNKNOWN.POSTSUBSCRIPT>OPEN MathParser failed to match rule 'Anything' at notations.tex; line 171 col 1
+Warning:not_parsed:POSTSUBSCRIPT.UNKNOWN.POSTSUBSCRIPT>OPEN MathParser failed to match rule 'Anything' at p3_sec7_2_5.tex; line 43 col 0
+Warning:not_parsed:POSTSUPERSCRIPT.RELOP.UNKNOWN>OPEN MathParser failed to match rule 'Anything' at p3_sec7_2_6.tex; line 26 col 67
+Warning:not_parsed:UNKNOWN.POSTSUBSCRIPT.POSTSUPERSCRIPT>OPEN MathParser failed to match rule 'Anything' at p3_sec7_2_6.tex; line 28 col 0
+Warning:not_parsed:RELOP.UNKNOWN.POSTSUBSCRIPT>OPEN MathParser failed to match rule 'Anything' at p3_sec7_3_2.tex; line 19 col 0
+Warning:not_parsed:POSTSUBSCRIPT.RELOP.UNKNOWN>OPEN MathParser failed to match rule 'Anything'
+Warning:not_parsed:RELOP.UNKNOWN>OPEN MathParser failed to match rule 'Anything' at String; line 0 col 0
+Warning:not_parsed:UNKNOWN.POSTSUBSCRIPT>OPEN MathParser failed to match rule 'Anything' at p3_sec8_2_1.tex; line 91 col 40
+Warning:not_parsed:RELOP.UNKNOWN.POSTSUBSCRIPT>OPEN MathParser failed to match rule 'Anything' at p3_sec8_2_3.tex; line 109 col 0
+ 30.44 sec)
+(Finalizing... 5.24 sec)
+Conversion complete: 9 warnings (See /Users/zhaoyu/Documents/æç¨¿/SpaSurvey/website/source/pipeline/stage/book_web.latexml.log) (reqd. 5m 41.46s)

@@ -1,0 +1,211 @@
+\section{Natural Science}
+\label{sec:Natural Science}
+\label{sec:p4_s12_2}
+
+
+\subsection{Introduction}
+\label{subsec:p4-sec12-2-introduction}
+
+A physical system is a field over space; a molecule or a material is a three-dimensional arrangement of atoms together with an electronic field over that arrangement; a protein, a cell, or a tissue is a three-dimensional structure whose function follows from its form.
+In every case the scientific quantity of interest, whether an energy, a reaction rate, a biological function, or a material property, is a function of spatial structure under strict symmetry constraints, so that understanding nature is to a large degree a problem of recovering and reasoning about that structure.
+
+The geometric representations of Chapter~\ref{chapter:single_modality} and the reconstruction and generation of Chapter~\ref{sec:generation} reappear here specialized to data that obey physical law: to fields constrained by differential equations, to atomic systems constrained by Euclidean and permutation symmetry, and to biomolecules whose geometry determines their function.
+A single capability triad recurs inside every domain and gives the section its spine: spatial \textbf{representation and reconstruction} recovers a continuous field or a 3D structure from sparse, indirect, and noisy measurements; \textbf{dynamics, simulation, and law discovery} learns how that structure evolves and what governs it; and \textbf{design, discovery, and control} either generates new structure or inverts observations for hidden causes. The third leg reads as discovery and control in physics and as generative design in chemistry and life science.
+
+The section is organized by scientific domain (physics, chemistry, and life science); the earth and environmental sciences are treated at geographic scale in the GeoAI of §\ref{sec:p4_s11_2}, the clinical, patient-scale counterpart of the life-science material in §\ref{sec:p4_s12_1}, and the generic digital twin in §\ref{sec:p4_s11_1}.
+Figure~\ref{fig:p4_s12_2_overview} previews the section as a cross-scale map in which the three domains share the same vertical triad, and Table~\ref{tab:p4_s12_2_benchmarks} collects a representative benchmark for each capability.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section12/natural_science_overview_v2.pdf}
+    \caption{Spatial intelligence across physics, chemistry, and life science (columns), each repeating the same capability triad (rows). The lower electron-to-tissue strip indicates illustrative scales rather than exclusive domain boundaries. Fields, molecular and periodic structures, and biomolecular and tissue structures illustrate representation; the equations exemplify wave, quantum, and biological dynamics. Bottom-row design examples are schematic; molecule/material and biomolecular/tissue examples are alternatives rather than literal conversion pipelines. Biological imagery is synthetic.}
+    \label{fig:p4_s12_2_overview}
+\end{figure}
+
+
+\subsection{Physics}
+\label{subsec:p4-sec12-2-physics}
+
+Spatial intelligence in physics constructs spatial structure and discovers the laws that govern its motion, and it earns its place where first-principles solvers are too costly or the governing equations are unknown: fields are reconstructed from limited observations, their dynamics are modeled and their laws discovered, and the systems are optimized and controlled.
+Figure~\ref{fig:p4_s12_2_physics} previews this progression from a sparsely observed field to a learned dynamical rollout and a differentiable-control loop.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section12/natural_science_physics_v2.pdf}
+    \caption{The physics triad: (1) reconstruct a field from sparse sensors, (2) fit dynamics and roll out the field, with a separate law-extraction step, and (3) optimize controls through a differentiable simulator. $\mathcal{N}[\mathbf{u};\theta]$ is the learned operator and $\mathcal{N}^*$ a candidate extracted law. The state $\mathbf u$ and control $\mathbf a$ are distinct; the control objective $\mathcal J$ supplies gradients to the optimizer, whereas $\mathcal L_{\rm fit}$ fits observed dynamics. Field contours and temporal shifts are illustrative, not experimental results.}
+    \label{fig:p4_s12_2_physics}
+\end{figure}
+
+\subsubsection{Spatial Representation and Reconstruction}
+
+Many key quantities in physical systems are available only through sparse and noisy observations, and representation and reconstruction recover continuous spatial fields from such data, the input to law discovery and control.
+Embedding physical priors such as governing partial differential equations and symmetry constraints keeps these reconstructions physically consistent in low-data regimes.
+
+A classical task is physical field reconstruction, which aims to recover continuous physical fields such as temperature, pressure, and velocity from sparse sensor readings or boundary measurements; the central challenge lies in ensuring the physical plausibility of the solution under the ill-posed conditions caused by insufficient observations.
+\textbf{Physics-informed neural networks} are a classical approach for this task~\cite{raissi2019physics}, embedding partial differential equations such as the Navier--Stokes equations as soft constraints in the loss function and computing physical residuals via automatic differentiation, which enables accurate reconstruction of fluid and thermal fields in data-scarce settings; the same networks serve as real-time surrogates in digital twins (§\ref{sec:p4_s11_1}).
+\textbf{Neural fields} implicitly represent continuous physical fields by using coordinate-based networks that map spatial locations to physical quantities.
+Sitzmann \etal~\cite{sitzmann2020implicit} proposed SIREN, which employs periodic activation functions to capture high-frequency spatial details with high fidelity and has been applied to solving Poisson equations and reconstructing wave fields.
+The general machinery of coordinate-based neural representation is developed in Chapter~\ref{sec:generation}.
+
+Inverse scattering aims to infer the internal structure or material parameters of an object from measured wave-scattering data, and it remains a canonical ill-posed problem in electromagnetics and acoustics~\cite{chen2020review}.
+Wei and Chen proposed deep-learning schemes~\cite{wei2019deep} for full-wave nonlinear inverse scattering that directly invert dielectric-permittivity profiles from scattered fields, thereby moving beyond linearized Born-type approximations in practical reconstructions.
+SwitchNet~\cite{khoo2019switchnet} introduced a unified neural architecture that learns both the forward map from scatterers to scattered fields and the inverse map from measurements to scatterer profiles, using a switching layer that exploits low-rank structure to reduce model complexity and facilitate training.
+Physics-guided losses that inject multiple-scattering near-field priors into the objective further improve robustness.
+
+\subsubsection{Dynamics, Simulation, and Law Discovery}
+
+\textbf{Law discovery} aims to learn the generative structures or explicit laws that govern the evolution of physical systems from observational data, emphasizing the automatic extraction of conservation laws, symmetries, and interpretable mechanisms beyond accurate prediction.
+Hamiltonian Neural Networks~\cite{greydanus2019hamiltonian} directly learn the Hamiltonian of a system, thereby enforcing energy conservation and symplectic structure at the model level and providing a principled foundation for interpretable dynamical modeling.
+Lagrangian Neural Networks~\cite{cranmer2020lagrangian} parameterize arbitrary Lagrangians with neural networks, learning energy conserving dynamics without canonical coordinates, as validated on the double pendulum and a relativistic particle.
+Cranmer \etal~\cite{cranmer2020discovering} combine graph networks with symbolic regression on their internal representations, recovering known force laws and Hamiltonians, and applying the approach to cosmology.
+The SINDy algorithm~\cite{brunton2016discovering} employs sparse regression to identify governing differential equations directly from time-series data, enabling data-driven discovery of interpretable physical laws.
+
+\textbf{Efficient physical solvers} focus on predicting the spatio-temporal evolution of physical systems under known governing equations or interaction rules, with the goal of achieving fast and scalable computation while preserving physical consistency beyond the limits of traditional numerical methods.
+The Fourier Neural Operator~\cite{li2021fourier} learns mappings between function spaces rather than individual discretized instances, enabling trained models to predict the evolution of partial differential equations at arbitrary spatial resolutions without relying on a fixed computational grid.
+DeepONet~\cite{lu2021learning}, grounded in the universal approximation theorem for operators, learns nonlinear mappings from input functions to output functions and thereby approximates the solution operators that govern physical systems.
+Interaction Networks~\cite{battaglia2016interaction} introduced the relational reasoning architecture that learns physical interactions between objects, laying the foundation for graph-based physical simulation.
+The Graph Network Simulator~\cite{sanchez2020learning} employs graph neural networks to model spatial interactions among particles or objects, achieving high-fidelity simulations of fluids, rigid bodies, and deformable materials, and MeshGraphNets~\cite{pfaff2020learning} extend graph-based models to unstructured meshes, allowing efficient simulation of continuum mechanics on irregular geometries.
+For the classical challenge of turbulence modeling, Mohan \etal~\cite{mohan2020spatio} proposed spatio-temporal deep-learning models with physics-informed diagnostics that improve the prediction accuracy of three-dimensional turbulent flows, and Lusch \etal~\cite{lusch2018deep} developed a deep-learning framework for universal linear embeddings of nonlinear dynamics, enabling low-dimensional representations and long-term prediction of nonlinear fluid systems.
+Neural representations of the many-body wavefunction are treated with electronic structure in the chemistry subsection.
+
+\subsubsection{Control and Optimization}
+
+Optimization and control in physical systems seek optimal trajectories, shapes, or control policies under governing physical laws and environmental constraints.
+Differentiable physics formulates physical simulators as differentiable operators, enabling gradient-based optimization over control inputs, design variables, and physical parameters, and providing a unified framework for optimal control, system identification, and design.
+Neural Ordinary Differential Equations~\cite{chen2018neural} provide a differentiable formulation of continuous-time dynamical systems by parameterizing the vector field with a neural network and enabling gradient computation through adjoint sensitivity analysis, serving as a flexible building block for learning and control in continuous time.
+ChainQueen~\cite{hu2019chainqueen} demonstrates differentiable simulation of soft and deformable bodies based on the moving least squares material point method, enabling gradient-based optimization in high-degree-of-freedom systems with contact and supporting applications in soft-robot control and co-design.
+DiffTaichi~\cite{hu2020difftaichi} generalizes this paradigm through a differentiable programming framework for high-performance physical simulation, allowing efficient construction of differentiable solvers and gradient-driven optimization for fluid control, shape optimization, and material-parameter estimation; the same tools calibrate digital twins (§\ref{sec:p4_s11_1}).
+In practice, a mature software substrate of differentiable and physics-informed libraries, such as \textbf{DeepXDE}\footnote{\url{https://github.com/lululxvi/deepxde}} and \textbf{NVIDIA Modulus}\footnote{\url{https://developer.nvidia.com/modulus}} for operator and PINN training, and \textbf{JAX-MD}\footnote{\url{https://github.com/jax-md/jax-md}} and \textbf{DeePMD-kit}\footnote{\url{https://github.com/deepmodeling/deepmd-kit}} for differentiable and learned-potential molecular dynamics, turns this triad into runnable physics.
+
+
+
+
+\subsection{Chemistry}
+\label{subsec:p4-sec12-2-chemistry}
+
+Chemistry is intrinsically spatial: a molecule or a material is a three-dimensional arrangement of atoms together with an electronic field over it, and its behavior, whether energy, reactivity, or a bulk property, is a function of that geometry under strict symmetry.
+Physical observables must be invariant or equivariant to the Euclidean group of rotations, translations, and reflections and to permutations of identical atoms; for crystalline solids they must also respect periodic lattice symmetry, and for electrons they must obey antisymmetry under exchange.
+Spatial intelligence in chemistry is therefore largely the art of building these symmetries into models that represent atomic and electronic structure, simulate its dynamics, and generate new structure under chemical feasibility.
+Figure~\ref{fig:p4_s12_2_chemistry} previews this triad from an equivariant representation of a 3D structure to a learned-potential simulation and a 3D generative design.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section12/natural_science_chemistry_v2.pdf}
+    \caption{The chemistry triad: (1) symmetry-aware molecular and periodic representations, illustrated by E(3)-equivariant features; (2) a learned invariant interatomic energy $U$ whose coordinate gradients provide forces for molecular dynamics, with related representations supporting property prediction; and (3) complementary 3D generative design by reverse diffusion. Molecular graphs, force directions, and the one-dimensional energy profile are schematic, not a calculated trajectory or energy surface. The denoising example preserves the atom count; generative methods may model coordinates and atom types jointly.}
+    \label{fig:p4_s12_2_chemistry}
+\end{figure}
+
+\subsubsection{Spatial Representation and Reconstruction}
+
+The central representational problem of chemistry is to map a 3D atomic geometry to energies, forces, and properties while respecting symmetry, and successive representations have captured progressively more of that geometry.
+\textbf{Geometry-grounded potentials.} The Behler--Parrinello neural network potential founded the area by decomposing the total energy into atomic contributions computed from rotation-, translation-, and permutation-invariant symmetry functions of each atom's local environment~\cite{behler2007generalized}.
+SchNet~\cite{schutt2017schnet} replaced hand-designed descriptors with continuous-filter convolutions over interatomic distances, giving a smooth invariant representation for energy and force prediction, while DimeNet~\cite{klicpera2020directional} added directional message passing that encodes bond angles through spherical harmonics, moving beyond pairwise distances to angular structure, and PaiNN~\cite{schutt2021equivariant} extended message passing to rotationally equivariant vector features for tensorial properties and spectra.
+The Deep Potential model~\cite{zhang2018deep} preserves all natural symmetries at linear cost, and the ANI potentials~\cite{smith2017ani} demonstrated transferable organic-chemistry accuracy at force-field cost.
+\textbf{Equivariant interatomic potentials.} The decisive recent step was to carry geometric tensors, not merely invariant scalars, through the network.
+NequIP~\cite{batzner2022e3} introduced E(3)-equivariant convolutions over geometric tensors and achieved striking data efficiency, often requiring orders of magnitude less training data; Allegro~\cite{musaelian2023learning} made the representation strictly local and thereby scalable to 100 million atoms, and MACE~\cite{batatia2022mace} used higher body-order equivariant messages to reach high accuracy in only two message-passing layers.
+A further shift is from per-system fits to \textbf{universal potentials} that span the periodic table: M3GNet~\cite{chen2022universal} couples a graph network with explicit three-body interactions trained on materials relaxations, and CHGNet~\cite{deng2023chgnet} augments the 3D-structure graph with atomic magnetic moments to capture electronic degrees of freedom alongside geometry. These equivariant backbones share machinery with the geometric representations of Chapter~\ref{chapter:single_modality}.
+\textbf{Neural electronic structure.} At the quantum scale the spatial object is the many-electron wavefunction itself.
+Neural quantum states parameterize that wavefunction with a neural network over spin configurations~\cite{carleo2017solving}, and deep variational ans\"atze such as FermiNet~\cite{pfau2020ferminet} and PauliNet~\cite{hermann2020deep} operate directly on 3D electron coordinates while enforcing exact antisymmetry, solving the electronic Schr\"odinger equation to chemical accuracy from nuclear positions alone.
+
+\subsubsection{Dynamics, Simulation, and Property Prediction}
+
+The potentials of the previous thread are also the simulators: once a model maps a 3D configuration to energies and forces, it drives molecular dynamics at a fraction of the cost of first-principles calculation, and the same representations predict quantum properties such as energies, dipoles, and frontier-orbital gaps directly from coordinates.
+The gradient-domain machine-learning force field made this explicit by exploiting energy conservation and the geometry of conformations, and it established the widely used MD17 trajectory benchmark of energies and forces for small molecules~\cite{chmiela2017machine}.
+Heterogeneous catalysis pushes the same energy-and-force prediction task to a far larger and more diverse chemical space, spanning many combinations of metal surfaces and adsorbates. 
+GemNet-OC~\cite{gasteiger2022gemnet} extends directional message passing to this setting, delivering accurate energies and forces across the surfaces and adsorbates of the Open Catalyst datasets.
+In parallel, structure-to-property prediction is standardized on QM9~\cite{ramakrishnan2014quantum}, a dataset of roughly 134{,}000 small organic molecules with density-functional geometries and quantum properties, on which the equivariant networks above are routinely evaluated by the mean absolute error of predicted properties.
+This ecosystem rests on open toolkits, including the equivariant-network library \textbf{e3nn}\footnote{\url{https://e3nn.org/}}, the atomistic-simulation environment \textbf{ASE}\footnote{\url{https://wiki.fysik.dtu.dk/ase/}}, and the quantum-chemistry package \textbf{PySCF}\footnote{\url{https://pyscf.org/}}, together with universal-potential foundation models such as MACE-MP, and on reference corpora such as the Materials Project~\cite{jain2013commentary}, the Open Catalyst dataset~\cite{chanussot2021open}, and the MoleculeNet benchmark suite~\cite{wu2018moleculenet}.
+
+\subsubsection{Generation and Inverse Design}
+
+The inverse of property prediction is design: generating new 3D structures that satisfy desired properties under chemical feasibility, by sampling on the appropriate geometric manifold rather than enumerating candidates.
+G-SchNet~\cite{gebauer2019symmetry} autoregressively places atoms in 3D Euclidean space with each placement respecting the rotational invariance and local symmetry of those already placed, the first strong 3D-native generator.
+Diffusion models then became the dominant paradigm: the equivariant diffusion model~\cite{hoogeboom2022equivariant} jointly denoises atom coordinates and types under E(3) equivariance, GeoDiff~\cite{xu2022geodiff} generates conformers from the molecular graph through roto-translation-equivariant Markov kernels that induce an invariant distribution, and torsional diffusion~\cite{jing2022torsional} restricts the process to the hypertorus of torsion angles, the true intrinsic conformational degrees of freedom, achieving state-of-the-art conformer quality on GEOM-Drugs~\cite{axelrod2022geom} at a fraction of the cost.
+For crystalline materials, CDVAE~\cite{xie2022crystal} generates stable structures under periodicity and SE(3) invariance and supports inverse design by optimizing target properties in latent space.
+The line has since moved to diffusion directly on the periodic structure: DiffCSP~\cite{jiao2023crystal} jointly denoises lattice and fractional coordinates under periodic equivariance for crystal structure prediction, and MatterGen~\cite{zeni2025generative} scales this into a property-conditioned foundation model for inorganic materials design, with generated candidates validated by experimental synthesis.
+The general diffusion machinery underlying these models is developed in Chapter~\ref{sec:generation}; what is chemistry-specific is the constraint manifold (valence and bonding feasibility, energy-minimum geometries, lattice periodicity) on which generation must take place.
+
+
+\subsection{Life Science}
+\label{subsec:p4-sec12-2-life-science}
+
+At the molecular, cellular, and tissue scale of basic biology the object of interest is again a three-dimensional structure: a protein fold, a molecular complex, a spatial map of gene expression, or the wiring of a neural circuit, and in each case function follows from spatial form.
+Spatial intelligence here recovers that structure from indirect measurement, models how biomolecules interact and move, and designs new structure.
+Figure~\ref{fig:p4_s12_2_lifescience} previews the triad from structure recovery through interaction modeling to generative design.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section12/natural_science_lifescience_v2.pdf}
+    \caption{The life-science triad: (1) complementary sequence-to-structure prediction and cryo-EM projection-to-density reconstruction, (2) ligand binding-pose geometry with translation, rotation, and bond torsion, and (3) de novo backbone generation followed by sequence design. These are complementary capabilities, not an obligatory serial pipeline. Protein, pocket, and density renderings, noisy projection examples, and sequence fragments are schematic; they do not constitute experimentally validated structures or designs.}
+    \label{fig:p4_s12_2_lifescience}
+\end{figure}
+
+\subsubsection{Spatial Representation and Reconstruction}
+
+The defining achievement of spatial intelligence in biology is the recovery of 3D structure from indirect signals.
+\textbf{Protein structure prediction} maps a one-dimensional sequence to a three-dimensional fold.
+The original AlphaFold predicted inter-residue distance distributions as a learned potential to fold the chain~\cite{senior2020improved}, and AlphaFold2~\cite{jumper2021highly} reached near-experimental accuracy through an end-to-end architecture that reasons explicitly over residue frames and pairwise geometry, the exemplar of spatial intelligence in the natural sciences.
+AlphaFold3~\cite{abramson2024accurate} generalized this to the joint structure of proteins, nucleic acids, and small molecules through a diffusion decoder; RoseTTAFold~\cite{baek2021accurate} let one-dimensional, two-dimensional, and three-dimensional information flow between tracks, and ESMFold~\cite{lin2023evolutionary} showed that atomic-level structure emerges from a protein language model without explicit alignments, enabling metagenomic-scale folding.
+\textbf{Cryo-electron microscopy} solves the inverse problem of reconstructing a 3D density map from many noisy 2D projections.
+RELION cast this as Bayesian refinement~\cite{scheres2012relion}, CryoSPARC enabled rapid ab-initio reconstruction without a starting model~\cite{punjani2017cryosparc}, and cryoDRGN used a coordinate-based neural decoder to reconstruct continuous distributions of conformations and thereby resolve molecular heterogeneity and motion~\cite{zhong2021cryodrgn}.
+\textbf{Spatial transcriptomics} places gene expression back into tissue space.
+The founding barcoded-array assay preserved the positional information of the transcriptome in tissue sections~\cite{stahl2016visualization}; Tangram learns a spatial mapping that aligns dissociated single cells onto a spatial reference~\cite{biancalani2021deep}, and novoSpaRc reconstructs spatial arrangement from expression alone through optimal transport, assuming that expression-similar cells lie physically close~\cite{nitzan2019gene}.
+\textbf{Connectomics} reconstructs neural wiring from electron-microscopy volumes, where flood-filling networks iteratively trace the 3D morphology of individual neurites through the volume~\cite{januszewski2018high}.
+
+\subsubsection{Dynamics, Simulation, and Interaction}
+
+Beyond static structure, spatial intelligence models how biomolecules bind and interact.
+Molecular docking predicts the 3D pose in which a ligand binds a protein, and recent methods treat it as a geometric problem on the natural manifold of poses.
+DiffDock~\cite{corso2023diffdock} formulates docking as diffusion over the product space of ligand translation, rotation, and torsion, sampling binding poses in their intrinsic degrees of freedom, while EquiBind~\cite{stark2022equibind} regresses the binding location and pose in a single shot using an SE(3)-equivariant network whose equivariance encodes the rotational and translational symmetry of the binding geometry.
+Protein--protein and complex geometry is predicted by extending folding models to multiple chains~\cite{evans2022protein}, and AlphaFold3 above provides a generative alternative for protein--ligand and protein--nucleic-acid complexes.
+The dynamics of biomolecules in turn rest on the learned interatomic potentials of the chemistry subsection, which accelerate the molecular dynamics that sample conformational change.
+
+\subsubsection{Generation and Design}
+
+The generative leg designs new 3D biological structure.
+RFdiffusion~\cite{watson2023novo} adapts structure-denoising diffusion to generate novel protein backbones conditioned on functional and geometric constraints such as motif scaffolding, binders, and symmetric assemblies, and ProteinMPNN~\cite{dauparas2022robust} solves the inverse-folding problem of designing an amino-acid sequence that folds into a given 3D backbone, the standard partner to backbone generation.
+Chroma~\cite{ingraham2023illuminating} couples equivariant graph networks with a diffusion process to sample novel all-atom structures and sequences steerable toward desired properties, illuminating regions of protein space never explored by evolution.
+As in chemistry, the underlying diffusion machinery is that of Chapter~\ref{sec:generation}; what is biology-specific is that the generated geometry must be foldable and functional, which is why design is paired with structure prediction and, ultimately, wet-lab validation.
+The field is supported by open infrastructure, including the AlphaFold Protein Structure Database and AlphaFold3 server\footnote{\url{https://alphafoldserver.com/}}, the ESM Metagenomic Atlas\footnote{\url{https://esmatlas.com/}}, and the open-source folding stack OpenFold\footnote{\url{https://github.com/aqlaboratory/openfold}}, together with reference corpora such as the Protein Data Bank, the CASP blind-assessment benchmark~\cite{kryshtafovych2021critical}, and the PDBBind docking benchmark~\cite{wang2004pdbbind}.
+
+\begin{table}[!th]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative benchmarks for spatial intelligence across the three natural-science domains.}
+\label{tab:p4_s12_2_benchmarks}
+\begin{tabular}{L{0.11\textwidth} L{0.17\textwidth} L{0.24\textwidth} L{0.19\textwidth} L{0.21\textwidth}}
+\toprule
+\textbf{Domain} & \textbf{Capability} & \textbf{Benchmark / dataset} & \textbf{Representative method} & \textbf{Headline metric} \\
+\midrule
+Physics & PDE surrogate & Navier--Stokes / Darcy flow & FNO~\cite{li2021fourier} & relative $L_2$ error \\
+Physics & Particle dynamics & Learning-to-Simulate suite (Water / Sand / Goop) & GNS~\cite{sanchez2020learning} & rollout MSE \\
+Chemistry & Property prediction & QM9~\cite{ramakrishnan2014quantum} & DimeNet~\cite{klicpera2020directional} & property MAE \\
+Chemistry & Force field & MD17~\cite{chmiela2017machine} & NequIP~\cite{batzner2022e3} & energy / force MAE \\
+Chemistry & Catalysis & Open Catalyst~\cite{chanussot2021open} & GemNet-OC~\cite{gasteiger2022gemnet} & energy / force MAE \\
+Chemistry & Conformer generation & GEOM-Drugs~\cite{axelrod2022geom} & torsional diffusion~\cite{jing2022torsional} & coverage / matching RMSD \\
+Life science & Protein folding & CASP~\cite{kryshtafovych2021critical} & AlphaFold2~\cite{jumper2021highly} & GDT-TS \\
+Life science & Docking & PDBBind~\cite{wang2004pdbbind} & DiffDock~\cite{corso2023diffdock} & top-1 RMSD $<2$\,\AA{} (\%) \\
+Life science & Cryo-EM heterogeneity & EMPIAR single-particle datasets & cryoDRGN~\cite{zhong2021cryodrgn} & resolution (FSC) \\
+Life science & Protein design & Motif-scaffolding / binder design & RFdiffusion~\cite{watson2023novo} & in-silico design success rate \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Challenges}
+\label{subsec:p4-sec12-2-challenges}
+
+A learned model of nature has to respect the symmetries and conservation laws of its domain and remain correct outside the data it was fitted to. The six problems below follow from that requirement: how to build symmetry in, how to bridge scales, how to solve ill-posed inverse problems, how to learn from scarce and expensive labels, how to generalize to genuinely new systems, and how to make predictions physically consistent and trustworthy.
+
+\paragraph{Symmetry and Equivariance.} Physical observables are constrained by symmetry: Euclidean invariance and equivariance, permutation of identical particles, antisymmetry of electrons, and periodicity of crystals. Whether to build these symmetries into the architecture or to learn them from data is the central design tension, trading the cheaper but less expressive invariant features~\cite{schutt2017schnet} against the richer but costlier equivariant tensor features~\cite{batzner2022e3}, and it recurs from interatomic potentials to protein structure.
+
+\paragraph{Extreme Multi-Scale Structure.} Spatial structure in nature spans many orders of magnitude, from electrons and atoms to molecules and materials, and from biomolecules through cells to tissue. Learned potentials now reach a hundred million atoms~\cite{musaelian2023learning}, still far below cellular scale; no single representation natively bridges electronic-structure accuracy and mesoscale reachability, and the handoffs between scales, through coarse-graining or learned-potential dynamics, are lossy and remain only partially solved.
+
+\paragraph{Ill-Posed Inverse Problems.} Much of natural science is an inverse problem in which a high-dimensional spatial field must be recovered from sparse, indirect, and noisy measurements: field reconstruction from a few sensors, inverse scattering~\cite{wei2019deep}, and the recovery of 3D density from 2D cryo-electron-microscopy projections~\cite{zhong2021cryodrgn} all share this under-determined character and demand strong learned priors to yield a unique and physical solution.
+
+\paragraph{Data Scarcity and the Cost of Ground Truth.} High-fidelity labels are expensive: accurate energies and forces require costly quantum-chemistry calculations, which is why force-field benchmarks such as MD17 cover only small molecules~\cite{chmiela2017machine}, and validated 3D biological structures require slow experiments, so the space of trustworthy training data is small relative to the space of possible systems. This drives the field's emphasis on data efficiency, multi-fidelity learning, and physics-guided objectives.
+
+\paragraph{Generalization Beyond the Training Distribution.} Models must extrapolate to unseen chemistry, novel protein folds, off-equilibrium and reactive geometries, and configurations far from those they were trained on. Discovery is by definition out of distribution, so leaderboard accuracy says little about it; this is why generative materials design is now judged by whether its candidates can actually be synthesized~\cite{zeni2025generative}.
+
+\paragraph{Physical Consistency and Trust.} Predictions that violate conservation laws or come without calibrated uncertainty cannot support a scientific conclusion. Building conservation into the model, as Hamiltonian networks do for energy~\cite{greydanus2019hamiltonian}, and quantifying confidence are what let a learned model extend the scientific record rather than interpolate it.

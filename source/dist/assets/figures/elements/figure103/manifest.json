@@ -1,0 +1,83 @@
+{
+  "figure": "10.3",
+  "sources": [
+    "assets/figures/figures/part4/section10/xr_sensing.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1539
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section10/xr_sensing.pdf",
+  "assets": [
+    {
+      "file": "hand-tracking/hand-observation.png",
+      "title": "hand observation",
+      "panel": "hand-tracking",
+      "size": [
+        804,
+        824
+      ],
+      "source_index": 0,
+      "source_box": [
+        120.0,
+        137.5,
+        527.5,
+        555.0
+      ],
+      "box": [
+        60.0,
+        68.75,
+        263.75,
+        277.5
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        51.98,
+        26.622,
+        259.362,
+        239.163
+      ],
+      "placement_confidence": 0.9042
+    },
+    {
+      "file": "gaze-and-pinch/pinch-gesture.png",
+      "title": "pinch gesture",
+      "panel": "gaze-and-pinch",
+      "size": [
+        288,
+        337
+      ],
+      "source_index": 0,
+      "source_box": [
+        1705.0,
+        885.0,
+        1840.0,
+        1042.5
+      ],
+      "box": [
+        852.5,
+        442.5,
+        920.0,
+        521.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        857.58,
+        406.16,
+        926.175,
+        486.426
+      ],
+      "placement_confidence": 0.9974
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

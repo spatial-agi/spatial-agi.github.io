@@ -1,0 +1,116 @@
+\section{Hybrid Spatial Reasoning}
+\label{sec:p3_s7_4}
+
+\FramedInitial{C}{onventional} approaches to spatial reasoning exhibit fundamental limitations.
+Systems that rely solely on linguistic or symbolic reasoning typically lack perceptual grounding in real-world visual and physical structures (\eg, geometry, physics, spatial continuity), making them inadequate for handling cross-view transformations, temporal evolution, or physically coherent scenarios.
+Conversely, purely perceptual or vision-based systems, such as those combining visual recognition with rule-based geometric reasoning, often fall short in performing high-level abstract reasoning, multi-step planning, long-term memory integration, or interactive decision-making.
+These limitations have motivated a growing body of work advocating for a hybrid paradigm of spatial reasoning: integrating heterogeneous modules with distinct capabilities (perception, world modeling, memory, and action) so as to jointly leverage low-level spatial and physical cues together with high-level cognitive reasoning capabilities.
+A perceptual or physics-informed module supplies geometry, relations, affordances, and dynamics; a symbolic or neural module plans, infers, and abstracts over them; memory and history extend the pipeline to multi-step, multi-view, and temporally extended tasks; and because no single modality, task, or dataset carries the whole system, the composition transfers across vision-only, language-only, embodied, and multimodal settings.
+
+% 在空间推理 (spatial reasoning) 的研究中，传统单一范式存在显著局限性。以仅依赖语言/符号推理 (symbolic reasoning) 的系统为例，它们往往缺乏对真实世界视觉／物理结构 (geometry / physics / continuity) 的感知与空间记忆，难以处理跨视角 (cross-view)、跨时 (temporal) 和物理连贯 (physical consistency) 的复杂情境；另一方面，仅依赖感知或视觉模块 (例如视觉识别 + 规则几何推理) 的系统，则可能缺乏高阶抽象推理 (abstract reasoning)、规划 (planning)、长程记忆 (long-term memory) 以及交互式决策 (interactive decision) 的能力。
+% 因此，很多工作主张一种 “混合 (hybrid)”空间推理 (spatial reasoning) 的研究范式 — 即通过整合异构 (heterogeneous) 模块 (perception, world-model, reasoning, memory, action) —— 以同时兼顾空间结构感知、几何 / 物理一致性、跨视角／跨模态理解、长期规划与推理。
+% 这种混合范式的优点包括但不限于：
+% 感知 + 抽象推理：底层视觉 / 物理世界模型 (world-model) 提供空间结构与物体关系 (spatial relationships / affordances / dynamics)，而高层符号 /语言 /逻辑推理 (symbolic or neural reasoning) 提供规划、决策、归纳／演绎等能力；
+% 长期记忆与交互能力：通过将 memory / history / context 纳入 world-model + reasoning pipeline，使系统能够处理长期任务 (multi-step, multi-view, temporally-extended)；
+% 泛化与灵活性 (generalization & flexibility)：混合模块使系统不依赖单一任务或单一数据集 (\eg pure 3D supervision, or pure NL reasoning)，从而更具拓展性 (scalability) 与适应性 (adaptability)。
+
+
+\subsection{Task Definition}
+\label{subsec:p3-sec7-4-task-definition}
+A hybrid spatial reasoning system is a pair $(\{M_i\}_{i=1}^{k}, \pi)$: a set of $k$ heterogeneous modules $M_i \in \{M_\text{percept}, M_\text{world}, M_\text{symb}, M_\text{mem}, M_\text{plan}, M_\text{act}\}$, each contributing a distinct inductive bias (perception, world model, symbolic constraints, memory, planning, or action), and an orchestration function $\pi : \mathcal{S} \to \{1, \dots, k\}$ that selects which module acts on the current system state $s_t \in \mathcal{S}$ (perception, internal map, history). Starting from the input $s_0 = x$, the system evolves as
+\begin{equation}
+  s_{t+1} = M_{\pi(s_t)}(s_t), \qquad y = \mathrm{Read}(s_T),
+  \label{eq:p3_s7_4_hybrid}
+\end{equation}
+and the three composition styles found in practice are special cases of Eq.~\eqref{eq:p3_s7_4_hybrid}: a \emph{pipeline} fixes $\pi$ to a constant module order, an \emph{iterative} system lets $\pi$ revisit modules until a verifier accepts, and an \emph{end-to-end} system makes every $M_i$ differentiable so that the whole trajectory is trained jointly. Hybrid spatial reasoning is the paradigm in which $\pi$ and the module set $\{M_i\}$ are designed together to minimize the precision-grounding asymmetry: the foundation models of §\ref{sec:p3_s7_3} supply semantic competence, and the symbolic and learning-based components of §\ref{sec:p3_s7_1}--§\ref{sec:p3_s7_2} supply metric precision and verifiable structure. Existing systems therefore differ along three axes: \emph{which} modules they compose, \emph{how} they compose them (pipeline, iterative, or end-to-end), and how the orchestration function is realized (hand-coded rules or a learned policy).
+
+\subsection{Methodology}
+\label{subsec:p3-sec7-4-methodology}
+
+Five hybridization patterns recur in the literature, distinguished by which module the foundation model is paired with and by what supplies the truth signal.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/foundation_rl_hybrid.pdf}
+    \caption{The foundation-model + reinforcement-learning hybrid pattern: an LLM/VLM hypothesis generator coupled with an RL controller and with a physics engine or symbolic solver for verification. The RL controller's policy (written $\pi$ in the figure) is $\pi_{\mathrm{RL}}$ in the text; the bottom bar is the orchestration function $\pi$ of Eq.~\eqref{eq:p3_s7_4_hybrid}.}
+    \label{fig:p3_s7_4_foundation_rl_hybrid}
+\end{figure}
+
+\paragraph{Foundation Models with Reinforcement Learning.}
+A prominent hybrid couples a foundation model's semantic competence with reinforcement learning's long-horizon decision-making, often closed by a verifier that supplies executable structure (Figure~\ref{fig:p3_s7_4_foundation_rl_hybrid}).
+The foundation model proposes hypotheses, sub-goals, or candidate action sequences; an RL policy $\pi_{\mathrm{RL}}$ commits to and executes them over extended horizons; and the resulting reward, optionally augmented by a physics engine or symbolic checker, updates both the policy and the orchestration.
+Embodied-R~\cite{zhao2025embodied} instantiates this division of labor: a large vision--language model handles perception, while a small language model trained by RL, with a reward that scores the logical consistency between its reasoning trace and its answer, performs the slow, deliberative spatial reasoning, evaluated on UrbanVideo-Bench and VSI-Bench.
+The group-relative fine-tuning recipes of §\ref{subsec:p3_s7_2_5} (Reason-RFT, OctoNav, SpaceR~\cite{tan2025reasonrft,gao2026octonav,ouyang2025spacer}) are the same hybrid with the verifier folded into a verifiable reward and are not repeated here.
+The foundation model contributes broad priors and RL supplies credit assignment and exploration; the cost is the sample inefficiency and reward-specification difficulty inherited from RL (§\ref{subsec:p3_s7_2_5}).
+
+\paragraph{Foundation Models with Explicit Physical Simulation.}
+A second pattern pairs the foundation model with a physics engine, so that the truth signal is a simulated trajectory rather than a learned score; the engine side is the physical reasoning of §\ref{subsec:p3_s7_1_2}.
+The LLM proposes hypotheses, structural descriptions, or programs, the simulator executes them under conservation laws, kinematic constraints, contact dynamics, and reachability limits, and the discrepancy between simulation and observation is fed back for another round.
+LLMPhy~\cite{cherian2024llmphy} is the clearest instance: the LLM writes Python programs that embed estimates of latent physical parameters (friction, stiffness, mass) and of the scene layout, a physics engine executes them, and the reconstruction error against the observed video is returned as feedback, so that building the digital twin becomes a black-box optimization driven by the LLM.
+DiffGen~\cite{jin2024diffgen} makes the loop differentiable, generating robot demonstrations by descending gradients through a differentiable simulator, a differentiable renderer, and a vision--language model until the rendered outcome matches the language instruction in embedding space.
+PhysVLM~\cite{zhou2025physvlm} moves the physics into the input instead: a robot's reachable workspace is abstracted into a robot-agnostic space-physical reachability map that the VLM consumes alongside the image, trained on Phys100K and evaluated on the EQA-phys benchmark.
+At the far end, ChronoLLM~\cite{wang2025chronollm} fine-tunes LLMs to write PyChrono multibody-simulation scripts, from a single pendulum to a full vehicle on deformable terrain; here the model authors the simulation rather than reasoning inside it, which places it at the boundary with the code-generation paradigm of §\ref{subsec:p3_s7_3_4}.
+What the simulator contributes is an inductive bias that stays valid for unseen objects and configurations, so the hybrid extrapolates where a purely statistical model would not.
+
+\paragraph{Foundation Models with Symbolic Reasoning.}
+A third pattern inserts an explicit symbolic layer (logical constraints, relational predicates, or formal planning specifications) between natural-language reasoning and executable spatial inference, replacing the hand-crafted parsers of §\ref{sec:p3_s7_1} with foundation-model-generated symbolic structure.
+Two sub-patterns differ in when the symbolic machinery is used.
+In the first it is called at inference time: NS3D~\cite{hsu2023ns3d} has an LLM translate a 3D referring expression into a first-order logic program that a neural executor grounds against the scene's objects and relations on ReferIt3D, and LEFT~\cite{hsu2023s} (§\ref{subsec:p3_s7_3_4}) makes the same programs differentiable so that concept grounding is learned rather than hand-specified.
+In the second, symbolic knowledge enters only at training time as a constraint on a neural model: \citet{premsri2024neurosymbolic} train language models for reasoning over spatial language with spatial logic rules as auxiliary losses, and RelateSeg~\cite{lin2025neuro} extracts relations such as $\langle\text{cat}, \text{to-right-of}, \text{person}\rangle$ from open-vocabulary segmentation outputs, writes them as first-order logic, and relaxes them with fuzzy logic into a single auxiliary loss that improves mIoU on four benchmarks without adding parameters.
+The Scene Language~\cite{zhang2025scenelanguage} (§\ref{subsec:p3_s8_2_5}) is the representation such hybrids increasingly target: programs for structure, words for semantics, embeddings for appearance.
+The symbolic layer buys consistency and compositional guarantees; its price is a closed predicate vocabulary that the neural side constantly exceeds, a point taken up under Challenges and Trends below.
+
+\paragraph{Foundation Models with Spatial Memory and World Models.}
+A fourth pattern gives the foundation model a persistent spatial state that it does not have to carry in its context window: an explicit memory (episodic trajectories, topological maps, 3D layouts) or a learned world model that predicts how the scene changes under action.
+The hybrid question is the interface between the two.
+MSNav~\cite{liu2025msnav} splits zero-shot vision-and-language navigation into a memory module, a spatial module, and a decision module, with a small fine-tuned LLM extracting the landmarks and relations the spatial module needs, and reaches state-of-the-art zero-shot results on R2R and REVERIE.
+MindExplore~\cite{li2025towardsvla} stacks a reasoning layer (task-specific chains of thought that emit meta-actions) over an acting layer (a mixture of policy experts with a multimodal diffusion policy) and uses a memory mechanism as the feedback channel between the two, running at 30~FPS in dynamic sand environments.
+The 3D spatial memories of §\ref{subsec:p3_s7_3_6} (3DSPMR~\cite{cai2025vision}, Embodied-RAG~\cite{xie2024embodiedrag}, Meta-Memory~\cite{mao2025meta}) and the world-model coupling of §\ref{subsec:p3_s7_3_8} are the memory- and simulator-side components these hybrids draw on; MindJourney's test-time gain on SAT~\cite{yang2026mindjourney} (about eight points of top-1 accuracy from imagined viewpoints alone, with the VLM untouched) is the cleanest quantitative evidence that a world model used as a tool closes part of the gap.
+In each case the foundation model keeps high-level inference, instruction following, and semantic grounding, and offloads persistence, geometry, and dynamics to the dedicated module.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/part3/section7/agentic_hybrid_orchestration.pdf}
+    \caption{Illustration of the agentic hybrid orchestration pattern: a foundation-model controller dynamically selects perception, world-modeling, symbolic-reasoning, memory, and action tools within a closed-loop perceive--reason--act--reflect cycle.}
+    \label{fig:p3_s7_4_agentic_hybrid}
+\end{figure}
+
+\paragraph{Agentic Orchestration of Hybrid Components.}
+The fifth pattern makes the orchestration function itself the object of design: a foundation model acts as a deliberative controller that decides, at each step, which of the perception, world-model, symbolic, memory, and action modules to invoke, within a closed perceive--reason--act--reflect loop (Figure~\ref{fig:p3_s7_4_agentic_hybrid}).
+It differs from the agentic reasoning of §\ref{subsec:p3_s7_3_7} in what is being scheduled: there, tools and memory; here, additionally symbolic engines and physics simulators, with the scheduler $\pi$ of Eq.~\eqref{eq:p3_s7_4_hybrid} itself a candidate for learning.
+VADAR~\cite{marsili2025visual} (§\ref{subsec:p3_s7_3_4}) is the program-synthesis version of such a controller, generating the API it then calls.
+``See it. Say it. Sorted''~\cite{zhang2025seeitsayit} is a training-free version for sketch-to-diagram generation: a critic VLM proposes a few qualitative relational edits, several LLMs synthesize candidate SVG programs, and a judge VLM selects among them, which keeps global constraints such as alignment and connectivity intact where numerical estimation would drift.
+\citet{manh2025mindmeetspace} arrive at the same module inventory from neuroscience, arguing that such a controller should sit over multimodal sensing, multisensory integration, egocentric--allocentric conversion, a cognitive map, spatial memory, and spatial reasoning.
+The gain is compositionality and long-horizon consistency that no static architecture provides; the cost is the latency and attribution problems discussed below.
+
+% 之后
+% 具体地，今年来，研究者越来越倾向于将大型基础模型 (foundation models) 与强化学习 (reinforcement learning, RL) 结合，以构建具备 spatial reasoning 能力的混合系统。
+% 例如，最新工作 Embodied-R: Collaborative Framework for Activating Embodied Spatial Reasoning in Foundation Models via Reinforcement Learning (简称 Embodied-R) 就是一个典型代表。该工作将大型视觉—语言模型 (VLM) 用于感知 (visual observation) —— 提取视觉特征与空间线索；同时用较小的语言模型 (LM) 作为推理 /决策模块 (reasoner / planner)，并通过强化学习训练 (设计 reward 考量 think-answer 逻辑一致性) 实现 “slow-thinking” (慢思考) 的空间推理。
+% 这些工作表明：将基础模型 (VLM / LLM) 与 world-model + RL 结合，是当前实现混合空间推理的最有前景路径之一 — 尤其适合应对复杂、动态、物理 /几何约束强的现实场景 (例如 3D 布局、具身导航、物体交互、场景理解等)。
+% 此外，从更理论／宏观层面来看，有分析指出当前基础模型 (foundation models) 在决策 (decision-making) 与空间 /世界智能 (world-model) 方面存在结构性空缺。因此，通过 RL、world-model、模块化 /混合架构 (hybrid architecture) 来弥补这一空缺，有助于未来构建真正具有空间智能 (spatial intelligence) 的通用系统 (general-purpose agents / embodied AI / spatially-aware AI)。
+
+%   通过将混合架构纳入智能体 (agent) 或规划 + 行动 (planning + action) 回路 (loop) 中，我们可以构造更为通用、灵活、可扩展 (scalable) 的空间智能系统。这种 “Agentic Hybrid Orchestration” 的设计核心包括以下几个关键维度：
+% LLM / VLM 作为 Orchestrator (协调者／指挥者)：高层语言 /符号 /规划模块 (LLM) 负责决定 “何时感知 (perceive)”、 “如何构建或更新 world-model (scene graph / layout / spatial representation)”、 “何时进行推理 /规划 (plan)” 以及 “何时发起行动 /布局 /生成 / manipulation”。
+% 工具选择 (tool selection) 与顺序 (sequencing)：系统可以预定义或动态维护一组 “工具 (tools)” —— 比如视觉感知模块、world-model builder、符号 /语言推理模块、布局 /渲染 模块 —— LLM 负责根据当前任务与上下文选择合适工具并安排调用顺序。
+% 反馈驱动 (feedback-driven) 的迭代 (iterative) 推理 (reasoning)：通过 RL (或其他优化方式) 将最终目标 (task success, spatial consistency, physical plausibility, layout realism / utility) 的反馈 (reward / loss) 传播回 orchestrator 和各工具调用决策。
+% 这种 Agentic Hybrid Orchestration 的好处是，它将混合架构系统转化为一个动态、交互式、多轮 (multi-step) 的代理 (agent) 回路 (loop)，从而具备长期规划、空间结构一致性、物理可行性、泛化 与适应性 — 正是混合空间推理 (Hybrid Spatial Reasoning) 的目标。
+
+\subsection{Benchmarks}
+\label{subsec:p3-sec7-4-benchmarks}
+Hybrid systems are evaluated end to end on the benchmark of their target task rather than module by module, and the benchmark is often one the paper introduces.
+Among the systems above, Embodied-R reports on UrbanVideo-Bench and VSI-Bench, MindJourney on SAT, NS3D on ReferIt3D, MSNav on R2R and REVERIE, and PhysVLM on RoboVQA and OpenEQA alongside its own EQA-phys; LLMPhy ships TraySim, CLEVRER-LLMPhy, and Real-TraySim, MindExplore ships SandGo-1k and SandThink-21k, and DrawingBench~\cite{kim2025drawingbench} is built specifically for agentic hybrids, scoring an LLM's sequence of low-level mouse actions against eight rule-based criteria for the spatial configuration it was asked to draw.
+Physics-side components are still checked against PHYRE and ShapeStacks (§\ref{subsec:p3_s7_1_2}) and symbolic components against the constraint- and rule-based suites of §\ref{subsec:p3_s7_1_4}--§\ref{subsec:p3_s7_1_5}, but no current benchmark attributes an end-to-end score to the modules that produced it; that gap is taken up under Challenges and Trends below and in the cross-paradigm survey of §\ref{sec:p3_s7_5} (Table~\ref{tab:benchmark_comparison}, whose 15-row agentic subset is Table~\ref{tab:spatial_reasoning_benchmark} of §\ref{subsec:p3_s7_3_7}).
+
+\subsection{Challenges and Trends}
+\label{subsec:p3-sec7-4-challenges-and-trends}
+Hybrid spatial reasoning has produced architectures that combine complementary inductive biases in principled ways, but several recurring limitations originate in the module-composition framework itself rather than in any individual module.
+
+\textbf{Frame, Scale, and Geometric Consistency.}
+Unlike generic modular systems, spatial hybrids must reconcile heterogeneous \emph{spatial} representations across modules: perception emits camera or egocentric frames, map and memory modules operate in world or allocentric coordinates, symbolic reasoners abstract to topological relations, and physics engines expect metric units. Misaligned reference frames, scales, or conventions silently corrupt downstream reasoning, and because each module reports confidence in its own terms, small upstream pose, depth, or scale errors propagate and compound across the pipeline without a coherent notion of uncertainty. Maintaining frame, scale, and geometric consistency is thus a first-order obstacle with no analogue in non-spatial hybrid systems.
+
+\textbf{Interfaces, Latency, and Attribution.}
+The strength of a hybrid system is bounded by its worst module interface. Symbolic-to-neural translation is particularly brittle when the symbolic side uses closed-vocabulary predicates while the neural side proposes open-vocabulary ones, and the interface design becomes a hidden first-class hyperparameter that current literature seldom isolates. Each module invocation also adds wall-clock latency that compounds across a perceive--reason--act--reflect loop, so high-frequency manipulation and navigation may not be reachable through orchestration alone. And when a hybrid fails, attributing the failure to a specific module is non-trivial; this complicates iteration and is often cited as a practical reason why end-to-end models can outperform hybrid stacks on aggregate benchmarks despite offering weaker per-module guarantees.
+
+The orchestration function $\pi$ is migrating from hand-coded rules to \emph{learnable orchestration policies} trained with reinforcement or imitation learning, which blurs the boundary with §\ref{subsec:p3_s7_3_7}.
+\emph{Differentiable hybrid stacks}, built from differentiable physics simulators, differentiable optimization layers (§\ref{subsec:p3_s7_2_4}), and differentiable retrieval, make end-to-end training of a hybrid viable and remove the historical interface penalty, offering a path through the precision--grounding asymmetry that motivates this section.
+Evaluation is changing too, toward the \emph{holistic and diagnostic}: in response to the attribution problem, emerging practice pairs aggregate task metrics with per-module diagnostic probes and counterfactual module-swap ablations that isolate where a hybrid system succeeds or fails, a direction consolidated in the cross-paradigm benchmark survey of §\ref{sec:p3_s7_5}.

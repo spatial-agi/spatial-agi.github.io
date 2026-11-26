@@ -1,0 +1,526 @@
+\documentclass[twoside,12pt,english,openany]{book}
+
+\usepackage{setspace}
+% \usepackage{natbib}
+\linespread{1.2}
+
+\PassOptionsToPackage{table}{xcolor} % enables \rowcolors for the zebra-striped tables below
+\input{command}
+
+
+%==== for custom style
+% Color Definitions
+\usepackage{xcolor}
+\definecolor{marron}{RGB}{60,30,10}
+\definecolor{darkblue}{RGB}{0,0,80}
+\definecolor{lightblue}{RGB}{80,80,80}
+\definecolor{darkgreen}{RGB}{0,80,0}
+\definecolor{darkgray}{RGB}{0,80,0}
+\definecolor{darkred}{RGB}{80,0,0}
+\definecolor{shadecolor}{rgb}{0.97,0.97,0.97}
+\definecolor{darkblue}{RGB}{37,90,192}
+% a very pale mint (≈ #F0FFF4)
+\definecolor{LightMint}{HTML}{E8F5E9}
+\definecolor{LightCobalt}{HTML}{E9EBFB} % stripe colour of the Notation and Glossary tables
+% a darker, richer green for contrast (you can pick any hex)
+\definecolor{DarkMint}{HTML}{E8F5E9}   % e.g. “dark green”
+
+% % page background color
+% \usepackage{xcolor}
+% \usepackage{pagecolor}
+%     \definecolor{MyCrimson}{HTML}{880000}
+%     \definecolor{MyGrey}{HTML}{080808}
+%     \definecolor{MyBackground}{HTML}{FFFFEB}
+%     % \definecolor{MyBackground}{HTML}{F0FFF4}    
+%     \pagecolor{MyBackground}
+
+
+% Drop Caps & Special Fonts
+\usepackage{lettrine}
+\input Acorn.fd
+\newcommand*\initfamily{\usefont{U}{Acorn}{xl}{n}}
+
+\usepackage{todonotes}
+\newcommand{\jp}[1]{\todo{\textbf{JP}: {#1}}}
+
+% Fonts & Typography
+\usepackage{color}            % (needed by many font/color macros)
+% \renewcommand{\familydefault}{pplj}  % set Palatino-like text font
+\usepackage[T1]{fontenc}
+\usepackage{newpxtext}
+% \usepackage[
+%   final,
+%   stretch=10,
+%   protrusion=true,
+%   tracking=true,
+%   spacing=on,
+%   kerning=on,
+%   expansion=true
+% ]{microtype}    % enables subtle typographic refinements (margin kerning, font expansion, etc.).
+\setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}  % control inter-paragraph spacing and indentation.
+\setlength{\parindent}{1em}   % paragraph indentation (“Spanish” style)
+
+
+% Headers & Footers (fancyhdr)
+% \makeatletter
+% \def\headrule{{\color{darkgray}\raisebox{-2.1pt}[10pt][10pt]{\leafright} \hrulefill \raisebox{-2.1pt}[10pt][10pt]{~~~\decofourleft \decotwo\decofourright~~~} \hrulefill \raisebox{-2.1pt}[10pt][10pt]{ \leafleft}}} % custom ornamented head rule
+% \makeatother
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+% Clear header and footer lines
+\fancyhf{} % clears headers and footers
+\renewcommand{\headrulewidth}{0pt} % removes header line
+\renewcommand{\footrulewidth}{0pt} % removes footer line
+\fancyfoot[C]{\thepage}
+
+% redefine "plain" style for chapter pages
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+}
+
+%––– redefine \chaptermark and \sectionmark to only carry the raw title
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\pagestyle{fancy}
+\fancyhf{}  
+\newcommand{\estcab}[1]{\itshape\textcolor{marron}{\nouppercase #1}}
+% even pages: page # and chapter title, both in \estcab
+\fancyhead[LE]{\estcab{\thepage}}
+\fancyhead[RE]{\estcab{\leftmark}}
+
+% odd pages: section title and page #, both in \estcab
+\fancyhead[LO]{\estcab{\rightmark}}
+\fancyhead[RO]{\estcab{\thepage}}
+% \pagestyle{fancy}   % (uncomment to activate)
+% % fancy head
+% \fancyhead[LE]{\estcab{Fran Oldstyle}}
+% \fancyhead[RE]{\estcab{History of taxonomy}}
+% % \fancyhead[CE,CO]{\estcab{\decoone}}
+% \fancyhead[LO]{\estcab{\rightmark}} % malo cuando no hay section ~~~ \thesection
+% \fancyhead[RO]{\estcab{\leftmark}}
+
+% % \fancyhead[RO]{\bf\nouppercase{ \leftmark}}
+% % \fancyfoot[LE]{\bf \thepage ~~ \leafNE}
+% % \fancyfoot[RO]{ \leafNE  ~~ \bf \thepage}
+% redefine the plain style (used on chapter-start pages) to mimic our fancy style
+\fancypagestyle{plain}{%
+  \fancyhf{}% clear all fields
+  % even pages: page # left, chapter title right
+  \fancyhead[LE]{\thepage}%
+  \fancyhead[RE]{\leftmark}%
+  % odd pages: section title left, page # right
+  \fancyhead[LO]{\rightmark}%
+  \fancyhead[RO]{\thepage}%
+  % optionally re-draw or remove the headrule:
+  \renewcommand{\headrulewidth}{0pt}% or 0pt to suppress
+}
+
+
+% % fancy foot
+% \fancyfoot[LO]{
+% \ornimpar \\ \large \hfill \sffamily\bf \textcolor{darkgray}{\leafNE ~~~ \thepage}
+% }
+% \fancyfoot[RE]{\ornpar   \\ \large  \sffamily\bf \textcolor{darkgray}{\thepage ~~~ \reflectbox{\leafNE}}  \hfill}
+
+% \newenvironment{Section}[1]
+% {\section{\vspace{0ex}#1}}
+% {\vspace{12pt}\centering ------- \decofourleft\decofourright ------- \par}
+
+
+% Decorative Ornaments
+\usepackage{fourier-orns}
+\newcommand{\ornamento}{\vspace{2em}\noindent \textcolor{darkgray}{\hrulefill~ \raisebox{-2.5pt}[10pt][10pt]{\leafright \decofourleft \decothreeleft  \aldineright \decotwo \floweroneleft \decoone   \floweroneright \decotwo \aldineleft\decothreeright \decofourright \leafleft} ~  \hrulefill \\ \vspace{2em}}}
+\newcommand{\ornpar}{\noindent \textcolor{darkgray}{ \raisebox{-1.9pt}[10pt][10pt]{\leafright} \hrulefill \raisebox{-1.9pt}[10pt][10pt]{\leafright \decofourleft \decothreeleft  \aldineright \decotwo \floweroneleft \decoone}}}
+\newcommand{\ornimpar}{\textcolor{darkgray}{\raisebox{-1.9pt}[10pt][10pt]{\decoone \floweroneright \decotwo \aldineleft \decothreeright \decofourright \leafleft} \hrulefill \raisebox{-1.9pt}[10pt][10pt]{\leafleft}}}
+
+
+% Graphics & Floating Figures
+\usepackage{graphicx}
+\usepackage{wallpaper}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+
+
+\usepackage{array}
+\usepackage{rotating}
+\usepackage{ragged2e}
+\usepackage{arydshln}
+
+\RequirePackage{xspace}
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+
+\def\eg{\emph{e.g}\onedot} 
+\def\ie{\emph{i.e}\onedot} 
+\def\cf{\emph{cf}\onedot} 
+\def\Cf{\emph{Cf}\onedot}
+\def\etc{\emph{etc}\onedot} 
+\def\vs{\emph{vs}\onedot}
+\def\wrt{w.r.t\onedot} 
+\def\dof{d.o.f\onedot}
+\def\iid{i.i.d\onedot} 
+\def\wolog{w.l.o.g\onedot}
+\def\etal{\emph{et al}\onedot}
+\makeatother
+
+
+\definecolor{lightgrey}{HTML}{D3D8F4} % group-heading rows in tables (\rowcolor{lightgrey}): one step darker than the LightCobalt stripe; was RGB(201,203,209)
+\definecolor{lightlightgrey}{RGB}{238,238,238}
+
+% Zebra-striped tables: header rows stay plain; every \midrule restarts the
+% stripes (white row first), and explicit \rowcolor rows keep their own color.
+% Rows above the first \midrule get a negative row count, which clears any
+% color each row (no stripes, no \rowcolor bleed into the header). \toprule
+% re-arms this so tabularx's trial runs start clean. \cdashline draws its
+% dashes as an extra pseudo-row, so the count is stepped back after it.
+\colorlet{zebrastripe}{LightCobalt} % same stripe color as the Notation and Glossary tables (#E9EBFB); was RGB(234,241,250)
+\makeatletter
+\def\zebra@arm{\rowcolors{1}{}{zebrastripe}\global\rownum-10000\relax}
+\AddToHook{env/tabular/begin}{\zebra@arm}
+\AddToHook{env/tabular*/begin}{\zebra@arm}
+\AddToHook{env/tabularx/begin}{\zebra@arm}
+\AtBeginDocument{%
+  \let\zebra@toprule\toprule
+  \def\toprule{\noalign{\global\rownum-10000\relax}\showrowcolors\zebra@toprule}%
+  \let\zebra@midrule\midrule
+  \def\midrule{\noalign{\global\rownum\@ne}\showrowcolors\zebra@midrule}%
+  \let\zebra@cdashline\cdashline
+  \def\cdashline#1{\zebra@cdashline{#1}\noalign{\global\advance\rownum\m@ne}\showrowcolors}}
+\makeatother
+
+
+\definecolor{token_blue}{RGB}{84, 120, 140}
+\def\blue#1{\textbf{\color{our_blue} #1}} %in Table
+\def\red#1{\textbf{\color{our_red} #1}} %in Table
+\def\green#1{\textbf{\color{our_green} #1}} %in Table
+\def\orange#1{\textbf{\color{our_orange} #1}} %in Table
+\def\tokenblue#1{\textbf{\color{token_blue} #1}} %in Table
+
+% \newcommand{\xmark}{\ding{55}}
+% \newcommand{\cmark}{\ding{51}}
+
+\def\vx{{\bm{x}}}
+
+\newlength\savewidth\newcommand\shline{\noalign{\global\savewidth\arrayrulewidth \global\arrayrulewidth 1pt}\hline\noalign{\global\arrayrulewidth\savewidth}}
+\newcommand{\tablestyle}[2]{\setlength{\tabcolsep}{#1}\renewcommand{\arraystretch}{#2}\centering\footnotesize}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash}p{#1pt}}
+\newcolumntype{y}[1]{>{\raggedright\arraybackslash}p{#1pt}}
+\newcolumntype{z}[1]{>{\raggedleft\arraybackslash}p{#1pt}}
+
+\renewcommand{\paragraph}[1]{\vspace{1mm}\noindent\textbf{#1}}
+
+\newcommand\hshline{\noalign{\global\savewidth\arrayrulewidth
+  \global\arrayrulewidth 0.5pt}\hline\noalign{\global\arrayrulewidth\savewidth}}
+
+\setlength{\abovecaptionskip}{1pt}
+
+\renewcommand{\paragraph}[1]{\vspace{1.25mm}\noindent\textbf{#1}}
+
+\definecolor{codeblue}{rgb}{0.25, 0.5, 0.5}
+\definecolor{codekw}{rgb}{0.35, 0.35, 0.75}
+\lstdefinestyle{Pytorch}{
+    language = Python,
+    backgroundcolor = \color{white},
+    basicstyle = \fontsize{9pt}{8pt}\selectfont\ttfamily\bfseries,
+    columns = fullflexible,
+    aboveskip=1pt,
+    belowskip=1pt,
+    breaklines = true,
+    captionpos = b,
+    commentstyle = \color{codeblue},
+    keywordstyle = \color{codekw},
+}
+
+\definecolor{green}{HTML}{009000}
+\definecolor{red}{HTML}{ea4335}
+\newcommand{\better}[1]{\textcolor{green}{$\uparrow\,$#1}}
+\newcommand{\worse}[1]{\textcolor{red}{$\downarrow\,$#1}}
+\newcommand{\betterinv}[1]{\textcolor{green}{$\downarrow\,$#1}}
+\newcommand{\worseinv}[1]{\textcolor{red}{$\uparrow\,$#1}}
+\newcommand{\eqcontrib}{\clubsuit}
+\newcommand{\correspond}{\spadesuit}
+
+\newcommand{\ours}{\textsc{VL-Cogito}\xspace}
+
+\newtcolorbox{promptblock}{
+    colback=gray!5,
+    colframe=gray!15,
+    boxrule=0.5pt,
+    arc=3pt,
+    left=12pt,
+    right=12pt,
+    top=8pt,
+    bottom=8pt,
+    boxsep=8pt,
+    breakable
+}
+
+
+
+
+
+
+\usepackage{CJKutf8}
+
+\newcommand{\zy}[1]{{\color{blue}Zhaoyu: \begin{CJK*}{UTF8}{gbsn}#1\end{CJK*}}}
+\newcommand{\wsq}[1]{{\color{orange}Shengqiong: \begin{CJK*}{UTF8}{gbsn}#1\end{CJK*}}}
+
+%==== end custom style
+
+
+
+
+\newcommand{\RespondAuthor}[1]{{\color{red}(#1)}}
+
+\pdfstringdefDisableCommands{%
+  \def\RespondAuthor#1{(#1)}%
+}
+
+\newcommand{\scott}[1]{{\color{red}[Hao: #1]}}
+
+
+
+%========== Add new package here
+\usepackage{makecell}
+\usepackage{stmaryrd}
+% stmaryrd has no bold font; keep its upright symbols in bold math.
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+% Use supported script sizes for the timeline's 6.8pt labels.
+\DeclareMathSizes{6.8}{6.8}{5}{5}
+\usepackage{siunitx}
+\usepackage{subcaption} % 支持 subfigure
+%========== Add new package here
+
+\usepackage{pifont}
+\usepackage{xcolor}
+\definecolor{my_green}{RGB}{51,102,0}
+\definecolor{my_red}{RGB}{204, 0, 0}
+\renewcommand{\checkmark}{\textcolor{my_green}{\ding{51}}} % ✔
+\newcommand{\crossmark}{\textcolor{my_red}{\ding{55}}} % ✘
+
+\definecolor{lightgray}{RGB}{235,235,235}
+
+\usepackage{stmaryrd}
+
+
+% ===== Define abstract environment =====
+% \newcommand{\prefacename}{Preface}
+% \newenvironment{preface}{
+%     \setlength{\headheight}{15pt}
+%     \vspace*{\stretch{2}}
+%     {\noindent \bfseries \Huge \prefacename}
+%     \begin{center}
+%         % \phantomsection \addcontentsline{toc}{chapter}{\prefacename} % enable this if you want to put the preface in the table of contents
+%         \thispagestyle{empty}
+%     \end{center}%
+% }
+% {\vspace*{\stretch{5}}}
+
+% \usepackage[
+% backend=biber,
+% style=alphabetic,
+% ]{biblatex}
+% \addbibresource{references.bib} %Imports bibliography file
+
+
+
+% \title{A Book on Spatial Intelligence}
+
+
+\title{Spatial Intelligence\\ \fontsize{12pt}{14pt}\selectfont  Foundations, Architectures, Methodologies, Applications and Challenges}
+
+
+% Handbook of 
+
+
+% \title{Spatial Intelligence: Charting the Cognitive Geometry of Intelligent Systems}
+
+
+
+
+
+
+
+% Add this for removing 'A Preprint' And 'Date'
+\date{} 
+\renewcommand{\headeright}{}
+% Below the title rule, above the authors: the book's positioning and project page.
+\renewcommand{\undertitle}{%
+  {\normalfont\large\itshape A Handbook}\\[1.5mm]%
+  {\normalfont\normalsize Explore the project:\enspace{\large\url{https://spatial-agi.github.io}}}}
+
+
+
+\author{
+% Title-page order (updated 2026-11-09); part_6/author_contribution_list.tex follows this order.
+% Each row must stay narrower than the text width: the author block is an unwrapped tabular.
+\textbf{Shengqiong Wu}$^{1,\dagger}$, \,
+\textbf{Yu Zhao}$^{2}$, \,
+\textbf{Tianjie Ju}$^{2}$, \,
+\textbf{Jundong Xu}$^{2}$, \,
+\textbf{Bobo Li}$^{2}$, \\
+\textbf{Jingkang Yang}$^{3}$, \,
+\textbf{Shulin Tian}$^{3}$, \,
+\textbf{Daoan Zhang}$^{4}$, \,
+\textbf{Yanguang Zhao}$^{2}$, \,
+\textbf{Xuan Ju}$^{5}$, \\
+\textbf{Haoyu Zhao}$^{5}$, \,
+\textbf{Yuchen Zhou}$^{2}$, \,
+\textbf{Xiangtai Li}$^{3}$, \,
+\textbf{Zhedong Zheng}$^{6}$, \,
+\textbf{Joy Hsu}$^{7}$, \,
+\textbf{Xin Kong}$^{8}$, \\
+\textbf{Ruining Li}$^{1}$, \,
+\textbf{Cheng Zhang}$^{9}$, \,
+\textbf{Chengzu Li}$^{10}$, \,
+\textbf{Jiafei Duan}$^{2}$, \,
+\textbf{Yu (Bryan) Zhou}$^{11}$, \\
+\textbf{Kenneth Li}$^{12}$, \,
+\textbf{Chuanxia Zheng}$^{3}$, \,
+\textbf{Lei Cui}$^{13}$, \,
+\textbf{Furu Wei}$^{13}$, \,
+\textbf{Ziwei Liu}$^{3}$, \\
+\textbf{Steven K. Feiner}$^{14}$, \,
+\textbf{Jiebo Luo}$^{4}$, \,
+\textbf{Jianfei Cai}$^{9}$, \,
+\textbf{Shuicheng Yan}$^{2}$, \,
+\textbf{Ming-Hsuan Yang}$^{15}$, \,
+\textbf{Hao Fei}$^{1,*}$
+\vspace{.5em}
+\\
+$^{1}$University of Oxford, 
+$^{2}$National University of Singapore,
+$^{3}$Nanyang Technological University \\
+$^{4}$University of Rochester,
+$^{5}$The Chinese University of Hong Kong,
+$^{6}$University of Macau\\
+$^{7}$Stanford University,
+$^{8}$Imperial College London,
+$^{9}$Monash University,
+$^{10}$University of Cambridge \\
+$^{11}$University of California, Los Angeles,
+$^{12}$Harvard University,
+$^{13}$Microsoft Research \\
+$^{14}$Columbia University,
+$^{15}$University of California, Merced
+}
+% Uncomment to override  the `A preprint' in the header
+%\renewcommand{\headeright}{Technical Report}
+%\renewcommand{\undertitle}{Technical Report}
+% \renewcommand{\shorttitle}{\textit{arXiv} Template}
+
+
+
+
+
+
+%%% Add PDF metadata to help others organize their library
+%%% Once the PDF is generated, you can check the metadata with
+%%% $ pdfinfo template.pdf
+\hypersetup{
+pdftitle={Spatial Intelligence},
+pdfsubject={AI},
+}
+
+\begin{document}
+
+\maketitle
+
+\vspace{-6mm}
+
+
+
+
+\begin{abstract}
+The pursuit of spatial intelligence, i.e., enabling agents to perceive, represent, reason about, and act within complex environments, stands as a foundational pillar in the journey toward Artificial General Intelligence (AGI). From embodied perception to multimodal understanding and interactive world modeling, spatial intelligence spans a broad spectrum of research domains and practical applications. 
+This handbook offers a systematic and forward-looking overview of spatial intelligence, bridging insights across computer vision, natural language processing, 3D/4D modeling, robotics, and cognitive reasoning. We organize our exploration into five parts. Part~I motivates why spatial intelligence matters now, traces how the representation of space has evolved, and gives a working definition. Part~II lays the groundwork in \textit{Spatially Aware Representation}, where we study representations across single modalities (2D, 3D, 4D, language, audio, etc.) and their cross-modal alignment. Part~III follows the full pipeline \textit{From Perception to Generation}, including perception (e.g., detection, segmentation), reasoning (e.g., symbolic, geometric, LLM-driven), and generation (e.g., scene, video, world synthesis). Part~IV turns to \textit{Applications}, spanning embodied agents, virtual/augmented realities, geo-spatial systems, biomedical domains, intelligent assistants, and further fields such as construction, sports, and cultural heritage. Finally, Part~V, \textit{Discussions and Futures}, examines what spatial intelligence requires and discusses research gaps, benchmarking, and directions for real-world deployment.
+By synthesizing principles from AI, cognitive science, and spatial computing, this handbook aims to serve as both a comprehensive reference for researchers and a practical guide for system developers. We hope it will inspire innovative directions toward building agents and systems that are spatially aware, robustly generalizable, and deeply grounded in real-world interactions.
+% The homepage of the project is: \url{https://spatial-agi.github.io}.
+\end{abstract}
+% Footnotes for the author-list marks; \footnotetext[n] prints the n-th \fnsymbol (2 = dagger, 1 = *) without stepping the footnote counter.
+{\renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+\footnotetext[2]{Contact: \href{mailto:shengqiongwu@gmail.com}{\texttt{shengqiongwu@gmail.com}}.}%
+\footnotetext[1]{Hao Fei leads the project. Contact: \href{mailto:haofei7419@gmail.com}{\texttt{haofei7419@gmail.com}}.}}
+
+
+
+\vspace{4mm}
+
+
+% (epigraph cards moved to preface.tex)
+
+
+
+% Page 2: the teaser gets the whole page (the epigraphs moved to the Preface).
+\clearpage
+\thispagestyle{empty}
+\noindent
+% \includegraphics[width=0.99\linewidth]{figures/teaser_chart_v16.jpg}
+\includegraphics[width=\linewidth]{figures/teaser_v6_color.pdf}\par\vspace{1.5mm}
+\noindent{\small\textbf{The handbook as one world.} The map is laid out like the book: representation (Part~II) at the center, the loop from perception through reasoning to generation (Part~III) on the inner ring, and the application domains (Part~IV) along the coast. The stepping stones below trace the five eras of Part~I, the horizon above holds the open questions of Part~V, and each chapter is pinned where it lives in this world.\par}
+
+
+
+
+
+
+% \date{\today}
+% % \correspondence{Haofei, \email{haofei37@nus.sg}}
+% \metadata[Homepage]{\url{https://github.com/GuangSTrip/Awesome-Spatial-Intelligence}}
+
+
+% keywords can be removed
+% \keywords{
+%     Large Language Models (LLMs)
+%     \and Intelligent Agents
+%     \and Modular AI Architectures
+%     \and Cognitive Science-Inspired AI
+%     \and Perception and Action Systems
+%     \and Memory
+%     \and World Model
+%     \and Emotional AI
+%     \and Reinforcement and Reward Systems
+%     \and Multi-Agent Collaboration
+%     \and Collective Intelligence
+%     \and Autonomous Self-Improvement
+%     \and AI Safety and Alignment
+%     \and Ethical and Trustworthy AI
+% }
+
+
+
+\input{preface}
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\input{notations}
+\input{glossary}
+\part{Introduction and Background}
+\input{part_1/main}
+\part{Spatially Aware Representation: Building Blocks of Space}
+\input{part_2/main}
+\part{Spatial Intelligence: From Perception to Generation}
+\label{part:3}
+\input{part_3/main}
+\part{Applications}
+\label{part:applications}
+\input{part_4/main}
+\part{Discussions and Futures}
+\input{part_5/main}
+
+
+\input{acknowledge}
+% bib
+\bibliographystyle{unsrtnat}
+\bibliography{main}  %%% Uncomment this line and comment out the 
+
+%\printbibliography
+
+\input{part_6/main.tex}
+
+\end{document}

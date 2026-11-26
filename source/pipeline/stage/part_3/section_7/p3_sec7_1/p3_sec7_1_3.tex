@@ -1,0 +1,48 @@
+
+\subsection{Topological and Graph-based Reasoning}
+\label{subsec:p3_s7_1_3}
+% - Roadmap construction, A*, Dijkstra, Voronoi diagrams
+% - Applications: navigation planning, environment mapping, multi-agent pathfinding
+
+Topological and graph-based reasoning replaces continuous geometry with discrete connectivity, so that path planning, exploration, and coordination become combinatorial search over nodes and edges: places, corridors, and routes rather than metric trajectories. The abstraction is what makes large-scale, dynamic, or partially known environments tractable, where maintaining globally consistent geometry is hard but connectivity and reachability are stable. Figure~\ref{fig:p3_s7_1_3_topo_graph_abstract} gives the abstract formulation.
+
+\subsubsection{Task Definition}
+Given a configuration space $\mathcal{C}$ with free subset $\mathcal{C}_{\mathrm{free}} \subseteq \mathcal{C}$ (known a priori or inferred online from sensor streams), robot constraints, and optional priors such as floor plans or road networks, most methods build a planning graph $G=(V,E,\mathbf{w})$ in which vertices $V$ are places, sampled configurations, or abstract states, edges $E$ are feasible transitions, and $\mathbf{w}: E \to \mathbb{R}_{\geq 0}$ assigns metric or semantic costs (distance, time, energy, risk); in some methods the graph is implicit and expanded locally during search. The output is a collision-free path $\pi=\langle v_0=s,\dots,v_k=g\rangle$ of minimal accumulated cost, a topological map of place connectivity (often linked to local metric submaps), or, with several agents, conflict-free trajectories $\{\pi_i(t)\}_{i=1}^N$ that minimize makespan or total cost under vertex and edge conflict constraints.
+
+
+\subsubsection{Methodology}
+
+\paragraph{Visibility and Line-of-Sight Graphs.}
+Connecting configurations that can see each other reduces shortest-path planning to graph search with interpretable waypoints. The visibility graph of Lozano-P{\'e}rez and Wesley~\cite{LozanoPerez1979Visibility} links obstacle, start, and goal vertices and recovers exact Euclidean shortest paths in polygonal environments by Dijkstra or A*; the configuration-space construction via Minkowski sums~\cite{LozanoPerez1983Cspace} extends it to robots of finite size by growing the obstacles instead of shrinking the robot; continuous-Dijkstra algorithms settle the complexity at $O(n\log n)$~\cite{Hershberger1999EuclideanShortest,Mitchell2000Handbook}. Grid planners bring line-of-sight into the search itself: Field D* interpolates across cell faces for smooth, replannable paths~\cite{Ferguson2006FieldD}, Theta* updates parents by visibility to produce near-Euclidean paths on the fly~\cite{Nash2007Theta}, and Jump Point Search prunes symmetric grid paths by jumping to points where successor choices change~\cite{Harabor2011JPS}.
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section7/713_topo.pdf}
+    \caption{Abstract task formulation of topological and graph-based reasoning: (i) free space, sensing, start and goal states, and constraints are turned by (ii) construction and search over a graph $G=(V,E,w)$ into (iii) decision-ready graph artifacts such as collision-free paths, topological maps, coordinated multi-agent trajectories, and coverage plans. These are alternative task outputs. In the multi-agent example, rows denote vertices and columns denote successive time steps; horizontal segments represent waiting.}
+    \label{fig:p3_s7_1_3_topo_graph_abstract}
+\end{figure}
+
+
+\paragraph{Clearance-Oriented Skeletons.}
+Where safety matters more than length, free space is retracted to a skeleton that keeps connectivity and maximizes distance to obstacles. Voronoi diagrams and medial axes give maximal-clearance paths, with Fortune's sweepline~\cite{Fortune1987Voronoi} for efficient planar construction; the generalized and hierarchical Voronoi graphs~\cite{Choset2000HGVG,Choset2000GVGExploration} let a robot follow ridges with its sensors and build the clearance roadmap incrementally while detecting junctions and loops; and distance-transform updates~\cite{Felzenszwalb2012EDT,Lau2013DynamicEDT} maintain the skeleton in dynamic environments for real-time replanning.
+
+\paragraph{Decomposition Graphs and Coverage.}
+Discretizing space into cells trades geometric fidelity for simplicity and completeness. Occupancy grids~\cite{Moravec1985SonarMaps,Elfes1989Occupancy} are probabilistic cell maps updated from range data on which planning is grid search; exact decompositions serve coverage, with boustrophedon decomposition~\cite{Choset1998Boustro} partitioning free space into monotone cells and ordering them through an adjacency graph for complete, low-redundancy sweeps; and the coverage literature is systematized in~\cite{Galceran2013CoverageSurvey}.
+
+\paragraph{Sampling-Based Roadmaps and Trees.}
+In high-dimensional configuration spaces, the graph is discovered by sampling. Probabilistic roadmaps~\cite{Kavraki1996PRM} sample and connect configurations in a preprocessing phase amortized over many queries and are probabilistically complete; RRT and RRT-Connect~\cite{LaValle1998RRT,Kuffner2000RRTConnect} grow trees toward unexplored regions for single-query planning under kinematic and kinodynamic constraints; PRM* and RRT*~\cite{Karaman2011RRTStar} add connection-radius and rewiring rules that make them asymptotically optimal; and FMT*~\cite{Janson2015FMT} performs lazy dynamic programming over a batch of samples, while BIT*~\cite{Gammell2015BIT} combines heuristic search with progressively denser sample batches for anytime improvement.
+
+\paragraph{Optimal, Any-Angle, and Incremental Graph Search.}
+On a given graph, Dijkstra's algorithm and A*~\cite{Dijkstra1959,Hart1968Astar} are the optimal single-source and heuristic searches; LPA*~\cite{Koenig2004LPA} and D* Lite~\cite{Koenig2002DstarLite} repair a shortest path incrementally as edge costs change; and the any-angle planners above (Field D*, Theta*) improve path quality, while JPS accelerates optimal search on its underlying grid.
+
+\paragraph{Multi-Agent and Hierarchical Graph Reasoning.}
+With several agents on one graph, coordination is search over a time-expanded network. Conflict-Based Search~\cite{Sharon2015CBS} splits the problem into a high-level search over conflict constraints and low-level single-agent planning and is complete and optimal; ICTS~\cite{Sharon2013ICTS} searches joint cost allocations backed by individual searches; ECBS and EECBS~\cite{Barer2014ECBS,Li2021EECBS} are bounded-suboptimal with focal heuristics and better conflict handling; and SAT or ILP compilations~\cite{Surynek2016SATMAPF,Yu2016OptimalMAPF} reach global optimality on moderate fleets at the cost of solver scalability. Hierarchical and multi-resolution planning~\cite{Botea2004HPA} and contraction hierarchies~\cite{Geisberger2008CH} precompute abstraction layers that answer shortest-path queries on continental road networks in well under a millisecond, with standardized maps and instances~\cite{Sturtevant2012Benchmarks,MovingAI2025} for comparison.
+
+\subsubsection{Benchmarks}
+The MovingAI suite~\cite{Sturtevant2012Benchmarks,MovingAI2025} supplies standardized 2D maps from games, cities, and synthetic generators for single-agent search (path cost, runtime, memory, node expansions) and the MAPF instances on which CBS, ICTS, ECBS, and compilation-based solvers are compared by makespan, sum of costs, and success under time and memory limits, with the ICAPS MAPF tracker~\cite{Stern2019MAPFsurvey} as the community leaderboard. OMPL's Planner Arena~\cite{OMPL2025} compares PRM, RRT, FMT, and BIT variants on success rate, planning time, path quality, and anytime behavior, and the DIMACS shortest-path challenge~\cite{DIMACS2025} evaluates query latency, preprocessing cost, and optimality on continental road graphs. Topological mapping and pose-graph SLAM are stressed by place recognition under appearance change: RADISH~\cite{radish2003} provides classic multi-sensor logs, and Oxford RobotCar~\cite{Maddern2017RobotCar}, NCLT~\cite{Carlevaris2016NCLT}, and Nordland~\cite{olid2018singleviewplace} span seasons and weather, with KITTI and EuRoC (Section~\ref{sec:visual_odometry}) for urban and indoor pose graphs.
+
+\subsubsection{Challenges and Trends}
+Graph density sets the trade-off: sparse graphs lose connectivity or optimality, dense ones lose real-time response, and the problem sharpens in high-dimensional and lifelong settings~\cite{Karaman2011RRTStar,Koenig2002DstarLite}. Perceptual aliasing, drifting pose graphs, and dynamic obstacles complicate planning under partial information~\cite{Thrun2005Probabilistic,Stachniss2006Mapping}, and on the topological SLAM benchmarks the binding difficulty is not search but appearance robustness, with cross-season and cross-weather queries far harder than same-condition retrieval. Multi-agent coordination strains conflict resolution and time-expanded representations as fleets grow, while fairness and deadlock avoidance must be kept~\cite{Sharon2015CBS,Yu2016OptimalMAPF,Stern2019MAPFsurvey}.
+
+The directions are structured rather than end-to-end: hierarchical and multi-resolution planning that abstracts and refines~\cite{Botea2004HPA,Geisberger2008CH}, risk-aware and formally verified planning under uncertainty~\cite{Luders2010ChanceConstraints,zhang2023safety}, bounded-suboptimal and distributed coordination for responsiveness~\cite{Barer2014ECBS,Li2021EECBS}, and neuro-symbolic methods that enrich the graph with learned perception, heuristics, and semantics~\cite{kimura-etal-2021-neuro}.

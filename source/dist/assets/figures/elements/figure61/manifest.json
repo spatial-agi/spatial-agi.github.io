@@ -1,0 +1,117 @@
+{
+  "source": "assets/figures/figures/part3/section6/object_detection.webp",
+  "assets": [
+    {
+      "file": "scene/street.png",
+      "box": [
+        20,
+        21,
+        1568,
+        517
+      ],
+      "size": [
+        1548,
+        496
+      ],
+      "note": "Blue detections and dashed explanatory leaders removed. Occluded sketch strokes at these intersections are approximated locally; original objects remain in the scene."
+    },
+    {
+      "file": "objects/person-left.png",
+      "box": [
+        199,
+        142,
+        340,
+        435
+      ],
+      "size": [
+        141,
+        293
+      ],
+      "note": ""
+    },
+    {
+      "file": "objects/person-right.png",
+      "box": [
+        496,
+        169,
+        609,
+        388
+      ],
+      "size": [
+        113,
+        219
+      ],
+      "note": ""
+    },
+    {
+      "file": "objects/car.png",
+      "box": [
+        705,
+        224,
+        1110,
+        399
+      ],
+      "size": [
+        405,
+        175
+      ],
+      "note": ""
+    },
+    {
+      "file": "objects/cyclist.png",
+      "box": [
+        1195,
+        283,
+        1393,
+        471
+      ],
+      "size": [
+        198,
+        188
+      ],
+      "note": ""
+    },
+    {
+      "file": "objects/speed-sign.png",
+      "box": [
+        1438,
+        114,
+        1513,
+        397
+      ],
+      "size": [
+        75,
+        283
+      ],
+      "note": ""
+    },
+    {
+      "file": "methods/handcrafted-features.png",
+      "box": [
+        42,
+        729,
+        193,
+        895
+      ],
+      "size": [
+        151,
+        166
+      ],
+      "note": ""
+    },
+    {
+      "file": "methods/bicycle-icon.png",
+      "box": [
+        945,
+        816,
+        994,
+        848
+      ],
+      "size": [
+        49,
+        32
+      ],
+      "note": ""
+    }
+  ]
+}

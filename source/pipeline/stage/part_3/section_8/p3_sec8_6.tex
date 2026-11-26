@@ -1,0 +1,396 @@
+
+
+\section{World Modeling}
+\label{sec:worldmodeling}
+\label{sec:p3_s8_6}
+
+\FramedInitial{D}{espite} its growing popularity across AI research, the notion of a ``world model'' does not yet enjoy a unified or universally agreed-upon definition.
+Its conceptual roots trace back to the psychologist Kenneth Craik, who argued in his 1943 monograph \emph{The Nature of Explanation} that the mind ``carries a `small-scale model' of external reality and of its own possible actions within its head''.
+In its original form, a world model referred to an individual's internal representation of external reality; contemporary AI has generalized the concept far beyond mental representations to structured models of physical and spatial environments.
+
+Fei-Fei Li has framed the gap between current AI systems and physical understanding in these terms~\cite{Feifei2025spatial}: modern LLMs resemble ``wordsmiths in the dark'', fluent in symbols but divorced from the physical world that gives them meaning, and capable AI must instead understand, act within, and reason about three-dimensional space. On this view world models are new-generation \emph{generative} models that simulate, predict, and imagine the world's dynamics rather than only describe it, which ties world modeling directly to spatial intelligence.
+
+
+
+Complementing Li's generative perspective, another influential formulation comes from Yann~LeCun \cite{lecun2022path}. He describes a world model as a system capable of predicting how the world will evolve given its current state and an action.
+Formally, it consumes the current state $S(t)$ and an action $A(t)$, and produces a prediction of the next state $S'(t+1)$; in many cases, it also integrates external sensory observations $O(t)$ to update its internal state.
+This predictive relation can be written compactly as
+\begin{equation}
+\label{eq:p3_s8_6_transition}
+\hat{S}(t+1) = W_\theta\big(S(t),\, A(t),\, O(t)\big),
+\end{equation}
+where $W_\theta$ denotes the learned world model parameterized by $\theta$.
+Read against the conditional-generation backbone of this chapter (Eq.~\eqref{eq:t2i_generator}), $W_\theta$ occupies the position of the generator, but its decoder is a state-transition predictor rather than a pixel or geometry renderer; this is the sense in which world modeling extends Chapter~\ref{sec:generation} from reconstruction toward prediction.
+What exactly constitutes a ``state'' remains open: some work defines it as a compact latent representation in which the world model operates at an abstract semantic level, much as human cognition forecasts events without simulating every physical detail.
+
+
+
+
+Although no single definition of world modeling has been universally accepted, a survey of the literature~\cite{fung2025embodied,li2025comprehensive,ding2025understanding,kong20253d} reveals three recurring paradigms, three realizations of Eq.~\eqref{eq:p3_s8_6_transition} that differ in what they predict.
+\textbf{Representation world models} learn abstract latent spaces that capture the state and dynamics of the environment.
+\textbf{Generative world models} explicitly simulate or generate future states of the world through data-driven or hybrid mechanisms.
+\textbf{Mental world models} aim to infer and represent the mental states of humans or agents, enabling social reasoning and Theory-of-Mind (ToM) capabilities.
+Figure~\ref{fig:world-modeling} contrasts them side by side.
+
+
+ % \cite{}
+
+
+
+
+
+
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/web/world_modeling_tikz.pdf}
+    \caption{Three paradigms of world modeling, all instances of the transition $\hat{S}(t{+}1)=W_\theta(S(t),A(t),O(t))$ of Eq.~\eqref{eq:p3_s8_6_transition}, differing in what they predict: (a) a latent state, (b) future observations, and (c) another agent's mental state and next action.}
+    \label{fig:world-modeling}
+\end{figure*}
+
+
+
+
+\subsection{Representation World Model}
+\label{subsec:p3_s8_6_rep}
+
+
+
+
+\subsubsection{Definition}
+
+A representation world model learns an internal latent description of the environment by compressing multimodal observations into structured, predictive embeddings, prioritizing the extraction of physical and semantic regularities over the generation of photorealistic pixels.
+Much as LLMs learn abstract linguistic representations through self-supervised pretraining, representation world models are trained on ``world data'' to infer the principles that govern physical and semantic dynamics; the objective is to predict how the world evolves at an abstract level, not to reconstruct pixels.
+The latent state is meant to encode objects and their properties (shape, size, appearance, material), their spatial relations (topology, distance, configuration), the dynamics that govern how the scene evolves, and the causal dependence of outcomes on actions. With such a state, an agent can predict over long horizons, reason, and plan without operating in high-dimensional sensory space.
+
+
+
+
+
+\subsubsection{Multimodal Perception}
+
+A world model draws on several sensory streams, whose encoding is the subject of Chapter~\ref{chapter:3:sec:6}. Vision dominates: images and especially video carry objects, geometry, interaction, and temporal dynamics, and modern systems rely on high-capacity encoders trained with contrastive vision--language objectives for semantic and geometric priors. Audio adds direct evidence about events and the physical state of the surroundings, which language conveys only symbolically. Touch is indispensable where vision is unreliable, occluded, or unavailable (grasping inside a bag, fine manipulation, tool use), yet it remains underexplored because tactile sensors are limited and tactile data are hard to collect at scale.
+
+
+
+
+\subsubsection{World Representation Modeling}
+
+\paragraph{Vision-oriented Modeling.}
+A major line of representation world modeling builds latent spaces from visual observations: video frames are encoded into a compact latent space by self-supervised learning, and a transition model predicts future latent states from past latents and actions, which captures the dynamics of the visual world more efficiently than pixel-space prediction.
+Concretely, an encoder $E_\phi$ maps observations to latent states and a predictor $P_\theta$ is trained to minimize a prediction loss defined entirely in latent space,
+\begin{equation}
+\label{eq:p3_s8_6_rep}
+\mathcal{L}_{\text{rep}}(\theta,\phi) = \mathbb{E}\!\left[\,\big\lVert P_\theta\big(E_\phi(O_{\le t}),\, A(t)\big) - \operatorname{sg}\!\big(E_{\bar{\phi}}(O_{t+1})\big)\big\rVert^{2}\,\right],
+\end{equation}
+where $\operatorname{sg}(\cdot)$ denotes the stop-gradient operator and $E_{\bar{\phi}}$ a slowly updated target encoder.
+This objective instantiates the transition of Eq.~\eqref{eq:p3_s8_6_transition} with the predicted state $\hat{S}(t+1)$ taken to be an abstract embedding rather than raw pixels (Figure~\ref{fig:world-modeling}(a)), which is precisely what allows representation world models to capture dynamics efficiently while discarding perceptually salient yet predictively irrelevant detail.
+
+
+
+The \emph{World Models} architecture~\cite{ha2018world} decomposes the problem into a VAE-based vision model, an RNN-based memory model, and a lightweight controller; the vision and memory components learn latent dynamics from raw pixels without supervision, and the controller then learns its behavior inside the ``dreamed'' environment, which greatly simplifies policy learning.
+The Dreamer agents carry this idea into reinforcement learning at scale: Dreamer~\cite{hafner2019dreamer} learns a latent dynamics model from pixels and trains an actor and critic entirely on imagined latent trajectories, and DreamerV3~\cite{hafner2023mastering} applies a single configuration across a wide range of domains. MuZero~\cite{schrittwieser2020mastering} learns a model that predicts only the quantities planning needs (reward, value, and policy) and plans with it by tree search, mastering Atari, Go, chess, and shogi without being given the rules.
+
+
+Yann~LeCun's autonomous intelligence framework proposes the Joint Embedding Predictive Architecture (JEPA)~\cite{lecun2022path} as the core mechanism for constructing world models.
+JEPA learns latent representations and predictions through self-supervised objectives rather than pixel-level reconstruction, and Eq.~\eqref{eq:p3_s8_6_rep} is its generic form.
+I-JEPA~\cite{assran2023jepa} first instantiated it on images, predicting the embeddings of masked target regions from a visible context block, and V-JEPA~\cite{bardes2024vjepa} carried the same feature-prediction objective to video, predicting masked spatio-temporal embeddings \emph{in latent space} with no pixel reconstruction, text, or negative examples, and so avoiding the cost and ambiguity of pixel prediction.
+V-JEPA~2~\cite{assran2025vjepa} turns this encoder into a world model. Pretrained on more than a million hours of internet video, it is extended with an action-conditioned predictor, V-JEPA~2-AC, post-trained on less than 62 hours of unlabeled robot video; deployed zero-shot on Franka arms, it picks and places objects by planning actions whose predicted embeddings reach a goal image.
+
+The stop-gradient and slowly updated target encoder in Eq.~\eqref{eq:p3_s8_6_rep} exist only to keep the representation from collapsing, and the most recent JEPA work removes them. LeJEPA~\cite{balestriero2025lejepa} shows that an isotropic Gaussian is the optimal embedding distribution for downstream prediction and enforces it with a single sketched regularizer (SIGReg), leaving one trade-off hyperparameter and no teacher--student machinery. LeWorldModel~\cite{maes2026leworldmodel} uses the same regularizer to train an action-conditioned JEPA world model end to end from raw pixels with only two loss terms; at about 15M parameters it trains on a single GPU, plans up to 48 times faster than world models built on foundation-model encoders, and its latents encode physical quantities well enough to flag physically implausible events.
+The principle has also reached language: VL-JEPA~\cite{chen2025vl} predicts continuous embeddings of the target text instead of generating tokens, and LLM-JEPA~\cite{huang2026llmjepa} adds an embedding-prediction objective to the next-token training of language models.
+
+
+DINO-World~\cite{baldassarre2025back} instead freezes DINOv2 as a universal visual encoder, whose features are already semantic, geometric, and object-centric, learns a latent-space predictor from large-scale unlabeled video, and adds action-conditioned prediction to model how interventions change future visual states.
+
+
+
+\paragraph{Hybrid World Modeling.}
+Another important direction expands representation learning beyond vision by incorporating additional modalities such as LiDAR, camera trajectories, or multi-view geometric signals.
+These hybrid models aim to overcome the limitations of purely visual latent spaces by injecting explicit spatial structure, depth cues, and geometric consistency constraints.
+For instance, {MUVO}~\cite{bogdoll2025muvo} is a multimodal generative world model that learns jointly from synchronized camera and LiDAR streams.
+By integrating LiDAR-derived depth priors into the latent world representation, MUVO achieves more reliable 3D scene prediction, improved object motion modeling, and long-horizon forecasting in autonomous driving environments.
+{UniWorld}~\cite{min2023uniworld} introduces a unified pretrained architecture that merges 3D object detection, motion prediction, and scene representation learning.
+Through joint training of BEV features, temporal dynamics, and multisensor context, UniWorld produces a structured latent state that simultaneously supports perception and trajectory forecasting.
+{Aether}~\cite{zhu2025aether} proposes a geometry-aware unified world model where camera trajectories are treated as explicit action signals.
+This allows the model to learn action-conditioned scene transitions and perform predictive visual planning.
+By binding egomotion with geometric consistency constraints, Aether generates spatially coherent future predictions and supports counterfactual simulation within a 3D-aware latent space.
+
+
+
+
+\paragraph{Language-oriented World Modeling.}
+A final category examines language as a central medium for latent world representation.
+This raises an important question: \emph{can LLMs themselves be viewed as world models?}
+From a formal perspective, LLMs indeed share structural similarities with classical world models.
+They maintain internal states, treat textual context as observations, accept prompts as actions that alter these states, and generate predictions that correspond to inferred future states.
+Models such as Dynalang~\cite{lin2023learning} demonstrate that natural language can serve as a universal intermediate representation for encoding environment states, predicting transitions, and expressing causal relations.
+LLMs also exhibit emergent knowledge of commonsense physics, intuitive causality, and human behavior derived from massive text corpora.
+However, their limitations remain clear: they are trained on symbolic descriptions rather than direct interaction with the physical world; their internal dynamics reflect linguistic statistics more than physical laws; and their world representations tend to be sparse, fragmented, and disconnected from geometric or temporal continuity.
+Thus, while LLMs can be interpreted as language-driven world models, their predictive capacity is primarily symbolic and semantic, rather than grounded in spatial or physical understanding.
+
+
+
+
+
+
+
+\subsection{Generative World Model}
+\label{subsec:p3_s8_6_gen}
+
+In contrast to representation-based foundation models, generative world models focus on explicitly predicting future states or synthesizing the evolution of the environment over time.
+Rather than only learning compact latent encodings, these models aim to simulate how the world might change under different conditions, capturing temporal dynamics and causal structure.
+Whereas the representation paradigm of Eq.~\eqref{eq:p3_s8_6_rep} predicts in an abstract latent space, generative world models learn an explicit conditional distribution over future observations and can be unrolled autoregressively over a horizon $H$,
+\begin{equation}
+\label{eq:p3_s8_6_gen}
+p_\theta\big(O_{t+1:t+H} \mid O_{\le t},\, A_{t:t+H-1}\big) = \prod_{k=0}^{H-1} p_\theta\big(O_{t+k+1} \mid O_{\le t+k},\, A(t+k)\big),
+\end{equation}
+so that sampling from Eq.~\eqref{eq:p3_s8_6_gen} realizes the transition of Eq.~\eqref{eq:p3_s8_6_transition} directly in observation space (Figure~\ref{fig:world-modeling}(b)).
+This explicit synthesis is what allows generative world models to be rendered, inspected, and acted within, at the cost of having to model a high-dimensional output distribution.
+Broadly, generative world models can be grouped into two main families:
+\emph{physics-driven simulation}, which relies on hand-crafted rules and equations,
+and \emph{learning-driven world generation}, which learns world dynamics directly from data.
+The former can be viewed as the deterministic limit of the latter: it fixes the transition of Eq.~\eqref{eq:p3_s8_6_gen} to a hand-specified rule set instead of a learned distribution, trading sample diversity and coverage for exact reproducibility and verifiability.
+A third route, growing quickly since 2024, sits between the two: a learned model writes the rules as code and a simulator executes them (Section~\ref{subsubsec:p3_s8_6_code}).
+
+
+
+\subsubsection{Physics-driven Simulation}
+
+Physics-driven simulation builds interactive virtual worlds from human-designed physical, geometric, and logical rules rather than from learned latent spaces. The environment is governed by predefined physical laws, rendering rules, collision logic, and behavioral scripts, specified top-down as explicit mathematical formulations, so the same initial conditions always produce the same outcome; this determinism, together with interpretability and verifiability, is what makes such systems suitable for safety-critical engineering.
+
+Game engines are the canonical example. Physics engines such as Bullet, Havok, PhysX, and Box2D implement Newtonian, rigid-body, soft-body, cloth, particle, and volumetric dynamics, and the engines around them add acceleration structures (\eg, BVH trees), real-time ray tracing, and navigation meshes for path planning, which gives them a natural foothold in spatial-intelligence tasks. Film production relies on the same principle at higher fidelity: pipelines built on Pixar USD, Maya, or Houdini simulate cloth, hair, smoke, fire, and fluids with differential-equation and fluid solvers (\eg, FLIP/MantaFlow) and physically based path tracing. Engineering, architecture, and scientific visualization extend rule-based simulation to structural mechanics, electromagnetics, illumination, and material response through finite element methods, computational fluid dynamics, and photonic simulation.
+
+For embodied AI, physics-driven simulators such as CARLA~\cite{dosovitskiy2017carla}, AirSim, and Isaac Sim~\cite{NVIDIA2021Isaac} remain the standard platforms for testing and training in autonomous driving, navigation, and manipulation, because they model lighting, collisions, dynamics, and sensor noise closely enough to yield data distributions near those of the real world. The same engines underpin digital twins built on platforms such as NVIDIA Omniverse, Unity, and Unreal Engine, which are discussed in Part~IV, Section~\ref{sec:Digital Twins}.
+
+
+
+
+
+\subsubsection{Learning-driven World Generation}
+
+In contrast to simulation frameworks based on explicit physical rules, learning-driven world generation seeks to acquire world structure, dynamics, and causal regularities directly from large-scale data, in a bottom-up fashion.
+These models do not encode Newtonian equations, lighting models, or geometric constraints by hand; instead, world behavior emerges as statistical patterns during training.
+For example, a model may never be given the analytic form of the gravity equation, yet by observing countless videos of falling objects, it can still infer the regularity that objects tend to accelerate downward.
+The resulting world models are probabilistic and can exhibit complex, emergent behaviors without explicit programming.
+
+
+Current learning-driven world generation follows two technical directions:
+(1) video-centric generative models that learn dynamic world evolution in pixel or latent space,
+and (2) 3D/4D asset generation methods that directly model spatially structured worlds in three or four dimensions.
+
+
+
+
+\paragraph{Video-centric Generative World Models.}
+Recent advances in video generation have renewed interest in the idea of a ``world simulator''.
+Video models are intrinsically suited to encoding spatiotemporal structure, and when they produce sequences that are not only visually coherent but also consistent with basic physical intuition, they begin to resemble implicit world models.
+This became especially prominent with the release of OpenAI Sora~\cite{sora2024}, whose generated videos demonstrate strong temporal consistency, long-horizon stability, and apparent physical plausibility, prompting the community to reconsider whether deep video generation might be converging towards a form of physical world modeling.
+Subsequently, Google DeepMind's Genie~3~\cite{genie3} extended video generation from passive ``watchable'' content to interactive experiences: the model updates the generated world in response to user actions, enabling agent-in-the-loop, closed-loop world simulation, complementing the action-conditioned scene generators surveyed in §\ref{subsec:p3_s8_2_2}.
+World Labs' RTFM~\cite{worldlabs_rtfm} further highlights real-time performance, achieving high frame-rate and low-latency prediction. Systems such as Wan~\cite{wan2025wan}, Emu3.5~\cite{cui2025emu35}, OpenAI Sora~2~\cite{sora2}, and Veo~3~\cite{veo3} continue this trajectory, gradually pushing video generation from mere visual fidelity towards world coherence, physical consistency, and interactivity.
+Action-conditioned diffusion has also turned games into testbeds: GameNGen~\cite{valevski2024diffusion} simulates the game DOOM interactively in real time, and DIAMOND~\cite{alonso2024diffusionworldmodelingvisual} trains reinforcement-learning agents entirely inside a diffusion world model of Atari games, while NVIDIA's Cosmos~\cite{nvidia2025cosmos} offers pretrained video world foundation models intended to be post-trained as simulators for robotics and driving.
+
+Video world models are particularly promising in autonomous driving. GAIA-1~\cite{hu2023gaia} proposes a generative world model tailored for driving scenarios, built around a spatiotemporal Transformer that generates future multi-view scenes based on past observations.
+By implicitly capturing traffic patterns, pedestrian behavior, scene geometry, and multi-agent motion, GAIA-1 can support closed-loop evaluation, behavior prediction, and synthetic data generation, thereby reducing the cost and risk of traditional real-world testing.
+
+
+
+\paragraph{3D/4D Asset Generation as World Modeling.}
+A complementary avenue is to build world models that operate directly on structured three- or four-dimensional representations, such as 3D geometry, occupancy fields, or 4D spatiotemporal volumes.
+Unlike video-based approaches that primarily model dynamics in pixel space, these methods explicitly parameterize geometry and temporal evolution, making it easier to represent interactive, spatially consistent worlds.
+
+
+Genesis~\cite{Genesis} exemplifies this direction. It is not only a generative 3D/4D physics simulation platform, but also integrates a vision-language model-driven ``world-building agent'' that uses a tool API to create dynamic 4D environments (geometry plus dynamics).
+These generated worlds can be rendered into multiple modalities (RGB, depth, semantics, contact events, etc.), providing rich supervision for training embodied AI systems.
+Genesis thus combines a unified physics engine with generative agents for large-scale world construction.
+
+
+Autonomous driving again serves as a natural application domain for 3D world models.
+DriveArena~\cite{yang2025drivearena} builds a closed-loop generative simulation platform, allowing planning modules to iteratively probe and learn within synthesized 3D driving environments.
+Its diffusion-model-based multi-agent scene generation can rapidly produce long, interactive driving episodes.
+OccWorld~\cite{zheng2024occworld} and OccSora~\cite{wang2024occsora} adopt 4D occupancy grids as the core representation, predicting future 3D occupancy over time from continuous video and sensor streams, thereby providing a unified motion-and-structure world model.
+Copilot4D~\cite{zhang2023copilot4d} tokenizes LiDAR scans and forecasts future LiDAR point clouds with discrete diffusion, learning a world model from unlabeled sensor data alone.
+
+
+Generating \emph{interactive} 3D worlds brings generative world models closest to their conceptual ideal.
+Marble~\cite{Feifei2025Marble} from World Labs combines action-conditioned generation, geometric consistency constraints, and multimodal inputs, so that users can act within the generated world and observe the consequences.
+Its next-generation model, Atlas~\cite{worldlabs2026atlas}, is an omni world model pretrained from scratch on text, images, video, and 3D: an autoregressive diffusion transformer that conditions every generated image and depth map on an explicit camera pose and grounds them all in a shared 3D context, so that the same model generates camera-controlled video of up to a minute, reconstructs scenes from a handful of images, and exports its output as point clouds or 3D Gaussian splats. World Labs reports that it outperforms specialized open-source reconstruction models, and that it will power future versions of Marble.
+
+
+\subsubsection{Code-and-Simulator World Models}
+\label{subsubsec:p3_s8_6_code}
+Between hand-written simulation and learned generation sits a route that has grown quickly since 2024: a language model \emph{writes} the world model as executable code, and a simulator or engine runs it. The learned component is the author of the rules, not the rules themselves,
+\begin{equation}
+\label{eq:p3_s8_6_code}
+\mathcal{P} \sim p_\theta\big(\mathcal{P} \mid c\big), \qquad \hat{S}(t+1) = \mathrm{Sim}\big(S(t),\, A(t);\, \mathcal{P}\big),
+\end{equation}
+where $c$ is the conditioning context (a description, observations, or a history of interactions), $\mathcal{P}$ the generated program, and $\mathrm{Sim}$ the interpreter or engine that executes it: plain Python, a physics engine such as MuJoCo or PyChrono, or Blender. Compared with Eq.~\eqref{eq:p3_s8_6_transition}, the learned $W_\theta$ is replaced by a program that can be read, tested, and repaired, so the resulting world keeps the determinism and verifiability of physics-driven simulation while gaining the open-endedness of a generative model. The scene programs of Section~\ref{sec:p3_s8_7} rest on the same idea; the difference here is that $\mathcal{P}$ encodes how the world changes under actions, not only how it is laid out.
+
+In one line of work, code is an agent's transition model. Code World Models~\cite{dainese2024codeworld} synthesize Python implementations of reinforcement-learning environments with a generate, improve, and fix search over programs (GIF-MCTS), evaluated on a benchmark of 18 environments, and plan with them faster and more sample-efficiently than with learned dynamics; WorldCoder~\cite{tang2024worldcoder} builds its world model as a program from its own interactions and transfers knowledge to a new environment by editing that program.
+
+In the other, code builds a simulated 3D world. SceneCraft~\cite{hu2024scenecraft} turns a description into Blender Python, planning with a scene graph, converting spatial relations into numerical layout constraints, and checking renders with a vision-language model. GenSim~\cite{wang2023gensim} and RoboGen~\cite{wang2023robogen} have language models write robotic simulation tasks, scenes, and rewards, making the simulator an open-ended source of training data, and the world-building agent of Genesis~\cite{Genesis} follows the same pattern. Recent systems close the loop with the simulator itself. 
+Code2Worlds~\cite{zhang2026code2worlds} generates 4D worlds as Blender code refined by a vision-language motion critic; Code2Worlds-2~\cite{zhang2026code2worlds2} compiles such worlds into physically valid MuJoCo scenes and revises them from penetration, contact, and stability signals; and ChronoAgentic~\cite{wang2026chronoagentic} has cooperating agents write and repair PyChrono simulations, meeting the joint semantic and physical correctness criterion on 82.5\% of PhyWorldBench demos against 52.5\% for the best of ten text-to-video models.
+
+The price is coverage. 
+A program can express only what its simulator supports, so photorealistic appearance, deformable and fluid materials, and open-ended visual variety still favor learned generators, while code-and-simulator models win where physical correctness has to be checked.
+
+
+\subsection{Mental World Modeling}
+\label{subsec:p3_s8_6_mental}
+
+
+Physical world models enable agents to understand and predict how the external environment evolves.
+However, intelligent behavior in real-world settings also requires an internal model of \emph{other minds}.
+Humans naturally construct such models, \ie, often referred to as \emph{mental models}, to reason about others' beliefs, desires, intentions, emotions, and social context.
+This ability, commonly associated with \emph{Theory of Mind (ToM)} \cite{astington1995theory}, underlies human social interaction, collaboration, communication, and decision-making.
+
+
+
+Craik's ``small-scale models'' of reality are the origin of this notion too~\cite{nersessian1993theoretician,staggers1993mental}, and Johnson-Laird later argued that human reasoning, problem solving, and causal inference rely on abstract internal representations of situations rather than on replaying detailed physical dynamics.
+These representations selectively capture the most relevant structure, \ie, objects, relations, causal dependencies, and possible outcomes, while abstracting away low-level perceptual details.
+For example, when cycling, a human does not mentally simulate every joint torque or physical trajectory; instead, one imagines ``whether I would fall or not'' when encountering an obstacle.
+This high-level, conceptual simulation is a defining property of mental world modeling.
+
+
+
+\subsubsection{From Physical to Cognitive Mental World Models}
+Human mental simulation operates by combining current observations with stored knowledge to predict plausible futures.
+Perception provides the immediate sensory input, which is then transformed into an internal symbolic and probabilistic representation of the world.
+Within this representation, the brain runs rapid, approximate simulations that evaluate different hypothetical actions.
+These simulations are not physically precise but are cognitively meaningful: they help determine risks, anticipate others' responses, or evaluate alternative courses of action.
+In this sense, mental models serve as a compact, abstract, and counterfactual ``world engine'' for decision making.
+
+
+In artificial systems, the distinction between physical and mental world models mirrors that in human
+cognition.
+Physical world models predict state transitions in the environment (\eg, dynamics, geometry, object motion), whereas \emph{mental world models} encode the latent mental states of human users or other agents.
+These models allow an AI system to reason about what humans know, believe, want, or intend to do, capabilities that embodied agents, collaborative robots, intelligent tutors, and multi-agent planners all need.
+
+
+
+Inspired by the Belief-Desire-Intention (BDI)~\cite{rao1995bdi,georgeff1998belief} framework, a mental world model for AI typically includes a small set of structured variables.
+\textbf{Beliefs.} These are representations of what the human knows, perceives, or believes about the world.
+\textbf{Desires.} These capture user goals, preferences, motivations, and values.
+\textbf{Intentions.} These are planned or ongoing actions that the agent expects the human (or another agent) to follow.
+Such decomposition enables an AI system to explicitly reason about human rationality, goal pursuit, and action planning.
+Formally, a mental world model can be cast as the inference of a latent mental state $M(t)$, comprising the beliefs, desires, and intentions above, from observed behavior, followed by a prediction of the other agent's next action,
+\begin{equation}
+\label{eq:p3_s8_6_mental}
+\hat{M}(t) = \argmax_{M}\, p\big(M \mid O_{\le t}\big), \qquad \hat{A}^{\text{other}}(t+1) = \pi\big(\hat{M}(t)\big).
+\end{equation}
+This formulation mirrors the transition of Eq.~\eqref{eq:p3_s8_6_transition} but replaces the physical state with the inferred mental state of another agent (Figure~\ref{fig:world-modeling}(c)), so that the predicted quantity is no longer how the environment will evolve but how a human or peer agent is likely to act.
+
+Machine Theory of Mind is now measured directly. ToMi~\cite{le2019tomi} tests false-belief reasoning in short stories with controls against shortcut solutions, BigToM~\cite{gandhi2023bigtom} generates controlled social scenarios with language models to probe whether models infer beliefs from percepts and actions, and MMToM-QA~\cite{jin2024mmtomqa} poses belief and goal questions about a person acting in a household from video and text together. Large language and multimodal models remain unreliable on these tests, whereas MMToM-QA's BIP-ALM, which performs Bayesian inverse planning over a symbolic state with a language model scoring the likelihoods, does better; it is an explicit instance of the inference in Eq.~\eqref{eq:p3_s8_6_mental}.
+
+\paragraph{Dimensions of Mental State Representation.}
+Beyond the belief-desire-intention core, a mental world model for embodied agents must span several further layers of internal state and social context. 
+It has to read \emph{affect}, recognizing emotional cues and how they shift a person's risk tolerance and willingness to cooperate. 
+It has to represent \emph{social dynamics}: the relationships, roles, group structures, and cultural norms that shape behavior. 
+And it has to interpret \emph{communication}, both the verbal channel and the non-verbal one carried by tone, gesture, posture, and facial expression. 
+These layers are what turn a bare goal estimate into a socially situated account of why a person acts as they do.
+
+
+
+Human spatial reasoning is social as well as geometric, which ties mental modeling to spatial intelligence.
+To assist or collaborate with humans in homes, factories, classrooms, or vehicles, an agent must infer the intention behind a spatial action (\eg, where a person intends to move next), anticipate trajectories from goals or habits, adapt navigation or manipulation to user preferences, and interpret spatial configurations that reflect what a person believes or misunderstands.
+
+
+\subsubsection{A Joint Physical-Mental Formulation}
+\label{subsubsec:p3_s8_6_mwm}
+The benchmarks above still treat the mental state as something inferred next to a world model, not as part of it: Eq.~\eqref{eq:p3_s8_6_mental} estimates another agent's mind, but the environment it acts in is predicted separately. 
+Mental World Modeling (MWM)~\cite{fei2026mental} makes the mental state part of the state that the world model of Eq.~\eqref{eq:p3_s8_6_transition} rolls forward. 
+We follow its notation, in which subscripts index time, so that $s_t$ and $a_t^{\epsilon}$ play the roles of $S(t)$ and $A(t)$ above.
+The case for a joint state is that neither half suffices alone. For a target agent $\epsilon$ whose true action distribution is $p^{\star}$, a physical-only representation fails whenever
+\begin{equation}
+\label{eq:p3_s8_6_mwm_property}
+p^{\star}\big(a_t^{\epsilon} \mid s_t^{\mathrm{phy}}, s_t^{\mathrm{ment}}\big) \neq p^{\star}\big(a_t^{\epsilon} \mid s_t^{\mathrm{phy}}, \tilde{s}_t^{\mathrm{ment}}\big),
+\end{equation}
+that is, whenever two scenes that are physically identical but differ in what people believe or want ($s_t^{\mathrm{ment}}$ versus $\tilde{s}_t^{\mathrm{ment}}$) lead to different actions; the symmetric condition, with the mental state held fixed and the physical state changed, rules out a mental-only representation.
+
+\paragraph{Joint State.}
+The world state is the pair
+\begin{equation}
+\label{eq:p3_s8_6_mwm_state}
+s_t = \big(s_t^{\mathrm{phy}}, s_t^{\mathrm{ment}}\big) \in \mathcal{S}^{\mathrm{phy}} \times \mathcal{S}^{\mathrm{ment}},
+\qquad
+s_t^{\mathrm{ment}} = \big(\{m_t^{i}\}_{i\in\mathcal{I}},\, \{m_t^{G}\}_{G\in\mathcal{G}},\, R_t^{\mathrm{ment}},\, \alpha_t\big).
+\end{equation}
+The physical part collects the objects, the embodied characters, their spatial and contact relations, and the environmental conditions of the scene. The mental part holds an individual state $m_t^{i}$ for every agent $i$ in the set $\mathcal{I}$, optional states $m_t^{G}$ for groups $G\in\mathcal{G}$, the social attitudes and role relations $R_t^{\mathrm{ment}}$ between agents, and the atmosphere $\alpha_t$ of the setting. Each individual state extends the belief-desire-intention core introduced above,
+\begin{equation}
+\label{eq:p3_s8_6_mwm_individual}
+m_t^{i} = \big(\mathrm{id}_t^{i},\, b_t^{i},\, q_t^{i},\, g_t^{i},\, \iota_t^{i},\, e_t^{i},\, d_t^{i},\, n_t^{i},\, c_t^{i}\big),
+\end{equation}
+with identity attributes, beliefs, attention focus, goals, intentions, emotions, dispositions, norms, and behavioral constraints. 
+Beliefs, goals, and intentions are the BDI variables; emotions, norms, and the relations $R_t^{\mathrm{ment}}$ turn the affect and social-dynamics layers discussed above into explicit state variables.
+
+\paragraph{Target-Specific Observation.}
+The model reasons from the perspective of one target agent $\epsilon\in\mathcal{I}$, which sees only a rendering of the joint state:
+\begin{equation}
+\label{eq:p3_s8_6_mwm_obs}
+o_t^{\epsilon} = \Omega_{\epsilon}(s_t) = \Big(\Omega_{\epsilon}^{\mathrm{phy}}\big(s_t^{\mathrm{phy}};\, \kappa_t^{\epsilon}\big),\; \Omega_{\epsilon}^{\mathrm{ment}}\big(s_t^{\mathrm{phy}}, s_t^{\mathrm{ment}};\, \rho_t^{\epsilon}\big)\Big),
+\end{equation}
+where $\kappa_t^{\epsilon}$ is the target's perceptual access (position, line of sight, hearing range, available modalities) and $\rho_t^{\epsilon}$ its social and cognitive perspective (role, prior beliefs, relationships to others, awareness of norms, Theory-of-Mind capacity). The mental part of the observation contains the target's view of its own state and its estimates $\widehat{m}^{\,j,(\ell)}_{t,\epsilon}$ of every other agent $j$, nested up to a depth $L$; at the first level they are sampled as
+\begin{equation}
+\label{eq:p3_s8_6_mwm_tom}
+\widehat{m}^{\,j,(1)}_{t,\epsilon} \sim Q^{(1)}_{\epsilon}\big(m_t^{j} \mid o_t^{\epsilon,\mathrm{phy}},\, m_t^{\epsilon},\, R_t^{\mathrm{ment}},\, \alpha_t\big),
+\end{equation}
+which is the inference of Eq.~\eqref{eq:p3_s8_6_mental}, made stochastic and conditioned on the target's own mind and social context. Spatial access enters the mental model directly through $\kappa_t^{\epsilon}$: what the target can see from where it stands bounds what it can believe, so a poor decision can follow from an object outside its view as much as from a mistaken belief.
+
+\paragraph{Action and Coupled Transition.}
+The target proposes $K$ candidate actions $\mathcal{A}_t^{\epsilon} = \Pi_{\epsilon}^{K}(o_t^{\epsilon}) = \{a^{\epsilon}_{t,1},\dots,a^{\epsilon}_{t,K}\}$. Each action has a physical carrier and a mental content, $a_t^{\epsilon} = (a_t^{\epsilon,\mathrm{phy}}, a_t^{\epsilon,\mathrm{ment}})$ (approaching someone, and meaning to comfort them), and the policy factorizes as $\Pi_{\epsilon}(a_t^{\epsilon,\mathrm{phy}}, a_t^{\epsilon,\mathrm{ment}} \mid o_t^{\epsilon}) = \Pi_{\epsilon}^{\mathrm{phy}}(a_t^{\epsilon,\mathrm{phy}} \mid o_t^{\epsilon})\,\Pi_{\epsilon}^{\mathrm{ment}}(a_t^{\epsilon,\mathrm{ment}} \mid a_t^{\epsilon,\mathrm{phy}}, o_t^{\epsilon})$. The world model then predicts the next joint state with a staged transition,
+\begin{equation}
+\label{eq:p3_s8_6_mwm_transition}
+T_{\theta}\big(s_{t+1} \mid s_t, a_t^{\epsilon}\big) = T_{\theta}^{\mathrm{phy}}\big(s_{t+1}^{\mathrm{phy}} \mid s_t^{\mathrm{phy}}, s_t^{\mathrm{ment}}, a_t^{\epsilon,\mathrm{phy}}\big) \cdot T_{\theta}^{\mathrm{ment}}\big(s_{t+1}^{\mathrm{ment}} \mid s_t^{\mathrm{phy}}, s_t^{\mathrm{ment}}, a_t^{\epsilon,\mathrm{phy}}, a_t^{\epsilon,\mathrm{ment}}\big).
+\end{equation}
+The asymmetry is deliberate. An intention moves nothing until it is carried out physically, so the physical factor ignores $a_t^{\epsilon,\mathrm{ment}}$; the mental factor depends on both components, because the same reassuring words land differently when the speaker is approaching than when walking away. The physical factor still conditions on the mental state, since what objects, space, and visibility allow is joined by what other agents intend to do. Those other agents are not controlled: their actions $a_t^{-\epsilon}$ are marginalized under the simulator's predictive distribution,
+\begin{equation}
+\label{eq:p3_s8_6_mwm_marginal}
+T_{\theta}\big(s_{t+1} \mid s_t, a_t^{\epsilon}\big) = \int T_{\theta}\big(s_{t+1} \mid s_t, a_t^{\epsilon}, a_t^{-\epsilon}\big)\, p\big(a_t^{-\epsilon} \mid s_t\big)\, \mathrm{d}a_t^{-\epsilon},
+\end{equation}
+with $p(a_t^{-\epsilon} \mid s_t) = \prod_{j\neq\epsilon} \Pi_j\big(a_t^{j} \mid \Omega_j(s_t)\big)$ for simultaneous moves, so that every agent still acts on its own partial observation. The whole pipeline, $s_t \xrightarrow{\Omega_{\epsilon}} o_t^{\epsilon} \xrightarrow{\Pi_{\epsilon}} a_t^{\epsilon} \xrightarrow{T_{\theta}} s_{t+1}$, is Eq.~\eqref{eq:p3_s8_6_transition} with a mental component added to the state and a perspective added to the observation.
+
+\paragraph{Evaluating Candidate Futures.}
+Simulating each candidate gives a branch $\hat{s}^{k}_{t+1}$, and the predicted decision is the branch of highest value,
+\begin{equation}
+\label{eq:p3_s8_6_mwm_select}
+\hat{k} = \argmax_{k\in\{1,\dots,K\}}\, r_k .
+\end{equation}
+In MENTIS, the training-free and fully inspectable baseline of MWM, the branch value $r_k$ is a weighted combination of normalized scores for physical plausibility, mental consistency, and social appropriateness, and a binary safety and legality veto sets it to zero. Each formal component maps to a module: a state parser recovers $\hat{s}_t$, an observation generator implements $\Omega_{\epsilon}$, an action parser structures the candidates, a world-state transitor implements $T_{\theta}$, and an evaluator assigns $r_k$. On situated decision scenarios presented as text, image, and sounding-video stories, experiments across eight LLM-based world models indicate that the explicit mental component is what makes a person's actual decision predictable~\cite{fei2026mental}.
+
+
+\subsection{Discussions and Challenges}
+\label{subsec:p3_s8_6_discussion}
+
+\paragraph{Representation-based World Models as an Alternative Foundation Model Paradigm.}
+Representation world models may emerge as a parallel paradigm to current LLMs, functioning as large-scale foundational models trained through massive self-supervised representation learning to capture physical regularities, causal dynamics, and environmental constraints.
+Unlike LLMs, which learn the world indirectly through linguistic abstraction, representation world models aim to model the physical world directly from multimodal observations.
+Such models could serve video generation, action prediction in VLA systems, 3D and 4D understanding and generation, and decision-making in autonomous driving.
+
+
+
+\paragraph{The Necessity of Multi-source Intelligence Integration.}
+World models will likely require the integration of heterogeneous informational sources.
+On the one hand, LLMs embody language-driven intelligence, while world models emphasize physically grounded intelligence; rather than being mutually exclusive, a truly capable world model must incorporate both forms of reasoning.
+On the other hand, accurate world understanding requires far more than visual perception alone: audio, speech, tactile signals, force feedback, and even proprioception provide essential supplementary cues about the dynamics and structure of the physical environment. Yet the current research community focuses overwhelmingly on visual-only modeling.
+Building world models that holistically integrate multimodal sensory information remains a major challenge.
+
+
+\paragraph{Unifying Physical Modeling and Mental Modeling.}
+Another promising direction is the integration of physical and mental modeling within a unified world-modeling framework.
+Embodied agents operating in real environments must simultaneously reason about the physical evolution of the environment and the mental or behavioral responses of humans (or other agents).
+Recent work in multi-agent systems, social navigation, pedagogical reasoning, human-robot collaboration, and interactive LLM agents emphasizes the growing need for AI systems to build internal hypotheses about both external dynamics and human mental states. 
+Mental World Modeling~\cite{fei2026mental} is an early formulation of such a joint state (Section~\ref{subsubsec:p3_s8_6_mwm}).
+Ultimately, scalable general-purpose world models must simulate not only \emph{what will happen} but also \emph{what others believe, intend, desire, or misunderstand}.
+
+
+\paragraph{Balance between Generative Fidelity and Physical Correctness.}
+A central challenge for learning-driven world models is reconciling generative expressiveness with physical accuracy.
+High-capacity video generators often produce visually stunning but physically implausible outcomes, while models optimized for strict physical consistency may underperform in realism or diversity.
+Achieving stable long-horizon predictions without temporal drift or compounding errors remains unsolved.
+Designing architectures, training objectives, and constraints that jointly enforce physical laws, spatial coherence, and generative flexibility is a key open problem for the next generation of world simulators.
+
+
+\paragraph{Evaluation, Benchmarks, and Verifiability of World Models.}
+Unlike language models, which can be evaluated through perplexity, benchmarks, or task accuracy, world models lack standardized, reliable, and comprehensive evaluation protocols.
+Physical correctness, causal consistency, interactive fidelity, multimodal coherence, and long-horizon stability are difficult to quantify in a unified manner.
+Furthermore, world models that aim to simulate open-ended environments raise issues of verifiability, reproducibility, and safety: how can we assess whether a world model reliably generalizes to unseen real-world scenarios, or whether its internal dynamics exhibit hidden biases or unsafe behaviors?
+Establishing principled evaluation methodologies and shared benchmarks for both representation-based and generative world models is an urgent research direction.

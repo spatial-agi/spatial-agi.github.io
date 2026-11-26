@@ -1,0 +1,123 @@
+{
+  "source": "assets/figures/figures/part3/section6/surface_normal_estimation.webp",
+  "notes": "Artwork only. Rebuild film borders, sight lines, arrows, network, noise schedule, angular-error diagram, timelines and text in the frontend.",
+  "assets": [
+    {
+      "file": "inputs/rgb-room.png",
+      "source_box": [
+        217,
+        12,
+        435,
+        170
+      ],
+      "size": [
+        218,
+        158
+      ]
+    },
+    {
+      "file": "video/frame-1.png",
+      "source_box": [
+        124,
+        220,
+        234,
+        297
+      ],
+      "size": [
+        110,
+        77
+      ]
+    },
+    {
+      "file": "video/frame-2.png",
+      "source_box": [
+        243,
+        220,
+        353,
+        297
+      ],
+      "size": [
+        110,
+        77
+      ]
+    },
+    {
+      "file": "video/frame-3.png",
+      "source_box": [
+        363,
+        220,
+        469,
+        297
+      ],
+      "size": [
+        106,
+        77
+      ]
+    },
+    {
+      "file": "multiview/table-plant.png",
+      "source_box": [
+        265,
+        345,
+        362,
+        447
+      ],
+      "size": [
+        97,
+        102
+      ]
+    },
+    {
+      "file": "multiview/camera-left.png",
+      "source_box": [
+        177,
+        349,
+        222,
+        387
+      ],
+      "size": [
+        45,
+        38
+      ]
+    },
+    {
+      "file": "multiview/camera-right.png",
+      "source_box": [
+        398,
+        349,
+        446,
+        387
+      ],
+      "size": [
+        48,
+        38
+      ]
+    },
+    {
+      "file": "multiview/camera-bottom.png",
+      "source_box": [
+        291,
+        463,
+        336,
+        494
+      ],
+      "size": [
+        45,
+        31
+      ]
+    },
+    {
+      "file": "output/normal-field.png",
+      "source_box": [
+        1335,
+        112,
+        1689,
+        423
+      ],
+      "size": [
+        354,
+        311
+      ]
+    }
+  ]
+}

@@ -1,15 +1,16 @@
 """Ground truth from the print build: citation numbers and label numbers (main.aux), bibliography (main.bib)."""
 import json
 import re
+from urllib.parse import urljoin
 from pathlib import Path
 
 import bibtexparser
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.customization import convert_to_unicode
 
-BOOK = Path(__file__).resolve().parents[2] / "Spt-Intell-share-paper"
+from book_source import BOOK, METADATA
 OUT = Path(__file__).resolve().parent / "data"
-aux = (BOOK / "main.aux").read_text(encoding="utf-8", errors="replace")
+aux = (METADATA / "main.aux").read_text(encoding="utf-8", errors="replace")
 
 # \bibcite{key}{{n}{year}{{short}}{{long}}}
 cites, short = {}, {}
@@ -69,9 +70,17 @@ for e in db.entries:
             arxiv = m.group(1)
             break
     url = clean(e.get("url", "")) or None
+    if url and url.startswith("/"):
+        base = re.search(r"https?://[^\s,}]+", e.get("bibsource", ""))
+        url = urljoin(base.group(0), url) if base else None
     gh = re.search(r"github\.com/[\w.-]+/[\w.-]+", " ".join(e.get(f, "") for f in ("url", "note", "howpublished")))
+    names = authors(e.get("author", ""))
+    surnames = [name.split()[-1] for name in names if name != "et al."]
+    author_short = (surnames[0] if len(surnames) == 1 else
+                    " and ".join(surnames) if len(surnames) == 2 else
+                    surnames[0] + " et al.") if surnames else key
     refs[key] = {
-        "key": key, "num": cites.get(key), "short": short.get(key), "type": e.get("ENTRYTYPE"), "title": clean(e.get("title")),
+        "key": key, "num": cites.get(key), "short": short.get(key) or author_short, "type": e.get("ENTRYTYPE"), "title": clean(e.get("title")),
         "authors": authors(e.get("author", "")), "year": clean(e.get("year")), "venue": venue,
         "arxiv": arxiv, "doi": clean(e.get("doi")) or None, "url": url, "github": gh.group(0) if gh else None,
     }

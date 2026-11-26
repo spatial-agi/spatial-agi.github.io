@@ -1,0 +1,74 @@
+\clearpage
+\chapter*{Preface}
+
+% Epigraphs: three equal-height cards read left to right as a timeline (mathematics, psychology, AI).
+\colorlet{quoteaccent}{linkcobalt!70!black}
+\tcbset{quotecard/.style={enhanced, colback=LightCobalt, colframe=LightCobalt, boxrule=0pt, arc=1.5pt,
+  borderline north={1.4pt}{0pt}{linkcobalt}, left=7pt, right=7pt, top=6pt, bottom=6pt,
+  fontupper=\small\itshape, before upper={\raggedright}, before lower={\raggedright},
+  lower separated=false, space to upper, middle=5pt}}
+\newcommand{\quotecardhead}[2]{{\normalfont\scriptsize\bfseries\color{quoteaccent}#1\enspace\textperiodcentered\enspace\textsc{#2}}\par\vspace{2pt}}
+\vspace{-4mm}
+\begin{tcbraster}[raster columns=3, raster equal height, raster column skip=3mm]
+\begin{tcolorbox}[quotecard]
+\quotecardhead{1902}{mathematics}
+``To localise an object simply means that we represent to ourselves the movements that must take place to reach it.''
+\tcblower
+{\normalfont\footnotesize\textsc{Henri Poincar\'{e}}\\\textit{Science and Hypothesis}\strut}
+\end{tcolorbox}
+\begin{tcolorbox}[quotecard]
+\quotecardhead{1983}{psychology}
+``The capacities to perceive the visual world accurately, to perform transformations and modifications upon one's initial perceptions, and to be able to re-create aspects of one's visual experience, even in the absence of relevant physical stimuli.''
+\tcblower
+{\normalfont\footnotesize\textsc{Howard Gardner}\\\textit{Frames of Mind}\strut}
+\end{tcolorbox}
+\begin{tcolorbox}[quotecard]
+\quotecardhead{2025}{artificial intelligence}
+``Spatial intelligence is the scaffolding upon which our cognition is built.''
+\tcblower
+{\normalfont\footnotesize\textsc{Fei-Fei Li}\\\textit{From Words to Worlds}\strut}
+\end{tcolorbox}
+\end{tcbraster}
+\vspace{5mm}
+
+
+Spatial intelligence lies at the core of human cognition.
+We perceive our surroundings, remember places, plan routes, manipulate objects, and coordinate with one another in shared physical and virtual spaces, and we do all of this by building and continuously revising internal models of the world.
+Machines are only now acquiring the rudiments of this ability.
+Today's AI systems write fluent prose and reason impressively over text, yet they still struggle to judge whether a sofa will fit through a doorway, to keep a scene coherent while moving through it, or to anticipate what happens when an object is pushed.
+That gap has become one of the central open problems of contemporary AI.
+Advances in vision-language models, 3D and 4D perception, generative modeling, and interactive world models are now converging from different directions on the same goal: machines that perceive, reason, and act in space.
+This handbook is our attempt to give that convergence a coherent shape.
+
+The immediate motivation is a long-standing fragmentation.
+Research on space in AI has been carried out in largely separate communities, spanning SLAM and state estimation, 3D vision and neural rendering, spatial language grounding, geographic information science, embodied navigation and manipulation, and the psychology and neuroscience of spatial cognition, each with its own representations, benchmarks, and vocabulary.
+Progress in one thread has rarely been legible to the others.
+We set out to organize the field as a whole.
+The organizing commitment of this handbook is \emph{representation-centric}: spatial intelligence is the ability of a system to construct, maintain, and manipulate spatial representations of the world in support of perception, reasoning, prediction, and embodied action.
+Reading the field through this single lens, from the symbolic maps of early AI, through probabilistic geometry and learned features, to today's foundation models and executable world states, is what allows historically disjoint literatures to be placed on common ground.
+
+A handful of questions shaped every chapter.
+What makes a system spatially intelligent, beyond performing well on any particular task?
+How should geometric, semantic, and commonsense structure be integrated within one representation, and aligned across modalities as different as pixels, point clouds, language, and audio?
+When does spatial knowledge learned in one environment transfer to another?
+How do planning and action emerge from grounded spatial understanding, and how should the field measure genuine progress rather than benchmark saturation?
+None of them has a final answer yet.
+Each now admits systematic treatment, and the handbook is organized to provide it.
+
+The volume proceeds in five parts.
+Part~I lays the foundation: why spatial intelligence has risen to prominence now, how the idea evolved across five representational eras from symbolic spatial computing to world-centered intelligence, and how we define and formalize the concept itself.
+Part~II examines spatially aware representation, covering single modalities (2D, 3D, 4D, language, and audio), domain-specific representations, and the cross-modal alignment and fusion that bind them.
+Part~III follows the full functional pipeline from perception, through reasoning in its rule-based, learning-based, foundation-model-driven, and hybrid forms, to spatial reconstruction and generation.
+Part~IV turns to applications, where these capabilities are assembled into working systems: embodied agents and robots, virtual and extended realities, geo-spatial systems, biomedicine and the natural sciences, intelligent assistants, and a range of further domains.
+Part~V closes with open discussions, unresolved challenges, and the directions we believe will matter most in the coming years.
+Chapter~\ref{chapter:structure} offers tailored reading paths through this material for students, researchers, engineers, and cross-disciplinary explorers.
+
+We wrote this handbook for several audiences at once: researchers and graduate students in computer vision, robotics, and multimodal learning; engineers building embodied agents, simulation platforms, and spatial computing systems; and scholars in cognitive science, neuroscience, and geography who want to see how their fields' insights are being absorbed into AI.
+Wherever possible we favor conceptual clarity over exhaustive enumeration, and we connect each technical thread back to the shared framework so that the whole remains visible through the parts.
+
+A handbook about a fast-moving field is necessarily a snapshot.
+Some of the systems discussed here will be surpassed before long, and we regard that as a feature of the field: the framework is designed to outlast its examples.
+We call Chapter~\ref{chapter:definition} ``A Definition in Motion'' deliberately.
+Spatial intelligence is still being defined by the community that builds it, and our hope is that this volume gives that community a common map, drawn honestly, mid-journey.
+
+\clearpage

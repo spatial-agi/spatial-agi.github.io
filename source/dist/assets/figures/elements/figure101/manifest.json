@@ -1,0 +1,83 @@
+{
+  "figure": "10.1",
+  "sources": [
+    "assets/figures/figures/part4/section10/xr_overview.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1822
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section10/xr_overview.pdf",
+  "assets": [
+    {
+      "file": "registration/table-with-plant-and-mug.png",
+      "title": "table with plant and mug",
+      "panel": "registration",
+      "size": [
+        1048,
+        766
+      ],
+      "source_index": 0,
+      "source_box": [
+        1365.0,
+        357.5,
+        1905.0,
+        752.5
+      ],
+      "box": [
+        682.5,
+        178.75,
+        952.5,
+        376.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        693.454,
+        141.93,
+        975.188,
+        347.854
+      ],
+      "placement_confidence": 0.9012
+    },
+    {
+      "file": "user/headset-and-pinch.png",
+      "title": "headset and pinch",
+      "panel": "user",
+      "size": [
+        944,
+        766
+      ],
+      "source_index": 0,
+      "source_box": [
+        120.0,
+        1077.5,
+        582.5,
+        1452.5
+      ],
+      "box": [
+        60.0,
+        538.75,
+        291.25,
+        726.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        46.931,
+        515.44,
+        287.952,
+        711.015
+      ],
+      "placement_confidence": 0.995
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

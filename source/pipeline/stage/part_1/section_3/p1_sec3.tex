@@ -1,0 +1,175 @@
+
+\chapter{Scope and Structure of This Handbook}
+\label{chapter:structure}
+
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkgreen}{T}}{he}
+% study of \textit{Spatial Intelligence} spans a vast and rapidly evolving landscape that intersects geometry, perception, language, and embodied reasoning. As this interdisciplinary field matures, it becomes imperative to map out its foundational pillars, ongoing transformations, and practical applications in a structured and accessible manner. This chapter serves as a cartographic overview of the book: we first introduce the six core research pillars that define the scope of spatial intelligence research—representation, perception, reasoning, generation, manipulation, and application—each of which corresponds to a major Part in the book. We then provide guidance on how different audiences—beginners, researchers, and practitioners—may navigate the content based on their background and objectives. This roadmap is designed not only to clarify the structure of the book but also to reflect the multifaceted nature of spatial intelligence as a scientific and engineering pursuit.
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkblue}{T}}{his}
+\FramedInitial{T}{his}
+chapter provides a structural overview of the handbook.
+We clarify the scope, goals, and organization of the volume, and explain how the different parts jointly form a coherent research landscape for spatial intelligence.
+Specifically, we introduce the core research pillars covered in this handbook, outline their relationships, and offer guidance on how readers from different backgrounds may navigate the content.
+
+
+
+
+
+
+\section{The Research Pillars of Spatial Intelligence}
+\label{sec:p1-sec3-the-research-pillars-of-spatial-intelligence}
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkblue}{W}}{e} 
+\FramedInitial{W}{e}
+outline the core research pillars that constitute the structural backbone of this handbook. 
+They traverse the full pipeline from spatial representation and perception to reasoning and generative capabilities, and ultimately extend into concrete real-world applications. 
+Each pillar aligns closely with a corresponding Part or chapter of the handbook, serving as a thematic axis for both foundational methods and emerging challenges in spatial intelligence.
+
+
+
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item \textbf{Representation (Part II: Spatially Aware Representation)} \\
+    This pillar investigates how spatial information is encoded and represented across modalities and dimensions. We begin with single-modality representations, including 2D (\eg, visual frames), 3D (\eg, point clouds, meshes), and 4D (\eg, dynamic scenes, spatio-temporal fields), as well as non-visual modalities such as language and audio. Particular attention is given to cross-modal alignment and fusion mechanisms that unify heterogeneous data sources. These representational strategies provide the necessary structural foundation for downstream reasoning, manipulation, and generation.
+
+    \item \textbf{Perception (Part III, Chapter~\ref{sec:perception}: Spatial Perception)} \\
+    This pillar focuses on how intelligent systems extract structured knowledge from spatial environments. Topics include object detection, semantic and instance segmentation, depth and surface normal estimation, visual odometry (VO), and ego-motion prediction. These perception modules translate raw sensory inputs into geometric or semantic abstractions, enabling agents to comprehend and navigate the physical world.
+
+    \item \textbf{Reasoning (Part III, Chapter~\ref{sec:reasoning}: Spatial Reasoning)} \\
+    Reasoning in spatial intelligence spans multiple paradigms: symbolic reasoning over geometric primitives or logical propositions; geometric reasoning over shapes, topologies, and configurations; neural reasoning using deep architectures; and LLM-driven spatial inference based on large-scale pretrained priors. These methods enable agents to interpret relations, deduce spatial constraints, and plan in dynamic settings.
+
+    \item \textbf{Reconstruction and Generation (Part III, Chapter~\ref{sec:generation}: Spatial Reconstruction and Generation)} \\
+    This pillar examines the generative side of spatial intelligence. It encompasses tasks such as 3D reconstruction from observations, 2D/3D scene synthesis, controllable image and video generation, trajectory and motion prediction, and dynamic world creation. These generative processes are often guided by spatial prompts, semantic layouts, or agent intentions, forming a bridge between structured knowledge and creative capability.
+
+
+    \item \textbf{Applications (Part IV: Applications)} \\
+    Finally, the application pillar illustrates how the above methods power real-world systems. Domains include embodied agents and robotics (\eg, navigation, grasping), autonomous driving and aerial agents, warehouse and wearable AI systems, extended reality (XR), including virtual and augmented reality, geospatial AI (\eg, urban planning, satellite analysis), biomedical and scientific computing (\eg, 3D medical reconstruction), intelligent assistants, and further fields such as construction, sports, cultural heritage, marine systems, and retail. These chapters emphasize system-level integration and highlight how spatial AI capabilities translate into societal impact.
+\end{itemize}
+
+
+
+
+    % \item \textbf{Manipulation (Part III–IV: Learning to Act in Space)} \\
+    % While less often isolated as a standalone topic, spatial manipulation—learning to act within and modify space—is essential to embodied agents. This includes spatial action prediction, affordance learning, scene editing, and interactive control. Whether through robotic embodiment or virtual actuation, this pillar emphasizes the actionable understanding of space, enabling agents to not only perceive and plan, but also intervene \cite{}.
+
+
+
+
+
+
+
+
+
+\section{Goal of the Handbook: Charting a Research Ecosystem}
+\label{sec:p1-sec3-goal-of-the-handbook-charting-a-research-ecosystem}
+
+\FramedInitial{T}{he} primary goal of this handbook is not to present a catalog of isolated techniques, but to chart an emerging research ecosystem centered on spatial intelligence.
+As established in earlier chapters, spatial intelligence is neither a single method nor a narrowly scoped task.
+Rather, it is a unifying paradigm that connects representation, perception, reasoning, generation, and action through structured models of the world.
+
+\paragraph{From Isolated Methods to an Integrated Landscape.}
+Much of the existing literature on spatial intelligence is fragmented.
+Some surveys focus deeply on individual subfields, such as SLAM, neural rendering, or 3D generation, while others adopt a high-level perspective that lacks technical grounding.
+This handbook aims to bridge this gap by organizing spatial intelligence as an interconnected landscape, where advances in one component are explicitly related to others.
+Our objective is to reveal how seemingly distinct research threads jointly contribute to world-centered intelligence.
+
+\paragraph{Spatial Intelligence as a Connective Substrate.}
+A central thesis of this handbook is that spatial intelligence functions as a connective substrate for next-generation AI systems.
+It provides the structural glue that links perception with reasoning, language with geometry, and planning with embodied action.
+By framing spatial intelligence in this way, the handbook draws connections across computer vision, robotics, simulation, geospatial systems, cognitive science, and neuro-inspired AI.
+This perspective enables a shared conceptual vocabulary through which contributions from different communities can be meaningfully aligned.
+
+\paragraph{Identifying Gaps and Open Tensions.}
+Beyond synthesizing existing work, this handbook deliberately highlights unresolved gaps in the current research landscape.
+These include the disconnect between symbolic and neural spatial representations, the limited grounding of perception in actionable world models, and the difficulty of integrating spatial reasoning into long-horizon embodied agents.
+By making these tensions explicit, we aim to clarify where current paradigms fall short and where future breakthroughs are most likely to emerge.
+
+\paragraph{A Blueprint for an Open Research Program.}
+Ultimately, this handbook is intended as a blueprint for an open and evolving research program.
+Rather than proposing a closed taxonomy or a definitive solution, it offers a structured lens through which spatial intelligence can be studied, extended, and reimagined.
+We invite readers not only to learn from the systems and methods surveyed here, but also to rethink spatial intelligence as a first-class organizing principle in the design of generalist intelligent agents.
+
+
+
+% This handbook does not merely aim to summarize a set of techniques, \ie, it seeks to map an emerging ecosystem. 
+% Spatial intelligence is not a singular method nor a narrow problem formulation; it is a paradigm in the making, spanning multiple axes: from geometry to semantics, from perception to embodiment, and from individual tasks to collaborative agents.
+
+% We argue that existing surveys often fall short in one of two ways: either they are confined within a single domain (\eg, SLAM, NeRF, 3D generation), or they take an overly generic perspective that lacks technical depth and cross-domain synthesis. 
+% In contrast, our goal is to present spatial intelligence as an evolving research ecology—composed of interlocking parts, shaped by historical currents, and converging toward shared open problems.
+
+
+% This handbook positions spatial intelligence as the connective substrate of next-generation AI. It draws from diverse yet converging fields such as computer vision, robotics, simulation, GIS, neuroAI, and cognitive science. It proposes a shared vocabulary—both conceptual and technical—to allow researchers and practitioners to recognize how their contributions fit into a broader picture.
+
+% Crucially, we also aim to identify the missing links: where symbolic and neural representations remain disconnected; where perception has not yet been grounded in spatial structures; where embodied agents still operate with impoverished world models. By highlighting these fault lines, we hope to catalyze new research directions and collaborative bridges.
+
+% Ultimately, this survey aspires to serve as a blueprint—not for a closed taxonomy, but for an open and generative research program. We invite readers to not only learn from existing systems, but to rethink spatial reasoning as a first-class citizen in the architecture of intelligent agents.
+
+
+
+
+
+
+
+\section{How to Read This Handbook}
+\label{sec:p1-sec3-how-to-read-this-handbook}
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkgreen}{G}}{iven} 
+\FramedInitial{G}{iven} the interdisciplinary nature of spatial intelligence, which spans AI, computer vision, robotics, graphics, GIS, and cognitive science, it is crucial to provide tailored reading paths that help each type of reader gain the most value from this handbook.
+
+% part serves as a practical navigation guide for readers with diverse backgrounds and objectives.
+
+
+
+\vspace{1em}
+
+\noindent\textbf{$\blacktriangleright$ For Beginners and Students} \textit{(\eg, undergraduates, junior graduate students, newcomers to spatial AI)}
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item Begin with \textbf{Part I: Introduction and Background} (Chapters~1--3) to grasp the motivation, historical evolution, and research scope.
+    \item Then proceed to \textbf{Part II: Spatially Aware Representation} to build a solid understanding of core representations in 2D, 3D, and 4D, including geometry and topology.
+    \item Optionally skim \textbf{Part IV: Applications} to get a glimpse of real-world use cases, such as robotics, autonomous driving, and AR/XR.
+\end{itemize}
+
+\vspace{0.5em}
+
+\noindent\textbf{$\blacktriangleright$ For Researchers and Academics} \textit{(\eg, PhD students, postdocs, faculty, or interdisciplinary scholars in AI-related fields)}
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item Focus on \textbf{Part III: Spatial Intelligence, from Perception to Generation}, which includes chapters on:
+    \begin{itemize}[leftmargin=2em,itemsep=0.35em]
+        \item Spatial perception, from detection and segmentation to depth and odometry
+        \item Symbolic, geometric, neural, and LLM-driven spatial reasoning
+        \item Generative spatial models for scenes, videos, and worlds
+    \end{itemize}
+    \item Also study \textbf{Part IV: Applications} for cross-domain synergies, particularly in GeoAI, healthcare, urban simulation, and embodied cognition.
+    \item Consider \textbf{Part V: Discussions and Futures} for open problems, benchmarking gaps, and research directions.
+\end{itemize}
+
+\vspace{0.5em}
+
+\noindent\textbf{$\blacktriangleright$ For System Developers and Engineers} \textit{(\eg, practitioners building simulation environments, digital twin platforms, or perception pipelines)}
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item Prioritize chapters in \textbf{Part III (Generation)} and \textbf{Part IV (Applications)} that introduce:
+    \begin{itemize}[leftmargin=2em,itemsep=0.35em]
+        \item Modular spatial generation frameworks
+        \item Multi-agent simulation engines and control loops
+        \item Deployed system domains (\eg, robotic manipulation, warehouse automation, wearable AI, aerial agents)
+    \end{itemize}
+    \item Use \textbf{Part V: Discussions and Futures} to anticipate where deployment bottlenecks and benchmark gaps lie.
+\end{itemize}
+
+\vspace{0.5em}
+
+\noindent\textbf{$\blacktriangleright$ For Cross-disciplinary Explorers} \textit{(\eg, scholars in architecture, biology, geoscience, or cognitive science)}
+\begin{itemize}[leftmargin=2em,itemsep=0.35em]
+    \item Start with \textbf{Part I (Introduction and Background)} to acquire shared conceptual grounding.
+    \item Dive into \textbf{Part IV (Applications)} for domain-aligned chapters and illustrative case studies.
+    \item Refer to \textbf{Part II (Representation)} to gain a technical foothold in spatial structures and encodings.
+\end{itemize}
+
+\vspace{1em}
+
+\noindent Overall, this handbook is modular in structure and can be read either linearly or selectively depending on the reader's focus. The chapter cross-references are designed to aid flexible navigation and long-term use.
+
+
+

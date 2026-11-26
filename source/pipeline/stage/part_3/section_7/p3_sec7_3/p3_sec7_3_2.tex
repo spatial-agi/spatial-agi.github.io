@@ -1,0 +1,70 @@
+\subsection{VLA-based Spatial Reasoning}
+\label{subsec:p3_s7_3_2}
+    % - Vision-language-action model
+% [Arxiv202509] Pure Vision-Language-Action (VLA) Models A Comprehensive Survey
+% [Arxiv202505] Vision-Language-Action Models Concepts, Progress, Applications and Challenges
+
+Vision-language-action (VLA) models push spatial reasoning past description and into execution: the same latent competence that lets a model answer where an object sits must now drive an end effector toward it without violating depth, contact, or stability constraints. Spatial reasoning here is therefore inseparable from the agent's body and the physics of its workspace, and a plan that reads correctly on paper still fails if it ignores reachability or collision. The methods below are organized by their action-generation paradigm (autoregressive, diffusion-based, reinforcement-learning-driven, and hybrid).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/VLA_spatial_reasoning.pdf}
+    \caption{VLA-based spatial reasoning as a perception--action loop: (i) embodied inputs, (ii) a VLA policy that generates actions autoregressively, by diffusion (denoising $A_K$ to $A_0$), or with a hybrid, plus optional RL refinement, and (iii) an action representation executed by a controller, with environment feedback closing the loop. $\Delta p,\Delta R, g, q^{*}$ are end-effector translation and rotation increments, gripper command, and joint targets. The robot scenes illustrate the initial state and intended outcome, not experimental observations.}
+    \label{fig:p3_s7_3_2_vla_formulation}
+\end{figure}
+
+\subsubsection{Task Definition}
+
+A VLA model extends the reasoning core of §\ref{subsec:p3_s7_3_1} with an action head: given a visual observation $o_t$, a language instruction $\ell$, and the robot's proprioceptive state $s_t$, it emits an executable action chunk
+\begin{equation}
+  a_{t:t+H}\sim\pi_\theta(\cdot\mid o_t,\ \ell,\ s_t),
+\end{equation}
+where each action encodes end-effector increments, gripper commands, joint targets, or pose waypoints that a controller converts into motion~\cite{zhang2025pure,sapkota2025vision}.
+Spatial reasoning under this paradigm is \emph{embodied grounding}: language tokens must be anchored not only to visual features but to the three-dimensional geometry, affordances, and constraints of the workspace, so that the generated actions respect depth, stability, and contact rather than merely naming where objects are.
+
+
+
+% 模型在具身环境中，跨越视觉感知和自然语言指令，理解、定位并操纵物理实体的能力 。
+
+\subsubsection{Methodology}
+VLA methods for spatial reasoning fall into four classes by their action-generation and reasoning paradigm.
+
+% 自回归
+\paragraph{Autoregression-Based Methods.}
+Autoregressive methods cast spatial manipulation as next-token prediction over a unified token stream of discrete action tokens.
+Gato~\cite{reed2022generalist} showed that heterogeneous modalities can be jointly tokenized and trained in one autoregressive model; PointVLA~\cite{li2025pointvla} injects point-cloud representations into a pretrained VLA for lightweight 3D reasoning without redesigning the architecture; and TraceVLA~\cite{zheng2024tracevla} adds visual trace prompting, explicit spatiotemporal cues that improve long-horizon spatial awareness and task consistency during generation.
+
+% 扩散
+\paragraph{Diffusion-Based Methods.}
+Diffusion methods model action generation as conditional denoising, which suits trajectories that must respect physical constraints and uncertainty.
+SE(3)-DiffusionFields~\cite{urain2022se} runs the diffusion process in $\mathrm{SE}(3)$ pose space and jointly optimizes grasping and motion planning; 3D Diffuser Actor~\cite{ke20243d} conditions the denoiser on structured 3D scene representations so that manipulation trajectories stay geometrically consistent; and ForceVLA~\cite{yu2025forcevla} brings force and tactile feedback in through a mixture-of-experts design for contact-rich manipulation.
+
+% 强化学习
+\paragraph{Reinforcement Learning-Driven Methods.}
+Reinforcement learning refines VLA policies through interaction with the environment, particularly on long-horizon tasks (the broader treatment of RL with spatial inductive biases is §\ref{subsec:p3_s7_2_5}).
+VIP~\cite{ma2022vip} learns a goal-conditioned, action-independent value function that implicitly encodes spatial distance to assess task progress; NaVILA~\cite{cheng2024navila} couples VLA representations with RL policies so that quadruped robots navigate and avoid dynamic obstacles on difficult terrain; and SafeVLA~\cite{zhang2025safevla} adds safety critics that constrain high-risk behavior during manipulation.
+
+% 混合(自回归+扩散)
+
+\paragraph{Hybrid Architectures.}
+Hybrids combine generative mechanisms and add explicit spatial representations to strengthen 3D reasoning.
+3D-VLA~\cite{zhen20243d} joins autoregressive language modeling with diffusion-based action prediction inside a generative 3D world model; VoxPoser~\cite{huang2023voxposer} has an LLM compose 3D voxel value maps, separating goal interpretation from geometric planning; ReKep~\cite{huang2024rekep} models spatiotemporal dependencies as relational keypoint constraints for precise manipulation; and RoboPoint~\cite{yuan2024robopoint} predicts affordance maps that encode where actions are feasible, as a prior for downstream planning and control.
+
+
+\subsubsection{Benchmarks}
+Evaluation rests on two complementary resources: generalization-oriented benchmarks in simulation and large-scale real-world embodied datasets.
+VIMA-Bench~\cite{jiang2023vima} measures spatial generalization through a four-level protocol that runs from random object placement to fully novel task compositions; ALFRED~\cite{shridhar2020alfred} poses long-horizon household tasks that combine high-level goals with low-level instructions; and CALVIN~\cite{mees2022calvin} and LOTA-Bench~\cite{choi2024lota} test language-conditioned manipulation across environments, scoring generalization to unseen objects and configurations.
+Among datasets, Open X-Embodiment~\cite{o2024open} is the most comprehensive, integrating 22 robot datasets from 21 institutions and 527 skills to enable cross-platform generalization; BridgeData~\cite{ebert2021bridge} spans 71 tasks in 10 environments and shows that joint training on limited out-of-domain data raises success rates substantially; and RH20T~\cite{fang2024rh20t} adds vision, force, and audio across 147 tasks, suited to one-shot learning and experience-based policy transfer.
+Across these suites performance falls sharply along every generalization axis (L1 to L4 in VIMA-Bench, seen to unseen splits in ALFRED, single to multi-step chains in CALVIN), while data scale and embodiment diversity are the most reliable lever for cross-platform transfer and multimodal sensing (force, audio) becomes decisive where vision alone underdetermines the contact configuration.
+
+
+
+\subsubsection{Challenges and Trends}
+The generalization drop above reflects a \textbf{semantic--physical misalignment}: VLA systems inherit their competence from LLMs and VLMs that excel at semantic abstraction and cross-modal alignment but have had little exposure to physical interaction, so instructions are often interpreted correctly and executed incorrectly.
+The same gap appears as \textbf{pseudo-interaction}: actions are generated from statistical co-occurrence in the training data rather than from an understanding of environment dynamics or causality, so when the environment is unfamiliar or changes quickly the model cannot revise its strategy from sensory feedback.
+
+Two further limits are practical.
+\textbf{Long-horizon consistency} is unsolved for autoregressive and diffusion policies alike: over extended action sequences the spatial representation drifts or hallucinates, and existing embodied datasets, including Open X-Embodiment, are dominated by tabletop manipulation and grasping, so environmental diversity and large unstructured scenes are under-represented.
+\textbf{Inference latency} compounds across autoregressive decoding of large Transformers, and for high-frequency tasks such as dynamic grasping or mobile navigation the compute and memory demands remain prohibitive on embedded platforms.
+
+The directions that follow are a unified token stream over vision, language, and action that lets VLA systems grow into proto world models (the world-model view is developed in §\ref{subsec:p3_s7_3_8}); active perception and causal reasoning, in which the agent probes its environment and updates its policy from feedback, as the answer to pseudo-interaction; and virtual-real data synthesis (high-fidelity simulation, synthetic generation, multi-robot data sharing) as the route to embodied data at the scale that text corpora provided for language models.

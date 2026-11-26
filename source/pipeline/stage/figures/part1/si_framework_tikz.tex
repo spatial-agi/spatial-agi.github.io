@@ -1,0 +1,69 @@
+% Framework diagram: environment <-> AI system with internal spatial-representation hub
+% Redesigned 2026-08-10: (i) fixed overlapping operator boxes; (ii) R_S now sits INSIDE
+% the AI system as its central hub, with per-operator arrows; (iii) notation matches the
+% Formal Characterization (f^S operators, Phi_S, pi_S, Psi_S, task t in T).
+\begin{tikzpicture}[
+    bigbox/.style={draw, rounded corners=5pt, align=center, inner sep=8pt, line width=0.6pt},
+    opbox/.style={draw, rounded corners=3pt, align=center, text width=2.8cm, inner sep=5pt, font=\footnotesize, fill=white, line width=0.5pt},
+    dimchip/.style={draw, rounded corners=3pt, align=center, text width=2.6cm, inner sep=4pt, font=\footnotesize, fill=white, line width=0.5pt},
+    lbl/.style={font=\small\bfseries, align=center},
+    sub/.style={font=\footnotesize\itshape, color=black!60, align=center},
+    arr/.style={-{Stealth[length=2.6mm]}, line width=1pt, black!70},
+    arrd/.style={-{Stealth[length=2.2mm]}, line width=0.7pt, black!60, dashed},
+]
+% ---------- left: environment ----------
+\node[bigbox, fill=DefGreen, draw=forestgreen!80, text width=3.4cm, minimum height=6.8cm] (env) at (0,0) {};
+\node[lbl, anchor=north] at ($(env.north)+(0,-0.18)$) {Physical World /\\[-1pt] Environment $\mathcal{E}$};
+\node[sub, anchor=north, text width=3.1cm] at ($(env.north)+(0,-1.0)$) {geometric, physical,\\ causal constraints};
+\node[dimchip, anchor=north] (sc1) at ($(env.north)+(0,-2.0)$) {objects \& scenes};
+\node[dimchip, below=0.32 of sc1] (sc2) {rooms \& buildings};
+\node[dimchip, below=0.32 of sc2] (sc3) {cities \& terrain};
+\node[sub, below=0.16 of sc3] {nested spatial scales};
+\node[sub, anchor=south] at ($(env.south)+(0,0.3)$) {tasks $t\in\mathcal{T}$ defined over $\mathcal{E}$};
+
+% ---------- right: AI system ----------
+\node[bigbox, fill=ai_blue!16, draw=ai_blue!80!black, minimum width=11.4cm, minimum height=6.8cm] (sys) at (10.0,0) {};
+\node[lbl, anchor=north] at ($(sys.north)+(0,-0.18)$) {AI System $\mathcal{S}$};
+
+% central representation hub (maintained INSIDE the system)
+\node[bigbox, fill=customyellow!55, draw=orange!75!black, text width=3.3cm, inner sep=5pt] (hub) at (10.0,-0.08) {
+    {\small\bfseries Spatial\\[-1pt] Representation $\mathcal{R}_{\mathcal{S}}$}\\[1pt]
+    {\scriptsize\itshape\color{black!60} $\Phi_{\mathcal{S}}:\mathcal{E}\rightarrow\mathcal{R}_{\mathcal{S}}$}\\[3pt]
+    {\scriptsize \textbf{granularity:} object / scene / relation}\\[2pt]
+    {\scriptsize \textbf{modality:} pixels, points, language, \dots}\\[2pt]
+    {\scriptsize \textbf{abstraction:} metric / topological / symbolic}\\[2pt]
+    {\scriptsize \textbf{concrete vs.\ abstract:} observed / internal model}
+};
+
+% four functional operators around the hub
+\node[opbox, draw=ai_blue!80!black] (perc) at (6.05,1.35) {Perception\\ $f^{\mathcal{S}}_{\text{perc}}:\mathcal{O}\rightarrow\mathcal{R}_{\mathcal{S}}$};
+\node[opbox, draw=ai_blue!80!black] (act)  at (6.05,-1.35) {Embodied Action\\ $f^{\mathcal{S}}_{\text{act}}:\mathcal{R}_{\mathcal{S}}\rightarrow\mathcal{A}$};
+\node[opbox, draw=ai_blue!80!black] (reas) at (13.95,1.35) {Reasoning\\ $f^{\mathcal{S}}_{\text{reason}}:\mathcal{R}_{\mathcal{S}}\rightarrow\mathcal{R}_{\mathcal{S}}$};
+\node[opbox, draw=ai_blue!80!black] (pred) at (13.95,-1.35) {Prediction\\ $f^{\mathcal{S}}_{\text{pred}}:\mathcal{R}_{\mathcal{S}}\times\mathcal{A}\rightarrow\mathcal{R}_{\mathcal{S}}$};
+\node[sub, font=\scriptsize\itshape, anchor=north] at ($(reas.south)+(0,-0.06)$) {elaborates the current state};
+\node[sub, font=\scriptsize\itshape, anchor=north] at ($(pred.south)+(0,-0.06)$) {advances the state in time};
+
+% task-conditioned action selection
+\node[dimchip, text width=1.9cm] (task) at (6.05,0) {task $t\in\mathcal{T}$};
+\draw[arrd] (task.south) -- node[right, font=\scriptsize, color=black!60]{$\pi_{\mathcal{S}}$} (act.north);
+
+% representation update rule
+\node[sub, anchor=south] at ($(sys.south)+(0,0.12)$) {state update\; $\mathcal{R}^{\mathcal{S}}_{t+1}=\Psi_{\mathcal{S}}(\mathcal{R}^{\mathcal{S}}_t,\,a^{\mathcal{S}}_t,\,o_{t+1})$};
+
+% ---------- arrows ----------
+% perception--action loop, closed through the environment
+\draw[arr] ($(env.east)+(0,1.35)$) -- node[above, font=\footnotesize, align=center, pos=0.4]{observations\\ $o_{t}\in\mathcal{O}$} (perc.west);
+\draw[arr] (act.west) -- node[below, font=\footnotesize, align=center, pos=0.6]{actions\\ $a^{\mathcal{S}}_{t}\in\mathcal{A}$} ($(env.east)+(0,-1.35)$);
+% operators read from / write to the representation hub
+\draw[arr] (perc.east) -- (perc.east -| hub.west);
+\draw[arr] (act.east -| hub.west) -- (act.east);
+\coordinate (reasA) at ($(reas.west)+(0,0.2)$);
+\coordinate (reasB) at ($(reas.west)+(0,-0.2)$);
+\draw[arr] (reasA -| hub.east) -- (reasA);
+\draw[arr] (reasB) -- (reasB -| hub.east);
+\coordinate (predA) at ($(pred.west)+(0,0.2)$);
+\coordinate (predB) at ($(pred.west)+(0,-0.2)$);
+\draw[arr] (predA -| hub.east) -- (predA);
+\draw[arr] (predB) -- (predB -| hub.east);
+\node[sub, anchor=north] at (6.85,-3.65) {continuous perception--action loop, closed through the environment};
+\end{tikzpicture}

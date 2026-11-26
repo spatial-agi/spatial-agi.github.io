@@ -1,0 +1,89 @@
+{
+  "figure": "7.26",
+  "source": "assets/figures/figures/part3/section7/retrieval_memory_augmented_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1308
+  ],
+  "assets": [
+    {
+      "file": "i-inputs/kitchen-past.png",
+      "title": "Kitchen: five minutes ago",
+      "source_box": [
+        36,
+        249,
+        276,
+        490
+      ],
+      "kind": "scene",
+      "size": [
+        240,
+        241
+      ]
+    },
+    {
+      "file": "i-inputs/hallway-now.png",
+      "title": "Hallway: current observation",
+      "source_box": [
+        314,
+        249,
+        554,
+        490
+      ],
+      "kind": "scene",
+      "size": [
+        240,
+        241
+      ]
+    },
+    {
+      "file": "iii-evidence/kitchen-evidence.png",
+      "title": "Retrieved kitchen evidence",
+      "source_box": [
+        1400,
+        753,
+        1604,
+        957
+      ],
+      "kind": "scene",
+      "size": [
+        204,
+        204
+      ]
+    },
+    {
+      "file": "i-inputs/kitchen-keys.png",
+      "title": "Kitchen keys and blue fob",
+      "source_box": [
+        79,
+        376,
+        237,
+        450
+      ],
+      "kind": "keys-kitchen",
+      "size": [
+        158,
+        74
+      ]
+    },
+    {
+      "file": "i-inputs/hallway-keys.png",
+      "title": "Hallway keys and blue fob",
+      "source_box": [
+        423,
+        383,
+        522,
+        435
+      ],
+      "kind": "keys-hallway",
+      "size": [
+        99,
+        52
+      ]
+    }
+  ],
+  "frontend": [
+    "Photographs are separate assets; keys and fobs are additionally available as transparent cutouts.",
+    "Vector stores, spatial graphs, RAG branches, memory layers, timelines and every label/arrow/formula will be frontend elements."
+  ]
+}

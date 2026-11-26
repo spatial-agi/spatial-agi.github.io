@@ -1,0 +1,32 @@
+% ================================
+% \section*{\centering \bf Part V: Future and Challenges}
+% \addcontentsline{toc}{section}{Part V: Future and Challenges}
+% ================================
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/part5_opener_v2.pdf}
+    
+    \caption{Part V in one view. (1) What it requires: a household robot must keep one consistent account of its kitchen while it turns away, people move things, and a stack of cans may topple. (2) Where the gaps are: the loop from perception to action still breaks, benchmark success diverges from deployment, and consistency erodes over long horizons. (3) What comes next: open problems that set the directions for future work.}
+    \label{fig:p5_main}
+\end{figure}
+
+Parts~II to~IV described how spatial representations are constructed, how they support perception, reasoning, and generation, and how they are deployed in applications ranging from household robots and surgical systems to city-scale digital twins.
+However, current systems often perceive or act well at a single moment, while most of the open problems arise when a system must maintain a consistent picture of the world as it moves, revisits places, and acts over extended periods.
+
+A household robot that puts away groceries must remember the location of a cupboard after turning away from it, register a chair that has been pushed into its path, track which bags it has already emptied, and judge whether a stack of cans will remain stable if another can is added.
+Methods described earlier in this handbook handle each of these steps reasonably well in isolation.
+The difficulty lies in maintaining a single account of the kitchen that all steps read from and write to, and in keeping that account correct while the robot and the people around it change the scene.
+In the formalism of Chapter~\ref{chapter:definition}, this account is the world state $\mathcal{R}^{\mathcal{S}}_t$, and keeping it correct is the role of the update $\Psi_{\mathcal{S}}$.
+It is also the problem that Section~\ref{sec:historical-evolution} identifies as open for the current era, long-horizon consistency under motion and partial observability.
+
+Chapter~\ref{chapter:p5_discussions} asks what makes such a world state usable: what can be inferred from limited observations, what must be represented, how beliefs are kept current, when predictions can be trusted, and how spatial knowledge is acquired through interaction in shared space.
+We present the evidence on each question and state which answers remain open.
+Chapter~\ref{chapter:p5_challenges} turns to gaps in current methods and benchmarks, the difficulties of deployment, and directions for future work. 
+Chapter~\ref{chapter:p5_conclusion} concludes by revisiting the definition of spatial intelligence introduced in Chapter~\ref{chapter:definition}.
+
+\newpage
+
+\input{part_5/section_15/main}
+\input{part_5/section_16/main}
+\input{part_5/section_17/main}

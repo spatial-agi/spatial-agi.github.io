@@ -1,0 +1,27 @@
+[
+  {
+    "title": "I · Symbolic and cognitive",
+    "body": "Space is represented as discrete symbols and relations. The graph connects shelf, door, table and cup; predicates encode relations that can be queried explicitly.",
+    "detail": "The three graph arrows and both original predicates are retained."
+  },
+  {
+    "title": "II · Geometric and probabilistic",
+    "body": "Space becomes metric geometry under uncertainty. The occupancy map, uncertain landmarks and trajectory illustrate the joint estimation of pose and map.",
+    "detail": "The moving point follows the original map trajectory."
+  },
+  {
+    "title": "III · Learning-based",
+    "body": "A visual observation is encoded into learned, task-specific features. Separate task outputs illustrate depth prediction and detection.",
+    "detail": "The original input, feature bars and two output branches remain distinct."
+  },
+  {
+    "title": "IV · Foundation models",
+    "body": "Image, language and 3D inputs feed a shared pretrained model. Transfer connects that model to depth, caption and 3D outputs.",
+    "detail": "All three input and all three output connections are preserved."
+  },
+  {
+    "title": "V · World-centered",
+    "body": "An executable, persistent world state supports planning and action. As the world changes, observation updates that state, closing the interaction loop.",
+    "detail": "The animation follows observe → update → world state → plan → act → observe on the existing arrows."
+  }
+]

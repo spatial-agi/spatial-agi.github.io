@@ -1,0 +1,130 @@
+\chapter{Spatial Intelligence for Others}
+\label{sec:p4_s14}
+
+\FramedInitial{O}{ther} application domains of spatial intelligence are too numerous to enumerate, because spatial intelligence is a horizontal capability: any field that must perceive, reconstruct, localize within, or reason about the geometry of the physical world inherits the methods of Part~III. 
+
+This chapter takes five further domains where that inheritance is already visible in deployed systems. Each stresses a capability the earlier chapters do not: registering a building site against its design, tracking many near-identical agents through occlusion, reconstructing fragile objects faithfully, working without clean light or satellite positioning underwater, and binding people to products across a network of cameras.
+
+\section{Architecture, Engineering, and Construction}
+\label{sec:part-4-section-14-architecture-engineering-and-construction}
+
+The architecture, engineering, and construction (AEC) sector is built around a single spatial-intelligence problem: continuously registering the messy as-built reality of a site against the structured as-designed model that specifies what it should become. 
+This is the same Building-Information-Modeling (BIM) substrate that anchors the city-scale digital twins of Section~\ref{sec:p4_s11_1}, but here the model is the working blueprint of an individual building under construction rather than a synchronized replica of a finished one, and the central task is detecting and acting on the discrepancy between plan and reality.
+Figure~\ref{fig:p4_s14_aec} sketches this as-built versus as-designed loop. \textbf{Scan-to-BIM} is its perception front end: dense laser or photogrammetric scans of a structure are semantically parsed into walls, floors, columns, and components, building on the indoor point-cloud understanding of Chapter~\ref{chapter:3:sec:6} and its benchmarks S3DIS \cite{armeni2016s3dis} and ScanNet \cite{dai2017scannet}. 
+A specialized sub-problem is vectorizing a scan into an editable floorplan, where synthetic supervision such as Structured3D \cite{zheng2020structured3d} and transformer models that predict all room polygons in parallel \cite{yue2023roomformer} now recover clean geometry from cluttered scans. 
+\textbf{Progress monitoring} closes the loop in time: by registering an image-based or scanned as-built point cloud against a four-dimensional IFC-BIM model, deviations between planned and actual construction state can be recognized automatically \cite{golparvarfard2015automated}, the spatiotemporal core of the commercial reality-capture platforms now common on job sites. 
+\textbf{Construction robotics} acts on the model directly, with mobile fabricators that localize against the design to print, place, or assemble structural elements at full scale \cite{giftthaler2017mobile}. 
+Finally, \textbf{structural inspection} turns the same perception stack toward maintenance, localizing cracks and defects on concrete surfaces from imagery \cite{cha2017deep}, increasingly from a UAV-borne 3D reconstruction of a bridge or facade. Reality-capture and BIM tooling from Matterport,\footnote{\url{https://matterport.com/}} Autodesk,\footnote{\url{https://www.autodesk.com/products/recap/overview}} and Leica,\footnote{\url{https://leica-geosystems.com/products/laser-scanners}} progress-monitoring services such as OpenSpace\footnote{\url{https://www.openspace.ai/}} and Buildots,\footnote{\url{https://buildots.com/}} and on-site robots from Dusty Robotics\footnote{\url{https://www.dustyrobotics.com/}} and Built Robotics\footnote{\url{https://www.builtrobotics.com/}} are representative of the deployed layer.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section14/other_aec.pdf}
+    \caption{AEC tasks around an as-designed BIM: (1) semantic parsing of site scans; (2) comparison with the scheduled design state, highlighting a planned element not observed in the scan; (3) model-guided robotic placement; and (4) crack localization linked to a model element. Physical work prompts re-capture of the site. Scenes and point clouds are illustrative.}
+    \label{fig:p4_s14_aec}
+\end{figure}
+
+\section{Sports Analytics and Performance}
+\label{sec:part-4-section-14-sports-analytics-and-performance}
+
+Sports analytics lifts raw broadcast or arena video into a calibrated metric model of the playing surface, then reasons over the resulting positional field. What sets it apart is fine-grained, multi-agent spatiotemporal tracking under severe and persistent occlusion, where many near-identical players and a small fast ball must be followed and assigned consistent identities at sub-second resolution.
+Figure~\ref{fig:p4_s14_sports} illustrates three linked capabilities: registered trajectories feed tactical analysis, while calibrated multi-view pose supports biomechanics. \textbf{Tracking and registration} form the geometric foundation: multi-object tracking benchmarks such as SoccerNet-Tracking \cite{cioppa2022soccernet} and the multi-sport SportsMOT \cite{cui2023sportsmot} drive player and ball association, while sports-field registration estimates the homography from the broadcast frame to a metric pitch template so that pixel positions become field coordinates \cite{jiang2020optimizing}. 
+\textbf{3D pose and biomechanics} recover athlete motion in three dimensions, with markerless capture systems estimating not only kinematics but joint dynamics from ordinary video, as in OpenCap \cite{uhlrich2023opencap}, typically by triangulating multi-view 2D pose into a 3D skeleton \cite{iskakov2019learnable}. 
+\textbf{Tactical and team-space analysis} then treats the positional field itself as the object of study, valuing the space each player controls and forecasting where players will move; deep models of expected possession value \cite{fernandez2019decomposing} and multi-agent trajectory generation \cite{yeh2019diverse} build directly on the spatial-reasoning methods of Chapter~\ref{sec:reasoning}. 
+The deployed layer is mature, spanning optical tracking and officiating from Hawk-Eye,\footnote{\url{https://www.hawkeyeinnovations.com/}} player-tracking data from Second Spectrum (now part of Genius Sports)\footnote{\url{https://www.geniussports.com/}} and Stats Perform,\footnote{\url{https://www.statsperform.com/}} and wearable spatial sensing from KINEXON\footnote{\url{https://kinexon-sports.com/}} and Catapult.\footnote{\url{https://www.catapult.com/}}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section14/other_sports.pdf}
+    \caption{Sports analytics: (1) player/ball tracking and planar registration; (2) calibrated multi-view pose, kinematics, and model-estimated loads; and (3) tactical analysis from registered trajectories. The tactical view enlarges the dashed pitch region, preserving player IDs. Shading illustrates team control, dotted lines candidate passes, and dashed arrows predicted motion. Scenes and predictions are schematic.}
+    \label{fig:p4_s14_sports}
+\end{figure}
+
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section14/other_cultural_heritage.pdf}
+    \caption{Three cultural-heritage tasks: (1) multi-view capture and surface reconstruction; (2) geometric and appearance-based matching of fragments for virtual reassembly; and (3) classification of airborne-LiDAR ground returns to reveal candidate structures in bare-earth relief. The tasks are independent; scenes, mesh, and terrain are illustrative.}
+    \label{fig:p4_s14_heritage}
+\end{figure}
+
+
+\section{Cultural Heritage and Archaeology}
+\label{sec:part-4-section-14-cultural-heritage-and-archaeology}
+
+Cultural heritage and archaeology apply spatial intelligence to the past, running from capture through recovery to discovery. What distinguishes it is high-fidelity, metrically accurate, and usually non-contact reconstruction, coupled to a preservation imperative: the artifact may be fragile, fragmentary, or buried, and the digital record must be faithful enough to stand in for an object that cannot be handled or that no longer exists intact.
+Figure~\ref{fig:p4_s14_heritage} organizes the field into three movements. 
+\textbf{Digitization} captures artifacts and monuments in three dimensions, a lineage that runs from the landmark in-field laser scanning of the Digital Michelangelo Project \cite{levoy2000digital} through structure-from-motion photogrammetry \cite{schonberger2016structure} to the neural radiance fields \cite{mildenhall2021nerf} and 3D Gaussian splatting \cite{kerbl20233d} now used for photorealistic heritage capture, all drawing on the reconstruction methods of Chapter~\ref{sec:generation}. 
+\textbf{Virtual restoration} uses geometric AI to reassemble what time has broken, posing fragment reassembly as a 3D puzzle over fractured parts, with large benchmarks such as Breaking Bad \cite{sellan2022breaking} and the real fresco-reassembly dataset RePAIR \cite{tsesmelis2024repair} driving the methods. 
+\textbf{Archaeological prospection} discovers sites at landscape scale, most strikingly through airborne LiDAR whose bare-earth models reveal structures hidden under forest canopy, as in the canopy-penetrating surveys of the Maya lowlands at Caracol \cite{chase2011airborne} and across northern Guatemala \cite{canuto2018ancient}. Organizations such as CyArk\footnote{\url{https://www.cyark.org/}} and the Factum Foundation,\footnote{\url{https://www.factumfoundation.org/}} together with photogrammetry tools including Agisoft Metashape\footnote{\url{https://www.agisoft.com/}} and the Open Heritage 3D archive,\footnote{\url{https://openheritage3d.org/}} anchor the practical layer.
+
+
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section14/other_marine.pdf}
+    \caption{Underwater spatial intelligence under light attenuation/scattering and unavailable submerged GPS fixes. Enhanced visual observations combine with acoustic, inertial, and depth inputs for localization and mapping. Terrain and structure maps support coverage and standoff planning for hull/pipeline inspection; new views close the loop. Blue marks the survey track and selected defect. Scenes and enhancement are illustrative.}
+    \label{fig:p4_s14_marine}
+\end{figure}
+
+\section{Marine and Underwater Systems}
+\label{sec:part-4-section-14-marine-and-underwater-systems}
+
+Underwater spatial intelligence confronts a setting in which the two assumptions that anchor terrestrial methods both fail at once: light no longer propagates cleanly, since wavelength-dependent attenuation and scattering degrade vision with range, and satellite positioning does not penetrate water, so absolute position must be inferred from acoustics, inertia, or the structure being surveyed.
+Figure~\ref{fig:p4_s14_marine} depicts the resulting perceive-localize-map-inspect loop. 
+\textbf{Navigation and SLAM} solve the GPS-denied localization problem, surveyed comprehensively for autonomous underwater vehicles by Paull \etal \cite{paull2014auv}, with foundational deep-sea visual SLAM demonstrated on the wreck of the Titanic \cite{eustice2005visually} and modern visual-inertial-pressure localization benchmarked by datasets such as AQUALOC \cite{ferrera2019aqualoc}. 
+\textbf{Perception and enhancement} contend with the optical medium itself: physically grounded models remove the water from an image to recover true scene color and range \cite{akkaynak2019sea}, learned enhancement restores contrast in real time for downstream perception \cite{islam2020fast}, and benchmarks such as UIEB standardize the evaluation \cite{li2020underwater}, while large annotated image databases like FathomNet \cite{katija2022fathomnet} enable ocean-scale detection. 
+\textbf{Mapping and inspection} reconstruct the seafloor, habitats, and submerged structures, with structure-relative perception and coverage planning enabling autonomous inspection of complex ship hulls \cite{hover2012advanced}. The operational layer spans low-cost platforms such as the BlueROV2,\footnote{\url{https://bluerobotics.com/store/rov/bluerov2/}} survey vehicles from Kongsberg\footnote{\url{https://www.kongsberg.com/discovery/autonomous-and-uncrewed-solutions/auv/hugin/}} and research institutions including WHOI\footnote{\url{https://www.whoi.edu/}} and MBARI.\footnote{\url{https://www.mbari.org/}}
+
+
+
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section14/other_retail.pdf}
+    \caption{Retail and smart-space intelligence across calibrated ceiling cameras: (1) shopper--product association updates a virtual basket; (2) detected shelf contents are compared with a planogram; (3) ground-plane tracks yield shopper-flow and visit-density maps. Dotted lines link scene details; the geometry and density are illustrative.}
+    \label{fig:p4_s14_retail}
+\end{figure}
+
+\section{Retail and Smart Spaces}
+\label{sec:part-4-section-14-retail-and-smart-spaces}
+
+Retail and smart-space intelligence reduces to one persistent spatial problem: jointly associating, across a network of calibrated overlapping cameras and over time, which person is interacting with which product at which shelf location. 
+Unlike the warehouse logistics of Section~\ref{sec:p4_s9_5}, where the environment is engineered for the robot, here the space is a crowded store full of untracked people, and its distinguishing challenge is dense multi-object tracking with reliable human-object association through frequent mutual occlusion.
+Figure~\ref{fig:p4_s14_retail} shows how the major applications share this core. 
+\textbf{Multi-camera tracking} provides the spatial backbone, with benchmarks such as WILDTRACK \cite{chavdarova2018wildtrack} and MMPTRACK \cite{han2023mmptrack} and methods that project per-camera features onto a shared ground plane to detect and track people across views \cite{hou2020multiview}; this is the machinery behind cashierless checkout, where a shopper's path and pickups must be reconstructed without a checkout line. 
+\textbf{Shelf monitoring} turns perception toward the products, detecting densely packed items for inventory and planogram compliance, supported by the dense-detection benchmark SKU-110K \cite{goldman2019precise} and by methods that formulate compliance as matching the observed shelf layout against the ideal one as a sub-graph isomorphism \cite{tonioni2017product}. 
+\textbf{In-store analytics} aggregates the same tracks into shopper-flow heatmaps and layout insights, building on cross-camera re-identification \cite{zheng2015scalable} to stitch one customer's trajectory across non-overlapping views.
+The deployed layer includes cashierless systems such as Amazon's Just Walk Out\footnote{\url{https://www.justwalkout.com/}} and platforms from Trigo,\footnote{\url{https://www.trigoretail.com/}} AiFi,\footnote{\url{https://www.aifi.com/}} and Zippin,\footnote{\url{https://www.getzippin.com/}} alongside shelf-analytics vendors such as Trax.\footnote{\url{https://traxretail.com/}}
+
+
+\begin{table}[t]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative benchmarks for the five domains of this chapter.}
+\label{tab:p4_s14_benchmarks}
+\begin{tabular}{L{0.16\textwidth} L{0.30\textwidth} L{0.28\textwidth} L{0.20\textwidth}}
+\toprule
+\textbf{Domain} & \textbf{Benchmark / dataset} & \textbf{Representative method} & \textbf{Headline metric} \\
+\midrule
+AEC & S3DIS \cite{armeni2016s3dis} & point-cloud semantic segmentation & mIoU \\
+AEC & Structured3D \cite{zheng2020structured3d} & RoomFormer \cite{yue2023roomformer} & room / corner / angle F1 \\
+Sports & SoccerNet-Tracking \cite{cioppa2022soccernet} / SportsMOT \cite{cui2023sportsmot} & multi-object trackers & HOTA \\
+Sports & broadcast field registration & learned-error optimization \cite{jiang2020optimizing} & IoU (whole / part) \\
+Heritage & Breaking Bad \cite{sellan2022breaking} / RePAIR \cite{tsesmelis2024repair} & learned fragment reassembly & rotation / translation error \\
+Marine & UIEB \cite{li2020underwater} & Water-Net \cite{li2020underwater} & PSNR / SSIM \\
+Marine & AQUALOC \cite{ferrera2019aqualoc} & visual-inertial-pressure SLAM & trajectory error \\
+Retail & WILDTRACK \cite{chavdarova2018wildtrack} & MVDet \cite{hou2020multiview} & MODA \\
+Retail & SKU-110K \cite{goldman2019precise} & dense detector with EM-merger \cite{goldman2019precise} & AP \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\section{Outlook}
+\label{sec:part-4-section-14-outlook}
+
+The five domains above, whose benchmarks are collected in Table~\ref{tab:p4_s14_benchmarks}, are a sample, not a census. 
+Spatial intelligence is equally at work in fields this survey does not treat at length: virtual try-on and 3D e-commerce, immersive education and high-fidelity training simulators, security and surveillance, energy and infrastructure inspection, precision agriculture beyond the remote-sensing view of Section~\ref{sec:p4_s11_2}, and many others.
+What unites them, and what unites them with the headline applications of the preceding chapters, is that each takes the perception, reasoning, and generation capabilities of Part~III and specializes them to the geometry, sensing modality, and constraints of a particular slice of the physical world.

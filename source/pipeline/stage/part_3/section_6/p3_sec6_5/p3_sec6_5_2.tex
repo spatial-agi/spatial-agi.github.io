@@ -1,0 +1,139 @@
+
+\subsection{Vision-Language Grounding}
+\label{sec:vl_grounding}
+% \wsq{``把手放在右边的杯子上'' -> 找到右边的杯子; 与 RefCOCO / Refer-Youtube-VOS 等任务相关}
+
+Vision-language grounding ties a linguistic reference to the element of a scene it denotes. Given \textit{``Put your hand on the small mug on the right side of the table behind the blue book''}, a grounded system must resolve the noun phrase, its attributes, and its spatial relations to one particular mug in the image; this referential link is what instruction following, multimodal dialogue, and human-robot interaction build on.
+
+\subsubsection{Task Definition}
+The input is a scene $S$ (an image, a video, or a 3D environment) and a query $Q$, from a bare noun phrase (``the red cup'') to a sentence with attributes, relations, actions, or an implicit goal (``the person who is waving'', ``something to open the box with''). The output $\mathcal{R}(Q,S)$ is the referred region in the form the variant requires: a box, a mask, a set of regions (possibly empty), a per-frame mask track, or a 3D box. Two formulations recur through the methods below: ranking a set of candidate regions $r$ by a cross-modal score, or regressing the region directly,
+\begin{equation}
+    \hat{r} = \arg\max_{r \in \mathcal{C}(S)} s\big(\phi(Q), \psi(S, r)\big)
+    \qquad \text{or} \qquad
+    \hat{r} = f_\theta(S, Q),
+\label{eq:p3_s6_5_2_grounding}
+\end{equation}
+with $\phi$ and $\psi$ the text and region encoders and $\mathcal{C}(S)$ a proposal set.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section6/visual_language_graounding_task.pdf}
+    \caption{Vision-language grounding task variants: (i) REC / RES~\cite{yu2016modeling,mao2016generation}; (ii) generalized REC / RES with zero, one, or multiple targets~\cite{liu2023gres}; (iii) reasoning grounding~\cite{lai2024lisa}; (iv) video referring and reasoning grounding~\cite{luo2026drV}; (v) 3D and embodied grounding~\cite{chen20263d}.}
+    \label{fig:p3_s6_5_2_method_overview_task}
+\end{figure}
+
+Figure~\ref{fig:p3_s6_5_2_method_overview_task} lays out the five variants, which differ in scene modality, output granularity, and query complexity.
+
+\textbf{Referring expression comprehension and segmentation (REC / RES).} One image, one expression, one target, returned as a box (REC) or a mask (RES). RefCOCO and RefCOCO+~\cite{yu2016modeling} (short phrases, the latter without location words) and RefCOCOg~\cite{mao2016generation} (longer descriptions), all using MS~COCO~\cite{lin2014microsoft} images, with expressions collected through ReferItGame~\cite{kazemzadeh2014referitgame} or Mechanical Turk, have been the standard benchmarks for a decade; Flickr30k Entities~\cite{plummer2015flickr30k,young2014image} grounds every entity mention of a caption at once.
+
+\textbf{Generalized REC / RES (GREC / GRES).} An expression may match zero, one, or several objects (``the red carrots'' versus ``the unicorn''), which single-target methods cannot represent. gRefCOCO~\cite{liu2023gres}, Ref-ZOM~\cite{hu2023beyond}, PhraseCut~\cite{wu2020phrasecut}, and OmniLabel~\cite{schulter2023omnilabel} evaluate this setting, and MaskGroups-HQ~\cite{cao2025refer} generalizes the prompt itself to arbitrary groups of masks specified by text and reference masks. The output is a set, so the metric must be as well (see Datasets and Metrics below).
+
+\textbf{Reasoning grounding.} Some queries require inference beyond noun matching: ``the loser'' needs a judgment about the people shown, ``turn on the TV'' needs the remote. CLEVR-Ref+~\cite{liu2019clevr} diagnoses this on rendered scenes with ground-truth reasoning programs; ReasonSeg~\cite{lai2024lisa} poses implicit, multi-step queries on real images with mask output, extended by MMR~\cite{jang2025mmr} (194K implicit queries, multi-target and part-level), ReasonSeg-Inst~\cite{yang2023lisa++} (instance level), and MC-Bench~\cite{xu2024mcbench} (instances across image pairs). Ref-Adv~\cite{dong2026ref} keeps the classic REC format but makes expressions minimally sufficient, negation-heavy, and paired with same-category distractors.
+
+\textbf{Video referring and reasoning grounding.} The referent must be found in every frame through motion, appearance change, and occlusion, and the query may name it by what it does (``the man waving his hand''). Refer-Youtube-VOS~\cite{seo2020urvos}, Refer-DAVIS17~\cite{khoreva2018video}, A2D- and JHMDB-Sentences~\cite{gavrilyuk2018actor}, MeViS~\cite{ding2023mevis}, ReVOS~\cite{yan2024visa}, and ReasonVOS~\cite{bai2024one} add language to existing segmentation and actor-action datasets; Ref-VPS~\cite{bagchi2025refereverything} extends the referent from objects to processes such as smoke spreading or waves breaking, which have no object boundary at all. Tracking machinery is usually folded in to carry identity across frames~\cite{fang2025decoupled}.
+
+\textbf{3D and embodied grounding.} The scene is a point cloud or a set of views, and the query refers to an object in 3D (``the chair next to the window''). ScanRefer~\cite{chen2020scanrefer} requires detecting the referent as a 3D box and Multi3DRefer~\cite{zhang2023multi3drefer} allows zero to many targets; ReferIt3D~\cite{achlioptas2020referit3d} provides the object instances and scores selection among them; Instruct3D~\cite{he2024segpoint} and Multi3DRes~\cite{wu20243d} ask for point-level masks from instruction-style queries. Embodied grounding makes the output an action: an agent told ``go pick up the red cup on the right'' must identify the cup and reach it~\cite{zhen20243d}.
+
+\subsubsection{Methodology}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section6/visual_language_graounding_method.pdf}
+    \caption{Vision-language grounding method families: (i) proposal ranking, (ii) compositional reasoning, (iii) end-to-end grounding, (iv) grounded pre-training, (v) foundation models, and (vi) tool-augmented agents. Panels (i)-(iv) correspond to families (A)-(D) in the text, (v) to (E)-(F), and (vi) to (G); family (H), generation for grounding, is not depicted.}
+    \label{fig:p3_s6_5_2_method_overview_method}
+\end{figure}
+
+The methods below fall into eight families, (A) to (H); Figure~\ref{fig:p3_s6_5_2_method_overview_method} illustrates (A) through (G). They are trajectories rather than eras: the oldest paradigm has resurfaced at foundation-model scale.
+
+\paragraph{(A) Proposal Ranking.}
+The first grounding models instantiate the ranking form of Eq.~\eqref{eq:p3_s6_5_2_grounding}: detect region proposals, embed them and the query in a joint space, and pick the best-scoring region. Deep Fragment Embeddings~\cite{karpathy2014deep} aligned sentence fragments with detected regions, and scene-graph CRFs~\cite{johnson2015image} grounded structured queries to regions for retrieval. Proposal quality bounded these methods and context-dependent expressions defeated them. The same two-stage shape has returned with far stronger proposals: RAS~\cite{cao2025refer} has a segmentation foundation model propose candidate masks and a mask-centric multimodal LLM \emph{select} the group that satisfies the prompt, and this non-autoregressive selection beats mask generation in both accuracy and latency.
+
+\paragraph{(B) Compositional Reasoning.}
+Modular networks parse the expression and route its parts to dedicated modules. CMN~\cite{hu2017modeling} decomposes an expression into a subject--relationship--object triplet handled by localization and relationship modules; MAttNet~\cite{yu2018mattnet} soft-parses phrases into appearance, location, and relationship attention modules; dynamic graph attention~\cite{yang2019dynamic} reasons over the linguistic structure on a scene graph. These models disambiguate compositional queries (``the man behind the woman in red'') but inherit every parsing error.
+
+\paragraph{(C) End-to-End Grounding.}
+The regression form of Eq.~\eqref{eq:p3_s6_5_2_grounding} removes proposals: a single network fuses the sentence embedding with the image feature map and predicts the box. One-Stage Grounding~\cite{yang2019fast} did this with a detector head, TransVG~\cite{deng2021transvg} with a pure Transformer in which a learnable token attends over visual and textual tokens and regresses coordinates. On the segmentation side, CRIS~\cite{wang2022cris} transfers CLIP's image-text alignment to the pixel level with text-to-pixel contrastive learning and made end-to-end RES the standard formulation.
+
+\paragraph{(D) Grounded Pre-Training.}
+Phrase-region alignment learned at scale turned grounding into an open-vocabulary capability. MDETR~\cite{kamath2021mdetr} trains a DETR-style set predictor on text-aligned detection corpora so that every box is tied to a span of the caption; GLIP~\cite{li2022grounded} reformulates detection as phrase grounding and scales to 27M region-caption pairs, giving zero-shot transfer; RegionCLIP~\cite{zhong2022regionclip} adds region-level contrastive alignment, and Grounding DINO~\cite{liu2024grounding} deep language fusion at every stage of a DINO detector, which made it the default open-vocabulary detector of later tool chains (family (G)). The residual weakness is the \emph{entity shortcut}: models latch onto object names and ignore the description. DesCo~\cite{li2023desco} counters it in the data, pre-training on LLM-generated rich descriptions with context-sensitive negative queries, which raises description-conditioned detection on LVIS and OmniLabel.
+
+\paragraph{(E) Grounding MLLMs.}
+The first multimodal LLMs built for grounding gave the language backbone a region interface. Kosmos-2~\cite{peng2023kosmos} emits location tokens that hyperlink phrases to boxes inside the generated text; Ferret~\cite{you2023ferret} and Ferret-v2~\cite{zhang2024ferret} encode boxes, points, and free-form regions as inputs at any resolution. Mask output comes from attaching a decoder: LISA~\cite{lai2024lisa} decodes a dedicated segmentation token's embedding into a mask, which is what makes reasoning segmentation possible, and LISA++~\cite{yang2023lisa++} extends it to instances within a dialogue; GLaMM~\cite{rasheed2024glamm} unifies phrase grounding, referring segmentation, and free-form conversation under a grounded-conversation objective; Sa2VA~\cite{yuan2025sa2va} couples a LLaVA-style backbone to SAM~2~\cite{ravi2024sam2} and carries dense grounding from images to video referring segmentation. Moondream~3's segmentation extension~\cite{reid2026moondream} dispenses with the decoder and writes the mask autoregressively as a vector path, refined by a lightweight head and trained with reinforcement learning on mask overlap.
+
+\paragraph{(F) Generalist MLLMs.}
+A parallel line keeps no grounding component at all: the model writes coordinates as plain text, and grounding is one capability among many. Florence-2~\cite{xiao2024florence} is the compact case, a sequence-to-sequence model trained on the 5.4B-annotation FLD-5B corpus that casts captioning, detection, grounding, and polygon-vertex segmentation into one text interface, with mask accuracy below the decoder-based models of family (E). The frontier generalists, Gemini~\cite{reid2024gemini}, Qwen2.5-VL and Qwen3-VL~\cite{bai2025qwen2.5vl}, InternVL~2.5 and InternVL~3~\cite{chen2024expanding,zhu2025internvl3}, and Seed1.5-VL~\cite{guo2025seed1.5vl}, now match or exceed the specialists on the RefCOCO family from prompting alone (Table~\ref{tab:p3_s6_5_2_grounding_performance}); Llama~3~\cite{grattafiori2024llama} folds phrase-to-box and phrase-to-mask annotations into its multimodal pre-training but reports no REC numbers.
+
+\paragraph{(G) Tool-Augmented Agents.}
+A third line delegates localization to specialist models under an outer control loop, which has moved from fixed pipelines to generated programs to learned tool use. Grounded SAM~\cite{ren2024grounded} chains Grounding DINO boxes into SAM~\cite{kirillov2023sam} masks without training; ViperGPT~\cite{suris2023vipergpt} has a code LLM write a Python program that calls perception APIs, so that logic and arithmetic are symbolic and perception is delegated, with interpretable intermediate steps. SegAgent~\cite{zhu2025segagent} treats mask annotation as a sequential decision process, imitating the click sequences of human annotators on an interactive segmenter; DeepEyes~\cite{zheng2025deepeyes} internalizes the tool, using reinforcement learning to make the model emit coordinates that trigger zoom-in crops inside its own chain of thought. SAM~3 Agent~\cite{carion2025sam} wraps SAM~3, whose concept prompts return every instance matching a noun phrase, with an MLLM that proposes phrases, inspects the returned masks, and selects those satisfying the full expression, which gives zero-shot referring and reasoning segmentation without grounding-specific training.
+
+\paragraph{(H) Generation for Grounding.}
+The newest family treats a large text-to-image or text-to-video generator as a grounding model, on the premise that generative pre-training already induces a fine-grained map from language to spatial and temporal structure. VD-IT~\cite{zhu2024exploring} uses a frozen text-to-video diffusion model as the feature extractor for referring video segmentation and finds its features more temporally consistent and better aligned with language than discriminative video backbones; ReferEverything~\cite{bagchi2025refereverything} keeps the generator intact and fine-tunes it to predict mask latents decoded by the frozen VAE, which transfers zero-shot to rare objects, ``stuff'', and the amorphous processes of Ref-VPS. Vision Banana~\cite{gabeur2026image} instruction-tunes a state-of-the-art image generator to render the task output as an image, segmentation as painting the referred region a prescribed color, and matches specialist systems zero-shot while keeping its generative ability. Grounding quality in this family rises with the underlying generator.
+
+\subsubsection{Datasets and Metrics}
+
+Table~\ref{tab:p3_s6_5_2_grounding_tasks} lists the benchmarks by variant. Annotation cost rises steeply from a 2D box to a per-frame mask to a 3D box, so image-level REC/RES corpora dominate in size and maturity, video referring sets are an order of magnitude smaller, and 3D corpora smaller still. Within the image benchmarks a generational split has opened. RefCOCO/+/g now serve mainly as training corpora: specialists and generalist MLLMs report Acc@0.5 above 90\% on them, an audit found label errors in 14\%, 24\%, and 5\% of RefCOCO, RefCOCO+, and RefCOCOg~\cite{chen2025revisiting}, and much of the score survives shuffling the word order of the expression~\cite{dong2026ref}. The evaluation-oriented replacements are built to expose what saturation hides: Ref-L4~\cite{chen2025revisiting} (cleaned labels, long expressions, a 365-category vocabulary), Ref-Adv~\cite{dong2026ref} (shortcut-suppressed, where the same models fall to roughly 60\%), HC-RefLoCo~\cite{wei2024hcrefloco}, GigaGrounding~\cite{ma2024gigaground}, and GroundingME~\cite{li2026groundingme}, which scores discrimination, spatial reasoning, limited visibility, and the rejection of ungroundable queries, and on which the best model resolves 45\% of samples while most score zero on rejection.
+
+\begin{table}[!ht]
+\centering
+\caption{Common vision-language grounding tasks with representative datasets and typical evaluation metrics; several tasks share datasets (\eg, RefCOCO underlies both REC and RES).}
+\label{tab:p3_s6_5_2_grounding_tasks}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{L{0.18\textwidth} L{0.34\textwidth} L{0.18\textwidth} L{0.22\textwidth}}
+\toprule
+\textbf{Task} & \textbf{Representative Datasets} & \textbf{Primary Outputs} & \textbf{Typical Metrics} \\
+\midrule
+REC / RES & RefCOCO/+/g, Flickr30k Entities, Ref-L4, Ref-Adv, GroundingME & box / mask & Acc@0.5; gIoU / cIoU (RES) \\
+GREC / GRES & gRefCOCO, OmniLabel, PhraseCut, Ref-ZOM, MaskGroups-HQ & multi-box / multi-mask & F1, N-acc, gIoU / cIoU, AP$_{\text{descr}}$ \\
+Reasoning grounding & CLEVR-Ref+, ReasonSeg, ReasonSeg-Inst, MMR, MC-Bench & mask (or box) & gIoU / cIoU, Acc@0.5 \\
+Video referring & MeViS, Refer-YT-VOS, Refer-DAVIS17, ReVOS, A2D-Sent., Ref-VPS & per-frame mask & $\mathcal{J}\&\mathcal{F}$; mAP (A2D-Sent.) \\
+3D / Embodied & ScanRefer, ReferIt3D, Multi3DRefer, Instruct3D & 3D box / 3D mask & Acc@0.25/0.5, F1@0.5, mIoU \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every metric here is built on the IoU of predicted and reference regions (Section~\ref{sec:object_tracking} gives the mask form). REC reports Accuracy@0.5, the fraction of expressions whose box reaches IoU $\ge 0.5$, with stricter thresholds and the threshold-averaged mAcc~\cite{chen2025revisiting} increasingly added; phrase grounding, where several proposals may be returned, reports Recall@$k$. For set-valued outputs (GREC / GRES) the prediction is compared with the ground-truth set through per-expression F1 over boxes or masks~\cite{hu2023beyond} and a no-target accuracy for expressions with no referent~\cite{liu2023gres}, and OmniLabel's AP$_{\text{descr}}$ computes average precision over free-form descriptions including negative ones~\cite{schulter2023omnilabel}. Segmentation reports two aggregates that differ in weighting: gIoU (also called mIoU) averages per-sample IoU and so weights every expression equally, whereas cIoU accumulates intersection and union over the whole set before dividing and so weights large objects more; reasoning and referring segmentation papers report both~\cite{lai2024lisa}, often with Precision@$X$ for the distribution of mask quality and a boundary IoU for edge accuracy~\cite{reid2026moondream}. Video referring segmentation uses the $\mathcal{J}\&\mathcal{F}$ composite of Section~\ref{sec:object_tracking}.
+
+Table~\ref{tab:p3_s6_5_2_grounding_performance} reports the two variants on which the families can be compared. On REC the step from proposal ranking and modular reasoning (MAttNet) to end-to-end regression (TransVG) and then to grounded pre-training (MDETR, Grounding DINO) is about 14 points of RefCOCO Acc@0.5, and the generalist MLLMs (Qwen2.5-VL, InternVL~2.5) sit at or above the best specialist without benchmark-specific training. On RES the grounding MLLMs with a mask decoder have passed the end-to-end specialists (CRIS to Sa2VA is eleven cIoU points on RefCOCO), and Sa2VA's video columns show the same model carrying over to referring video segmentation; on ReasonSeg, LISA-7B reaches 52.9 gIoU after fine-tuning where open-vocabulary segmenters stay below 30~\cite{lai2024lisa}. The tool-augmented and generative families are evaluated zero-shot on subsets of these benchmarks and are not directly comparable here. What the table cannot show is cross-variant breadth: methods strong on image REC routinely degrade on video, reasoning, and 3D grounding, and no single architecture leads all five variants.
+
+\begin{table}[!ht]
+    \centering
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.5mm}
+    \caption{Representative grounding methods. REC: Acc@0.5 (\%) on RefCOCO val / testA / testB and RefCOCOg val, from the Grounding DINO~\cite{liu2024grounding}, Ferret~\cite{you2023ferret}, and Qwen2.5-VL~\cite{bai2025qwen2.5vl} comparisons. RES: cIoU (\%) on the RefCOCO / RefCOCO+ / RefCOCOg val splits and $\mathcal{J}\&\mathcal{F}$ on MeViS and Ref-DAVIS17, from the Sa2VA comparison~\cite{yuan2025sa2va} (CRIS from its own paper, ResNet-101).}
+    \label{tab:p3_s6_5_2_grounding_performance}
+    \begin{tabular}{L{0.26\textwidth} L{0.22\textwidth} C{0.10\textwidth} C{0.10\textwidth} C{0.10\textwidth} C{0.10\textwidth}}
+    \toprule
+    \rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \textit{Referring expression comprehension (Acc@0.5)}} \\
+    \multirow{2}{*}{\textbf{Method}} &  \multirow{2}{*}{\textbf{Family}} & \multicolumn{3}{c}{\textbf{RefCOCO}} & \textbf{RefCOCOg} \\
+    & & val & testA & testB &  val \\
+    \midrule
+    MAttNet~\cite{yu2018mattnet}             & (B) modular attention      & 76.7 & 81.1 & 70.0 & 66.6 \\
+    TransVG~\cite{deng2021transvg}           & (C) end-to-end Transformer & 81.0 & 82.7 & 78.4 & 68.7 \\
+    MDETR~\cite{kamath2021mdetr}             & (D) grounded pre-training  & 86.8 & 89.6 & 81.4 & 81.6 \\
+    Grounding DINO-L~\cite{liu2024grounding} & (D) grounded pre-training  & 90.6 & 93.2 & 88.2 & 86.1 \\
+    Ferret-13B~\cite{you2023ferret}          & (E) grounding MLLM         & 89.5 & 92.4 & 84.4 & 85.8 \\
+    Qwen2.5-VL-72B~\cite{bai2025qwen2.5vl}   & (F) generalist MLLM        & 92.7 & 94.6 & 89.7 & 89.9 \\
+    InternVL2.5-78B~\cite{chen2024expanding} & (F) generalist MLLM        & 93.7 & 95.6 & 92.5 & 92.7 \\
+    \midrule
+    \rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \textit{Referring segmentation (cIoU) and video referring segmentation ($\mathcal{J}\&\mathcal{F}$)}}\\
+    \hiderowcolors \textbf{Method} & \textbf{Family} & \textbf{RefCOCO} & \textbf{RefCOCO+} & \textbf{RefCOCOg} & \textbf{MeViS / Ref-DAVIS17} \\
+    \midrule
+    CRIS~\cite{wang2022cris}                 & (C) end-to-end, CLIP       & 70.5 & 62.3 & 59.9 & -- \\
+    LISA-7B~\cite{lai2024lisa}               & (E) mask-decoder MLLM      & 74.9 & 65.1 & 67.9 & -- \\
+    GLaMM-7B~\cite{rasheed2024glamm}         & (E) grounded conversation  & 79.5 & 72.6 & 74.2 & -- \\
+    VISA-13B~\cite{yan2024visa}              & (E) video reasoning MLLM   & --   & --   & --   & 44.5 / 70.4 \\
+    Sa2VA-8B~\cite{yuan2025sa2va}            & (E) MLLM + SAM~2           & 81.9 & 76.5 & 78.9 & 46.9 / 75.2 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Challenges}
+
+\textbf{Ambiguity and interaction.} ``The guy on the right'' depends on the viewpoint, and ``the red cup'' presumes one salient red cup. People resolve this through shared context or a follow-up question; grounding models make an arbitrary choice or fall back on a dataset bias such as the largest instance. Recognizing that an expression matches several entities, abstaining under uncertainty, and asking for clarification are outside almost every current benchmark, which is one-shot (one query, one image), while real use is a dialogue with memory of what was grounded before.
+
+\textbf{Reasoning and commonsense.} ``The tool needed to open the box'' cannot be resolved from the image alone, and adversarial evaluation shows that much of current REC accuracy rests on shortcut matching rather than reasoning~\cite{dong2026ref}. LLM-based models carry the knowledge but may answer ``a key'' when none is visible, and vision-only models lack it entirely; reasoning-driven segmentation~\cite{lai2024lisa} and agentic active perception~\cite{zheng2025deepeyes} are the two bridges. Video adds temporal and causal structure (``the man who picks up the phone and then leaves'', ``the car that caused the accident'') that current video grounding, which attends mostly to appearance and simple motion, does not capture.
+
+\textbf{Open world and 3D.} Open-vocabulary detectors and CLIP-based models have blind spots on rare objects, fine-grained distinctions (viola versus violin), proper nouns, and figurative references (``the blue crown'' for a cap), and per-category analyses of large multimodal models show a strong bias toward common training categories~\cite{chen2025revisiting}. Description-conditioned pre-training~\cite{li2023desco} and generative pre-training~\cite{bagchi2025refereverything,gabeur2026image} are the routes to long-tail coverage that do not require labeling it. Functional references (``the driver's seat'') also imply spatial context that only 3D understanding resolves, and the 3D-language work surveyed above~\cite{hong20233d,zhen20243d} will grow with augmented reality and robotics.
+
+\textbf{Efficiency and evaluation.} The strongest systems are multi-model tool chains or LLMs with vision adapters and do not fit AR glasses or robots; compact models~\cite{xiao2024florence,reid2026moondream} and non-autoregressive selection~\cite{cao2025refer} show that accuracy does not require scale, but the accuracy-efficiency frontier is unmapped. Evaluation has the saturation problem described under Datasets and Metrics above, and the new benchmarks, each with its own protocol, risk a cycle of leaderboard chasing; a single protocol spanning image, video, 3D, and dialogue, scoring rejection and clarification as well as localization, does not yet exist.

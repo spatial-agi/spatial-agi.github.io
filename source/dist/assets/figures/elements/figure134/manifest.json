@@ -1,0 +1,69 @@
+{
+  "figure": "13.4",
+  "sources": [
+    "assets/figures/figures/part4/section13/assistant_empowering.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1680
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section13/assistant_empowering.pdf",
+  "assets": [
+    {
+      "file": "user-needs/vision-support.png",
+      "title": "vision support",
+      "panel": "user-needs",
+      "size": [
+        606,
+        644
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        35.07,
+        47.641,
+        207.264,
+        230.632
+      ],
+      "pdf_source_box": [
+        15.104,
+        20.518,
+        89.264,
+        99.328
+      ],
+      "kind": "photo"
+    },
+    {
+      "file": "user-needs/mobility-support.png",
+      "title": "mobility support",
+      "panel": "user-needs",
+      "size": [
+        606,
+        644
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        35.07,
+        514.069,
+        207.264,
+        697.061
+      ],
+      "pdf_source_box": [
+        15.104,
+        221.398,
+        89.264,
+        300.208
+      ],
+      "kind": "photo"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

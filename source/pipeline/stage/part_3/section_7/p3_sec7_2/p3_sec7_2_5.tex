@@ -1,0 +1,201 @@
+\subsection{Reinforcement Learning with Spatial Inductive Biases}
+\label{subsec:p3_s7_2_5}
+
+Where the previous four subsections constrain the learned representation, reinforcement learning shifts the locus of structure to the \emph{action-conditioned} setting, in which an agent must reason about spatial relationships as a consequence of its own behavior over a long horizon.
+Many spatial tasks, such as navigation, exploration, manipulation, and embodied interaction, cannot be reduced to static perception or single-step prediction; they require reasoning about how actions transform the agent's position, orientation, and relations to surrounding objects over time, under geometric constraints, partial observability, and delayed reward.
+Generic RL policies built on unstructured function approximators struggle to generalize across unseen layouts, so a growing body of work introduces \emph{spatial inductive biases}, explicit planning iterations, map-like latent representations, differentiable search operators, or relational state abstractions, that constrain the hypothesis space of policies or value functions to reflect the compositional and geometric structure of spatial decision-making.
+
+
+\subsubsection{Task Definition}
+At each step $t$ the agent receives an observation $o_t$ from the environment $\mathcal{E}$ (RGB / RGB-D frames, egocentric maps, point clouds, language goals) together with its action history $a_{<t}$, chooses an action $a_t$ from a continuous control space or a discrete set $\mathcal{A}=\{1,\ldots,K\}$, and receives a scalar reward $r_t$.
+The policy or value function is parameterized with a spatial structural prior $S$ (a differentiable planning module, a learned map or belief representation, a relational or graph encoder, an equivariant policy head),
+\begin{equation}
+  \pi_\theta(a_t \mid o_t, a_{<t};\, S),\qquad
+  \max_\theta\ \mathbb{E}\!\left[\sum_{t=0}^{\infty} \gamma^t r_t\right],
+\end{equation}
+so that $S$ shapes \emph{which} policies and value functions the agent considers in the first place, not only how it generalizes after the fact; the optimization itself remains a standard RL objective (Bellman, policy gradient, actor--critic, or preference-based).
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/part3/section7/rl_overview.pdf}
+    \caption{The general framework in RL: the agent acts on the environment, receives an observation and a reward, and updates its policy from this feedback.}
+    \label{fig:rl_overview}
+\end{figure}
+
+
+\subsubsection{Methodology}
+
+Figure~\ref{fig:rl_overview} shows the loop every method below shares: the agent observes, acts, receives a reward and a new state, and updates its policy to maximize long-term return.
+Learning a good policy requires balancing \textbf{exploration} of untried actions against \textbf{exploitation} of the actions currently believed best, the exploration--exploitation trade-off that underlies all of RL.
+The subsections that follow walk through the optimization backbones in the order the field developed them, value-based, policy-based, actor--critic, PPO, and the recent preference-based and group-relative objectives, and note at each step where spatial structure enters.
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.70\linewidth]{figures/part3/section7/value-based-rl.pdf}
+    \caption{Workflow of value-based RL.}
+    \label{fig:value_based_rl}
+\end{figure}
+
+\paragraph{Value-Based RL.}
+Value-based methods learn a value function that estimates the expected cumulative return of acting under a policy $\pi$.
+The optimal state-action value function is
+\begin{equation}
+Q^*(s,a) = \max_\pi \mathbb{E}_\pi \left[ \sum_{t=0}^{\infty} \gamma^t r_t \,\middle|\, s_0 = s, a_0 = a \right],
+\end{equation}
+where $\gamma \in (0,1)$ is the discount factor, and it satisfies the \textit{Bellman equation}: if the optimal values $Q^*(s',a')$ of the next state are known for every action $a'$, the best action now is the one that maximizes $r+\gamma Q^*(s',a')$,
+\begin{equation}
+    Q^*(s, a) = \mathbb{E}_{s' \sim \mathcal{E}} [r+\gamma \max_{a'} Q^{*}(s', a') | s, a].
+\end{equation}
+Iterating this identity as an update, $Q_{i+1}(s, a) = \mathbb{E}_{s' \sim \mathcal{E} }[r+\gamma\; \max_{a'} \; Q_{i}(s', a') | s, a]$, converges to $Q^*$, but a table of values indexed by every state is useless in high-dimensional observation spaces, so a function approximator $Q(s,a;\theta)\approx Q^*(s,a)$ is learned instead, a neural network in the deep-RL setting (a Q-network).
+Training minimizes a sequence of regression losses whose target is the bootstrapped Bellman estimate,
+\begin{equation}
+    L_i(\theta_i) = \mathbb{E}_{s, a \sim \rho(\cdot)} [(y_i - Q(s, a; \theta_i))^{2}],
+\end{equation}
+with $y_i = \mathbb{E}_{s' \sim \mathcal{E}} [r + \gamma \; \max_{a'} Q(s', a';\theta_{i-1}) | s, a]$ computed from the previous parameters $\theta_{i-1}$, held fixed, and $\rho(s,a)$ the distribution of visited state--action pairs; the greedy policy $\pi(s;\theta) = \arg\max_{a} Q(s, a;\theta)$ then follows from the learned values.
+
+Deep Q-networks (DQN)~\cite{mnih2015human} made this scale to high-dimensional observations with experience replay and a slowly updated target network; their convergence is analyzed theoretically by \citet{fan2020theoreticalQlearning}, and Figure~\ref{fig:value_based_rl} shows the resulting workflow.
+Beyond control, value-based RL drives \emph{active visual perception}: \citet{caicedo2015active} cast object localization as a sequential decision process in which a Q-network iteratively transforms an attention window until it tightly bounds the target, turning detection into a learned spatial search policy, a formulation since applied to active detection, visual search, and region selection for fine-grained recognition, where the agent learns \emph{where to look} rather than scanning exhaustively.
+In spatial domains the limitation of vanilla DQN is that any planning behavior must be learned implicitly from data, which generalizes poorly to novel layouts, so several works embed planning structure in the value estimate itself.
+Value Iteration Networks (VIN)~\cite{tamar2016valueiterationnetworks} unroll Bellman updates as convolutions over a spatial grid, a differentiable approximation of value iteration; Gated Path Planning Networks (GPPN)~\cite{lee2018gatedpath} replace the recurrence with gated units to improve optimization stability and long-range dependencies; and under partial observability QMDP-Net~\cite{karkus2017qmdpnet} integrates belief updates and approximate POMDP planning (QMDP)~\cite{littman1995learningQMDP} into one differentiable network.
+In each case the learned value function is constrained to follow spatially structured dynamic programming rather than arbitrary function approximation.
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/part3/section7/policy-based-rl.pdf}
+    \caption{Workflow of policy-based RL.}
+    \label{fig:policy_based_rl}
+\end{figure}
+
+\paragraph{Policy-Based RL.}
+Policy-based methods~\cite{williams1992simple,zhang2021sampleefficientreinforcement} parameterize a policy $\pi_\theta(a|s)$ directly and maximize expected return,
+\begin{equation}
+J(\theta) = \mathbb{E}_{\pi_\theta} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \right],
+\end{equation}
+by gradient ascent on
+\begin{equation}
+\nabla_\theta J(\theta) = \mathbb{E}_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta(a_t|s_t) \, R_t \right],
+\end{equation}
+where $R_t = \sum_{k=t}^{\infty} \gamma^{\,k-t} r_k$ is the return from time-step $t$ (Figure~\ref{fig:policy_based_rl}).
+Optimizing action distributions directly suits spatial decision problems in which exploration and long-horizon credit assignment are central~\cite{chaplot2018active}, and policy gradients train embodied agents to actively gather visual evidence: Embodied Question Answering~\cite{das2018embodied} optimizes a navigation policy so that the agent moves to vantage points from which it can answer questions about a 3D scene.
+The spatial competence, however, comes from the architecture rather than the objective; policy-gradient agents generalize across layouts when the policy carries a learned map~\cite{gupta2017cognitivemapping}, a grounded spatial representation~\cite{janner2018representationlearning}, memory, or a relational encoder~\cite{zambaldi2019relationaldeep}.
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/part3/section7/AC-based-rl.pdf}
+    \caption{Workflow of Actor-Critic-based RL.}
+    \label{fig:actor_critic_based_rl}
+\end{figure}
+
+\paragraph{Actor-Critic RL.}
+Actor--critic methods~\cite{degris2012modelfreerl} combine the two by jointly learning a policy $\pi_{\theta}(a|s)$ (the actor, which controls behavior) and a value function $V_\phi(s)$ (the critic, which scores the actions taken), as in Figure~\ref{fig:actor_critic_based_rl}.
+The critic provides a low-variance estimate of the advantage,
+\begin{equation}
+A_{\phi}(s_t,a_t) \approx r_t + \gamma V_{\phi}(s_{t+1}) - V_{\phi}(s_t),
+\end{equation}
+or, when a Q-function is learned as well, $A_{\phi}(s_t,a_t) = Q_{\phi}(s_t,a_t) - V_{\phi}(s_t)$, and the advantage replaces the raw return $R_t$ in the policy-gradient update.
+The asynchronous advantage actor-critic (A3C)~\cite{mnih2016asynchronous} made this stable and scalable and became a standard backbone for embodied navigation and spatial control: target-driven visual navigation~\cite{zhu2017target} conditions an A3C agent on an image of the goal and reaches semantically specified targets in unseen indoor scenes, and Neural SLAM~\cite{zhang2017neuralslam} gives an A3C agent a differentiable map memory.
+The separation between actor and critic matches the structure of spatial tasks, with the actor responsible for geometry-aware decisions and the critic supplying global, long-horizon value signals, which is why actor--critic methods dominate navigation benchmarks that require memory, planning, and partial observability~\cite{mirowski2016learningnavigate}.
+
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/part3/section7/ppo-based-rl.pdf}
+    \caption{Workflow of PPO-based RL.}
+    \label{fig:ppo_based_rl}
+\end{figure}
+
+\paragraph{PPO-Style Policy Optimization.}
+Proximal Policy Optimization (PPO)~\cite{schulman2017proximalpo} is an actor--critic algorithm that stabilizes training by constraining each policy update through a clipped surrogate objective,
+\begin{equation}
+L^{\text{PPO}}(\theta) =
+\mathbb{E} \left[
+\min \left(
+r_t(\theta) A_t,
+\text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) A_t
+\right)
+\right],
+\end{equation}
+where $r_t(\theta)$ is the probability ratio between the new and old policies (Figure~\ref{fig:ppo_based_rl}).
+Its robustness and sample efficiency made PPO the de facto backbone for training agents in large-scale photorealistic 3D simulators such as Gibson~\cite{Xia2018Gibson} and Matterport3D~\cite{chang2017matterport3d}, and in manipulation suites such as panda-gym\footnote{\url{https://github.com/qgallouedec/panda-gym}}.
+Scaled to 2.5 billion frames with DD-PPO~\cite{wijmans2019ddppo}, it essentially solves PointGoal navigation on Habitat (99.7\% success and 0.97 SPL on Gibson validation), and the same backbone underpins vision-and-language navigation~\cite{anderson2018vision}, object-goal navigation~\cite{chaplot2020object}, audio-visual navigation~\cite{chen2020soundspaces}, and planning over uncertain topological maps~\cite{beeching2020learninguncertaintopological}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/part3/section7/dpo-based-rl.pdf}
+    \caption{Workflow of DPO-based RL.}
+    \label{fig:dpo_based_rl}
+\end{figure}
+
+\paragraph{Preference-Based Policy Optimization (DPO).}
+Preference-based learning replaces the reward signal with comparisons.
+Direct Preference Optimization (DPO)~\cite{rafailov2023directpo} learns a policy from preference pairs without an explicit reward model or online rollouts (Figure~\ref{fig:dpo_based_rl}): for two completions $(y_1,y_2)$ of an input $x$, a labeler marks the preferred one, $y_w \succ y_l \mid x$, and by expressing the implied reward of a Bradley--Terry preference model~\cite{bradley1952rankbt} through the optimal policy itself, DPO collapses the reward-learning-then-RL pipeline into a single maximum-likelihood objective on $\pi_\theta$:
+\begin{equation}
+    \mathcal{L}_{\text{DPO}}(\pi_{\theta};\pi_{\text{ref}}) = - \mathbb{E}_{(x,y_w, y_l)\sim \mathcal{D}} \big[ \log \sigma \big(\beta\log\frac{\pi_{\theta}(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta\log\frac{\pi_{\theta}(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\big)\big],
+\end{equation}
+where $\pi_{\text{ref}}$ is a fixed reference policy and $\beta$ controls the deviation from it.
+Developed for language-model alignment, DPO applies to spatial reasoning whenever supervision takes the form of trajectory preferences, plan rankings, or human judgments of spatial behavior~\cite{liang2025structuredpreference,huang2024making,qiu2025spatialPreference}, which arise naturally in navigation, manipulation, and interactive tasks where dense rewards are hard to specify.
+
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/part3/section7/grpo-based-rl.pdf}
+    \caption{Workflow of GRPO-based RL.}
+    \label{fig:grpo_based_rl}
+\end{figure}
+\paragraph{Group-Based Policy Optimization (GRPO).}
+Group Relative Policy Optimization (GRPO)~\cite{guo2025deepseekr1} removes the learned critic and replaces it with a group-relative baseline computed from multiple sampled trajectories (Figure~\ref{fig:grpo_based_rl}).
+For each question $q$, it samples a group of outputs $\{o_1, o_2, \cdots, o_G\}$ from the old policy $\pi_{\theta_{\text{old}}}$ and optimizes $\pi_\theta$ by maximizing
+\begin{equation}
+\begin{split}
+     \max_{\pi_\theta} &\;
+    \mathbb{E}_{q \sim D_{\text{rl}}, \{o_i\}_{i=1}^{G} \sim \pi_{\theta_{\text{old}}}(O|q)}  \\
+    & \Bigg[ \frac{1}{G}
+        \sum_{i=1}^G
+        \text{min}(\frac{\pi_\theta(o_i)}{\pi_{\theta_{\text{old}}}(o_i)} A_i, \text{clip}(\frac{\pi_\theta(o_i)}{\pi_{\theta_{\text{old}}}(o_i)}, 1-\epsilon, 1+\epsilon) A_i )
+        - \beta \, \mathbb{D}_{\mathrm{KL}}\big(\pi_\theta \| \pi_{\mathrm{ref}}\big)
+    \Bigg],
+\end{split}
+\end{equation}
+where $\epsilon$ and $\beta$ are hyperparameters and the advantage $A_i$ is computed from the rewards $\mathbf{r}=\{r_1,\dots,r_G\}$ that a reward model assigns to the group, normalized within the group only:
+\begin{equation}
+    A_i = \frac{r_i - \text{mean}(\mathbf{r})}{\text{std}(\mathbf{r})}.
+\end{equation}
+Eliminating the value network reduces memory and stabilizes training.
+Although explored first for language models, the formulation transfers to spatial decision-making wherever several candidate plans or trajectories can be scored against one another, and it has become the standard recipe for reinforcement fine-tuning of spatial vision--language models on visual reasoning, navigation, multi-step assembly, and video spatial reasoning~\cite{tan2025reasonrft,gao2026octonav,tang2025legoPuzzles,ouyang2025spacer}.
+
+
+\paragraph{Architectural Spatial Inductive Biases.}
+The backbones above are domain-agnostic; what makes a policy \emph{spatial} is the prior $S$ in its architecture, and three families recur across the examples already met.
+\textbf{Map-based representations} give the agent an explicit allocentric memory: cognitive maps~\cite{gupta2017cognitivemapping} and Neural Map~\cite{parisotto2018neural} write observations into a spatially indexed latent grid, while Neural SLAM~\cite{zhang2017neuralslam} and Active Neural SLAM~\cite{chaplot2020learning} couple differentiable mapping with a hierarchical exploration policy.
+\textbf{Differentiable planning modules} embed dynamic programming in the network, as in the VIN / GPPN / QMDP-Net line discussed under value-based RL, or learn a value-equivalent model and plan by lookahead search, as in MuZero~\cite{schrittwieser2020mastering}.
+\textbf{Relational abstractions} replace flat feature maps with object- or graph-structured state, letting attention or message passing capture relations that transfer across layouts~\cite{zambaldi2019relationaldeep}.
+In each case the RL objective is unchanged; the spatial competence comes from the prior, which is why these architectures generalize across geometries where unstructured policies overfit.
+
+
+\subsubsection{Benchmarks}
+
+Two complementary benchmark families shape the empirical landscape.
+Embodied navigation and exploration benchmarks stress long-horizon planning under partial observability in photorealistic 3D scenes: Habitat~\cite{savva2019habitat} is the dominant platform, paired with real-world scans from Matterport3D~\cite{chang2017matterport3d} and Gibson~\cite{Xia2018Gibson} for large, scene-diverse PointGoal and ObjectGoal navigation that exercises geometry-aware exploration and cross-scene generalization; SoundSpaces~\cite{chen2020soundspaces} adds audio-visual cues as a multimodal test of spatial state estimation; and SOON~\cite{zhu2021soon} extends vision-and-language navigation to scenario-oriented object goals in unseen environments.
+Symbolic and relational benchmarks test whether structured priors yield combinatorial and compositional generalization: PDDLGym\footnote{\url{https://github.com/tomsilver/pddlgym}} builds Gym environments from PDDL domains with relational observations and actions, and lightweight gridworld suites such as MiniGrid\footnote{\url{https://github.com/Farama-Foundation/Minigrid}} support controlled evaluation of planning, memory, and compositional generalization; the differentiable planners (VIN, GPPN, QMDP-Net) are evaluated on procedurally generated gridworld mazes and POMDPs of increasing size, where the question is whether the architectural prior generalizes to unseen layouts rather than memorizing training mazes.
+Across both families the choice of RL algorithm matters less than the choice of prior: PPO has converged as the standard optimizer for embodied navigation, and differences between agents mostly reflect the map, planning module, or relational encoder on the policy, while on gridworld benchmarks the methods that embed planning structure consistently dominate unstructured DQN, with the largest gains where the task is most planning-shaped.
+
+
+\subsubsection{Challenges and Trends}
+
+Sample inefficiency comes first.
+Spatial tasks involve long horizons, sparse rewards, and combinatorial state spaces, so na\"ive exploration is prohibitively expensive; architectural priors such as learned maps, planning modules, and relational representations improve efficiency~\cite{tamar2016valueiterationnetworks,zhang2021sampleefficientreinforcement}, but current RL systems still need orders of magnitude more interaction than humans or classical planners to acquire robust spatial competence.
+
+Generalization and transfer come second.
+Many agents perform well in their training environments and degrade sharply in unseen layouts, novel geometries, or altered dynamics, which suggests that much of the learned behavior rests on superficial correlations rather than abstract spatial structure; structured state representations, world models, and modular policy design~\cite{chaplot2018active,gupta2017cognitivemapping} help, but how to enforce spatial invariances and compositional generalization in RL in a principled way remains open.
+
+Reward specification is the third.
+Spatial tasks often lack dense, well-defined rewards, especially when success depends on long-term plan quality, safety, or efficiency rather than immediate outcomes.
+Preference-based methods such as DPO~\cite{rafailov2023directpo} and group-relative objectives such as GRPO~\cite{guo2025deepseekr1} learn from comparative feedback instead, at the price of reward-model bias, preference inconsistency, and the difficulty of aligning learned preferences with the true task objective in complex spatial domains.
+
+The directions that follow from these three are hybrid methods that integrate learning with explicit planning or search~\cite{tamar2016valueiterationnetworks,karkus2017qmdpnet}, structure-aware representations (object-centric, relational, graph-based) that scale spatial reasoning beyond grid-based and navigation-centric benchmarks~\cite{zambaldi2019relationaldeep}, and evaluation protocols that weight out-of-distribution generalization, robustness to environmental variation, and reasoning quality over performance on fixed benchmarks.
+

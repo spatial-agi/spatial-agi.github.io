@@ -1,0 +1,6 @@
+jinja2
+lxml
+bibtexparser==1.4.3
+pillow
+pyyaml
+pypdf

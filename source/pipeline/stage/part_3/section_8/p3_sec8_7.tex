@@ -1,0 +1,92 @@
+\section{Programmatic and Symbolic Spatial Generation}
+\label{sec:p3_s8_7}
+
+\FramedInitial{P}{rogrammatic} and symbolic spatial generation synthesizes 2D and 3D scene structure through explicit rules, executable programs, and symbolic geometric abstractions.
+It generates the structural backbone of a scene (spatial layout, hierarchical organization, geometric constraints, executable logic) rather than its raw appearance, which gives it controllability, compositional generalization, global spatial consistency, and interpretability.
+
+Where the largely neural samplers of §\ref{sec:p3_s8_1}–§\ref{sec:p3_s8_6} map a condition directly to pixels, voxels, or a neural latent, programmatic methods emit an intermediate \emph{program} that a deterministic renderer executes into the final scene.
+This intermediate layer is what makes the structure auditable, editable, and compositionally reusable, properties that flat neural outputs lack.
+Three paradigm families mark the historical and technical progression of the field: \emph{rule- and grammar-based procedural generation}, \emph{symbolic graphics programs and domain-specific languages}, and \emph{neuro-symbolic language-to-program synthesis} driven by large language models.
+
+\subsection{Task Definition}
+\label{subsubsec:p3_s8_7_task}
+
+Let $\mathbf{c}\in\mathcal{C}$ denote a conditioning intent, typically a natural-language description, a layout specification, or a partial constraint set, and let $\kappa:\mathcal{C}\!\to\!\mathcal{C}'$ be its encoder.
+A programmatic generator $G_\theta$ emits a symbolic program $\rho$ drawn from a graphics language or domain-specific language $\mathcal{L}$, which a deterministic executor $R$ evaluates into a concrete scene $\hat{\mathbf{s}}$ (a raster image, vector graphic, UI specification, or 3D shape):
+\begin{equation}
+\label{eq:p3_s8_7_objective}
+\rho = G_\theta\big(\kappa(\mathbf{c})\big), \qquad \hat{\mathbf{s}} = R(\rho), \qquad \rho \in \mathcal{L}.
+\end{equation}
+This formulation inherits the conditional-sampler abstraction of Eq.~\eqref{eq:t2i_generator} but replaces its learned decoder $D$ (Eq.~\eqref{eq:t2i_autoencoder}) over a continuous latent space $\mathcal{Z}$ with an interpretable, discrete program $\rho$ and an \emph{exact, non-learned} renderer $R$.
+The neural generators of §\ref{sec:generation} are recovered as the limiting case in which $R$ is itself a neural renderer and $\rho$ a continuous latent, whereas the symbolic case constrains $\rho$ to be a human-readable executable artifact.
+Two properties follow directly: errors are localizable to specific program statements, and structural constraints can be enforced or verified deterministically on $\rho$ before rendering.
+
+
+
+\subsection{Methodology}
+\label{subsubsec:p3_s8_7_methodology}
+
+Figure~\ref{fig:p3_s8_7_paradigms} schematizes the three paradigm families that instantiate Eq.~\eqref{eq:p3_s8_7_objective}, contrasting how each obtains the program $\rho$ before the shared deterministic renderer $R$ executes it.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section8/programmatic_spatial_generation.pdf}
+    \caption{Three paradigm families for programmatic spatial generation, all producing a program $\rho$ that a deterministic renderer $R$ executes (Eq.~\eqref{eq:p3_s8_7_objective}): (P1) rule- and grammar-based procedural generation, (P2) symbolic graphics programs and domain-specific languages, and (P3) language-to-program synthesis by an LLM planner.}
+    \label{fig:p3_s8_7_paradigms}
+\end{figure}
+
+\paragraph{Rule- and Grammar-based Procedural Generation.}
+The earliest line of work, procedural content generation (PCG)~\cite{parish2001procedural} in computer graphics and game development, synthesizes scenes such as dungeon maps, terrains, architectural plans, or UI layouts from hand-crafted rules or parameterized procedural programs.
+Classical formalisms instantiate $G_\theta$ as a fixed production system rather than a learned model.
+The Lindenmayer system (L-system)~\cite{lindenmayer1968mathematical}, originally developed to model biological growth, employs parallel rewriting rules to simulate natural growth processes and fractal patterns, making it ideal for self-similar structures such as vegetation and complex terrain.
+Formally, the program evolves by repeated parallel application of a production set $\Pi$ to an axiom $\omega$,
+\begin{equation}
+\label{eq:p3_s8_7_grammar}
+\rho_0 = \omega, \qquad \rho_{t+1} = \Pi(\rho_t), \qquad \hat{\mathbf{s}} = R(\rho_T),
+\end{equation}
+where the generated symbolic string is not the geometry itself but a sequence of Turtle Graphics commands that the interpreter $R$ parses to draw the final shape in 2D or 3D space.
+Shape grammars, introduced by \citet{stiny1980introduction}, provide another influential symbolic mechanism by defining geometric primitives and rewrite rules for composing architectural or engineered shapes.
+These early paradigms demonstrated a fundamental insight: spatial structures can be synthesized by executing symbolic generative rules, rather than by directly predicting raw geometry.
+
+\paragraph{Symbolic Graphics Programs and Domain-Specific Languages.}
+Symbolic graphics programs (SGPs) encode spatial layouts and geometric configurations as formal programs that execute deterministically into images, vector graphics, UI designs, or 3D shapes, bridging abstract scene intent and concrete visual realization. Common languages such as SVG~\cite{bing2025learning}, TikZ/LaTeX~\cite{ellis2018learning}, and HTML/CSS~\cite{chen2025designcoder} already carry rich symbolic layout specifications in real-world use.
+In parallel, researchers have developed domain-specific languages (DSLs) tailored for fine-grained spatial and visual synthesis.
+Examples include hierarchical GUI-code generators~\cite{zhu2018automatic} that translate visual structures into programmatic UI specifications, and ShapeAssembly~\cite{jones2020shapeassembly}, a 3D assembly language in which objects are represented as executable programs describing part composition, symmetry, and connectivity.
+Such DSLs make the advantages of explicit symbolic control concrete: precise geometry, modular design, verifiable constraints, and systematic compositionality.
+
+\paragraph{Neuro-symbolic and Language-to-Program Synthesis.}
+A more recent direction couples symbolic programs with learned models, so that $G_\theta$ becomes a trained synthesizer rather than a fixed rule set. The Scene Language~\cite{zhang2025scenelanguage} unifies neural and symbolic components: a program specifying relational and hierarchical layout structure, natural-language labels summarizing entity semantics, and learned embeddings capturing visual identity.
+Executable structure, rather than raw geometry, thus becomes a primary representational layer for scenes.
+Large language models~\cite{brown2020language,achiam2023gpt} have accelerated the move toward language-to-program spatial generation: instead of predicting images or layouts directly, LLM-based systems act as symbolic planners that synthesize the program by approximately maximizing its conditional likelihood,
+\begin{equation}
+\label{eq:p3_s8_7_synthesis}
+\rho^{\star} = \argmax_{\rho \in \mathcal{L}} \, p_\theta\big(\rho \mid \kappa(\mathbf{c})\big),
+\end{equation}
+mapping natural-language descriptions to executable layout programs~\cite{aguina2024open, hsu2025programs, yang2024holodeck}.
+These programs then guide downstream renderers to produce UI designs, graphic layouts, architectural plans, or 3D scenes with precise structural fidelity, and users can edit or refine the underlying program with fine-grained control.
+
+The three families differ along two cross-cutting axes.
+The first is the \emph{representation} of $\rho$: a parallel string-rewriting system (grammar-based generation), an executable program in a general-purpose or domain-specific graphics language (SGPs and DSLs), or a hybrid structure that interleaves code, language, and learned embeddings (neuro-symbolic synthesis).
+The second is the \emph{inference procedure} that produces $\rho$: hand-authored production rules, human-written or template-instantiated programs, or learned program synthesis and LLM-based planning. Across all three, the target modality (2D raster, vector graphics, UI, or 3D) is determined solely by the renderer $R$, which keeps the symbolic and rendering concerns cleanly separated.
+
+
+
+\subsection{Benchmarks}
+\label{subsubsec:p3_s8_7_benchmarks}
+
+Evaluation in this area differs from the distributional metrics of §\ref{sec:generation} because the immediate output is a program, not an image, so quality is assessed along several complementary axes.
+\textbf{Program validity} measures whether the emitted $\rho$ parses and executes without error in its target language, a prerequisite that purely neural generators do not face.
+\textbf{Rendered-output fidelity} then compares the executed scene $R(\rho)$ against a reference, using pixel- or perceptual-level similarity for raster and vector targets and geometric agreement for 3D shapes.
+\textbf{Constraint satisfaction} checks whether explicitly specified spatial relations, counts, alignments, or symmetries hold in the rendered result, a property that symbolic methods are designed to guarantee.
+\textbf{Controllability and editability} assess how reliably localized edits to $\rho$ produce the intended localized changes in the scene without unintended global drift. Concretely, these axes are exercised across vector-graphics and SVG synthesis~\cite{bing2025learning}, UI and GUI code generation~\cite{zhu2018automatic, chen2025designcoder}, 3D program induction over part-structured shapes~\cite{jones2020shapeassembly}, evaluated against part-hierarchy benchmarks such as PartNet~\cite{mo2019partnet}, and full scene-program synthesis~\cite{zhang2025scenelanguage, yang2024holodeck}, where the executable program serves simultaneously as the prediction and as the verifiable ground for measurement.
+
+\subsection{Challenges and Trends}
+\label{subsubsec:p3_s8_7_challenges}
+
+The field has moved from entirely hand-authored rules toward neuro-symbolic integration with large models, driven by the demand for generators that are more controllable and interpretable than end-to-end neural methods.
+
+\textbf{Generalization.} Automatically synthesized programs still struggle with novel constraints and complex semantic specifications~\cite{mao2025neurosymbolicconcepts}. Program synthesis has to infer the structural logic of a scene rather than memorize surface patterns if the generator is to extrapolate to compositions and constraint combinations absent from training.
+
+\textbf{Efficiency and differentiability.} Neuro-symbolic programs that are both efficient and fully differentiable~\cite{guo2023efficientsymbolicpolicy} would let a rendering-level loss propagate back through the program, so that the whole pipeline, from symbolic planning to neural rendering, could be trained and fine-tuned end to end.
+
+\textbf{Embodied interaction.} Procedurally synthesized interactive environments already supply large-scale embodied worlds~\cite{kolve2017ai2thor, procthor, wang2024pipeline}, and the next step is for agents to generate or validate symbolic scene structure through active exploration rather than from static datasets alone, yielding symbolic representations of physical spaces that can be checked against what the agent observes.

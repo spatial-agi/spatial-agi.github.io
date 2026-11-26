@@ -1,0 +1,131 @@
+
+
+\subsection{Explicit Structured Neural Reasoning}
+\label{subsec:p3_s7_2_2}
+
+
+% IEP/EE 本质上是 program-structured / neuro-symbolic 方法，更适合放在下一节 explicit structured reasoning
+
+Explicit structured neural reasoning decomposes a spatial problem into an inspectable intermediate structure, a program, a scene graph, a sequence of reasoning states, or executable code that calls vision tools, and obtains the answer by executing or traversing that structure over visual representations.
+Unlike the rule-based reasoning of §\ref{sec:p3_s7_1}, the structure is learned or inferred from data rather than written by hand; unlike the implicit reasoners of §\ref{subsec:p3_s7_2_1}, it exposes spatial predicates directly, so that an inspectable edge or a named operation can represent containment, adjacency, support, or relative position, making them auditable and composable instead of entangled in a feature space.
+Figure~\ref{fig:p3_s7_2_2_explicit_formulation} previews the representative tasks.
+
+\begin{figure}[!th]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section7/explicit_structured_neural_reasoning_task.pdf}
+    \caption{Representative tasks for explicit structured neural reasoning, in which the reasoning trace is inspectable: (1) program-style VQA on compositional scenes, (2) state-machine traversal of a probabilistic scene graph, and (3) execution of an LLM-generated visual program.}
+    \label{fig:p3_s7_2_2_explicit_formulation}
+\end{figure}
+
+
+
+
+\subsubsection{Task Definition}
+Given a visual observation $\mathbf{I}$ (a single image or a set of views) and a query or goal $q$, the system constructs an intermediate structure and executes it,
+\begin{equation}
+  \mathcal{S}=\mathrm{Parse}_\phi(\mathbf{I},q),\qquad y=\mathcal{E}(\mathcal{S};\mathbf{I}),
+\end{equation}
+where $\mathcal{S}$ may be a program layout $P=(m_1,\dots,m_k)$, a recurrent sequence of reasoning states, a scene graph $G=(V,E)$ with a finite-state traversal over its nodes, or a code trace that calls external tools, and the executor $\mathcal{E}$ realizes $\mathcal{S}$ through neural modules, symbolic operators, graph transitions, or tool calls.
+The output $y$ may be an answer, a localized region, a predicted relation, or an action.
+The defining property is therefore not a specific program syntax but the presence of an inspectable $\mathcal{S}$ that mediates between perception and prediction, which is what makes the reasoning path explicit and controllable.
+
+
+
+
+\subsubsection{Methodology}
+
+The four families in Figure~\ref{fig:p3_s7_2_2_explicit_formulation_method} differ in how much structure they expose, enough to make reasoning inspectable and compositional, but not so rigid that a perception error, a parser error, or a missing primitive causes deterministic failure.
+Each exposes a different facet of space: recurrent architectures a temporal trace of attentional focus, scene-graph methods object-centric relations, program-based methods named operations such as filtering, relating, counting, and comparing, and LLM-generated programs tool-call traces that combine detection, segmentation, localization, and external knowledge.
+
+
+\paragraph{Structured Recurrent Reasoning Architectures.}
+This family imposes a step-wise reasoning structure in the architecture itself, so the model is fully differentiable and trained end-to-end from input--output pairs while still exposing a step-by-step trace.
+The Memory, Attention, and Composition (MAC) network~\cite{hudson2018compositional} chains $p$ recurrent cells, each of which attends to the question to choose the operation for the current step (control unit), extracts the relevant visual information by spatial attention guided by that control signal (read unit), and integrates it into a reasoning state passed to the next cell (write unit); the attention maps of successive read units provide a transparent trace of where the model is looking, without a rigid symbolic program.
+MAC is thus a boundary case: explicit at the level of reasoning dynamics, implicit at the level of spatial representation, since the operations run over dense feature maps rather than named objects or relations.
+Because the spatial logic stays in the learned weights, it is prone to statistical shortcuts (if ``red spheres'' co-occur with ``cubes'' in training, the model may learn that correlation rather than ``left of''), and soft attention maps are often diffuse, so ``to the left'' bleeds into irrelevant regions in cluttered scenes.
+\begin{figure}[!th]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section7/explicit_structured_neural_reasoning_method.pdf}
+    \caption{Four method families for explicit structured neural reasoning, ordered by the intermediate structure $\mathcal{S}$ each exposes: (A) the MAC recurrent reasoning cell~\cite{hudson2018compositional}; (B) the Neural State Machine~\cite{hudson2019learning}; (C) program-based reasoning, a parse-to-execute pipeline whose executor ranges from neural modules (NMN~\cite{andreas2016neural}, IEP~\cite{johnson2017inferring}) through the symbolic executor of NS-VQA~\cite{yi2018neural} to the quasi-symbolic executor of NS-CL~\cite{mao2019neuro}; and (D) LLM-as-program-generator pipelines that call vision tools (\eg,~ViperGPT~\cite{suris2023vipergpt}, VisProg~\cite{gupta2023visual}, Code-as-Policies~\cite{liang2023code}).}
+    \label{fig:p3_s7_2_2_explicit_formulation_method}
+\end{figure}
+
+\paragraph{Structured Scene Representations.}
+A related line strengthens the structural prior on the reasoning substrate.
+Where MAC reasons over a soft grid of features, the Neural State Machine (NSM)~\cite{hudson2019learning} reasons over a probabilistic semantic scene graph and performs differentiable state transitions over it: a concept-detection module (Mask R-CNN) identifies entities, each node $v_i$ is initialized with semantic properties over a learned concept vocabulary, each edge $e_{ij}$ carries a distribution over spatial and semantic relation types (left of, behind, on top of, holding), and the query is answered by propagating a distribution over nodes through query-conditioned transitions.
+More broadly, scene graphs act as a generic structured substrate: a downstream reasoner can propagate probabilistic states over the graph (as in NSM), attend over it as a soft relational prior, or search it for graph-based question answering, in each case obtaining an inspectable cut-point between perception and reasoning.
+The price is that reasoning quality becomes tightly coupled to object detection, attribute grounding, and relation prediction, a dependency we return to in the challenges.
+
+
+\paragraph{Modular and Program-Based Reasoning.}
+A third family translates the query itself into an executable program, and its members differ mainly in the nature of the \emph{executor}.
+The Neural Module Network (NMN)~\cite{andreas2016neural} is the canonical \emph{neural-executor} instance: an external semantic parser converts a question such as ``What color is the llama?'' into a layout, \eg,~\texttt{classify[color](attend[llama])}, whose slots are instantiated by distinct learnable modules (attention, re-attention, classification, combination, measurement) trained jointly to maximize the likelihood of the gold answer.
+Because NMN relies on an off-the-shelf parser, IEP~\cite{johnson2017inferring} replaces it with a sequence-to-sequence program generator that emits the program as a sequence of functions, trained jointly with the execution modules via REINFORCE~\cite{williams1992simple} or by maximizing answer likelihood over a distribution of programs.
+Moving further toward symbols, Neuro-Symbolic VQA (NS-VQA)~\cite{yi2018neural} adopts a \emph{symbolic executor}: a scene parser turns the image into a symbolic table, after which the program reduces to deterministic functional operators, yielding fully interpretable execution at the cost of a near-perfect-perception assumption.
+The Neuro-Symbolic Concept Learner (NS-CL)~\cite{mao2019neuro} occupies the middle ground with a \emph{quasi-symbolic} executor: a neural perception module produces object-centric representations and a semantic parser emits symbolic programs, but the executor relaxes discrete operations such as filtering and relating into differentiable ones, so concept learning and semantic parsing can be trained from question--answer pairs, while the object detector is pretrained using bounding-box annotations.
+
+\paragraph{LLM-Generated Visual Programs.}
+The most active recent extension lets a large language model emit the program directly, replacing the seq2seq parser of IEP or the hand-crafted parser of NMN with a \emph{tool-based executor}.
+ViperGPT~\cite{suris2023vipergpt} and VisProg~\cite{gupta2023visual} pair a frozen LLM with a Python-style API of vision tools (detectors, captioners, attribute classifiers) that the generated code invokes, making the approach compositional and zero-shot without per-task training.
+Code-as-Policies~\cite{liang2023code} pushes the same program-synthesis paradigm into embodied control, treating the LLM-emitted program as a closed-loop policy over perception and actuation primitives; it is included here as an embodied extension of the paradigm rather than as a VQA method.
+The interpretability gain is real, since the emitted code is human-readable, but these systems re-inherit the brittleness of the underlying LLM (hallucinated API calls, ungrounded tool routing) as a failure mode the earlier hand-coded DSLs were designed to avoid.
+
+\paragraph{Unifying View: Parser, Representation, Executor, and Supervision.}
+The four families are points in a shared design space with four axes.
+The \emph{parser} that maps a query to structure may be hand-built (NMN), learned end-to-end (IEP, NS-CL), or a frozen LLM (ViperGPT, VisProg); the \emph{representation} over which reasoning runs may be a dense feature map (MAC), an object-centric scene graph (NSM, and the scene-graph-generation literature~\cite{xu2017scene} supervised at scale by Visual Genome~\cite{krishna2017visual}), or a symbolic scene table (NS-VQA); the \emph{executor} may be neural, symbolic, quasi-symbolic, or a code interpreter; and the \emph{supervision} may be answer-only, program-supervised, or, in tool-based systems, augmented with execution traces and tool feedback.
+The inspectable structure between perception and answer is the common thread: it provides a natural cut-point at which symbolic and learned components can be swapped without retraining the rest of the stack, and the same four axes reappear in the foundation-model reasoners of §\ref{sec:p3_s7_3}.
+
+\paragraph{Beyond VQA: 3D, Temporal, and Embodied Extensions.}
+The same design pattern extends beyond static images: referring-expression grounding has been lifted from 2D images to 3D scenes~\cite{achlioptas2020referit3d}, where object-centric and spatial-relation graphs supply the substrate for reasoning about support, containment, proximity, and navigability, and in video and embodied settings the intermediate structure becomes a temporal scene graph or a task plan that links perception to action (§\ref{sec:p3_s7_3}, Part~IV).
+These extensions also expose the central limitation of current explicit methods: most available program primitives and graph predicates are still designed for static 2D relations, whereas viewpoint change, object permanence, physical interaction, and multi-step navigation need 3D, temporal, and causal operators.
+
+
+\subsubsection{Benchmarks and Performance}
+
+The CLEVR family~\cite{johnson2017clevr} of §\ref{subsec:p3_s7_2_1} is the canonical testbed here as well, with the added property that each question is generated alongside a ground-truth functional program, which gives both program-supervised and answer-only training signals; MAC, IEP, NS-CL, and NS-VQA all converge to the high-90s on it, making it attractive but saturated.
+GQA~\cite{hudson2019gqa} is the dominant open-domain benchmark: it pairs natural-image scenes with compositional questions whose ground-truth scene graphs (from Visual Genome~\cite{krishna2017visual}) make scene-graph-based reasoners directly applicable, and its out-of-distribution splits expose the systematic-generalization gap hidden by saturated CLEVR scores.
+VQA v2~\cite{goyal2017making} is a general VQA benchmark, while the cited visual-program systems ViperGPT and VisProg report task-specific comparisons on GQA.
+Referring-expression grounding benchmarks (RefCOCO and RefCOCO+~\cite{yu2016modeling}, RefCOCOg~\cite{mao2016generation}, and the earlier ReferItGame~\cite{kazemzadeh2014referitgame}) are equally relevant, since they test whether a system can bind spatial language (``the object left of / behind / next to \dots'') to a localized region even when the output is a box or mask rather than an answer.
+Embodied program-as-policy systems such as Code-as-Policies are evaluated by task success in robotic or simulated manipulation environments and should not be compared against VQA accuracy.
+Table~\ref{tab:p3_s7_2_2_clevr_gqa} collects the headline numbers.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Implicit and explicit structured reasoners on CLEVR and GQA (overall accuracy, \%, higher is better). CLEVR numbers use the evaluation splits reported in the original papers; NS-CL reports validation accuracy after training on 5K images; GQA numbers are test-dev or test-standard as reported. ViperGPT and VisProg run zero-shot with a frozen LLM, and VisProg is evaluated on a curated test-dev subset, so its number is not directly comparable. RN and FiLM are the implicit reference points of §\ref{subsec:p3_s7_2_1}.}
+    \label{tab:p3_s7_2_2_clevr_gqa}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.5mm}
+    \begin{tabular}{L{0.22\textwidth} L{0.26\textwidth} L{0.20\textwidth} C{0.10\textwidth} C{0.10\textwidth}}
+        \toprule
+        \textbf{Method} & \textbf{Structure exposed} & \textbf{Supervision} & \textbf{CLEVR} & \textbf{GQA} \\
+        \midrule
+        RN~\cite{santoro2017simple}            & none (pairwise latent)              & answers                       & 95.5 & --   \\
+        FiLM~\cite{perez2018film}              & none (feature modulation)           & answers                       & 97.7 & --   \\
+        MAC~\cite{hudson2018compositional}     & recurrent control / read / write    & answers                       & 98.9 & 54.1 \\
+        IEP~\cite{johnson2017inferring}        & generated program, neural executor  & programs (700k) $+$ answers   & 96.9 & --   \\
+        NS-CL~\cite{mao2019neuro}              & program, quasi-symbolic executor    & boxes (detector) $+$ answers (curriculum) & 98.9 & --   \\
+        NS-VQA~\cite{yi2018neural}             & program, symbolic executor          & scene tables $+$ 270 programs & 99.8 & --   \\
+        NSM~\cite{hudson2019learning}          & probabilistic scene graph, automaton & answers                      & --   & 63.2 \\
+        ViperGPT~\cite{suris2023vipergpt}      & LLM-generated code, tool executor   & none (zero-shot)              & --   & 48.1 \\
+        VisProg~\cite{gupta2023visual}         & LLM-generated code, tool executor   & none (zero-shot)              & --   & 50.5 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\subsubsection{Challenges and Trends}
+Exposing programs, graphs, state transitions, or tool calls buys interpretability but creates new failure modes, and the numbers above locate them.
+The first bottleneck is \textbf{parsing}: if a question is mapped to the wrong program or traversal path, even a correct executor produces the wrong answer.
+The second is \textbf{symbol grounding and underspecification}: spatial predicates such as \texttt{Left}, \texttt{Behind}, \texttt{Near}, or \texttt{Between} depend on viewpoint, scale, object extent, and task context, so many spatial queries do not determine a unique program, a single deterministic DSL operator is often too rigid, and new predicates demand manual re-engineering of the executor.
+The third is \textbf{error propagation}: mistakes by the detector, scene parser, relation classifier, or program generator are inherited by the executor and can cause deterministic failure, which is why NSM reaches 63\% on GQA while the same family saturates CLEVR; on natural images the bottleneck has moved from reasoning execution to perception, scene-graph construction, language grounding, and long-tail relation coverage.
+A fourth, more structural tension is the \textbf{differentiability--interpretability trade-off}: the more symbolic the executor, the more auditable but the harder to train end-to-end; the more differentiable, the more robust but the less transparent.
+Because the value of explicit structure lies in the intermediate trace, \textbf{evaluation} should move beyond final-answer accuracy to whether the parsed program is faithful to the query, whether graph edges correspond to real relations, whether tool calls are necessary and grounded, and whether the execution trace actually supports the answer.
+
+Most explicit systems also reason over static 2D layouts or object graphs rather than 3D geometry, temporal dynamics, or physical causality: they can answer whether $A$ is left of $B$, but rarely simulate how a scene changes under motion, contact, containment, support, or occlusion, which is exactly the mental-simulation capacity human-level spatial reasoning requires.
+LLM-generated programs widen the scope by replacing fixed parsers with flexible code generation, trading a small accuracy gap on saturated benchmarks for zero-shot generality across VQA, grounding, and knowledge-grounded VQA, but they add hallucinated tool calls, invalid APIs, ungrounded intermediate variables, and the absence of a verifiable execution loop.
+The emerging direction is therefore not a return to purely symbolic reasoning but \emph{verifiable hybrid} systems, in which learned perception produces object-centric representations, structured programs or graphs provide an inspectable scaffold, and neural or tool-based executors absorb the variability of real visual inputs, the direction of §\ref{sec:p3_s7_3} and §\ref{sec:p3_s7_4}.
+
+
+
+
+

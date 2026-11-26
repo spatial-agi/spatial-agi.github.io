@@ -1,0 +1,198 @@
+{
+  "figure": "8.5",
+  "sources": [
+    "assets/figures/figures/part3/section8/3D_object_synthesis.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1492
+    ]
+  ],
+  "assets": [
+    {
+      "file": "task/chair.png",
+      "title": "chair",
+      "box": [
+        641,
+        13,
+        724,
+        111
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1282,
+        26,
+        1448,
+        222
+      ],
+      "size": [
+        166,
+        196
+      ]
+    },
+    {
+      "file": "p1/generated-chair.png",
+      "title": "generated chair",
+      "box": [
+        420,
+        218,
+        475,
+        294
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        840,
+        436,
+        950,
+        588
+      ],
+      "size": [
+        110,
+        152
+      ]
+    },
+    {
+      "file": "p2/optimized-chair.png",
+      "title": "optimized chair",
+      "box": [
+        534,
+        204,
+        591,
+        282
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1068,
+        408,
+        1182,
+        564
+      ],
+      "size": [
+        114,
+        156
+      ]
+    },
+    {
+      "file": "p3/view-1.png",
+      "title": "view 1",
+      "box": [
+        225,
+        514,
+        275,
+        577
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        450,
+        1028,
+        550,
+        1154
+      ],
+      "size": [
+        100,
+        126
+      ]
+    },
+    {
+      "file": "p3/view-2.png",
+      "title": "view 2",
+      "box": [
+        302,
+        514,
+        350,
+        577
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        604,
+        1028,
+        700,
+        1154
+      ],
+      "size": [
+        96,
+        126
+      ]
+    },
+    {
+      "file": "p3/view-3.png",
+      "title": "view 3",
+      "box": [
+        376,
+        514,
+        426,
+        577
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        752,
+        1028,
+        852,
+        1154
+      ],
+      "size": [
+        100,
+        126
+      ]
+    },
+    {
+      "file": "p3/lifted-chair.png",
+      "title": "lifted chair",
+      "box": [
+        70,
+        577,
+        126,
+        650
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "reuse": [
+        5,
+        5
+      ],
+      "source_box": [
+        140,
+        1154,
+        252,
+        1300
+      ],
+      "size": [
+        112,
+        146
+      ]
+    },
+    {
+      "file": "p4/reconstructed-chair.png",
+      "title": "reconstructed chair",
+      "box": [
+        862,
+        470,
+        922,
+        548
+      ],
+      "kind": "cutout",
+      "source_index": 0,
+      "source_box": [
+        1724,
+        940,
+        1844,
+        1096
+      ],
+      "size": [
+        120,
+        156
+      ]
+    }
+  ],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content."
+  ]
+}

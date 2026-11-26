@@ -1,0 +1,242 @@
+
+\subsection{3D Panorama Synthesis}
+\label{subsec:p3_s8_2_4}
+
+3D panorama synthesis occupies a distinctive position in spatial generation: rather than producing a 3D representation directly, it generates a complete 360-degree omnidirectional image as a structured \emph{intermediate} from which a full 3D environment can then be lifted.
+The panorama gives embodied agents, AR / VR pipelines, and world models a holistic spatial context with minimal occlusion anchored at one observation point, and it bridges the mature 2D generative prior of §\ref{sec:p3_s8_1} with the 3D substrate on which the rest of §\ref{sec:p3_s8_2} operates.
+Four method families trace the path from a single omnidirectional snapshot to an explorable world: panoramic image synthesis, panoramic video generation, panoramic 3D reconstruction, and panorama-based 3D scene generation.
+
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_2_4_task}
+
+Panorama synthesis generates a complete 360-degree environment conditioned on text, a reference panorama or NFoV image, a spatial layout, or a specified viewpoint; unlike object-centric or narrow-field-of-view (NFoV) generation, it covers the whole environment around the observer at once rather than a fragment of it.
+Formally, we cast it as the omnidirectional-intermediate counterpart of the generative frameworks of §\ref{subsec:p3_s8_2_1} and §\ref{subsec:p3_s8_2_2}.
+Let $\mathcal{P}$ denote the space of panoramic images (functions defined on the sphere $\mathbb{S}^2$ and encoded through a projection operator $\Pi\in\{\text{ERP},\text{cubemap},\text{tangent},\text{fisheye}\}$ onto a processable 2D array) and let $\mathbf{c}\in\mathcal{C}\supseteq\{\text{text},\text{reference panorama / NFoV image},\text{layout},\text{viewpoint / camera trajectory}\}$ be the conditioning.
+Panorama synthesis first learns a panoramic generator and then optionally lifts its output into 3D,
+\begin{equation}
+G_\theta^{\text{pano}}:\mathcal{C}'\rightarrow\mathcal{P},
+\qquad
+\hat{P}\sim p_\theta^{\text{pano}}\!\big(P\,\big|\,\kappa(\mathbf{c})\big),
+\qquad
+\hat{\mathbf{r}}^{\text{rec}} = \Lambda\big(\hat{P}\big),
+\label{eq:p3_s8_2_4_objective}
+\end{equation}
+where $\kappa$ is the condition encoder of §\ref{subsec:p3_s8_2_1}, $\hat{P}\in\mathcal{P}$ is the synthesized omnidirectional image, and $\Lambda:\mathcal{P}\rightarrow\mathcal{R}^{\text{rec}}$ is an optional \emph{lifting operator} mapping the panorama into the 3D-representation space $\mathcal{R}^{\text{rec}}$ of §\ref{subsec:p3_s8_2_3} (drawn from $\mathcal{R}$ of §\ref{subsec:p3_s8_2_1}, \eg NeRF, 3DGS, mesh, point map).
+Equation~\eqref{eq:p3_s8_2_4_objective} makes the role of the panorama as a structured \emph{intermediate} explicit: the hard generative work is performed on the sphere by $G_\theta^{\text{pano}}$ (inheriting the 2D generator $G_\theta$ of Eq.~\eqref{eq:t2i_generator} with its outputs defined on $\mathbb{S}^2$ rather than the plane), while $\Lambda$ reuses the reconstruction machinery of §\ref{subsec:p3_s8_2_3}.
+This is also what separates panorama synthesis from the scene synthesis of §\ref{subsec:p3_s8_2_2}, which produces 3D representations directly from arbitrary viewpoints distributed over $\mathrm{SE}(3)$: here every direction around one observation point is represented coherently first, and 3D structure is recovered from that complete view.
+Two limiting cases locate Eq.~\eqref{eq:p3_s8_2_4_objective} within §\ref{sec:p3_s8_2}.
+When $\Lambda=\mathrm{id}$ (no lifting), the task collapses to omnidirectional 2D image generation, a spatially aware variant of the text-to-image sampler of §\ref{sec:p3_s8_1} defined on the sphere rather than the plane.
+When $\mathbf{c}$ is a set of sparse posed panoramas and $\Lambda$ is a per-scene optimization, Eq.~\eqref{eq:p3_s8_2_4_objective} reduces to panoramic reconstruction, recovering the observation-conditioned operator of Eq.~\eqref{eq:p3_s8_2_3_objective}.
+
+\paragraph{Panoramic Image Formats.}
+The projection $\Pi$ fixes how the sphere is laid out for a 2D network and which distortions the generator must absorb.
+Equirectangular projection (ERP) maps the sphere onto a rectangle in latitude--longitude coordinates; it stretches content near the poles but is continuous and directly compatible with standard 2D pipelines and convolutional networks, which has made it the dominant format for learning-based synthesis.
+Cubemap projection represents the sphere as six perspective faces (front, back, left, right, top, bottom), removing polar distortion at the cost of discontinuities along face boundaries, and is the native format of real-time rendering and VR / AR systems, where each face is processed as an ordinary perspective image.
+Tangent images and perspective patches decompose the panorama into overlapping tangent-plane projections so that models trained on ordinary perspective images can be reused.
+Fisheye and dual-fisheye projections capture 180--220 degrees per lens with radial distortion; most consumer 360-degree cameras capture two hemispheres this way and stitch them, so dual-fisheye is the native acquisition format even when methods operate on ERP.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_2_4_methodology}
+
+The four families are four instantiations of the panoramic generator $G_\theta^{\text{pano}}$ and lifting operator $\Lambda$ of Eq.~\eqref{eq:p3_s8_2_4_objective}: image synthesis stops at a static panorama, video generation extends it over time, panoramic reconstruction applies $\Lambda$ to observed panoramas, and panorama-based scene generation composes the two.
+Figure~\ref{fig:p3_s8_2_4_paradigms} schematizes them and the panorama-as-intermediate pipeline that connects them.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section8/Four_method_families_for_3D_panorama_synthesis.pdf}
+    \caption{The four method families of 3D panorama synthesis (Eq.~\eqref{eq:p3_s8_2_4_objective}), linked by a panoramic intermediate (top): (a) panoramic image synthesis, (b) panoramic video generation, (c) panoramic 3D reconstruction, and (d) panorama-based 3D scene generation. Room imagery is illustrative.}
+    \label{fig:p3_s8_2_4_paradigms}
+\end{figure}
+
+\paragraph{Panoramic Image Synthesis.}
+Two task formulations differ in their conditioning: \emph{text-to-panorama generation}, which leans on the prior of a pretrained generator and is judged on semantic alignment and diversity, and \emph{image-conditioned panorama generation}, which expands an NFoV image or an incomplete panorama by inpainting or outpainting and must preserve the content, style, and panoramic distortion of its input.
+Formally, this family is the base case of Eq.~\eqref{eq:p3_s8_2_4_objective} with the lifting operator disabled: it samples a single static omnidirectional image and stops,
+\begin{equation}
+\hat{P} \sim p_\theta^{\text{pano}}\!\big(P \mid \kappa(\mathbf{c})\big),
+\qquad
+\Lambda = \mathrm{id},
+\label{eq:p3_s8_2_4_image}
+\end{equation}
+where the generative work is carried out under a chosen projection $\Pi\in\{\text{ERP},\text{cubemap},\text{tangent}\}$ that dictates how spherical distortion is handled; Figure~\ref{fig:p3_s8_2_4_paradigms}(a) depicts this static-panorama pathway.
+
+Early approaches~\cite{chen2022text2light, may2023cubegan} relied on GANs~\cite{goodfellow2014gan} and were constrained by limited training data and mode collapse; diffusion models~\cite{ho2020denoising, rombach2022ldm} brought diversity and fidelity, and current methods divide by projection format and architecture.
+The three strategies below are three realizations of the sampler of Eq.~\eqref{eq:p3_s8_2_4_image}, differing in how the spherical output is factorized before being mapped onto the sphere,
+\begin{equation}
+\hat{P} =
+\begin{cases}
+\Pi_{\text{ERP}}^{-1}(\hat{Z}),\ \ \hat{Z}\sim p_\theta\big(Z\mid\kappa(\mathbf{c})\big) & \text{(direct ERP)},\\[3pt]
+\Pi_{\text{cube}}^{-1}\big(\{\hat{F}_i\}_{i=1}^{6}\big),\ \ \{\hat{F}_i\}\sim p_\theta\big(\{F_i\}\mid\kappa(\mathbf{c})\big) & \text{(cubemap)},\\[3pt]
+\mathcal{S}\big(\{\hat{I}_k\}_{k=1}^{K}\big),\ \ \hat{I}_k\sim p_\theta^{\text{2D}}\big(I\mid\kappa(\mathbf{c})\big) & \text{(perspective + stitch)},
+\end{cases}
+\label{eq:p3_s8_2_4_image_proj}
+\end{equation}
+where $\Pi^{-1}$ lifts the generated representation onto the sphere and $\mathcal{S}$ is a spherical stitch-and-blend operator. The first two cases synthesize the panorama \emph{directly} (and so require panoramic training data), whereas the third reuses a frozen perspective generator $p_\theta^{\text{2D}}$ and pushes the cross-view-consistency burden into $\mathcal{S}$.
+
+$\blacktriangleright$ \textit{Equirectangular projection (ERP) methods.} The direct-ERP case generates on the latitude--longitude grid and must handle polar distortion and the wrap-around seam architecturally.
+For text-to-panorama generation, DiffPano~\cite{ye2024diffpano} fine-tunes a diffusion model with LoRA on ERP, SMGD~\cite{sun2025spherical} guides the diffusion process with spherical manifold convolutions that respect geometry across the sphere, and PAR~\cite{wang2025conditional} replaces diffusion with autoregressive modeling to avoid the mismatch between ERP and the noise assumptions of standard diffusion.
+The seam is treated at the denoising or decoding stage: PanoDiff~\cite{panodiff} uses geometric augmentation when completing a panorama from unregistered NFoV images, PanoDiffusion~\cite{wupanodiffusion} generates depth jointly and rotates the latent circularly to enforce left--right continuity, StitchDiffusion~\cite{stitchdiffusion} re-denoises the wrap-around region at every step together with global cropping, and PanFusion~\cite{zhang2024taming} pairs an ERP branch with a multi-view perspective branch to draw on both representations.
+For image-conditioned generation, OmniDreamer~\cite{omnidreamer2022} introduced mask-based outpainting from NFoV images with GANs, AOG~\cite{aog} and ODIS~\cite{odis} explore alternative conditioning for inpainting and outpainting, and PanoDecouple~\cite{zheng2025panorama} separates distortion guidance from content completion to counter the ``visual cheating'' in which a model buys image quality at the cost of geometric accuracy.
+
+$\blacktriangleright$ \textit{Cubemap-based methods.} The second case of Eq.~\eqref{eq:p3_s8_2_4_image_proj} generates six perspective faces, which removes polar distortion but moves the problem to the face boundaries.
+CubeDiff~\cite{kalischek2025cubediff} introduced the cubemap representation for text-to-panorama generation, and DreamCube~\cite{huang2025dreamcube} synchronizes the six planes to suppress discontinuous seams and inconsistent color tone; overlapping the fields of view of adjacent faces reduces seams further but duplicates generation in the overlap and lowers the effective resolution.
+JoPano~\cite{feng2025jopano} models the faces jointly with a DiT and a Joint-Face Adapter, applies Poisson blending along the boundaries, and introduces the seam metrics (Seam-SSIM, Seam-Sobel) used in §\ref{subsubsec:p3_s8_2_4_benchmarks}.
+
+$\blacktriangleright$ \textit{Perspective image-based methods.} The third case leaves a perspective text-to-image model untouched and pushes the consistency burden into the stitch operator $\mathcal{S}$, with or without panorama-specific training.
+\emph{Training-free methods} apply a pretrained perspective model directly: MultiDiffusion~\cite{multidiffusion} denoises overlapping patches independently and blends them, PanoGen~\cite{li2023panogen} outpaints recursively from an initial view until the sphere is covered, DiffCollage~\cite{zhang2023diffcollage} casts the panorama as a factor graph whose factor nodes are portions and whose variable nodes are their overlaps so that portions are generated in parallel rather than autoregressively, PanoFree~\cite{panofree} iterates warping and inpainting over multi-view images, and SphereDiff~\cite{park2025spherediff} moves MultiDiffusion onto a spherical latent with dynamic spherical sampling and distortion-aware weighted averaging so that quality holds up to the poles.
+These methods ride on advances in perspective generation but struggle with global consistency across the full sphere.
+\emph{Training-based methods} fine-tune on panoramic data: MVDiffusion~\cite{tang2023MVDiffusion} generates eight perspective views with consistent geometry and reprojects them into a closed-loop panorama, and TanDiT~\cite{tandit2025} decomposes the panorama into a structured grid of tangent-plane images that a Diffusion Transformer generates jointly in one denoising pass under spatial attention.
+
+
+\paragraph{Panoramic Video Generation.}
+Extending synthesis over time adds temporal coherence to omnidirectional consistency.
+Formally, this family extends the static generator of Eq.~\eqref{eq:p3_s8_2_4_image} over time, sampling a sequence under a joint spatial-and-temporal coherence constraint,
+\begin{equation}
+\{\hat{P}_t\}_{t=1}^{T} \sim p_\theta^{\text{pano}}\!\big(\{P_t\}_{t=1}^{T} \mid \kappa(\mathbf{c})\big),
+\qquad
+\text{s.t.}\;\; \hat{P}_t \approx \mathcal{W}^{\text{t}}(\hat{P}_{t-1}),
+\label{eq:p3_s8_2_4_video}
+\end{equation}
+where $\mathcal{W}^{\text{t}}$ enforces frame-to-frame motion consistency on top of the per-frame 360-degree wrap-around continuity; Figure~\ref{fig:p3_s8_2_4_paradigms}(b) depicts this temporally-extended pathway.
+The methods share this generator but differ in the conditioning argument $\mathbf{c}$ supplied to Eq.~\eqref{eq:p3_s8_2_4_video}, which separates them into three input modalities,
+\begin{equation}
+\mathbf{c}=
+\begin{cases}
+\mathbf{x} & \text{(text-to-video)},\\
+P_0 & \text{(image-to-video)},\\
+\{(I_t,\mathcal{M}_t)\}_{t=1}^{T} & \text{(perspective-to-video)},
+\end{cases}
+\label{eq:p3_s8_2_4_video_cond}
+\end{equation}
+where $\mathbf{x}$ is a text prompt, $P_0$ a static panorama anchor reused as the first frame, and $(I_t,\mathcal{M}_t)$ an NFoV frame paired with its visibility mask. The difficulty grows down the list: as the conditioning becomes spatially sparser, the model must hallucinate progressively more of the sphere while preserving the temporal coherence of Eq.~\eqref{eq:p3_s8_2_4_video}.
+
+$\blacktriangleright$ \textit{Text-to-panoramic video generation.} 360DVD~\cite{wang2024360dvd} adapts a pretrained text-to-video model to the ERP domain through adapter modules, keeping wrap-around consistency across frames but struggling to balance text alignment against spherical geometry and to vary style under several control conditions.
+TiP4GEN~\cite{xing2025tip4gen} adopts a dual-branch panoramic-and-perspective architecture in the spirit of PanFusion and lifts the generated video into a geometry-aligned 4D Gaussian scene.
+PanoWan~\cite{xia2025panowan} and PanoDiT~\cite{zhang2025panodit} fine-tune large video diffusion transformers on panoramic video data and gain motion quality from scale, and PanoLora~\cite{dong2025panolora} treats the task as a projection adaptation from perspective views that LoRA can learn with little data.
+Training-free alternatives carry the static-panorama machinery into time: SphereDiff~\cite{park2025spherediff} extends its spherical latent to video, and DynamicScaler~\cite{liu2025dynamicscaler} denoises through a seamless rotating window with an offset-shifting scheme and Global Motion Guidance, which yields arbitrary output resolution at constant memory.
+Text alone, however, offers little control over layout and motion, which motivates the richer conditioning below.
+
+$\blacktriangleright$ \textit{Image-to-panoramic video generation.} Animating a static panorama anchors the video spatially and asks for plausible omnidirectional motion that respects the input geometry.
+4K4DGen~\cite{li20244k4dgen} animates user-selected regions with an image-to-video model under overlapping windows, at the cost of fixed-window artifacts and limited motion.
+ViewPoint~\cite{fang2025panoramic} introduces a panorama representation that keeps global spatial continuity while Pano-Perspective attention transfers a perspective video prior, and HoloTime~\cite{zhou2025holotime} reconstructs the result as 4D Gaussian Splatting so that the animated scene can be explored under viewpoint changes.
+GenEx~\cite{lu2024genex} generates a 3D-consistent imaginative environment from a single image as a panoramic video stream with loop consistency over long trajectories, which makes it usable for embodied exploration.
+For explicit control, PanFlow~\cite{panflow} conditions on synthetic optical flow as a scene-agnostic motion signal and warps noise spherically so that camera and object motion can be controlled separately while the seam stays consistent; OmniDrag~\cite{li2026omnidrag} adds drag-style interaction at scene and object level through a spherical motion estimator; and PanoWorld-X~\cite{yin2025panoworld} reprojects ERP features onto the sphere inside a Sphere-Aware Diffusion Transformer to follow diverse camera trajectories.
+
+$\blacktriangleright$ \textit{Perspective-to-panoramic video generation.} Expanding an NFoV video to a full 360-degree video requires coherent hallucination in space and time at once, under visibility masks that change with camera motion.
+VidPanos~\cite{ma2024vidpanos} frames the task as space-time outpainting and uses a generative video model to fill the regions a panning camera never observed; Imagine360~\cite{tan2024imagine360} combines a global panoramic branch with local perspective priors and an elevation-aware design for the moving masks; and Beyond the Frame~\cite{beyondtheframe} adds geometry-aware modules and motion-aware conditioning to improve realism and motion consistency in the outpainted regions.
+
+
+\paragraph{Panoramic 3D Reconstruction and Generation.}
+Reconstruction bypasses the generator of Eq.~\eqref{eq:p3_s8_2_4_objective}: rather than generating $\hat{P}$, it takes \emph{observed} posed panoramas and applies the lifting operator directly,
+\begin{equation}
+\hat{\mathbf{r}}^{\text{rec}} = \Lambda\big(\{P_v, \pi_v\}_{v=1}^{V}\big),
+\label{eq:p3_s8_2_4_recon}
+\end{equation}
+where $\Lambda$ is realized either as a per-scene optimization (iterative) or as an amortized network (feed-forward), mirroring the split of §\ref{subsec:p3_s8_2_3}; Figure~\ref{fig:p3_s8_2_4_paradigms}(c) depicts this reconstruction pathway.
+Generation then composes the two directions, feeding a synthesized panorama into the same $\Lambda$.
+
+$\blacktriangleright$ \textit{Iterative optimization-based panoramic reconstruction.} Realizing $\Lambda$ of Eq.~\eqref{eq:p3_s8_2_4_recon} as a \emph{per-scene} optimization,
+\begin{equation}
+\hat{\mathbf{r}}^{\text{rec}} = \arg\min_{\mathbf{r}} \sum_{v} \big\| \mathrm{Render}(\mathbf{r},\pi_v) - P_v \big\|^2 + \lambda\,\Omega(\mathbf{r}),
+\label{eq:p3_s8_2_4_recon_iter}
+\end{equation}
+re-solved from scratch for each scene, these methods fit a radiance field or an explicit representation to multi-view panoramas, the panoramic analogue of §\ref{para:p3_s8_2_3_iterative}.
+NeRF-based work includes 360Roam~\cite{huang2022360roam} for geometry-aware indoor reconstruction, 360FusionNeRF~\cite{kulkarni2023fusion} for novel views from a single panorama under geometric and semantic supervision, EgoNeRF~\cite{choi2023egonerf} with spherical grids for egocentric capture, and OmniNeRF~\cite{gu2022omninerf}, which processes raw dual-fisheye input and its lens distortion.
+Gaussian-splatting alternatives are faster: 360GS~\cite{bai2024360gs} projects Gaussians onto spherical tangent planes, ODGS~\cite{lee2024odgs} rasterizes on tangent planes with elevation-aware densification, OP43DGS~\cite{wang2024op43dgs} corrects the projection bias of the local affine approximation across camera models, OmniGS~\cite{li2024omnigs} exploits omnidirectional optical properties, and Seam360GS~\cite{seam360gs} calibrates dual-fisheye input by jointly optimizing translation vectors and learnable angular-distortion embeddings.
+Scene4U~\cite{scene4u} reconstructs from a single panorama in depth layers: an open-vocabulary segmenter and an LLM decompose it semantically, diffusion inpainting restores occluded regions, and 3D Gaussians are fitted per layer.
+
+$\blacktriangleright$ \textit{Feed-forward generalization-based panoramic reconstruction.} Amortizing $\Lambda$ of Eq.~\eqref{eq:p3_s8_2_4_recon} into a trained network applied in a single forward pass,
+\begin{equation}
+\hat{\mathbf{r}}^{\text{rec}} = \Lambda_\psi\big(\{P_v, \pi_v\}_{v=1}^{V}\big),
+\label{eq:p3_s8_2_4_recon_ff}
+\end{equation}
+where $\Lambda_\psi$ is trained once over a panoramic corpus (the analogue of §\ref{para:p3_s8_2_3_feedforward}), trades the per-scene cost of Eq.~\eqref{eq:p3_s8_2_4_recon_iter} for a learned prior that reconstructs from sparse panoramas without scene-specific training.
+PanoGRF~\cite{chen2023panogrf} pioneered feed-forward reconstruction of wide-baseline panoramas with depth guidance; PanoSplatt3R~\cite{panosplatt3r} extends DUSt3R~\cite{wang2024dust3r} to unposed wide-baseline panoramas through RoPE rolling, a rotary positional embedding rolled across attention heads so that ERP periodicity and correspondences across the seam are modeled; and PanSplat~\cite{pansplat} builds spherical 3D Gaussian pyramids on a Fibonacci lattice to reach 4K novel views with feed-forward inference and cubemap rendering for memory efficiency.
+
+$\blacktriangleright$ \textit{Panorama-based 3D generation and world modeling.} This family realizes the full composition of Eq.~\eqref{eq:p3_s8_2_4_objective}: it first \emph{generates} the panorama and then lifts it,
+\begin{equation}
+\hat{\mathbf{r}}^{\text{rec}} = \Lambda\big(\hat{P}\big),
+\qquad
+\hat{P} \sim p_\theta^{\text{pano}}\!\big(P \mid \kappa(\mathbf{c})\big),
+\label{eq:p3_s8_2_4_gen}
+\end{equation}
+so that the synthesized omnidirectional image of Eq.~\eqref{eq:p3_s8_2_4_image} becomes the structured intermediate fed to the reconstruction operator of Eq.~\eqref{eq:p3_s8_2_4_recon}; Figure~\ref{fig:p3_s8_2_4_paradigms}(d) depicts this generate-then-lift pathway.
+Text $\rightarrow$ panorama $\rightarrow$ 3D pipelines generate the omnidirectional image with a diffusion model~\cite{ye2024diffpano,kalischek2025cubediff} before reconstructing a NeRF, Gaussian, or mesh scene.
+LayerPano3D~\cite{yang2024layerpano3d} parses the panorama into hierarchical depth layers and reconstructs each with 3D Gaussian Splatting, DreamScene360~\cite{zhou2025dreamscene360} fits panoramic Gaussians for free-roaming text-conditioned scenes, Matrix-3D~\cite{yang2025matrix} couples trajectory-guided panoramic video generation with a dual-pathway reconstruction that conditions on scene-mesh renders, and HunyuanWorld~\cite{team2025hunyuanworld} treats the panorama as a 360-degree world proxy for text- and image-conditioned explorable scenes with mesh export and disentangled object representations.
+The panoramic video generators GenEx~\cite{lu2024genex} and PanoWorld-X~\cite{yin2025panoworld} (above) turn the same intermediate into an action- or trajectory-conditioned observation space, which is where panorama synthesis meets the world models of §\ref{sec:p3_s8_6}.
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_2_4_benchmarks}
+
+Panoramic datasets must supply geometric consistency over the full sphere, a declared projection format, and, for reconstruction, camera poses and depth; Table~\ref{tab:p3_s8_2_4_corpora} lists the corpora in use, grouped by modality.
+
+\paragraph{Training Corpora.}
+For static synthesis, Structured3D~\cite{zheng2020structured3d} (synthetic indoor scenes with controlled geometry) and SUN360~\cite{xiao2012recognizing} (real-world indoor and outdoor panoramas) are the standard benchmarks for distortion handling and seam artifacts, in the splits adopted by JoPano, PanoDecouple, and DreamCube~\cite{feng2025jopano,zheng2025panorama,huang2025dreamcube}; Matterport3D~\cite{chang2017matterport3d}, with RGB-D panoramas, camera poses, and mesh geometry across 90 buildings, is the most widely used corpus for both generation and reconstruction~\cite{pansplat,yang2024layerpano3d,team2025hunyuanworld,tang2023MVDiffusion,zhang2024taming}, and Upright360~\cite{yang2024layerpano3d} filters Matterport3D, web, and Blockade Labs panoramas with GeoCalib~\cite{veicht2024geocalib} to near-zero pitch and roll for realistic indoor synthesis.
+Panoramic video with geometric annotation has been the bottleneck.
+360+x~\cite{chen2023360plusx} and WEB360~\cite{wang2024360dvd} are small real-world collections (the latter captioned for text conditioning), 360-1M~\cite{wallingford2024image} scales to over a million videos for world-model pretraining, PanFlow~\cite{panflow} adds optical flow and camera poses on motion-rich sequences, PANOVID~\cite{xia2025panowan} aggregates these with Imagine360~\cite{tan2024imagine360} and public VR videos but lacks poses and depth, and Matrix-Pano~\cite{yang2025matrix} fills that gap with Unreal Engine 5 renders carrying depth maps and camera trajectories; embodied work renders action-conditioned observations in Unreal Engine directly~\cite{lu2024genex,yin2025panoworld}.
+For reconstruction, Replica~\cite{straub2019replica} and Residential~\cite{habtegebrial2022somsi} serve as synthetic indoor benchmarks at baselines of about 1.0\,m and 0.3\,m respectively~\cite{pansplat}, 360Loc~\cite{huang2024360loc} supplies posed panorama sequences used for 4K fine-tuning~\cite{pansplat}, and the scarcity of posed real panoramic video led PanSplat~\cite{pansplat} to capture its own dual-fisheye footage with poses from visual SLAM.
+
+\begin{table}[t]
+    \centering
+    \fontsize{8}{10}\selectfont
+    \setlength{\tabcolsep}{1.0mm}
+    \caption{Representative training corpora for 3D panorama synthesis, grouped by primary modality. ``Modality'' indicates the data type and synthetic / real acquisition. Structured3D and SUN360 scales are those of the splits used by recent panorama generators (SUN360 in full has $67{,}583$ panoramas).}
+    \label{tab:p3_s8_2_4_corpora}
+    \begin{tabular}{L{0.17\textwidth} C{0.06\textwidth} C{0.15\textwidth} L{0.22\textwidth} L{0.32\textwidth}}
+        \toprule
+        \textbf{Dataset} & \textbf{Year} & \textbf{Scale} & \textbf{Modality} & \textbf{Primary use} \\
+        \midrule
+        Structured3D~\cite{zheng2020structured3d} & 2020 & ${\sim}21\mathrm{K}$ panoramas & Synthetic image & Indoor synthesis; distortion / seam benchmark \\
+        SUN360~\cite{xiao2012recognizing} & 2012 & ${\sim}29\mathrm{K}$ panoramas & Real image & Real-scene generation benchmark \\
+        Matterport3D~\cite{chang2017matterport3d} & 2017 & $10{,}800$ RGB-D panoramas & Real image + depth & Generation and reconstruction supervision \\
+        Upright360~\cite{yang2024layerpano3d} & 2024 & ${\sim}9.4\mathrm{K}$ panoramas & Mixed image & Geometrically upright indoor synthesis \\
+        \midrule
+        360+x~\cite{chen2023360plusx} & 2024 & $2{,}152$ videos & Real multimodal video & Panoptic scene understanding \\
+        WEB360~\cite{wang2024360dvd} & 2024 & ${\sim}2\mathrm{K}$ videos & Real captioned video & Text-to-panoramic video \\
+        360-1M~\cite{wallingford2024image} & 2024 & $>1\mathrm{M}$ videos & Real video & Large-scale world-model pretraining \\
+        PANOVID~\cite{xia2025panowan} & 2025 & Aggregated & Real video & Text-to-panoramic video training \\
+        Matrix-Pano~\cite{yang2025matrix} & 2025 & $116{,}759$ sequences & Synthetic video + depth + trajectory & Trajectory-conditioned generation \\
+        \midrule
+        Replica~\cite{straub2019replica} & 2019 & $18$ scenes & Synthetic (rendered scans) & Indoor reconstruction benchmark \\
+        Residential~\cite{habtegebrial2022somsi} & 2022 & Indoor scenes & Synthetic image & Indoor reconstruction benchmark \\
+        360Loc~\cite{huang2024360loc} & 2024 & $18$ posed sequences & Real reconstruction & 4K reconstruction fine-tuning \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{Evaluation Metrics.}
+Panorama evaluation combines general image and video quality metrics with panorama-specific measures of distortion, seam consistency, and spherical topology.
+
+$\blacktriangleright$ \textit{Image fidelity and semantic alignment.} FID measures distributional similarity between generated and real panoramas~\cite{feng2025jopano,yang2024layerpano3d,zheng2025panorama,tandit2025}; PanFusion~\cite{zhang2024taming} shows that FAED (Fréchet Auto-Encoder Distance), computed in the latent space of an auto-encoder trained on the target data, tracks panorama quality more closely than Inception features do.
+Text-to-panorama generation reports CLIP-Score between prompt and output~\cite{team2025hunyuanworld,feng2025jopano,yang2024layerpano3d,tandit2025}, image-conditioned tasks report CLIP-I between input and output~\cite{team2025hunyuanworld}, and no-reference quality is scored with BRISQUE and NIQE~\cite{team2025hunyuanworld,yang2024layerpano3d,yang2025matrix}, complemented by aesthetic scorers and human preference studies, for instance the Average User Ranking protocol of LayerPano3D~\cite{yang2024layerpano3d}.
+Layout-conditioned synthesis measures adherence by 3D and 2D IoU against layouts recovered with HorizonNet~\cite{sun2019horizonnet}, following PanFusion~\cite{zhang2024taming}.
+
+$\blacktriangleright$ \textit{Panorama-specific consistency.} Projection-induced distortion and boundary discontinuities call for metrics of their own.
+JoPano~\cite{feng2025jopano} scores cubemap seams with Seam-SSIM (SSIM between adjacent edge pixels of neighboring faces) and Seam-Sobel (gradient discontinuity along the seam); PanoDecouple~\cite{zheng2025panorama} introduces Distort-CLIP, a CLIP variant trained to detect panoramic distortion, so that the ``visual cheating'' of models that improve image quality while degrading geometry becomes measurable; and loop consistency across the 360-degree wrap-around is assessed by PSNR in overlapping regions~\cite{tang2023MVDiffusion} or across the left--right boundary~\cite{panflow,xia2025panowan}.
+
+$\blacktriangleright$ \textit{Reconstruction and novel-view synthesis.} Because pixel density on the sphere is non-uniform, WS-PSNR (Weighted Spherical PSNR) weights pixels by latitude and replaces plain PSNR for equirectangular outputs~\cite{pansplat,chen2023panogrf}, complemented by SSIM and LPIPS~\cite{yang2024layerpano3d,pansplat,yang2025matrix}.
+
+$\blacktriangleright$ \textit{Video quality and spatiotemporal dynamics.} Panoramic videos are often projected to several perspective views (\eg, four views at azimuths $\{0\degree, 90\degree, 180\degree, 270\degree\}$ with a $90\degree$ field of view) so that human raters and perspective-domain tools can be used~\cite{team2025hunyuanworld,yang2024layerpano3d,tan2024imagine360}.
+Q-Align~\cite{wu2023qalign}, a large multimodal model trained to score visual quality on discrete text-defined levels, is increasingly used for images and videos alike~\cite{team2025hunyuanworld,tan2024imagine360}; FVD~\cite{unterthiner2018fvd}, computed in the feature space of an inflated 3D ConvNet, is the standard distributional metric for video~\cite{panflow,xia2025panowan}; VBench~\cite{huang2023vbench} adds imaging quality, aesthetic quality, motion smoothness, and subject consistency over projected views; and trajectory-conditioned generation is scored by frame-to-frame consistency and by the range of camera motion it sustains~\cite{yin2025panoworld}.
+Two limits remain. Ground truth is scarce for dynamic panoramic video with depth and camera annotation, so evaluation falls back on projected perspective views or user studies; and world-level properties such as loop consistency over long trajectories and action-conditioned spatial coherence have no dedicated benchmark yet.
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_2_4_challenges}
+
+\paragraph{Unique Challenges in Panoramic Synthesis.}
+Modeling a complete omnidirectional environment imposes constraints that NFoV synthesis never meets.
+The first is \textbf{distortion-aware learning}: ERP stretches content near the poles, so visual information is non-uniformly distributed over the image and convolutional kernels designed for translation invariance on the plane struggle with the varying distortion, which motivates spherical manifold convolutions and latitude-aware architectures~\cite{sun2025spherical,zheng2025panorama}.
+The second is \textbf{seamless boundary consistency}: wrap-around coherence across the longitudinal boundary must be preserved to avoid visible seams, typically through circular padding or latent rotation during denoising~\cite{panflow,xia2025panowan}.
+The third is \textbf{scaling structured generation} to 4K and beyond while keeping global geometric and semantic consistency over the whole sphere, which pushes toward memory-efficient attention and hierarchical spherical representations~\cite{pansplat,liu2025dynamicscaler}.
+
+\paragraph{From Panorama to World Models.}
+The clearest trend is the move from static spherical snapshots toward \textbf{interactive 3D world modeling}, in which the panorama is the interface through which an embodied agent reasons about a complete environment rather than a fragment of one.
+The systems that lift a generated panorama into an explorable world (HunyuanWorld~\cite{team2025hunyuanworld}, Matrix-3D~\cite{yang2025matrix}) and World Labs' Marble~\cite{Feifei2025Marble} show what panoramic priors make possible, and \textbf{temporal panoramic modeling} supplies the 4D half: generating temporally coherent panoramic video requires motion dynamics that respect spherical topology and occlusion boundaries~\cite{panflow,yin2025panoworld}.
+Integrated with interactive systems, such panoramic world simulations become a basis for embodied interaction, long-range spatial reasoning, and environment simulation in robotics and immersive media.
+
+\paragraph{Representation Innovations.}
+Efficiency and fidelity both hinge on the omnidirectional representation.
+\textbf{Efficient omnidirectional representations} such as the Fibonacci-lattice Gaussian pyramids of PanSplat~\cite{pansplat} render at high fidelity without the redundancy of uniform grids, and \textbf{multi-modal panoramic fusion}, which binds 360-degree RGB to depth, semantic labels, and geometric proxies such as surface normals~\cite{yang2024layerpano3d,scene4u}, makes the synthesized environment both more realistic and more editable, closing part of the gap between 2D generative priors and full 3D scene intelligence.

@@ -1,0 +1,98 @@
+
+\subsection{Audio-Visual Spatial Localization}
+\label{sec:av_localization}
+% \wsq{声源定位与空间目标匹配（如声音中找人）}
+
+Humans localize a sound by combining auditory cues (interaural level and time differences, spectral shaping) with visual context (lip motion, object dynamics)~\cite{blauert1997spatial}. Audio-visual spatial localization (AV-SL) asks a machine to do the same: find the pixel region, object, or 3D point that a sound comes from, under reverberation, noise, occlusion, and several simultaneous sources~\cite{arandjelovic2017look,owens2018audio}. The two modalities are complementary. Binaural or array audio supplies directional cues, while distance requires additional geometric, near-field, or learned evidence; vision says which entities are plausible sounders and separates acoustically confusable ones (two similar instruments, only one playing). Spatial audio for AR/VR~\cite{morgado2018self}, teleconferencing~\cite{tao2021talknet}, and audio-guided navigation~\cite{chen2020soundspaces} are the main consumers.
+
+\subsubsection{Task Definition}
+The input is an audio stream $A$ (mono, binaural, or multichannel, optionally ambisonic~\cite{zotter2019ambisonics}) time-aligned with a video $V$ (RGB, depth, or multi-view) of the same interval; the audio may contain zero, one, or several sources, and the video may show silent objects that look like sounders. The output localizes the sounding entity in a form that depends on the variant: a 2D heatmap or mask, a face or body box with a speaking state, an event class with its temporal extent and direction of arrival (DOA, azimuth and elevation) and optionally distance~\cite{politis2023dataset}, a 2D location with depth, or a 3D point or trajectory in camera or world coordinates. For visible-region localization, off-screen sources or audio with no visible source should yield a null prediction; 3D acoustic localization may still estimate an off-screen source.
+
+Five variants are in common use. Visual sound source localization (VSSL) highlights the sounding region of a frame or clip as a class-agnostic heatmap, in single- and multi-source settings and increasingly with negative or off-screen audio as a robustness test. Active speaker detection (ASD) decides who is speaking and localizes the talker as a face track, often under streaming constraints~\cite{tao2021talknet}. Audio-visual sound event localization and detection (AV-SELD) couples what and when with where: event class, temporal extent, DOA, and in recent benchmarks distance~\cite{politis2023dataset}. The 2.5D variant adds depth or range to a 2D localization from monocular depth~\cite{DepthAnything}, stereo, or echoes~\cite{gao2020visualechoes}; and 3D DOA estimation returns a spatial bearing, whereas source-position or trajectory estimation additionally uses range or triangulation constraints from calibrated cameras, arrays, or egocentric rigs~\cite{grauman2022ego4d}.
+
+\subsubsection{Methodology}
+Figure~\ref{fig:p3_s6_5_1_method_overview} maps the five variants onto four method families.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/audio_video_spatial_localization.pdf}
+    \caption{Audio-visual spatial localization. \textit{Top}: task outputs for (i) VSSL, (ii) ASD, (iii) AV-SELD, (iv) 2.5D localization, and (v) 3D localization and tracking. \textit{Bottom}: method families (A) cross-modal correspondence, (B) audio--lip synchrony, (C) joint spatial event prediction, and (D) geometric lifting or fusion; neutral connectors mark principal task--family associations, not computational flow. Directional arrows inside panels indicate prediction or information flow. The 2.5D panel links a selected image location to depth; 3D position additionally requires range or triangulation constraints. Scene imagery and overlays are illustrative.}
+    \label{fig:p3_s6_5_1_method_overview}
+\end{figure}
+
+\paragraph{Cross-Modal Correspondence (VSSL).}
+VSSL is learned almost entirely without location labels, from the co-occurrence of sound and image. An audio encoder maps the clip to an embedding $\mathbf{a}$, a visual encoder maps the frame to a feature map $\mathbf{v}(\mathbf{x})$, and the localization map is the per-position similarity
+\begin{equation}
+    S(\mathbf{x}) = \frac{\mathbf{a}^{\top}\mathbf{v}(\mathbf{x})}{\|\mathbf{a}\|\,\|\mathbf{v}(\mathbf{x})\|},
+\end{equation}
+trained so that matching audio-image pairs score higher than mismatched ones~\cite{senocak2018learning,owens2018audio}; Sound of Pixels~\cite{zhao2018sound} instead mixes two clips and asks the network to separate them conditioned on pixel features, which forces the same alignment. Later work targets the failure modes of co-occurrence. LVS~\cite{chen2021localizing} mines hard negatives inside the same image (regions that look like sounders but do not match the audio) and introduces the VGG-SS localization benchmark; deep multimodal clustering~\cite{hu2019deep} and coarse-to-fine mixture objectives~\cite{qian2020multiple} handle several sources at once; and SLAVC~\cite{mo2022closer} shows that earlier methods depend on early stopping and adds momentum encoders and extreme visual dropout so that the alignment does not collapse onto background.
+
+\paragraph{Audio--Lip Alignment (ASD).}
+ASD runs a face detector and tracker and then decides, per track and per frame, whether the visible mouth produced the audio. The decision rests on audio-visual synchrony: a visual encoder over the lip region and an audio encoder over the spectrogram are compared across time~\cite{afouras2020self}, and TalkNet~\cite{tao2021talknet} adds long-term temporal modeling of both streams with cross-attention, which is what separates a brief pause from a non-speaker. Active Speakers in Context~\cite{alcazar2020active} scores each candidate jointly with the other faces in the frame, and ASDNet~\cite{kopuklu2021how} makes the three stages explicit (per-frame audio-visual encoding, inter-speaker relation modeling, temporal modeling), with each stage trained for its role.
+
+\paragraph{Joint Event and DOA Prediction (AV-SELD).}
+SELDnet~\cite{adavanne2018sound} set the template: a convolutional recurrent network over multichannel spectrogram features with two heads, one classifying active events per frame and one regressing their DOA. ACCDOA~\cite{shimada2021accdoa} folds the two into one output, a vector per class whose direction is the DOA and whose length is the activity, which removes the need to balance two losses; the DCASE challenge tracks~\cite{politis2020overview} standardized the protocol, and STARSS23~\cite{politis2023dataset} added video and source distance.
+
+\paragraph{Geometric Lifting (2.5D and 3D).}
+Lifting a 2D localization to metric space uses geometry rather than learned correspondence alone. VisualEchoes~\cite{gao2020visualechoes} shows that echoes of an emitted chirp carry depth: the time and spectrum of the return, fused with the image, improve monocular depth estimation and give the 2.5D variant its range. Audio-visual spatial alignment~\cite{morgado2020learning} learns representations by predicting whether 360$^\circ$ video and ambisonic audio are spatially consistent, a pretext that encodes direction, and self-supervised spatial audio generation~\cite{morgado2018self} learns the inverse mapping from 360$^\circ$ video to ambisonics. Full 3D systems combine classical array processing (time differences of arrival from GCC-PHAT~\cite{knapp1976generalized}, steered-response-power beamforming~\cite{dibiase2001robust}) with calibrated cameras and triangulation, and in simulation (SoundSpaces~\cite{chen2020soundspaces,chen2022soundspaces}) with the agent's own motion.
+
+\subsubsection{Datasets and Metrics}
+
+Table~\ref{tab:p3_s6_5_1_avsl_tasks} pairs each variant with its benchmarks and metrics; there is no shared benchmark across variants because their outputs differ.
+
+\begin{table}[!ht]
+\centering
+\caption{AV-SL task variants with representative datasets, outputs, and metrics. Newer VSSL test suites add negative or off-screen audio to measure robustness.}
+\label{tab:p3_s6_5_1_avsl_tasks}
+\small
+\begin{tabular}{@{}L{0.12\textwidth} L{0.34\textwidth} L{0.20\textwidth} L{0.24\textwidth}@{}}
+\toprule
+\textbf{Task} & \textbf{Representative Datasets} & \textbf{Primary Outputs} & \textbf{Typical Metrics} \\
+\midrule
+VSSL (2D) & Flickr-SoundNet~\cite{senocak2018learning}, MUSIC~\cite{zhao2018sound}, VGG-SS~\cite{chen2021localizing} (from VGG-Sound~\cite{chen2020vggsound}), AVSBench~\cite{zhou2022avs} & heatmap / mask & cIoU, AUC; AP with negatives \\
+ASD & AVA-ActiveSpeaker~\cite{roth2020ava} & talker boxes + speaking state & mAP \\
+AV-SELD & STARSS23~\cite{politis2023dataset}, DCASE SELD tracks~\cite{politis2020overview} & event + time + DOA (+ distance) & F-score, error rate, DOA error, distance error \\
+2.5D & Replica / Matterport3D echo splits~\cite{gao2020visualechoes} & 2D + depth & AbsRel, RMSE \\
+3D DOA / trajectory & STARSS23 positions~\cite{politis2023dataset}, SoundSpaces~\cite{chen2020soundspaces} & DOA / 3D point / trajectory & angular error, positional error \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+VSSL is scored by thresholding the localization map and computing consensus intersection over union (cIoU) against the annotations; reported metrics include the fraction of test images with cIoU above 0.5 (localization accuracy) and the area under the IoU-threshold curve (AUC)~\cite{senocak2018learning}; the extended VGG-SS and Flickr protocols add clips whose audio has no visible source and report detection-style average precision requiring both visible-source presence and correct localization~\cite{chen2021localizing,mo2022closer}. ASD uses detection-style mAP over face tracks with speaking labels~\cite{roth2020ava}. SELD combines detection (F-score, error rate) with localization (DOA error, localization recall)~\cite{politis2020overview}, while STARSS23 additionally provides source-distance annotations~\cite{politis2023dataset}; 2.5D inherits the depth metrics of Section~\ref{sec:depth_estimation}, and 3D settings report angular and positional error.
+
+Table~\ref{tab:p3_s6_5_1_avsl_performance} collects the two variants with a stable leaderboard. On VSSL the negative-audio protocol changes the ranking: LVS leads the earlier methods on the standard Flickr test but drops to 9.8 AP when silent clips are mixed in, whereas SLAVC holds both. ASD on AVA-ActiveSpeaker has moved from 79.2 mAP for the dataset baseline to above 93 with explicit temporal and inter-speaker modeling, and the remaining differences among top systems are about latency and streaming rather than accuracy. AV-SELD has no such table: each DCASE edition changes the data and the metric, and distance-aware evaluation is not directly comparable to the DOA-only tracks that SELDnet and ACCDOA were evaluated on.
+
+\begin{table}[!t]
+    \centering
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.2mm}
+    \caption{Visual sound source localization and active speaker detection. VSSL: cIoU (\%) on the Flickr-SoundNet and VGG-SS test sets, and AP (\%) on their extended versions with negative audio, all models trained on VGG-Sound 144k, as reported in the SLAVC comparison~\cite{mo2022closer}. ASD: mAP (\%) on AVA-ActiveSpeaker val, from the TalkNet~\cite{tao2021talknet} and ASDNet~\cite{kopuklu2021how} papers.}
+    \label{tab:p3_s6_5_1_avsl_performance}
+    \begin{tabular}{L{0.26\textwidth} L{0.26\textwidth} C{0.09\textwidth} C{0.09\textwidth} C{0.09\textwidth} C{0.09\textwidth}}
+    \toprule
+    \rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \textit{Visual sound source localization}} \\
+    \textbf{Method} & \textbf{Design} & \textbf{Flickr cIoU} & \textbf{VGG-SS cIoU} & \textbf{Ext.\ Flickr AP} & \textbf{Ext.\ VGG-SS AP} \\
+    \midrule
+    Attention10k~\cite{senocak2018learning} & Audio-guided attention   & 42.3 & 18.5 & --   & -- \\
+    DMC~\cite{hu2019deep}                   & Multimodal clustering    & 55.6 & 23.9 & --   & -- \\
+    LVS~\cite{chen2021localizing}           & Hard negatives           & 71.9 & 34.4 & 9.8  & 5.2 \\
+    SLAVC~\cite{mo2022closer}               & Momentum encoder, dropout & 83.2 & 37.2 & 51.6 & 33.0 \\
+    \midrule
+    \rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \textit{Active speaker detection (AVA-ActiveSpeaker val, mAP)}}\\
+    \hiderowcolors \textbf{Method} & \textbf{Design} & \textbf{mAP} & & & \\
+    \midrule
+    AVA baseline~\cite{roth2020ava}         & Audio-visual fusion      & 79.2 & & & \\
+    ASC~\cite{alcazar2020active}            & Inter-speaker context    & 87.1 & & & \\
+    TalkNet~\cite{tao2021talknet}           & Long-term temporal, cross-attention & 92.3 & & & \\
+    ASDNet~\cite{kopuklu2021how}            & Three-stage architecture & 93.5 & & & \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Challenges}
+Co-occurrence is not causation. A model that has learned which objects usually make which sounds will localize a guitar whether or not it is playing, and the negative-audio protocols~\cite{chen2021localizing,mo2022closer} exist because the standard tests rewarded exactly this; the open problem is grounding on the acoustic evidence itself, which matters most for off-screen and silent cases where the right answer is no localization.
+
+Going from 2D saliency to metric 3D requires semantics and geometry together. Depth foundation models~\cite{DepthAnything} (Section~\ref{sec:depth_estimation}) and self-supervised visual features~\cite{dinov2} now supply priors that AV-SL pipelines previously learned from scratch, and STARSS23~\cite{politis2023dataset} provides joint event, time, DOA, and distance annotations, supporting distance-aware extensions; multi-object objectives for overlapping events are the current frontier there.
+
+Multiple simultaneous sources, identity through occlusion, and on-screen/off-screen transitions over long videos~\cite{qian2020multiple,tian2018audio} are the AV-SL form of the identity problem of Section~\ref{sec:object_tracking} and the pose-continuity problem of Section~\ref{sec:object_pose}. Streaming use adds causal encoders, low-latency fusion, calibration drift, and graceful fallback when one modality is missing~\cite{tao2021talknet,kopuklu2021how}.
+% TODO: anchor §8.x once §8 (Spatial Reconstruction and Generation) subsections stabilize --- AV-SL is a natural consumer of 4D scene reconstruction (spatial audio rendering, dynamic-scene physical reasoning) per the §6.4.1 (Scene Flow) §Challenges ¶3 convergence narrative.

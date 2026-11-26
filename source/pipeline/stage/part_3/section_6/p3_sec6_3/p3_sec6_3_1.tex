@@ -1,0 +1,103 @@
+
+\subsection{Spatial Relation Extraction}
+\label{sec:spatial_relation_extraction}
+
+% Task definition
+%  - Motivation & Importance
+%  - Formal Task Definition
+%  - Subtasks, if have:
+
+% Part 2: Method taxonomy.
+% modality
+%
+
+% Task Definition
+%  - Motivation & Importance
+% ,liu2024edge，liu2025boost
+Spatial Relation Extraction (SRE) identifies the relative spatial configuration of objects, such as ``table-left-of-chair'' or ``car-behind-bus''.
+It turns detections or segmentations into spatial relation knowledge that feeds reasoning, scene graph generation~\cite{xu2025llava,li2024pixels,wu2025universal}, autonomous driving~\cite{malawade2022roadscene2vec,zhou2023pit,liu2024edge,liu2025boost}, and embodied AI~\cite{SongBTTSB25,zhang2025vlabench}.
+It is narrower than Scene Graph Generation (SGG), which runs the full pipeline from detection to relation prediction and includes non-spatial predicates (``person-holding-book''); here SRE covers only geometric, topological, and projective spatial predicates.
+
+
+%  - Formal Task Definition
+\subsubsection{Task Definition}
+Given a visual scene (a 2D image, a video, a point cloud, or an RGB-D stream) and two target object instances specified by tags, boxes, or masks, SRE outputs their spatial relationship either as a triplet $(s, p, o)$ with $p$ drawn from a spatial predicate vocabulary, or as a natural-language sentence describing the relation and its context.
+Three subtasks differ in output granularity. \textbf{Visual Spatial Classification (VSC)}~\cite{yang2019spatialsense, zhao2024acm} predicts a predicate from a closed label set (``on'', ``in'', ``next to'') or verifies whether a given predicate holds for the object pair. \textbf{Visual Spatial Description (VSD)}~\cite{zhao2022visual, zhao2023generating} generates a free-form sentence that can carry attributes and context beyond the bare predicate. \textbf{Quantitative spatial understanding}~\cite{cheng2024spatialrgpt,chen2024spatialvlm} replaces qualitative predicates with metric quantities (distances, absolute sizes, 3D orientations), which navigation and manipulation require. The field has moved through these three in order, from closed-set classification to generation to metric quantification.
+
+
+% Part 2: Method taxonomy.
+% (Focus on giving a comprehensive but structured overview; no need to cover every paper in depth.) 规则+学习
+\subsubsection{Methodology}
+
+Figure~\ref{fig:p3_s6_3_1_sre_overview} summarizes the task and the three method families surveyed below.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/spatial_relation_extraction.pdf}
+    \caption{Spatial relation extraction. \textit{Top}: given a visual scene (image, video, point cloud, or RGB-D) and two target objects $(O_1, O_2)$, predict (a) a closed-set relation label (VSC), (b) a free-form description (VSD), or (c) a quantitative metric estimate. \textit{Bottom}: (i) rule-based, (ii) learning-based decoupled, and (iii) MLLM-based mechanisms with method timelines (chronological spacing is not proportional). Metric outputs require depth or scale information.}
+    \label{fig:p3_s6_3_1_sre_overview}
+\end{figure}
+
+\paragraph{Rule-based approaches.}
+Rule-based pipelines~\cite{malawade2022roadscene2vec,zhao2022visual,zhou2024hktsg} first run off-the-shelf perception (a 2D detector with a bird's-eye-view transform~\cite{liu2008bird}, or a 3D scene extractor~\cite{nie2020total3dunderstanding}) to obtain each object's 3D position, size, orientation, and appearance in a camera-centered frame whose vertical axis is aligned with gravity, and then apply deterministic geometric rules to the centroids to produce $(O_1, p, O_2)$ triplets~\cite{zhao2022visual}.
+Let $(x_{O_i}, y_{O_i}, z_{O_i})$ denote the centroid of object $O_i$ in this shared camera-centered frame, with $x$ pointing right and $y$ pointing upward. Then
+\begin{equation}
+\begin{aligned}
+\Delta x &= |x_{O_1} - x_{O_2}|, \quad
+\Delta y = |y_{O_1} - y_{O_2}|, \quad
+\Delta z = |z_{O_1} - z_{O_2}|, \\
+&\Delta y > \tau \,\land\, y_{O_1} > y_{O_2} \;\Rightarrow\; \text{``above''}, \\
+&\Delta x > \Delta z \,\land\, \Delta x > \tau \,\land\, x_{O_1} < x_{O_2} \;\Rightarrow\; \text{``left''}, \\
+&\Delta x > \Delta z \,\land\, \Delta x > \tau \,\land\, x_{O_1} > x_{O_2} \;\Rightarrow\; \text{``right''},
+\end{aligned}
+\end{equation}
+where $\tau$ is a small threshold (\eg, $0.2$\,m).
+Such rules are cheap but brittle: 2D-to-3D back-projection misplaces occluded or oddly posed objects (a rear vehicle whose centroid lands ambiguously on the BEV plane), fixed rules cannot express functional or contextual relations (``person riding bicycle'', a book more likely on a shelf than under it), and every new domain needs its rules rewritten.
+
+
+\paragraph{Learning-based approaches.}
+Zhao \etal~\cite{zhao2022visual} decoupled spatial relation generation from generic captioning and trained it with a joint visual--spatial objective; 3DVSD~\cite{zhao2023generating} moved the same task into 3D scene modeling and added structure-aware sampling that holds up under occlusion.
+
+\paragraph{MLLM-based approaches.}
+Multimodal large language models carried the line from image-level predicates toward finer and more metric grounding.
+SpatialVLM~\cite{chen2024spatialvlm} used monocular-depth-derived spatial QA supervision to train a vision-language model so the model answers metric queries such as ``How far is A from B?'', outperforming GPT-4V on spatial VQA.
+SpatialBot~\cite{cai2024spatialbot} exposes pixel-level depth queries through a depth API and trains progressively, translating spatial reasoning into higher robotic grasping success.
+SpatialRGPT~\cite{cheng2024spatialrgpt} sharpens granularity from the whole image to regions, accepting boxes or masks and auto-generating 8.7M region-level spatial samples through scene-subgraph sampling (S$^3$).
+SpatialLLM~\cite{ma2025spatialllm} pairs a hybrid CLIP--DINOv2 encoder with staged data injection to hold qualitative and quantitative capabilities in one model.
+
+
+% Part 3: Benchmarks & metrics.
+\subsubsection{Datasets and Metrics}
+Table~\ref{tab:sre_dataset} lists the benchmarks. They differ mainly in how relations were collected: manual labeling of robot-captured lab scenes in SpatialAwareRobot~\cite{wang2025spatial}; adversarial crowdsourcing in SpatialSense~\cite{yang2019spatialsense}, where annotators propose relations that fool a baseline and only those count, which makes the dataset deliberately hard; the merge of SpatialSense and Visual Genome~\cite{krishna2017visual} into VSD~\cite{zhao2022visual}, whose VSD-v1 version contains over 143K descriptions; the 34-preposition, English--French annotations of SpatialVOC2K~\cite{belz2018spatialvoc2k}; and the automatically generated, depth-aware SpaceSGG~\cite{xu2025llava}, released as 10K scene descriptions, 20K question--answer pairs, and 20K multi-turn conversations over 20K scenes.
+
+\begin{table}[!t]
+\centering
+\caption{Benchmark datasets for spatial relation extraction. ``--'' marks an open vocabulary without a fixed category count.}
+\label{tab:sre_dataset}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{3mm}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Dataset} & \textbf{Scene Type} & \textbf{Modality} & \textbf{Annotation} & \textbf{Samples} & \textbf{Relation Categories} \\
+\midrule
+SpatialAwareRobot~\cite{wang2025spatial} & Robotics & Image & Manual & 1,000 & 7 \\
+SpatialSense~\cite{yang2019spatialsense} & Generic & Image & Manual & 11,569 & 9 \\
+VSD~\cite{zhao2022visual} & Generic & Image & Manual & 29,272  & -- \\
+SpatialVOC2K~\cite{belz2018spatialvoc2k} & Generic & Image & Manual & 2,026  & 34 \\
+SpaceSGG~\cite{xu2025llava} & Generic & Image & Automated & 20,000  & --  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each subtask has its own evaluation regime, and the metrics are not comparable across them.
+VSC is scored as classification: SpatialSense~\cite{yang2019spatialsense} measures binary accuracy for given object--predicate pairs, with the driving-scene systems Roadscene2Vec~\cite{malawade2022roadscene2vec} and HKT-SG~\cite{zhou2024hktsg} reporting per-relation F1 or accuracy on their own data; results on SpatialSense's adversarial split lag well behind those on conventional crowdsourced data, which is the contextual-relation difficulty taken up under Challenges.
+VSD is scored as generation: VSDNet~\cite{zhao2022visual} and 3DVSD~\cite{zhao2023generating} report BLEU-4, METEOR, and CIDEr on the VSD datasets, and LLaVA-SpaceSGG~\cite{xu2025llava} reports QA accuracy on SpaceSGG.
+Quantitative understanding is the newest regime: SpatialVLM~\cite{chen2024spatialvlm} and SpatialRGPT~\cite{cheng2024spatialrgpt} evaluate metric estimates using human-annotated spatial questions and answers (SpatialVLM) or questions derived from ground-truth 3D cuboid annotations (SpatialRGPT-Bench), SpatialLLM~\cite{ma2025spatialllm} reports combined qualitative and quantitative VQA accuracy, and SpatialBot~\cite{cai2024spatialbot} adds robotic grasp success as an embodied proxy.
+MLLM-based models dominate the qualitative leaderboards but still fall short on metric-scale reasoning, which motivates the unified representations discussed next.
+
+
+\subsubsection{Challenges}
+Spatial relations are not purely geometric. ``A cup on a table'' is plausible and ``a cup on a wall'' is not, yet the two differ only in object identity, so rule-based and purely geometric methods cannot capture functional or commonsense constraints; a model needs to know what objects are for and where they tend to be, not just their boxes or point coordinates.
+Metric grounding is the second gap. MLLMs handle contextual and functional predicates well but judge distances, sizes, and angles poorly; injecting geometry and depth during pre- or post-training, or exposing dedicated spatial tools, is the current route, and the longer-term goal is a representation that holds discrete predicates (``near'') and continuous quantities (``2 meters away'') together, since navigation and manipulation need both.
+Generalization is the third. SpatialSense~\cite{yang2019spatialsense} and VSD~\cite{zhao2022visual} cover a small slice of real scenes, and models trained on them degrade under new object appearances, scene complexity, lighting, and occlusion; SpatialVLM~\cite{chen2024spatialvlm} and its successors generalize better, but unseen and dynamic environments remain largely untested.
+

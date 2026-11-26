@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image
 
 HERE = Path(__file__).resolve().parent
-BOOK = HERE.parents[1] / "Spt-Intell-share-paper"
+from book_source import BOOK
 OUT = HERE / "build" / "figures"
 TMP = HERE / "build" / "tmp_png"
 EXTRA = {"figures/web/si_milestones_tikz.pdf": HERE / "build" / "si_milestones_tikz.pdf",

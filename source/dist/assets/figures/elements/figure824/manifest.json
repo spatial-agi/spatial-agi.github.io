@@ -1,0 +1,18 @@
+{
+  "figure": "8.24",
+  "sources": [
+    "assets/figures/figures/web/world_modeling_tikz.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1055
+    ]
+  ],
+  "assets": [],
+  "frontend": [
+    "Text, formulas (Cambria Math with source-matched italics), frames, arrows and diagram primitives will be independent frontend elements.",
+    "Cutouts retain source shading and visible occlusions; photographs retain their rectangular image content.",
+    "This figure has no raster pictorial elements: the full diagram will be rebuilt in the frontend."
+  ]
+}

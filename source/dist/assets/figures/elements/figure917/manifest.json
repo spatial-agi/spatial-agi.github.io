@@ -1,0 +1,361 @@
+{
+  "figure": "9.17",
+  "sources": [
+    "assets/figures/figures/part4/section9/aerial_detection.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1265
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/aerial_detection.pdf",
+  "assets": [
+    {
+      "file": "detection/parking-lot.png",
+      "title": "parking lot",
+      "panel": "detection",
+      "size": [
+        1254,
+        476
+      ],
+      "source_index": 0,
+      "source_box": [
+        25.0,
+        25.0,
+        887.5,
+        352.5
+      ],
+      "box": [
+        12.5,
+        12.5,
+        443.75,
+        176.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        12.559,
+        12.991,
+        444.27,
+        176.863
+      ],
+      "placement_confidence": 0.9346
+    },
+    {
+      "file": "orientation/rotated-car.png",
+      "title": "rotated car",
+      "panel": "orientation",
+      "size": [
+        816,
+        816
+      ],
+      "source_index": 0,
+      "source_box": [
+        970.0,
+        177.5,
+        1127.5,
+        335.0
+      ],
+      "box": [
+        485.0,
+        88.75,
+        563.75,
+        167.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        485.504,
+        89.368,
+        563.162,
+        167.026
+      ],
+      "placement_confidence": 0.8039
+    },
+    {
+      "file": "scale/car-large.png",
+      "title": "car large",
+      "panel": "scale",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "source_box": [
+        1367.5,
+        227.5,
+        1445.0,
+        305.0
+      ],
+      "box": [
+        683.75,
+        113.75,
+        722.5,
+        152.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        648.352,
+        98.37,
+        701.727,
+        151.745
+      ],
+      "placement_confidence": 0.99
+    },
+    {
+      "file": "scale/car-medium.png",
+      "title": "car medium",
+      "panel": "scale",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "source_box": [
+        1367.5,
+        227.5,
+        1445.0,
+        305.0
+      ],
+      "box": [
+        683.75,
+        113.75,
+        722.5,
+        152.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 3,
+      "pdf_box": [
+        684.458,
+        114.068,
+        722.135,
+        151.745
+      ],
+      "placement_confidence": 0.9899
+    },
+    {
+      "file": "scale/car-small.png",
+      "title": "car small",
+      "panel": "scale",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "source_box": [
+        1440.0,
+        252.5,
+        1492.5,
+        305.0
+      ],
+      "box": [
+        720.0,
+        126.25,
+        746.25,
+        152.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 4,
+      "pdf_box": [
+        720.565,
+        126.627,
+        745.683,
+        151.745
+      ],
+      "placement_confidence": 0.9883
+    },
+    {
+      "file": "scale/car-tiny.png",
+      "title": "car tiny",
+      "panel": "scale",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "source_box": [
+        1512.5,
+        267.5,
+        1550.0,
+        305.0
+      ],
+      "box": [
+        756.25,
+        133.75,
+        775.0,
+        152.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 5,
+      "pdf_box": [
+        756.672,
+        134.476,
+        773.94,
+        151.745
+      ],
+      "placement_confidence": 0.9588
+    },
+    {
+      "file": "oriented-detection/rotated-car.png",
+      "title": "rotated car",
+      "panel": "oriented-detection",
+      "size": [
+        833,
+        833
+      ],
+      "source_index": 0,
+      "source_box": [
+        57.5,
+        505.0,
+        325.0,
+        772.5
+      ],
+      "box": [
+        28.75,
+        252.5,
+        162.5,
+        386.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 6,
+      "pdf_box": [
+        29.002,
+        252.96,
+        162.521,
+        386.479
+      ],
+      "placement_confidence": 0.8369
+    },
+    {
+      "file": "reidentification/person-view-a.png",
+      "title": "person view a",
+      "panel": "reidentification",
+      "size": [
+        144,
+        245
+      ],
+      "source_index": 0,
+      "source_box": [
+        87.5,
+        1047.5,
+        185.0,
+        1212.5
+      ],
+      "box": [
+        43.75,
+        523.75,
+        92.5,
+        606.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 7,
+      "pdf_box": [
+        43.956,
+        524.205,
+        92.622,
+        607.004
+      ],
+      "placement_confidence": 0.9834
+    },
+    {
+      "file": "reidentification/person-view-b.png",
+      "title": "person view b",
+      "panel": "reidentification",
+      "size": [
+        119,
+        226
+      ],
+      "source_index": 0,
+      "source_box": [
+        462.5,
+        1042.5,
+        552.5,
+        1212.5
+      ],
+      "box": [
+        231.25,
+        521.25,
+        276.25,
+        606.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 8,
+      "pdf_box": [
+        230.769,
+        520.543,
+        276.295,
+        607.004
+      ],
+      "placement_confidence": 0.9853
+    },
+    {
+      "file": "tracking/frame-t.png",
+      "title": "frame t",
+      "panel": "tracking",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "source_box": [
+        1405.0,
+        1047.5,
+        1580.0,
+        1222.5
+      ],
+      "box": [
+        702.5,
+        523.75,
+        790.0,
+        611.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 9,
+      "pdf_box": [
+        701.727,
+        523.801,
+        789.639,
+        611.713
+      ],
+      "placement_confidence": 0.9667
+    },
+    {
+      "file": "tracking/frame-t-plus-1.png",
+      "title": "frame t plus 1",
+      "panel": "tracking",
+      "size": [
+        627,
+        627
+      ],
+      "source_index": 0,
+      "source_box": [
+        1760.0,
+        1047.5,
+        1935.0,
+        1222.5
+      ],
+      "box": [
+        880.0,
+        523.75,
+        967.5,
+        611.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 10,
+      "pdf_box": [
+        879.121,
+        523.801,
+        967.033,
+        611.713
+      ],
+      "placement_confidence": 0.9565
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

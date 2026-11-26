@@ -1,0 +1,64 @@
+\subsection{Temporal Controlled Video Generation}
+\label{subsec:p3_s8_3_3}
+
+Temporal control regulates how motion and timing evolve across frames, the lever behind cinematic camera work, narrative pacing, and believable physical interaction. It is the complement of the spatial scaffold of §\ref{subsec:p3_s8_3_2}: where spatial control fixes \emph{where things are} in each frame, temporal control fixes \emph{how they move between} frames, externalizing the dynamics (object motion, camera path, timing) that the text-to-video base case of §\ref{subsec:p3_s8_3_1} otherwise had to sample blindly from a highly multi-modal motion posterior.
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_3_3_task}
+Temporal control instantiates Eq.~\eqref{eq:p3_s8_3_objective} with an encoder $\kappa_{\text{t}}$ of a motion or timing signal $\mathbf{m}^{1:T}$ (an optical-flow field, an object trajectory, a camera-pose path, or a learned motion embedding),
+\begin{equation}
+\hat{\mathbf{z}}^{1:T}\sim p_\theta\!\big(\mathbf{z}^{1:T}\,\big|\,\phi(\mathbf{x}),\,\kappa_{\text{t}}(\mathbf{m}^{1:T})\big).
+\label{eq:p3_s8_3_3_objective}
+\end{equation}
+The contrast with spatial control (Eq.~\eqref{eq:p3_s8_3_2_objective}) is that $\mathbf{m}^{1:T}$ constrains the \emph{inter-frame dynamics} (how content moves between frames) rather than the per-frame appearance, so $\kappa_{\text{t}}$ typically steers the temporal-attention or latent-warping pathway of the denoiser. The channels below differ in how the motion is specified: densely (optical flow), as object paths (trajectory), as virtual-camera parameters (camera), or as a transferable behavioral style (motion).
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_3_3_methodology}
+The four channels specify inter-frame dynamics through different signals, and no single injection architecture serves them all. One implementation uses a trainable temporal-control branch $\mathcal{T}_\psi$ to modulate features of a pretrained video backbone,
+\begin{equation}
+h_\ell' = h_\ell + \Delta h_\ell,
+\qquad
+\Delta h_\ell=\mathcal{T}_{\psi,\ell}\!\big(\kappa_{\text{t}}(\mathbf{m}^{1:T})\big),
+\label{eq:p3_s8_3_3_inject}
+\end{equation}
+with dependence on noisy latents, diffusion step, and text omitted.
+More broadly, two routes recur: explicit transformations that use the motion to warp noise, latents, or attention features, and encoded conditioning that steers generation through adapters, attention, or learned motion features. They are not tied to particular channels (flow and trajectories can drive learned conditioning, and camera control can use geometry-aware warping), and Figure~\ref{fig:p3_s8_3_3_mechanisms} keeps the four input channels separate from the two routes.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\linewidth]{figures/part3/section8/temporal_control_channels_for_video_generation.pdf}
+\caption{Four temporal-control channels for video generation, (a)--(d), and two alternative ways of applying them (right): warping noise or latents, and encoding the signal as conditioning features. Frames are illustrative.}
+\label{fig:p3_s8_3_3_mechanisms}
+\end{figure}
+
+\noindent\textbf{Flow Control.} The most explicit motion signal (Figure~\ref{fig:p3_s8_3_3_mechanisms}a) is an optical-flow field, which records the per-pixel displacement between consecutive frames and so specifies dynamics at the finest granularity; conditioning on a sequence of such fields yields specific, coherent motion at the cost of authoring or estimating a dense signal. Motion-I2V~\cite{shi2024motion} integrates a motion-field predictor into its diffusion framework so that generation follows the supplied flow, I2VControl~\cite{feng2024i2vcontrol} disentangles flow for unified control, and MOFA-Video~\cite{niu2024mofa} animates a still image from user-painted motion fields. Go-with-the-Flow~\cite{burgert2025gowiththeflow} dispenses with the adapter altogether, warping the diffusion \emph{noise prior} along the target flow so that the motion constraint lives in the sampling process rather than in an added branch.
+
+\noindent\textbf{Trajectory Control.} Sparsifying the dense field into a few object paths (Figure~\ref{fig:p3_s8_3_3_mechanisms}b) trades pixel-level precision for an interface a user can actually author: a sequence of 2D or 3D coordinates, or a path drawn interactively, directs character movement or object kinematics, entering the denoiser either by modifying the latents or by steering cross-attention maps. MotionCanvas~\cite{xing2025motioncanvas}, MagicMotion~\cite{li2025magicmotion}, and Tora~\cite{zhang2025tora} consume a predefined curve, FreeTraj~\cite{qiu2024freetraj} relaxes this to free-form trajectories, Peekaboo~\cite{jain2024peekaboo} also schedules when objects appear and disappear along the path, and DragNUWA~\cite{yin2023dragnuwa} and DragAnything~\cite{wu2024draganything} let the user drag regions through the frame interactively. MotionCtrl~\cite{wang2024motionctrl} handles object trajectory and camera motion in one controller, treating an object path and a camera path as two facets of the same inter-frame displacement.
+
+\noindent\textbf{Camera Control.} Moving that displacement from objects to the observer (Figure~\ref{fig:p3_s8_3_3_mechanisms}c), camera-guided generation manipulates the virtual camera's extrinsics (translation, rotation) and intrinsics (\eg, focal length) to produce pans, tilts, zooms, and dolly moves. CameraCtrl~\cite{he2024cameractrl} and CameraCtrl~II~\cite{he2025cameractrl} encode the camera trajectory as a conditioning feature; Direct-a-Video~\cite{yang2024direct}, ViewCrafter~\cite{yu2024viewcrafter}, and Cavia~\cite{xu2024cavia} couple it with novel-view synthesis; and 3DTrajMaster~\cite{fu20243dtrajmaster}, MotionFlow~\cite{meral2024motionflow}, and CineMaster~\cite{wang2025cinemaster} control camera and objects jointly in 3D. Two directions now lead. ReCamMaster~\cite{bai2025recammaster} and TrajectoryCrafter~\cite{yu2025trajectorycrafter} re-render an \emph{existing} monocular clip under a new camera path rather than generating from scratch, and Diffusion-as-Shader~\cite{gu2025diffusionshader3dawarevideo} and GS-DiT~\cite{bian2025gsditadvancingvideogeneration} route the camera signal through a 3D proxy (a rendered shader pass or a pseudo-4D Gaussian field), which sharpens control by making it geometry-aware.
+
+\noindent\textbf{Motion Control.} At the abstract end (Figure~\ref{fig:p3_s8_3_3_mechanisms}d), the signal is no longer a geometric displacement but a \emph{behavioral concept} (walking, dancing, jumping) transferred from a reference video as a pose sequence or a learned motion embedding. Unlike the pose control of §\ref{subsec:p3_s8_3_2}, it captures the dynamic style and cadence of a behavior rather than a frame-exact skeleton, so the central technical problem is disentanglement: extracting the motion while discarding the reference's appearance. MotionDirector~\cite{zhao2024motiondirector}, MotionClone~\cite{ling2024motionclone}, and VMC~\cite{jeong2024vmc} learn this motion--appearance separation; Motion Prompting~\cite{geng2025motion}, MotionAgent~\cite{liao2025motionagent}, and MotionMatcher~\cite{wu2025motionmatcher} refine its granularity through trajectory- or feature-level motion descriptors; and DreamMotion~\cite{jeong2024dreammotion} and Customize-A-Video~\cite{ren2024customize} apply a reference clip's dynamics to a new subject or scene fixed by the text prompt.
+
+The channels trade precision against ease of specification: dense flow gives pixel-accurate control but is laborious to author, a motion embedding is effortless to supply but steers the result only loosely, and the most usable systems therefore pair an abstract signal (a drawn path, a reference clip) with a learned predictor that densifies it into the flow- or latent-level displacement the backbone actually consumes.
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_3_3_benchmarks}
+As with spatial control (§\ref{subsec:p3_s8_3_2}), temporal control has no single canonical suite: each channel is evaluated against data specialized to its signal.
+Models build on the general corpora of §\ref{subsec:p3_s8_3_1} for appearance and motion priors, then evaluate on task-specific resources: camera control on the posed-video collection RealEstate10K~\cite{zhou2018stereo}, whose per-frame camera poses supply both the conditioning signal and the evaluation ground truth, increasingly supplemented by the larger and more scene-diverse DL3DV-10K~\cite{ling2024dl3dv} to test generalization beyond real-estate walkthroughs; flow control against the MPI-Sintel optical-flow benchmark~\cite{sintel} or flow re-estimated from generated clips with RAFT~\cite{teed2020raft}; and motion- and trajectory-control quality through the motion-smoothness and dynamic-degree dimensions of VBench~\cite{huang2023vbench}.
+
+\paragraph{Control-fidelity Metrics.}
+Alongside the generic video-quality metrics of §\ref{subsec:p3_s8_3_1}, each channel measures adherence by re-extracting the control signal from the generated clip and comparing it with the conditioning input; the estimator and the error differ per channel.
+
+\noindent\textit{Flow adherence.} The optical flow of the generated clip is re-estimated with RAFT~\cite{teed2020raft} and compared to the conditioning flow by the \emph{end-point error} (EPE), the per-pixel $L_2$ displacement difference averaged over pixels and frames. A complementary \emph{flow-warping error} warps each generated frame onto the next with the \emph{target} flow and reports the photometric residual, which tests whether the rendered motion realizes the commanded displacement rather than merely correlating with it.
+
+\noindent\textit{Trajectory adherence.} The controlled object is re-localized in the output with a dense point tracker such as CoTracker~\cite{karaev2024cotracker} or a detector, and its tracked center is compared to the target path by the mean $L_2$ distance, normalized by frame size and averaged over time and instances; this is the object motion-control error reported by Tora~\cite{zhang2025tora} and DragNUWA~\cite{yin2023dragnuwa}, and it penalizes both spatial deviation and mistimed arrival.
+
+\noindent\textit{Camera adherence.} The camera trajectory of the generated clip is recovered by structure-from-motion (COLMAP~\cite{schonberger2016structure}) and aligned to the target up to a similarity transform, since pose is recoverable only up to scale. Following CameraCtrl~\cite{he2024cameractrl}, a \emph{rotation error} (the geodesic angle between estimated and target rotations, summed over frames) and a \emph{translation error} (the $L_2$ distance between scale-normalized camera centers) are reported; failure to reconstruct a stable trajectory at all is itself diagnostic of an incoherent output.
+
+\noindent\textit{Motion-transfer fidelity.} With no ground-truth video, fidelity is measured from two sides: a \emph{motion-similarity} term compares the dynamics of output and reference (the correlation of tracked point trajectories or temporal feature statistics), and an \emph{appearance-divergence} term (CLIP similarity to the new prompt together with low feature similarity to the reference's appearance) confirms that the subject was re-synthesized rather than copied.
+
+As for spatial control, these adherence errors are reported together with generic quality, since a near-static clip trivially minimizes EPE and pose error while ignoring the prompt.
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_3_3_challenges}
+Three problems are specific to temporal control; fusing it with other conditions is discussed in §\ref{subsec:p3_s8_3_6}. Because the motion signal passes through the same backbone that renders appearance, a transferred motion often drags the source clip's identity or texture with it, the leakage that MotionDirector~\cite{zhao2024motiondirector} and VMC~\cite{jeong2024vmc} try to disentangle and that remains unsolved for large appearance gaps between reference and target. Dense flow over-constrains and suppresses generative freedom, whereas a single trajectory or a short reference clip under-specifies the global dynamics, which is why methods increasingly interpose a learned predictor that densifies an abstract signal into a flow- or latent-level field. And a commanded camera path or object trajectory can demand views or dynamics inconsistent with the scene geometry, producing parallax errors and object distortion; 3D-aware camera control (ViewCrafter~\cite{yu2024viewcrafter}, CineMaster~\cite{wang2025cinemaster}) routes the control through an explicit geometric proxy for exactly this reason, which links temporal control back to the volumetric representations of §\ref{sec:p3_s8_2}.

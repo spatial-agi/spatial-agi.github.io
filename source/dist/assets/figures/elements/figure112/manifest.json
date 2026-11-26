@@ -1,0 +1,114 @@
+{
+  "figure": "11.2",
+  "sources": [
+    "assets/figures/figures/part4/section11/digital_twins_reconstruction.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1178
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/digital_twins_reconstruction.pdf",
+  "assets": [
+    {
+      "file": "metric-geometry/closed-cabinet.png",
+      "title": "closed cabinet",
+      "panel": "metric-geometry",
+      "size": [
+        656,
+        648
+      ],
+      "source_index": 0,
+      "source_box": [
+        102.5,
+        205.0,
+        547.5,
+        645.0
+      ],
+      "box": [
+        51.25,
+        102.5,
+        273.75,
+        322.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        50.235,
+        103.19,
+        273.155,
+        323.391
+      ],
+      "placement_confidence": 0.983
+    },
+    {
+      "file": "materials/closed-cabinet.png",
+      "title": "closed cabinet",
+      "panel": "materials",
+      "size": [
+        656,
+        648
+      ],
+      "source_index": 0,
+      "source_box": [
+        725.0,
+        277.5,
+        992.5,
+        542.5
+      ],
+      "box": [
+        362.5,
+        138.75,
+        496.25,
+        271.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        362.637,
+        139.775,
+        496.075,
+        271.586
+      ],
+      "placement_confidence": 0.9943
+    },
+    {
+      "file": "articulation/open-drawer-cabinet.png",
+      "title": "open drawer cabinet",
+      "panel": "articulation",
+      "size": [
+        656,
+        648
+      ],
+      "source_index": 0,
+      "source_box": [
+        1417.5,
+        155.0,
+        1912.5,
+        645.0
+      ],
+      "box": [
+        708.75,
+        77.5,
+        956.25,
+        322.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        708.006,
+        78.378,
+        956.044,
+        323.391
+      ],
+      "placement_confidence": 0.9968
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

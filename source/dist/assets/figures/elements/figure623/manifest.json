@@ -1,0 +1,70 @@
+{
+  "source": "assets/figures/figures/part3/section6/object_tracking_method.webp",
+  "source_size": [
+    2000,
+    454
+  ],
+  "assets": [
+    {
+      "file": "shared-frames/frame-00.png",
+      "source_box": [
+        1606,
+        58,
+        1708,
+        165
+      ],
+      "size": [
+        102,
+        107
+      ],
+      "panels": [
+        "i",
+        "ii",
+        "iii",
+        "iv"
+      ],
+      "notes": "Unannotated original photograph from panel (iv). Photographic background retained; film border excluded. RGBA PNG."
+    },
+    {
+      "file": "shared-frames/frame-01.png",
+      "source_box": [
+        1606,
+        165,
+        1708,
+        272
+      ],
+      "size": [
+        102,
+        107
+      ],
+      "panels": [
+        "i",
+        "ii",
+        "iii",
+        "iv"
+      ],
+      "notes": "Unannotated original photograph from panel (iv). Photographic background retained; film border excluded. RGBA PNG."
+    },
+    {
+      "file": "shared-frames/frame-02.png",
+      "source_box": [
+        1606,
+        272,
+        1708,
+        379
+      ],
+      "size": [
+        102,
+        107
+      ],
+      "panels": [
+        "i",
+        "ii",
+        "iii",
+        "iv"
+      ],
+      "notes": "Unannotated original photograph from panel (iv). Photographic background retained; film border excluded. RGBA PNG."
+    }
+  ],
+  "frontend": "Film-strip borders, tracking rectangles, ID labels, matching/update boxes, detector and association blocks, queries, shared backbone, task heads, all arrows, separators and text."
+}

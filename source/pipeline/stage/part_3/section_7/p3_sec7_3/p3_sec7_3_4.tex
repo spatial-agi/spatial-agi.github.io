@@ -1,0 +1,47 @@
+\subsection{Code/DSL Generation for Spatial Reasoning}
+\label{subsec:p3_s7_3_4}
+Code/DSL generation treats spatial reasoning as program synthesis: an LLM or MLLM translates a natural-language task into an executable program, and a more deterministic system (a robot control API, a physics simulator, a library of vision functions) executes it.
+Relative to the explicit structured reasoners of §\ref{subsec:p3_s7_2_2}, the specialized parser and fixed module set are replaced by the world knowledge and reasoning ability of the LLM, so the operation set is no longer confined to a predefined vocabulary; relative to the chain-of-thought traces of §\ref{subsec:p3_s7_3_3}, the trace is a program whose execution against an external environment supplies a truth signal that a free-form rationale cannot.
+Figure~\ref{fig:p3_s7_3_4_code_formulation} shows the two operating modes.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/code_DSL_spatial_reasoning.pdf}
+    \caption{Code/DSL generation for spatial reasoning in two modes: understanding (top), where a counting query becomes a program over perception calls whose call trace is inspectable, and planning (bottom), where an instruction becomes robot API calls whose execution feedback drives program revision. Function names are illustrative pseudocode, not a specific system's API, and the scenes do not show experimental execution.}
+    \label{fig:p3_s7_3_4_code_formulation}
+\end{figure}
+
+
+\subsubsection{Task Definition}
+Given a high-level, often ambiguous, natural-language query $q$ and access to an API $\mathcal{A}$ (a robot's control interface, a programming-language interpreter, or a set of vision-language functions), the LLM acts as a high-level planner that emits a program and offloads execution to the external system $\mathcal{E}$,
+\begin{equation}
+  P=\mathrm{LLM}(q,\mathcal{A}),\qquad y=\mathrm{Exec}(P;\mathcal{E}),
+\end{equation}
+where $P$ is written in a general-purpose language such as Python or in a domain-specific language and composed of calls that manipulate objects, query spatial relations, or control an agent, and the output $y$ is a change in the environment's state (a robot moving an object), an answer to the query, or both.
+
+\subsubsection{Methodology}
+
+\paragraph{Code/DSL for Understanding.}
+For static scenes the LLM generates code that dissects a visual query by composing calls to perception modules, so the program is itself an explicit, verifiable reasoning chain.
+VisProg~\cite{gupta2023visual} prompts an LLM to produce a program in a high-level DSL that sequentially invokes modules for image understanding, image manipulation, and knowledge retrieval, implemented either heuristically in Python or by neural models such as OWL-ViT~\cite{minderer2022simple} and Stable Diffusion~\cite{rombach2022ldm}.
+ViperGPT~\cite{suris2023vipergpt} instead exposes two classes, \texttt{ImagePatch} and \texttt{VideoSegment}, whose methods (\texttt{find}, \texttt{exists}, \texttt{compute\_depth}, \texttt{verify\_property}) each call a pretrained model, and generates a Python script that chains these calls to answer a complex query about an image or video, composing existing vision tools zero-shot.
+Both depend on a static, human-defined DSL; VADAR~\cite{marsili2025visual} removes that limit by synthesizing the API implementations dynamically, in an API-generation stage followed by program synthesis, and LEFT~\cite{hsu2023s} makes the approach learnable by having the LLM generate differentiable logic programs that chain trainable perception networks, so concept grounding can be learned where no pretrained module exists.
+The same recipe lifts to 3D: LLM-Grounder~\cite{yang2024llmgrounder} decomposes a grounding query into Python code that calls 3D grounding tools such as OpenScene~\cite{peng2023openscene} or LERF~\cite{kerr2023lerf} to locate objects in a scene.
+
+\paragraph{Code/DSL for Planning.}
+Beyond static understanding, the generated code can serve as a policy that acts in an environment, with the LLM as high-level planner and the interpreter handling deterministic low-level execution.
+Code as Policies~\cite{liang2023code} has the LLM write Python that calls a robot's control API, so that ``put the apple in the bowl'' becomes \textit{robot.pick('apple')} followed by \textit{robot.place('bowl')}, with implicit steps and preconditions supplied by the model's common sense.
+In simulation, Voyager~\cite{wang2023voyager} explores Minecraft by writing, executing, and refining its own code: it prompts the LLM for code to achieve a goal, receives environment feedback (success, failure, new inventory items), debugs accordingly, and adds successful routines to a growing library of reusable skills.
+
+
+\subsubsection{Benchmarks}
+Code/DSL generation for spatial reasoning is typically evaluated under three benchmark families that mirror the two-mode split of the Methodology above. For 2D scene understanding, methods are evaluated on compositional visual question answering (GQA~\cite{hudson2019gqa}), referring expression comprehension (RefCOCO / RefCOCO+ / RefCOCOg~\cite{yu2016modeling,mao2016generation,kazemzadeh2014referitgame}), and image-editing benchmarks. For 3D scene understanding, evaluation has converged on 3D referring expression and 3D visual grounding benchmarks (\eg,\ ScanRefer~\cite{chen2020scanrefer}, Multi3DRefer~\cite{zhang2023multi3drefer}, ScanQA~\cite{azuma2022scanqa}), which exercise both the perception-API composition and the long-tail of object-attribute reasoning. For embodied planning, the canonical evaluation suites are ALFWorld~\cite{shridhar2020alfworld} and VirtualHome~\cite{puig2018virtualhome} (long-horizon household tasks) and Minecraft (open-world goal acquisition, as exemplified by Voyager~\cite{wang2023voyager}); the headline metric in this family is task-success rate over multi-step goals rather than single-step accuracy. Across all three families, the recurring methodological observation is that code-generation methods inherit the accuracy of their underlying perception or control modules, so benchmark performance tracks the module suite more tightly than it tracks the LLM backbone.
+
+\subsubsection{Challenges and Trends}
+The interpretable trace comes with three recurring limits.
+A \textbf{fixed, human-authored DSL} (ViperGPT's \texttt{find} / \texttt{compute\_depth} / \texttt{verify\_property}) restricts the model to a predefined operation set, so spatial concepts outside the API are systematically out of reach; VADAR's dynamic API synthesis~\cite{marsili2025visual} is a response but does not solve the coverage problem.
+\textbf{Brittle execution with silent failure} follows from the dependence on perceptual modules (OWL-ViT~\cite{minderer2022simple}, OpenScene~\cite{peng2023openscene}, LERF~\cite{kerr2023lerf}): an upstream error propagates through the program and yields a plausible but wrong answer with no diagnostic signal.
+\textbf{Sample-inefficient debug loops} limit self-refinement agents such as Voyager~\cite{wang2023voyager} and Code as Policies~\cite{liang2023code}, whose LLM calls per task scale poorly in high-dimensional or stochastic environments.
+
+Two directions follow.
+PoT-style execution-grounded rationales are being folded back into chain-of-thought training, with the generated program serving as both rationale and verification signal, and \emph{learnable DSLs} such as LEFT~\cite{hsu2023s} replace fixed perception with differentiable logic programs whose components are trainable, pointing toward a DSL that adapts under task supervision rather than being hand-engineered.

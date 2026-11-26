@@ -1,0 +1,403 @@
+
+
+\section{Motion Generation}
+\label{sec:p3_s8_4}
+
+\FramedInitial{M}{otion} generation is the temporal, embodied output channel of spatial generation: where §\ref{sec:p3_s8_1}–§\ref{sec:p3_s8_3} synthesize static images, volumetric assets, and controllable video, motion generation produces the \emph{articulated dynamics} that an avatar, character, or robot can actually enact.
+A generated motion is a time series of body poses that must be believable in its dynamics, physically plausible (balance, ground contact, non-penetration), and faithful to its driving signal, whether a text description, audio, a scene, or a key frame.
+The conditional-sampler template that turns a prompt into pixels (Eq.~\eqref{eq:t2i_generator}) is here instantiated over a sequence of poses in a structured kinematic space, so geometric priors meet physical constraints: the output must respect the biomechanics of an articulated body as well as the semantics of the condition.
+
+The subsections are indexed by the moving agent and then by one cross-cutting operation: human motion (§\ref{subsec:p3_s8_4_1}), animal motion with its cross-species morphology (§\ref{subsec:p3_s8_4_2}), vehicle motion planning, where the body is rigid and the difficulty moves into the multi-agent traffic scene (§\ref{subsec:p3_s8_4_3}), and motion editing (§\ref{subsec:p3_s8_4_4}).
+% , with a comparison in §\ref{subsec:p3_s8_4_summary}.
+
+
+
+
+\subsection{Human Motion Generation}
+\label{subsec:p3_s8_4_1}
+Human motion generation produces natural, varied sequences of human body poses from intentions, environmental stimuli, or explicit conditions, and supports animation, virtual characters in film and games, AR/VR, and human--robot interaction.
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_4_1_task}
+Let a motion be a temporal sequence of body poses $\mathbf{m}^{1:T}=(\mathbf{m}^1,\dots,\mathbf{m}^T)$, where each frame $\mathbf{m}^t\in\mathcal{P}$ is a pose in a chosen representation space $\mathcal{P}$ and $\mathcal{M}=\mathcal{P}^T$ is the resulting motion space. Writing $\phi$ for the text encoder of Eq.~\eqref{eq:t2i_generator} and $\kappa:\mathcal{C}\!\to\!\mathcal{C}'$ for an encoder of a driving signal $\mathbf{c}\in\mathcal{C}$ (an action label, a text description, a music or speech track, or a scene), human motion generation learns a conditional sampler
+\begin{equation}
+\label{eq:p3_s8_4_1_objective}
+G_\theta^{\text{mot}}:\mathcal{C}'\!\to\!\mathcal{M},\qquad
+\hat{\mathbf{m}}^{1:T}\sim p_\theta\!\left(\mathbf{m}^{1:T}\mid\kappa(\mathbf{c})\right).
+\end{equation}
+This is the conditional-sampler template of Eq.~\eqref{eq:t2i_generator} instantiated over a temporal pose sequence rather than an image latent: with no driving signal ($\kappa=\varnothing$) it reduces to unconditional motion synthesis, and the choice of $\mathbf{c}$ indexes the five conditioning settings surveyed in §\ref{subsubsec:p3_s8_4_1_method}.
+
+Figure~\ref{fig:p3_s8_4_1_repr} illustrates the pose representations that instantiate $\mathcal{P}$. Broadly, representations fall into keypoint-based and rotation-based categories, and the two are convertible: joint rotations map to spatial keypoints via forward kinematics (FK), and keypoints recover joint rotations via inverse kinematics (IK).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section8/human_motion_repr.png}
+    \includegraphics[width=\linewidth]{figures/part3/section8/human_motion_repr_smpl.png}
+    \caption{Human motion representations. Top: keypoint-based, as (a) joint positions, (b) joints grouped by kinematic chain, and (c) dense surface markers; and rotation-based, as (d) per-joint rotations in $\mathrm{SO}(3)$ on a kinematic tree. Bottom: the SMPL body model, from (a) the template mesh and skinning weights through (b) shape and (c) pose blend shapes to (d) the skinned, posed mesh.}
+    \label{fig:p3_s8_4_1_repr}
+\end{figure}
+
+\paragraph{Keypoint-based Representation.} The body is modeled as a collection of keypoints, each a distinct anatomical landmark (joints or salient surface locations) given by its 2D or 3D coordinates in a chosen frame (pixel space or world space), and motion is encoded as a temporal series of such configurations.
+Keypoint representations are directly available from many motion-capture systems and are highly interpretable, but many downstream uses (character animation, robotic control) require converting keypoints to joint rotations through the IK problem.
+Some works instead augment or replace sparse skeletal keypoints with dense body markers distributed across the body surface~\cite{WuWZZHYT22, TaheriCBT22}, which carry richer information about body shape, limb twisting, and fine geometric detail.
+
+\paragraph{Rotation-based Representation.} A pose is represented by joint angles, the rotations of body segments relative to their parent in a hierarchical kinematic tree. Most studies model these in three dimensions, treating each non-root joint as an element of $\mathrm{SO}(3)$, parameterized as Euler angles, axis--angle vectors, or unit quaternions.
+
+\paragraph{Skinned Multi-Person Linear Model.} Beyond pure joint rotation, statistical mesh models jointly capture pose and body shape, including non-rigid deformations associated with articulation.
+The Skinned Multi-Person Linear (SMPL) model~\cite{loper2015smpl} defines a template mesh with fixed topology (6{,}890 vertices, 23 joint rotations plus a root) and uses linear blend skinning augmented by learned blend shapes: identity (shape) blend shapes for inter-subject variation and pose blend shapes for rotation-dependent deformations such as muscle bulging and twisting.
+
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_4_1_method}
+Methods for human motion generation are organized along two axes. The first is the \emph{learning paradigm}: regression-based techniques learn a deterministic mapping from conditions to a single target motion, whereas generative approaches model the full conditional distribution of motion using GANs, VAEs, normalizing flows, or diffusion models (the generative paradigms themselves are detailed in §\ref{subsec:p3_s8_1_1}).
+Formally, a regression model realizes Eq.~\eqref{eq:p3_s8_4_1_objective} as a point estimate,
+\begin{equation}
+\label{eq:p3_s8_4_1_regression}
+\hat{\mathbf{m}}^{1:T}=f_\theta\!\left(\kappa(\mathbf{c})\right),\qquad
+\min_\theta\ \big\|\hat{\mathbf{m}}^{1:T}-\mathbf{m}^{1:T}\big\|,
+\end{equation}
+which is simple and stable but collapses the inherently one-to-many condition--motion relationship onto an averaged trajectory. Generative models instead sample $\hat{\mathbf{m}}^{1:T}\!\sim\!p_\theta(\mathbf{m}^{1:T}\mid\kappa(\mathbf{c}))$; the now-dominant diffusion instantiation trains a denoiser $G_\theta$ to recover the clean motion at every noise level $n$,
+\begin{equation}
+\label{eq:p3_s8_4_1_diffusion}
+\mathcal{L}=\mathbb{E}_{\mathbf{m}^{1:T},\,n}\,\big\|\,\mathbf{m}^{1:T}-G_\theta(\mathbf{m}^{1:T}_n,\,n,\,\kappa(\mathbf{c}))\,\big\|^2,
+\end{equation}
+which preserves diversity and supports flexible conditioning, at higher sampling cost.
+The second axis is the \emph{conditioning modality} $\mathbf{c}$, which indexes the five settings below; each setting instantiates the same Eq.~\eqref{eq:p3_s8_4_1_objective} and has migrated, broadly, from regression and adversarial models toward diffusion. Figure~\ref{fig:p3_s8_4_1_methods} previews this two-axis organization.
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section8/two_axis_human_motion_generation.pdf}
+    \caption{Two-axis organization of human motion generation: the conditioning modality (left), encoded by $\kappa$, and the learning paradigm (right), either a regressor that returns one estimate (Eq.~\eqref{eq:p3_s8_4_1_regression}) or a generative model that returns alternative samples, shown with diffusion (Eq.~\eqref{eq:p3_s8_4_1_diffusion}). Branches are alternatives, not consecutive stages.}
+    \label{fig:p3_s8_4_1_methods}
+\end{figure}
+
+\paragraph{Action-to-Motion.} Given a discrete action label (\eg, ``walk'', ``throw''), these methods generate a corresponding sequence. Early work used GANs with graph convolution and self-attention (SA-GAN~\cite{YuZLYC20}, Kinetic-GAN~\cite{DegardinNLBY022}) for realism and diversity, while VAE/CVAE frameworks (Action2Motion~\cite{GuoZWZSDG020}, ACTOR~\cite{PetrovichBV21}) produced probabilistic, controllable motions. More recent models adopt contrastive latent learning (ODMO~\cite{LuZLR22}), discrete autoregressive sequences (PoseGPT~\cite{LucasBWR22}), and diffusion (MDM~\cite{TevetRGSCB23}, the latent-diffusion hybrid MLD~\cite{ChenJLHFCY23}). As most methods excel only at single actions, MultiAct~\cite{LeeML23} recurrently composes multiple action motions into long sequences via a canonicalization scheme.
+
+\paragraph{Text-to-Motion.} Conditioning on free-form language exploits richer semantic cues than fixed labels allow. Early methods used GANs (Text2Action~\cite{AhnHCYO18}) or joint text--motion embeddings (JL2P~\cite{AhujaM19}, two-stream encoder--decoders~\cite{GhoshCOTS21}); later ones added variational modeling and attention (TEMOS~\cite{PetrovichBV22}, TEACH~\cite{AthanasiouPBV22}).
+For zero-shot generalization, MotionCLIP~\cite{TevetGHBC22} and AvatarCLIP~\cite{HongZPCYL22} align the motion latent space with CLIP.
+The current frontier combines VQ-VAE tokenization~\cite{GuoZWC22}, autoregressive transformers (T2M-GPT~\cite{zhang2023generating}), and diffusion (FLAME~\cite{KimKC23}), with multimodal conditioning extensions such as MoFusion~\cite{DabralMGT23} fusing text and audio. More recent masked-generative models (MoMask~\cite{GuoMJW024}) push quality and inference speed further by predicting quantized motion tokens with a bidirectional, iteratively-refined masking schedule rather than left-to-right.
+
+\paragraph{Music-to-Dance.} The goal is coherent, expressive dance aligned to a music track. Early approaches framed this as supervised sequence-to-sequence translation via LSTM autoencoders~\cite{TangJM18}, transformers (AI Choreographer~\cite{LiYRK21}), and multi-person frameworks (GroupDancer~\cite{Wang0WXCMCW22}, GDancer~\cite{LePDTT023}).
+Because music--dance is inherently one-to-many, generative models model the diverse distribution: MNET~\cite{0001OKT022} with style conditioning, Transflower~\cite{PerezHBHOA21}, Bailando~\cite{SiyaoYGLW0L022} (VQ-VAE + GPT), and EDGE~\cite{TsengCL23} (diffusion). Graph-based methods (ChoreoMaster~\cite{ChenTLZGZ021}, PC-Dance~\cite{GaoPZSZ22}, ChoreoGraph~\cite{AuCJG22}) use motion graphs and shared music--motion embeddings for rhythmic coherence, while curriculum learning, dynamics-prior denoising, and hierarchical pose/motif/choreography modeling target long-term, genre-consistent full-song dances~\cite{HuangHWSZJ21, SunWHLJH22, AristidouYACSC23}.
+
+\paragraph{Speech-to-Gesture.} Co-speech gesture synthesis generates upper-body or full gesture sequences from speech (audio, sometimes text).
+Early adversarial methods modeled person-specific gesture patterns~\cite{GinosarBKCOM19}; subsequent work disentangled shared versus motion-specific variation~\cite{KucherenkoHHKK19} and decomposed body, hands, and face~\cite{HabibieXMLSPET21}.
+Recent methods employ diffusion~\cite{ZhuLLQLY23, AlexandersonNBH23, AoZL23}, VQ-VAE quantization~\cite{YiLLCWBTB23}, and style or speaker embeddings~\cite{AhujaLNM20} to handle diversity, identity, rhythm, and expression more robustly.
+
+\paragraph{Scene-to-Motion.} Here the condition is a 3D scene, and most methods adopt a multi-stage pipeline that predicts a goal or interaction anchor, plans a trajectory, then generates motion along it. Early works predict a goal from 2D/RGB scene inputs and synthesize motion through trajectory-guided VAEs~\cite{CaoGMCVM20, WangYDL21}, sometimes with scene-aware discriminators. SAMP~\cite{HassanCVSYZB21} models 3D paths and human--object interactions; later methods refine interaction with per-joint contact maps~\cite{D00010HS22} or path-search ($A^\ast$) for trajectory diversity~\cite{0003RLYLD22}, and GOAL~\cite{TaheriCBT22} and SAGA~\cite{WuWZZHYT22} target grasping via two-step goal-to-motion VAEs.
+Some assume given goals and stitch sub-goal motions hierarchically for long-term synthesis~\cite{WangXXL021}, while refinement-based frameworks such as CIRCLE~\cite{AraujoLVAWGCL23} initialize by interpolation and refine with scene-geometry-aware modules.
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_4_1_benchmarks}
+Human motion datasets group naturally by conditioning modality; Table~\ref{tab:p3_s8_4_1_datasets} gives their representation, scale, and condition.
+Text- and action-conditioned corpora dominate, led by the language-annotated KIT Motion-Language~\cite{PlappertMA16} and HumanML3D~\cite{GuoZZ0JL022}, BABEL~\cite{PunnakkalCAQB21}'s sequence- and frame-level labels over the AMASS~\cite{mahmood2019amass} aggregate, and the action taxonomies of UESTC~\cite{JiXYSSZ18}, NTU-RGB+D~120~\cite{LiuSPWDK20}, and HumanAct12~\cite{GuoZWZSDG020}.
+Audio-conditioned resources split into music-to-dance sets (AIST++~\cite{LiYRK21}, AIOZ-GDANCE~\cite{LePDTT023}, and several genre-specific collections) and co-speech gesture sets (Trinity~\cite{FerstlM18}, BEAT~\cite{LiuZIPLZBZ22}, PATS~\cite{AhujaLNM20}), many built by fitting parametric body models to in-the-wild video.
+Scene-conditioned datasets (PROX~\cite{HassanCTB19}, GRAB~\cite{TaheriGBT20}, HUMANISE~\cite{WangCLZLH22}, CIRCLE~\cite{AraujoLVAWGCL23}) capture human--scene and human--object interaction with synchronized geometry, from Vicon and IMU rigs to synthetic engines such as GTA-IM~\cite{CaoGMCVM20}. Across all three groups, the cost of high-quality capture forces a trade-off between scale and annotation fidelity.
+
+\begin{table}[htbp]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.2mm}
+\caption{Benchmarks for human motion generation, grouped by condition (none, text / action, music, speech, scene/object).}
+\label{tab:p3_s8_4_1_datasets}
+\begin{tabular}{L{0.18\textwidth} C{0.115\textwidth} C{0.07\textwidth} C{0.08\textwidth} C{0.06\textwidth} C{0.06\textwidth} C{0.13\textwidth} L{0.17\textwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Representation} & \textbf{Subjects} & \textbf{Sequences} & \textbf{Frames} & \textbf{Length} & \textbf{Condition} & \textbf{Remarks} \\
+\midrule
+Human3.6M \cite{IonescuPOS14} & Keypoint & 11 & - & 3.6M & 5h & - & 15 actions \\
+AMASS \cite{mahmood2019amass} & Rotation & 344 & 11,265 & - & 40h & - & Unifies 15 marker-based MoCap datasets \\
+HuMMan \cite{CaiRZLYWFGYPHZL22} & Rotation & 1000 & 400K & 60M & - & - & 500 actions \\
+KIT Motion Language \cite{PlappertMA16} & Keypoint & 111 & 3,911 & - & 10.3h & Text & 6.3K text descriptions \\
+UESTC \cite{JiXYSSZ18} & Keypoint & 118 & 25.6K & - & 83h & Action & 40 action classes \\
+NTU-RGB+D 120 \cite{LiuSPWDK20} & Keypoint & 106 & 114.5K & - & 74h & Action & 120 action classes \\
+HumanAct12 \cite{GuoZWZSDG020} & Keypoint & 12 & 1,191 & 90K & 6h & Action & 12 action classes \\
+BABEL \cite{PunnakkalCAQB21} & Rotation & 344 & - & - & 43.3h & Text & 260 action classes \\
+HumanML3D \cite{GuoZZ0JL022} & Keypoint + Rotation & 344 & 14.6K & - & 28.5h & Text & 44.9K text descriptions \\
+DanceWithMelody \cite{TangJM18} & Keypoint & - & 61 & 907K & 1.6h & Music & 4 genres \\
+Lee \cite{LeeY0WLYK19} & Keypoint & - & 361K & - & 71h & Music & 3 genres \\
+Huang \cite{HuangHWSZJ21} & Keypoint & - & 790 & - & 12h & Music & 3 genres\\
+AIST++ \cite{LiYRK21} & Rotation & 30 & 1,408 & 10.1M & 5.2h & Music & 10 genres \\
+PMSD \cite{PerezHBHOA21} & Keypoint & 8 & - & - & 3.8h & Music & 4 genres \\
+ShaderMotion \cite{PerezHBHOA21} & Keypoint & 8 & - & - & 10.2h & Music & 2 genres \\
+Chen \cite{ChenTLZGZ021} & Rotation & - & - & 160K & 9.9h & Music & 9 genres \\
+PhantomDance \cite{LiZZS22} & Rotation & - & 260 & 795K & 3.7h & Music & 13 genres \\
+MMD-ARC \cite{GaoPZSZ22} & Rotation & - & 213 & - & 11.3h & Music & - \\
+MDC \cite{Wang0WXCMCW22} & Rotation & - & 798 & - & 3.5h & Music & 2 genres \\
+Aristidou \cite{AristidouYACSC23} & Rotation & 32 & - & - & 2.4h & Music & 3 genres \\
+AIOZ-GDANCE \cite{LePDTT023} & Rotation & >4000 & - & - & 16.7h & Music & 7 styles, 16 genres \\
+Trinity \cite{FerstlM18} & Keypoint & 1 & 23 & - & 4.1h & Speech & Casual talks\\
+TED-Gesture \cite{YoonKJLKL19} & Keypoint & - & 1,295 & - & 52.7h & Text & TED talks \\
+Speech2Gesture \cite{GinosarBKCOM19} & Keypoint & 10 & - & - & 144h & Speech & TV shows, lectures \\
+TED-Gesture++ \cite{YoonCLJLKL20} & Keypoint & - & 1,766 & - & 97.0h & Speech, Text & Extension of \cite{YoonKJLKL19} \\
+PATS \cite{AhujaLNM20} & Keypoint & 25 & - & - & 251h & Speech, Text & Extension of \cite{GinosarBKCOM19} \\
+Speech2Gesture-3D \cite{HabibieXMLSPET21} & Keypoint & 6 & - & - & 33h & Speech & Videos from \cite{GinosarBKCOM19}\\
+BEAT \cite{LiuZIPLZBZ22} & Rotation & 30 & 2,580 & 30M & 76h & Speech, Text, Emotion & 8 emotions, 4 languages \\
+Chinese Gesture \cite{AoGLCL22} & Rotation & 5 & - & - & 4h & Speech, Text & Chinese \\
+ZEGGS \cite{GhorbaniFHTC23} & Rotation & 1 & 67 & - & 2.3h & Speech, Style & 19 styles \\
+SHOW \cite{YiLLCWBTB23} & Rotation & - & - & - & 27h & Speech & Videos from \cite{GinosarBKCOM19} \\
+WBHM \cite{ManderyTDVA15} & Rotation & 43 & 3,704 & 691K & 7.68h & Object & 41 objects \\
+PiGraph \cite{Hanrahan16a} & Keypoint & 5 & 63 & 0.1M & 2h & Scene, Object & 30 scenes, 19 objects \\
+PROX \cite{HassanCTB19} & Rotation & 20 & 60 & 0.1M & 1h & Scene, Object & 12 indoor scenes\\
+i3DB \cite{MonszpartGCYM19} & Keypoint & 1 & - & - & - & Scene, Object & 15 scenes\\
+GTA-IM \cite{CaoGMCVM20} & Keypoint & 50 & 119 & 1M & - & Scene & Synthetic, 10 indoor scenes \\
+GRAB \cite{TaheriGBT20} & Rotation & 10 & 1,334 & 1.6M & - & Object & 51 objects \\
+HPS \cite{GuzovMSP21} & Rotation & 7 & - & 300K & - & Scene & 8 large scenes\\
+SAMP \cite{HassanCVSYZB21} & Rotation & 1 & - & 185K & 0.83h & Scene, Object & 7 objects\\
+COUCH \cite{ZhangBSGP22} & Rotation & 6 & >500 & - & 3h & Scene, Chairs & 3 chairs\\
+HUMANISE \cite{WangCLZLH22} & Rotation & - & 19.6K & 1.2M & - & Scene, Object, Text & 643 scenes \\
+CIRCLE \cite{AraujoLVAWGCL23} & Rotation & 5 & >7K & 4.3M & 10h & Scene & 9 scenes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Evaluation Metrics.} Evaluating synthesized motion is hard because the condition--motion map is one-to-many, judgments are partly subjective, and quality depends on high-level conditional cues, so the literature reports an ensemble of metrics along three axes.
+\textbf{Fidelity} captures naturalness, smoothness, and plausibility: distance-based measures such as NPSS~\cite{GopalakrishnanM19} and NDMS~\cite{TankeZG21}, keypoint accuracy (PCK~\cite{YangR13}), motion-space statistics (AVE, Hellinger distance over speed histograms~\cite{yang2023qpgesture}, Fréchet Distance over pose rotations~\cite{HassanCVSYZB21, 0003RLYLD22}, PSKL~\cite{RuizGM19}), feature-space distributional distances led by FID (with IS~\cite{AhujaLNM20}, MMD~\cite{YuZLYC20}, and related scores), and physical-plausibility proxies for foot sliding and foot--ground contact (FCS~\cite{TsengCL23}, non-collision ratios~\cite{WuWZZHYT22}, contact accuracy~\cite{ZhangT22}), the last still lacking a standardized definition.
+\textbf{Diversity} guards against the long-sequence ``freezing'' failure via intra-motion variation and freezing rate~\cite{SunWHLJH22}, inter-motion manifold coverage, and multimodality metrics (n-APD, ADE/FDE and their multimodal variants~\cite{YuanK20}) computed by sampling many motions per condition.
+\textbf{Condition consistency} measures alignment to the driving signal: recognition accuracy and R-Precision for text/action, feature-level text--motion distance (Multimodal Distance~\cite{GuoZZ0JL022}, mCLIP and MID~\cite{KimKC23}), audio--motion beat metrics (beat coverage, hit rate~\cite{LeeY0WLYK19}, beat alignment~\cite{LiYRK21}, SRGR~\cite{LiuZIPLZBZ22}, Semantic Score~\cite{AoZL23}), and, for scene conditioning, non-collision and human--scene contact scores~\cite{WuWZZHYT22, ZhangBSGP22}. No single metric is decisive, so methods are compared on a task-appropriate composition of the three.
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_4_1_challenges}
+\textbf{Data scarcity} is the most basic constraint: high-quality motion capture is expensive and slow, so dataset scale trades against annotation fidelity, and heterogeneous pose representations and conditioning signals fragment the data that exist; fusing heterogeneous sources through weak supervision and multimodal foundation models is the main response.
+\textbf{Semantic alignment} is the second. Motion encodes culture, communication, and context, not only mechanics, and a model that fits joint trajectories while missing their relation to language, music, or environment produces motion that is kinematically clean but perceptually empty; semantic priors from language and foundation models help, but how to measure the result is unresolved.
+That is the \textbf{evaluation} problem: every objective metric above has blind spots, none replaces a user study, and the field still needs metrics that are both interpretable and better correlated with human perception.
+\textbf{Controllability} matters for practical use as much as in image generation, and joint masking, attribute prompts, and style conditioning are moving toward editing tools with textual, spatial, and temporal handles (§\ref{subsec:p3_s8_4_4}).
+\textbf{Interactivity} remains underexplored: most methods animate one person in a static scene, and socially coupled groups (conversation, group dance) and motion grounded in dynamic, actionable scenes need both new corpora and new models.
+
+
+
+
+
+\subsection{Animal Motion Generation}
+\label{subsec:p3_s8_4_2}
+Most motion-generation work targets the human body and ignores the diversity of animal behavior, although synthesizing animal motion matters for wildlife conservation, ecology, and biomechanics.
+Relative to §\ref{subsec:p3_s8_4_1}, animal motion is harder on two fronts that the human setting never confronts: species vary widely in skeletal topology and morphology, so a single fixed-skeleton representation no longer suffices, and the same textual description (``walk stealthily'') maps to radically different gaits across species.
+These two pressures, \ie, data scarcity and morphological heterogeneity, shape every method below, which is why animal motion generation borrows the architectures, datasets, and training recipes of human motion generation while adding species-conditioning machinery on top.
+
+
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_4_2_task}
+Animal motion generation extends the human sampler of Eq.~\eqref{eq:p3_s8_4_1_objective} with an explicit species (morphology) descriptor. Let $s\in\mathcal{S}$ index a species and let $\mathcal{P}_s$ be its species-dependent pose space (its skeleton topology and joint count depend on $s$), so that $\mathcal{M}_s=\mathcal{P}_s^{T}$ is the corresponding motion space. With $\kappa$ encoding a driving signal $\mathbf{c}\in\mathcal{C}$ (an action class, a text description, an anchor pose, or past motion), the task is to learn
+\begin{equation}
+\label{eq:p3_s8_4_2_objective}
+G_\theta^{\text{amot}}:\mathcal{C}'\!\times\!\mathcal{S}\!\to\!\mathcal{M}_s,\qquad
+\hat{\mathbf{m}}^{1:T}\sim p_\theta\!\left(\mathbf{m}^{1:T}\mid\kappa(\mathbf{c}),\,s\right).
+\end{equation}
+Restricting $\mathcal{S}$ to the single human morphology recovers Eq.~\eqref{eq:p3_s8_4_1_objective} exactly; the open difficulty is that $s$ ranges over a heterogeneous, long-tailed set of skeletons for which paired text--motion data are scarce, so the species condition must do double duty as both a generation control and a regularizer that shares statistical strength across morphologies.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_4_2_method}
+Almost all animal motion generation is text-driven, and the methods share a common response to the data-scarcity and morphology problems of Eq.~\eqref{eq:p3_s8_4_2_objective}: transfer representations learned from abundant human motion, then specialize them to a species through \emph{feature modulation}. Concretely, given a backbone feature $\mathbf{h}$ at some layer, species-aware modulation applies a FiLM-style affine transform conditioned on $s$,
+\begin{equation}
+\label{eq:p3_s8_4_2_modulation}
+\tilde{\mathbf{h}}=\gamma(s)\odot\mathbf{h}+\beta(s),
+\end{equation}
+where $\gamma(s),\beta(s)$ are predicted from the species descriptor, allowing one shared network to adapt its internal representation to diverse anatomical forms. The methods differ in how they obtain the shared representation and how strictly they enforce cross-species plausibility, as Figure~\ref{fig:p3_s8_4_2_methods} summarizes.
+
+\textbf{OmniMotionGPT}~\cite{YangZSWXHBQ024} tackles limited animal data by jointly training motion autoencoders on human and animal corpora and aligning their latent encodings to text via CLIP embeddings; it relies most directly on transfer, and at inference it still depends on human-motion priors, which prevents truly text-only animal generation.
+\textbf{Motion Avatar}~\cite{0006W0CZH0F0024} uses SinMDM~\cite{RaabLTABC24} for data augmentation in its ZooGen pipeline (the route by which the Zoo-300K dataset is built) and extends the masked-motion modeling of MoMask~\cite{GuoMJW024} to animals, adding an LLM planner that orchestrates joint motion and 3D-avatar mesh generation; it makes little use of species-specific structure, which is what Eq.~\eqref{eq:p3_s8_4_2_modulation} addresses.
+\textbf{AniMo}~\cite{WangRZW25} makes that remedy central, injecting species-aware modulation into a joint-aware spatiotemporal tokenizer and learning, through masked modeling, a mapping from text plus species attributes to motion tokens; its AniMo4D dataset (78{,}149 sequences over 114 species) yields markedly better morphological and behavioral fidelity than transfer-only baselines.
+\textbf{X-MoGen}~\cite{abs-2508-05162} pushes toward a single model spanning humans and animals: it embeds motion into a shared space with graph-based VAEs and latent autoencoders, generates via masked modeling, and adds a morphological-consistency module that enforces skeletal plausibility across species, supported by the UniMo4D corpus (${\sim}115$ species, ${\sim}119$K sequences). OmniMotionGPT and Motion Avatar still lean on human priors, whereas AniMo and X-MoGen promote species morphology to a first-class, explicitly regularized conditioning variable, so the four together trace a progression from transfer toward native cross-species modeling.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section8/cross_species_animal_motion_generation.pdf}
+    \caption{Abstract cross-species motion generation: human and animal corpora support a shared representation, species-dependent modulation (Eq.~\eqref{eq:p3_s8_4_2_modulation}) adapts features, and an action-conditioned sampler produces motion for the selected skeleton. Dog, bird, and horse sequences illustrate alternative target morphologies, not simultaneous outputs. The dashed constraint denotes optional morphology regularization; implementations vary across methods.}
+    \label{fig:p3_s8_4_2_methods}
+\end{figure}
+
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_4_2_benchmarks}
+Animal motion resources fall into two groups (Table~\ref{tab:p3_s8_4_2_datasets}).
+\textbf{Capture and pose-estimation corpora} supply ground-truth articulated motion but no language: RGBD-Dog~\cite{Kearney0PKC20} and 3DDogs-Wild~\cite{abs-2406-14412} pair RGB-D or RGB video with marker-based mocap for canine pose, and DeformingThings4D~\cite{LiTTZN21} provides synthetic 4D sequences with dense mesh-deformation annotations across humanoid and animal categories.
+\textbf{Text-to-motion corpora} drive recent progress: AnimalML3D~\cite{YangZSWXHBQ024} is the first text--animal-motion dataset, and the field then scales sharply through Zoo-300K~\cite{0006W0CZH0F0024} (built by the ZooGen pipeline with SinMDM and LLM annotators), AniMo4D~\cite{WangRZW25} (normalized to a 30-joint cross-species skeleton), and UniMo4D~\cite{abs-2508-05162}, which merges AniMo4D with HumanML3D and KIT-ML. Even the largest text-conditioned sets remain smaller and more morphologically fragmented than their human counterparts of §\ref{subsubsec:p3_s8_4_1_benchmarks}, which is what forces the transfer-and-modulate methodology above.
+
+
+
+\begin{table}[!ht]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Benchmarks for animal motion generation. ``Subjects / species'' counts individual animals for the canine capture sets and species or categories elsewhere; ``Texts / frames'' gives text descriptions for text-conditioned corpora and frames for capture corpora.}
+\label{tab:p3_s8_4_2_datasets}
+\begin{tabular}{L{0.21\textwidth} L{0.13\textwidth} L{0.13\textwidth} C{0.15\textwidth} C{0.14\textwidth} C{0.14\textwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Type} & \textbf{Modality} & \textbf{Subjects / species} & \textbf{Sequences} & \textbf{Texts / frames} \\
+\midrule
+RGBD-Dog \cite{Kearney0PKC20} & Canine & RGB-D, mocap & 5 dogs & 5 motion types & 8,346 frames \\
+3DDogs-Wild \cite{abs-2406-14412} & Canine & RGB, mocap & 37 dogs & 143 recordings & - \\
+DeformingThings4D \cite{LiTTZN21} & Animal / humanoid & 4D mesh & 31 categories & 1,972 & 122,365 frames \\
+AnimalML3D \cite{YangZSWXHBQ024} & Animal / humanoid & 4D & 36 identities & 1,240 & - \\
+Zoo-300K \cite{0006W0CZH0F0024} & Animal & 3D mesh & 65 categories & ${\sim}$300K text--motion pairs & - \\
+AniMo4D \cite{WangRZW25} & Animal & 4D & 114 species & 78,149 & 185,435 texts \\
+UniMo4D \cite{abs-2508-05162} & Animal + human & 4D & ${\sim}$115 species & ${\sim}$119K & - \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Evaluation Metrics.} Animal motion evaluation reuses the three-axis human protocol of §\ref{subsubsec:p3_s8_4_1_benchmarks}, adapted for species-specific biomechanics.
+\emph{Fidelity} is measured by FID against real movement distributions and by MPJPE against ground-truth poses, augmented with physical-plausibility checks for gait-cycle regularity, ground contact, and the absence of foot sliding or limb penetration.
+\emph{Condition alignment} carries over R-Precision and Multimodal Distance to score text-/action-to-motion correspondence, and \emph{diversity / multimodality} metrics quantify behavioral variety within and across species. The animal-specific addition is perceptual and biomechanical judgment of naturalness, balance, and anatomical consistency, which matters more for quadrupeds and multi-limbed morphologies than for the single human skeleton.
+
+
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_4_2_challenges}
+\textbf{Physical realism} is the most basic gap: most methods do not simulate ground-contact forces, quadruped balance, or the fluid dynamics of swimming and flight, so artifacts the human setting has largely learned to suppress reappear, and differently for every body plan.
+\textbf{Behavioral diversity} is harder than for humans because one instruction such as ``walk stealthily'' realizes into different gaits, postures, and speeds across species, so the conditional distribution to be captured is far wider while the data to capture it are scarcer.
+\textbf{Unseen species and radical morphologies} remain out of reach: species-aware modulation (Eq.~\eqref{eq:p3_s8_4_2_modulation}) and morphological-consistency constraints generalize across the skeletons seen in training, but insects and winged or aquatic creatures violate the shared-skeleton, fixed-topology assumptions on which current methods rest.
+AniMo and X-MoGen already move toward treating morphology as a variable rather than a template, and topology-flexible representations are the direction this points.
+
+
+
+
+\subsection{Vehicle Motion Planning}
+\label{subsec:p3_s8_4_3}
+Where §\ref{subsec:p3_s8_4_1} and §\ref{subsec:p3_s8_4_2} generate the motion of an articulated body, vehicle motion planning generates the trajectory of a (near-)rigid agent moving through a traffic scene.
+The body is far simpler, since a vehicle has essentially no internal articulation, but the difficulty moves outward into the environment: a planned trajectory must obey vehicle dynamics, stay on the drivable surface dictated by an HD map, and remain socially compatible with the future motion of many surrounding agents whose intentions are unobserved.
+This is the setting where motion generation becomes inseparable from \emph{multi-agent} spatial reasoning and physical feasibility: trajectory forecasting (predicting how others will move) and planning (deciding how the ego vehicle should move) are two readings of the same generative object.
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_4_3_task}
+Let a trajectory be a sequence of agent states $\boldsymbol{\tau}^{1:H}=(\mathbf{s}^1,\dots,\mathbf{s}^H)$ over a horizon $H$, where each state $\mathbf{s}^t$ collects position, heading, and velocity.
+The driving signal is now a structured scene context $\mathbf{c}=(\mathbf{s}^{-P:0},\,\mathcal{G},\,\mathcal{A})$ comprising the agent's own past states, an HD-map / lane graph $\mathcal{G}$, and the observed histories of neighboring agents $\mathcal{A}$.
+With $\kappa$ encoding this context, vehicle motion planning learns
+\begin{equation}
+\label{eq:p3_s8_4_3_objective}
+G_\theta^{\text{veh}}:\mathcal{C}'\!\to\!\mathcal{T},\qquad
+\hat{\boldsymbol{\tau}}^{1:H}\sim p_\theta\!\left(\boldsymbol{\tau}^{1:H}\mid\kappa(\mathbf{c})\right)
+\quad\text{s.t.}\quad
+\mathbf{s}^{t+1}=f_{\text{dyn}}(\mathbf{s}^{t},\mathbf{u}^{t}),
+\end{equation}
+the conditional-sampler template of Eq.~\eqref{eq:p3_s8_4_1_objective} with the pose sequence replaced by a state trajectory and an added kinematic-feasibility constraint $f_{\text{dyn}}$ (\eg, a bicycle model) that distinguishes this setting from articulated-body generation.
+Dropping $\mathcal{A}$ recovers single-agent forecasting; supplying a goal or reward in place of $\mathbf{c}$ turns prediction into planning.
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_4_3_method}
+Prediction methods vary along two axes: how the scene context is \emph{encoded} and how the multimodal future is \emph{decoded}.
+Early encoders rasterize the scene into a bird's-eye-view image, but the field has converged on \emph{vectorized} encoders that represent lanes and agent tracks as polylines: VectorNet~\cite{gao2020vectornet} and LaneGCN~\cite{liang2020lanegcn} build graph representations of the HD map, and transformer encoders such as Wayformer~\cite{nayakanti2023wayformer} and the Motion Transformer (MTR)~\cite{shi2022mtr} attend jointly over map and agents; graph-attention predictors~\cite{ZhangFWH22} model spatial and temporal interaction in the same spirit.
+On the decoding side, the defining property is multimodality, since a single context admits many plausible futures, so models predict a set of $K$ modes with probabilities,
+\begin{equation}
+\label{eq:p3_s8_4_3_multimodal}
+p_\theta(\boldsymbol{\tau}\mid\kappa(\mathbf{c}))=\sum_{k=1}^{K}\pi_k\,\mathcal{N}\!\left(\boldsymbol{\tau};\,\mu_k(\kappa(\mathbf{c})),\,\Sigma_k\right),
+\end{equation}
+rather than the single point estimate of Eq.~\eqref{eq:p3_s8_4_1_regression}, which here would average distinct maneuvers (turning \vs going straight) into an infeasible mean.
+The earliest learned predictors modeled social interaction directly in agent-coordinate space, Social-LSTM~\cite{alahi2016social} through pooled recurrent states and Social-GAN~\cite{gupta2018social} through adversarial sampling, and Trajectron++~\cite{salzmann2020trajectron} added dynamic feasibility to a graph-structured latent-variable model.
+Goal-based decoders make the modes explicit: DenseTNT~\cite{gu2021densetnt} samples dense candidate endpoints on the map and scores trajectories conditioned on them, exposing the maneuver structure that Eq.~\eqref{eq:p3_s8_4_3_multimodal} captures only implicitly.
+Generative decoders replace the fixed mixture with a learned sampler: MotionDiffuser~\cite{jiang2023motiondiffuser} denoises whole multi-agent trajectory sets jointly.
+
+Planning turns the same machinery on the ego vehicle. ChauffeurNet~\cite{bansal2019chauffeurnet} learns the ego policy by imitating expert driving and augments the demonstrations with synthesized perturbations and worst cases, so that the policy stays robust when it drifts off the data manifold.
+Figure~\ref{fig:p3_s8_4_3_methods} situates these families along the encode/decode axes.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section8/vehicle_motion_planning.pdf}
+    \caption{Vehicle motion planning as conditional trajectory generation: a vectorized encoder represents map polylines and agent interactions, and a multimodal decoder generates candidate futures (Eq.~\eqref{eq:p3_s8_4_3_multimodal}). Gray intensity indicates mode weight; blue marks a plan selected using a goal or cost and feasibility constraints, not necessarily the highest-probability mode. Road geometry and trajectories are illustrative.}
+    \label{fig:p3_s8_4_3_methods}
+\end{figure}
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_4_3_benchmarks}
+Progress is measured on large real-world driving logs that pair agent tracks with HD maps: nuScenes~\cite{caesar2020nuscenes}, Argoverse and Argoverse~2~\cite{Argoverse-ChangLSSBHW0LRH19, wilson2023argoverse}, and the Waymo Open Motion Dataset~\cite{ettinger2021womd}, the last two offering the scale and interaction density that current transformer models require.
+Evaluation centers on the multimodal-aware displacement metrics that match Eq.~\eqref{eq:p3_s8_4_3_multimodal}: minimum average and final displacement error over the $K$ predicted modes (minADE$_K$, minFDE$_K$), miss rate (the fraction of scenes where no mode lands within a tolerance of the ground truth), and the soft mean-average-precision of the Waymo protocol, which jointly scores accuracy and the calibration of mode probabilities $\pi_k$.
+Off-road and collision rates further test the feasibility constraint $f_{\text{dyn}}$ that purely displacement-based scores ignore.
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_4_3_challenges}
+A planner must assign trustworthy probabilities to the futures it enumerates, not merely list them: an over-confident missed mode of Eq.~\eqref{eq:p3_s8_4_3_multimodal} is a safety failure rather than a metric error, so \textbf{calibrated multimodality} is the first open problem.
+\textbf{Feasibility and safety} are the second: displacement metrics reward trajectories a vehicle cannot physically execute, so feasibility has to be enforced inside the model ($f_{\text{dyn}}$) rather than checked afterward, and the long tail of near-collision scenarios is exactly where data are scarcest.
+The third is \textbf{closed-loop distribution shift}: models trained to imitate logged, open-loop futures drift once their own predictions feed back into the scene, the difficulty ChauffeurNet's worst-case synthesis was built to expose.
+Diffusion- and transformer-based scene-level samplers that forecast all agents jointly and run closed-loop are the current direction, and they connect directly to the controllable-video and world-model lines of §\ref{sec:p3_s8_3} and §\ref{sec:p3_s8_6}, in which a driving world model both predicts and is conditioned on the ego plan.
+
+
+
+
+
+
+
+\subsection{Motion Editing}
+\label{subsec:p3_s8_4_4}
+The subsections above \emph{synthesize} motion from scratch; motion editing instead modifies an \emph{existing} motion so that it satisfies a new constraint while leaving the rest intact. It is the temporal, articulated analogue of the image editing of §\ref{subsec:p3_s8_1_3} and the video editing of §\ref{subsec:p3_s8_3_5}, and its demand is again selective preservation: change a targeted aspect (a trajectory, a joint, a style, a semantic action) while holding the body's identity, timing, and untouched portions fixed, which makes editing the controllability layer that closes the generate-and-refine loop for motion.
+
+
+
+\subsubsection{Task Definition}
+\label{subsubsec:p3_s8_4_4_task}
+Given a source motion $\mathbf{m}^{\text{in}}\!\in\!\mathcal{M}$, an edit region $\mathbf{M}\!\in\!\{0,1\}^{T\times J}$ over time $T$ and joints $J$, and an edit control $\mathbf{c}$ (a text instruction, target keyframes, a desired root trajectory, or a target joint), motion editing learns an operator
+\begin{equation}
+\label{eq:p3_s8_4_4_objective}
+E_\theta:\mathcal{M}\!\times\!\{0,1\}^{T\times J}\!\times\!\mathcal{C}'\!\to\!\mathcal{M},\qquad
+\hat{\mathbf{m}}=E_\theta\!\left(\mathbf{m}^{\text{in}},\mathbf{M},\kappa(\mathbf{c})\right),
+\end{equation}
+which lifts the image-editing operator of Eq.~\eqref{eq:t2i_edit_objective} into the motion domain. As in image and video editing, Eq.~\eqref{eq:p3_s8_4_4_objective} encodes two competing objectives, \emph{editability} (the output must realize the control $\mathbf{c}$ inside $\mathbf{M}$) and \emph{preservation} (it must match $\mathbf{m}^{\text{in}}$ outside $\mathbf{M}$ and remain a plausible, smooth motion), and methods differ chiefly in how they trade these off.
+
+
+
+\subsubsection{Methodology}
+\label{subsubsec:p3_s8_4_4_method}
+Because a pretrained motion diffusion model already samples plausible motion, most editors realize Eq.~\eqref{eq:p3_s8_4_4_objective} without retraining, by \emph{conditioning the sampler} of Eq.~\eqref{eq:p3_s8_4_1_diffusion} rather than learning a dedicated $E_\theta$. The simplest mechanism is \textbf{masked infilling}: at every denoising step the observed entries are overwritten with the (noised) source while only the masked entries are generated,
+\begin{equation}
+\label{eq:p3_s8_4_4_inpaint}
+\hat{\mathbf{m}}=(1-\mathbf{M})\odot\mathbf{m}^{\text{in}}+\mathbf{M}\odot G_\theta\!\left(\mathbf{m}_n,\,n,\,\kappa(\mathbf{c})\right),
+\end{equation}
+which directly enforces preservation by construction. This is the basis of motion in-betweening, where $1-\mathbf{M}$ marks given keyframes: robust in-betweening~\cite{harvey2020robust} predates the diffusion era, and CondMDI~\cite{cohan2024condmdi} casts flexible keyframe-conditioned in-betweening as masked diffusion, while PriorMDM~\cite{shafir2024priormdm} reuses a frozen motion-diffusion prior for editing and composition tasks such as joining and in-filling. A second family handles \emph{spatial} controls that masking alone cannot express (a target root path, or a specific joint at specific times) through classifier-style guidance: GMD~\cite{karunratanakul2023gmd} and OmniControl~\cite{xie2024omnicontrol} steer the denoiser toward arbitrary spatial constraints at any joint and time. A third, optimization-based family treats the initial diffusion noise itself as the free variable, solving $\min_{\mathbf{z}}\,\mathcal{L}_{\text{edit}}(\mathcal{D}(\mathbf{z}))$ so that the decoded motion satisfies an arbitrary differentiable criterion: DNO~\cite{karunratanakul2024dno} shows this single mechanism serves editing, in-betweening, and refinement as one universal motion prior. Finally, \emph{semantic} editors take a natural-language instruction in place of a geometric mask: MotionFix~\cite{athanasiou2024motionfix} learns text-driven edits from paired source--target motions, and LLM-driven approaches~\cite{goel2024iterative} decompose an instruction into a program of primitive edits applied iteratively. Figure~\ref{fig:p3_s8_4_4_methods} groups these four mechanisms by how they obtain $E_\theta$, paralleling the editing taxonomies of §\ref{subsec:p3_s8_1_3} and §\ref{subsec:p3_s8_3_5}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section8/four_motion_editing_mechanisms.pdf}
+    \caption{Four motion-editing mechanisms: (a) reinsert known states while infilling missing frames; (b) guide denoising with root-path or joint targets; (c) optimize initial noise through a fixed decoder using an edit loss; and (d) edit source motion from text, using a learned editor or iterative primitive edits. Rendered people illustrate edits rather than measured model outputs.}
+    \label{fig:p3_s8_4_4_methods}
+\end{figure}
+
+\subsubsection{Benchmarks}
+\label{subsubsec:p3_s8_4_4_benchmarks}
+Motion editing inherits the corpora of §\ref{subsubsec:p3_s8_4_1_benchmarks} (HumanML3D~\cite{GuoZZ0JL022} and BABEL~\cite{PunnakkalCAQB21} over AMASS), used in editing protocols where keyframes, joints, or trajectories are held out as the constraint, together with the dedicated MotionFix~\cite{athanasiou2024motionfix} benchmark of paired source--edit--instruction triples that supplies the ground truth most editing tasks lack.
+Evaluation must report the editability--preservation pair jointly: editability through control adherence (instruction-conditioned R-Precision, target-joint or trajectory error) and overall realism (FID, foot-skating), and preservation through the deviation from the source outside the edit region.
+As in video editing, single scalars correlate weakly with perceived edit quality, so reporting a tuple, and increasingly a learned or VLM-style judge of instruction compliance, is becoming standard.
+
+\subsubsection{Challenges and Trends}
+\label{subsubsec:p3_s8_4_4_challenges}
+The central tension is the \textbf{editability--preservation trade-off} of Eq.~\eqref{eq:p3_s8_4_4_objective}: pushing harder on a control propagates unwanted change through the kinematic chain (editing one arm disturbs balance and foot contact), so a good editor must respect the body's global coordination, not just the masked entries.
+This is compounded by \textbf{sparse-control ambiguity}: a single keyframe or a root path under-determines the full-body motion, and the model must fill the gap plausibly, which the guidance and noise-optimization families address with differing robustness.
+Underlying both is an \textbf{evaluation} gap sharper than in synthesis: because the ``correct'' edit is rarely unique, ground-truth-based metrics under-reward valid alternatives, motivating the paired-triplet and judge-based protocols above.
+The trend mirrors the rest of §\ref{sec:p3_s8_4} and §\ref{sec:p3_s8_3}: from per-mechanism, training-free editors toward unified models that generate, control, and edit motion within a single conditional sampler, increasingly driven by natural-language instructions rather than geometric masks.
+
+
+
+
+
+
+
+
+% \subsection{Summary}
+% \label{subsec:p3_s8_4_summary}
+% Table~\ref{tab:p3_s8_4_subfield_comparison} compares the four subfields as specializations of the human-motion sampler of Eq.~\eqref{eq:p3_s8_4_1_objective}: by the moving object and its condition, the sampler or operator each instantiates, the dominant method families, and the benchmarks on which they report.
+
+% \begin{table}[!ht]
+% \centering
+% \fontsize{8}{10}\selectfont
+% \setlength{\tabcolsep}{1.0mm}
+% \caption{The four subfields of motion generation; each sampler or operator specializes Eq.~\eqref{eq:p3_s8_4_1_objective}.}
+% \label{tab:p3_s8_4_subfield_comparison}
+% \begin{tabular}{L{0.13\textwidth} L{0.19\textwidth} L{0.16\textwidth} L{0.22\textwidth} L{0.22\textwidth}}
+% \toprule
+% \textbf{Subfield} & \textbf{Moving object \& condition} & \textbf{Sampler / operator} & \textbf{Dominant method families} & \textbf{Benchmarks / metrics} \\
+% \midrule
+% §\ref{subsec:p3_s8_4_1} Human motion & Articulated body; action / text / music / speech / scene & $G_\theta^{\text{mot}}$ (Eq.~\eqref{eq:p3_s8_4_1_objective}) & Regression or generative (GAN / VAE / diffusion); per-modality conditioning & HumanML3D, KIT-ML, AIST++, BEAT; FID, R-Precision, diversity, beat / contact \\
+% §\ref{subsec:p3_s8_4_2} Animal motion & Multi-species body; text $+$ species $s$ & $G_\theta^{\text{amot}}$ (Eq.~\eqref{eq:p3_s8_4_2_objective}) & Human-prior transfer $+$ species-aware modulation; morphological consistency & AnimalML3D, Zoo-300K, AniMo4D; FID, MPJPE, biomechanical plausibility \\
+% §\ref{subsec:p3_s8_4_3} Vehicle planning & Rigid agent state; HD map $+$ agent histories & $G_\theta^{\text{veh}}$, $K$-mode (Eqs.~\eqref{eq:p3_s8_4_3_objective},~\eqref{eq:p3_s8_4_3_multimodal}) & Vectorized encoders; goal-based and generative decoders; imitation planners & nuScenes, Argoverse 1/2, WOMD; minADE$_K$, minFDE$_K$, miss rate, soft-mAP \\
+% §\ref{subsec:p3_s8_4_4} Motion editing & Existing motion $+$ edit region / control & $E_\theta$ (Eq.~\eqref{eq:p3_s8_4_4_objective}) & Masked infilling, spatial guidance, noise optimization, instruction editing & HumanML3D / BABEL protocols, MotionFix; editability $+$ preservation tuple \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+% The four subfields partition by \emph{what is held fixed}: human, animal, and vehicle generation fix nothing but the condition and sample a fresh trajectory, whereas editing fixes the source motion and changes only a region, standing to the other three exactly as image editing (§\ref{subsec:p3_s8_1_3}) stands to image generation. Underneath that partition the dominant failure mode is shared and physical: whether it surfaces as foot-skating and penetration in human and animal motion, kinematic infeasibility in vehicle trajectories, or balance disruption when one limb is edited, every subfield is limited by how well the generator respects the biomechanics and dynamics of the moving body, which is why physics- and contact-aware modeling recurs in all four Challenges discussions. Evaluation stays fragmented, each subfield reporting its own tuple (fidelity, diversity, condition consistency; calibrated multimodality; editability and preservation), and all are migrating toward learned or perceptual judges as scalar metrics prove weakly correlated with human assessment. Motion generation is thus the point in §\ref{sec:generation} where generative spatial modeling must answer to physical law as well as semantics, which leads directly to the dynamic 4D generation of §\ref{sec:p3_s8_5}.
+

@@ -1,0 +1,24 @@
+{
+  "source": "assets/figures/figures/part3/section7/715_program.webp",
+  "source_size": [
+    2000,
+    894
+  ],
+  "assets": [
+    {
+      "file": "i-inputs/initial-state-arm.png",
+      "source_box": [
+        28,
+        123,
+        145,
+        239
+      ],
+      "title": "Initial state robot arm"
+    }
+  ],
+  "frontend": {
+    "i-inputs": "Table, object cube, goal outline and check; skill boxes and arrows; precondition/effect boxes and formulas; all panel frames and labels.",
+    "ii-core": "Symbolic planning graph and selected path; FSM states, transitions and labels; behavior-tree nodes, branches and status legend; production-rule boxes and formulas.",
+    "iii-outputs": "Action plan and parallel-step boxes; reactive-policy sensor, logic and branches; execution trace, failure/replan/retry paths; all frames, arrows and labels."
+  }
+}

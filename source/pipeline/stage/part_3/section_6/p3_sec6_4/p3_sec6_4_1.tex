@@ -1,0 +1,161 @@
+
+
+\subsection{Object Tracking}
+\label{sec:object_tracking}
+
+Tracking localizes entities in every frame and associates the detections across frames so that each entity keeps one identity through the sequence. Where detection and segmentation describe a single instant, tracking yields trajectories, the representation that autonomous driving~\cite{luo2021exploring,chiu2021probabilistic}, surveillance~\cite{ojha2015imageobjectsurveillance}, AR/VR~\cite{chen2021hightracking}, and robotics~\cite{Deitke2020RoboTHOR} build on.
+
+\begin{figure}[!ht]
+    \centering
+     \includegraphics[width=0.95\linewidth]{figures/part3/section6/object_tracking.pdf}
+    \caption{Object-tracking subtasks: (a) single object tracking (SOT) from an initial box, (b) multiple object tracking (MOT) with identity-consistent boxes, (c) multiple object tracking and segmentation (MOTS) with per-frame masks, (d) 3D multi-object tracking (3D-MOT) of oriented boxes from LiDAR or camera input, (e) pose and landmark tracking, and (f) panoptic tracking with semantic classes for stuff and persistent instance IDs for things. Repeated IDs denote the same entity across frames; arrows indicate increasing time. Scene images and overlaid states are illustrative.}
+    \label{fig:tracking_task}
+\end{figure}
+
+\subsubsection{Task Definition}
+Given a frame sequence $\{I_t\}_{t=1}^{T}$ (a video, or RGB-D, LiDAR, or multi-view streams), a tracker returns a set of trajectories $\{\mathcal{T}_k\}$, each $\mathcal{T}_k = \{(t, b_t^k)\}$ a time-indexed series of states $b_t^k$ with one identity $k$ held fixed over the sequence. The state is a bounding box in the basic setting and a segmentation mask, a 3D box, or a set of keypoints in the variants.
+
+The variants, illustrated in Figure~\ref{fig:tracking_task}, differ in how the targets are specified and what state is tracked. Single object tracking (SOT)~\cite{fan2019lasot,muller2018trackingnet} follows one target given its first-frame box; multiple object tracking (MOT)~\cite{milan2016mot16,dendorfer2020mot20,yu2020bdd100k} tracks every instance of given categories, typically pedestrians and vehicles, under identity constraints; MOTS~\cite{voigtlaender2019mots} and video object segmentation replace boxes with masks; 3D-MOT~\cite{AB3DMOT,yin2021center,caesar2020nuscenes,WaymoOpen-SunKDCPTGZCCVHN20} outputs world-coordinate 3D boxes from LiDAR, RGB-D, or multi-view input; pose tracking~\cite{andriluka2018posetrack,iqbal2017posetrack,samanta2016data} and landmark tracking~\cite{zafeiriou20173d} follow skeletal joints or facial keypoints; and panoptic tracking combines pixel-level semantic classes for stuff with temporally consistent instance identities for things. Category-specific trackers for pedestrians~\cite{stadler2021improving}, vehicles~\cite{van2001real}, or animals~\cite{zhang2023animaltrack} specialize any of these.
+
+
+\subsubsection{Methodology}
+Figure~\ref{fig:task_tracking_method} organizes the methods into four families around image-plane box and mask tracking (SOT, MOT, MOTS, VOS). Pose, landmark, and panoptic tracking reuse the same propagate-or-associate machinery with a different state representation and are covered at the benchmark level in Table~\ref{tab:video_object_tracking_dataset}.
+
+\paragraph{Propagation-based methods.}
+Because a target moves little between consecutive frames, its previous state is a strong prior for the current one, and the oldest tracking paradigm exploits this by predicting the next state from the current one and correcting it against the new frame. Correlation filters realize this in the frequency domain: MOSSE~\cite{bolme2010visual} learns a minimum-output-sum-of-squared-error filter from a single frame and updates it online at hundreds of frames per second; KCF~\cite{henriques2014high} and MKCF~\cite{tang2015multi} add kernelization and multiple-kernel learning, respectively; ECO~\cite{DanelljanBKF17} adds factorized convolution operators, a compact generative sample model, and conservative updates. These trackers are fast enough for embedded use but drift under large appearance change and clutter. MDNet~\cite{NamH16} answered with online discriminative learning, a shared CNN with per-sequence domain branches that separate target from background, at a high per-frame cost. Siamese trackers moved the representation learning offline: SiamFC~\cite{BertinettoVHVT16} correlates a template embedding with the search-region embedding in one forward pass, and SiamRPN~\cite{LiYWZH18}, ATOM~\cite{DanelljanBKF19}, and DiMP~\cite{BhatDGT19} add region-proposal regression, IoU-prediction refinement, and a discriminatively learned prediction head. Transformer trackers then replaced correlation with attention: TransT~\cite{ChenYZ0YL21} fuses template and search features with self- and cross-attention, STARK~\cite{0002PF0L21} predicts the box with an encoder--decoder that also carries temporal state, and OSTrack~\cite{YeCMSC22} joins feature extraction and relation modeling in a single stream over concatenated template and search tokens, the current baseline design.
+
+Mask propagation applies the same idea at the pixel level for video object segmentation~\cite{pont20172017,xu2018youtube}, with memory of past frames replacing a single template. XMem~\cite{ChengS22XMem} keeps multi-scale spatiotemporal memories that remain stable over videos of more than 10{,}000 frames; AOT~\cite{YangWY21aot} and DeAOT~\cite{YangY22adeaot} encode object identities as tokens so that many objects propagate in one pass; and SAM~2~\cite{ravi2024sam2} adds a streaming memory to the Segment Anything Model~\cite{kirillov2023sam}, giving promptable tracking that transfers across VOS benchmarks.
+
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section6/object_tracking_method.pdf}
+    \caption{Four method families for object tracking: (i) propagation-based, (ii) detect-then-associate, (iii) joint detection--association, and (iv) universal models with a shared backbone and task heads for SOT, MOT, VOS, and MOTS.}
+    \label{fig:task_tracking_method}
+\end{figure}
+
+\paragraph{Detect-then-associate methods.}
+The MOT standard pipeline detects objects in every frame and then solves an assignment problem between detections and existing tracks. SORT~\cite{bewley2016sort} predicts track positions with a Kalman filter~\cite{welch1995kalman} and matches by IoU with the Hungarian algorithm~\cite{Kuhn10}; DeepSORT~\cite{WojkeBP17} adds an appearance embedding so that tracks survive occlusion. Track-RCNN~\cite{voigtlaender2019mots}, JDE~\cite{WangZLLW20jde}, and FairMOT~\cite{ZhangWWZL21FairMOT} train the re-identification embedding jointly with the detector; association remains a separate step, which keeps them in this family. All of these discard low-confidence detections, and since occluded targets are exactly those with low scores, trajectories fragment where they are hardest to keep. ByteTrack~\cite{ZhangSJYWYLLW22} associates nearly every detection and uses motion similarity to the existing tracks to reject the false positives among the low-score boxes, a change in association alone that raised MOT17 HOTA by several points (Table~\ref{tab:tracking_performance}). In 3D, the same pipeline reappears: AB3DMOT~\cite{AB3DMOT} runs a 3D Kalman filter with Hungarian matching on LiDAR detections, and CenterPoint~\cite{yin2021center} tracks 3D object centers through predicted velocities, with nuScenes~\cite{caesar2020nuscenes} using AMOTA/AMOTP and Waymo~\cite{WaymoOpen-SunKDCPTGZCCVHN20} using MOTA/MOTP.
+
+\paragraph{Joint detection--association methods.}
+End-to-end trackers fold association into the detector. CenterTrack~\cite{ZhouKK20} represents objects as center points and regresses their offset to the previous frame, so that association is a local lookup; TrackFormer~\cite{MeinhardtKLF22} introduces tracking-by-attention, in which track queries carried from the previous frame and new object queries are decoded jointly by a Transformer; MOTR~\cite{zeng2022motr} extends DETR~\cite{carion2020end} with track queries that persist across the whole sequence and are supervised with a sequence-level loss, which is what gives it its advantage on DanceTrack~\cite{SunCJYBKL22}, where appearance is uninformative and motion is non-linear. The price is training cost and data: these models need long annotated sequences and remain behind detect-then-associate trackers on MOT17 (Table~\ref{tab:tracking_performance}).
+
+\paragraph{Universal models.}
+A single model for SOT, MOT, VOS, and MOTS is the most recent direction. UniTrack~\cite{wang2021different} showed that one self-supervised appearance representation serves propagation and association tasks alike; Unicorn~\cite{yan2022unicorn} trains one network end to end for all four tasks; UTT~\cite{MaSZ0XYY22} unifies SOT and MOT in a Transformer; UniVS~\cite{li2024univs} casts every video-segmentation task as prompt-driven segmentation; and OneTracker~\cite{HongYZLZGJCLCZ24} adapts a foundation tracker to RGB, depth, thermal, and event inputs with light adapters. In practice, SAM~\cite{kirillov2023sam} combined with a memory tracker (XMem, DeAOT) already provides promptable multi-object segmentation and tracking from points, boxes, scribbles, or text, and methods such as UASTrack~\cite{UASTrack} and Un-Track~\cite{WuZRV0PGT24UNTrack} extend unified tracking to RGB paired with depth, thermal, or event inputs. Language enters as a specification signal as well: LaSOT~\cite{fan2019lasot} pairs every sequence with a sentence, TNL2K~\cite{wang2021tnl2k} is built for text-initialized tracking, and LaMOT~\cite{li2025lamot} brings language-guided specification to the multi-object setting.
+
+\begin{table}[!ht]
+\centering
+\caption{Datasets for object tracking with bounding boxes (Bbox), segmentation masks (Mask), or human poses. ``Frames / Boxes'' gives annotated frames, or annotated boxes where reported (MOT16/17, TrackingNet, YouTube-BB). MOT17 reuses its 14 videos with three public detection sets. For pose datasets, the annotation column gives the setting and the number of body landmarks.}
+\label{tab:video_object_tracking_dataset}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{2.2mm}
+\begin{tabular}{lcccccc}
+\toprule
+ \textbf{Name} & \textbf{Videos} & \textbf{Frames / Boxes} & \textbf{Categories} & \textbf{Year} & \textbf{Attributes} & \textbf{Annotations}\\
+ \midrule
+\rowcolor{lightgrey} \multicolumn{7}{l}{$\bullet$ \textit{Single Object Tracking}} \\
+VIVID~\cite{collins2005open} &   9 &  16,274 &  - & 2005 & - & Bbox\\
+OTB100~\cite{wu2013online} &   98 &  58,610 &  -  & 2015 & 11 & Bbox\\
+ALOV300~\cite{smeulders2013visual} &   314 &  89,364 &   64 & 2013 & - & Bbox\\
+TC128~\cite{liang2015encoding} &   128 &  55,652 &  - &  2015  & 11 & Bbox\\
+VOT16~\cite{roffo2016visual} &   60 &  21,455 &  - & 2016 & - & Bbox\\
+DAVIS-16~\cite{perazzi2016benchmark} & 50 &  3,455 & 4 & 2016 & 15& Mask \\
+UAV20L~\cite{benchmark2016uav} &   20 &  58,670 &   -  & 2016 & 12 & Bbox\\
+UAV123~\cite{benchmark2016uav} &   123 &  113,476 &   9  & 2016 & 12 & Bbox\\
+NUS-PRO~\cite{nus_pro} &   365 &  135,305 &  8 & 2016 & - & Bbox\\
+VOT17~\cite{alatan2017visual} &   60 &  21,356 & 24 & 2017 & - & Bbox\\
+YouTube-BB~\cite{real2017youtube} &   380,000 &  5.6M &  23  & 2017  & - & Bbox\\
+NFS~\cite{kiani2017need} &   100 &  383,000 &   17  & 2017 & 9 & Bbox\\
+TrackingNet~\cite{muller2018trackingnet} &   30,132 &  14.2M &   27  & 2018 & 15  & Bbox\\
+LaSOT~\cite{fan2019lasot}  &  1,400  & 3.52M &  70 & 2019 & 14 & Bbox\\
+TNL2K~\cite{wang2021tnl2k} &  2,000  &  1.24M &  - & 2021 & 17 & Bbox\\
+GOT-10k~\cite{huang2021got}   & 10,000 & 1.5M & 563  & 2021 & 6 & Bbox\\
+\midrule
+\rowcolor{lightgrey} \multicolumn{7}{l}{$\bullet$ \textit{Multiple Object Tracking}} \\
+MOT16~\cite{milan2016mot16} &   14 &  292,733 & 1 & 2016  & - & Bbox\\
+MOT17~\cite{milan2016mot16} &   14 &  564,228 & 1 &   2017 & -  & Bbox\\
+BDD100K~\cite{yu2020bdd100k} &   1,600 &  318K &  8  & 2020  & - & Bbox\\
+\midrule
+\rowcolor{lightgrey} \multicolumn{7}{l}{$\bullet$ \textit{Video Object Segmentation}} \\
+DAVIS-17~\cite{pont20172017} & 150 & 10,459 & - & 2017 &-  & Mask\\
+YouTube-VOS~\cite{xu2018youtube} & 4,453 & - &  94 & 2018  & -  & Mask\\
+\midrule
+\rowcolor{lightgrey} \multicolumn{7}{l}{$\bullet$ \textit{RGB-D Object Tracking}} \\
+PTB~\cite{song2013tracking} &  100 &  21,542 & - & 2013 & 5 &  Bbox \\
+STC~\cite{xiao2017robust} &  36 & 9,009 & -  & 2017 & 12 &  Bbox \\
+CDTB~\cite{lukezic2019cdtb} &  80 &  101,956 & - & 2019 &  13 &  Bbox  \\
+DepthTrack~\cite{yan2021depthtrack} & 200 &  294,591 & - & 2021  &  15 &  Bbox \\
+ARKitTrack~\cite{zhao2023arkittrack} & 300 & 229.7K & 144 & 2023 & 16 & Mask \\
+RGBD1K~\cite{zhu2023rgbd1k} &  1,050&  717,900 & - & 2023 &  15 &  Bbox  \\
+\midrule
+\rowcolor{lightgrey} \multicolumn{7}{l}{$\bullet$ \textit{Human Pose Tracking}} \\
+VideoPose2.0~\cite{sapp2011parsing} & 44 & 1,286 &- &  2011 & - & Single-person (-) \\
+Poses in the Wild~\cite{cherian2014mixing} & 30 & 830 & - & 2014 & - & Single-person (7) \\
+ICDPose~\cite{samanta2016data} & 60 & 2,700 & - & 2016 &- &  Single-person (-)\\
+CMU Panoptic~\cite{joo2017panoptic} & 65 & 297K & - & 2017 & - & Multi-person (-) \\
+Multi-Person PoseTrack~\cite{iqbal2017posetrack} & 60 & - & - & 2017 &- &  Multi-person (14)\\
+PoseTrack18~\cite{andriluka2018posetrack} & 1,138 & 66,374 & - & 2018 &- &  Multi-person (15)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Datasets and Metrics}
+
+Table~\ref{tab:video_object_tracking_dataset} groups the benchmarks by what is tracked. The SOT line runs from short, category-agnostic clips (OTB100, TC128, the VOT challenges) to large, long-term, category-diverse training sets (TrackingNet, LaSOT, GOT-10k, whose test classes are disjoint from training) and to condition-specific tests for aerial footage (UAV123), high frame rate (NFS), and language initialization (TNL2K). MOT benchmarks are pedestrian-only in MOT16/17 and MOT20 and multi-class driving footage in BDD100K; the 3D-MOT counterparts are the nuScenes and Waymo tracking tasks. DAVIS and YouTube-VOS supply mask-level ground truth, the latter with categories unseen at training time; the RGB-D sets add depth and have grown from tens of sequences (PTB, STC) to over a thousand (RGBD1K); and pose tracking moved from single-person upper-body clips (VideoPose2.0, Poses in the Wild, ICDPose) to multi-person full-body sequences with person identities (PoseTrack18, CMU Panoptic).
+
+Each line has its own metrics. SOT uses the success plot: with $\mathrm{SR}(\tau)$ the fraction of frames whose predicted-box IoU exceeds $\tau$, the headline number is its area under the curve,
+\begin{equation}
+    \mathrm{AUC} = \int_0^1 \mathrm{SR}(\tau)\, d\tau ,
+\end{equation}
+reported with normalized precision (the fraction of frames whose center error, divided by the target size, is below a threshold) on LaSOT and TrackingNet, and with average overlap (mean IoU over frames) and $\mathrm{SR}_{0.5}$, $\mathrm{SR}_{0.75}$ on GOT-10k; the VOT challenges use expected average overlap (EAO), which folds accuracy and failure rate into one expectation~\cite{roffo2016visual}. MOT scores detection and identity jointly. MOTA~\cite{bernardin2008evaluating} charges false negatives, false positives, and identity switches against the number of ground-truth objects,
+\begin{equation}
+    \mathrm{MOTA} = 1 - \frac{\mathrm{FN}+\mathrm{FP}+\mathrm{IDS}}{\mathrm{GT}} ,
+\end{equation}
+and so is dominated by detection; IDF1 is the F1 score of identity-level true positives, $\mathrm{IDF1} = 2\,\mathrm{IDTP} / (2\,\mathrm{IDTP} + \mathrm{IDFP} + \mathrm{IDFN})$, and emphasizes identity preservation; HOTA~\cite{luiten2021hota}, $\sqrt{\mathrm{DetA}\cdot\mathrm{AssA}}$ averaged over localization thresholds, balances the two and has become the primary MOT metric. VOS reports the Jaccard index $\mathcal{J} = |M \cap G| / |M \cup G|$ of predicted and true masks and the contour F-measure $\mathcal{F}$ from boundary precision and recall~\cite{perazzi2016benchmark}, averaged as $\mathcal{J}\&\mathcal{F}$.
+
+Table~\ref{tab:tracking_performance} reports the methods of the Methodology above on the benchmarks each line treats as standard. Within SOT the step from a discriminative head over correlation features (DiMP) to attention-based fusion (TransT, STARK) is worth about ten points of LaSOT AUC, and the one-stream design of OSTrack adds six more over TransT. On MOT17 the detect-then-associate trackers lead, and ByteTrack's gain over FairMOT comes from association alone; the end-to-end trackers (CenterTrack, TrackFormer, MOTR) trail on MOT17 but MOTR leads ByteTrack by 6.5 HOTA on DanceTrack~\cite{zeng2022motr}, where appearance cues are weak. VOS accuracy on DAVIS-17 has moved from the mid-80s (XMem, DeAOT) to above 90 $\mathcal{J}\&\mathcal{F}$ with SAM~2, which is also the first method trained on a corpus far larger than the benchmarks themselves.
+
+\begin{table}[!t]
+    \centering
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{2.2mm}
+    \caption{Representative trackers on the standard benchmarks of each line. SOT: AUC on LaSOT and TrackingNet, AO on GOT-10k (from the OSTrack comparison~\cite{YeCMSC22}). MOT: MOT17 test, private detections (from the MOTR~\cite{zeng2022motr} and ByteTrack~\cite{ZhangSJYWYLLW22} comparisons). VOS: $\mathcal{J}\&\mathcal{F}$ on DAVIS-17 val and $\mathcal{G}$ on YouTube-VOS 2019 val (from the SAM~2 comparison~\cite{ravi2024sam2}).}
+    \label{tab:tracking_performance}
+    \begin{tabular}{L{0.30\textwidth} L{0.26\textwidth} C{0.10\textwidth} C{0.11\textwidth} C{0.10\textwidth}}
+    \toprule
+    \rowcolor{lightgrey} \multicolumn{5}{l}{$\bullet$ \textit{Single object tracking}}\\
+    \textbf{Method} & \textbf{Design} & \textbf{LaSOT AUC} & \textbf{TrackingNet AUC} & \textbf{GOT-10k AO} \\
+    \midrule
+    DiMP~\cite{BhatDGT19}         & Discriminative prediction head   & 56.9 & 74.0 & 61.1 \\
+    TransT~\cite{ChenYZ0YL21}      & Transformer feature fusion       & 64.9 & 81.4 & 67.1 \\
+    STARK~\cite{0002PF0L21}        & Encoder--decoder, temporal state & 67.1 & 82.0 & 68.8 \\
+    OSTrack-384~\cite{YeCMSC22}    & One-stream Transformer           & 71.1 & 83.9 & 73.7 \\
+    \midrule
+    \rowcolor{lightgrey} \multicolumn{5}{l}{$\bullet$ \textit{Multiple object tracking (MOT17 test)}}\\
+    \hiderowcolors \textbf{Method} & \textbf{Family} & \textbf{HOTA} & \textbf{MOTA} & \textbf{IDF1} \\
+    \midrule
+    CenterTrack~\cite{ZhouKK20}            & Joint, center offsets        & 52.2 & 67.8 & 64.7 \\
+    TrackFormer~\cite{MeinhardtKLF22}      & Joint, tracking-by-attention & --   & 74.1 & 68.0 \\
+    MOTR~\cite{zeng2022motr}               & Joint, persistent queries    & 57.8 & 73.4 & 68.6 \\
+    FairMOT~\cite{ZhangWWZL21FairMOT}      & Detect + joint Re-ID         & 59.3 & 73.7 & 72.3 \\
+    ByteTrack~\cite{ZhangSJYWYLLW22}       & Detect + low-score association & 63.1 & 80.3 & 77.3 \\
+    \midrule
+    \rowcolor{lightgrey} \multicolumn{5}{l}{$\bullet$ \textit{Video object segmentation}}\\
+    \hiderowcolors \textbf{Method} & \textbf{Design} & \textbf{DAVIS-17 $\mathcal{J}\&\mathcal{F}$} & \textbf{YT-VOS 2019 $\mathcal{G}$} & \\
+    \midrule
+    XMem~\cite{ChengS22XMem}       & Multi-store memory               & 86.0 & 85.6 & \\
+    DeAOT~\cite{YangY22adeaot}     & Identity tokens, decoupled propagation & 86.2 & 86.1 & \\
+    SAM~2~\cite{ravi2024sam2}      & Promptable, streaming memory     & 90.7 & 89.3 & \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Challenges}
+Identity under occlusion remains the central failure. Motion models and appearance embeddings bridge short occlusions, but long occlusions and dense crowds still produce identity switches and fragmented tracks~\cite{ZhangSJYWYLLW22,SunCJYBKL22}, and memory-based propagation drifts or forgets over long videos even when each step is accurate~\cite{ChengS22XMem}. HOTA and IDF1 measure the outcome but not robustness to occlusion length or the calibration of track confidence, so the metrics reward the easy part of the problem.
+
+Trackers are also tuned to a few curated benchmarks and transfer poorly to UAV footage, thermal and event imagery, adverse weather, and multi-camera surveillance; foundation-model trackers such as OneTracker~\cite{HongYZLZGJCLCZ24} and the RGB-X methods UASTrack~\cite{UASTrack} and Un-Track~\cite{WuZRV0PGT24UNTrack} address this directly but inherit the biases of their pretrained backbones. Long streams add memory and compute limits on top of drift.
+
+The accuracy of Transformer trackers comes at a cost that keeps them off embedded hardware, while the lightweight correlation-filter line gives up robustness; and the unified models that would amortize that cost across tasks meet negative transfer between objectives with different demands, mask precision against identity association in particular~\cite{yan2022unicorn}. Language and segmentation priors widen what a tracker can be asked to do, at the price of prompt sensitivity that current benchmarks do not measure.
+
+
+

@@ -1,0 +1,207 @@
+{
+  "figure": "11.15",
+  "sources": [
+    "assets/figures/figures/part4/section11/aerospace-operator.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      817
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section11/aerospace-operator.pdf",
+  "assets": [
+    {
+      "file": "coordination/satellite-a.png",
+      "title": "satellite a",
+      "panel": "coordination",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        892.5,
+        137.5,
+        1010.0,
+        215.0
+      ],
+      "box": [
+        446.25,
+        68.75,
+        505.0,
+        107.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        447.41,
+        69.295,
+        503.925,
+        106.971
+      ],
+      "placement_confidence": 0.9878
+    },
+    {
+      "file": "coordination/satellite-b.png",
+      "title": "satellite b",
+      "panel": "coordination",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        677.5,
+        247.5,
+        792.5,
+        325.0
+      ],
+      "box": [
+        338.75,
+        123.75,
+        396.25,
+        162.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        339.089,
+        124.24,
+        395.604,
+        161.916
+      ],
+      "placement_confidence": 0.9967
+    },
+    {
+      "file": "coordination/satellite-c.png",
+      "title": "satellite c",
+      "panel": "coordination",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1110.0,
+        247.5,
+        1225.0,
+        325.0
+      ],
+      "box": [
+        555.0,
+        123.75,
+        612.5,
+        162.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        555.73,
+        124.24,
+        612.245,
+        161.916
+      ],
+      "placement_confidence": 0.9934
+    },
+    {
+      "file": "coordination/satellite-d.png",
+      "title": "satellite d",
+      "panel": "coordination",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        677.5,
+        552.5,
+        792.5,
+        630.0
+      ],
+      "box": [
+        338.75,
+        276.25,
+        396.25,
+        315.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 3,
+      "pdf_box": [
+        339.089,
+        276.516,
+        395.604,
+        314.193
+      ],
+      "placement_confidence": 0.9952
+    },
+    {
+      "file": "coordination/satellite-e.png",
+      "title": "satellite e",
+      "panel": "coordination",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        1110.0,
+        552.5,
+        1225.0,
+        630.0
+      ],
+      "box": [
+        555.0,
+        276.25,
+        612.5,
+        315.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 4,
+      "pdf_box": [
+        555.73,
+        276.516,
+        612.245,
+        314.193
+      ],
+      "placement_confidence": 0.9931
+    },
+    {
+      "file": "coordination/satellite-f.png",
+      "title": "satellite f",
+      "panel": "coordination",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "source_box": [
+        895.0,
+        667.5,
+        1007.5,
+        742.5
+      ],
+      "box": [
+        447.5,
+        333.75,
+        503.75,
+        371.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 5,
+      "pdf_box": [
+        447.41,
+        333.031,
+        503.925,
+        370.707
+      ],
+      "placement_confidence": 0.9914
+    }
+  ],
+  "frontend": [
+    "Clean pictorial artwork is extracted without overlaid labels, formulas, arrows, frames or diagram lines.",
+    "All text, formulas, borders, arrows, symbols and vector diagrams remain independent frontend elements. Formulas will use Cambria Math with the original italics.",
+    "Cutouts have transparent backgrounds. Photographs retain their original scene content.",
+    "Only directional arrows will receive white light cores and soft blue halos. Dividers, borders and checkmarks remain static."
+  ]
+}

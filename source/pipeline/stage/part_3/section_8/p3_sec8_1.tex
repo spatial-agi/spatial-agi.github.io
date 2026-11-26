@@ -1,0 +1,48 @@
+
+\section{2D Spatial Generation}
+\label{sec:p3_s8_1}
+
+\FramedInitial{T}{he} 2D spatial generation encompasses a broad spectrum of tasks that require synthesizing or editing images under explicit spatial constraints.
+These constraints may be \emph{user-specified} (bounding boxes, masks, sketches, keypoints, depth maps) or \emph{derived} from scene understanding (layout graphs, semantic maps, relational structures), and the overarching goal is to produce images that are not only visually realistic but also \emph{faithful to the specified spatial configuration}: objects appearing in the correct locations, at the correct scales and orientations, while remaining globally coherent in lighting, perspective, and style.
+2D generation is where the most mature \emph{semantic-to-pixel prior} in contemporary AI is taught to honor \emph{spatial structure}: it is the proving ground on which large pre-trained visual priors are forced to localize objects, follow geometric scaffolds, respect occlusion ordering, and obey region- or instruction-level edits, all without falling out of the implicit grammar of natural images.
+
+The section follows the 2D pipeline in three steps that share one latent-generator framework.
+§\ref{subsec:p3_s8_1_1} reviews foundational text-to-image generation, the semantic-to-pixel prior on which everything else here is built, and the three paradigms (adversarial, autoregressive, and diffusion with its flow-matching generalization) that parameterize it.
+§\ref{subsec:p3_s8_1_2} adds a structural condition (layouts, masks, edges, depth, pose, scene graphs, region phrases) and asks how it is injected into a frozen or co-trained generator.
+§\ref{subsec:p3_s8_1_3} replaces the empty canvas with an existing image and a mask, so that the generator must change what lies inside the mask while preserving what lies outside it.
+% A short Summary (§\ref{subsec:p3_s8_1_summary}) compares the three along shared axes.
+
+\input{part_3/section_8/p3_sec8_1/p3_sec8_1_1.tex}
+
+\input{part_3/section_8/p3_sec8_1/p3_sec8_1_2.tex}
+
+\input{part_3/section_8/p3_sec8_1/p3_sec8_1_3.tex}
+
+% \subsection{Summary}
+% \label{subsec:p3_s8_1_summary}
+
+% Table~\ref{tab:p3_s8_1_subfield_comparison} places the three subfields side by side: the conditioning input each consumes, the sampler it instantiates, the mechanisms it surveys, and the benchmarks on which it reports.
+
+% \begin{table}[t]
+%     \centering
+%     \fontsize{8}{10}\selectfont
+%     \setlength{\tabcolsep}{1.0mm}
+%     \caption{The three subfields of 2D spatial generation; each sampler is a successive specialization of Eq.~\eqref{eq:t2i_generator}.}
+%     \label{tab:p3_s8_1_subfield_comparison}
+%     \begin{tabular}{L{0.14\textwidth} L{0.19\textwidth} L{0.19\textwidth} L{0.19\textwidth} L{0.21\textwidth}}
+%         \toprule
+%         \textbf{Subfield} & \textbf{Input / sampler} & \textbf{Mechanisms} & \textbf{Canonical methods} & \textbf{Benchmarks / metrics} \\
+%         \midrule
+%         §\ref{subsec:p3_s8_1_1} Text-to-image generation & Text $\mathbf{x}$; $G_\theta:\mathcal{E}\!\to\!\mathcal{Z}$ (Eq.~\eqref{eq:t2i_generator}) & GAN; autoregressive; diffusion / flow matching; backbone, acceleration, and proprietary refinements & StackGAN, AttnGAN; DALL-E, Parti; LDM, Imagen, DiT, SD3 & FID, CLIPScore, HPSv2 / PickScore, VQAScore; GenEval, T2I-CompBench, HRS-Bench, HEIM, WISE \\
+%         §\ref{subsec:p3_s8_1_2} Spatial-aware image generation & Text + structure $\mathbf{c}$; $G_\theta:\mathcal{E}\!\times\!\mathcal{C}'\!\to\!\mathcal{Z}$ (Eq.~\eqref{eq:t2i_spatial_objective}) & Side branch; adapter; grounded cross-attention; layout-aware cross-attention; inference-time guidance & ControlNet, T2I-Adapter, GLIGEN, LayoutDiffusion, BoxDiff & Channel adherence (IoU, edge recall, depth RMSE, PCK, relation accuracy); GenEval position; T2I-CompBench spatial \\
+%         §\ref{subsec:p3_s8_1_3} Spatial inpainting and editing & Image $I$, mask $\mathcal{M}$, prompt, control; $G_\theta:\mathcal{Z}\!\times\!\{0,1\}^{H\times W}\!\times\!\mathcal{E}\!\times\!\mathcal{C}'\!\to\!\mathcal{Z}$ (Eq.~\eqref{eq:t2i_edit_objective}) & Masked denoising; inversion + rewrite; instruction-tuned; exemplar-guided; drag-based & RePaint, Blended Diffusion; Prompt-to-Prompt, Null-Text; InstructPix2Pix, Emu Edit; IP-Adapter; DragGAN & PSNR / LPIPS, edit locality, harmonization, identity preservation; EditBench, MagicBrush, Emu Edit \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+% One move structures the whole section: specialize the conditioning channel of $G_\theta$, from text alone (§\ref{subsec:p3_s8_1_1}) to text plus a structural scaffold (§\ref{subsec:p3_s8_1_2}) to scaffold plus a source image and mask (§\ref{subsec:p3_s8_1_3}).
+% Each step is conservative, since the unconditional limit ($\mathbf{c}=\varnothing$ for §\ref{subsec:p3_s8_1_2}; $\mathbf{z}^{\text{in}}=\varnothing,\mathcal{M}=\mathbf{1}$ for §\ref{subsec:p3_s8_1_3}) recovers the preceding subfield, so the three sampler equations form a containment chain rather than a horizontal partition.
+% The mechanism axes of the second and third subsections are, moreover, largely orthogonal to the generative core: side branches, adapters, grounded cross-attention, masked denoising, inversion, and drag-based optimization compose with LDM, DiT, and flow-matching backbones interchangeably, and production pipelines routinely stack a spatial-aware injection (Eq.~\eqref{eq:t2i_spatial_objective}) on top of an editing mechanism (Eq.~\eqref{eq:t2i_edit_objective}), so the three subfields are best read as one composable toolbox rather than as three disjoint task families.
+% Evaluation has followed the same specialization, from a single FID against COCO for §\ref{subsec:p3_s8_1_1} circa~2020 to a task-specific tuple that adds channel adherence in §\ref{subsec:p3_s8_1_2} and reconstruction quality, edit locality, harmonization, and identity preservation in §\ref{subsec:p3_s8_1_3}.
+
+% The extension of these 2D priors to \emph{volumetric} synthesis (turning a text prompt, an image, or a mask into a textured mesh, a NeRF, or a 3DGS scene) is the subject of §\ref{sec:p3_s8_2}. The conditional latent sampler of Eq.~\eqref{eq:t2i_generator} continues to play a central role there, but now as a \emph{prior to be distilled} via score-distillation sampling, multi-view consistency objectives, or volume-rendering supervision, rather than as the terminal generator.

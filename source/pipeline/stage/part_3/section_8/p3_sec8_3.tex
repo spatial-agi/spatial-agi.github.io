@@ -1,0 +1,83 @@
+\section{Video Spatial Generation}
+\label{sec:p3_s8_3}
+
+\FramedInitial{V}{ideo} spatial generation is the task of synthesizing a temporally coherent image sequence (a video clip) from a high-level prompt together with optional spatial, temporal, and other conditioning signals.
+It has advanced substantially in recent years, evolving from early generative adversarial network (GAN)-based approaches~\cite{goodfellow2014gan} through autoregressive token models to the diffusion- and diffusion-transformer-based systems that now dominate the field~\cite{polyak2024movie,hong2022cogvideo,wan2025wan,sora2024}.
+This rapid progress has stimulated a wide range of downstream tasks, extending beyond basic text-to-video generation to encompass fine-grained control mechanisms (spatial, \eg, image, pose, depth, landmark, sketch, and bounding box; temporal, \eg, optical flow, trajectory, camera, and motion; and other conditional controls, \eg, style, audio, bird's-eye view) as well as sophisticated video editing capabilities.
+
+Within the arc of §\ref{sec:generation}, video spatial generation is the \emph{temporal} extension of the priors built in the preceding two sections.
+Whereas §\ref{sec:p3_s8_1} learned a 2D semantic-to-pixel prior on a single image plane and §\ref{sec:p3_s8_2} lifted that prior into a static volumetric representation, this section adds the time axis: the model must place matter and appearance correctly \emph{and} make them evolve plausibly as the camera or the scene itself moves through time.
+Appearance, geometry, and dynamics must now be \emph{jointly} consistent: a generated clip is judged not only frame by frame but on object permanence, motion plausibility, and multi-view coherence under camera motion, which makes video the natural substrate for the dynamic world models and simulators that consume spatial structure downstream.
+
+Formally, we cast every system in this section as a conditional spatio-temporal sampler that extends the latent-generator framework of §\ref{subsec:p3_s8_1_1}.
+Let $\mathcal{V}=[0,1]^{T\times H\times W\times 3}$ be the space of $T$-frame clips and $\mathcal{Z}^{\text{vid}}$ a compressed spatio-temporal latent space supplied by a video autoencoder that extends the image autoencoder of Eq.~\eqref{eq:t2i_autoencoder} along the time axis.
+Writing $\phi$ for the text encoder of Eq.~\eqref{eq:t2i_generator} and $\kappa:\mathcal{C}\!\to\!\mathcal{C}'$ for a generic encoder of an auxiliary control signal $\mathbf{c}\in\mathcal{C}$, the core learning problem is to train
+\begin{equation}
+G_\theta^{\text{vid}}:\mathcal{E}\times\mathcal{C}'\rightarrow\mathcal{Z}^{\text{vid}},\qquad
+\hat{\mathbf{z}}^{1:T}\sim p_\theta\!\big(\mathbf{z}^{1:T}\,\big|\,\phi(\mathbf{x}),\,\kappa(\mathbf{c})\big),
+\label{eq:p3_s8_3_objective}
+\end{equation}
+so that the decoded clip $\hat{\mathbf{v}}=D(\hat{\mathbf{z}}^{1:T})$ is photorealistic, temporally coherent, and faithful to both the prompt $\mathbf{x}$ and the control $\mathbf{c}$.
+Two limiting cases anchor the framework: with no auxiliary control ($\kappa=\varnothing$) Eq.~\eqref{eq:p3_s8_3_objective} reduces to text-to-video generation, and with a single frame ($T=1$) it recovers the image generator of Eq.~\eqref{eq:t2i_generator} exactly, so video spatial generation is precisely the image prior of §\ref{sec:p3_s8_1} unrolled in time and equipped with a richer conditioning interface.
+
+The subsections are organized by the axis of control each introduces into Eq.~\eqref{eq:p3_s8_3_objective}.
+Text-to-video generation (§\ref{subsec:p3_s8_3_1}) is the base case without auxiliary control; spatial control (§\ref{subsec:p3_s8_3_2}) adds a per-frame scaffold such as a pose or depth sequence; temporal control (§\ref{subsec:p3_s8_3_3}) adds a motion or camera signal that governs dynamics rather than appearance; §\ref{subsec:p3_s8_3_4} covers the remaining modalities and the frameworks that fuse several at once; and video editing (§\ref{subsec:p3_s8_3_5}) modifies an existing clip, lifting the 2D editing of §\ref{subsec:p3_s8_1_3} into time.
+§\ref{subsec:p3_s8_3_6} compares the five and discusses the challenges they share.
+
+
+
+\input{part_3/section_8/p3_sec8_3/p3_sec8_3_1.tex}
+
+\input{part_3/section_8/p3_sec8_3/p3_sec8_3_2.tex}
+
+\input{part_3/section_8/p3_sec8_3/p3_sec8_3_3.tex}
+
+\input{part_3/section_8/p3_sec8_3/p3_sec8_3_4.tex}
+
+\input{part_3/section_8/p3_sec8_3/p3_sec8_3_5.tex}
+
+
+
+
+
+
+\subsection{Summary and Critical Challenges and Future Directions}
+\label{subsec:p3_s8_3_6}
+\label{subsec:p3_s8_3_summary}
+
+Table~\ref{tab:p3_s8_3_subfield_comparison} places the five control axes side by side: the control signal each introduces, the operator it instantiates over the shared sampler of Eq.~\eqref{eq:p3_s8_3_objective}, the paradigms it surveys, the methods anchoring each, and the benchmarks on which it reports.
+
+\begin{table}[t]
+    \centering
+    \fontsize{8}{10}\selectfont
+    \setlength{\tabcolsep}{1.0mm}
+    \caption{The five control axes of video spatial generation; each operator specializes the spatio-temporal sampler of Eq.~\eqref{eq:p3_s8_3_objective}.}
+    \label{tab:p3_s8_3_subfield_comparison}
+    \begin{tabular}{L{0.12\textwidth} L{0.22\textwidth} L{0.18\textwidth} L{0.19\textwidth} L{0.21\textwidth}}
+        \toprule
+        \textbf{Control axis} & \textbf{Control signal / operator} & \textbf{Dominant paradigms} & \textbf{Canonical methods} & \textbf{Benchmarks / metrics} \\
+        \midrule
+        §\ref{subsec:p3_s8_3_1} Text-to-video & Text only, $\kappa=\varnothing$; $G_\theta^{\text{vid}}:\mathcal{E}\!\to\!\mathcal{Z}^{\text{vid}}$ (Eq.~\eqref{eq:p3_s8_3_1_objective}) & GAN; autoregressive token; diffusion / diffusion transformer & CogVideo, Sora, Wan, HunyuanVideo, Cosmos & UCF-101, MSR-VTT, VBench, EvalCrafter; FVD, CLIPSIM \\
+        §\ref{subsec:p3_s8_3_2} Spatial control & Per-frame scaffold $\kappa_{\text{s}}(\mathbf{c}_{\text{s}}^{1:T})$ (Eq.~\eqref{eq:p3_s8_3_2_objective}); residual injection (Eq.~\eqref{eq:p3_s8_3_2_inject}) & Image, pose, depth, landmark, sketch, bounding box & Animate Anyone, MagicAnimate, ControlVideo, EchoMimic, MagicDrive & nuScenes, pose-annotated video; keypoint / depth / identity / detection adherence \\
+        §\ref{subsec:p3_s8_3_3} Temporal control & Motion signal $\kappa_{\text{t}}(\mathbf{m}^{1:T})$ (Eq.~\eqref{eq:p3_s8_3_3_objective}); temporal-branch injection (Eq.~\eqref{eq:p3_s8_3_3_inject}) & Flow, trajectory, camera, motion; latent warping or encoded conditioning & Motion-I2V, Tora, DragNUWA, CameraCtrl, MotionDirector & RealEstate10K, DL3DV-10K, MPI-Sintel; EPE, path / pose error, transfer fidelity \\
+        §\ref{subsec:p3_s8_3_4} Other control & Heterogeneous $\kappa_{\text{o}}$ fused by $\mathcal{F}_\psi$ (Eqs.~\eqref{eq:p3_s8_3_4_objective}, \eqref{eq:p3_s8_3_4_inject}) & Style, point, BEV, text, audio; summed adapters, concatenation, unified attention & StyleCrafter, DriveDreamer-2, EMO, VideoComposer, FullDiT & nuScenes, HDTF, VFHQ; style / point / BEV / OCR / lip-sync adherence \\
+        §\ref{subsec:p3_s8_3_5} Video editing & Existing clip $+$ edit intent $\to$ edited clip; $E_\theta^{\text{vid}}$ (Eq.~\eqref{eq:p3_s8_3_5_objective}) & Training-free, one-shot tuning, trained instruction editors, attention reuse, structural guidance & Tune-A-Video, TokenFlow, InsV2V, UNIC, EditVerse & DAVIS, LOVEU-TGVE, FiVE, IVEBench; edit-vs-preservation tuple, VLM / MLLM judges \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The axes partition not by output domain, since all five decode a clip from the same $\mathcal{Z}^{\text{vid}}$, but by the control fed to one shared sampler: text-to-video is the $\kappa=\varnothing$ limit, spatial, temporal, and other control progressively enrich $\kappa$, and editing alone reverses the direction of the map, taking an existing clip in place of pure noise.
+The injection mechanism converges across axes: the spatial residual branch (Eq.~\eqref{eq:p3_s8_3_2_inject}), the temporal branch (Eq.~\eqref{eq:p3_s8_3_3_inject}), and the multi-condition interface (Eq.~\eqref{eq:p3_s8_3_4_inject}) are one idea, a trainable control pathway added to a pretrained backbone, generalized from one condition to many, and the most recent systems (VideoComposer, FullDiT, UNIC, EditVerse) go further by folding every axis, editing included, into a single token sequence processed by shared attention.
+Evaluation has not converged: no suite spans the five axes, each reports generic quality together with a channel-specific adherence score, and the newest editing benchmarks (FiVE, IVEBench) add vision-language and multimodal-LLM judges to improve human alignment.
+
+Video generation inherits every difficulty of the 2D and 3D priors of §\ref{sec:p3_s8_1} and §\ref{sec:p3_s8_2} and adds the time axis, which turns several already-hard problems into open ones; the four below cut across all five axes.
+
+\noindent\textbf{Temporal coherence and long-horizon drift.} The defining difficulty of video over image generation is keeping content stable across frames. The signature artifact is \emph{flicker}, the high-frequency appearance instability between adjacent frames that plagues per-frame and early GAN-based methods (§\ref{subsec:p3_s8_3_1}); over longer spans it gives way to \emph{identity drift}, the gradual mutation of a subject's appearance, color, or fine texture across a clip; and in autoregressive roll-outs to \emph{error accumulation}, the compounding of small per-step mistakes that caps usable clip length. Latent video autoencoders with temporal compression~\cite{blattmann2023stable,blattmann2023align} and dedicated spatio-temporal attention suppress flicker, while autoregressive--diffusion hybrids such as CausVid~\cite{yin2025slow} and MAGI-1~\cite{ai2025magi1autoregressivevideogeneration} combine sequential consistency with diffusion fidelity to push toward minute-scale generation; coherence over arbitrarily long horizons remains unsolved and is the binding constraint on the world-model applications that motivate the section.
+
+\noindent\textbf{Controllability versus fidelity under multi-condition fusion.} As §\ref{subsec:p3_s8_3_2}--§\ref{subsec:p3_s8_3_4} stack heterogeneous conditions (spatial scaffolds, camera paths, audio, style) onto Eq.~\eqref{eq:p3_s8_3_objective}, the conditions begin to conflict. Over-strong conditioning yields rigidity and texture collapse; weak conditioning ignores the control; and naive fusion produces \emph{control-signal dilution} (summed adapters wash one another out), \emph{condition leakage} across frames, and \emph{collapse to the dominant condition} when one modality (\eg, audio in talking-head generation) overwhelms the rest. Compositional and universal frameworks (VideoComposer~\cite{wang2023videocomposercompositionalvideosynthesis}, OmniHuman~\cite{lin2025omnihuman1rethinkingscalinguponestage}, and the unified-attention design of FullDiT~\cite{ju2025fullditmultitaskvideogenerative}) replace per-axis injection with joint token fusion and task-aware positional embeddings, but a principled account of how to weight and arbitrate competing conditions is still missing.
+
+\noindent\textbf{Physical and 3D plausibility.} Even a temporally coherent, well-controlled clip may depict an impossible world, which is the bridge back to §\ref{sec:p3_s8_2}. Generated motion frequently violates object permanence (objects teleport, morph, or vanish), contact and rigid-body dynamics (rigid objects warp non-rigidly; feet slide; occlusions resolve implausibly), and \emph{multi-view consistency} under camera motion, where the same scene is rendered inconsistently from successive viewpoints. Systems presented as steps toward ``world simulators'', Sora~\cite{sora2024} among them, still exhibit these failures on closer inspection. Camera-control methods~\cite{he2024cameractrl,yu2024viewcrafter} and explicitly 3D-aware video diffusion (Diffusion-as-Shader~\cite{gu2025diffusionshader3dawarevideo} and GS-DiT~\cite{bian2025gsditadvancingvideogeneration}) narrow the gap by conditioning generation on geometry, which suggests that the more promising route to physical plausibility runs through the volumetric representations of §\ref{sec:p3_s8_2} rather than through scale alone.
+
+\noindent\textbf{Compute, latency, and evaluation.} Underlying all three is cost: a spatio-temporal latent is an order of magnitude larger than an image latent, so long, high-resolution clips strain memory and make iterative sampling slow, which in turn limits the context length available for coherence and the conditioning budget available for control. Consistency distillation and few-step samplers, together with sparse and causal attention, are the active responses. Evaluation compounds the problem: distributional scores such as FVD and per-frame FID are blind to temporal and control adherence, and automatic metrics correlate weakly with human judgment, so reported progress is hard to compare across methods; benchmarks and human-aligned protocols that jointly score fidelity, temporal coherence, and per-axis control adherence are a central near-term need.
+
+Coherence and physical plausibility both demand longer temporal context, which inflates compute, and every added condition enlarges the evaluation surface, so progress on any one of the four is bounded by the others. Together they mark the last step of the progression traced across §\ref{sec:generation}, from the static 2D prior of §\ref{sec:p3_s8_1} through the static volumetric prior of §\ref{sec:p3_s8_2} to dynamic, navigable models that consume spatial structure over time.

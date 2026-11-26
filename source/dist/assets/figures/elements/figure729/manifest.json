@@ -1,0 +1,59 @@
+{
+  "figure": "7.29",
+  "source": "assets/figures/figures/part3/section7/foundation_rl_hybrid.webp",
+  "source_size": [
+    2000,
+    570
+  ],
+  "assets": [
+    {
+      "file": "rl-controller/robot-icon.png",
+      "title": "RL controller icon",
+      "source_box": [
+        112,
+        63,
+        245,
+        183
+      ],
+      "kind": "icon",
+      "size": [
+        133,
+        120
+      ]
+    },
+    {
+      "file": "hypothesis/brain-icon.png",
+      "title": "Hypothesis generator icon",
+      "source_box": [
+        917,
+        54,
+        1057,
+        193
+      ],
+      "kind": "icon",
+      "size": [
+        140,
+        139
+      ]
+    },
+    {
+      "file": "verification/gears-icon.png",
+      "title": "Verifier gears icon",
+      "source_box": [
+        1724,
+        54,
+        1861,
+        190
+      ],
+      "kind": "icon",
+      "size": [
+        137,
+        136
+      ]
+    }
+  ],
+  "frontend": [
+    "Keep the three source line-art icons as individual transparent PNGs.",
+    "Draw all rounded boxes, mathematical module labels, bidirectional exchanges and dashed reward/verification links independently."
+  ]
+}

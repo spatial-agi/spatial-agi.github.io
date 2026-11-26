@@ -1,0 +1,91 @@
+
+\subsection{Implicit Neural Spatial Reasoning}
+\label{subsec:p3_s7_2_1}
+
+
+
+We define \emph{implicit neural spatial reasoning} as the family of neural approaches in which spatial relations are encoded in learned feature representations, attention patterns, latent object interactions, or architectural inductive biases, rather than specified through hand-written rules, symbolic programs, or fully explicit relational graphs.
+\emph{Implicit} does not mean that these models never use boxes, masks, object proposals, or task-level labels; it means that the reasoning procedure itself is never given as a symbolic program, so the model must learn spatial dependencies from end-to-end or weakly structured supervision.
+Several families below (latent scene graphs, capsule networks) expose partly inspectable structure, yet remain implicit in that their reasoning representations are learned rather than fixed by hand-written symbolic rules.
+Figure~\ref{fig:p3_s7_2_1_implicit_formulation} shows the representative tasks.
+
+
+\begin{figure}[!th]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section7/implicit_neural_spatial_reasoning_task.pdf}
+    \caption{Representative tasks in which spatial relations must be inferred without explicit symbolic supervision: (1) visual question answering over compositional scenes, (2) image captioning with spatial attention, and (3) visual relational reasoning.}
+    \label{fig:p3_s7_2_1_implicit_formulation}
+\end{figure}
+
+
+
+
+\subsubsection{Task Definition}
+Given one or more images $I$, optionally paired with a language query or task goal $q$ (and possibly boxes, masks, or proposals as features), an implicit reasoner computes a latent spatial representation and a task output,
+\begin{equation}
+  z=f_\theta(I,q),\qquad y=h_\psi(z),
+\end{equation}
+where $z$ encodes the relations relevant to the task and $y$ is an answer label, a caption, or a relation label.
+In a purely implicit setting, supervision reaches the model through $y$; semi-explicit variants may additionally use object or relation labels without prescribing a symbolic reasoning program.
+The methods below differ in the mechanism by which $z$ is formed (Figure~\ref{fig:p3_s7_2_1_implicit_method}).
+
+
+
+
+\begin{figure}[!th]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section7/implicit_neural_spatial_reasoning_method.pdf}
+    \caption{Four mechanisms for learning spatial representations: (a) relational aggregation (Relation Network, GNN message passing), (b) spatial attention with multi-scale fusion (FPN), (c) conditional modulation (FiLM), and (d) geometry-aware inductive biases (capsule routing, equivariant features). Blue marks selected features, messages, and operations. The mechanisms can be combined in one model, and attention and FPN support spatial representation rather than forming complete reasoning procedures.}
+    \label{fig:p3_s7_2_1_implicit_method}
+\end{figure}
+
+\subsubsection{Methodology}
+
+\paragraph{Relational Aggregation over Latent Objects.}
+The most direct approach treats a set of feature vectors as latent ``objects'' and learns to aggregate their interactions.
+\textbf{Relation Networks (RN)}~\cite{santoro2017simple} score every pair: given objects $O=\{o_1,\dots,o_n\}$ (\eg, feature vectors from spatial regions of a CNN map) and an optional query $q$,
+\begin{equation}
+  \text{RN}(O, q) = f_{\phi}\!\left(\sum_{i,j} g_{\theta}(o_i, o_j, q)\right),
+\end{equation}
+where $g_{\theta}$ produces a query-conditioned relation embedding for each pair and $f_{\phi}$ maps the sum to the task output.
+Considering all pairs forces the network to learn pairwise spatial and semantic relations, at $O(n^2)$ cost in the number of objects.
+\textbf{Graph neural networks and latent scene graphs} generalize this from a complete graph to a learned, sparser topology, with proposals or feature regions as nodes and learned edges as spatial dependencies; iterative message passing for scene-graph generation~\cite{xu2017scene} alternates between refining node features and updating relation embeddings, learning the topology end-to-end.
+Such models are the clearest \emph{semi-explicit} case in this subsection: the graph is inspectable and often trained with relation annotations (\eg, from Visual Genome), yet the intermediate relational representation is learned rather than specified by a program, and its quality is bounded by the upstream proposal stage.
+
+\paragraph{Spatial Attention and Multi-Scale Feature Fusion.}
+A second family controls \emph{where} and \emph{how strongly} the model attends across the spatial layout, and fuses evidence across scales, rather than scoring all pairs.
+CNN spatial attention weights locations in a feature grid, from the hard and soft attention of \citet{xu2015show} for captioning and grounded VQA~\cite{zhu2016visual7w} to SCA-CNN's joint spatial and channel attention~\cite{chen2017sca}; vision transformers make relating image parts intrinsic through self-attention over patches~\cite{vit}, with locality-aware variants (Swin~\cite{liu2021swin}, PVT~\cite{wang2021pyramid}, Twins~\cite{chu2021twins}) trading global receptive field for cost; and Feature Pyramid Networks~\cite{lin2017feature} add a top-down pathway so that a relation coupling a fine object with a coarse region (a car ``on'' a street) can be read from one map.
+These designs are representation backbones that preserve and aggregate spatial information for the reasoning built on top of them, not reasoning modules in themselves.
+
+\paragraph{Conditional Feature Modulation.}
+A third family conditions one representation on another rather than aggregating or attending.
+In \textbf{FiLM (Feature-wise Linear Modulation)}~\cite{perez2018film}, a conditioning vector (\eg, an encoded query or global context) predicts affine parameters $(\gamma, \beta)$ that are applied feature-wise to a target map, so the same backbone can be steered per task.
+For a query like ``What is to the left of the green cube?'', a FiLM layer can learn to amplify features to the left of regions identified as the green cube, making reasoning adaptive and context-dependent.
+
+\paragraph{Geometry-Aware Inductive Biases.}
+A fourth family bakes geometric regularities into the architecture, trading data-driven flexibility for sample efficiency where the relevant geometry is known.
+\textbf{Capsule Networks}~\cite{sabour2017dynamic} replace scalar activations with vector-valued capsules whose orientation encodes instantiation parameters (pose, deformation) and whose magnitude encodes presence; \emph{dynamic routing} decides how lower-level capsules compose into higher-level ones by agreement in predicted pose, a stronger part-whole bias than translation-only convolution, though capsules have been hard to scale beyond small digit and shape datasets.
+Equivariant and steerable convolutions~\cite{cohen2016group}, which commute with a chosen transformation group, are the subject of §\ref{subsec:p3_s7_2_3}; both share the cost that the symmetry must be chosen in advance.
+
+
+\subsubsection{Benchmarks}
+
+CLEVR~\cite{johnson2017clevr} is the canonical benchmark, pairing rendered scenes with multi-step relational questions whose ground-truth program structure is known; Sort-of-CLEVR~\cite{santoro2017simple} isolates a controlled relational vocabulary.
+The decisive stress tests are the \emph{systematic-generalization} splits: CLEVR-CoGenT~\cite{johnson2017clevr} holds out attribute-composition combinations, and GQA~\cite{hudson2019gqa} scales compositional questions to real images.
+Open-domain VQA v2~\cite{goyal2017making} and Visual7W~\cite{zhu2016visual7w} probe whether implicit reasoning transfers beyond synthetic templates to natural images and free-form language.
+On CLEVR, RN reaches 95.5\% and FiLM 97.7\%; Table~\ref{tab:p3_s7_2_2_clevr_gqa} in §\ref{subsec:p3_s7_2_2} places these against the program-structured reasoners, which close the remaining gap only on in-distribution questions.
+
+
+\subsubsection{Challenges and Trends}
+The \emph{interpretability challenge} is intrinsic: because relations live in distributed activations rather than named symbols, it is hard to audit which relations a model actually exploits, and attention-map visualizations are only an indirect proxy.
+\emph{Compositional generalization} is the most striking failure: even at 97--98\% CLEVR accuracy, the same models drop sharply on CLEVR-CoGenT~\cite{johnson2017clevr} and GQA~\cite{hudson2019gqa}, revealing dataset-specific shortcuts rather than transferable spatial concepts; the related \emph{shortcut-learning} concern in open-domain VQA, where language priors and object co-occurrence dominate the signal, is the imbalance VQA~v2's balanced design targets~\cite{goyal2017making}.
+\emph{Scalability} divides the families: RN-style pairwise modeling is $O(n^2)$ in the number of objects, attention backbones trade receptive field against compute~\cite{liu2021swin,wang2021pyramid}, and GNNs inherit the brittleness of the proposal stage~\cite{xu2017scene}.
+The more fundamental limit is the \emph{2D-to-3D} gap: these methods reason over 2D feature grids and image-plane relations, whereas much spatial reasoning depends on depth ordering, occlusion, viewpoint, and metric layout, and strong 2D backbones and vision--language models degrade sharply once relations hinge on 3D geometry~\cite{daxberger2025mmspatial,xu2025spatialbench}.
+
+Two responses run through the rest of this section.
+The explicit-structured methods of §\ref{subsec:p3_s7_2_2} reintroduce programs and graphs over learned features, recovering inspectability while keeping the representational power of deep networks; the geometry-aware methods of §\ref{subsec:p3_s7_2_3} answer the 2D-to-3D gap directly by building the symmetry group into the architecture, where it is known.
+Whether web-scale pretraining alone closes the systematic-generalization gap, or explicit structure remains necessary, is the open question that §\ref{sec:p3_s7_3} takes up.
+
+
+
+

@@ -1,0 +1,146 @@
+\subsection{Object Detection}
+\label{sec:6-1-2}
+% logic: (Xiangtai Li)
+% 1, definition
+% 2, method before
+% 3, method after deep learning
+%  % single stage detectors
+%  % two-stage detectors
+%  % transformer-based detectors. (Detr)
+%  % open-vocabulary / open-world detectors.
+%  % video object detection methods.
+% 4, dataset and benchmark info
+% 5, trends and future work.
+
+\subsubsection{Task Definition}
+Given a 2D image $I$, \emph{2D object detection} identifies instances of predefined object classes and localizes each one in the image plane. The output is a set of detections
+\begin{equation}
+\mathcal{D}=\{(c_i, b_i, s_i)\}_{i=1}^{N},
+\end{equation}
+where $c_i$ is the predicted class, $b_i=(x_i,y_i,w_i,h_i)$ a 2D bounding box parameterized by center and size, and $s_i\in[0,1]$ a confidence score. In short, the task answers \emph{what objects are where}. Figure~\ref{fig:p3_s6_1_2_objdet_overview} summarizes the 2D task and its detector families.
+
+\emph{3D object detection} keeps the same set-of-detections output but places each box in metric 3D space. The input is a LiDAR point cloud $\mathcal{P}=\{\mathbf{p}_j\}_{j=1}^{M}$ with $\mathbf{p}_j\in\mathbb{R}^{3}$ (often with an intensity channel), one or more calibrated images, or both, and each box becomes
+\begin{equation}
+b_i=(x_i,y_i,z_i,\;l_i,w_i,h_i,\;\theta_i),
+\end{equation}
+a 3D center, the physical length, width, and height, and a heading angle $\theta_i$ about the vertical axis; indoor benchmarks often use axis-aligned boxes and drop $\theta_i$. Because the box is expressed in the sensor or ego frame rather than the image plane, a 3D detection already carries metric position and heading, which is why driving and robotics stacks consume it directly.
+% \end{definition}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/object_detection.pdf}
+    \caption{2D object detection: each detected instance is a tuple $(c_i, b_i, s_i)$ of class, bounding box, and confidence score (top), and the progression of detector families with representative methods under each (bottom).}
+    \label{fig:p3_s6_1_2_objdet_overview}
+\end{figure}
+
+\subsubsection{Methodology}
+
+\paragraph{Before Deep Learning.}
+Early detectors~\cite{zou2019object} ran a sliding window over multi-scale image pyramids and classified each candidate region with hand-crafted features and shallow models. Viola--Jones~\cite{viola_jones_2001} combined Haar-like features with an AdaBoost cascade for real-time face detection; HOG features with linear SVMs~\cite{dalal_triggs_2005} became the standard pipeline for pedestrians and generic objects; and deformable part-based models (DPMs)~\cite{felzenszwalb_dpm_2010} represented an object as parts connected by deformable constraints. Manual feature design, dense-window evaluation, and limited robustness to pose, scale, and occlusion capped this line and motivated the move to learned features.
+
+\paragraph{Two-stage Detectors.}
+R-CNN~\cite{girshick2014rcnn} first generates category-independent region proposals and then classifies each with a CNN, a large accuracy gain over hand-crafted pipelines bought with high computational cost. Fast R-CNN~\cite{girshick2015fast} shares convolutional computation across proposals through ROI pooling and trains classification and box regression jointly; Faster R-CNN~\cite{ren2015faster} adds a Region Proposal Network so that proposals are nearly free and the whole detector trains end-to-end. Sparse R-CNN~\cite{sun2021sparsercnn} later replaced dense anchors with a small set of learnable proposals, reaching end-to-end detection without a transformer.
+
+\paragraph{One-stage Detectors.}
+One-stage detectors drop the proposal step and predict classes and boxes directly from the feature map. YOLO~\cite{redmon2016yolo} casts detection as a single regression over the whole image, trading localization accuracy for speed; YOLOv2 and YOLOv3~\cite{redmon2017yolo9000, redmon2018yolov3} add anchors, multi-scale prediction, and stronger backbones, and later versions~\cite{bochkovskiy2020yolov4, jocher2020yolov5} refine training and deployment. SSD~\cite{liu2016ssd} predicts from multiple feature maps at different scales, and RetinaNet~\cite{lin2017focal} introduces the focal loss to counter the extreme foreground--background imbalance, bringing one-stage accuracy level with two-stage methods. Recent YOLO models move to anchor-free, decoupled heads (YOLOv8~\cite{jocher2023yolov8}) and NMS-free end-to-end training (YOLOv10~\cite{wang2024yolov10}), converging with the set-prediction detectors below.
+
+\paragraph{Transformer-based Detectors.}
+DETR~\cite{carion2020end} reformulates detection as direct set prediction with a transformer encoder--decoder, removing anchors and non-maximum suppression at the price of slow convergence and weak small-object performance. Deformable DETR~\cite{Zhu2021DeformableDETR} attends to a sparse set of sampling points, which fixes both; Conditional DETR~\cite{meng2021conditional} conditions decoder attention on spatial queries for faster training; DINO~\cite{zhang2023dino} adds denoising training and better query initialization; and RT-DETR~\cite{zhao2024detrs} brings the family to real-time speed.
+
+\paragraph{Open-Vocabulary Detection.}
+Open-vocabulary detection (OVD) recognizes objects outside a fixed label set by aligning region features with text embeddings. The line evolved from embedding distillation to large-scale vision--language pretraining to data-driven vocabulary expansion: ViLD~\cite{gu2021open} and OVR-CNN~\cite{zareian2021ovrcnn} distill or learn a shared region--text embedding space from image--text pairs; GLIP~\cite{li2022grounded} unifies detection with phrase grounding under grounded language--image pretraining; and Detic~\cite{zhou2022detecting} shows that image-level labels over a large vocabulary suffice to train the classifier of an open-vocabulary detector. OWL-ViT~\cite{minderer2022simple}, Grounding DINO~\cite{liu2024grounding}, and YOLO-World~\cite{cheng2024yoloworld} push the same idea toward simpler transfer, tighter grounding, and real-time speed; see the surveys~\cite{zhu2024survey, wu2024towards} for a fuller account.
+
+\paragraph{3D Object Detection.}
+3D detectors differ mainly in how they turn sensor data into something a network can process; the detection heads on top largely reuse the 2D families above. On LiDAR, VoxelNet~\cite{zhou2018voxelnet} learns features inside voxels and runs 3D convolutions over the grid, and PointPillars~\cite{lang2019pointpillars} collapses the vertical axis into pillars so that an ordinary 2D CNN on the bird's-eye-view (BEV) plane does the rest at real-time speed. Point-based detectors keep the raw points: PointRCNN~\cite{shi2019pointrcnn} generates proposals from PointNet++ features~\cite{qi2017pointnetplus} of segmented foreground points, PV-RCNN~\cite{shi2020pvrcnn} combines voxel and point features. CenterPoint~\cite{yin2021center} replaces anchors with BEV center heatmaps, the 3D counterpart of anchor-free 2D detection. Indoor scenes are cluttered and object centers often fall in empty space, which favors voting: in VoteNet~\cite{qi2019votenet} surface points vote for object centers before grouping, and 3DETR~\cite{misra20213detr} carries DETR-style set prediction over to point clouds.
+
+Camera-only 3D detection has to infer the depth that LiDAR measures. Monocular detectors regress depth, size, and orientation on top of a 2D detection (Section~\ref{sec:height_distance} treats them as metric estimation). Pseudo-LiDAR~\cite{wang2019pseudolidar} instead converts a predicted depth map into a point cloud and runs a LiDAR detector on it, showing that much of the camera--LiDAR gap came from the representation rather than from depth quality alone. Multi-camera systems lift image features into a shared BEV space, either bottom-up, as Lift-Splat-Shoot~\cite{philion2020lss} does by predicting a depth distribution per pixel and splatting features onto the ground plane, or top-down, as DETR3D~\cite{wang2022detr3d} and BEVFormer~\cite{LiWLXSLQD22} do by projecting 3D queries or BEV cells into the images to sample features. Fusion combines both sensors, from Frustum PointNets~\cite{qi2018frustum}, which crops the point cloud with 2D image detections, to BEVFusion~\cite{liu2023bevfusion}, which merges camera and LiDAR features on a common BEV map. Cube R-CNN~\cite{Omni3D-Brazil0SR0G23} trains a single image-based detector across indoor and outdoor domains on Omni3D. Deployment constraints for driving are discussed in Section~\ref{sec:p4_s9_2}, and video detection, which adds cross-frame association to the same output set, under tracking in Section~\ref{sec:object_tracking}.
+
+\begin{table*}[!t]
+\centering
+\caption{Summary of object detection datasets across modalities and domains, with image and bounding-box counts per official split; ImageNet VID counts refer to video clips.}
+\label{tab:object_detection_dataset}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.5mm}
+\begin{tabular}{l cc cc cc cc }
+\toprule
+\multirow{2}{*}{\textbf{Dataset}}   & \multirow{2}{*}{\textbf{Modality, Domain}}   & \multirow{2}{*}{\textbf{Class}}   & \multicolumn{2}{c}{\textbf{train}} & \multicolumn{2}{c}{\textbf{validation}} & \multicolumn{2}{c}{\textbf{test}}  \\
+\cmidrule(r){4-5}\cmidrule(r){6-7}\cmidrule(r){8-9}
+  & & & \textbf{images} & \textbf{boxes} & \textbf{images} & \textbf{boxes} & \textbf{images} & \textbf{boxes} \\
+\midrule
+VOC-2007~\cite{pascal-voc-2007} & image, general & 20 & 2,501 & 6,301 & 2,510 & 6,307 & 4,952 & 14,976\\
+VOC-2012~\cite{pascal-voc-2012} & image, general & 20 & 5,717 & 13,609 & 5,823 & 13,841 & 10,991 & - \\
+ILSVRC-2014~\cite{ImageNet} & image, general & 200 & 456,567 & 478,807 & 20,121 & 55,502 & 40,152 & -\\
+MS-COCO-2015~\cite{lin2014microsoft} & image, general & 80 & 82,783 & 604,907 & 40,504 & 291,875 & 81,434 & - \\
+MS-COCO-2017~\cite{lin2014microsoft} & image, general & 80 & 118,287 & 860,001 & 5,000 & 36,781 & 40,670 & - \\
+Objects365-2019~\cite{shao2019objects365} & image, general & 365 & 600,000 & 9,623,000 & 39,000 & 479,000 & 100,000 & 170,000\\
+OpenImages~\cite{kuznetsova2020open} & image, general & 600 & 1,743,042 & 14,610,229 & 41,620 & 303,980 & 125,436 & 937,327 \\
+ImageNet VID~\cite{ImageNet} & video, general & 30 & 3,862 & - & 555 & - & 937 & -\\
+LVIS~\cite{gupta2019lvis} & image, general & 1,203 & 100,000 & - & - & - & - & - \\
+Omni3D~\cite{Omni3D-Brazil0SR0G23} & 3D (image), general  & 98 & 175,573 & - & 19,127 & - & 39,452 & -  \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[!t]
+\centering
+\caption{Reported COCO performance of representative detector configurations, with evaluation splits, input sizes, and training schedules differing across sources; AP$_S$ / AP$_M$ / AP$_L$ break down by object size (small / medium / large). SSD512* denotes the image-expansion-augmented variant.}
+\label{tab:objdet_coco_results}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.5mm}
+\begin{tabular}{l l c c c c c c c c c}
+\toprule
+\textbf{Method} & \textbf{Backbone} & \textbf{\#P (M)} & \textbf{FLOPs (G)} & \textbf{AP} & \textbf{AP$_{50}$} & \textbf{AP$_{75}$} & \textbf{AP$_S$} & \textbf{AP$_M$} & \textbf{AP$_L$} & \textbf{Year} \\
+\midrule
+\multicolumn{11}{l}{\emph{Two-stage detectors}} \\
+Faster R-CNN~\cite{ren2015faster}            & R50-FPN     & 41.5 & 207   & 37.4 & 58.1 & 40.4 & 21.2 & 41.0 & 48.1 & 2015 \\
+Sparse R-CNN~\cite{sun2021sparsercnn}        & R50-FPN     & 106  & 174   & 45.0 & 64.1 & 49.4 & 26.9 & 47.2 & 59.5 & 2021 \\
+\midrule
+\multicolumn{11}{l}{\emph{One-stage CNN detectors}} \\
+SSD512*~\cite{liu2016ssd}                     & VGG-16      & 27   & 88    & 28.8 & 48.5 & 30.3 & 10.9 & 31.8 & 43.5 & 2016 \\
+RetinaNet~\cite{lin2017focal}                & R50-FPN     & 38   & 198   & 36.5 & 55.0 & 39.1 & 19.9 & 40.3 & 48.7 & 2017 \\
+YOLOv3~\cite{redmon2018yolov3}               & DarkNet-53  & 62   & 156   & 33.0 & 57.9 & 34.4 & 18.3 & 35.4 & 41.9 & 2018 \\
+\midrule
+\multicolumn{11}{l}{\emph{Modern YOLO}} \\
+YOLOv5-s~\cite{jocher2020yolov5}             & CSPDarkNet  & 7.2  & 16.5  & 37.4 & --   & --   & --   & --   & --   & 2020 \\
+YOLOv8-x~\cite{jocher2023yolov8}             & C2f-based    & 68.2 & 257.8 & 53.9 & --   & --   & --   & --   & --   & 2023 \\
+YOLOv10-l~\cite{wang2024yolov10}             & C2f/CIB    & 24.4 & 120.3 & 53.2 & --   & --   & --   & --   & --   & 2024 \\
+\midrule
+\multicolumn{11}{l}{\emph{Transformer set-prediction detectors}} \\
+DETR~\cite{carion2020end}                    & R50, 500\,ep & 41   & 86    & 42.0 & 62.4 & 44.2 & 20.5 & 45.8 & 61.1 & 2020 \\
+Deformable DETR~\cite{Zhu2021DeformableDETR} & R50, 50\,ep  & 40   & 173   & 43.8 & 62.6 & 47.7 & 26.4 & 47.1 & 58.0 & 2021 \\
+DINO~\cite{zhang2023dino}                    & R50, 4-sc., 12\,ep & 47 & 279 & 49.0 & 66.6 & 53.5 & 32.0 & 52.3 & 63.0 & 2023 \\
+RT-DETR~\cite{zhao2024detrs}                 & R50          & 42   & 136   & 53.1 & 71.3 & 57.7 & 34.8 & 58.0 & 70.0 & 2024 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+
+
+
+\subsubsection{Datasets and Metrics}
+Table~\ref{tab:object_detection_dataset} summarizes the benchmarks that shaped the field. \textbf{PASCAL VOC}~\cite{everingham2010pascal} fixed the evaluation protocol and remained the reference through the early deep-learning era despite its modest scale. \textbf{MS COCO}~\cite{lin2014microsoft}, with complex everyday scenes and segmentation masks alongside boxes, then became the standard for both detection and segmentation. \textbf{Open Images}~\cite{kuznetsova2020open}, \textbf{Objects365}~\cite{shao2019objects365}, and \textbf{LVIS}~\cite{gupta2019lvis} scale the vocabulary to hundreds and then over a thousand categories, with LVIS deliberately emphasizing rare classes, which turned it into the canonical long-tail and open-world benchmark.
+
+Evaluation follows the \emph{precision--recall} framework. A detection $(\hat{c}, \hat{b}, \hat{s})$ is correct when it matches a previously unmatched ground-truth instance of class $\hat{c}$, whose box $b$ overlaps $\hat{b}$ at or above the required \emph{Intersection over Union} (IoU) threshold
+\begin{equation}
+\mathrm{IoU}(\hat{b}, b) = \frac{|\hat{b} \cap b|}{|\hat{b} \cup b|}.
+\end{equation}
+Sorting the detections of a class by confidence traces a precision--recall curve whose area is the \emph{Average Precision} (AP); the \emph{mean Average Precision} (mAP) averages AP over classes. Benchmarks differ chiefly in the IoU threshold: PASCAL VOC uses a single $\mathrm{IoU} = 0.5$ (AP$_{50}$), whereas COCO averages over ten thresholds from $0.5$ to $0.95$ to obtain its primary AP and reports AP$_{50}$ and AP$_{75}$ as diagnostic slices. COCO further stratifies by object size into AP$_S$ (area $<32^2$ pixels), AP$_M$ ($32^2$--$96^2$), and AP$_L$ ($>96^2$), which exposes the persistent difficulty of small objects.
+
+3D detection is benchmarked mainly on driving data, KITTI~\cite{KITTI-GeigerLU12}, nuScenes~\cite{caesar2020nuscenes}, and the Waymo Open Dataset~\cite{WaymoOpen-SunKDCPTGZCCVHN20}, and indoors on SUN RGB-D~\cite{song2015sunrgbd} and ScanNet~\cite{dai2017scannet}; Omni3D (Table~\ref{tab:object_detection_dataset}) pools image-based 3D annotations from both. The IoU above is computed between 3D boxes or their BEV footprints: KITTI reports 3D and BEV AP at IoU $0.7$ for cars and $0.5$ for pedestrians and cyclists, and indoor benchmarks report mAP at 3D IoU $0.25$ and $0.5$. nuScenes matches detections by center distance on the ground plane ($0.5$, $1$, $2$, and $4$\,m) instead of IoU and folds translation, scale, orientation, velocity, and attribute errors into its nuScenes Detection Score (NDS); Waymo weights AP by heading accuracy (APH).
+
+Table~\ref{tab:objdet_coco_results} collects reported COCO results across the detector families.
+On the canonical ResNet-50 backbone, AP has climbed from $37.4$ for Faster R-CNN to $53.1$ for RT-DETR over roughly a decade, with much of the recent gain attributable to transformer-based set prediction (DETR $\rightarrow$ Deformable DETR $\rightarrow$ DINO) and improved denoising-style query initialization.
+The AP$_S$ column highlights the well-documented small-object weakness of vanilla DETR ($20.5$); deformable attention and denoising progressively close this gap (Deformable DETR $26.4$, DINO $32.0$, RT-DETR $34.8$).
+On the efficiency frontier, the modern YOLO line (YOLOv8-x at $53.9$, YOLOv10-l at $53.2$) matches RT-DETR in accuracy at substantially higher throughput, so the traditional accuracy--speed divide between CNN one-stage detectors and transformer set prediction has largely closed.
+
+
+
+% \noindent
+\subsubsection{Challenges}
+\textbf{The accuracy--efficiency trade-off remains unresolved.}
+The transformer-based detectors that top COCO and open-vocabulary leaderboards are still expensive at inference: even with deployment stacks such as TensorRT, their latency and parameter counts rule out most mobile and embedded targets, while the lightweight real-time detectors that fit those budgets trail them in accuracy. The same tension recurs for every recognition task in this section.
+\textbf{Open-world detection degrades on the hardest instances.}
+Open-vocabulary detectors extend recognition beyond a fixed label set, yet still miss small objects and mislabel rare categories, precisely the long-tail regime that motivated LVIS.
+\textbf{Detection inside multimodal large language models is still immature.} Recent systems fold detection into MLLMs as a grounding primitive that ties image regions to language, but even the strongest closed-source models post markedly lower numbers than specialist detectors on standard benchmarks~\cite{zhu2024survey, wu2024towards}.
+\textbf{3D detection is bounded by depth.} For camera-only detectors, localization error is dominated by depth error, which grows with distance~\cite{ma2021delving}; LiDAR measures depth directly but its returns thin out with range, so distant and small objects are seen through a handful of points.
+

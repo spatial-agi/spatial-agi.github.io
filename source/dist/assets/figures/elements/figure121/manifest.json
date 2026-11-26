@@ -1,0 +1,93 @@
+{
+  "figure": "12.1",
+  "sources": [
+    "assets/figures/figures/part4/section12/medical_overview.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1209
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section12/medical_overview.pdf",
+  "assets": [
+    {
+      "file": "perception/brain-anatomy.png",
+      "title": "brain anatomy",
+      "panel": "perception",
+      "size": [
+        614,
+        614
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        266.435,
+        32.701,
+        454.29,
+        220.557
+      ],
+      "pdf_source_box": [
+        118.456,
+        14.539,
+        201.976,
+        98.059
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "model-and-plan/brain-treatment.png",
+      "title": "brain treatment",
+      "panel": "model-and-plan",
+      "size": [
+        614,
+        614
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        520.687,
+        32.701,
+        708.543,
+        220.557
+      ],
+      "pdf_source_box": [
+        231.496,
+        14.539,
+        315.016,
+        98.059
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "intervention/tracked-intervention.png",
+      "title": "tracked intervention",
+      "panel": "intervention",
+      "size": [
+        614,
+        614
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        776.559,
+        32.701,
+        964.415,
+        220.557
+      ],
+      "pdf_source_box": [
+        345.256,
+        14.539,
+        428.776,
+        98.059
+      ],
+      "kind": "photo"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

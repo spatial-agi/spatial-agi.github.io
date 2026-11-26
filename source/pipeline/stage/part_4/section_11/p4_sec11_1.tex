@@ -1,0 +1,157 @@
+\section{Digital Twins}
+\label{sec:p4_s11_1}
+\label{sec:Digital Twins}
+
+\subsection{Introduction}
+\label{subsec:p4-sec11-1-introduction}
+
+A \textbf{digital twin} is a 3D representation faithful enough to stand in for its physical counterpart in analysis and operation.
+Building one requires more than accurate geometric reconstruction and photorealistic appearance under varying illumination; it requires realistic modeling of physical properties and interaction, so that the replica behaves as the original would.
+What separates a digital twin from any other 3D asset, however, is not fidelity alone but \emph{coupling}.
+Following the now-standard taxonomy of Kritzinger \etal~\cite{kritzinger2018digital}, a \emph{digital model} carries no automated data exchange with the physical object, a \emph{digital shadow} carries an automated one-way flow from the physical to the virtual, and only a \emph{digital twin} closes the loop with an automated, bidirectional flow: the virtual model is continuously synchronized to the physical asset, simulated forward to predict, and used to act back upon it.
+
+A digital twin therefore reuses, but specializes, much of the machinery surveyed earlier in this handbook. The perception stack of Chapter~\ref{chapter:3:sec:6} supplies the captures from which a twin is built, and the neural reconstruction and generation methods of Chapter~\ref{sec:generation} supply its geometry and appearance; what the twin adds is metric accuracy, physical grounding, and a persistent correspondence to a specific real object over its lifecycle.
+Entertainment (§\ref{sec:entertainment}) builds the same high-fidelity captures as creative \emph{content}; here they become an \emph{operational engineering model} wired to a live counterpart, and the city- and planet-scale twins that recur below connect to the GeoAI methods of §\ref{sec:p4_s11_2}.
+The concept itself traces from Grieves' product-lifecycle lectures, formalized with Vickers~\cite{grieves2017digital}, through its aerospace codification for NASA and U.S. Air Force vehicles~\cite{glaessgen2012digital}, to its industrial maturation~\cite{tao2019digital,wang2023survey}, where the five-dimension model of Tao \etal makes the data connections between physical entity, virtual entity, and services a first-class element of the architecture.
+
+\subsection{System Overview}
+\label{subsec:p4-sec11-1-system-overview}
+
+Figure~\ref{fig:p4_s11_1_overview} draws the twin as a closed loop around its physical asset. Sensing (images, LiDAR, RGB-D scans, onboard IoT telemetry) feeds the construction of a replica that carries geometry, appearance, materials, and physical properties; the replica is simulated forward, kept synchronized by live data assimilation, and queried to predict, and its decisions operate the asset, which is then sensed anew.
+The three pivotal tasks map onto this loop directly. Task-1 builds the twin (sense and construct), Task-2 makes it behave (model and simulate), and Task-3 keeps it synchronized and turns it to use (assimilate, predict, and act). Table~\ref{tab:p4_s11_1_benchmarks} collects the benchmarks on which the first two are evaluated; synchronization has no shared benchmark.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/digital_twins_overview.pdf}
+    \caption{The digital twin as a closed loop around its physical asset: construction (T1) and modeling (T2) establish the replica, synchronization (T3) corrects its state from live observations, and forecasts drive decisions through a control path separate from the observation path.}
+    \label{fig:p4_s11_1_overview}
+\end{figure}
+
+\subsection{Pivotal Task-1: High-Fidelity Twin Construction}
+\label{subsec:p4-sec11-1-pivotal-task-1-high-fidelity-twin-construction}
+
+The first task builds the twin from sensor captures, and it must deliver four properties that a generic one-shot reconstruction does not guarantee. The twin must be \emph{metric} (correct at real-world scale), \emph{relightable} (its appearance separable from capture-time illumination), \emph{physically grounded} (carrying mass, material, and friction), and \emph{actionable} (its movable parts and joints encoded so a simulator can drive it).
+Figure~\ref{fig:p4_s11_1_construction} sketches the progression from raw captures through geometry and material recovery to a simulatable model.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/digital_twins_reconstruction.pdf}
+    \caption{Three components of high-fidelity twin construction: (a) metric geometry from multi-view, LiDAR, or RGB-D capture; (b) relightable material channels separated from illumination; and (c) physical articulation, here a prismatic drawer joint with mass and friction. Material swatches and mesh overlays are schematic.}
+    \label{fig:p4_s11_1_construction}
+\end{figure}
+
+\textbf{Geometry and appearance acquisition.} The earliest replicas were built by photogrammetry: multiple overlapping photographs of an object, terrain, or structure are captured, and a Structure-from-Motion algorithm recovers camera poses and a sparse metric point cloud, as systematized in COLMAP~\cite{schonberger2016structure}, after which dense multi-view stereo and meshing produce a surface.
+Real-time RGB-D fusion in the KinectFusion tradition~\cite{newcombe2011kinectfusion} yields metric, watertight geometry over the observed region, and neural implicit-surface methods such as NeuS~\cite{wang2021neus} and the detail-preserving Neuralangelo~\cite{li2023neuralangelo} recover watertight meshes as the zero-level-set of a learned signed-distance field.
+A second family optimizes for view synthesis rather than surface quality: NeRF~\cite{mildenhall2021nerf}, its hash-grid acceleration Instant-NGP~\cite{muller2022instant}, and the explicit, real-time 3D Gaussian Splatting~\cite{kerbl20233d} render novel views with high fidelity but historically produced no clean surface and bake appearance into the representation; surface-aligned variants such as SuGaR~\cite{guedon2024sugar} and 2D Gaussian Splatting~\cite{huang20242d} narrow this gap by extracting watertight meshes directly from a Gaussian field.
+Because a twin requires metric scale and an extractable surface, the photogrammetric and implicit-surface lines are load-bearing, with meshing operators such as Poisson surface reconstruction~\cite{kazhdan2006poisson} and Marching Cubes~\cite{lorensen1998marching} converting a field or point set into geometry; the radiance-field family enters as an appearance and speed substrate, treated in full in Chapter~\ref{sec:generation}.
+
+\textbf{Inverse rendering and relightable materials.} A captured asset whose appearance is baked at scan time only reproduces the object under the one illumination it was scanned in, because each pixel entangles albedo, geometry, and lighting.
+A twin, by contrast, lives in a simulator where viewpoint and illumination change every frame, so its construction must recover separated physically based rendering (PBR) channels (albedo, roughness, normals) together with an estimate of the environment lighting.
+Inverse-rendering methods supply exactly this factorization: NeRFactor decomposes a captured radiance field into shape, reflectance, and a single environment light~\cite{zhang2021nerfactor}, while the differentiable, engine-ready NVDiffRec jointly extracts a triangle mesh, an SVBRDF, and a lighting estimate directly optimizable for downstream rendering~\cite{munkberg2022extracting}.
+The same factorization has been ported onto explicit Gaussians, as in Relightable 3D Gaussians, which attaches normals and a BRDF to each primitive and ray-traces shadows for real-time relighting~\cite{gao2024relightable}. Relightability is what lets a twin be composited under novel lighting and rendered consistently inside a physics or sensor simulation.
+
+\textbf{Physical-property and articulation estimation.} A static mesh is viewable but not operable: it has no notion of which surfaces move, with what effort, or under what dynamics. Closing this gap requires a movable-part inventory and the kinematic joints (revolute or prismatic, with axes and limits) that a physics engine can integrate, together with physical parameters such as mass and friction. Ditto recovers part geometry and an articulation model jointly from before-and-after observations of an interaction~\cite{jiang2022ditto}, and URDFormer predicts a full URDF, the standard interactive description, from a single real image, turning a photograph into a simulatable articulated twin~\cite{chen2024urdformer}. Dynamical parameters can be identified directly in a differentiable field representation, as in PAC-NeRF, which estimates geometry and physical parameters together through a differentiable material-point simulator~\cite{li2023pacnerf}, and PhysGaussian, which integrates Newtonian dynamics into a Gaussian representation so that what is reconstructed can also be simulated~\cite{xie2024physgaussian}. Such methods lean heavily on articulated-object datasets, principally the PartNet-Mobility models exposed through the SAPIEN simulator~\cite{xiang2020sapien}, the fine-grained part hierarchy of PartNet~\cite{mo2019partnet}, and the cross-category, actionable parts of GAPartNet~\cite{geng2023gapartnet}. The resulting articulated, parameterized model is the input to the behavioral simulation of Task-2.
+
+\textbf{Datasets and metrics.} Construction quality is measured against scanned-object and scene corpora (Table~\ref{tab:p4_s11_1_benchmarks}).
+At the object level, the recent Digital Twin Catalog provides a large set of digital-twin-quality scans with millimeter geometry, photorealistic materials, and an explicit relighting evaluation~\cite{dong2025dtc}, complementing the real-scanned OmniObject3D~\cite{wu2023omniobject3d}, the simulation-ready Google Scanned Objects~\cite{downs2022googleGSO}, the artist-authored, PBR-annotated ABO~\cite{collins2022abo}, the large Objaverse collection~\cite{deitke2023objaverse}, and the in-the-wild Common Objects in 3D~\cite{reizenstein2021common}.
+At the scene level, twins are evaluated on ScanNet~\cite{dai2017scannet}, Matterport3D~\cite{chang2017matterport3d}, the photorealistic Replica reconstructions~\cite{straub2019replica}, and the commodity-LiDAR ARKitScenes~\cite{baruch2021arkitscenes}, with metric-geometry benchmarks such as Tanks and Temples supplying laser-scan ground truth~\cite{knapitsch2017tanks}.
+Geometry is reported with Chamfer distance, F-score at a stated threshold, and normal consistency; appearance with PSNR, SSIM, and LPIPS; and, for twins specifically, an added relighting error that penalizes appearance that fails to transfer across illumination.
+
+\subsection{Pivotal Task-2: Physics-Based Modeling and Behavioral Simulation}
+\label{subsec:p4-sec11-1-pivotal-task-2-physics-based-modeling-and-behavioral-simulation}
+
+The second task makes the constructed replica behave.
+Geometry is not behavior: a twin must reproduce its asset's dynamics, not merely its shape, so the static model of Task-1 is coupled to a physics, behavioral, or surrogate engine and run forward as an \emph{executable} model whose parameters are fit to the real asset (Figure~\ref{fig:p4_s11_1_simulation}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/digital_twins_simulation.pdf}
+    \caption{From a constructed replica to a behaving twin: (a) constructed model, (b) physics engine, and (c) simulated behavior, with system identification fitting the physical parameters $\theta$ to real-asset observations and an optional fast surrogate $f_\phi$. Response traces are illustrative, not measured results.}
+    \label{fig:p4_s11_1_simulation}
+\end{figure}
+
+\textbf{Physics engines.} The behavioral substrate of a twin is a simulator that integrates its dynamics.
+MuJoCo provides accurate rigid-body contact dynamics and is the de facto standard for model-based control~\cite{todorov2012mujoco}; the open-source PyBullet offers a widely used free alternative spanning rigid and soft bodies~\cite{coumans2021}; and SAPIEN specializes in part-level interaction with large articulated objects~\cite{xiang2020sapien}, the natural runtime for the actionable twins of Task-1.
+GPU-accelerated platforms couple photorealistic rendering with physics at scale, exemplified by NVIDIA Isaac Sim\footnote{\url{https://developer.nvidia.com/isaac/sim}} on the Omniverse stack and its successor Isaac Lab\footnote{\url{https://developer.nvidia.com/isaac/lab}}, with newer GPU-first simulators such as Genesis\footnote{\url{https://genesis-embodied-ai.github.io/}} and the accelerator-native MuJoCo~MJX pushing throughput further; deformable phenomena such as cloth and fluids are handled by unified particle and material-point (MPM) solvers.
+
+\textbf{Differentiable simulation and system identification.} A twin is only behaviorally faithful if its physical parameters match the real asset, which makes parameter estimation central.
+Differentiable simulators expose gradients of simulated outcomes with respect to physical parameters, turning system identification into gradient-based optimization: DiffTaichi compiles differentiable physical simulators from high-level code~\cite{hu2020difftaichi}, Brax provides massively parallel differentiable rigid-body dynamics on accelerators~\cite{freeman2021brax}, and gradSim couples differentiable simulation with differentiable rendering to backpropagate from video pixels all the way to mass, friction, and elasticity~\cite{jatavallabhula2021gradsim}. A twin can thus be calibrated to its counterpart from observation rather than hand-tuned.
+
+\textbf{Surrogate and physics-informed models.} High-fidelity simulation is often too slow to run in the synchronization loop of Task-3, so twins frequently substitute a reduced or learned surrogate.
+Physics-informed neural networks embed governing partial differential equations directly in the training loss, solving forward and inverse problems with scarce data~\cite{raissi2019physics}, a strategy situated within the broader programme of physics-informed machine learning~\cite{karniadakis2021physics}.
+Reduced-order modeling, identified early as a key enabling technology for digital twins, compresses a high-fidelity simulation to real-time evaluation~\cite{hartmann2018model}, and the hybrid-twin paradigm couples such a physics-based reduced model with a data-driven correction term to absorb unmodeled effects~\cite{chinesta2020virtual}.
+
+\textbf{Real-to-sim for policy learning.} A faithful behavioral twin is also the substrate on which robot policies are trained and validated before deployment, which connects this task to the manipulation methods of §\ref{sec:p4_s9_1} and the reasoning of Chapter~\ref{sec:reasoning}.
+The reality gap between simulation and the physical world is bridged by randomizing visual appearance~\cite{tobin2017domain} and dynamics~\cite{peng2018sim} during training, and recent real-to-sim-to-real pipelines build a twin of the workspace from a quick scan and use it to robustify learned policies, as in RialTo~\cite{torne2024reconciling}.
+A complementary line argues that an exact twin is not always necessary: ACDC instead generates geometrically and semantically similar ``digital cousins,'' trading exact correspondence for robustness and zero-shot transfer~\cite{dai2024automated}, sharpening by contrast what a true digital twin provides.
+
+\subsection{Pivotal Task-3: Real-Time Synchronization and Predictive Operation}
+\label{subsec:p4-sec11-1-pivotal-task-3-real-time-synchronization-and-predictive-operation}
+
+The third task is the one that earns the name \emph{twin}: it maintains the automated bidirectional coupling between model and asset that defines a twin~\cite{kritzinger2018digital}, and turns that coupling to use.
+Figure~\ref{fig:p4_s11_1_synchronization} previews the pipeline, from a live sensor stream through data assimilation to prediction and a control signal fed back to the physical asset.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/part4/section11/digital_twins_synchronization.pdf}
+    \caption{Real-time synchronization and predictive operation: (a) live measurements from the physical asset are (b) assimilated with the model prior into a posterior state of (c) the synchronized twin, which feeds forecasts, what-if, anomaly, and useful-life outputs. The upper feedback path propagates the updated state into the next model prior; the lower path returns decisions or controls to the physical asset. Dashed forecast branches are possible futures, not observed trajectories; all analytical outputs are schematic.}
+    \label{fig:p4_s11_1_synchronization}
+\end{figure}
+
+\textbf{Data assimilation and state estimation.} Keeping the twin synchronized is a state-estimation problem: the model's latent state must be continually corrected toward the incoming measurements.
+The classical recursive estimator is the Kalman filter~\cite{kalman1960new}, and for the nonlinear, high-dimensional systems typical of physical twins the ensemble Kalman filter provides a Monte-Carlo data-assimilation scheme that propagates an ensemble of states to forecast error statistics~\cite{evensen1994sequential}.
+At the level of an entire engineered system, a probabilistic graphical model casts data-driven model adaptation as Bayesian state estimation with end-to-end uncertainty quantification~\cite{kapteyn2021probabilistic}, so that predictive twins can be assembled and updated at scale and their predictions carry calibrated confidence rather than point estimates.
+
+\textbf{Predictive operation across domains.} The synchronized twin is queried to anticipate rather than merely to monitor, and the applications follow the asset.
+In manufacturing, the twin couples machine geometry to live telemetry for prognostics and health management, estimating remaining useful life and scheduling maintenance before failure~\cite{tao2018digital}. At urban scale, a city digital twin fuses a semantically rich 3D model with sensor and simulation layers to support planning and what-if analysis, as in the Herrenberg study~\cite{dembski2020urban} and national programmes built on CityGML foundations~\cite{soon2017citygml}, a layer that connects directly to the GeoAI methods of §\ref{sec:p4_s11_2}.
+In healthcare, patient-specific anatomical twins driven by physiological models support precision diagnosis and treatment planning, with cardiology an early exemplar~\cite{corralacero2020digital} and a growing body of work surveyed across the field~\cite{katsoulakis2024digital}; the medical twin is developed in §\ref{sec:p4_s12_1}.
+In aerospace, where the paradigm was first codified, a structural twin mirrors an as-flown airframe to predict fatigue~\cite{glaessgen2012digital}; and in agriculture, field and crop twins fuse geospatial layers with growth models for precision management~\cite{verdouw2021digital}.
+
+\begin{table}[!th]
+\centering
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Representative benchmarks for twin construction and simulation. Synchronization (Task-3) has no shared benchmark.}
+\label{tab:p4_s11_1_benchmarks}
+\begin{tabular}{L{0.20\textwidth} L{0.22\textwidth} L{0.30\textwidth} L{0.20\textwidth}}
+\toprule
+\textbf{Pivotal task} & \textbf{Benchmark / dataset} & \textbf{Representative method} & \textbf{Headline metric} \\
+\midrule
+Construction (object) & DTC~\cite{dong2025dtc} & neural reconstruction + PBR & geometry + relighting error \\
+Construction (object) & OmniObject3D~\cite{wu2023omniobject3d} & multi-view reconstruction & Chamfer / F-score \\
+Construction (materials) & ABO~\cite{collins2022abo} & NVDiffRec~\cite{munkberg2022extracting} & material / PSNR \\
+Construction (scene) & ScanNet~\cite{dai2017scannet} & KinectFusion-style RGB-D fusion~\cite{newcombe2011kinectfusion} & Chamfer / F-score \\
+Construction (metric) & Tanks and Temples~\cite{knapitsch2017tanks} & MVS / neural surfaces & F-score \\
+Construction (articulation) & PartNet-Mobility~\cite{xiang2020sapien} & Ditto~\cite{jiang2022ditto} / URDFormer~\cite{chen2024urdformer} & joint / part error \\
+Construction (city-scale) & GauU-Scene / MatrixCity & CityGaussianV2~\cite{liu2025citygaussian} & PSNR / geometry F-score \\
+Simulation (real-to-sim) & real-world manipulation tasks & RialTo~\cite{torne2024reconciling} / ACDC~\cite{dai2024automated} & policy success rate \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Established Tools and Systems}
+\label{subsec:p4-sec11-1-established-tools-and-systems}
+
+\textbf{Capture, authoring, and render runtimes.} The construction stage is served by spatial-capture products such as \textbf{Matterport}\footnote{\url{https://matterport.com/}} for interiors and sites, the mobile scanner \textbf{Polycam}\footnote{\url{https://poly.cam/}}, the photogrammetry pipelines \textbf{RealityScan}\footnote{\url{https://www.realityscan.com/}} (formerly RealityCapture) and Agisoft Metashape\footnote{\url{https://www.agisoft.com/}}, and, as an integrating substrate, NVIDIA Omniverse with \textbf{OpenUSD}\footnote{\url{https://www.nvidia.com/en-us/omniverse/}}, which provides the scene description and real-time rendering on which twins are assembled. Game and render engines such as \textbf{Unreal Engine}\footnote{\url{https://www.unrealengine.com/}} and Unity, the latter packaged for industry as \textbf{Unity Industry}\footnote{\url{https://unity.com/products/unity-industry}}, serve as the interactive runtimes for the resulting models.
+
+\textbf{Industrial twin platforms.} The operational layer is dominated by enterprise platforms that wire CAD geometry to live telemetry. \textbf{Siemens Teamcenter}\footnote{\url{https://plm.sw.siemens.com/en-US/teamcenter/}} drives product twins from a PLM backbone; \textbf{Ansys Twin Builder}\footnote{\url{https://www.ansys.com/products/digital-twin/ansys-twin-builder}} couples reduced-order models to 3D physics; Dassault's 3DEXPERIENCE markets sensor-driven ``virtual twin'' experiences\footnote{\url{https://www.3ds.com/virtual-twin}}; and cloud services including \textbf{PTC ThingWorx}\footnote{\url{https://www.ptc.com/en/products/thingworx}}, \textbf{AWS IoT TwinMaker}\footnote{\url{https://aws.amazon.com/iot-twinmaker/}}, \textbf{Azure Digital Twins}\footnote{\url{https://azure.microsoft.com/en-us/products/digital-twins}}, and \textbf{Bentley iTwin}\footnote{\url{https://www.bentley.com/software/itwin-platform/}} maintain live twin graphs of factories, buildings, and infrastructure, with \textbf{GE Vernova}\footnote{\url{https://www.gevernova.com/software/}} specializing in energy-asset twins.
+
+\textbf{City-scale systems and interoperability standards.} At geo-scale, procedural and streaming platforms such as \textbf{Esri ArcGIS CityEngine}\footnote{\url{https://www.esri.com/en-us/arcgis/products/arcgis-cityengine/overview}}, \textbf{Cesium with 3D Tiles}\footnote{\url{https://cesium.com/}}, \textbf{Google's photorealistic 3D Tiles}\footnote{\url{https://developers.google.com/maps/documentation/tile/3d-tiles}}, and \textbf{NVIDIA Earth-2}\footnote{\url{https://www.nvidia.com/en-us/high-performance-computing/earth-2/}} build and serve city- to planet-scale twins, with national programmes such as Virtual Singapore as flagship deployments. What keeps such twins portable across this fragmented tooling are open standards: OpenUSD for scene description, IFC (ISO 16739) for building information, CityGML for semantic city models, and OGC 3D Tiles for streaming massive geospatial geometry, alongside the framework and terminology standards ISO 23247 and ISO/IEC 30173. The data layer feeding these geo-scale twins is the subject of §\ref{sec:p4_s11_2}.
+
+\subsection{Challenges}
+\label{subsec:p4-sec11-1-challenges}
+
+A twin must be high-fidelity, live, and scalable at once, and these three demands pull against one another. The open problems follow from that tension: scaling construction from an object to a city, keeping the twin current, validating that it is accurate rather than merely photorealistic, coupling several physical domains in real time, and making twins interoperable without exposing the spaces they capture.
+
+\paragraph{Scalability to Large and City Scale.} Building a twin of a single object is now routine; building one of a city is not.
+City twins must convert heterogeneous source data into semantically structured models (CityGML levels of detail) and stream them efficiently (3D Tiles), and the reconstruction itself must scale, motivating divide-and-conquer pipelines for large-scene Gaussian splatting~\cite{liu2025citygaussian}.
+Data integration and cross-format interoperability remain the named bottlenecks at this scale.
+
+\paragraph{Synchronization Latency and Data Assimilation.} A twin is only as useful as it is current, and maintaining real-time correspondence across an edge-fog-cloud hierarchy is hard: assimilation must keep pace with the asset's dynamics, and the ``liveness gap'' between the asset's true state and the twin's estimate degrades every downstream prediction. Scaling data assimilation to high-dimensional physical systems without violating the update budget is an open problem.
+
+\paragraph{Model Fidelity, Validation, and the Photorealism-Accuracy Tradeoff.} Verification, validation, and uncertainty quantification are the maturity frontier for twins used in consequential decisions.
+A specific tension recurs: methods such as vanilla Gaussian splatting optimize visual fidelity, not metric accuracy, so a photorealistic reconstruction can still fail a metric tolerance check; surface-aligned variants~\cite{guedon2024sugar,huang20242d} narrow but do not close this gap.
+
+\paragraph{Multi-Physics and Multi-Scale Coupling.} Real assets couple mechanics, thermics, fluids, and electromagnetics across scales, and no universal model spans them; coupled systems risk solver instability, and the reduced-order and physics-informed surrogates~\cite{hartmann2018model,raissi2019physics} that make twins real-time must do so without discarding the cross-domain interactions that matter.
+
+\paragraph{Standardization, Interoperability, Privacy, and Security.} The proliferation of scene and asset formats (USD, IFC, CityGML, 3D Tiles) keeps twins from composing across vendors, and the always-on capture that a live twin requires raises acute concerns: scanning private interiors and urban space implicates bystanders, and a compromised twin server can leak an asset's dynamics, configuration, and credentials~\cite{wang2023survey}. Designing twins that interoperate while minimizing retained raw data is both a research and a policy frontier.

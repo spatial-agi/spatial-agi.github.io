@@ -1,0 +1,73 @@
+% Preamble used only for the web conversion with LaTeXML (the print build uses main.tex).
+\documentclass{book}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{graphicx,xcolor,url,booktabs,multirow,array,longtable,makecell,colortbl,subcaption,wrapfig,enumitem}
+\usepackage{pifont,tabularx}
+\newcommand{\cf}{\textit{cf.} }
+\providecommand{\cmark}{\ding{51}}
+\providecommand{\xmark}{\ding{55}}
+\newcommand{\SI}[2]{#1\,#2}
+\newcommand{\si}[1]{#1}
+\newcommand{\degree}{\ensuremath{^\circ}}
+\usepackage[square,numbers]{natbib}
+\usepackage{hyperref,cleveref}
+\usepackage{latexml}
+\setcounter{secnumdepth}{3}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\vs}{\textit{vs.} }
+\newcommand{\ie}{\textit{i.e.,} }
+\newcommand{\eg}{\textit{e.g.,} }
+\newcommand{\etal}{\textit{et al.}}
+\newcommand{\ra}[1]{}
+\newcommand{\FramedInitial}[2]{#1#2}
+\newcommand{\RespondAuthor}[1]{}
+\newcommand{\red}[1]{#1}\newcommand{\blue}[1]{#1}\newcommand{\bang}[1]{#1}
+\newenvironment{quotebox}{\begin{quote}}{\end{quote}}
+\providecommand{\checkmark}{\ensuremath{\surd}}
+\providecommand{\crossmark}{\ensuremath{\times}}
+% tcolorbox family: plain blocks tagged with classes; the web CSS styles them
+\newenvironment{tcolorbox}[1][]{\begin{quote}\lxAddClass{web-box}}{\end{quote}}
+\newenvironment{tcbraster}[1][]{\begin{quote}\lxAddClass{web-raster}}{\end{quote}}
+\newcommand{\tcblower}{\par}
+\newcommand{\tcbset}[1]{}
+\newcommand{\newtcolorbox}[3][]{}
+\definecolor{marron}{RGB}{60,30,10}
+\definecolor{darkblue}{RGB}{0,0,80}
+\definecolor{lightblue}{RGB}{80,80,80}
+\definecolor{darkgreen}{RGB}{0,80,0}
+\definecolor{darkgray}{RGB}{0,80,0}
+\definecolor{darkred}{RGB}{80,0,0}
+\definecolor{shadecolor}{rgb}{0.97,0.97,0.97}
+\definecolor{darkblue}{RGB}{37,90,192}
+\definecolor{LightMint}{HTML}{E8F5E9}
+\definecolor{LightCobalt}{HTML}{E9EBFB} 
+\definecolor{DarkMint}{HTML}{E8F5E9}   
+\definecolor{lightgrey}{HTML}{D3D8F4} 
+\definecolor{lightlightgrey}{RGB}{238,238,238}
+\colorlet{zebrastripe}{LightCobalt} 
+\definecolor{token_blue}{RGB}{84, 120, 140}
+\newcolumntype{x}[1]{>{\centering\arraybackslash}p{#1pt}}
+\newcolumntype{y}[1]{>{\raggedright\arraybackslash}p{#1pt}}
+\newcolumntype{z}[1]{>{\raggedleft\arraybackslash}p{#1pt}}
+\definecolor{codeblue}{rgb}{0.25, 0.5, 0.5}
+\definecolor{codekw}{rgb}{0.35, 0.35, 0.75}
+\definecolor{green}{HTML}{009000}
+\definecolor{red}{HTML}{ea4335}
+\definecolor{my_green}{RGB}{51,102,0}
+\definecolor{my_red}{RGB}{204, 0, 0}
+\definecolor{lightgray}{RGB}{235,235,235}
+\definecolor{linkgreen}{HTML}{009000}
+\definecolor{linkcobalt}{HTML}{3646F0}
+\definecolor{ai_blue}{RGB}{158, 195, 231}
+\definecolor{forestgreen}{RGB}{34,139,34}
+\definecolor{steelred}{RGB}{139,30,30}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}  
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}  
+\definecolor{DefGreen}{HTML}{E8F5E9}
+\definecolor{customgreen}{RGB}{191,255,191} 
+\definecolor{customblue}{RGB}{228,254,254} 
+\definecolor{customyellow}{RGB}{255,255,191} 
+\definecolor{customred}{RGB}{255,191,191} 
+\definecolor{sealblue}{HTML}{173F67}
+\definecolor{sealgold}{HTML}{B08B3E}

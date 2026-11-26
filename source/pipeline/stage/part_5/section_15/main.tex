@@ -1,0 +1,211 @@
+\chapter{Foundations: What Spatial Intelligence Requires}
+\label{chapter:p5_discussions}
+
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkgreen}{O}}{pen}
+% Vision-based ranger involves leveraging geometric principles to calculate distance.
+% A vision-based ranger could use one or multiple cameras.
+
+\FramedInitial{A}{dvances} in spatial perception, reasoning, and generation have enabled AI systems to recover geometry from images, answer questions about layout, and simulate complex environments, as Parts~II to~IV documented.
+Success on these tasks does not establish that a system maintains a reliable model of the physical world.
+A model can reconstruct a room to millimeter accuracy, answer most questions about a photograph, or continue a video convincingly, and still fail when observations are incomplete, when the environment changes while it is not looking, or when its actions depart from the conditions under which it was trained.
+The failures reported throughout this handbook cluster at these points, which suggests a shared deficiency rather than a collection of unrelated task-level shortcomings.
+
+This chapter asks what makes an internal model of physical space usable for continued reasoning and action.
+By usable we mean that the model can be queried for what a task requires, extended when new evidence arrives, and relied upon when its predictions are acted on; we do not presuppose that such a model must be an explicit 3D reconstruction, nor that it must be a video generator.
+The question decomposes into five, each posed at a different level.
+What can be inferred from limited observations, and what remains underdetermined (Section~\ref{sec:p5_observability})?
+Which information must a representation retain, and for which operations (Section~\ref{sec:p5_sufficiency})?
+How can a world state be maintained and revised over time (Section~\ref{sec:p5_persistence})?
+When can its predictions be trusted (Section~\ref{sec:p5_validity})?
+How is spatial knowledge acquired and used through interaction, in environments shared with other agents (Section~\ref{sec:p5_agency})?
+The five are interdependent: action produces new evidence, which re-enters at the first level and constrains all of the others.
+
+
+\section{Spatial Observability and Identifiability}
+\label{sec:p5_observability}
+
+\FramedInitial{S}{patial} understanding begins with an incomplete view of the world.
+A system never has direct access to the world state $\mathcal{R}^{\mathcal{S}}_t$ of Chapter~\ref{chapter:definition}; it has images, video, depth, or sound, from which that state must be inferred.
+Images and videos carry rich evidence about appearance and structure, but they do not uniquely determine every geometric, physical, or functional property of a scene.
+A single image fixes the scale of a scene only through the prior knowledge brought to it (Section~\ref{sec:height_distance}), an occluding surface hides whatever lies behind it, and the mass of a box or the state of a lock leaves no trace in a photograph.
+A usable model must therefore keep track of which of its contents are observed and which are inferred.
+
+Whether a spatial inference fails because the model cannot extract the evidence available, or because the evidence itself is insufficient, is a distinction current evaluation rarely draws.
+The former is a limitation of learning or computation, and better models or more data can be expected to reduce it.
+The latter is a problem of identifiability, which more capable inference alone does not remove.
+Asked whether a sofa seen in one photograph will fit through a door seen in another, a multimodal model typically produces a confident answer with a coherent explanation, yet without a common scale between the two images the question has no determinate answer, and a model with perfect geometric reasoning should say so.
+Evaluation that counts every wrong answer as a model failure conceals this class of cases, while evaluation that accepts every ambiguity as irreducible would excuse failures that are not.
+
+Additional modalities constrain different aspects of the underlying state, and their contributions are neither interchangeable nor universally sufficient.
+A second viewpoint supplies parallax, which fixes relative depth and reveals part of what the first view occluded.
+A depth sensor supplies distances directly, with an accuracy and a scale behavior that depend on the sensing principle (Section~\ref{sec:depth_estimation}).
+Motion adds constraints on dynamic geometry; sound carries direction, distance, and room structure (Section~\ref{sec:av_localization}); contact and force reveal mass, friction, and compliance, which no camera observes (Section~\ref{subsec:p3_s7_1_2}).
+Assessing a modality therefore requires specifying which ambiguities it resolves, under which assumptions, and which properties remain unidentifiable once it has been added.
+Part~II treated the modalities as alternative representations of space (Chapter~\ref{chapter:single_modality}); here they appear as complementary constraints on one underdetermined state.
+
+Observability is not fixed by the initial input.
+Moving to another viewpoint, changing the illumination, or pushing an object can reveal previously ambiguous properties, and some properties, such as a drawer's operability, may require physical interaction.
+Theory of Space and VABench bear directly on this point: models perform better with supplied observations than when they must gather evidence themselves, and allowing a model to move its camera and look again raises its manipulation success substantially \cite{zhang2026theory,zhang2026vabench}.
+Spatial intelligence therefore depends partly on recognizing when an additional observation would change what is knowable.
+How an agent should choose such observations is a question of decision making, taken up in Section~\ref{sec:p5_agency}, which properties are identifiable depends on the agent's available actions.
+
+Distinguishing uncertainty from fundamental underdetermination, and stating what evidence would resolve it, are abilities that current systems are not asked to demonstrate.
+Static question accuracy cannot distinguish correct reasoning under insufficient evidence from incorrect reasoning despite sufficient evidence, and controls as simple as removing the image or shuffling the input remain rare (Section~\ref{sec:vl_grounding}).
+A benchmark designed around identifiability would include questions that are unanswerable from the given input and reward a model for saying so, pair each ambiguous case with the modality or action that resolves it, and score whether the model asks for it.
+Given these limits, which obtainable properties should a spatial representation preserve?
+
+
+\section{Representation and State Sufficiency}
+\label{sec:p5_sufficiency}
+\label{sec:p5_cognitive}
+
+\FramedInitial{T}{he} same physical environment can be represented through images, point clouds, occupancy grids, scene graphs, neural fields, or the latent state of a learned model, and Part~II surveyed each of these forms (Chapter~\ref{chapter:single_modality}).
+They differ less in how much information they hold than in which aspects of the environment they preserve, which they abstract away, and how they organize what remains.
+Scene graphs typically emphasize entities and their relations, Gaussian representations primarily encode appearance and geometry, and a latent state retains what its training objective rewarded; each can be extended with further structure, but none is informative in isolation from the questions and operations it is meant to support.
+
+That spatial knowledge and spatial reasoning are separable is shown by large models that acquire the former without the latter.
+A transformer trained only on Othello move sequences forms an internal representation of the board (Section~\ref{sec:rep_language}), and language models encode the geographic positions of cities in their activations without ever being shown a map \cite{gurnee2023language}.
+The same models remain well below human performance on perspective taking, mental rotation, and building a model of a place from a sequence of views \cite{cai2025holistic}, and chain-of-thought prompting, which helps on arithmetic and code, tends to degrade their accuracy on visual spatial benchmarks \cite{kancheti2026cotdegrades}.
+Performance recovers when the model is allowed to draw a coarse cognitive map, render an imagined view, or call a geometric tool before answering (Sections~\ref{subsec:p3_s7_3_5} and~\ref{subsec:p3_s7_3_8}).
+Encoding spatial information and computing with it are therefore distinct requirements, and reasoning performance depends partly on whether the representation in use supports the operations the task demands.
+This does not show that language is unsuited to spatial reasoning; it suggests that a representation in which distances and viewpoints are described rather than held tends to accumulate error each time they are manipulated.
+
+Spatial tasks differ not only in the information they require but in the computations they demand of it.
+Judging a relative position needs a reference frame and a relation; metric reasoning needs distances, angles, and a scale; changing viewpoint needs a rigid or projective transformation applied to 3D structure; navigation needs topological connectivity and traversability; manipulation needs local geometry together with contact constraints and material properties.
+A representation suited to semantic relations can be insufficient for metric transformation, and a detailed geometric reconstruction can still omit the properties on which physical interaction depends, a gap Section~\ref{sec:p4_s11_1} summarized as geometry is not behavior.
+The effectiveness of a representation is therefore a matter of its compatibility with the downstream operations.
+The recurring finding of Part~III that hybrid systems are limited by their weakest interface (Section~\ref{sec:p3_s7_4}) is an instance of this: the interface is where one representation's operations are asked to run on another representation's content.
+
+These observations suggest a task-relative criterion of sufficiency.
+Spatial-state sufficiency depends on the queries, predictions, and actions it must support; a representation is sufficient for a family of tasks if every decision the family requires can be made from it as well as from the world itself.
+Information irrelevant to one task may be essential to another, so sufficiency cannot be judged from the representation alone.
+This creates a tension between compact states optimized for an immediate objective and general-purpose states intended to remain useful across tasks that are not yet known.
+A latent world model can succeed at the tasks it was trained for while modeling the environment's dynamics unfaithfully \cite{gonzalezlaiz2026limits}, which satisfies sufficiency for those tasks and gives no assurance for others; a dense geometric reconstruction, by contrast, serves many queries but remains silent about physical properties that are not visible.
+
+Whether a finite shared state can preserve the distinctions required by an open-ended range of tasks, or whether a spatial system should instead maintain adaptable representations whose detail and structure depend on downstream demands, remains open.
+Shared spatial latents read by many task heads, task-specific representations maintained in parallel, and interfaces through which modules request information at the precision they need (Section~\ref{sec:p3_s7_4}) represent three answers, and the available evidence does not yet favor one, particularly when future tasks are unknown.
+
+Evaluating a spatial representation therefore requires examining the information it preserves and the operations it supports, rather than its expressiveness in the abstract.
+Reconstruction quality and recognition accuracy are the usual proxies, and both are insufficient: a photometrically accurate replica can fail a metric tolerance check and encode nothing about which drawers open (Section~\ref{sec:p4_s11_1}), and a correct answer can rest on language priors rather than on a correct belief about the scene.
+Sufficiency has to be tested across tasks, by asking whether a representation fixed for one purpose supports queries, transformations, and action predictions it was not built for.
+Whether a state that is sufficient at one moment remains so as the world changes and objects leave the field of view is a separate question, taken up next.
+
+
+\section{Persistent World States and Belief Updating}
+\label{sec:p5_persistence}
+\label{sec:p5_worldstate}
+
+\FramedInitial{U}{nderstanding} a scene at one moment differs from maintaining an understanding of a changing world.
+An assistant asked where the keys were left must have observed them, retained their location after the user walked away, distinguished that remembered location from the current view, and allowed for the possibility that someone moved them in the meantime.
+Egocentric benchmarks built around such queries show that an explicit memory, updated as video arrives and tracking objects relative to the moving user, substantially improves leading multimodal models \cite{wang2026keepitinmind}, whereas most commercial glasses answer from a single frame and keep no map (Section~\ref{sec:p4_s9_3}).
+The household robot in this part's introduction faces the same requirement at every step.
+In the formalism of Chapter~\ref{chapter:definition} this is the role of the update $\Psi_{\mathcal{S}}$, the component that Parts~II to~IV examined least.
+
+Access to a long observation history does not ensure a consistent world state.
+Video world models steered through long explorations fail to render revisited places consistently even as image quality improves \cite{wang2026worldprobe}; multimodal models given several views of a room rarely detect that one view was captured after an object moved \cite{cao2026samespace}; and over routes spanning several streets, models answer by recognizing landmarks and matching text, with little evidence of path integration \cite{mahendran2026kilometervision}.
+A model may retain every earlier frame and still fail to recognize a revisited place, preserve an object's identity, or decide which remembered properties have become outdated.
+Research on spatial memory has concentrated on recall, through longer contexts, better retrieval, and richer memory structures (Section~\ref{subsec:p3_s7_3_6}), while these failures concern revision.
+Persistence therefore involves maintaining and revising beliefs about the world, not merely retaining observations.
+
+A persistent world state must distinguish absence of observation from evidence of absence, maintain uncertainty during occlusion, and reconcile new observations with prior beliefs.
+When a new observation conflicts with a stored one, the system must decide whether the environment changed, the earlier estimate was wrong, or the two observations refer to different entities, each requiring different state updates.
+Classical systems partly address this problem: SLAM detects loop closures and corrects the map upon revisiting a known place (Section~\ref{sec:mapping_slam}), object trackers maintain identities through occlusion, and dynamic scene graphs timestamp their edges.
+Learned systems often struggle to make such revisions reliably over extended interactions.
+Models retain outdated beliefs after the world changes \cite{zhang2026theory}, append-only memories accumulate contradictory entries, and agents drift over long episodes as their context fills (Section~\ref{subsec:p3_s7_3_7}).
+Increasing capacity alone may not suffice, since a memory that only grows keeps each outdated belief beside its replacement.
+A write policy that decides what enters the state, with what confidence, and when an entry is revised or removed, is a prerequisite that current systems leave largely implicit.
+
+Where such a state should be kept is a question of architecture rather than of representation format.
+Explicit structures such as maps, scene graphs, and splats (Section~\ref{sec:rep_3d}) persist by construction and make selected state variables accessible and correctable, but they must anticipate every type of object, property, and change they will be asked to encode.
+Learned memories and recurrent latent states can encode properties no designer specified, and whether they track the world is difficult to verify \cite{gonzalezlaiz2026limits}.
+Generated frames are the most flexible option and lose whatever leaves the context window.
+Hybrid designs that store static geometry and dynamic objects separately and retrieve them on revisit \cite{yu2026grome}, or that keep slowly changing layout and identities in an explicit layer and leave appearance and short-term dynamics to a learned one, combine these advantages at a cost of their own: geometry, object identity, uncertainty, and temporal updates must stay synchronized across layers, and coordinate frames and scales can silently diverge at the interface (Section~\ref{sec:p3_s7_4}).
+The separation can be taken further.
+State World Models keep a typed state ledger that evolves under executable rules written by a coding agent and use a frozen video model only to render each resulting event; on counterfactual twin pairs that share an initial frame and action but differ in hidden state, this harness produces the rule-required outcome in 92\% of pairs, where the best of eleven video models prompted with the same rules reaches 32\% \cite{chan2026stateworld}.
+The result suggests that what fails in generator-only designs is the maintenance of state the current frame does not show, rather than rendering.
+The appropriate architecture follows from the requirements of state maintenance, how long each part must persist and whether it must be inspected, rather than from a general preference for explicit or learned form.
+
+World states should remain persistent without becoming rigid and revisable without losing established structure, and evaluation currently measures neither property.
+Most benchmarks refer to a single moment, and the protocols that would expose persistence failures are not yet standard (Section~\ref{sec:p3_s7_5}): streaming protocols that withhold future frames \cite{li2026ovosbench}, revisit protocols that move the camera away and back \cite{wang2026worldprobe}, and change protocols that alter the scene behind the agent.
+A more informative evaluation reads out the state itself, as Theory of Space does at each exploration step \cite{zhang2026theory}, and scores separately what the system has observed, what it remembers, and what it predicts, since conflating the three is how a stale belief passes as a current one.
+Deployed systems could likewise report how far their world state lags behind the world it describes, a quantity that digital twins call the liveness gap (Section~\ref{sec:p4_s11_1}) and that is rarely measured elsewhere.
+A state that remains consistent over hours can nonetheless describe appearance accurately and physical behavior poorly.
+
+
+\section{Predictive Validity and Physical Grounding}
+\label{sec:p5_validity}
+\label{sec:p5_plausible}
+
+\FramedInitial{A}{} video generator asked to continue a clip of a ball rolling off a table usually produces a smooth, well-lit continuation in which the ball falls, often along the wrong trajectory or with an implausible bounce.
+Benchmarks of physical plausibility find that the physical accuracy of video generators is poor and does not improve with visual quality (Section~\ref{sec:p3_s7_5}), and Chapter~\ref{sec:generation} reported the same pattern across its subfields: shapes that change between views, feet that slide over the ground, and motions that violate conservation (Section~\ref{sec:p3_s8_8}).
+A plausible continuation reproduces the appearance of a physical event without predicting its trajectory, contacts, or consequences.
+Yet the same class of models learns substantial scene structure, since image generators adapted for perception segment, estimate depth, and ground referring expressions at the level of specialist models \cite{gabeur2026image}.
+Structure and dynamics are apparently learned to different degrees from the same data.
+
+World-model correctness has several distinct meanings, and the criteria are often run together.
+Visual plausibility concerns realistic appearance; geometric consistency concerns coherent spatial structure across views and time; dynamical fidelity concerns how the world evolves under actions; decision reliability concerns whether actions planned in the model succeed in reality.
+The criteria are related but not interchangeable, and they are ordered by how much they depend on action.
+Common video metrics measure the first and do not register physically impossible motion (Section~\ref{subsec:p3_s8_3_6}); view-synthesis metrics measure the second and cannot tell a solid object from a cut-out that matches the training views (Section~\ref{subsec:p3_s8_2_1}); the third has no standard protocol (Section~\ref{subsec:p3_s8_6_discussion}); the fourth is tested, when it is tested at all, by deploying the resulting policy.
+A model can score well on the first two and fail the last two, and vision-language models used as judges share the spatial blind spots of the models they evaluate (Section~\ref{sec:p3_s8_8}).
+
+Learning how scenes typically evolve from observational data does not guarantee correct predictions under novel interventions.
+In the action-conditioned definition of Chapter~\ref{chapter:definition}, $f^{\mathcal{S}}_{\text{pred}}$ maps a state and an action to the next state, but a generator trained on video sees only the actions that happened to be recorded, mostly everyday activity and camera motion, and sees them correlated with the states and circumstances in which they occurred.
+A model that has watched thousands of doors being pushed open has learned what usually follows a push, not what determines the outcome, and so has little basis for predicting the locked door, the obstructed door, or the push applied at an unusual angle.
+The regularities it learns are real and useful for geometry, appearance, and common motion; they constrain little about the consequences of an action outside the data.
+An interventional test, which fixes the initial state, varies the action, and checks whether predicted outcomes vary as real outcomes do, is the most direct way to distinguish a model of what tends to happen from a model of what an action causes.
+
+Accurate geometry does not imply an actionable physical model.
+Mass, friction, articulation, and compliance are often visually unobservable yet critical for manipulation (Sections~\ref{subsec:p3_s7_1_2} and~\ref{sec:p4_s9_1}), and a Gaussian-splat replica of a room can be photometrically faithful while encoding nothing about which drawers open or how much force a door requires (Section~\ref{sec:p4_s11_1}).
+Real-to-sim pipelines estimate such quantities by manipulating objects and observing the response \cite{pfaff2025scalable}, thereby estimating properties needed for prediction, and world-action models that predict compact encodings of future observations rather than pixels avoid spending capacity on appearance that control does not use \cite{yu2026jam}.
+Confidence sets calibrated under one data-collection policy may become unreliable under policy shifts \cite{mittal2026calibrated}, and model-based action selection may induce policy shifts that invalidate this calibration.
+
+A tractable form of the question is where, rather than whether, a world model can be trusted.
+Treated like a measuring instrument, a world model would be calibrated against the environment it claims to simulate, carry a stated range of states and actions within which it is valid, and be used with caution outside it.
+Establishing that range requires tests under controlled interventions and unfamiliar actions, under environmental change, and against downstream decisions, in place of average visual or predictive accuracy.
+World models expressed as code, whose rules are explicit and correctable when they conflict with observation, admit such tests more readily than learned ones (Section~\ref{subsubsec:p3_s8_6_code}), and the natural sciences already hold generative models to this standard, counting a proposed material only once it has been synthesized (Section~\ref{sec:p4_s12_2}).
+When an action falls outside a model's established range, the agent must decide how to obtain further evidence, which actions are safe meanwhile, and how to use the outcome to extend the model.
+
+
+\section{Situated and Interactive Spatial Intelligence}
+\label{sec:p5_agency}
+\label{sec:p5_competence}
+\label{sec:p5_people}
+
+\FramedInitial{S}{patial} competence is not exhausted by interpreting observations or predicting future states.
+In an unfamiliar environment an agent must decide where to look, what to investigate, and when to act under uncertainty, and models that perform well on provided evidence can perform poorly when responsible for gathering it.
+Theory of Space makes the comparison directly: foundation models asked to explore until they knew where objects were did worse when they collected the observations themselves than when the same observations were supplied, and explored less systematically than simple scripted strategies \cite{zhang2026theory}.
+On VABench, models that judge spatial relations well still fail many manipulation tasks and almost all long-horizon ones, and the gap narrows when they may move the camera and look again \cite{zhang2026vabench}.
+These results locate part of the weakness in deciding what to do, rather than only in recognizing what is seen.
+
+Section~\ref{sec:p5_observability} asked which properties can be made identifiable by acting; the question here is which action to choose.
+Information gathering should be guided not only by uncertainty but by the consequences of that uncertainty for the decision at hand.
+An observation that sharpens a reconstruction may be worth less than one that settles whether a passage is traversable or a grasp is safe, and the value of a view depends on the goals, costs, and risks of the actions that follow it.
+Exploration policies learned in simulation formalize this for navigation objectives (Section~\ref{subsec:p3_s7_2_5}); the counterpart for the richer states of Sections~\ref{sec:p5_sufficiency} and~\ref{sec:p5_persistence}, where the quantity to resolve may be an object's identity, a person's belief, or a door's state, is largely untrained.
+Reporting accuracy as a function of an interaction budget, the number of views, moves, or queries a model may spend, would place passive and active evaluation on one scale and reward agents that reach correct decisions with few observations.
+
+Passive data, simulation, and real-world interaction provide complementary forms of experience.
+Internet video, the largest source, supports perceptual and physical priors and already enables robot planning after modest fine-tuning (Section~\ref{sec:p3_s8_6}); simulation and generated worlds permit controlled exploration without risk (Section~\ref{subsec:p3_s7_2_5}); real interaction alone exposes the consequences of the agent's own decisions, which passive video does not contain and on which both the update policy of Section~\ref{sec:p5_persistence} and the predictor of Section~\ref{sec:p5_validity} depend.
+Each source carries its own distortions.
+The simulation gap is widest where contact, materials, lighting, and sensor noise matter (Sections~\ref{sec:p4_s9_1} and~\ref{sec:p4_s11_3}), and experience generated inside a world model is useful only within the model's range of validity.
+Learning inside a world model, with rollbacks to earlier decision points and correction of the model from real transitions \cite{luo2026rollback}, lowers the cost of real interaction without removing the need for it.
+How to combine the three sources without transferring incorrect assumptions from simulated or observational distributions into real-world action remains unresolved, and existing robot datasets, concentrated on tabletop success, offer little of the failures and recoveries such a combination requires (Section~\ref{subsec:p3_s7_3_2}).
+The consequences of an action, moreover, are not confined to the agent's own observations: in a shared space, acting also changes what other agents observe, believe, and do.
+
+Different agents observe and understand the same environment differently, and a shared physical world does not imply shared knowledge of it.
+A system must relate its own reference frame to those of others, since a location on the user's left may lie on the robot's right and people switch between egocentric and allocentric descriptions without noticing (Section~\ref{subsec:p3_s7_3_1}).
+It must distinguish the physical state from what a person believes about it, since a user who left the kitchen before the kettle was moved still believes it is on the stove.
+It must anticipate how its own actions change what others perceive and do.
+Mental World Modeling maintains joint physical and mental states for this reason and finds both necessary to predict human decisions (Section~\ref{subsubsec:p3_s8_6_mwm}) \cite{fei2026mental}.
+People, on this view, belong in the world state on the same footing as walls and doors, with positions, viewpoints, and beliefs treated as quantities to be estimated.
+
+In human environments, spatial actions are inherently interactive.
+Robots that model people only as moving obstacles freeze in dense crowds once every path appears blocked, unable to anticipate that people will make room (Section~\ref{sec:p4_s13_1}), and an assistant's motion, speech, and help change what the people around it do next, so a plan that ignores this is planning against a stale state.
+Persistent spatial memory carries a second consequence: a world state that includes people records where they live, what they own, and how they spend their days, and the design choices of what to store, at what detail, and for how long matter more than the access controls applied afterward (Sections~\ref{sec:p4_s10_1} and~\ref{sec:p4_s13_1}).
+Such systems also act on their users' own spatial abilities, which weaken under habitual reliance on navigation aids and strengthen with practice \cite{dahmani2020habitual}.
+Reliable spatial agency must therefore account for other agents' responses and for the consequences of maintaining and using spatial knowledge about them.
+
+Agents that acquire the information they need, act despite incomplete knowledge, and revise their world models from the consequences of interaction would address each of the preceding questions in operational form: action changes what is identifiable, exposes which information the representation lacked, supplies the observations that keep the state current, and tests the predictions the model made.
+Spatial intelligence, on this view, is a closed loop in which perception, representation, prediction, and action continually constrain and improve one another.
+A usable model of physical space is one that remains open to new evidence, explicit about its limits, and corrected by what its own actions reveal.

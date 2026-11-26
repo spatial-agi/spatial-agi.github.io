@@ -1,0 +1,113 @@
+{
+  "figure": "9.19",
+  "sources": [
+    "assets/figures/figures/part4/section9/warehouse_overview.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1774
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/warehouse_overview.pdf",
+  "assets": [
+    {
+      "file": "inputs/warehouse-aisle.png",
+      "title": "warehouse aisle",
+      "panel": "inputs",
+      "size": [
+        723,
+        724
+      ],
+      "source_index": 0,
+      "source_box": [
+        120.0,
+        1237.5,
+        382.5,
+        1500.0
+      ],
+      "box": [
+        60.0,
+        618.75,
+        191.25,
+        750.0
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        59.655,
+        578.437,
+        191.523,
+        710.488
+      ],
+      "placement_confidence": 0.9734
+    },
+    {
+      "file": "picking/robot-arm-and-parcel.png",
+      "title": "robot arm and parcel",
+      "panel": "picking",
+      "size": [
+        710,
+        724
+      ],
+      "source_index": 0,
+      "source_box": [
+        1555.0,
+        265.0,
+        1937.5,
+        655.0
+      ],
+      "box": [
+        777.5,
+        132.5,
+        968.75,
+        327.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        777.08,
+        92.896,
+        968.603,
+        288.195
+      ],
+      "placement_confidence": 0.9763
+    },
+    {
+      "file": "transport/pallet-robot.png",
+      "title": "pallet robot",
+      "panel": "transport",
+      "size": [
+        724,
+        724
+      ],
+      "source_index": 0,
+      "source_box": [
+        1555.0,
+        1037.5,
+        1937.5,
+        1420.0
+      ],
+      "box": [
+        777.5,
+        518.75,
+        968.75,
+        710.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        777.08,
+        478.148,
+        968.603,
+        669.671
+      ],
+      "placement_confidence": 0.9985
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

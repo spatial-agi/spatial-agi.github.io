@@ -1,0 +1,369 @@
+{
+  "source": "assets/img/figs/opener-3.webp",
+  "reference_size": [
+    2000,
+    1250
+  ],
+  "assets": [
+    {
+      "file": "perceive/scene.png",
+      "source_box": [
+        0,
+        363,
+        821,
+        1794
+      ],
+      "reference_box": [
+        0,
+        210,
+        475,
+        1038
+      ],
+      "size": [
+        821,
+        1431
+      ],
+      "note": ""
+    },
+    {
+      "file": "perceive/objects.png",
+      "source_box": [
+        337,
+        432,
+        522,
+        1142
+      ],
+      "reference_box": [
+        195,
+        250,
+        302,
+        661
+      ],
+      "size": [
+        185,
+        710
+      ],
+      "note": ""
+    },
+    {
+      "file": "perceive/depth.png",
+      "source_box": [
+        539,
+        463,
+        708,
+        1279
+      ],
+      "reference_box": [
+        312,
+        268,
+        410,
+        740
+      ],
+      "size": [
+        169,
+        816
+      ],
+      "note": ""
+    },
+    {
+      "file": "perceive/relations.png",
+      "source_box": [
+        726,
+        491,
+        900,
+        1381
+      ],
+      "reference_box": [
+        420,
+        284,
+        521,
+        799
+      ],
+      "size": [
+        174,
+        890
+      ],
+      "note": ""
+    },
+    {
+      "file": "perceive/motion.png",
+      "source_box": [
+        921,
+        496,
+        1090,
+        1405
+      ],
+      "reference_box": [
+        533,
+        287,
+        631,
+        813
+      ],
+      "size": [
+        169,
+        909
+      ],
+      "note": ""
+    },
+    {
+      "file": "perceive/motion-sequence.png",
+      "source_box": [
+        517,
+        1341,
+        1028,
+        1605
+      ],
+      "reference_box": [
+        299,
+        776,
+        595,
+        929
+      ],
+      "size": [
+        511,
+        264
+      ],
+      "note": ""
+    },
+    {
+      "file": "reason/room-and-robot.png",
+      "source_box": [
+        1134,
+        377,
+        2331,
+        1773
+      ],
+      "reference_box": [
+        656,
+        218,
+        1349,
+        1026
+      ],
+      "size": [
+        1197,
+        1396
+      ],
+      "note": "Blue route removed where practical; its intersections with sketch strokes are locally approximated. Cup and target outline retained."
+    },
+    {
+      "file": "generate/image.png",
+      "source_box": [
+        2749,
+        375,
+        3333,
+        639
+      ],
+      "reference_box": [
+        1591,
+        217,
+        1929,
+        370
+      ],
+      "size": [
+        584,
+        264
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/scene-3d.png",
+      "source_box": [
+        2756,
+        643,
+        3319,
+        999
+      ],
+      "reference_box": [
+        1595,
+        372,
+        1921,
+        578
+      ],
+      "size": [
+        563,
+        356
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/video-frame-1.png",
+      "source_box": [
+        2644,
+        1037,
+        2824,
+        1156
+      ],
+      "reference_box": [
+        1530,
+        600,
+        1634,
+        669
+      ],
+      "size": [
+        180,
+        119
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/video-frame-2.png",
+      "source_box": [
+        2834,
+        1037,
+        3007,
+        1156
+      ],
+      "reference_box": [
+        1640,
+        600,
+        1740,
+        669
+      ],
+      "size": [
+        173,
+        119
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/video-frame-3.png",
+      "source_box": [
+        3017,
+        1037,
+        3195,
+        1156
+      ],
+      "reference_box": [
+        1746,
+        600,
+        1849,
+        669
+      ],
+      "size": [
+        178,
+        119
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/video-frame-4.png",
+      "source_box": [
+        3205,
+        1037,
+        3389,
+        1156
+      ],
+      "reference_box": [
+        1855,
+        600,
+        1961,
+        669
+      ],
+      "size": [
+        184,
+        119
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/motion-frame-1.png",
+      "source_box": [
+        2644,
+        1208,
+        2824,
+        1427
+      ],
+      "reference_box": [
+        1530,
+        699,
+        1634,
+        826
+      ],
+      "size": [
+        180,
+        219
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/motion-frame-2.png",
+      "source_box": [
+        2839,
+        1208,
+        3014,
+        1427
+      ],
+      "reference_box": [
+        1643,
+        699,
+        1744,
+        826
+      ],
+      "size": [
+        175,
+        219
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/motion-frame-3.png",
+      "source_box": [
+        3036,
+        1208,
+        3199,
+        1427
+      ],
+      "reference_box": [
+        1757,
+        699,
+        1851,
+        826
+      ],
+      "size": [
+        163,
+        219
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/motion-frame-4.png",
+      "source_box": [
+        3214,
+        1208,
+        3401,
+        1427
+      ],
+      "reference_box": [
+        1860,
+        699,
+        1968,
+        826
+      ],
+      "size": [
+        187,
+        219
+      ],
+      "note": ""
+    },
+    {
+      "file": "generate/world.png",
+      "source_box": [
+        2665,
+        1431,
+        3382,
+        1949
+      ],
+      "reference_box": [
+        1542,
+        828,
+        1957,
+        1128
+      ],
+      "size": [
+        717,
+        518
+      ],
+      "note": ""
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+\subsection{Tool-augmented Reasoning}
+\label{subsec:p3_s7_3_5}
+\label{ssec:tool-augmented}
+Tool-augmented reasoning in spatial intelligence is the paradigm in which an LLM or VLM acts not as an isolated solver but as an orchestrator over a catalogue of external operators.
+These operators may be planners, renderers, CAD systems, physics simulators, retrieval engines, perception modules, or metric estimators.
+The section boundary is deliberately operational: tools are treated as black boxes with input--output contracts, and the central research problem is the orchestration policy that decides when to call them, how to parameterize the call, and how much to trust the returned result.
+When the executable program itself becomes the reasoning trace, the detailed treatment belongs to code / DSL generation (§\ref{subsec:p3_s7_3_4}); when persistent external memory becomes the learned object, it belongs to retrieval- and memory-augmented reasoning (§\ref{subsec:p3_s7_3_6}); when the loop becomes closed-loop control, it becomes agentic spatial reasoning (§\ref{subsec:p3_s7_3_7}); and when the tool is a learned predictive simulator, the specialized discussion is world-model-based reasoning (§\ref{subsec:p3_s7_3_8}).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section7/tool_augmented_spatial_reasoning.pdf}
+    \caption{Tool-augmented spatial reasoning as iterative orchestration over black-box tools: (i) scene, instruction, and tool catalogue $\mathcal{T}$, (ii) an LLM/VLM that selects tool $i_t$ with arguments $q_t$, receives result $r_t$, and appends to history $h_t$ until STOP, and (iii) the answer or plan with its tool-call trace. Execution, representation, validation, and memory are tool roles, not sequential stages. Solid and dashed boxes mark the selected cube and target compartment; the scene is a generated illustration with annotated, not detected, overlays.}
+    \label{fig:p3_s7_3_5_tool_formulation}
+\end{figure}
+
+\subsubsection{Task Definition}
+A tool-augmented reasoning system is formally defined as a tuple $(\mathcal{M}_\theta, \mathcal{T}, \pi_\phi)$, where $\mathcal{M}_\theta$ denotes the reasoning core, $\mathcal{T} = \{T_1, \dots, T_k\}$ is a catalogue of external tools, and each tool $T_i : \mathcal{I}_i \rightarrow \mathcal{O}_i$ is exposed only through a structured input--output interface.
+The orchestration policy $\pi_\phi$ governs tool selection, argument construction, response parsing, retry / fallback behavior, and feedback integration.
+Given an input $x \in \mathcal{X}$, the system maintains a time-ordered reasoning history $h_t$ (initially $h_0 = \varnothing$) and proceeds by the iterative update
+\begin{equation}
+\begin{aligned}
+s_t &= \mathcal{M}_\theta(x, h_{t-1}), &
+(i_t, q_t) &= \pi_\phi(s_t), \\
+r_t &= T_{i_t}(q_t), &
+h_t &= h_{t-1} \mathbin{\Vert} (s_t, i_t, q_t, r_t),
+\end{aligned}
+\end{equation}
+where $s_t$ is the intermediate reasoning state, $(i_t, q_t)$ is the selected tool-and-query pair, $r_t$ is the returned result, and $\Vert$ denotes appending to the interaction history.
+The loop halts when the policy or model emits a STOP decision, after which an output decoder $g$ produces the final answer $y = g(h_T)$.
+Both the reasoning core and the tool internals are black-box; what is exposed, optimized, and evaluated is the interface history and the policy that controls it.
+
+\subsubsection{Methodology}
+Two design choices interact: the \emph{tool catalogue} determines which black-box capabilities are available, and the \emph{orchestration policy} determines how they are sequenced, checked, and folded back into the model's spatial answer.
+The catalogue roles below are complementary, not sequential.
+
+\paragraph{Execution-Augmented Reasoning.}
+Execution tools bridge the semantic--geometric gap between high-level language and low-level feasible action~\cite{zhang2025scaling}: they expose callable primitives such as motion planners, robot skills, affordance estimators, navigation controllers, or simulator actions, and the orchestrator translates a spatial intention into a sequence of calls, monitors whether the result satisfies the goal, and recovers when a tool fails.
+Representative systems include affordance-grounded planning, where language-model outputs are modulated by value functions for skill feasibility~\cite{ahn2022icanisay}; API- or code-mediated manipulation, where perception and control primitives are composed through generated calls~\cite{liang2023code,huang2023voxposer}; and action-token models that fold robot actions into the model vocabulary~\cite{brohan2022rt,zitkovich2023rt2,driess2023palm}.
+SpatialClaw~\cite{cho2026spatialclaw} studies the action interface itself: a stateful Python kernel pre-loaded with perception and geometry primitives lets the agent execute one analysis step, observe intermediate outputs, and adapt the next call rather than committing to a full static program.
+Closed-loop feedback and hierarchical decomposition~\cite{huang2022innermonologue,singh2023progprompt,yang2024vlmtamp,chen2024autotamp,bhat2024brainbodyllm} push this family toward agentic orchestration.
+
+\paragraph{Representation-Augmented Reasoning.}
+Representation tools externalize spatial working memory through sketches, 3D renders, CAD systems, scene graphs, game engines, or visualization buffers, motivated by the observation that transformers struggle to manipulate fine-grained geometry internally~\cite{hu2024visualsketchpad}.
+Externalization reduces hallucination by moving spatial computation out of parametric memory~\cite{hu2024visualsketchpad} and enables iterative self-correction through visual feedback loops~\cite{wu2025reinforcing}; the claim is that spatial reasoning improves when models can \textit{see what they think}, as in Vision-Augmented Prompting~\cite{xiao2024enhancing}, which interleaves image synthesis with chain-of-thought so that textual and visual reasoning can be reconciled.
+Recent spatial-tool agents make the evidence acquisition active: PERIA~\cite{li2026peria} pairs perception tools that expose symbolic or spatial evidence with interaction tools that manipulate the visual context, learning multi-tool behavior from synthesized trajectories and reinforcement learning, and S-Agent~\cite{dai2026sagent} casts the VLM as a semantic planner over a hierarchy of spatial tools that lift 2D object evidence into 3D geometric support while accumulating scene and agent memory across multi-view images or video.
+
+\paragraph{Validation-Augmented Reasoning.}
+Validation tools check whether intermediate outputs are logically, causally, geometrically, or physically consistent: the orchestrator translates a candidate answer or plan into a verifiable representation and queries a planner, solver, judge, or simulator.
+% symbolic planners
+Generated spatial plans can be encoded as constraint-satisfaction problems or PDDL specifications and validated by symbolic planners or SMT solvers~\cite{liu2023llmp,hao2023reasoning,yang2023coupling}, which checks preconditions, geometric relations, and causal effects;
+% physics simulators as verifiers
+physics simulators such as MuJoCo~\cite{todorov2012mujoco} and Isaac Sim\footnote{\url{https://developer.nvidia.com/isaac/sim}} act as physical oracles for the feasibility of proposed movements, collisions, and trajectories~\cite{liu2022mindseye,huang2023voxposer,chen2024spatialvlm};
+% Neuro-symbolic methods
+neuro-symbolic systems integrate Answer Set Programming solvers that translate natural language into formally verifiable logical rules for relational and topological coherence~\cite{yang2020neurasp,premsri2024neurosymbolic};
+% plan-critic
+and plan-critic mechanisms~\cite{lei2025stma,wang2025multiagent} or an LLM-as-a-Judge that evaluates and refines the plans of a primary planner close a self-correcting loop~\cite{hariharan2025plan}.
+
+
+\paragraph{Memory-Augmented Reasoning.}
+Memory tools expose external storage and retrieval through a black-box query interface: the orchestrator asks for relevant prior observations, spatial subgraphs, object histories, or task episodes and decides how to incorporate what is returned, which addresses the \textit{``crisis of context''} in long-horizon robotic tasks whose sensory streams exceed the finite context window of an LLM.
+At this level the memory may be a hierarchical cognitive architecture such as RoboMemory or an open-vocabulary 3D scene graph such as ConceptGraphs (both treated in §\ref{subsec:p3_s7_3_6}), a classical 3D or dynamic scene graph~\cite{armeni20193dsg,rosinol20203ddsg}, or a system-level memory manager: MemOS~\cite{li2025memos} introduces paging and scheduling that swap spatial contexts in and out of the reasoning core, treating the LLM as a CPU and the tool as RAM, and spatio-temporal retrieval engines such as ReMEmbR~\cite{anwar2025remembr} and MemoTime~\cite{tan2025memotime} index video history in vector databases so that an agent can answer ``where did I leave the keys five minutes ago?''.
+
+\paragraph{Predictive Tools and World-Model Feedback.}
+Some catalogues include tools that simulate counterfactual or future spatial states rather than observe or verify the present one: generative video models, learned dynamics models, and predictive latent models are called as expensive but powerful instruments for ``what would happen if'' or ``what would this look like from another viewpoint''~\cite{liu2022mindseye,yang2025cambrians}.
+Here they are one class of callable tool; their feedback forms, imagination cost, and fidelity are the subject of §\ref{subsec:p3_s7_3_8}.
+
+
+\subsubsection{Benchmarks}
+Evaluation asks whether the orchestrator selects useful tools and converts their outputs into better spatial decisions.
+For execution-augmented tool use the canonical suites are SayCan~\cite{ahn2022icanisay} (LLM-grounded household manipulation), ALFWorld~\cite{shridhar2020alfworld} and VirtualHome~\cite{puig2018virtualhome} (long-horizon text-and-embodied environments), and Voyager-on-Minecraft~\cite{wang2023voyager} (open-world skill accretion through code-as-policy).
+For spatial-reasoning-specific tool use, SpaceTools~\cite{chen2025spacetools} targets the metric gap between VLM perception and physical manipulation, and Cambrian-S~\cite{yang2025cambrians} introduces the spatial-supersensing framework that exercises tool augmentation from perception (Stage~I) to predictive world modeling (Stage~IV).
+Validation- and memory-augmented reasoning are evaluated on the memory and agentic benchmarks of §\ref{subsec:p3_s7_3_6} and §\ref{subsec:p3_s7_3_7}, and predictive tools on those of §\ref{subsec:p3_s7_3_8}, where the central question is whether imagined evidence improves the final answer enough to justify its cost.
+
+
+\subsubsection{Challenges and Trends}
+The recurring limitations originate in the LLM--tool interface rather than in any individual tool.
+The \textbf{exploration bottleneck} is combinatorial: each tool adds an action dimension and tool composition multiplies them, so naive reinforcement learning over tool use is inefficient; Double Interactive Reinforcement Learning (DIRL)~\cite{chen2025spacetools} warm-starts from expert demonstrations before open exploration, but the scaling of the action space itself is unresolved.
+The \textbf{metric gap} moves rather than disappears: VLMs excel at semantic perception but fail at the precise metric estimation manipulation requires, and offloading geometry to depth estimators and pose solvers lets the LLM reason over measurements instead of hallucinations~\cite{chen2025spacetools,zhang2025scaling}, yet query formulation, output parsing, and error attribution at the interface become the new precision bottleneck.
+\textbf{Interface calibration} compounds this: tool outputs arrive with heterogeneous units, confidence scores, coordinate frames, and failure modes, and an orchestrator that cannot judge whether a returned depth map, solver result, retrieved memory, or imagined rollout is trustworthy can perform worse than a direct model response.
+
+\emph{Learned orchestration} is one direction: policies are moving from hand-written call rules toward imitation- or reinforcement-learned controllers that decide which tool is worth its latency and uncertainty budget~\cite{chen2025spacetools}.
+A parallel shift is the \emph{System-1 / System-2 architectural split}, in which the neural backbone handles fast, intuitive perception (System~1) while the toolset handles slow, deliberative, verifiable reasoning (System~2)~\cite{yang2025neurosymbo}, achieving both flexibility and rigor.

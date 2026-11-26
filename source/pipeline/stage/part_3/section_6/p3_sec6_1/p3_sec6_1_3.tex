@@ -1,0 +1,199 @@
+
+\subsection{Segmentation}
+\label{sec:segmentation}
+% logic: (xiangtai li)
+% 1, definition of various segmentation (two or three paragraph)
+% 2, methods before deep learning.
+% 3, methods using deep learning (FCN-based/U-Net based)
+% 4, transformer-based methods.
+%    image/video/3D segmentation (transformers)
+% 5, datasets.
+% 6，trends and challenges.
+
+Segmentation partitions an image, a video, or a 3D scan into meaningful regions. Before deep learning it was a mid-level grouping problem, clustering pixels by similarity somewhere between low-level edge detection and high-level recognition; learned models turned it into dense prediction, with class labels, instance identities, and temporal consistency attached to every region.
+Figure~\ref{fig:p3_s6_1_3_segmentation_examples} shows the principal segmentation map types produced on a common scene.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section6/segmentation.pdf}
+    \caption{Examples of different segmentation maps: semantic, instance, and panoptic on a shared scene.}
+    \label{fig:p3_s6_1_3_segmentation_examples}
+\end{figure}
+
+\subsubsection{Task Definition}
+
+\textit{Semantic Segmentation}:
+Given an input image $I \in \mathbb{R}^{H \times W \times 3}$, \emph{semantic segmentation} assigns a class label to every pixel, producing a dense label map
+\begin{equation}
+    S \in \{1, \dots, C\}^{H \times W},
+\end{equation}
+where $C$ is the number of classes; instances of the same class are not distinguished.
+
+\textit{Instance and Panoptic Segmentation}:
+\emph{Instance segmentation} detects and segments each object instance separately. The output is a set of labeled masks
+\begin{equation}
+\mathcal{Y} = \{(m_i, c_i)\}_{i=1}^{N},
+\end{equation}
+where $m_i \in \{0,1\}^{H \times W}$ is the binary mask of the $i$-th instance and $c_i$ its class; masks may overlap, and only countable \emph{thing} classes are covered. \emph{Panoptic segmentation} keeps the same output form but requires the $N$ masks to form a non-overlapping partition of the image that covers \emph{thing} instances and \emph{stuff} regions alike, each stuff class as a single mask.
+
+\textit{Video Segmentation}:
+Given a video clip $V \in \mathbb{R}^{T \times H \times W \times 3}$, \emph{video segmentation} predicts temporally consistent masks across frames, output as a set of mask tubes
+\begin{equation}
+\mathcal{Y} = \{(m_i, c_i)\}_{i=1}^{N}, \quad m_i \in \{0,1\}^{T \times H \times W},
+\end{equation}
+each tracking an object or region over time, with semantic, instance, and panoptic variants as above.
+
+\textit{3D Segmentation}:
+Given a point cloud $\mathcal{P}=\{\mathbf{p}_j\}_{j=1}^{M}$ with $\mathbf{p}_j\in\mathbb{R}^{3}$ and optional color or intensity, \emph{3D semantic segmentation} labels every point,
+\begin{equation}
+S\in\{1,\dots,C\}^{M},
+\end{equation}
+and 3D instance and panoptic segmentation predict point masks $m_i\in\{0,1\}^{M}$ under the same set form and overlap constraints as their image counterparts; voxels or mesh vertices take the place of points for other 3D representations. The definitions carry over unchanged. What changes is the input: the points are unordered, unevenly spaced, and sparse, and that is where 3D methods depart from image methods.
+
+
+\subsubsection{Methodology}
+Figure~\ref{fig:p3_s6_1_3_segmentation_overview} summarizes the method families surveyed below.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/part3/section6/segmentation-method.pdf}
+    \caption{Methodological progression of image and video segmentation, from pre-deep-learning methods to foundation and promptable segmenters, with representative methods under each stage.}
+    \label{fig:p3_s6_1_3_segmentation_overview}
+\end{figure}
+
+% \noindent
+\paragraph{Before Deep Learning.}
+Classical segmentation grouped pixels either by appearance or by minimizing an energy. The first family includes \emph{thresholding} of pixel intensities~\cite{otsu1979threshold}, \emph{region growing} that merges similar neighbors~\cite{adams1994region}, \emph{$k$-means clustering} in feature space~\cite{macqueen1967kmeans}, and the \emph{watershed} transform, which treats the image as a topographic surface and segments by catchment basins~\cite{vincent1991watersheds}. The second family includes \emph{active contours (snakes)} that evolve a curve toward object boundaries~\cite{kass1988snakes}, \emph{graph cuts} that solve certain segmentation energies to global optimality~\cite{boykov2001graphcuts}, and \emph{Markov} and \emph{conditional random fields} that impose spatial coherence probabilistically~\cite{geman1984mrf,lafferty2001crf}; the last of these carried over directly into early learning-based segmenters.
+
+
+
+\paragraph{Fully Convolutional Networks.}
+FCNs~\cite{long2015fcn} replace fully connected layers with convolutions, enabling end-to-end dense prediction at arbitrary input size. U-Net~\cite{ronneberger2015unet} adds a symmetric encoder--decoder with skip connections that fuse low- and high-level features, SegNet~\cite{badrinarayanan2017segnet} reuses max-pooling indices for cheap upsampling and boundary recovery, and PSPNet~\cite{zhao2017pspnet} aggregates global and local context through pyramid pooling.
+
+\paragraph{Dilated and Multi-Scale Context Modeling (DeepLab Series).}
+The DeepLab series introduces atrous (dilated) convolution to enlarge the receptive field without losing resolution (v1~\cite{chen2015deeplab}), Atrous Spatial Pyramid Pooling for multi-scale context (v2~\cite{chen2017deeplabv2}, refined with batch normalization and stronger backbones in v3~\cite{chen2017deeplabv3}), and an encoder--decoder that recovers boundary detail from low-level features (v3+~\cite{chen2018deeplabv3plus}).
+
+\paragraph{Region-Based Mask Prediction (Mask R-CNN Family).}
+Mask R-CNN~\cite{he2017mask} extends Faster R-CNN with a parallel mask branch and ROIAlign, which removes the quantization error of ROI pooling and makes pixel-accurate masks possible. PANet~\cite{liu2018panet}, Hybrid Task Cascade~\cite{chen2019htc}, and PointRend~\cite{kirillov2020pointrend} refine it through better feature flow, cascaded box--mask prediction, and point-wise boundary rendering respectively; this two-stage, region-based family dominated instance segmentation until transformers arrived.
+
+
+
+% \noindent
+\paragraph{Transformer Backbones and Representation Learning.}
+Transformer-based segmentation, following DETR, favors unified query-based formulations that bridge detection and segmentation, predict masks end-to-end without hand-crafted post-processing, and allow joint learning across tasks and modalities. The first step was the backbone: SETR~\cite{zheng2021setr} applies a pure ViT to semantic segmentation with a simple decoder, SegFormer~\cite{xie2021segformer} pairs a lightweight hierarchical transformer with an MLP decoder for a favorable accuracy--efficiency trade-off, and Swin Transformer~\cite{liu2021swin} uses shifted-window attention to produce CNN-like multi-scale features and has become a default segmentation backbone. Self-supervised pretraining such as MAE~\cite{he2022masked} supplies ViT backbones that transfer well to dense prediction.
+
+
+\paragraph{Query-based Transformer Segmentation.}
+Query-based methods cast segmentation as set prediction with object or mask queries. MaX-DeepLab~\cite{wang2021maxdeeplab} is the first purely mask-based panoptic framework without box supervision; MaskFormer~\cite{cheng2021maskformer} unifies semantic and panoptic segmentation by predicting mask embeddings with class labels; K-Net~\cite{zhang2021knet} treats segmentation as kernel prediction with iterative refinement; and Mask2Former~\cite{cheng2022mask2former} adds masked cross-attention and multi-scale decoding, setting a strong baseline across all three tasks. QueryInst~\cite{fang2021queryinst} and Panoptic SegFormer~\cite{li2022panopticsegformer} are variants that respectively generate instance-specific kernels from queries and decouple semantic from instance queries.
+
+
+\paragraph{Video and Multimodal Transformer-based Segmentation.}
+VisTR~\cite{wang2021vistr} predicts spatio-temporal mask tubes end-to-end from object queries; Video K-Net~\cite{li2022videoknet} unifies video semantic, instance, and panoptic segmentation by associating queries across time; and TubeFormer~\cite{wang2022tubeformer} adds tube-level attention for long-term consistency. X-Decoder~\cite{zou2023xdecoder} unifies image segmentation with language-based prediction, while OMGSeg~\cite{OMGSeg} covers image and video segmentation across open-vocabulary and class-agnostic settings within one model.
+
+
+\paragraph{SAM series.} SAM~\cite{kirillov2023sam} made segmentation promptable: trained on the SA-1B dataset of over one billion masks, it decouples a heavy image encoder from a light prompt-conditioned mask decoder and produces masks from points, boxes, or text with strong zero-shot generalization. SAM~2~\cite{ravi2024sam2} extends this to video, propagating masks across frames with a memory mechanism while keeping interactive control.
+
+\paragraph{3D Point Cloud Segmentation.}
+Point-cloud segmenters split by how they impose structure on the points (Section~\ref{sec:rep_3d_point}). Point-based networks consume raw points: PointNet~\cite{qi2017pointnet} applies a shared MLP to every point and pools symmetrically, PointNet++~\cite{qi2017pointnetplus} adds hierarchical neighborhoods, DGCNN~\cite{wang2019dgcnn} builds $k$-nearest-neighbor graphs that are recomputed in feature space at every layer, KPConv~\cite{thomas2019kpconv} defines convolution kernels by points placed in space, and RandLA-Net~\cite{hu2020randlanet} relies on random sampling to scale to scenes of millions of points. Sparse voxel networks such as MinkowskiNet~\cite{choy2019minkowski} and SPVNAS~\cite{tang2020searching} quantize the points and convolve only occupied voxels, which keeps 3D convolution affordable on room- and street-scale scans. Projection methods take the opposite route: RangeNet++~\cite{milioto2019rangenet} unrolls a LiDAR sweep into a range image, runs a 2D segmenter in real time, and projects the labels back onto the points. Transformers entered with Point Transformer~\cite{zhao2021point}, and Point Transformer V3~\cite{wu2024ptv3} replaces exact neighbor search with serialized point orderings so that attention scales to large scenes.
+
+Instance segmentation in 3D retraces the 2D history. PointGroup~\cite{jiang2020pointgroup} predicts per-point offsets toward instance centers and clusters the shifted points, a bottom-up grouping; Mask3D~\cite{schult2023mask3d} applies Mask2Former-style queries to sparse voxel features and predicts instance masks directly. Because 3D labels remain scarce, open-vocabulary 3D segmentation mostly borrows from 2D foundation models: OpenScene~\cite{peng2023openscene} distills CLIP-aligned pixel features into points, and OpenMask3D~\cite{takmaz2023openmask3d} classifies class-agnostic 3D instance masks with CLIP features aggregated over multi-view images.
+
+
+
+\begin{table*}[!t]
+\centering
+\caption{Summary of representative segmentation datasets across 2D and 3D modalities; split sizes count images, scans, or video sequences as indicated. Parenthesized class counts denote common reduced evaluation label sets.}
+\label{tab:segmentation_dataset}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{3.7mm}
+\begin{tabular}{l c cc ccc }
+\toprule
+\multirow{2}{*}{\textbf{Dataset}}   & \multirow{2}{*}{\textbf{Purpose}}   & \multirow{2}{*}{\textbf{Classes}} & \multirow{2}{*}{\textbf{Resolution}} & \multicolumn{3}{c}{\textbf{Samples}}  \\
+\cmidrule(r){5-7}
+% \cmidrule(r){5-6}\cmidrule(r){7-8}
+  & & & & \textbf{Train} & \textbf{Valid} & \textbf{Test} \\
+\midrule
+\rowcolor{lightgrey}\multicolumn{7}{l}{$\bullet$ \textit{2D}}\\
+Pascal VOC \cite{everingham2010pascal} & Generic & 21 & Variable & 1464 & 1449 & Private\\
+MS COCO \cite{lin2014microsoft} & Generic & 80+ & Variable & 82,783 & 40,504 & 81,434\\
+ADE20K \cite{zhou2017ade20k} & Generic & 150 & Variable & 20,210 & 2,000 & 3,000 \\
+COCO-stuff \cite{COCO-Stuff-CaesarUF18} & Generic & 172 & Variable & 118,000 & 5,000 & 20,000 \\
+IDD \cite{IDD-VarmaSNCJ19} & Urban/Driving & 34 & Variable & 6,993 & 981 & 2,029\\
+Dark Zurich \cite{SakaridisDG19} & Urban/Driving & 19 & 1920$\times$1080& 8,377  & 50 & 151\\
+ACDC \cite{ACDC-SakaridisDG21} & Driving & 19 & 2048$\times$ 1024& 1,600  & 406 & 2,000\\
+PartImageNet \cite{PartImageNet-HeYYKYCLYYY22} & Generic-Part & 158 & Variable & 16,540 & 2,957 & 4,598\\
+SiftFlow \cite{SiftFlow-LiuYT09} & Outdoor & 33 & 256$\times$256 & 2,488 & - & 200\\
+BSDS300 \cite{BSD-MartinFTM01}& Boundary/Region & -- & Variable & 200 & - & 100 \\
+Youtube-Objects \cite{PrestLCSF12} & Generic/Video & 10 & 480$\times$360 & 126 & - & - \\
+Cityscapes~\cite{cordts2016cityscapes}  & Urban & 30 (19) & 2048 $\times$1024 & 2975 & 500 & 1525\\
+CamVid \cite{CamVid-BrostowFC09} & Urban/Driving & 32 (11) & 960$\times$720 & 367 & 101 & 233 \\
+Mapillary Vistas~\cite{neuhold2017mapillary} & Street & 65 & - & 18,000 & - & - \\
+\hline
+\rowcolor{lightgrey}\multicolumn{7}{l}{$\bullet$ \textit{3D}}\\
+NYU-D V2~\cite{silberman2012nyudv2} & Indoor & 40 (13) & 640$\times$480 & 795 & - & 654 \\
+SUN-3D~\cite{xiao2013sun3d} & SfM/Video & - & 640$\times$480 & 415 seqs & - & - \\
+SUN RGB-D~\cite{song2015sunrgbd} & Indoor & 37 & Variable & 5,285 & - & 5,050 \\
+ScanNet~\cite{dai2017scannet} & Indoor & 20 & Variable & 1,201 & 312 & 100 \\
+SemanticKITTI~\cite{SemanticKITTI-BehleyGMQBSG19} & LiDAR/Driving & 28 & Point cloud & 19,130 & 4,071 & 20,351 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% \noindent
+\subsubsection{Datasets and Metrics}
+Table~\ref{tab:segmentation_dataset} summarizes the main benchmarks. \textbf{PASCAL VOC}~\cite{everingham2010pascal} anchored the classical semantic-segmentation era with 20 foreground classes plus background. \textbf{MS COCO}~\cite{lin2014microsoft}, with semantic, instance, box, and panoptic annotations over complex object-centric scenes, is the shared testbed for all three modern task types. \textbf{Cityscapes}~\cite{cordts2016cityscapes} and \textbf{Mapillary Vistas}~\cite{neuhold2017mapillary} specialize to street scenes, the latter stressing long-tail classes and diverse geographies, and \textbf{ADE20K}~\cite{zhou2017ade20k} targets holistic scene parsing over 150 object and stuff classes. The 3D rows of the table cover indoor RGB-D scans (NYU-D V2, SUN RGB-D, ScanNet) and outdoor LiDAR (SemanticKITTI), and S3DIS~\cite{armeni2016s3dis} is a further indoor standard.
+
+Segmentation evaluation reuses IoU (Section~\ref{sec:6-1-2}) with masks in place of boxes. For semantic segmentation the headline metric is the \emph{mean Intersection over Union} (mIoU),
+\begin{equation}
+\mathrm{mIoU} = \frac{1}{C} \sum_{k=1}^{C} \frac{\mathrm{TP}_k}{\mathrm{TP}_k + \mathrm{FP}_k + \mathrm{FN}_k},
+\end{equation}
+where $C$ is the number of classes and $\mathrm{TP}_k$, $\mathrm{FP}_k$, $\mathrm{FN}_k$ count the true-positive, false-positive, and false-negative pixels for class $k$.
+Because the average is unweighted, mIoU is sensitive to rare classes, which is one motivation behind ADE20K and Mapillary Vistas; pixel accuracy is dominated by frequent classes (\eg, sky, road) and is less informative.
+
+For \emph{instance segmentation}, the COCO mask-AP protocol matches predictions to ground truth by mask IoU and averages AP over IoU thresholds $0.5$--$0.95$.
+For \emph{panoptic segmentation}, \emph{Panoptic Quality}~\cite{kirillov2019panoptic} is $\mathrm{PQ} = \mathrm{SQ} \times \mathrm{RQ}$, the average IoU of matched segments times the F1 score over matched, false-positive, and false-negative segments, treating things and stuff uniformly.
+For \emph{video object segmentation}, the DAVIS $\mathcal{J}\&\mathcal{F}$ metric averages region similarity ($\mathcal{J}$, mask IoU) and contour accuracy ($\mathcal{F}$, computed on mask boundaries).
+3D semantic segmentation reports the same mIoU computed over points or voxels, and 3D instance segmentation on ScanNet reports AP at mask IoU thresholds averaged over $0.5$--$0.95$, with AP$_{50}$ and AP$_{25}$ as looser slices.
+
+\begin{table*}[!t]
+\centering
+\caption{Reported performance of representative segmentation methods on standard benchmarks: ADE20K mIoU and Cityscapes mIoU (semantic), COCO Mask AP (instance), and COCO PQ (panoptic). Numbers follow each paper's own protocol (split, single-/multi-scale) and are indicative only; ``--'' marks a metric not reported.}
+\label{tab:segmentation_results}
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.4mm}
+\begin{tabular}{l l c c c c c}
+\toprule
+\textbf{Method} & \textbf{Backbone} & \textbf{ADE20K mIoU} & \textbf{Cityscapes mIoU} & \textbf{COCO Mask AP} & \textbf{COCO PQ} & \textbf{Year} \\
+\midrule
+\rowcolor{lightgrey}\multicolumn{7}{l}{$\bullet$\emph{FCN family and dilated convolution}} \\
+FCN-8s~\cite{long2015fcn}                  & VGG-16        & 29.4 & 62.7 & --   & --   & 2015 \\
+PSPNet~\cite{zhao2017pspnet}               & R101          & 43.3 & 80.2 & --   & --   & 2017 \\
+DeepLab v3+~\cite{chen2018deeplabv3plus}   & Xception-65   & 45.6 & 82.1 & --   & --   & 2018 \\
+\midrule
+\rowcolor{lightgrey}\multicolumn{7}{l}{$\bullet$ \emph{Region-based instance segmentation}} \\
+Mask R-CNN~\cite{he2017mask}               & R50-FPN       & --   & --   & 35.4 & --   & 2017 \\
+HTC~\cite{chen2019htc}                     & R50-FPN       & --   & --   & 38.4 & --   & 2019 \\
+\midrule
+\rowcolor{lightgrey}\multicolumn{7}{l}{$\bullet$ \emph{Transformer backbones}} \\
+SETR-MLA~\cite{zheng2021setr}              & ViT-L         & 50.3 & 82.2 & --   & --   & 2021 \\
+SegFormer-B5~\cite{xie2021segformer}       & MiT-B5        & 51.0 & 84.0 & --   & --   & 2021 \\
+Swin-L + UperNet~\cite{liu2021swin}        & Swin-L        & 53.5 & --   & --   & --   & 2021 \\
+\midrule
+\rowcolor{lightgrey}\multicolumn{7}{l}{$\bullet$ \emph{Universal query-based segmentation}} \\
+MaskFormer~\cite{cheng2021maskformer}      & Swin-L        & 55.6 & --   & --   & 52.7 & 2021 \\
+Mask2Former~\cite{cheng2022mask2former}    & Swin-L        & 57.7 & --   & 50.1 & 57.8 & 2022 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Table~\ref{tab:segmentation_results} reports results across these four protocols. The clearest trend is on semantic segmentation, where ADE20K mIoU has roughly doubled in under a decade, from FCN-8s's $29.4$ to Mask2Former's $57.7$; the largest single jumps track two shifts, first to transformer backbones (SETR, SegFormer, Swin-L) and then to universal query-based formulations. That second shift is what unifies the table: MaskFormer is the first entry to report semantic mIoU and panoptic PQ within one framework, and Mask2Former extends the same architecture to all three tasks with competitive results on each. Instance segmentation followed a partly separate path, climbing from Mask R-CNN ($35.4$) and HTC ($38.4$) on R50-FPN to $50.1$ once Mask2Former is paired with a Swin-L backbone, which confirms that transformer backbones lift mask quality at the instance level as well, not only semantic accuracy.
+
+
+% \noindent
+\subsubsection{Challenges}
+The cost of self-attention at high resolution, over long video, and on dense 3D data sharpens the accuracy--speed tension noted for detection, and two problems are specific to segmentation.
+\textbf{Long-video, multi-object consistency is hard.} Holding spatial precision and temporal coherence together remains difficult in cluttered scenes, particularly for video panoptic segmentation and segmentation-based multi-object tracking, where objects enter, leave, and occlude one another over long horizons.
+\textbf{Segmentation is moving toward the open world.} The field is shifting from fixed label sets to class-agnostic, open-vocabulary, and multimodal settings, in which language and other auxiliary signals are folded in to improve spatial reasoning and adaptability, a direction that SAM, X-Decoder, and OMGSeg already anticipate.
+
+
+

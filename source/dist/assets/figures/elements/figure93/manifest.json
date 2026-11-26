@@ -1,0 +1,237 @@
+{
+  "figure": "9.3",
+  "sources": [
+    "assets/figures/figures/part4/section9/robotic_affordances.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1492
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/robotic_affordances.pdf",
+  "assets": [
+    {
+      "file": "representation/drawer-and-mug.png",
+      "title": "drawer and mug",
+      "panel": "representation",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        47.5,
+        207.5,
+        560.0,
+        550.0
+      ],
+      "box": [
+        23.75,
+        103.75,
+        280.0,
+        275.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        18.037,
+        55.767,
+        285.253,
+        233.911
+      ],
+      "placement_confidence": 0.9822
+    },
+    {
+      "file": "grasp/before-lift.png",
+      "title": "before lift",
+      "panel": "grasp",
+      "size": [
+        506,
+        467
+      ],
+      "source_index": 0,
+      "source_box": [
+        842.5,
+        272.5,
+        1117.5,
+        527.5
+      ],
+      "box": [
+        421.25,
+        136.25,
+        558.75,
+        263.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        430.266,
+        90.173,
+        573.65,
+        222.505
+      ],
+      "placement_confidence": 0.9945
+    },
+    {
+      "file": "grasp/lifted-mug.png",
+      "title": "lifted mug",
+      "panel": "grasp",
+      "size": [
+        506,
+        530
+      ],
+      "source_index": 0,
+      "source_box": [
+        1527.5,
+        237.5,
+        1807.5,
+        530.0
+      ],
+      "box": [
+        763.75,
+        118.75,
+        903.75,
+        265.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        787.097,
+        72.321,
+        930.481,
+        222.505
+      ],
+      "placement_confidence": 0.9836
+    },
+    {
+      "file": "placement/before-release.png",
+      "title": "before release",
+      "panel": "placement",
+      "size": [
+        506,
+        467
+      ],
+      "source_index": 0,
+      "source_box": [
+        842.5,
+        680.0,
+        1117.5,
+        935.0
+      ],
+      "box": [
+        421.25,
+        340.0,
+        558.75,
+        467.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 3,
+      "pdf_box": [
+        430.266,
+        301.99,
+        573.65,
+        434.323
+      ],
+      "placement_confidence": 0.9946
+    },
+    {
+      "file": "placement/released-mug.png",
+      "title": "released mug",
+      "panel": "placement",
+      "size": [
+        506,
+        530
+      ],
+      "source_index": 0,
+      "source_box": [
+        1530.0,
+        647.5,
+        1805.0,
+        935.0
+      ],
+      "box": [
+        765.0,
+        323.75,
+        902.5,
+        467.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 4,
+      "pdf_box": [
+        787.097,
+        284.138,
+        930.481,
+        434.323
+      ],
+      "placement_confidence": 0.9922
+    },
+    {
+      "file": "tool-use/closed-drawer.png",
+      "title": "closed drawer",
+      "panel": "tool-use",
+      "size": [
+        506,
+        467
+      ],
+      "source_index": 0,
+      "source_box": [
+        842.5,
+        1087.5,
+        1117.5,
+        1342.5
+      ],
+      "box": [
+        421.25,
+        543.75,
+        558.75,
+        671.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 5,
+      "pdf_box": [
+        430.266,
+        513.807,
+        573.65,
+        646.14
+      ],
+      "placement_confidence": 0.979
+    },
+    {
+      "file": "tool-use/opened-drawer.png",
+      "title": "opened drawer",
+      "panel": "tool-use",
+      "size": [
+        506,
+        530
+      ],
+      "source_index": 0,
+      "source_box": [
+        1530.0,
+        1055.0,
+        1805.0,
+        1342.5
+      ],
+      "box": [
+        765.0,
+        527.5,
+        902.5,
+        671.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 6,
+      "pdf_box": [
+        787.097,
+        495.955,
+        930.481,
+        646.14
+      ],
+      "placement_confidence": 0.9951
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

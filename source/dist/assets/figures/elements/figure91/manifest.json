@@ -1,0 +1,268 @@
+{
+  "figure": "9.1",
+  "sources": [
+    "assets/figures/figures/part4/section9/manipulation_overview.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1816
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/manipulation_overview.pdf",
+  "assets": [
+    {
+      "file": "task/robot-and-open-drawer.png",
+      "title": "robot and open drawer",
+      "panel": "task",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        30.0,
+        105.0,
+        312.5,
+        292.5
+      ],
+      "box": [
+        15.0,
+        52.5,
+        156.25,
+        146.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        15.385,
+        51.795,
+        156.923,
+        146.154
+      ],
+      "placement_confidence": 0.9752
+    },
+    {
+      "file": "task/mobile-manipulator.png",
+      "title": "mobile manipulator",
+      "panel": "task",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        1437.5,
+        102.5,
+        1707.5,
+        282.5
+      ],
+      "box": [
+        718.75,
+        51.25,
+        853.75,
+        141.25
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        718.462,
+        51.282,
+        853.846,
+        141.538
+      ],
+      "placement_confidence": 0.9927
+    },
+    {
+      "file": "inputs/rgbd-view.png",
+      "title": "rgbd view",
+      "panel": "inputs",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        92.5,
+        485.0,
+        335.0,
+        647.5
+      ],
+      "box": [
+        46.25,
+        242.5,
+        167.5,
+        323.75
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        46.154,
+        242.051,
+        167.692,
+        323.077
+      ],
+      "placement_confidence": 0.967
+    },
+    {
+      "file": "inputs/drawer-inset.png",
+      "title": "drawer inset",
+      "panel": "inputs",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        85.0,
+        427.5,
+        180.0,
+        490.0
+      ],
+      "box": [
+        42.5,
+        213.75,
+        90.0,
+        245.0
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 3,
+      "pdf_box": [
+        43.077,
+        213.846,
+        89.231,
+        244.615
+      ],
+      "placement_confidence": 0.9785
+    },
+    {
+      "file": "anchors/drawer-and-mug.png",
+      "title": "drawer and mug",
+      "panel": "anchors",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        505.0,
+        487.5,
+        710.0,
+        625.0
+      ],
+      "box": [
+        252.5,
+        243.75,
+        355.0,
+        312.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 4,
+      "pdf_box": [
+        252.308,
+        243.59,
+        355.385,
+        312.308
+      ],
+      "placement_confidence": 0.9733
+    },
+    {
+      "file": "affordances/drawer-and-mug.png",
+      "title": "drawer and mug",
+      "panel": "affordances",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        505.0,
+        767.5,
+        710.0,
+        905.0
+      ],
+      "box": [
+        252.5,
+        383.75,
+        355.0,
+        452.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 5,
+      "pdf_box": [
+        252.308,
+        383.59,
+        355.385,
+        452.308
+      ],
+      "placement_confidence": 0.9876
+    },
+    {
+      "file": "execution/fixed-arm.png",
+      "title": "fixed arm",
+      "panel": "execution",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        1532.5,
+        967.5,
+        1737.5,
+        1105.0
+      ],
+      "box": [
+        766.25,
+        483.75,
+        868.75,
+        552.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 6,
+      "pdf_box": [
+        766.154,
+        483.59,
+        869.231,
+        552.308
+      ],
+      "placement_confidence": 0.982
+    },
+    {
+      "file": "execution/mobile-arm.png",
+      "title": "mobile arm",
+      "panel": "execution",
+      "size": [
+        768,
+        512
+      ],
+      "source_index": 0,
+      "source_box": [
+        1755.0,
+        965.0,
+        1965.0,
+        1105.0
+      ],
+      "box": [
+        877.5,
+        482.5,
+        982.5,
+        552.5
+      ],
+      "kind": "cutout",
+      "pdf_image_index": 7,
+      "pdf_box": [
+        878.462,
+        483.59,
+        981.538,
+        552.308
+      ],
+      "placement_confidence": 0.9893
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

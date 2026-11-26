@@ -1,0 +1,122 @@
+{
+  "figure": "7.23",
+  "source": "assets/figures/figures/part3/section7/chain-of-thought_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1124
+  ],
+  "assets": [
+    {
+      "file": "b-visual/scene.png",
+      "title": "Visual reasoning scene",
+      "source_box": [
+        744,
+        95,
+        1249,
+        340
+      ],
+      "size": [
+        505,
+        245
+      ],
+      "kind": "scene"
+    },
+    {
+      "file": "c-embodied/kitchen.png",
+      "title": "Kitchen scene",
+      "source_box": [
+        1380,
+        120,
+        1656,
+        398
+      ],
+      "size": [
+        276,
+        278
+      ],
+      "kind": "scene"
+    },
+    {
+      "file": "b-visual/white-cube.png",
+      "title": "White cube",
+      "source_box": [
+        769,
+        150,
+        875,
+        269
+      ],
+      "size": [
+        106,
+        119
+      ],
+      "kind": "white-cube"
+    },
+    {
+      "file": "b-visual/red-cube.png",
+      "title": "Red cube",
+      "source_box": [
+        893,
+        155,
+        990,
+        268
+      ],
+      "size": [
+        97,
+        113
+      ],
+      "kind": "red-cube"
+    },
+    {
+      "file": "b-visual/green-sphere.png",
+      "title": "Green sphere",
+      "source_box": [
+        1007,
+        151,
+        1120,
+        265
+      ],
+      "size": [
+        113,
+        114
+      ],
+      "kind": "green"
+    },
+    {
+      "file": "b-visual/white-cylinder.png",
+      "title": "White cylinder",
+      "source_box": [
+        1131,
+        139,
+        1228,
+        267
+      ],
+      "size": [
+        97,
+        128
+      ],
+      "kind": "cylinder"
+    },
+    {
+      "file": "c-embodied/blue-mug.png",
+      "title": "Blue mug",
+      "source_box": [
+        1587,
+        237,
+        1631,
+        275
+      ],
+      "size": [
+        44,
+        38
+      ],
+      "kind": "mug"
+    }
+  ],
+  "frontend": [
+    "(a): all labels, A/B/C circles, directional arrows, compass and answer will be drawn independently in the frontend.",
+    "(b): the blue selection rectangle has been removed from the photographic plate; its narrow occluded strips are locally interpolated. The rectangle will be drawn independently.",
+    "(c): preserve the kitchen photograph and provide the blue mug as a separate transparent cutout.",
+    "CoT, ToT, GoT, PoT and CoA: all nodes, boxes, arrows, text and formulas will be independent frontend elements.",
+    "Scene plates preserve source backgrounds and shadows. Separate object cutouts have transparent backgrounds and retain source shading."
+  ]
+}

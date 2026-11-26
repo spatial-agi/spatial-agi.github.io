@@ -1,0 +1,113 @@
+{
+  "figure": "9.16",
+  "sources": [
+    "assets/figures/figures/part4/section9/aerial_geoloc.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1044
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/aerial_geoloc.pdf",
+  "assets": [
+    {
+      "file": "views/ground.png",
+      "title": "ground",
+      "panel": "views",
+      "size": [
+        1086,
+        441
+      ],
+      "source_index": 0,
+      "source_box": [
+        17.5,
+        85.0,
+        580.0,
+        312.5
+      ],
+      "box": [
+        8.75,
+        42.5,
+        290.0,
+        156.25
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        9.419,
+        42.082,
+        290.424,
+        156.191
+      ],
+      "placement_confidence": 0.9694
+    },
+    {
+      "file": "views/drone-oblique.png",
+      "title": "drone oblique",
+      "panel": "views",
+      "size": [
+        1086,
+        469
+      ],
+      "source_index": 0,
+      "source_box": [
+        17.5,
+        392.5,
+        580.0,
+        635.0
+      ],
+      "box": [
+        8.75,
+        196.25,
+        290.0,
+        317.5
+      ],
+      "kind": "photo",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        9.419,
+        196.532,
+        290.424,
+        317.887
+      ],
+      "placement_confidence": 0.9427
+    },
+    {
+      "file": "views/satellite-topdown.png",
+      "title": "satellite topdown",
+      "panel": "views",
+      "size": [
+        1086,
+        516
+      ],
+      "source_index": 0,
+      "source_box": [
+        17.5,
+        717.5,
+        580.0,
+        985.0
+      ],
+      "box": [
+        8.75,
+        358.75,
+        290.0,
+        492.5
+      ],
+      "kind": "photo",
+      "pdf_image_index": 2,
+      "pdf_box": [
+        9.419,
+        358.625,
+        290.424,
+        492.141
+      ],
+      "placement_confidence": 0.9699
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

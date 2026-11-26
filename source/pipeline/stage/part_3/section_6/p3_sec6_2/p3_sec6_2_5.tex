@@ -1,0 +1,172 @@
+
+
+\subsection{Pose Estimation}
+\label{sec:object_pose}
+% Author intent (Hao Fei): image to human-pose or 3D pose.
+% Scope decision: §6.2.5 covers 6-DoF rigid-object pose;
+% sparse landmark detection on humans, hands, and animals is owned by
+% §6.1.1, and camera-frame pose is owned by §6.2.4.
+
+6-DoF object pose estimation recovers a rigid transformation
+\begin{equation}
+\mathbf{T}_o =
+\begin{bmatrix}
+\mathbf{R} & \mathbf{t}\\
+\mathbf{0}^{\top} & 1
+\end{bmatrix}
+\in SE(3),
+\end{equation}
+which maps an object's canonical or model frame into the current camera frame, giving a rotation $\mathbf{R}\in SO(3)$ and a translation $\mathbf{t}\in\mathbb{R}^3$ per detected instance.
+It is the camera pose problem of \S\ref{sec:visual_odometry} with the reference frame reversed: the camera frame serves as the reference and each rigid object is located within it, using much of the same machinery (2D--3D correspondence, PnP solvers, RANSAC, and render-and-compare refinement) but with object-centric CAD models and pose annotations as supervision.
+It is also distinct from the keypoint and landmark detection of \S\ref{sec:keypoint_landmark}: the target is the full 6-DoF pose of a rigid body, not semantic points on an articulated or deformable one.
+Object pose is the geometric primitive consumed by robotic manipulation and grasping (revisited in Chapter~\ref{sec:embodied}), AR/VR object overlay, assembly guidance, bin picking, and the metric localization of other agents in driving.
+
+Three axes organize the literature. The \emph{assumption axis} runs from instance-level methods that assume a high-fidelity CAD mesh per object, through category-level methods that assume only a canonical frame per category, to model-free methods that see a previously unseen object through a handful of reference images. The \emph{representation axis} separates direct $SE(3)$ regression from keypoint- or dense-correspondence pipelines that hand pose recovery to PnP, and from render-and-compare refinement of an initial pose. The \emph{foundation-model axis} tracks the shift from per-object training to cross-object generalization built on segmentation, vision, and depth foundation models.
+
+\subsubsection{Task Definition}
+The input is an RGB image, an RGB-D image, or a short multi-view burst of a scene containing one or more rigid objects, together with object-specific priors that depend on the setting: a CAD mesh or a small reference image set per object (instance-level and model-free), or a category label with a canonical frame (category-level), optionally with camera intrinsics and an upstream 2D detection or mask.
+The output is a pose $\mathbf{T}_o\in SE(3)$ per detected object in the camera frame, augmented in the category-level setting with a metric size vector $\mathbf{s}\in\mathbb{R}_{+}^3$ (9-DoF pose and size).
+For symmetric objects the prediction is properly an equivalence class of poses under the object's symmetry group, which the ADD-S and BOP metrics below account for.
+
+\subsubsection{Methodology}
+
+Figure~\ref{fig:p3_s6_2_5_pose_overview} schematizes the task and the three method-family trajectories, which recent methods often straddle.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section6/pose_estimation.pdf}
+    \caption{6-DoF object pose estimation. \textit{Top}: recover $\mathbf{T}_o\in SE(3)$ for each rigid object in an RGB(-D) image, given a CAD mesh, a canonical frame, or a few reference views. \textit{Bottom}: method timelines for (i) instance-level CAD-aware, (ii) category-level (NOCS) canonical-frame, and (iii) novel-object, foundation-era pose estimation.}
+    \label{fig:p3_s6_2_5_pose_overview}
+\end{figure}
+
+\paragraph{Instance-Level 6-DoF: CAD-Aware Pipelines.}
+With a mesh of each target object available, pose estimation becomes alignment of the mesh with image evidence, and synthetic renderings of the CAD models are the main training signal.
+PoseCNN~\cite{xiang2017posecnn} set the modern baseline by regressing an object's image-space center and a quaternion rotation with a CNN, and introduced the YCB-Video benchmark.
+A second family decouples the network from the geometric solver by predicting projections of sparse 3D keypoints and solving PnP with RANSAC; PVNet~\cite{peng2019pvnet} votes per pixel for each keypoint, which makes it robust to occlusion, while SSD-6D~\cite{kehl2017ssd6d} folds a discretized viewpoint classification into a detector and skips PnP entirely.
+DenseFusion~\cite{Wang2019DenseFusion} fuses RGB-D features per pixel and directly regresses poses with iterative refinement. A third family uses dense surface correspondences instead of sparse keypoints: GDR-Net~\cite{wang2021gdrnet} couples dense coordinate regression with a geometry-guided PnP layer, ZebraPose~\cite{su2022zebrapose} encodes the surface with a coarse-to-fine binary code, and SurfEmb~\cite{haugaard2022surfemb} learns continuous correspondence distributions that stay robust under symmetry and occlusion; EPro-PnP~\cite{chen2022epro} replaces the non-differentiable PnP solver with a probabilistic surrogate so the whole pipeline trains end to end.
+A fourth family refines by render-and-compare: DeepIM~\cite{li2018deepim} iteratively minimizes the residual between a rendered CAD view and the image, and CosyPose~\cite{Labbe2020CosyPose} extends this to consistent multi-view, multi-object refinement and led the BOP 2020 leaderboard.
+The same machinery reaches far from the tabletop, for example spacecraft pose under extreme scale variation~\cite{hu2021widedepthrange}.
+
+\paragraph{Category-Level 6-DoF + Size: Canonical Frame Recovery.}
+Without a per-instance mesh but with a category that admits a canonical frame, pose is recovered up to that frame together with three-dimensional object size, a 9-DoF prediction.
+NOCS~\cite{Wang0HVSG19} introduced the formulation, mapping every instance of a category into a Normalized Object Coordinate Space and regressing dense correspondences there; its REAL275 benchmark is the standard category-level evaluation.
+Later work re-parameterizes the problem: FS-Net~\cite{chen2021fsnet} decouples rotation, translation, and size and speeds up inference through a shape-based pathway, GPV-Pose~\cite{di2022gpvpose} grounds rotation in geometry-guided point-wise voting, SAR-Net~\cite{lin2022sarnet} recovers a deformed shape prior alongside pose to handle intra-class variation, and IST-Net~\cite{liu2023istnet} drops the shape prior and learns the canonical transformation implicitly.
+SecondPose~\cite{chen2024secondpose} and AG-Pose~\cite{lin2024agpose} import DINOv2 semantics and instance-adaptive keypoints for further gains on REAL275, and GenPose~\cite{zhang2023genpose} casts category-level pose as score-based diffusion sampling, the precursor of the 9-DoF diffusion model below.
+The family's standing assumption, that a meaningful canonical frame exists per category, holds for mugs and cameras but fails for heterogeneous semantic groupings, which motivates the model-free line.
+
+\paragraph{Novel-Object Pose: Model-Based and Model-Free Pipelines.}
+The largest recent shift is away from per-object and per-category training toward objects first seen at test time, given only a few reference images or a CAD model.
+From a short reference video, OnePose~\cite{sun2022onepose} triangulates a feature point cloud and matches test queries against it, OnePose++~\cite{he2022oneposepp} removes the dependence on repeatable keypoints with a dense-matching front end, and Gen6D~\cite{liu2022gen6d} unifies detection, viewpoint selection, and refinement without per-object fine-tuning.
+From a CAD model alone, MegaPose~\cite{labbe2022megapose} trains render-and-compare on millions of synthetic objects and transfers zero-shot, FoundationPose~\cite{wen2024foundationpose} consolidates model-based and model-free operation under large-scale synthetic pretraining and leads the BOP novel-object track, GigaPose~\cite{nguyen2024gigapose} cuts the cost of render-and-compare by sampling templates in a two-DoF rotation space and recovering the remaining parameters from a single patch correspondence, and SAM-6D~\cite{lin2024sam6d} uses the Segment Anything Model~\cite{kirillov2023sam} as a zero-shot detection front end before learned pose matching.
+A further sub-line drops pose-specific training altogether and matches frozen foundation features: FoundPose~\cite{ornek2024foundpose} establishes 2D--3D correspondences between DINOv2 patch descriptors of the query and pre-rendered templates, and FreeZe~\cite{caraffa2024freeze} fuses frozen 3D geometric descriptors with 2D foundation features and recovers pose by RANSAC registration; a FreeZe variant took first place for unseen-object localization and detection in the BOP Challenge 2024~\cite{nguyen2024bopchallenge}, overtaking the render-and-compare line.
+Diff9D~\cite{liu2024diff9d} reformulates 9-DoF category-level pose as diffusion sampling, the object-pose instance of the diffusion-as-perception pattern seen for depth and normals, which yields calibrated multi-hypothesis predictions (natural for symmetric objects) at the cost of latency.
+The foundation-model line has thus largely dissolved the instance-versus-category-versus-model-free distinction; the active question is how cheap the per-test-object supervision can become.
+
+\paragraph{Sensing Modalities.}
+Across these axes, the input modality fixes which supervisory signals exist and which symmetries can be resolved. RGB-only pipelines~\cite{xiang2017posecnn,peng2019pvnet,wang2021gdrnet,chen2022epro,sun2022onepose} suit mobile and AR deployment but face scale--depth ambiguity on texture-poor objects; RGB-D fusion (DenseFusion~\cite{Wang2019DenseFusion}, CosyPose~\cite{Labbe2020CosyPose} with depth refinement, FoundationPose~\cite{wen2024foundationpose}) is substantially more accurate on BOP at the cost of a depth sensor; depth-only methods are rare but remain competitive on highly symmetric objects where shading carries little rotational evidence. Monocular depth foundation models (\S\ref{sec:depth_estimation}) are increasingly used as plug-in depth providers at inference, which narrows the RGB / RGB-D gap without an active sensor.
+
+\subsubsection{Datasets and Metrics}
+\label{sec:pose_datasets}
+
+Table~\ref{tab:pose_datasets} lists the recurring benchmarks. Instance-level evaluation grew from LINEMOD~\cite{hinterstoisser2012linemod}, the largely texture-poor early benchmark that introduced the ADD metric, through its occlusion-heavy re-annotation LINEMOD-Occluded~\cite{brachmann2014lmo}, which modern methods report as the more informative of the two, to the video setting of YCB-Video~\cite{xiang2017posecnn} and the texture-less, symmetric industrial parts of T-LESS~\cite{Hodan2017TLESS}, where symmetry handling decides the ranking; HomebrewedDB~\cite{kaskman2019hbdb} serves as an out-of-distribution test for methods trained on the BOP core data, and SPEED~\cite{Sharma2019SpacecraftPE} stretches the task to spacecraft under scale and illumination ranges no tabletop set covers. NOCS-REAL275 with its synthetic companion CAMERA~\cite{Wang0HVSG19} is the category-level standard. The BOP Challenge~\cite{hodan2018bop,hodan2020bop,sundermeyer2023bop} consolidates the instance-level datasets under one protocol and has been the field's headline leaderboard since 2017; its 2023 edition distinguishes seen-object and unseen-object settings, with 3D mesh models provided in both. Modern papers report at minimum on LINEMOD-Occluded, YCB-Video, and a BOP-core subset, novel-object methods add the BOP unseen-object track, and category-level methods center on REAL275.
+
+\begin{table*}[!t]
+    \centering
+    \caption{Representative datasets and benchmarks for 6-DoF object pose estimation. ``--'' marks a value not fixed by the source or varying across protocol versions.}
+    \label{tab:pose_datasets}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{1.2mm}
+    \begin{tabular}{L{0.20\textwidth} c L{0.23\textwidth} C{0.09\textwidth} C{0.13\textwidth} L{0.19\textwidth}}
+    \toprule
+    \textbf{Dataset} & \textbf{Year} & \textbf{Setting} & \textbf{Objects} & \textbf{Frames} & \textbf{Role} \\
+    \midrule
+    LINEMOD~\cite{hinterstoisser2012linemod} & 2012 & Instance, texture-poor objects, RGB-D & 15 & $\sim$1.2K / object & Entry benchmark; introduced ADD \\
+    LINEMOD-Occluded~\cite{brachmann2014lmo} & 2014 & Instance, heavy mutual occlusion & 8 & re-annotated LM scene & Occlusion stress test \\
+    YCB-Video~\cite{xiang2017posecnn} & 2017 & Instance, RGB-D video, moving camera & 21 & $\sim$133K & Sequential pose and tracking \\
+    T-LESS~\cite{Hodan2017TLESS} & 2017 & Instance, texture-less, symmetric industrial parts & 30 & -- & Symmetry / texture-poor stress test \\
+    HomebrewedDB~\cite{kaskman2019hbdb} & 2019 & Instance, household scenes & -- & -- & Out-of-distribution generalization \\
+    NOCS REAL + CAMERA~\cite{Wang0HVSG19} & 2019 & Category-level 9-DoF, RGB-D & 6 categories & $\sim$8K real (+ synthetic) & Category-level standard \\
+    SPEED~\cite{Sharma2019SpacecraftPE} & 2019 & Spacecraft, extreme scale and lighting & 1 & -- & Beyond-tabletop deployment \\
+    BOP Challenge~\cite{hodan2018bop,hodan2020bop,sundermeyer2023bop} & 2018-- & Unified protocol over LM-O, T-LESS, YCB-V, ITODD, IC-BIN, TUD-L, HB, HOPE & -- & -- & Headline leaderboard; novel-object track since 2023 \\
+    \bottomrule
+    \end{tabular}
+\end{table*}
+
+Each metric answers to a particular failure mode of pose error, and the symmetry-aware variants exist because many objects admit several valid poses.
+The Average Distance of Model Points (ADD) is the standard for asymmetric objects: with predicted pose $(\hat{\mathbf{R}}, \hat{\mathbf{t}})$, ground truth $(\mathbf{R}, \mathbf{t})$, and mesh vertices $\mathcal{M}$,
+\begin{equation}
+    \mathrm{ADD} = \frac{1}{|\mathcal{M}|} \sum_{\mathbf{x} \in \mathcal{M}}
+    \left\| (\mathbf{R}\mathbf{x} + \mathbf{t}) - (\hat{\mathbf{R}}\mathbf{x} + \hat{\mathbf{t}}) \right\|,
+\end{equation}
+and a pose counts as correct when $\mathrm{ADD} < 0.1\,d$ for object diameter $d$, the ADD-0.1d threshold introduced with LINEMOD~\cite{hinterstoisser2012linemod}.
+For symmetric objects ADD-S replaces direct vertex correspondence with nearest-neighbor matching,
+\begin{equation}
+    \mathrm{ADD\text{-}S} = \frac{1}{|\mathcal{M}|} \sum_{\mathbf{x}_1 \in \mathcal{M}}
+    \min_{\mathbf{x}_2 \in \mathcal{M}}
+    \left\| (\mathbf{R}\mathbf{x}_1 + \mathbf{t}) - (\hat{\mathbf{R}}\mathbf{x}_2 + \hat{\mathbf{t}}) \right\|,
+\end{equation}
+under the same threshold; the two are reported together so that symmetric and asymmetric objects are diagnosed separately.
+For AR overlay the relevant error is in image space, so the 2D projection error averages the pixel distance between mesh vertices projected under the two poses, with 5\,px as the usual threshold.
+Category-level evaluation on REAL275 counts a prediction correct when
+\begin{equation}
+    \angle(\mathbf{R}^{-1} \hat{\mathbf{R}}) < 5^\circ
+    \quad \text{and} \quad
+    \| \mathbf{t} - \hat{\mathbf{t}} \| < 5\,\mathrm{cm},
+\end{equation}
+and adds 3D box IoU at $50\%$ and $75\%$ to score pose and size jointly.
+The BOP Challenge~\cite{hodan2018bop} averages recall over three symmetry-aware errors, each thresholded at several operating points: the Visible Surface Discrepancy (VSD), which scores only the visible object surface and is therefore robust to occlusion, the Maximum Symmetry-aware Surface Distance (MSSD), the maximum surface-point deviation after selecting the best valid symmetry alignment, and its image-space analogue MSPD,
+\begin{equation}
+    \mathrm{AR} = \tfrac{1}{3} \bigl( \mathrm{AR}_{\mathrm{VSD}} + \mathrm{AR}_{\mathrm{MSSD}} + \mathrm{AR}_{\mathrm{MSPD}} \bigr),
+\end{equation}
+averaged over the BOP core datasets.
+ADD and ADD-S remain the default for LINEMOD-style instance-level work, BOP-AR for cross-dataset comparison, and projection error for AR; the metrics persist side by side because no single norm captures both strict pose error and the equivalence-class structure that VSD and MSSD make explicit.
+
+\begin{table}[!t]
+    \centering
+    \caption{Representative 6-DoF object pose results on LINEMOD-Occluded (higher is better). ADD(-S)-0.1d anchors the RGB methods; BOP-AR is reported for the refinement and foundation-era systems. The two columns are different metrics and are not directly comparable.}
+    \label{tab:pose_benchmark}
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{lllllcc}
+        \toprule
+        \textbf{Method} & \textbf{Family} & \textbf{Modality} & \textbf{Train assumption} & \textbf{Year} & \textbf{ADD(-S)-0.1d} $\uparrow$ & \textbf{BOP-AR} $\uparrow$ \\
+        \midrule
+        PoseCNN~\cite{xiang2017posecnn}             & Instance / direct         & RGB   & per-object   & 2017 & 24.9 & --   \\
+        PVNet~\cite{peng2019pvnet}                  & Instance / keypoint+PnP   & RGB   & per-object   & 2019 & 40.8 & --   \\
+        GDR-Net~\cite{wang2021gdrnet}               & Instance / coord. reg.    & RGB   & per-object   & 2021 & 62.2 & --   \\
+        % 需核查: 63.3 is CosyPose's RGB single-view LM-O result (BOP 2020); the RGB-D refined variant scores higher.
+        CosyPose~\cite{Labbe2020CosyPose}           & Instance / refinement     & RGB   & per-object   & 2020 & --   & 63.3 \\
+        SurfEmb~\cite{haugaard2022surfemb}          & Instance / dense corr.    & RGB-D & per-object   & 2022 & --   & 75.8 \\
+        % 需核查: MegaPose LM-O BOP-AR value and modality to be confirmed against the BOP leaderboard.
+        MegaPose~\cite{labbe2022megapose}           & Novel-object / render\&comp. & RGB-D & cross-object & 2022 & --   & 58.3 \\
+        FoundationPose~\cite{wen2024foundationpose} & Novel-object / found.       & RGB-D & cross-object & 2024 & --   & 78.8 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Table~\ref{tab:pose_benchmark} reports LINEMOD-Occluded, the most widely used instance-level benchmark under the BOP protocol.
+Among RGB methods scored by ADD(-S)-0.1d, explicit geometry steadily closes the gap over direct regression: PoseCNN's 24.9 rises to 40.8 with per-pixel keypoint voting (PVNet) and to 62.2 with geometry-guided dense coordinate regression (GDR-Net).
+On the symmetry-aware BOP-AR, the render-and-compare CosyPose (63.3) and the dense-correspondence SurfEmb (75.8) are now matched or exceeded by novel-object systems without per-object training, FoundationPose reaching 78.8 against MegaPose's earlier 58.3; this is the 2023--2024 shift that made novel-object pose a deployment target rather than a research curiosity.
+The gap between the two families is widest on the symmetric objects of T-LESS, where losses that model symmetry (BOP-AR-aware objectives, ADD-S optimization) generalize better than those assuming a single asymmetric pose.
+
+\subsubsection{Challenges}
+
+\textbf{The onboarding bottleneck has shifted from pose to detection.}
+Moving to novel objects relocated the limiting stage rather than removing it.
+On the BOP Challenge 2024~\cite{nguyen2024bopchallenge}, 6-DoF \emph{localization} of unseen objects has nearly caught up with the seen-object regime (the strongest training-free entry, a FreeZe variant~\cite{caraffa2024freeze}, trails the best seen-object method by a few points of average recall), whereas \emph{detection} of unseen objects still lags its seen-object counterpart by roughly a third and is now the largest error source in the novel-object stack.
+The open problem is zero-shot detection and segmentation of a never-seen instance in clutter, together with the cost of \emph{onboarding} it: BOP 2024 added a track in which an object is registered from a short reference video, Any6D~\cite{lee2025any6d} registers from a single RGB-D anchor image, and how few views, or whether a single image or a text prompt, suffice is the defining frontier question. The same challenge pivoted toward high-resolution AR/VR headset recordings, a signal that the benchmark-realism gap, including articulated and deformable objects, open-vocabulary targets named rather than modeled (POPE~\cite{fan2023pope}), and egocentric capture, is now a first-order concern.
+
+\textbf{Absolute metric scale remains ambiguous for model-free targets.}
+The true size of an unseen object is under-determined from RGB alone, since scale and depth trade off along the viewing ray.
+Category-level 9-DoF methods absorb this by regressing size in a canonical frame~\cite{Wang0HVSG19}, and model-free systems can use a depth sensor or another metric reference, while CAD-based methods can use the model's known extent; without such information, scale is the residual unknown separating a plausible pose from a usable one, which Any6D~\cite{lee2025any6d} makes explicit by coupling pose recovery with scale alignment, and monocular depth priors inherit the affine ambiguity of \S\ref{sec:depth_estimation}.
+
+\textbf{Accuracy trades sharply against latency.}
+The methods that top the novel-object leaderboard are the least suited to closed-loop use: on BOP 2024~\cite{nguyen2024bopchallenge} the most accurate unseen-object method runs in tens of seconds per image, close to an order of magnitude slower than both the fastest seen-object pipelines and the practical sub-second entries, which buy speed with accuracy.
+Heavy segmentation, render-and-compare, and diffusion priors (Diff9D~\cite{liu2024diff9d}) are the cause, which is why one-correspondence template matching (GigaPose~\cite{nguyen2024gigapose}), distillation, and selective invocation of expensive components have become load-bearing for robotic and AR loops at frame rate.
+
+\textbf{Symmetry and geometric ambiguity are irreducible.}
+Symmetric and texture-less parts of the kind that fill T-LESS~\cite{Hodan2017TLESS} admit a continuous or discrete family of photometrically indistinguishable poses, and any loss assuming a unique target diverges on them; transparent and specular surfaces violate the brightness-constancy and depth-sensing assumptions behind correspondence and RGB-D fusion; rotation parameterization adds degeneracies that continuous 6D or axis-angle encodings reduce but do not remove; and heavy occlusion, the regime of LINEMOD-Occluded~\cite{brachmann2014lmo}, starves the estimator of the evidence needed to resolve any of them.
+Generative multi-hypothesis pose (Diff9D~\cite{liu2024diff9d}) predicts a distribution instead of a point, but turning that distribution into a \emph{calibrated} confidence a planner can trust in safety-critical manipulation and driving is still largely unaddressed.
+
+Across these problems, pose pipelines increasingly consume foundation-model priors as plug-in modules (promptable segmentation for zero-shot detection, monocular depth for inference-time geometry) rather than training pose-specific backbones, and the boundary between pose estimation, 6-DoF tracking, and neural reconstruction is dissolving, as FoundationPose~\cite{wen2024foundationpose} folds estimation and tracking into one loop and the reconstruction discussion of Chapter~\ref{sec:generation} pursues further. Promptable, real-time, uncertainty-aware pose is the target the next generation of methods converges on.
+

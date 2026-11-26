@@ -1,0 +1,139 @@
+z\section{Spatial Reasoning Benchmarks}
+\label{sec:p3_s7_5}
+
+\FramedInitial{E}{arly} spatial-reasoning benchmarks positioned the model as a detached observer. CLEVR~\cite{johnson2017clevr} and VSR~\cite{liu2023visual} ask for relative geometric relations from a static third-person viewpoint, and their 2D inputs leave depth ambiguous, a weakness that 3DSRBench~\cite{ma20253dsrbench}, MMSI-Bench~\cite{yang2025mmsi}, DSI-Bench~\cite{zhang2025dsi}, and STI-Bench~\cite{li2025sti} now probe directly.
+SQA3D~\cite{ma2022sqa3d}, OpenEQA~\cite{majumdar2024openeqa}, and EmbSpatial-Bench~\cite{du2024embspatial} instead place the model inside the scene, so that it must self-localize before it can answer, and ScanQA~\cite{azuma2022scanqa}, ScanRefer~\cite{chen2020scanrefer}, and Multi3DRefer~\cite{zhang2023multi3drefer} ground queries in point clouds and RGB-D data, where the answer is a coordinate rather than a relation.
+The reasoning demanded has deepened in parallel: IntPhys~\cite{riochet2018intphys} and Physion~\cite{Bear2021Physion} test whether a model expects gravity, collision, and friction to hold over time, and OpenEQA and RealWorldQA~\cite{xai2024grok15v} ask functional questions (``Can I navigate through this gap?'', ``Where would I find a cloth to clean a spill?'') in which geometry matters only through what it affords.
+
+Data provenance splits the field. Simulators, the sources behind SpatialVLM~\cite{chen2024spatialvlm}, AI2-THOR~\cite{kolve2017ai2thor}, and Habitat~\cite{szot2021habitat2}, yield unlimited, perfectly annotated data; real-world collections such as ScanNet~\cite{dai2017scannet} and OpenEQA supply the clutter, occlusion, and sensor noise that simulation does not reproduce.
+The resulting practice is sim-to-real: pre-train on large synthetic corpora for general spatial logic, then fine-tune on the scarcer real data.
+Annotated 3D data remain scarce and fine-grained metric estimation remains hard for large models; both limits recur throughout the table below.
+
+% \wsq{总结现有的有关spatial reasoning 相关的benchmarks}
+
+
+\subsection{Comparative Analysis}
+\label{subsec:p3-sec7-5-comparative-analysis}
+
+Table~\ref{tab:benchmark_comparison} compiles 61 spatial-reasoning benchmarks across four categories (physical-focused, rooted in §\ref{subsec:p3_s7_1_2}; vision-based, overlapping with §\ref{subsec:p3_s7_3_1}; 3D-focused, rooted in §\ref{subsec:p3_s7_3_6} and §\ref{subsec:p3_s7_3_8}; and robot-environment, rooted in §\ref{subsec:p3_s7_3_7} and §\ref{sec:p3_s7_4}).
+A narrower 15-row subset focused specifically on agentic spatial reasoning is provided in Table~\ref{tab:spatial_reasoning_benchmark} of §\ref{subsec:p3_s7_3_7}; this subset filters Table~\ref{tab:benchmark_comparison} to image-and-video benchmarks that exercise agentic deployments.
+
+\begin{table*}[!t]
+  \caption{Spatial-reasoning benchmarks surveyed in this chapter, grouped by what they test. \texttt{Number} is the evaluation-set size where the source paper documents one (train / test when both are given, scene counts for simulators, $\sim$ for approximate figures). \texttt{Perspective} marks explicitly designed ego (first-person) and exo (third-person) settings; \textit{Undeclared} marks attributes the source paper does not state. \texttt{Data Source} and \texttt{Task Type} follow the source papers.}
+  \label{tab:benchmark_comparison}
+  \centering
+  \fontsize{9}{10}\selectfont
+  \setlength{\tabcolsep}{1.4mm}
+  \resizebox{\linewidth}{!}{
+  \begin{tabular}{@{}lcccccccc}
+    \toprule
+      \multirow{2}{*}{\textbf{Benchmark}}
+      & \multirow{2}{*}{\textbf{Number}}
+      & \multirow{2}{*}{\textbf{Modality}}
+      & \multicolumn{2}{c}{\textbf{View Type}}
+      & \multicolumn{2}{c}{\textbf{Perspective}}
+      & \multirow{2}{*}{\textbf{Data Source}}
+      & \multirow{2}{*}{\textbf{Task Type}} \\
+      \cmidrule(lr){4-5}
+        \cmidrule(lr){6-7}
+        & &
+        & \textbf{Single} & \textbf{Multi}
+        & \textbf{Ego} & \textbf{Exo}
+        & \\
+    \midrule
+    \rowcolor{lightgrey}\multicolumn{9}{c}{$\bullet$ \textit{Physical Focused Spatial Reasoning}} \\
+    {IntPhys}~\cite{riochet2018intphys} & 15k / 4.3k & 3D   & \checkmark & \crossmark    & \crossmark & \checkmark   & Synthetic    & VoE plausibility\\
+    {IntPhys 2}~\cite{bordes2025intphys2}& 1,416    & 3D   & \checkmark & \crossmark    & \crossmark & \checkmark       & Synthetic    & VoE plausibility\\
+    {Physion}~\cite{Bear2021Physion}  & $\sim$1.2k  & 3D    & \checkmark & \crossmark  & \crossmark & \checkmark   & Synthetic & Physical prediction / choice \\
+    {Physion$++$}~\cite{tung2023physion} & $\sim$10k  & 3D  & \checkmark & \crossmark   & \crossmark & \checkmark  & Synthetic  & Physical prediction / choice\\
+    {Physical Concepts Dataset}~\cite{piloto2020learn}  & 300k    & 3D   & \checkmark & \crossmark   & \crossmark & \checkmark  & Synthetic   & classification\\
+    {Physics-IQ}~\cite{motamed2025generative} & 396  & Video     & \checkmark & \crossmark   & \crossmark & \checkmark  & Real   & Generative physical prediction \\
+    {SPhyR}~\cite{siedler2025sphyr} & 1,296 & Image & \checkmark & \crossmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & Synthetic & Physical prediction / infill \\
+    \hline
+    \rowcolor{lightgrey}\multicolumn{9}{c}{$\bullet$ \textit{Vision-Based Spatial Reasoning}} \\
+    CLEVR \citep{johnson2017clevr} & 853k & Image & \checkmark & \crossmark & \crossmark & \checkmark & Simulation & VQA \\
+    VSR \citep{liu2023visual}& 10,972 & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real & VQA \\
+    What's Up \citep{KamathHC23a}  & $\sim$8,000 & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real & VQA\\
+    RocketScience~\citep{hoehing2025RocketScience} & 482 & Image & \checkmark & \crossmark  & \crossmark & \checkmark & Real & VQA \\
+    SpaRE \citep{abs-2504-20648} & 3.4M & Image &  \checkmark & \crossmark & \crossmark & \checkmark & Real/Sim & VQA \\
+    RealWorldQA~\cite{xai2024grok15v} & 765 & Image & \checkmark & \crossmark & \checkmark & \crossmark & Real & VQA \\
+    3DSRBench~\cite{ma20253dsrbench} & 2,772 & Image & \checkmark  & \crossmark & \crossmark  &  \checkmark & Real/Sim & VQA\\
+    InternSpatial-Bench~\cite{deng2025internspatial} &  6,008 & Image  & \checkmark  & \crossmark & \crossmark  &  \checkmark  & Real & VQA \\
+    OmniSpatial~\cite{jia2025omnispatial} & $\sim$8,400 & Image & \checkmark & \crossmark & \checkmark & \checkmark   &  Real & VQA\\
+    Spatial457~\cite{wang2025spatial457} & 23,752 & Image & \checkmark & \crossmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}}  & Real & VQA\\
+    All-Angles Bench~\cite{yeh2025seeing} & $\sim$2,100 & Image  & \crossmark & \checkmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & Real  & VQA \\
+    EmbSpatial-Bench~\cite{du2024embspatial} & 3,640 & Image & \checkmark  & \crossmark & \checkmark & \crossmark &  Real & VQA \\
+    MMSI-Bench~\cite{yang2025mmsi} & 1,000 & Image & \crossmark & \checkmark  & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} &  Real & VQA\\
+    MindCube~\cite{yin2025spatial} & 21,154 & Image & \crossmark & \checkmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}}  & Simulation  & VQA \\
+    BLINK~\cite{fu2024blink} & 3,807 & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real & VQA \\
+    NuScenes-SpatialQA~\cite{tian2025nuscenesspatialqa} & 3.3M+ & Video & \checkmark  & \checkmark  & \checkmark  & \checkmark  & Real & VQA \\
+    VSI-Bench~\cite{yang2025vsibench} & 5,130 & Video & \checkmark & \crossmark & \checkmark & \crossmark & Real  & VQA\\
+    VLM4D~\cite{zhou2025vlm4d} & $\sim$1,800 & Video & \checkmark & \crossmark &  \checkmark & \checkmark &  Real & VQA \\
+    STI-Bench~\cite{li2025sti} & 2,064 & Video  & \checkmark & \crossmark & \checkmark & \checkmark & Real & VQA\\
+    DSI-Bench~\cite{zhang2025dsi} & $\sim$1,700 & Video  & \checkmark & \crossmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & Real & VQA\\
+    SITE~\cite{wang2025site} & 8,068  & Video & \checkmark & \crossmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & Real/Sim & VQA \\
+    RoboSpatial \citep{SongBTTSB25} & 3M & Image/3D & \checkmark & \crossmark & \checkmark & \crossmark & Real/Sim & VQA \\
+    OSD \citep{cheng2024spatialrgpt} & \textit{Undeclared} & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real & VQA \\
+    SpatialVLM \citep{chen2024spatialvlm} & 2B & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real/Sim & VQA \\
+    ProVision \citep{abs-2412-07012} & 65k & Image & \checkmark & \crossmark & \crossmark & \checkmark & Simulation & VQA \\
+    WhatIsWhere \citep{LiangZZZ16} & 6,000 & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real & VQA \\
+    SURDS~\cite{guo2024surds} & 9,250 & Image & \checkmark & \crossmark & \checkmark & \crossmark & Real & VQA \\
+    EarthSpatialBench~\cite{xu2026earthspatial} & 325k+ & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real & VQA \\
+    PureSpace~\cite{li2026purespace} & 1,200 & Image & \checkmark & \crossmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & Simulation & VQA \\
+    SAT~\cite{ray2024sat} & 175k / 150 & Image & \crossmark & \checkmark & \checkmark & \checkmark & Simulation & VQA \\
+    SpatiaLQA~\cite{xie2026spatialqa} & 9,605 & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real & VQA \\
+    Q-Spatial++~\cite{wang2025svqa} & 101 & Image & \checkmark & \crossmark & \crossmark & \checkmark & Real & VQA \\
+    \hline
+    \rowcolor{lightgrey}\multicolumn{9}{c}{$\bullet$ \textit{3D Focused Spatial Reasoning}} \\
+    ScanQA~\cite{azuma2022scanqa} & 41,363 & 3D & \crossmark & \checkmark & \crossmark & \checkmark & Real (ScanNet) & 3D VQA \\
+    SQA3D~\cite{ma2022sqa3d} & 33,460 & 3D & \checkmark & \crossmark & \checkmark & \crossmark & Real (ScanNet) & 3D VQA \\
+    MMScan QA~\cite{lyu2024mmscan} &  295K & 3D+Image & \checkmark & \checkmark & \crossmark & \checkmark & Real (EmbodiedScan) & 3D VQA \\
+    OpenEQA~\cite{majumdar2024openeqa} & 1,632 & Video/3D & \checkmark & \crossmark & \checkmark & \crossmark & Real (HM3D, ScanNet) & Embodied QA (EM / A splits) \\
+    Space3D-Bench~\cite{szymanska2024space3dbench} & 1,000 & 3D & \checkmark & \crossmark & \checkmark & \crossmark  & Real(Replica) & 3D QA \\
+    Scan2Cap~\cite{chen2021scan2cap} & 39,775 & 3D & \crossmark & \checkmark & \crossmark & \checkmark & Real (ScanNet) & 3D Captioning \\
+    MMScan Captioning~\cite{lyu2024mmscan} & 172k & 3D+Image & \checkmark & \checkmark & \crossmark & \checkmark & Real (EmbodiedScan) & 3D Captioning \\
+    ScanRefer~\cite{chen2020scanrefer} & 51,583 & 3D & \crossmark & \checkmark & \crossmark & \checkmark & Real (ScanNet) & 3D Grounding \\
+    Multi3DRefer~\cite{zhang2023multi3drefer} & 42,735 & 3D & \crossmark & \checkmark & \crossmark & \checkmark & Real (ScanNet) & 3D Grounding \\
+    SR3D~\cite{achlioptas2020referit3d} & 83,572 & 3D & \crossmark & \checkmark & \crossmark & \checkmark & Real (ScanNet) & 3D Grounding \\
+    NR3D~\cite{achlioptas2020referit3d} & 41,503 & 3D & \crossmark & \checkmark & \crossmark & \checkmark & Real (ScanNet) & 3D Grounding \\
+    SpaceEra++~\cite{guan2026spaceera} & 925k & Video/3D & \crossmark & \checkmark & \checkmark & \crossmark & Synthetic & 3D VQA \\
+    Ego3D-Bench~\cite{gholami2025ego3d} & 8,600+ & Image & \crossmark & \checkmark & \checkmark & \crossmark & Real & VQA \\
+    SpatialScore~\cite{wu2025spatialscore} & 28,093 (Hard: 1,400) & Image/3D & \crossmark & \checkmark & \multicolumn{2}{c}{\cellcolor{lightgray}\textit{Undeclared}} & Real/Sim & VQA \\
+    iVISPAR~\cite{mayer2025ivispar} & 300 & 3D Env & \checkmark & \crossmark & \crossmark & \checkmark & Simulation & Interactive reasoning \\
+    \hline
+    \rowcolor{lightgrey}\multicolumn{9}{c}{$\bullet$ \textit{Robot}} \\
+    AI2-THOR~\cite{kolve2017ai2thor} & 120 (Scenes) & 3D Env & \crossmark & \checkmark & \checkmark & \crossmark & Simulation & Nav/Manip \\
+    TDW~\cite{gan2020threedworld} & \textit{Infinite} & 3D Env & \crossmark & \checkmark & \checkmark & \checkmark & Simulation & Physical Sim \\
+    Habitat 2.0~\cite{szot2021habitat2} & 100 (Scenes) & 3D Env & \crossmark & \checkmark & \checkmark & \crossmark & Simulation & Navigation \\
+    iGibson 2.0~\cite{Li2021iGibson2} & 15 (Scenes) & 3D Env & \crossmark & \checkmark & \checkmark & \crossmark & Simulation & Interactive Nav \\
+    Habitat 3.0~\cite{puig2023habitat3} & 211 (Scenes) & 3D Env & \crossmark & \checkmark & \checkmark & \crossmark & Simulation & Social Nav \\
+    R2R~\cite{anderson2018vision} & 21,567 & Image/Path & \crossmark & \checkmark & \checkmark & \crossmark & Real & Navigation \\
+    RxR~\cite{ku2020roomacrossroom} & 126,069 & Image/Path & \crossmark & \checkmark & \checkmark & \crossmark & Real & Navigation \\
+    \bottomrule
+  \end{tabular}
+  }
+\end{table*}
+
+\emph{A modality migration} runs from the top of the table to the bottom: the physical-focused benchmarks rely on synthetic 3D renderings, the vision-based block is image- and video-heavy with growing 3D extensions, the 3D-focused block is built on point clouds and RGB-D scans, and the robot block has moved largely to 3D environments.
+\emph{The Perspective axis is imbalanced}: a large fraction of vision-based benchmarks carry \textit{Undeclared} ego/exo annotations, the physical-focused benchmarks lean exo (a third-person observer judging physical plausibility), and the robot block is entirely ego; the field is migrating from spectator-style observation to situated cognition faster than benchmark annotations record it.
+\emph{The Data-Source spectrum is bifurcated} between predominantly synthetic or simulated (top block and robot block) and predominantly real (middle blocks), with the Real/Sim benchmarks (SpaRE, 3DSRBench, RoboSpatial, SpatialVLM, SITE) as the bridge that the sim-to-real training practice of the opening relies on.
+
+\subsection{Future Directions}
+\label{subsec:p3-sec7-5-future-directions}
+
+\paragraph{Unified Spatial-Cognition Benchmark.}
+No single benchmark in Table~\ref{tab:benchmark_comparison} exercises a model along all of perception fidelity, symbolic precision, memory persistence, and long-horizon action conditioning simultaneously. 
+A unified benchmark covering all four §\ref{sec:reasoning} paradigms (§\ref{sec:p3_s7_1} rule-based, §\ref{sec:p3_s7_2} learning-based, §\ref{sec:p3_s7_3} foundation-model-driven, §\ref{sec:p3_s7_4} hybrid) would close the evaluation-attribution challenge flagged under Challenges and Trends in §\ref{sec:p3_s7_4}.
+
+\paragraph{Cross-Modal Evaluation.}
+The current axes (Modality, View, Perspective, Data Source, Task Type) under-specify the cross-modal demand of contemporary spatial reasoning. 
+Future benchmarks should explicitly probe modality-to-modality transfer (\eg, 2D-trained models evaluated on 3D queries; text-conditioned policies evaluated on video-grounded tasks), so that the modality-mismatch challenge flagged in §\ref{subsec:p3_s7_3_6} (text-vs.-image-vs.-3D retrieval) becomes a first-class evaluation axis rather than a per-paper case study.
+
+\paragraph{Embodied Long-Horizon Coverage.}
+The Robot block in Table~\ref{tab:benchmark_comparison} covers navigation thoroughly but under-represents long-horizon manipulation and multi-room interactive tasks. 
+The §\ref{subsec:p3_s7_3_7} 15-row subset (Table~\ref{tab:spatial_reasoning_benchmark}) further restricts attention to image-and-video benchmarks; the embodied long-horizon suites ALFWorld and VirtualHome (§\ref{subsec:p3_s7_3_4}) and cross-embodiment evaluation on Open X-Embodiment (§\ref{subsec:p3_s7_3_2}) are the nearest existing coverage, and standardizing on them would close the long-horizon-spatiotemporal-coherence challenge flagged under Challenges and Trends in §\ref{subsec:p3_s7_3_7}.
+
+\paragraph{From Descriptive to Interactive Spatial Reasoning.}
+The Task Type column of Table~\ref{tab:benchmark_comparison} is dominated by visual question answering: the overwhelming majority of benchmarks ask a model to \emph{describe} static spatial relations (``where is the object''), and only the small Robot block evaluates reasoning that is conditioned on the agent's own actions.
+Yet the trajectory traced in this chapter, from passive observation to situated interaction, calls for benchmarks that test \emph{interactive} spatial reasoning: predicting how an action changes the spatial state, judging affordances and reachability (``can I fit, reach, or grasp this''), and reasoning counterfactually about manipulation outcomes.
+Such evaluation couples the action-conditioned reasoning of §\ref{subsec:p3_s7_2_5} with the embodied hybrid pipelines of §\ref{sec:p3_s7_4}, extending the descriptive benchmarks surveyed here toward the manipulation- and affordance-grounded settings that embodied deployment ultimately demands.

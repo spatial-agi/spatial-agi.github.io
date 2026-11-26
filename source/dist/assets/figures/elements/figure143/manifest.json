@@ -1,0 +1,333 @@
+{
+  "figure": "14.3",
+  "sources": [
+    "assets/figures/figures/part4/section14/other_cultural_heritage.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1460
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section14/other_cultural_heritage.pdf",
+  "assets": [
+    {
+      "file": "digitize/statue.png",
+      "title": "statue",
+      "panel": "digitize",
+      "size": [
+        1024,
+        1536
+      ],
+      "source_index": 0,
+      "pdf_image_index": 0,
+      "pdf_box": [
+        28.257,
+        89.482,
+        188.383,
+        329.67
+      ],
+      "pdf_source_box": [
+        12.96,
+        41.04,
+        86.4,
+        151.2
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "digitize/statue-mesh.png",
+      "title": "statue mesh",
+      "panel": "digitize",
+      "size": [
+        1024,
+        1536
+      ],
+      "source_index": 0,
+      "pdf_image_index": 1,
+      "pdf_box": [
+        75.353,
+        434.851,
+        232.339,
+        670.33
+      ],
+      "pdf_source_box": [
+        34.56,
+        199.44,
+        106.56,
+        307.44
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-1.png",
+      "title": "fragment 1",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 2,
+      "pdf_box": [
+        372.057,
+        117.739,
+        599.686,
+        345.369
+      ],
+      "pdf_source_box": [
+        170.64,
+        54.0,
+        275.04,
+        158.4
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-2.png",
+      "title": "fragment 2",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 3,
+      "pdf_box": [
+        387.755,
+        117.739,
+        615.385,
+        345.369
+      ],
+      "pdf_source_box": [
+        177.84,
+        54.0,
+        282.24,
+        158.4
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-3.png",
+      "title": "fragment 3",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 4,
+      "pdf_box": [
+        403.454,
+        117.739,
+        631.083,
+        345.369
+      ],
+      "pdf_source_box": [
+        185.04,
+        54.0,
+        289.44,
+        158.4
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-4.png",
+      "title": "fragment 4",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 5,
+      "pdf_box": [
+        372.057,
+        102.041,
+        599.686,
+        329.67
+      ],
+      "pdf_source_box": [
+        170.64,
+        46.8,
+        275.04,
+        151.2
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-5.png",
+      "title": "fragment 5",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 6,
+      "pdf_box": [
+        387.755,
+        102.041,
+        615.385,
+        329.67
+      ],
+      "pdf_source_box": [
+        177.84,
+        46.8,
+        282.24,
+        151.2
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-6.png",
+      "title": "fragment 6",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 7,
+      "pdf_box": [
+        403.454,
+        102.041,
+        631.083,
+        329.67
+      ],
+      "pdf_source_box": [
+        185.04,
+        46.8,
+        289.44,
+        151.2
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-7.png",
+      "title": "fragment 7",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 8,
+      "pdf_box": [
+        372.057,
+        86.342,
+        599.686,
+        313.972
+      ],
+      "pdf_source_box": [
+        170.64,
+        39.6,
+        275.04,
+        144.0
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-8.png",
+      "title": "fragment 8",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 9,
+      "pdf_box": [
+        387.755,
+        86.342,
+        615.385,
+        313.972
+      ],
+      "pdf_source_box": [
+        177.84,
+        39.6,
+        282.24,
+        144.0
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/fragment-9.png",
+      "title": "fragment 9",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 10,
+      "pdf_box": [
+        403.454,
+        86.342,
+        631.083,
+        313.972
+      ],
+      "pdf_source_box": [
+        185.04,
+        39.6,
+        289.44,
+        144.0
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "restore/reassembled-mural.png",
+      "title": "reassembled mural",
+      "panel": "restore",
+      "size": [
+        1254,
+        1254
+      ],
+      "source_index": 0,
+      "pdf_image_index": 11,
+      "pdf_box": [
+        373.626,
+        431.711,
+        632.653,
+        690.738
+      ],
+      "pdf_source_box": [
+        171.36,
+        198.0,
+        290.16,
+        316.8
+      ],
+      "kind": "cutout"
+    },
+    {
+      "file": "discover/forest-canopy.png",
+      "title": "forest canopy",
+      "panel": "discover",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_index": 0,
+      "pdf_image_index": 12,
+      "pdf_box": [
+        695.447,
+        115.123,
+        989.011,
+        310.832
+      ],
+      "pdf_source_box": [
+        318.96,
+        52.8,
+        453.6,
+        142.56
+      ],
+      "kind": "cutout"
+    }
+  ],
+  "frontend": [
+    "Extracted raster artwork is saved as individual PNG plates, grouped by the source figure\u2019s semantic panels. Photo interiors are retained; cutouts have transparent exterior backgrounds.",
+    "All text, formulas, labels, symbols, arrows, borders and vector diagram elements are reserved for independent frontend drawing.",
+    "Only directional arrows will receive the approved white light core and soft blue halo animation. Separators, borders and checkmarks remain static.",
+    "After asset review, rebuild the source figure in the frontend with region-level keyboard and pointer interaction, white-mask focus and English popovers."
+  ]
+}

@@ -1,0 +1,101 @@
+
+\subsection{Scene Flow Estimation}
+\label{sec:scene_flow}
+Scene flow is the dense three-dimensional motion of every visible surface point between two instants: optical flow lifted out of the image plane and joined to the change in depth. The image-based pipelines surveyed here take stereo video, monocular video, or a multi-view sequence and produce per-pixel 3D motion; some refinement modules additionally consume estimated or measured depth. Dynamic scene reconstruction~\cite{park2021nerfies}, motion-aware rendering~\cite{li2021neural}, physical interaction modeling~\cite{Bear2021Physion}, and egocentric world understanding~\cite{grauman2022ego4d} all consume it.
+
+\subsubsection{Task Definition}
+Given consecutive frames $I_t$ and $I_{t+1}$ (optionally with a stereo partner or several views, and with intrinsics and relative poses when known), scene flow estimation returns a field $\mathbf{v}(\mathbf{x}) \in \mathbb{R}^3$ that displaces the surface point imaged at pixel $\mathbf{x}$ in frame $t$ to its position at $t+1$, in camera or world coordinates. In the stereo setting this is equivalently a triple $(d_t, d_{t+1}, \mathbf{f})$ of disparity in both frames plus optical flow, which is how the KITTI benchmark represents and scores it. In image-only pipelines, structure and motion are inferred from appearance, parallax, and temporal correspondence. Geometry-aware refinement modules may instead take depth estimated upstream or measured by RGB-D sensors; point-cloud-only methods are outside the scope here.
+
+\subsubsection{Methodology}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section6/scene_flow_estimation.pdf}
+    \caption{Image- and video-based scene flow. Top row: observation settings and supervision signals. Bottom row: (1) variational / piecewise-rigid energy minimization, (2) stereo and temporal CNNs, (3) recurrent SE(3) refinement with image and depth pairs, (4) monocular estimation using photometric and geometric constraints, and (5) related motion-field approaches to dynamic view synthesis. The columns illustrate distinct mechanisms rather than successive stages of one pipeline.}
+    \label{fig:p3_s6_4_3_method_overview}
+\end{figure}
+
+Methods differ along two axes: what they observe (stereo, the classical and still dominant setting; monocular video, the self-supervised frontier; multi-view rigs) and what supervises them (synthetic ground truth, photometric and geometric consistency, or view synthesis). Figure~\ref{fig:p3_s6_4_3_method_overview} groups them into five families along these axes.
+
+\paragraph{Variational and energy-based methods.}
+\citet{vedula1999three} introduced the term and the problem: recover 3D structure and 3D motion jointly from a calibrated camera array. \citet{huguet2007variational} formulated it using stereo image pairs at two consecutive times, solving disparity and flow jointly in one variational energy; \citet{wedel2011stereoscopic} decoupled the two into a stereo stage and a flow stage, which made real-time estimation feasible; and \citet{basha2013multi} returned to multi-view input under a view-centered energy. The strongest classical formulation is the piecewise-rigid scene model of \citet{vogel20153d} (PRSF/PRSM), which segments the scene into rigidly moving planar patches and was the leading entry on KITTI Scene Flow at the benchmark's release.
+
+\paragraph{End-to-end stereo and temporal CNNs.}
+\citet{mayer2016large} recast disparity and flow as supervised regression (DispNet, FlowNet) and released FlyingThings3D, Monkaa, and Driving, the synthetic corpora that made this training regime possible. SENSE~\cite{jiang2019sense} shares one encoder across disparity, optical flow, occlusion, and semantic heads; DRISF~\cite{ma2019deep} keeps the piecewise-rigid prior of Vogel \etal\ but implements it as an instance-level decoder over learned features. DRISF surpassed both listed variational baselines on KITTI Scene Flow, while SENSE improved on OSF but not PRSM (Table~\ref{tab:scene_flow_performance}), shifting the bottleneck from optimization to supervised data.
+
+\paragraph{Recurrent geometric refinement.}
+RAFT~\cite{teed2020raft} introduced all-pairs correlation volumes with GRU-based iterative updates for 2D optical flow; RAFT-3D~\cite{teed2021raft} uses image and depth pairs to iteratively refine a per-pixel SE(3) field with rigid-motion embeddings. Depth can be obtained from stereo or RGB-D input; it is an input to the refinement rather than necessarily inferred jointly from appearance. Its scene-flow results are included in Table~\ref{tab:scene_flow_performance}.
+
+\paragraph{Monocular and self-supervised methods.}
+Mono-SF~\cite{brickwedde2019mono} was the first monocular entry on KITTI Scene Flow, resolving scale with a learned single-view depth prior. Self-Mono-SF~\cite{hur2020self} jointly predicts disparity and scene flow with a single decoder, using unlabeled stereo video during training and monocular image pairs at test time; stereo geometry provides the scale cue, while photometric and 3D consistency losses provide self-supervision. A separate test-time optimization approach for LiDAR point clouds (Neural Scene Flow Prior~\cite{li2021neuralsfp}) lies outside the image-based scope of this subsection.
+
+\paragraph{Implicit-field and view-synthesis-coupled methods.}
+A parallel line never targets scene flow as output but obtains a dense 4D motion field as a byproduct of dynamic view synthesis. Neural Scene Flow Fields~\cite{li2021neural} trains a dynamic NeRF together with an explicit scene-flow MLP; D-NeRF~\cite{pumarola2021d} represents motion as a deformation field into a canonical frame; Nerfies~\cite{park2021nerfies} extends this to casually captured monocular video; and 4D Gaussian Splatting~\cite{wu20244d} attaches time-parameterized motion to explicit Gaussian primitives. These methods are evaluated by rendering quality rather than by motion error, a split returned to under Challenges below.
+
+\subsubsection{Datasets and Metrics}
+
+Table~\ref{tab:scene_flow_datasets} lists the image-based benchmarks. Synthetic sets provide dense, exact ground truth at scale (FlyingThings3D as the standard pretraining corpus; Sintel and Spring for film-grade motion, with Spring at HD resolution and super-resolved ground truth; TartanAir for environment diversity), while KITTI Scene Flow 2015~\cite{menze2015object}, built on the KITTI suite~\cite{KITTI-GeigerLU12}, is the only real-world benchmark and carries sparse LiDAR-derived labels on 200 training and 200 test scenes. LiDAR-based scene-flow splits of nuScenes~\cite{caesar2020nuscenes}, Waymo Open~\cite{WaymoOpen-SunKDCPTGZCCVHN20}, and Argoverse~2~\cite{wilson2023argoverse}, and the event-camera flow of DSEC~\cite{gehrig2021dsec}, serve the point-cloud and event communities and are not image-based benchmarks in the sense used here.
+
+\begin{table}[t]
+\centering
+\fontsize{9}{11}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\caption{Image-based scene-flow benchmarks. Counts are indicative of the commonly used releases.}
+\label{tab:scene_flow_datasets}
+\begin{tabular}{L{0.26\textwidth} c C{0.10\textwidth} C{0.11\textwidth} C{0.14\textwidth} L{0.24\textwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Year} & \textbf{Type} & \textbf{Input} & \textbf{Scale} & \textbf{Ground truth} \\
+\midrule
+KITTI Scene Flow 2015~\cite{menze2015object} & 2015 & Real driving & Stereo video & 200 train / 200 test scenes & Sparse disparity ($t$, $t{+}1$) + flow from LiDAR and CAD fits \\
+FlyingThings3D / Monkaa / Driving~\cite{mayer2016large} & 2016 & Synthetic & Stereo video & $\sim$25K / 8.6K / 4.4K frames & Dense disparity, flow, disparity change \\
+MPI Sintel~\cite{sintel} & 2012 & Synthetic film & Stereo video & 1,041 train frames, 23 seq. & Dense flow, depth, disparity \\
+Spring~\cite{Spring} & 2023 & Synthetic film & Stereo video & $\sim$6K frames, 47 seq., 1920$\times$1080 & Dense stereo, flow, scene flow (super-resolved) \\
+TartanAir~\cite{TartanAir} & 2020 & Synthetic & Stereo video & $>$1M frames, 30 environments & Dense depth, flow, pose; indoor and outdoor, weather \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+KITTI scores scene flow in image space. A pixel's disparity in frame $t$ (D1), its disparity in frame $t{+}1$ (D2), and its optical flow (Fl) are each counted as outliers when the error exceeds both 3\,px and 5\% of the ground-truth value, and a scene-flow outlier (SF) is any pixel that fails at least one of the three; the benchmark reports outlier percentages over all pixels and separately over background and foreground. Point-level evaluation on synthetic data instead uses the 3D end-point error
+\begin{equation}
+    \mathrm{EPE}_{3D} = \frac{1}{N} \sum_{i=1}^{N} \| \hat{\mathbf{v}}_i - \mathbf{v}_i \|_2,
+\end{equation}
+with $\hat{\mathbf{v}}_i$ and $\mathbf{v}_i$ the predicted and true motion of point $i$, together with accuracy ratios at fixed thresholds (the fraction of points with error below 0.05\,m or 5\%, and below 0.1\,m or 10\%) and an outlier ratio (error above 0.3\,m or 10\%), conventions inherited from point-cloud scene flow.
+
+Table~\ref{tab:scene_flow_performance} collects KITTI Scene Flow 2015 test results for the explicit-output families. RAFT-3D reduces SF-all error from 8.97\% (PRSM) to 5.77\%; the table does not separate foreground and background results. The monocular rows are a different regime: Mono-SF, with a learned depth prior, sits at 23\% SF-all, and Self-Mono-SF without any ground truth at 49.5\% (33.9\% after fine-tuning), the price of giving up stereo. The implicit-field family has no row because it reports rendering quality (PSNR, LPIPS) on its own scene sets rather than motion error.
+
+\begin{table}[!t]
+    \centering
+    \fontsize{9}{11}\selectfont
+    \setlength{\tabcolsep}{2.2mm}
+    \caption{KITTI Scene Flow 2015 test set, outlier percentages (lower is better) over all pixels. Stereo rows from the RAFT-3D comparison~\cite{teed2021raft}; monocular rows from the Mono-SF~\cite{brickwedde2019mono} and Self-Mono-SF~\cite{hur2020self} papers (``ft'' = fine-tuned on KITTI). D1 / D2: disparity in frames $t$ / $t{+}1$; Fl: optical flow; SF: scene flow.}
+    \label{tab:scene_flow_performance}
+    \begin{tabular}{L{0.30\textwidth} L{0.26\textwidth} C{0.07\textwidth} C{0.07\textwidth} C{0.07\textwidth} C{0.07\textwidth}}
+    \toprule
+    \textbf{Method} & \textbf{Family} & \textbf{D1-all} & \textbf{D2-all} & \textbf{Fl-all} & \textbf{SF-all} \\
+    \midrule
+    \rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \textit{Stereo}}\\
+    OSF~\cite{menze2015object}          & Energy-based, rigid objects   & 5.79 & 7.77 & 7.83 & 10.23 \\
+    PRSM~\cite{vogel20153d}             & Energy-based, piecewise rigid & 4.27 & 6.79 & 6.68 & 8.97 \\
+    SENSE~\cite{jiang2019sense}         & Shared-encoder CNN            & 2.22 & 5.89 & 7.64 & 9.55 \\
+    DRISF~\cite{ma2019deep}             & CNN + rigid instances         & 2.55 & 4.04 & 4.73 & 6.31 \\
+    RAFT-3D~\cite{teed2021raft}         & Recurrent SE(3) refinement    & 1.81 & 3.67 & 4.29 & 5.77 \\
+    \midrule
+    \rowcolor{lightgrey} \multicolumn{6}{l}{$\bullet$ \textit{Monocular}}\\
+    Mono-SF~\cite{brickwedde2019mono}   & Learned depth prior           & 16.32 & 19.59 & 12.77 & 23.08 \\
+    Self-Mono-SF~\cite{hur2020self}     & Self-supervised               & 34.02 & 36.34 & 23.54 & 49.54 \\
+    Self-Mono-SF-ft~\cite{hur2020self}  & Semi-supervised, ft           & 22.16 & 25.24 & 15.91 & 33.88 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Challenges}
+
+The supervision landscape is lopsided. Every dense-ground-truth benchmark in Table~\ref{tab:scene_flow_datasets} is synthetic and stereo, so monocular methods are scored only against KITTI's sparse labels, and models pretrained on FlyingThings3D or Sintel still lose accuracy on real driving footage after fine-tuning, most visibly on foreground motion where synthetic random-object trajectories differ from vehicle kinematics. All current benchmarks also emphasize rigid or random-object motion; dense ground truth for non-rigid humans, hands, and animals does not exist at scale, which leaves the family of implicit-field methods that handle such motion best without a quantitative yardstick.
+
+That yardstick problem is the second challenge. Explicit-output methods~\cite{vogel20153d,jiang2019sense,teed2021raft} are scored by KITTI's outlier rates; implicit-field methods~\cite{li2021neural,pumarola2021d,wu20244d} by PSNR and LPIPS of rendered views. No protocol evaluates both on the same input, so the two paradigms are compared only qualitatively, and whether a motion field is good depends on whether scene flow is the end (the KITTI leaderboard) or a means (reconstruction, novel-view synthesis, physical reasoning). The cost profiles diverge as well: RAFT-3D needs several GRU iterations per frame, variational methods minutes per frame, and implicit fields minutes to hours per scene.
+
+Foundation priors are reshaping the monocular line. Depth Anything~\cite{DepthAnything} and DINOv2~\cite{dinov2} supply the per-pixel depth and semantic features that Self-Mono-SF had to learn from scratch, and SAM~2~\cite{ravi2024sam2} segmentation together with the object-pose estimators of Section~\ref{sec:object_pose} makes an object-centric formulation (a per-object SE(3) trajectory plus residual non-rigid motion) practical, a bridge to the tracking problem of Section~\ref{sec:object_tracking}. As implicit-field scene flow merges into 4D reconstruction, with 4D Gaussian Splatting~\cite{wu20244d} the early example, evaluation is likely to follow the downstream task rather than the KITTI leaderboard.
+% TODO: anchor §8.x once §8 reconstruction subsections stabilize
+
+
+

@@ -1,0 +1,82 @@
+{
+  "figure": "9.18",
+  "sources": [
+    "assets/figures/figures/part4/section9/aerial_navigation.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      851
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/aerial_navigation.pdf",
+  "assets": [
+    {
+      "file": "observations/uav-view.png",
+      "title": "uav view",
+      "panel": "observations",
+      "size": [
+        1086,
+        469
+      ],
+      "source_index": 0,
+      "source_box": [
+        20.0,
+        505.0,
+        415.0,
+        675.0
+      ],
+      "box": [
+        10.0,
+        252.5,
+        207.5,
+        337.5
+      ],
+      "kind": "photo",
+      "pdf_image_index": 0,
+      "pdf_box": [
+        9.419,
+        253.408,
+        207.221,
+        338.831
+      ],
+      "placement_confidence": 0.9371
+    },
+    {
+      "file": "flight-plan/topdown-building.png",
+      "title": "topdown building",
+      "panel": "flight-plan",
+      "size": [
+        434,
+        516
+      ],
+      "source_index": 0,
+      "source_box": [
+        1360.0,
+        260.0,
+        1655.0,
+        610.0
+      ],
+      "box": [
+        680.0,
+        130.0,
+        827.5,
+        305.0
+      ],
+      "kind": "photo",
+      "pdf_image_index": 1,
+      "pdf_box": [
+        679.749,
+        130.416,
+        827.316,
+        305.864
+      ],
+      "placement_confidence": 0.9545
+    }
+  ],
+  "frontend": [
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

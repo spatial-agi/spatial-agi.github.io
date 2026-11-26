@@ -1,0 +1,36 @@
+\chapter{Conclusion}
+\label{chapter:p5_conclusion}
+
+
+% \lettrine[lines=3]{\initfamily\textcolor{darkgreen}{C}}{onclusion}
+% Vision-based ranger involves leveraging geometric principles to calculate distance.
+% A vision-based ranger could use one or multiple cameras.
+% The monocular camera ranger requires prior knowledge (\eg the size of a reference object), and can only estimating in a rough distance.
+
+\FramedInitial{P}{oincar\'e} wrote in 1902 that to localize an object is to represent to ourselves the movements needed to reach it, and this handbook opened with that sentence.
+The work surveyed here supports his view, as the systems that act most reliably are those whose representations are most closely tied to prediction and action, and their main weakness is keeping those representations consistent over time.
+
+This handbook set out to provide a common map of a fragmented field, reading work from SLAM and computer vision to geographic information science and the cognitive science of space through the representations each of them constructs.
+Part~I traced five eras of spatial representation and proposed a definition in which a system and its environment are coupled through a world-centered representation that perception writes, action reads, reasoning and prediction operate on, and the update $\Psi_{\mathcal{S}}$ keeps current.
+Parts~II to~IV followed these functions to the state of the art.
+In the terms of Chapter~\ref{chapter:definition}, different communities built different parts of this loop: vision and graphics the representation, robotics the operators that act on it, SLAM an update with geometric guarantees; few systems close the entire loop.
+
+Part~V located the open problems mainly at the junctions between these parts.
+The grocery-handling robot introduced at the beginning of this part fails when its perception, memory, prediction, and action cease to agree about the kitchen, even though each capability works in isolation.
+Chapter~\ref{chapter:p5_discussions} asked what such a shared state must provide to be usable: what can be identified from limited evidence, what must be represented, how beliefs are kept current, when predictions can be trusted, and how knowledge is acquired through interaction in space shared with others.
+Chapter~\ref{chapter:p5_challenges} showed the same state failing to persist in research systems, rarely measured by benchmarks, and kept manageable in deployment only by restricting the world, and stated directions for closing these gaps as hypotheses that can be tested.
+
+The preface posed four questions without claiming final answers, and Part~V suggests provisional ones.
+A system is spatially intelligent, beyond its performance on particular tasks, when it maintains a world state that stays consistent as it moves and acts and that can serve tasks it was not designed for.
+Geometric, semantic, and commonsense structure integrate best when each part of the state is stored according to how long it must persist and whether it must be inspected, and modalities as different as pixels, point clouds, language, and audio contribute as complementary constraints on one underdetermined state, each resolving ambiguities the others leave open; registering views in a common frame before language is involved appears to be the most promising route to cross-view alignment, though whether it closes the gap remains to be shown.
+Spatial knowledge is most likely to transfer between environments when it is anchored in nested frames, from objects to rooms to maps.
+Planning and action emerge from spatial understanding through prediction that is tested under intervention and through a loop in which the agent keeps observing and correcting.
+Genuine progress shows in how well a system gathers evidence, keeps its beliefs current, and uses them, more than in its answers to static questions.
+
+Chapter~\ref{chapter:definition} called its definition a definition in motion, and Part~V suggests three revisions to it.
+The definition refers to a single system $\mathcal{S}$, whereas deployed systems increasingly share spaces and world states with other agents and with people, so it requires a plural form.
+It requires the representation to support perception, reasoning, prediction, and action, and deployment adds the requirement that planners, regulators, and the people it describes can inspect it.
+It admits social settings only as a property of the environment, whereas Chapter~\ref{chapter:p5_discussions} argued that people belong in the state itself, with their positions, viewpoints, and beliefs predicted and respected alongside walls and doors.
+
+As the preface anticipated, some of the systems discussed in this handbook will soon be superseded, and some of the positions taken here will need revision as new evidence arrives.
+We hope that a clear account of the open problems makes that revision easier, and that the next account of spatial intelligence finds more of the loop closed.

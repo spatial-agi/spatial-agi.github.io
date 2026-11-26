@@ -1,0 +1,20 @@
+{
+  "figure": "9.13",
+  "sources": [
+    "assets/figures/figures/part4/section9/wearable_behavior.webp"
+  ],
+  "source_sizes": [
+    [
+      2000,
+      1908
+    ]
+  ],
+  "source_pdf": "Spatial_Intelligence_Book_2025_v14/figures/part4/section9/wearable_behavior.pdf",
+  "assets": [],
+  "frontend": [
+    "Waveforms, body skeletons, graph nodes, forecast poses, temporal tokens and every connector are independent frontend geometry; no raster plates are embedded in this original.",
+    "Pictorial PNGs come from clean embedded source artwork, without the overlaid figure labels, formulas, frames, arrows or plotted annotations.",
+    "All text, formulas, borders, arrows, chart axes, sensor symbols and schematic lines will be separate frontend elements. Formulas use Cambria Math with source-matched italics.",
+    "Cutouts use transparent backgrounds; photographs preserve the rectangular scene content. Original placement is recorded in source pixels, separately from PDF placement."
+  ]
+}

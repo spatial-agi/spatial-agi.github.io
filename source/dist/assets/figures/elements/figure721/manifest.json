@@ -1,0 +1,57 @@
+{
+  "figure": "7.21",
+  "source": "assets/figures/figures/part3/section7/LLM_VLM-centric_spatial_reasoning.webp",
+  "source_size": [
+    2000,
+    1000
+  ],
+  "assets": [
+    {
+      "file": "scene/book.png",
+      "title": "Book",
+      "source_box": [
+        72,
+        563,
+        240,
+        647
+      ],
+      "size": [
+        168,
+        84
+      ]
+    },
+    {
+      "file": "scene/lamp.png",
+      "title": "Lamp",
+      "source_box": [
+        271,
+        471,
+        364,
+        639
+      ],
+      "size": [
+        93,
+        168
+      ]
+    },
+    {
+      "file": "scene/cup.png",
+      "title": "Cup",
+      "source_box": [
+        414,
+        551,
+        503,
+        634
+      ],
+      "size": [
+        89,
+        83
+      ]
+    }
+  ],
+  "frontend": [
+    "Inputs: independently draw text-description box, scene highlight, table, query, and optional evidence boxes.",
+    "Reasoning core: draw pretrained model box, four complementary strategy groups, all labels and arrows.",
+    "Outputs: draw answer and relation formula, task outputs, evaluation category boxes and separators."
+  ]
+}

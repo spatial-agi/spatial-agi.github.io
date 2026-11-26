@@ -1,0 +1,59 @@
+
+
+\chapter{Spatial Reconstruction and Generation}
+\label{sec:generation}
+
+
+\FramedInitial{S}{patial} reconstruction and generation is the productive counterpart to spatial perception and reasoning: rather than analyzing a scene that is given, it synthesizes spatial content, recovering or creating the geometry, appearance, and dynamics of objects, scenes, and worlds from conditions such as text, images, partial observations, or explicit constraints.
+Where perception (Chapter~\ref{chapter:3:sec:6}) maps observations into structured spatial representations and reasoning (Chapter~\ref{sec:reasoning}) draws inferences over them, generation closes the loop by mapping intent back into concrete spatial artifacts, a capability central to embodied agents, content creation, simulation, and world modeling.
+
+The chapter is organized along an axis of increasing output structure and dimensionality, from flat images to volumetric objects and scenes, to video, embodied motion, and full four-dimensional space-time content, and finally to world models and to programmatic generation that emits interpretable, executable structure. What holds this range together is a single recurring backbone: an encoder maps conditions into a latent, a generator samples structure, and a decoder or renderer produces the final artifact, specialized to each output domain. Read this way, the subfields are less seven separate problems than one conditional-generation abstraction instantiated against progressively richer codomains.
+
+\input{part_3/section_8/p3_sec8_1}
+% \newpage
+\input{part_3/section_8/p3_sec8_2}
+% \newpage
+\input{part_3/section_8/p3_sec8_3}
+% \newpage
+\input{part_3/section_8/p3_sec8_4}
+% \newpage
+\input{part_3/section_8/p3_sec8_5}
+% \newpage
+\input{part_3/section_8/p3_sec8_6}
+% \newpage
+\input{part_3/section_8/p3_sec8_7}
+
+
+\section{Summary and Outlook}
+\label{sec:p3_s8_8}
+
+This chapter has surveyed spatial reconstruction and generation across seven subfields that, taken together, span an axis of increasing output structure and dimensionality: 2D images (§\ref{sec:p3_s8_1}), 3D objects and scenes (§\ref{sec:p3_s8_2}), video (§\ref{sec:p3_s8_3}), embodied motion (§\ref{sec:p3_s8_4}), 4D space-time content (§\ref{sec:p3_s8_5}), world models (§\ref{sec:p3_s8_6}), and interpretable symbolic programs (§\ref{sec:p3_s8_7}). Despite their different output domains, the subfields are unified by a single conditional-generation backbone, established in §\ref{subsec:p3_s8_1_1}: an encoder $\kappa$ maps a condition $\mathbf{c}$ into a latent code, a generator $G_\theta$ samples structure from that code, and a decoder or renderer turns the sampled structure into a concrete artifact (Eq.~\eqref{eq:t2i_autoencoder}, Eq.~\eqref{eq:t2i_generator}). What distinguishes the subfields is not this backbone but the \emph{output space} and the \emph{decoder} that closes it: a pixel decoder for images, a volumetric or splatting renderer for 3D, a spatio-temporal decoder for video, a kinematic sampler for motion, a time-indexed 3D representation for 4D, a state-transition predictor for world models, and an exact, non-learned program executor for symbolic generation. Table~\ref{tab:p3_s8_chapter_comparison} consolidates this view.
+
+\begin{table}[t]
+\centering
+\caption{The seven spatial-generation subfields of this chapter, all instances of the conditional latent-generator backbone of §\ref{subsec:p3_s8_1_1}.}
+\label{tab:p3_s8_chapter_comparison}
+\fontsize{8}{10}\selectfont
+\setlength{\tabcolsep}{1.0mm}
+\begin{tabular}{L{0.17\textwidth} L{0.20\textwidth} L{0.33\textwidth} L{0.22\textwidth}}
+\toprule
+\textbf{Subfield} & \textbf{Output space} & \textbf{Dominant paradigms} & \textbf{Decoder / renderer} \\
+\midrule
+§\ref{sec:p3_s8_1} 2D image & Pixel grid (raster) & GAN; autoregressive; latent diffusion; flow matching & Learned pixel decoder \\
+§\ref{sec:p3_s8_2} 3D object/scene & Mesh / NeRF / 3DGS / latent & Native 3D diffusion; score distillation; multi-view lift; feed-forward reconstruction & Differentiable / volumetric renderer \\
+§\ref{sec:p3_s8_3} Video & Frame sequence (clip latent) & Inflated T2I backbones; spatial / temporal control; editing & Spatio-temporal decoder \\
+§\ref{sec:p3_s8_4} Motion & Pose / trajectory sequence & Regression; diffusion samplers; editing operators & Kinematic / skeletal decoder \\
+§\ref{sec:p3_s8_5} 4D & Time-indexed 3D representation & Score distillation; generate-then-reconstruct & Deformable / per-frame renderer \\
+§\ref{sec:p3_s8_6} World model & Latent state / future observations & Representation; generative; mental world models & Latent transition / observation predictor \\
+§\ref{sec:p3_s8_7} Symbolic program & Executable program in a language $\mathcal{L}$ & Procedural grammars; SGP/DSL; LLM program synthesis & Deterministic, non-learned executor \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{A shared backbone, specialized by output space.} The progression from §\ref{sec:p3_s8_1} to §\ref{sec:p3_s8_7} is best read not as seven disjoint problems but as one generative abstraction instantiated against progressively richer codomains, and each section casts its own subtasks as conditional specializations of that common sampler. The symbolic case (§\ref{sec:p3_s8_7}) is the limiting instance in which the decoder degenerates to an exact program executor, trading the expressiveness of a learned renderer for interpretability and verifiable control.
+
+\textbf{The 2D prior as a reusable engine.} The image generators of §\ref{sec:p3_s8_1} recur throughout the chapter not as terminal systems but as priors to be distilled or lifted: 3D synthesis distills frozen 2D diffusion through score distillation and multi-view consistency (§\ref{sec:p3_s8_2}), video models inflate text-to-image backbones along the temporal axis (§\ref{sec:p3_s8_3}), and 4D pipelines compose both (§\ref{sec:p3_s8_5}). A single advance in the 2D substrate therefore propagates outward across every higher-dimensional subfield, which concentrates research leverage but also propagates the substrate's failure modes.
+
+\textbf{Physical plausibility and fragmented evaluation.} Across subfields, the recurring failure mode is not low visual fidelity but violated physics and geometry, manifest as multi-view inconsistency in 3D, temporal drift and flicker in video, foot-skating and interpenetration in motion, and dynamic implausibility in 4D. Evaluation remains correspondingly fragmented: each subfield has evolved its own metric tuples, and all are migrating toward learned and vision-language-model judges as scalar similarity scores prove insufficient for spatially structured output. A unified, physically grounded evaluation protocol that spans these subfields remains an open goal.
+
+\textbf{Outlook.} These observations point toward convergence rather than further fragmentation. World modeling (§\ref{sec:p3_s8_6}) already acts as a conceptual capstone that absorbs reconstruction, generation, and dynamics into a single predictive substrate, while programmatic and symbolic generation (§\ref{sec:p3_s8_7}) supplies the controllability and interpretability that purely neural pipelines lack; their integration, neural generators steered and verified by symbolic structure, is a natural trajectory for the field. The capabilities surveyed here also form the generative substrate for the applications of Part~\ref{part:applications}, where embodied agents, digital twins, and interactive environments consume generated spatial content rather than producing it for its own sake.

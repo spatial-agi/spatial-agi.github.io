@@ -1,0 +1,102 @@
+\subsection{World-Model-based Spatial Reasoning}
+\label{subsec:p3_s7_3_8}
+
+
+% Test-Time Scaling with World Models for Spatial Reasoning
+% When and How Much to Imagine: Adaptive Test-Time Scaling with World Models for Visual Spatial Reasoning
+% From 2D to 3D Cognition: A Brief Survey of General World Models
+% Vagen: Reinforcing world model reasoning for multi-turn vlm agents
+% Scaling and Beyond: Advancing Spatial Reasoning in MLLMs Requires New Recipes
+% SpatialDreamer: Incentivizing Spatial Reasoning via Active Mental Imagery
+% Think with 3D: Geometric Imagination Grounded Spatial Reasoning from Limited Views
+
+
+
+% 在这里想要重新梳理一下应该描述的内容：
+% 在这个章节中更想强调的是如何使用world model as a tool来实现spatial reasoning task，而不是去讨论world model本身的训练和发展。也就是说，world model是一个工具，spatial reasoning task是一个目标。我们要定义的是如何用这个工具去实现这个目标。
+% 并且需要在文中也要提到的是，world model的具体构建和训练是在后续的章节8.6 World Modeling中
+
+% world 作为一个工具其核心的能力就是模拟了世界，因此能够在spatial reasoning过程中提供一些反馈，这个反馈可以是多种形式的，比如生成未来的图片，或者是生成未来的状态，或者是生成未来的动作序列。然后这些反馈可以被用来提升spatial reasoning。
+% 另外，world model 也可以得到 latent representation，比如利用JEPA得到的 latent representation，这些latent representation也可以被用来提升spatial reasoning。
+
+
+A world model is a neural simulator of how world states transition, conditioned on an agent's actions and/or external multi-modal context.
+Trained on large-scale episode trajectories, it acquires a generalizable, latent model of environment dynamics.
+This subsection treats that model as a \emph{tool}: the object of study is the spatial-reasoning task, and the world model is the instrument used to solve it.
+Its defining capability is that it \emph{simulates} the world and can therefore return a predictive feedback signal, a rollout of imagined futures or a dynamics-aware latent, that a reasoner consumes to answer a spatial query or to plan.
+We accordingly organize the discussion by \emph{how the world model is queried and what feedback it returns}, rather than by how it is built.
+The complementary question of how world models are themselves constructed, trained, and scaled is the subject of §\ref{sec:worldmodeling} (World Modeling); here we take a pretrained world model as given.
+Figure~\ref{fig:p3_s7_3_8_world_model_formulation} schematizes this tool-use formulation; its two usage modes, understanding-oriented and planning-oriented, cut across the feedback forms surveyed below.
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=0.99\linewidth]{figures/part3/section7/world_model_based_spatial_reasoning.pdf}
+    \caption{World-model-based spatial reasoning read as tool use: (i) a spatial query $q$ with context $c$ and optional actions $a_{0:T-1}$; (ii) a pretrained world model (constructed and trained as in §\ref{sec:worldmodeling}) whose predictive feedback $f$ takes four possibly overlapping forms, namely (a) future observations, (b) future states, (c) action-conditioned trajectories, and (d) predictive latents; and (iii) a readout $y=g(c,f)$ that gives an inferred relation (understanding) or a selected plan (planning). The robot scenes are illustrative, not experimental observations.}
+    \label{fig:p3_s7_3_8_world_model_formulation}
+\end{figure}
+
+\subsubsection{Task Definition}
+% 这里应该是定义world model如何帮助spatial reasoning task，而不是什么是world model。也就是说，world model是一个工具，spatial reasoning task是一个目标。我们要定义的是如何用这个工具去实现这个目标。
+
+The task addressed in this subsection is spatial reasoning itself:
+given a query $q$ about a scene together with the available context $c$ (a textual description, one or more observations, or a scene specification), a reasoner must produce a spatial answer $y$, either an inferred spatial property $o$ (\eg, a relation, a structure, or a physical attribute) or a plan / policy $\pi$ that acts on the scene.
+What distinguishes the methods surveyed here is \emph{how} they arrive at $y$: rather than mapping $c$ to $y$ in a single feed-forward pass, the reasoner consults a \emph{world model} as an auxiliary instrument that can imagine how the scene would look or evolve, and reasons over that imagined evidence.
+Concretely, the world model is a pretrained simulator exposing a distribution
+$\mathbb{P}(s_0, s_1, \dots, s_T \mid a_0, a_1, \dots, a_{T-1}, c)$
+over world states $s_t$, or over their partial observations $\operatorname{proj}(s_t)$ when full states are unavailable, optionally conditioned on an action sequence $\left\{a_t\right\}_{t=0}^{T-1}$ (null when the model is action-free).
+A world-model-based reasoner treats $\mathbb{P}$ as a queryable tool: given the query, it (i) conditions $\mathbb{P}$ on the context $c$ and, when planning, on a candidate action sequence; (ii) draws predictive feedback $f$ from $\mathbb{P}$, a rollout of future observations, future states, or action-conditioned trajectories, or a dynamics-aware latent; and (iii) applies a readout $g$ that maps the feedback back to the spatial answer, $y = g(c, f)$.
+The world model supplies the imagined evidence $f$, but producing the spatial answer $y$ remains the objective, and the fidelity of $f$ bounds how much the world model can help.
+
+
+
+
+
+\subsubsection{Methodology}
+
+We treat the world model as a pretrained instrument and organize methods by \emph{the form of predictive feedback it returns} to the reasoner.
+Two families emerge: \emph{generative feedback}, in which the model is rolled out to synthesize explicit futures that the reasoner inspects, and \emph{latent-representation feedback}, in which the model's dynamics-aware embedding is consumed directly without decoding; the understanding-versus-planning distinction cuts across both.
+
+\paragraph{Generative Feedback via Future Observations.}
+The most direct use of a world model is to synthesize future or counterfactual \emph{pixels} and read spatial evidence off them, an analysis-by-synthesis strategy in which the reasoning outcome $o$ (a spatial relationship, structure, or physical property) is whatever best reproduces the observed or imagined imagery under $\mathbb{P}$.
+Predating deep generative models, Galileo~\cite{wu2015galileo} instantiates this idea with a physics engine in place of a neural simulator: it tracks object velocities across raw videos and recovers 3D shape, mass, and friction as the parameters that best reproduce the observed motion, so that the projected state $\operatorname{proj}(s_t)$ is the object velocity $v_t$ and the videos themselves define the transition distribution $\mathbb{P}(v_0, \dots, v_T \mid c)$.
+Modern instances replace the engine with an Internet-scale image or video diffusion prior: DragAPart~\cite{li2024dragapart}, Puppet-Master~\cite{li2024puppetmaster}, ATOP~\cite{vora2025articulate}, and DreamArt~\cite{lu2025dreamart} fine-tune such priors into articulation simulators $\mathbb{P}(I_0, \dots, I_T \mid c)$ whose frames $I_t = \operatorname{proj}(s_t)$ render an articulated object under a hypothesized configuration, and recover the 3D articulation (\eg, its motion axes) by aligning the rendered hypothesis with the synthesized video.
+A second, inference-time use synthesizes \emph{unobserved viewpoints} to resolve spatial questions that a single view underdetermines: MindJourney~\cite{yang2026mindjourney} lets a vision-language model ``imagine'' the scene from a new camera pose with a view-conditioned world model before answering, turning the world model into a test-time reasoning aid rather than a training-time simulator.
+Because such imagination is expensive and not always helpful, AVIC~\cite{yu2026avic} learns \emph{when} and \emph{how much} to imagine, gating world-model invocation on the sufficiency of the current visual evidence and matching or exceeding fixed-imagination strategies at a fraction of the world-model calls.
+Pushing imagination from a fixed sweep to an \emph{active} policy, SpatialDreamer~\cite{cao2025spatialdreamer} closes the loop: a reinforcement-learned agent chooses which viewpoints to imagine through the world model and then grounds its answer in the imagined evidence, under a geometric policy-optimization objective that rewards geometrically consistent rollouts.
+
+\paragraph{Generative Feedback via Future States.}
+Rather than decode pixels, a second line rolls the world model out in a \emph{structured or higher-dimensional state space}, trading photorealism for geometric consistency.
+TesserAct~\cite{zhen2025tesseract} learns a 4D (3D-plus-time) world model whose rollouts stay spatially coherent enough to support robotic manipulation, and persistent-3D world models~\cite{zhou2025learning} maintain an explicit 3D memory so that revisited regions remain consistent across long horizons.
+State-space feedback is attractive when the downstream query is itself geometric, since it sidesteps the appearance-modeling burden that pixel rollouts carry.
+
+\paragraph{Generative Feedback via Action-Conditioned Trajectories.}
+When the goal is to \emph{act}, the world model is queried as a simulator: candidate action sequences are rolled out and scored by the favorability of the resulting states, yielding a policy $\pi:(s_{\leq t}, a_{<t}) \mapsto a_t$ that steers the episode toward a preferred terminal state $s_T \in S_{\text{good}}$ (the model-based-RL view; the broader treatment of RL with spatial inductive biases is §\ref{subsec:p3_s7_2_5}).
+The paradigm originates with Ha and Schmidhuber~\cite{ha2018world}, who introduced the term ``world model'' in its current sense, training a generative recurrent model of future observations and using it as an internal simulator for policy search, and with Dreamer~\cite{hafner2019dreamer}, which learned the simulator in a compact latent space and optimized the policy purely on imagined rollouts.
+Scaling this recipe, UniSim~\cite{yang2023learning} builds a video-diffusion simulator from which real-world manipulation policies can be extracted, and DreamGen~\cite{jang2025dreamgen} uses video world models as trajectory generators, pseudo-labeling the synthesized rollouts with an inverse-dynamics model to train policies that generalize to new behaviors and environments.
+Most recently, VAGEN~\cite{wang2025vagen} turns this feedback back onto the reasoner itself, using reinforcement learning to \emph{supervise} a vision-language agent's internal world-model reasoning: it decomposes that reasoning into state estimation (``what is the current state?'') and transition modeling (``what comes next?'') and rewards accurate latent prediction.
+
+\paragraph{Latent-Representation Feedback.}
+A final family dispenses with generation entirely and consumes the world model's \emph{predictive latent} as the spatial signal.
+Joint-embedding predictive architectures learn to predict the representation of a future or masked observation rather than its pixels: I-JEPA~\cite{assran2023jepa} establishes the recipe for images, and V-JEPA~2~\cite{assran2025vjepa} extends it to video, yielding dynamics-aware embeddings that support understanding, prediction, and planning without ever rendering a frame, while VL-JEPA~\cite{chen2025vl} ports the idea to vision-language inputs.
+A related line keeps the latent explicitly \emph{geometric}: 3DThinker~\cite{chen20253dthinker} performs 3D mental imagery during reasoning by generating a 3D latent and aligning it with that of a 3D foundation model, letting a vision-language model reason about spatial relations from only a few views without any 3D input or explicit rendering.
+Because the feedback is an embedding rather than an image, latent world models avoid the appearance-synthesis cost and the pixel-space memory drift that limit generative rollouts, at the price of a signal that is harder to inspect directly; they are an increasingly prominent, query-efficient alternative for spatial reasoning.
+
+\subsubsection{Benchmarks}
+Evaluation follows the usage mode.
+Planning-oriented use is scored on the embodied suites of §\ref{subsec:p3_s7_3_2} and on long-horizon household environments such as ALFWorld~\cite{shridhar2020alfworld} and VirtualHome~\cite{puig2018virtualhome}, where the question is whether policies extracted from imagined rollouts transfer to the real environment.
+Understanding-oriented use is scored on the static spatial probes that single views underdetermine, VSI-Bench~\cite{yang2025vsibench} and MindCube~\cite{yin2025spatial} among them, under test-time-scaling protocols that vary how many imagined views the reasoner is allowed and whether a verifier selects among them~\cite{jha2025probing,yu2026avic}.
+The world model itself is assessed on video-generation quality (FVD, FID) together with task-specific physics-consistency probes, and surveys of general world models track the field's shift from 2D toward 3D-consistent simulation~\cite{xie2025worldsurvey}, while recent analyses argue that advancing MLLM spatial reasoning demands purpose-built recipes and data rather than scale alone~\cite{zhang2025scaling}.
+No single benchmark currently exercises a world model along perception fidelity, action conditioning, and long-horizon spatial memory at once, a gap the challenges below make explicit.
+
+
+\subsubsection{Challenges and Trends}
+Reading the world model as a tool clarifies where the difficulties lie: some are inherited from the instrument itself, and are properly the concern of §\ref{sec:worldmodeling}, while others are specific to how a reasoner queries it. The most active questions of 2025--2026 are no longer whether a world model \emph{can} imagine, but whether its imagined evidence can be \emph{trusted} and whether consulting it is worth the cost.
+
+Imagination is not a free lunch. Systematic probes report that world-model imagination improves spatial reasoning in only a minority of cases, and that adding imagined views yields non-monotonic, sometimes negative accuracy gains at steep token and latency cost~\cite{yu2026avic,jha2025probing}; the sheer amount of imagination is an unreliable proxy for accuracy~\cite{zhang2025scaling}, which recasts ``when and how much to imagine'' as a first-class test-time-scaling problem, with adaptive gating~\cite{yu2026avic} an early answer and a predictive account of \emph{which} queries need the world model still missing.
+Faithfulness is the companion problem: a world model can render fluent futures that are physically or relationally wrong, so likelihood under $\mathbb{P}$ is necessary but not sufficient, and when the imagined evidence lacks fidelity verification buys little, since heuristic verifiers give limited calibration gains and an information bottleneck sets in, as a reasoner cannot recover a signal the imagination never contained~\cite{jha2025probing}. Grounding imagined evidence to the actual scene and calibrating trust in it remain open; physics-consistency objectives and geometry-grounded latents~\cite{chen20253dthinker} are partial responses.
+
+The reasoner can be no more reliable than the simulator it queries. Even state-of-the-art models such as Genie 3~\cite{genie3}, despite markedly longer-horizon consistency, still drift in spatial memory, and consistency mechanisms~\cite{zhou2025learning,li2025vmem} narrow but do not close this gap, with hallucination and long-horizon error compounding over rollout length; raising this ceiling is the province of world-model construction (§\ref{sec:worldmodeling}), and the reasoning methods surveyed here can only mitigate its symptoms.
+
+The feedback forms also trade off along different axes, with no principled account of which a given query should use: pixel rollouts are inspectable but expensive and prone to appearance drift; state or 4D rollouts are geometrically consistent but require structured simulators; latent feedback is cheap but opaque; action rollouts commit early to a policy; and most systems commit to one form a priori. Extending world-model-based reasoning beyond pixels (\eg, to forces~\cite{gillman2025force}, tactile, or audio modalities) is gated by the absence of internet-scale pre-training data in those modalities.
+
+Two shifts define the current frontier. \emph{From external tool to trained-in reasoning}: rather than invoking a frozen simulator at inference time, recent work \emph{trains} the reasoner's use of the world model, whether by reinforcement learning that supervises an internal state-estimation and transition-modeling loop~\cite{wang2025vagen} or that rewards geometrically consistent active imagination~\cite{cao2025spatialdreamer}, or by distilling the world model's imagined dynamics directly into a vision-language model so that no simulator need be queried at test time~\cite{zhang2026world2vlm}. \emph{From pixels to predictive latents}: the imagined branch is increasingly consumed as a latent process whose hidden states guide reasoning, rather than as a faithfully rendered video~\cite{assran2023jepa,assran2025vjepa,chen20253dthinker}. Both shifts move the field away from ever-larger, faithfully-rendered pixel simulators and toward cheaper, more trustworthy, query-efficient feedback that a reasoner can afford to consult, and can be trained to consult well.

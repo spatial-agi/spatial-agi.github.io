@@ -1,0 +1,6 @@
+
+.nf-f1011{position:relative}.nf-f1011 .nf-svg{display:block;width:100%;height:auto}.nf-f1011 text{letter-spacing:0}.nf-f1011 .rl-hit{stroke-width:0}.nf-f1011 .rl-zone{isolation:isolate}
+.nf-f1011 .rl-pulse{r:2;fill:white!important;stroke:#5baaff;stroke-width:.45;filter:drop-shadow(0 0 2px white) drop-shadow(0 0 4px #48a5ff)}
+.nf-f1011 .rl-glow{r:5;filter:blur(2.5px)}.nf-f1011 .f1011-scaffold{pointer-events:none;transition:opacity .22s}
+.nf-f1011.is-focus .f1011-scaffold{opacity:.1}
+@media(prefers-reduced-motion:reduce){.nf-f1011 .f1011-scaffold{transition:none}.nf-f1011 .rl-pulse,.nf-f1011 .rl-glow{display:none}}

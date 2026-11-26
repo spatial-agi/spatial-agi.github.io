@@ -126,7 +126,7 @@ def fig617():
     add('<g class="f617-scaffold">')
     path('M65 969H1891', 'blue-axis', 'blue', True)
     add('<rect class="f617-complexity-label" x="711" y="944" width="380" height="48" rx="8"/>')
-    text(901, 980, 'Increasing complexity', 29, 'blue-italic')
+    text(901, 980, 'Task illustrations', 29, 'blue-italic')
     text(1000, 1038, 'Three paradigms differ in (a) whether the input is trimmed and (b) whether multiple instances are localized', 27)
     add('<rect class="f617-panel-border" x="2" y="504" width="1996" height="588" rx="22"/>')
     add('</g></svg><div class="nf-card" hidden role="status"></div><script type="application/json" class="nf-info">' + json.dumps(INFO) + '</script></div>')

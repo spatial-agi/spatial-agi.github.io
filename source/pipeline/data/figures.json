@@ -1,0 +1,822 @@
+{
+  "figures/part1_opener_v2.pdf": {
+    "src": "figures/figures/part1_opener_v2.webp",
+    "w": 2000,
+    "h": 1248
+  },
+  "figures/part1/si_shifts_v2.pdf": {
+    "src": "figures/figures/part1/si_shifts_v2.webp",
+    "w": 2000,
+    "h": 1069
+  },
+  "figures/part1/si_evolution_v2.pdf": {
+    "src": "figures/figures/part1/si_evolution_v2.webp",
+    "w": 2000,
+    "h": 1069
+  },
+  "figures/web/si_milestones_tikz.pdf": {
+    "src": "figures/figures/web/si_milestones_tikz.webp",
+    "w": 2000,
+    "h": 2473
+  },
+  "figures/part1/si_framework_v2.pdf": {
+    "src": "figures/figures/part1/si_framework_v2.webp",
+    "w": 2000,
+    "h": 992
+  },
+  "figures/part2_opener_v2.pdf": {
+    "src": "figures/figures/part2_opener_v2.webp",
+    "w": 2000,
+    "h": 1248
+  },
+  "figures/part2/2D_representations.pdf": {
+    "src": "figures/figures/part2/2D_representations.webp",
+    "w": 2000,
+    "h": 983
+  },
+  "figures/part2/3d_representation.pdf": {
+    "src": "figures/figures/part2/3d_representation.webp",
+    "w": 2000,
+    "h": 508
+  },
+  "figures/part2/3D_representations_2.pdf": {
+    "src": "figures/figures/part2/3D_representations_2.webp",
+    "w": 2000,
+    "h": 708
+  },
+  "figures/part2/4D_representations.pdf": {
+    "src": "figures/figures/part2/4D_representations.webp",
+    "w": 2000,
+    "h": 810
+  },
+  "figures/part2/language_representation.pdf": {
+    "src": "figures/figures/part2/language_representation.webp",
+    "w": 2000,
+    "h": 788
+  },
+  "figures/part2/audio_representation.pdf": {
+    "src": "figures/figures/part2/audio_representation.webp",
+    "w": 2000,
+    "h": 666
+  },
+  "figures/part3_opener_v2.pdf": {
+    "src": "figures/figures/part3_opener_v2.webp",
+    "w": 2000,
+    "h": 1248
+  },
+  "figures/part3/section6/object_detection.pdf": {
+    "src": "figures/figures/part3/section6/object_detection.webp",
+    "w": 2000,
+    "h": 1024
+  },
+  "figures/part3/section6/segmentation.pdf": {
+    "src": "figures/figures/part3/section6/segmentation.webp",
+    "w": 2000,
+    "h": 1126
+  },
+  "figures/part3/section6/segmentation-method.pdf": {
+    "src": "figures/figures/part3/section6/segmentation-method.webp",
+    "w": 2000,
+    "h": 522
+  },
+  "figures/part3/section6/keypoint_detection_v2.pdf": {
+    "src": "figures/figures/part3/section6/keypoint_detection_v2.webp",
+    "w": 2000,
+    "h": 1126
+  },
+  "figures/part3/section6/scene_classification.pdf": {
+    "src": "figures/figures/part3/section6/scene_classification.webp",
+    "w": 2000,
+    "h": 976
+  },
+  "figures/part3/section6/depth_estimation_v3.pdf": {
+    "src": "figures/figures/part3/section6/depth_estimation_v3.webp",
+    "w": 2000,
+    "h": 1126
+  },
+  "figures/part3/section6/surface_normal_estimation.pdf": {
+    "src": "figures/figures/part3/section6/surface_normal_estimation.webp",
+    "w": 2000,
+    "h": 877
+  },
+  "figures/part3/section6/camera-1.png": {
+    "src": "figures/figures/part3/section6/camera-1.webp",
+    "w": 1536,
+    "h": 1024
+  },
+  "figures/part3/section6/height_estimation_1.pdf": {
+    "src": "figures/figures/part3/section6/height_estimation_1.webp",
+    "w": 2000,
+    "h": 1031
+  },
+  "figures/part3/section6/height_estimation_2.pdf": {
+    "src": "figures/figures/part3/section6/height_estimation_2.webp",
+    "w": 2000,
+    "h": 1124
+  },
+  "figures/part3/section6/visual_odometry_and_camera_pose_estimation.pdf": {
+    "src": "figures/figures/part3/section6/visual_odometry_and_camera_pose_estimation.webp",
+    "w": 2000,
+    "h": 1554
+  },
+  "figures/part3/section6/pose_estimation.pdf": {
+    "src": "figures/figures/part3/section6/pose_estimation.webp",
+    "w": 2000,
+    "h": 1100
+  },
+  "figures/part3/section6/spatial_relation_extraction.pdf": {
+    "src": "figures/figures/part3/section6/spatial_relation_extraction.webp",
+    "w": 2000,
+    "h": 1493
+  },
+  "figures/part3/section6/scene_graph.pdf": {
+    "src": "figures/figures/part3/section6/scene_graph.webp",
+    "w": 2000,
+    "h": 975
+  },
+  "figures/part3/section6/layout_parsing.pdf": {
+    "src": "figures/figures/part3/section6/layout_parsing.webp",
+    "w": 2000,
+    "h": 1003
+  },
+  "figures/part3/section6/layout_parsing_method.pdf": {
+    "src": "figures/figures/part3/section6/layout_parsing_method.webp",
+    "w": 2000,
+    "h": 1031
+  },
+  "figures/part3/section6/action_detection.pdf": {
+    "src": "figures/figures/part3/section6/action_detection.webp",
+    "w": 2000,
+    "h": 1094
+  },
+  "figures/part3/section6/action_detection_method_1.pdf": {
+    "src": "figures/figures/part3/section6/action_detection_method_1.webp",
+    "w": 2000,
+    "h": 1277
+  },
+  "figures/part3/section6/slam.pdf": {
+    "src": "figures/figures/part3/section6/slam.webp",
+    "w": 2000,
+    "h": 1125
+  },
+  "figures/part3/section6/slam_method.pdf": {
+    "src": "figures/figures/part3/section6/slam_method.webp",
+    "w": 2000,
+    "h": 847
+  },
+  "figures/part3/section6/scene_flow_estimation.pdf": {
+    "src": "figures/figures/part3/section6/scene_flow_estimation.webp",
+    "w": 2000,
+    "h": 1077
+  },
+  "figures/part3/section6/object_tracking.pdf": {
+    "src": "figures/figures/part3/section6/object_tracking.webp",
+    "w": 2000,
+    "h": 1219
+  },
+  "figures/part3/section6/object_tracking_method.pdf": {
+    "src": "figures/figures/part3/section6/object_tracking_method.webp",
+    "w": 2000,
+    "h": 454
+  },
+  "figures/part3/section6/temporal_localization.pdf": {
+    "src": "figures/figures/part3/section6/temporal_localization.webp",
+    "w": 2000,
+    "h": 1570
+  },
+  "figures/part3/section6/temporal_localization_task_settings.pdf": {
+    "src": "figures/figures/part3/section6/temporal_localization_task_settings.webp",
+    "w": 2000,
+    "h": 1185
+  },
+  "figures/part3/section6/audio_video_spatial_localization.pdf": {
+    "src": "figures/figures/part3/section6/audio_video_spatial_localization.webp",
+    "w": 2000,
+    "h": 1031
+  },
+  "figures/part3/section6/visual_language_graounding_task.pdf": {
+    "src": "figures/figures/part3/section6/visual_language_graounding_task.webp",
+    "w": 2000,
+    "h": 475
+  },
+  "figures/part3/section6/visual_language_graounding_method.pdf": {
+    "src": "figures/figures/part3/section6/visual_language_graounding_method.webp",
+    "w": 2000,
+    "h": 417
+  },
+  "figures/part3/section7/711_geo.pdf": {
+    "src": "figures/figures/part3/section7/711_geo.webp",
+    "w": 2000,
+    "h": 892
+  },
+  "figures/part3/section6/physical_reasoning.pdf": {
+    "src": "figures/figures/part3/section6/physical_reasoning.webp",
+    "w": 2000,
+    "h": 677
+  },
+  "figures/part3/section7/713_topo.pdf": {
+    "src": "figures/figures/part3/section7/713_topo.webp",
+    "w": 2000,
+    "h": 868
+  },
+  "figures/part3/section7/714_constraint.pdf": {
+    "src": "figures/figures/part3/section7/714_constraint.webp",
+    "w": 2000,
+    "h": 923
+  },
+  "figures/part3/section7/715_program.pdf": {
+    "src": "figures/figures/part3/section7/715_program.webp",
+    "w": 2000,
+    "h": 894
+  },
+  "figures/part3/section7/716_causal.pdf": {
+    "src": "figures/figures/part3/section7/716_causal.webp",
+    "w": 2000,
+    "h": 930
+  },
+  "figures/part3/section7/implicit_neural_spatial_reasoning_task.pdf": {
+    "src": "figures/figures/part3/section7/implicit_neural_spatial_reasoning_task.webp",
+    "w": 2000,
+    "h": 608
+  },
+  "figures/part3/section7/implicit_neural_spatial_reasoning_method.pdf": {
+    "src": "figures/figures/part3/section7/implicit_neural_spatial_reasoning_method.webp",
+    "w": 2000,
+    "h": 933
+  },
+  "figures/part3/section7/explicit_structured_neural_reasoning_task.pdf": {
+    "src": "figures/figures/part3/section7/explicit_structured_neural_reasoning_task.webp",
+    "w": 2000,
+    "h": 606
+  },
+  "figures/part3/section7/explicit_structured_neural_reasoning_method.pdf": {
+    "src": "figures/figures/part3/section7/explicit_structured_neural_reasoning_method.webp",
+    "w": 2000,
+    "h": 437
+  },
+  "figures/part3/section7/geometry-aware_neural_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/geometry-aware_neural_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1031
+  },
+  "figures/part3/section7/differentiable_optimization_layers_for_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/differentiable_optimization_layers_for_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 742
+  },
+  "figures/part3/section7/rl_overview.pdf": {
+    "src": "figures/figures/part3/section7/rl_overview.webp",
+    "w": 2000,
+    "h": 478
+  },
+  "figures/part3/section7/value-based-rl.pdf": {
+    "src": "figures/figures/part3/section7/value-based-rl.webp",
+    "w": 2000,
+    "h": 571
+  },
+  "figures/part3/section7/policy-based-rl.pdf": {
+    "src": "figures/figures/part3/section7/policy-based-rl.webp",
+    "w": 2000,
+    "h": 579
+  },
+  "figures/part3/section7/AC-based-rl.pdf": {
+    "src": "figures/figures/part3/section7/AC-based-rl.webp",
+    "w": 2000,
+    "h": 542
+  },
+  "figures/part3/section7/ppo-based-rl.pdf": {
+    "src": "figures/figures/part3/section7/ppo-based-rl.webp",
+    "w": 2000,
+    "h": 825
+  },
+  "figures/part3/section7/dpo-based-rl.pdf": {
+    "src": "figures/figures/part3/section7/dpo-based-rl.webp",
+    "w": 2000,
+    "h": 649
+  },
+  "figures/part3/section7/grpo-based-rl.pdf": {
+    "src": "figures/figures/part3/section7/grpo-based-rl.webp",
+    "w": 2000,
+    "h": 618
+  },
+  "figures/part3/section7/multi-agent_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/multi-agent_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1134
+  },
+  "figures/part3/section7/LLM_VLM-centric_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/LLM_VLM-centric_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1000
+  },
+  "figures/part3/section7/VLA_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/VLA_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1047
+  },
+  "figures/part3/section7/chain-of-thought_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/chain-of-thought_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1124
+  },
+  "figures/part3/section7/code_DSL_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/code_DSL_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1000
+  },
+  "figures/part3/section7/tool_augmented_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/tool_augmented_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1016
+  },
+  "figures/part3/section7/retrieval_memory_augmented_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/retrieval_memory_augmented_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1308
+  },
+  "figures/part3/section7/agentic_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/agentic_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1416
+  },
+  "figures/part3/section7/world_model_based_spatial_reasoning.pdf": {
+    "src": "figures/figures/part3/section7/world_model_based_spatial_reasoning.webp",
+    "w": 2000,
+    "h": 1197
+  },
+  "figures/part3/section7/foundation_rl_hybrid.pdf": {
+    "src": "figures/figures/part3/section7/foundation_rl_hybrid.webp",
+    "w": 2000,
+    "h": 570
+  },
+  "figures/part3/section7/agentic_hybrid_orchestration.pdf": {
+    "src": "figures/figures/part3/section7/agentic_hybrid_orchestration.webp",
+    "w": 2000,
+    "h": 1150
+  },
+  "figures/part3/section8/t2i_framework_and_paradigms.pdf": {
+    "src": "figures/figures/part3/section8/t2i_framework_and_paradigms.webp",
+    "w": 2000,
+    "h": 1308
+  },
+  "figures/part3/section8/Five_injection_mechanisms_for_spatial-aware_T2I.pdf": {
+    "src": "figures/figures/part3/section8/Five_injection_mechanisms_for_spatial-aware_T2I.webp",
+    "w": 2000,
+    "h": 1447
+  },
+  "figures/part3/section8/Five_editing_mechanisms_for_2D_spatial_inpainting_and_editing.pdf": {
+    "src": "figures/figures/part3/section8/Five_editing_mechanisms_for_2D_spatial_inpainting_and_editing.webp",
+    "w": 2000,
+    "h": 1708
+  },
+  "figures/part3/section8/3D-objects-gen-1.png": {
+    "src": "figures/figures/part3/section8/3D-objects-gen-1.webp",
+    "w": 2000,
+    "h": 837
+  },
+  "figures/part3/section8/3D_object_synthesis.pdf": {
+    "src": "figures/figures/part3/section8/3D_object_synthesis.webp",
+    "w": 2000,
+    "h": 1492
+  },
+  "figures/part3/section8/objaverse.png": {
+    "src": "figures/figures/part3/section8/objaverse.webp",
+    "w": 1069,
+    "h": 604
+  },
+  "figures/part3/section8/Four_paradigm_families_for_3D_scene_synthesis.pdf": {
+    "src": "figures/figures/part3/section8/Four_paradigm_families_for_3D_scene_synthesis.webp",
+    "w": 2000,
+    "h": 1585
+  },
+  "figures/part3/section8/3D-reconstruction.png": {
+    "src": "figures/figures/part3/section8/3D-reconstruction.webp",
+    "w": 1024,
+    "h": 446
+  },
+  "figures/part3/section8/3D-scene-reconstruction.pdf": {
+    "src": "figures/figures/part3/section8/3D-scene-reconstruction.webp",
+    "w": 2000,
+    "h": 1461
+  },
+  "figures/part3/section8/Four_method_families_for_3D_panorama_synthesis.pdf": {
+    "src": "figures/figures/part3/section8/Four_method_families_for_3D_panorama_synthesis.webp",
+    "w": 2000,
+    "h": 1539
+  },
+  "figures/part3/section8/3d_editing_tasks.png": {
+    "src": "figures/figures/part3/section8/3d_editing_tasks.webp",
+    "w": 2000,
+    "h": 807
+  },
+  "figures/part3/section8/Five_method_families_for_3D_scene_editing.pdf": {
+    "src": "figures/figures/part3/section8/Five_method_families_for_3D_scene_editing.webp",
+    "w": 2000,
+    "h": 1725
+  },
+  "figures/part3/section8/text-to-video_generation.pdf": {
+    "src": "figures/figures/part3/section8/text-to-video_generation.webp",
+    "w": 2000,
+    "h": 1487
+  },
+  "figures/part3/section8/spatial_control_channels_for_video_generation.pdf": {
+    "src": "figures/figures/part3/section8/spatial_control_channels_for_video_generation.webp",
+    "w": 2000,
+    "h": 1616
+  },
+  "figures/part3/section8/temporal_control_channels_for_video_generation.pdf": {
+    "src": "figures/figures/part3/section8/temporal_control_channels_for_video_generation.webp",
+    "w": 2000,
+    "h": 1493
+  },
+  "figures/part3/section8/other_control_modalities_for_video_generation.pdf": {
+    "src": "figures/figures/part3/section8/other_control_modalities_for_video_generation.webp",
+    "w": 2000,
+    "h": 1585
+  },
+  "figures/part3/section8/five_video_editing_paradigms.pdf": {
+    "src": "figures/figures/part3/section8/five_video_editing_paradigms.webp",
+    "w": 2000,
+    "h": 2093
+  },
+  "figures/part3/section8/human_motion_repr.png": {
+    "src": "figures/figures/part3/section8/human_motion_repr.webp",
+    "w": 682,
+    "h": 223
+  },
+  "figures/part3/section8/human_motion_repr_smpl.png": {
+    "src": "figures/figures/part3/section8/human_motion_repr_smpl.webp",
+    "w": 1364,
+    "h": 418
+  },
+  "figures/part3/section8/two_axis_human_motion_generation.pdf": {
+    "src": "figures/figures/part3/section8/two_axis_human_motion_generation.webp",
+    "w": 2000,
+    "h": 1431
+  },
+  "figures/part3/section8/cross_species_animal_motion_generation.pdf": {
+    "src": "figures/figures/part3/section8/cross_species_animal_motion_generation.webp",
+    "w": 2000,
+    "h": 1385
+  },
+  "figures/part3/section8/vehicle_motion_planning.pdf": {
+    "src": "figures/figures/part3/section8/vehicle_motion_planning.webp",
+    "w": 2000,
+    "h": 1293
+  },
+  "figures/part3/section8/four_motion_editing_mechanisms.pdf": {
+    "src": "figures/figures/part3/section8/four_motion_editing_mechanisms.webp",
+    "w": 2000,
+    "h": 1724
+  },
+  "figures/part3/section8/taxonomy_4d_spatial_generation.pdf": {
+    "src": "figures/figures/part3/section8/taxonomy_4d_spatial_generation.webp",
+    "w": 2000,
+    "h": 1877
+  },
+  "figures/web/world_modeling_tikz.pdf": {
+    "src": "figures/figures/web/world_modeling_tikz.webp",
+    "w": 2000,
+    "h": 1055
+  },
+  "figures/part3/section8/programmatic_spatial_generation.pdf": {
+    "src": "figures/figures/part3/section8/programmatic_spatial_generation.webp",
+    "w": 2000,
+    "h": 734
+  },
+  "figures/part4_opener_v2.pdf": {
+    "src": "figures/figures/part4_opener_v2.webp",
+    "w": 2000,
+    "h": 1248
+  },
+  "figures/part4/section9/manipulation_overview.pdf": {
+    "src": "figures/figures/part4/section9/manipulation_overview.webp",
+    "w": 2000,
+    "h": 1816
+  },
+  "figures/part4/section9/robotic_anchors.pdf": {
+    "src": "figures/figures/part4/section9/robotic_anchors.webp",
+    "w": 2000,
+    "h": 1303
+  },
+  "figures/part4/section9/robotic_affordances.pdf": {
+    "src": "figures/figures/part4/section9/robotic_affordances.webp",
+    "w": 2000,
+    "h": 1492
+  },
+  "figures/part4/section9/robotic_vla.pdf": {
+    "src": "figures/figures/part4/section9/robotic_vla.webp",
+    "w": 2000,
+    "h": 1727
+  },
+  "figures/part4/section9/robotic_constraints.pdf": {
+    "src": "figures/figures/part4/section9/robotic_constraints.webp",
+    "w": 2000,
+    "h": 1539
+  },
+  "figures/part4/section9/driving_levels.pdf": {
+    "src": "figures/figures/part4/section9/driving_levels.webp",
+    "w": 2000,
+    "h": 1115
+  },
+  "figures/part4/section9/autonomous_driving_overview.pdf": {
+    "src": "figures/figures/part4/section9/autonomous_driving_overview.webp",
+    "w": 2000,
+    "h": 1963
+  },
+  "figures/part4/section9/driving_perception_tasks.pdf": {
+    "src": "figures/figures/part4/section9/driving_perception_tasks.webp",
+    "w": 2000,
+    "h": 1727
+  },
+  "figures/part4/section9/driving_localization_and_mapping.pdf": {
+    "src": "figures/figures/part4/section9/driving_localization_and_mapping.webp",
+    "w": 2000,
+    "h": 1460
+  },
+  "figures/part4/section9/driving_decision_and_control.pdf": {
+    "src": "figures/figures/part4/section9/driving_decision_and_control.webp",
+    "w": 2000,
+    "h": 1492
+  },
+  "figures/part4/section9/wearable_overview.pdf": {
+    "src": "figures/figures/part4/section9/wearable_overview.webp",
+    "w": 2000,
+    "h": 1785
+  },
+  "figures/part4/section9/wearable_motion.pdf": {
+    "src": "figures/figures/part4/section9/wearable_motion.webp",
+    "w": 2000,
+    "h": 1754
+  },
+  "figures/part4/section9/wearable_behavior.pdf": {
+    "src": "figures/figures/part4/section9/wearable_behavior.webp",
+    "w": 2000,
+    "h": 1908
+  },
+  "figures/part4/section9/wearable_safety.pdf": {
+    "src": "figures/figures/part4/section9/wearable_safety.webp",
+    "w": 2000,
+    "h": 2062
+  },
+  "figures/part4/section9/aerial_overview.pdf": {
+    "src": "figures/figures/part4/section9/aerial_overview.webp",
+    "w": 2000,
+    "h": 1002
+  },
+  "figures/part4/section9/aerial_geoloc.pdf": {
+    "src": "figures/figures/part4/section9/aerial_geoloc.webp",
+    "w": 2000,
+    "h": 1044
+  },
+  "figures/part4/section9/aerial_detection.pdf": {
+    "src": "figures/figures/part4/section9/aerial_detection.webp",
+    "w": 2000,
+    "h": 1265
+  },
+  "figures/part4/section9/aerial_navigation.pdf": {
+    "src": "figures/figures/part4/section9/aerial_navigation.webp",
+    "w": 2000,
+    "h": 851
+  },
+  "figures/part4/section9/warehouse_overview.pdf": {
+    "src": "figures/figures/part4/section9/warehouse_overview.webp",
+    "w": 2000,
+    "h": 1774
+  },
+  "figures/part4/section9/warehouse_perception.pdf": {
+    "src": "figures/figures/part4/section9/warehouse_perception.webp",
+    "w": 2000,
+    "h": 1869
+  },
+  "figures/part4/section9/warehouse_localization.pdf": {
+    "src": "figures/figures/part4/section9/warehouse_localization.webp",
+    "w": 2000,
+    "h": 1523
+  },
+  "figures/part4/section9/warehouse_planning.pdf": {
+    "src": "figures/figures/part4/section9/warehouse_planning.webp",
+    "w": 2000,
+    "h": 2167
+  },
+  "figures/part4/section9/warehouse_manipulation.pdf": {
+    "src": "figures/figures/part4/section9/warehouse_manipulation.webp",
+    "w": 2000,
+    "h": 1649
+  },
+  "figures/part4/section9/warehouse_human_robot_collaboration.pdf": {
+    "src": "figures/figures/part4/section9/warehouse_human_robot_collaboration.webp",
+    "w": 2000,
+    "h": 1727
+  },
+  "figures/part4/section10/xr_overview.pdf": {
+    "src": "figures/figures/part4/section10/xr_overview.webp",
+    "w": 2000,
+    "h": 1822
+  },
+  "figures/part4/section10/xr_tracking.pdf": {
+    "src": "figures/figures/part4/section10/xr_tracking.webp",
+    "w": 2000,
+    "h": 1068
+  },
+  "figures/part4/section10/xr_sensing.pdf": {
+    "src": "figures/figures/part4/section10/xr_sensing.webp",
+    "w": 2000,
+    "h": 1539
+  },
+  "figures/part4/section10/xr_display.pdf": {
+    "src": "figures/figures/part4/section10/xr_display.webp",
+    "w": 2000,
+    "h": 1366
+  },
+  "figures/part4/section10/entertainment_overview.pdf": {
+    "src": "figures/figures/part4/section10/entertainment_overview.webp",
+    "w": 2000,
+    "h": 1366
+  },
+  "figures/part4/section10/entertainment_reconstruction.pdf": {
+    "src": "figures/figures/part4/section10/entertainment_reconstruction.webp",
+    "w": 2000,
+    "h": 1335
+  },
+  "figures/part4/section10/entertainment_capture.pdf": {
+    "src": "figures/figures/part4/section10/entertainment_capture.webp",
+    "w": 2000,
+    "h": 1382
+  },
+  "figures/part4/section10/entertainment_authoring.pdf": {
+    "src": "figures/figures/part4/section10/entertainment_authoring.webp",
+    "w": 2000,
+    "h": 1366
+  },
+  "figures/part4/section11/digital_twins_overview.pdf": {
+    "src": "figures/figures/part4/section11/digital_twins_overview.webp",
+    "w": 2000,
+    "h": 1445
+  },
+  "figures/part4/section11/digital_twins_reconstruction.pdf": {
+    "src": "figures/figures/part4/section11/digital_twins_reconstruction.webp",
+    "w": 2000,
+    "h": 1178
+  },
+  "figures/part4/section11/digital_twins_simulation.pdf": {
+    "src": "figures/figures/part4/section11/digital_twins_simulation.webp",
+    "w": 2000,
+    "h": 1445
+  },
+  "figures/part4/section11/digital_twins_synchronization.pdf": {
+    "src": "figures/figures/part4/section11/digital_twins_synchronization.webp",
+    "w": 2000,
+    "h": 1335
+  },
+  "figures/part4/section11/geoai-overview.pdf": {
+    "src": "figures/figures/part4/section11/geoai-overview.webp",
+    "w": 2000,
+    "h": 1256
+  },
+  "figures/part4/section11/geoai-agriculture.pdf": {
+    "src": "figures/figures/part4/section11/geoai-agriculture.webp",
+    "w": 2000,
+    "h": 1586
+  },
+  "figures/part4/section11/geoai-urban.pdf": {
+    "src": "figures/figures/part4/section11/geoai-urban.webp",
+    "w": 2000,
+    "h": 1633
+  },
+  "figures/part4/section11/geoai-environment.pdf": {
+    "src": "figures/figures/part4/section11/geoai-environment.webp",
+    "w": 2000,
+    "h": 1272
+  },
+  "figures/part4/section11/geoai-water.pdf": {
+    "src": "figures/figures/part4/section11/geoai-water.webp",
+    "w": 2000,
+    "h": 1539
+  },
+  "figures/part4/section11/geoai-disaster.pdf": {
+    "src": "figures/figures/part4/section11/geoai-disaster.webp",
+    "w": 2000,
+    "h": 1432
+  },
+  "figures/part4/section11/geoai-health.pdf": {
+    "src": "figures/figures/part4/section11/geoai-health.webp",
+    "w": 2000,
+    "h": 1272
+  },
+  "figures/part4/section11/aerospace-overview.pdf": {
+    "src": "figures/figures/part4/section11/aerospace-overview.webp",
+    "w": 2000,
+    "h": 941
+  },
+  "figures/part4/section11/aerospace-pose.pdf": {
+    "src": "figures/figures/part4/section11/aerospace-pose.webp",
+    "w": 2000,
+    "h": 748
+  },
+  "figures/part4/section11/aerospace-detection.pdf": {
+    "src": "figures/figures/part4/section11/aerospace-detection.webp",
+    "w": 2000,
+    "h": 644
+  },
+  "figures/part4/section11/aerospace-operator.pdf": {
+    "src": "figures/figures/part4/section11/aerospace-operator.webp",
+    "w": 2000,
+    "h": 817
+  },
+  "figures/part4/section11/aerospace-planetary.pdf": {
+    "src": "figures/figures/part4/section11/aerospace-planetary.webp",
+    "w": 2000,
+    "h": 354
+  },
+  "figures/part4/section12/medical_overview.pdf": {
+    "src": "figures/figures/part4/section12/medical_overview.webp",
+    "w": 2000,
+    "h": 1209
+  },
+  "figures/part4/section12/medical_perception.pdf": {
+    "src": "figures/figures/part4/section12/medical_perception.webp",
+    "w": 2000,
+    "h": 1429
+  },
+  "figures/part4/section12/medical_reconstruction.pdf": {
+    "src": "figures/figures/part4/section12/medical_reconstruction.webp",
+    "w": 2000,
+    "h": 1334
+  },
+  "figures/part4/section12/medical_navigation.pdf": {
+    "src": "figures/figures/part4/section12/medical_navigation.webp",
+    "w": 2000,
+    "h": 1617
+  },
+  "figures/part4/section12/natural_science_overview_v2.pdf": {
+    "src": "figures/figures/part4/section12/natural_science_overview_v2.webp",
+    "w": 2000,
+    "h": 1126
+  },
+  "figures/part4/section12/natural_science_physics_v2.pdf": {
+    "src": "figures/figures/part4/section12/natural_science_physics_v2.webp",
+    "w": 2000,
+    "h": 868
+  },
+  "figures/part4/section12/natural_science_chemistry_v2.pdf": {
+    "src": "figures/figures/part4/section12/natural_science_chemistry_v2.webp",
+    "w": 2000,
+    "h": 1078
+  },
+  "figures/part4/section12/natural_science_lifescience_v2.pdf": {
+    "src": "figures/figures/part4/section12/natural_science_lifescience_v2.webp",
+    "w": 2000,
+    "h": 893
+  },
+  "figures/part4/section13/assistant_overview.pdf": {
+    "src": "figures/figures/part4/section13/assistant_overview.webp",
+    "w": 2000,
+    "h": 1335
+  },
+  "figures/part4/section13/assistant_managing.pdf": {
+    "src": "figures/figures/part4/section13/assistant_managing.webp",
+    "w": 2000,
+    "h": 1460
+  },
+  "figures/part4/section13/assistant_collaborating.pdf": {
+    "src": "figures/figures/part4/section13/assistant_collaborating.webp",
+    "w": 2000,
+    "h": 1272
+  },
+  "figures/part4/section13/assistant_empowering.pdf": {
+    "src": "figures/figures/part4/section13/assistant_empowering.webp",
+    "w": 2000,
+    "h": 1680
+  },
+  "figures/part4/section14/other_aec.pdf": {
+    "src": "figures/figures/part4/section14/other_aec.webp",
+    "w": 2000,
+    "h": 1523
+  },
+  "figures/part4/section14/other_sports.pdf": {
+    "src": "figures/figures/part4/section14/other_sports.webp",
+    "w": 2000,
+    "h": 1460
+  },
+  "figures/part4/section14/other_cultural_heritage.pdf": {
+    "src": "figures/figures/part4/section14/other_cultural_heritage.webp",
+    "w": 2000,
+    "h": 1460
+  },
+  "figures/part4/section14/other_marine.pdf": {
+    "src": "figures/figures/part4/section14/other_marine.webp",
+    "w": 2000,
+    "h": 1586
+  },
+  "figures/part4/section14/other_retail.pdf": {
+    "src": "figures/figures/part4/section14/other_retail.webp",
+    "w": 2000,
+    "h": 1523
+  },
+  "figures/part5_opener_v2.pdf": {
+    "src": "figures/figures/part5_opener_v2.webp",
+    "w": 2000,
+    "h": 1248
+  }
+}
