@@ -12,3 +12,17 @@
   email: ewanzhou@tencent.com   # two lookups differed (also lists zhouyuchen99@163.com); current work address chosen
 "Jiafei Duan":
   email: duanjf@comp.nus.edu.sg   # NUS staff page (his CV gives duanj1@nus.edu.sg)
+"Ming-Hsuan Yang":   # joined 2026-11-09 (Reviewing & Advisory); all fields from his own pages
+  homepage: http://faculty.ucmerced.edu/mhyang/
+  scholar: http://scholar.google.com/citations?user=p9-ohHsAAAAJ&hl=en
+  expertise: [computer vision, pattern recognition, artificial intelligence, robotics, machine learning]   # bio.html: "His research interests include ..."
+  email: mhyang@ucmerced.edu   # homepage: "mhyang at ucmerced dot edu"
+"Heng Ji":   # joined 2026-11-25 (Reviewing & Advisory); homepage bio + Siebel School profile
+  homepage: http://blender.cs.illinois.edu/hengji.html
+  expertise: [natural language processing, information extraction, multimodal and multilingual knowledge extraction, AI for science]   # ACL Fellow citation quoted in her bio; Siebel profile "Research Interests"
+  email: hengji@illinois.edu   # siebelschool.illinois.edu/about/people/faculty/hengji (not printed on her homepage)
+"Yong Jae Lee":   # joined 2026-11-25 (Reviewing & Advisory); all fields from his own page
+  homepage: https://pages.cs.wisc.edu/~yongjaelee/
+  scholar: https://scholar.google.com/citations?user=4GTpCxcAAAAJ
+  expertise: [computer vision, machine learning, robotics, multimodal understanding, learning with minimal supervision]   # homepage: "My research interests are in ..."
+  email: yongjaelee@cs.wisc.edu   # homepage: "yongjaelee at cs dot wisc dot edu"

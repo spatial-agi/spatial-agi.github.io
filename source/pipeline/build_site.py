@@ -226,7 +226,7 @@ def fix_figures(root, page):
                                    url=page_url(page) + "#" + fig.get("id"))
 
 
-WIDGETS = {"fig:p1_s1_2_milestones": "timeline"}
+WIDGETS = {}     # Fig. 1.3 is now drawn natively (fig13.py); the explore timeline keeps the dot-chart widget
 
 # figures drawn natively for the web (pipeline/webfigs.py): the print image is replaced by live SVG / artwork + text.
 # lxml's HTML parser mangles inline SVG, so a slot goes into the tree and the markup is swapped in after serialisation.
@@ -244,6 +244,7 @@ OPENER_TARGETS = {
 def native_figs(root):
     import site_data as SD_
     import webfigs as WF
+    import fig13 as F13
     from figure61 import fig61 as WF61
     from figure62 import fig62 as WF62
     from figure63 import fig63 as WF63
@@ -299,7 +300,9 @@ def native_figs(root):
     from figures41_42_native import install_slots as install_figures41_42
     jobs = {"fig:p1_s1_1_si_covering_shifts": lambda cap: WF.fig11(), "fig:p1_s2_1_intro": lambda cap: WF.fig21(SD_.OPERATORS),
             "web:rl_overview": lambda cap: WF713(),
-            "fig:p1_s1_2_si_evolution": lambda cap: WF.fig12()}
+            "fig:p1_s1_2_si_evolution": lambda cap: WF.fig12(),
+            "fig:p1_s1_2_milestones": lambda cap: F13.fig13(json.loads((DATA / "refs.json").read_text()), SD_.eras(),
+                                                            "#" + next((x for x, labs in labels_of.items() if "tab:p1_s1_2_eras" in labs), ""))}
     for k, lab in OPENER_LABELS.items():
         jobs[lab] = (lambda k_: lambda cap: WF.fig3opener() if k_ == 3 else WF.opener(k_, OPENER_TARGETS[k_], alt=cap))(k)
     for lab, make in jobs.items():
@@ -1272,7 +1275,9 @@ LOGO_OF = {"University of Oxford": "oxford", "National University of Singapore":
            "University of Rochester": "rochester", "The Chinese University of Hong Kong": "cuhk", "University of Macau": "macau",
            "Stanford University": "stanford", "Imperial College London": "imperial", "Monash University": "monash",
            "University of Cambridge": "cambridge", "University of California, Los Angeles": "ucla", "Harvard University": "harvard",
-           "Microsoft Research": "msr", "Columbia University": "columbia"}
+           "Microsoft Research": "msr", "Columbia University": "columbia",
+           "University of California, Merced": "ucmerced", "University of Illinois Urbana-Champaign": "uiuc",
+           "University of Wisconsin–Madison": "uwmadison"}
 
 
 def logo(name):
@@ -1293,10 +1298,29 @@ def logo(name):
 
 
 SITE["inst_logos"] = [logo(i) for i in INSTITUTIONS]
-# two rows of similar width on wide screens: break where the longer row is shortest
+# as few rows as fit the band (~1100 px), split so the widest row is as narrow as possible (rows keep title-page order)
 _w = [l["w"] + 34 for l in SITE["inst_logos"]]
-_k = min(range(1, len(_w)), key=lambda k: max(sum(_w[:k]), sum(_w[k:])))
-SITE["inst_logos"][_k - 1]["br"] = True
+_rows = -(-sum(_w) // 1060)
+
+
+def _split(ws, r):
+    """Contiguous split of ws into r groups minimising the widest group; returns the end index of each group but the last."""
+    best = (float("inf"), [])
+    def go(start, left, cuts, worst):
+        nonlocal best
+        if worst >= best[0]:
+            return
+        if left == 1:
+            best = min(best, (max(worst, sum(ws[start:])), cuts))
+            return
+        for e in range(start + 1, len(ws) - left + 2):
+            go(e, left - 1, cuts + [e], max(worst, sum(ws[start:e])))
+    go(0, r, [], 0)
+    return best[1]
+
+
+for _e in _split(_w, _rows):
+    SITE["inst_logos"][_e - 1]["br"] = True
 MAP = dict(canal1=[0.49, 0.3465, 0.185, 0.1215], road=[0.49, 0.355, 0.2525, 0.165], canal2=[0.49, 0.36, 0.33, 0.218],
            sea=[0.5, 0.37, 0.515, 0.40])
 PIN_AT = {4: (0.385, 0.385), 5: (0.555, 0.285), 6: (0.5, 0.125), 7: (0.655, 0.47), 8: (0.275, 0.445), 9: (0.725, 0.125),

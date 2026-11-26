@@ -2575,3 +2575,41 @@ body.menu-open .mainnav a.nav-read, body.menu-open .mainnav a.nav-gh { align-sel
 .nf-729 .fb-cobalt,.nf-730 .fb-cobalt{fill:#103cd8}
 .nf-729 .fb-math,.nf-730 .fb-math{font-family:'Cambria Math',serif;font-style:normal}
 @media(prefers-reduced-motion:reduce){.nf-batch .fb-scaffold{transition:none}}
+
+/* ---------------- Fig. 1.3, milestones by field and year (pipeline/fig13.py, js/fig13.js) ---------------- */
+.nf-13 { padding: 8px 6px 4px; }
+.nf-13 text { font-family: var(--serif); font-variant-numeric: lining-nums; }
+.nf-13 .m { font-family: "Pagella Math", var(--serif); font-style: normal; }
+.nf-13 a.cite, .nf-13 a.cite text { cursor: pointer; }
+.nf-13 a.cite:focus { outline: none; }
+.nf-13 .cn { fill: #0a7a3a; }
+.nf-13 .ms { transition: opacity .22s; }
+.nf-13 .dot { transform-box: fill-box; transform-origin: center; transition: transform .16s; }
+.nf-13 .ms.is-on .dot { transform: scale(1.75); }
+.nf-13 .ms.is-on .lb { font-weight: 700; }
+.nf-13 .ms.is-on .ld { stroke: var(--c); stroke-width: .55; }
+.nf-13 .hl { fill: var(--c, #3646F0); opacity: 0; pointer-events: none; transition: opacity .15s; }
+.nf-13 .hl.on { opacity: .2; }
+.nf-13 .yguide { opacity: 0; pointer-events: none; transition: opacity .15s; }
+.nf-13 .yguide.on { opacity: 1; }
+.nf-13 .yguide line { stroke: var(--c); opacity: .5; }
+.nf-13 .yguide rect { fill: var(--c); }
+.nf-13 .eraband { opacity: 0; pointer-events: none; transition: opacity .2s; }
+.nf-13 .eraband.is-on { opacity: .075; }
+.nf-13 .fl { transition: stroke .2s, stroke-width .2s; }
+.nf-13 .fl.is-on { stroke: var(--c); stroke-width: .8; }
+.nf-13.is-filter .ms:not(.is-in) { opacity: .13; }
+.nf-13 .fh, .nf-13 .eh { cursor: pointer; outline: none; transition: opacity .2s; }
+.nf-13 .fh text, .nf-13 .eh text { cursor: pointer; }
+.nf-13.is-filter .fh:not(.is-on) { opacity: .38; }
+.nf-13 .fh .fc { opacity: 0; transition: opacity .2s; }
+.nf-13 .fh:hover .fc, .nf-13 .fh:focus-visible .fc, .nf-13 .fh.is-on .fc { opacity: .85; }
+.nf-13 .eh text { transition: font-weight .2s; }
+.nf-13 .eh:hover text, .nf-13 .eh.is-on text { font-weight: 700; }
+.nf-13 .fh:focus-visible text, .nf-13 .eh:focus-visible text { text-decoration: underline; }
+.nf-13 .nf-card { width: min(252px, 60%); }
+.nf-13 .nf-card .nfc-sub { color: var(--muted); font-size: 12.4px; margin-top: -2px !important; }
+.nf-13.pre .ms { opacity: 0; }
+.nf-13.go .ms { animation: nf13-in .45s ease both; animation-delay: var(--d); }
+@keyframes nf13-in { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+@media (max-width: 760px) { .nf-13 .nf-svg { min-width: 680px; } }

@@ -10,7 +10,7 @@ def authors():
     m = (BOOK / "main.tex").read_text()
     block = m[m.index("\\author{"):m.index("% Uncomment to override", m.index("\\author{"))]
     names = re.findall(r"\\textbf\{([^}]*)\}\$\^\{([^}]*)\}\$", block)
-    affs = dict((int(n), a.strip().rstrip(",")) for n, a in re.findall(r"\$\^\{(\d+)\}\$([^$\\\n]+)", block))
+    affs = dict((int(n), a.strip().rstrip(",").replace("--", "–")) for n, a in re.findall(r"\$\^\{(\d+)\}\$([^$\\\n]+)", block))
     out = []
     for name, sup in names:
         nums = [int(x) for x in re.findall(r"\d+", sup)]
