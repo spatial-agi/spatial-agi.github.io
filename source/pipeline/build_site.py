@@ -1083,7 +1083,8 @@ order = [s for s in order if s in front] + [s for s in order if s not in front a
 # ------------------------------------------------------------------ render
 env = Environment(loader=FileSystemLoader(str(SRC / "templates")), autoescape=False, trim_blocks=True, lstrip_blocks=True)
 PDF_SRC = HERE / "build" / "handbook-web.pdf"
-PDF_URL = "/assets/spatial-intelligence-handbook.pdf" if PDF_SRC.exists() else None
+# GitHub Pages does not serve Git LFS objects; link to the actual PDF content.
+PDF_URL = "https://media.githubusercontent.com/media/spatial-agi/spatial-agi.github.io/main/assets/spatial-intelligence-handbook.pdf" if PDF_SRC.exists() else None
 SITE = dict(pdf_url=PDF_URL, pdf_size=f"{PDF_SRC.stat().st_size / 1e6:.0f} MB" if PDF_SRC.exists() else None,
             title="Spatial Intelligence", subtitle="Foundations, Architectures, Methodologies, Applications and Challenges",
             url="https://spatial-agi.github.io", parts=toc, pdf_pages=pdf_pages, n_refs=len(refs),
